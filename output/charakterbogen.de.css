@@ -10,13 +10,14 @@
   box-sizing: border-box;
 }
 
-body {
+.ui-dialog {
+  background-color: #000000;
+  background-image: url("https://raw.githubusercontent.com/bmenschner/sr6-charactersheet-roll20/main/src/background.jpg");
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center center;
   color: var(--sr6-text);
   font-family: "Segoe UI", "Helvetica Neue", Arial, sans-serif;
-}
-
-.ui-dialog {
-  background-color: #F5F5F5
 }
 
 .sr6-layout {
