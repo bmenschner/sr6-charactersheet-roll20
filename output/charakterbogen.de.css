@@ -111,3 +111,68 @@ body,
   font-size: 1rem;
   margin-bottom: 0;
 }
+
+/* Roll20 tabs: standardmaessig ausblenden, per Button einblenden */
+.nav.nav-tabs {
+  position: fixed;
+  top: 20px;
+  left: 0;
+  right: 0;
+  z-index: 1000;
+  transform: translateY(-100%);
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+  transition: transform 0.2s ease;
+}
+
+body:has(.sr6-tabs-toggle-input:checked) .nav.nav-tabs,
+.ui-dialog:has(.sr6-tabs-toggle-input:checked) .nav.nav-tabs {
+  transform: translateY(0);
+  opacity: 1;
+  visibility: visible;
+  pointer-events: auto;
+}
+
+body:has(.sr6-tabs-toggle-input:checked) .sr6-layout,
+.ui-dialog:has(.sr6-tabs-toggle-input:checked) .sr6-layout {
+  margin-top: 3rem;
+}
+
+body:has(.sr6-tabs-toggle-input:checked) #tab-content.tab-content,
+.ui-dialog:has(.sr6-tabs-toggle-input:checked) #tab-content.tab-content {
+  position: relative;
+  top: 50px;
+}
+
+.sr6-tabs-toggle-input {
+  position: fixed;
+  top: -100vh;
+  left: -100vw;
+  opacity: 0;
+  pointer-events: none;
+}
+
+.sr6-tabs-toggle {
+  position: fixed;
+  top: 0.5rem;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 1100;
+  border: none;
+  border-bottom: 0.125rem solid var(--sr6-line);
+  background: #ffffff;
+  color: var(--sr6-title);
+  font-size: 0.875rem;
+  font-weight: 700;
+  padding: 0.25rem 0.5rem;
+  cursor: pointer;
+}
+
+.sr6-tabs-toggle::after {
+  content: "Einstellungen";
+}
+
+.sr6-tabs-toggle-input:checked + .sr6-tabs-toggle::after {
+  content: "Einstellungen ausblenden";
+}
