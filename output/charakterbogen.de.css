@@ -48,6 +48,46 @@ body,
   position: relative;
 }
 
+.sr6-kopfbereich {
+  grid-column: 1 / -1;
+  display: grid;
+  grid-template-columns: 25% 50% 25%;
+  gap: 0.75rem;
+  width: 100%;
+  border-bottom: 0.125rem solid var(--sr6-line);
+  padding: 0.5rem 0.625rem 0.625rem;
+}
+
+.sr6-kopfbereich-spalte {
+  min-width: 0;
+}
+
+.sr6-kopfbereich-titel {
+  margin: 0 0 0.375rem;
+  font-size: 1rem;
+  font-weight: 700;
+  color: var(--sr6-title);
+  text-transform: uppercase;
+  letter-spacing: 0.03rem;
+}
+
+.sr6-platzhalter {
+  width: 100%;
+  min-height: 6rem;
+  display: grid;
+  place-items: center;
+  border: 0.0625rem dashed var(--sr6-line-soft);
+  color: var(--sr6-text);
+  background: rgba(255, 255, 255, 0.35);
+  font-size: 0.75rem;
+}
+
+.sr6-zustandsmonitor-zeilen {
+  display: grid;
+  grid-template-rows: repeat(2, auto);
+  gap: 0.5rem;
+}
+
 .sr6-box::after {
   content: none;
 }
@@ -104,6 +144,78 @@ body,
   display: grid;
   grid-template-columns: repeat(4, minmax(0, 1fr));
   gap: 0.4375rem;
+}
+
+.sr6-row--1 {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+}
+
+.sr6-row--7 {
+  display: grid;
+  grid-template-columns: repeat(7, minmax(0, 1fr));
+  gap: 0.4375rem;
+}
+
+.sr6-box-content > .sr6-row + .sr6-row {
+  margin-top: 0.5rem;
+}
+
+.sr6-daten-tabs {
+  grid-column: 1 / -1;
+  padding: 0.5rem 0.625rem 0.625rem;
+}
+
+.sr6-daten-tabs-steuerung {
+  display: flex;
+  align-items: flex-end;
+  gap: 0.5rem;
+  border-bottom: 0.125rem solid var(--sr6-line);
+  padding-bottom: 0.25rem;
+}
+
+.sr6-daten-tabs-steuerung input[type="radio"] {
+  position: fixed;
+  top: -100vh;
+  left: -100vw;
+  opacity: 0;
+  pointer-events: none;
+}
+
+.sr6-daten-tabs-steuerung label {
+  border: none;
+  border-bottom: 0.125rem solid transparent;
+  color: var(--sr6-text);
+  font-size: 0.875rem;
+  font-weight: 700;
+  padding: 0.1875rem 0.25rem;
+  cursor: pointer;
+}
+
+#sr6_daten_tab_1:checked + label,
+#sr6_daten_tab_2:checked + label,
+#sr6_daten_tab_3:checked + label {
+  color: var(--sr6-title);
+  border-bottom-color: var(--sr6-line);
+}
+
+.sr6-daten-tabs-inhalt {
+  padding-top: 0.5rem;
+}
+
+.sr6-daten-panel {
+  display: none;
+}
+
+.sr6-daten-panel p {
+  margin: 0;
+  font-size: 0.875rem;
+}
+
+.sr6-daten-tabs:has(#sr6_daten_tab_1:checked) #sr6_daten_panel_1,
+.sr6-daten-tabs:has(#sr6_daten_tab_2:checked) #sr6_daten_panel_2,
+.sr6-daten-tabs:has(#sr6_daten_tab_3:checked) #sr6_daten_panel_3 {
+  display: block;
 }
 
 .characterviewer .sr6-box .sr6-field > span {

@@ -10,10 +10,73 @@
     <label class="sr6-tabs-toggle" for="sr6-tabs-toggle" aria-label="Tabs ein- und ausblenden"></label>
 
     <div class="sr6-layout">
+      <section class="sr6-kopfbereich" aria-label="Kopfbereich">
+        <div class="sr6-kopfbereich-spalte sr6-kopfbereich-spalte--bild">
+          <h2 class="sr6-kopfbereich-titel">Charakterbild</h2>
+          <div class="sr6-platzhalter sr6-platzhalter--bild" aria-hidden="true">Platzhalter</div>
+        </div>
+
+        <div class="sr6-kopfbereich-spalte sr6-kopfbereich-spalte--zustand">
+          <h2 class="sr6-kopfbereich-titel">Zustandsmonitor</h2>
+          <div class="sr6-zustandsmonitor-zeilen">
+            <label class="sr6-field">
+              <span>Körperlicher Zustand</span>
+              <input type="text" name="attr_koerperlicher_zustand" />
+            </label>
+            <label class="sr6-field">
+              <span>Geistiger Zustand</span>
+              <input type="text" name="attr_geistiger_zustand" />
+            </label>
+          </div>
+        </div>
+
+        <div class="sr6-kopfbereich-spalte sr6-kopfbereich-spalte--edge">
+          <h2 class="sr6-kopfbereich-titel">Edge Token</h2>
+          <div class="sr6-platzhalter sr6-platzhalter--edge" aria-hidden="true">Platzhalter</div>
+        </div>
+      </section>
+
+      <section class="sr6-box sr6-daten-tabs" aria-label="Datenumschaltung">
+        <div class="sr6-daten-tabs-steuerung" role="tablist" aria-label="Datenbereiche">
+          <input type="radio" name="sr6_daten_tab" id="sr6_daten_tab_1" checked />
+          <label for="sr6_daten_tab_1" role="tab" aria-controls="sr6_daten_panel_1">Allgemein</label>
+
+          <input type="radio" name="sr6_daten_tab" id="sr6_daten_tab_2" />
+          <label for="sr6_daten_tab_2" role="tab" aria-controls="sr6_daten_panel_2">Ausrüstung</label>
+
+          <input type="radio" name="sr6_daten_tab" id="sr6_daten_tab_3" />
+          <label for="sr6_daten_tab_3" role="tab" aria-controls="sr6_daten_panel_3">Notizen</label>
+        </div>
+
+        <div class="sr6-daten-tabs-inhalt">
+          <div id="sr6_daten_panel_1" class="sr6-daten-panel" role="tabpanel">
+            <p>Allgemeine Datenbereich-Ansicht (Platzhalter).</p>
+          </div>
+          <div id="sr6_daten_panel_2" class="sr6-daten-panel" role="tabpanel">
+            <p>Ausrüstungsbereich-Ansicht (Platzhalter).</p>
+          </div>
+          <div id="sr6_daten_panel_3" class="sr6-daten-panel" role="tabpanel">
+            <p>Notizbereich-Ansicht (Platzhalter).</p>
+          </div>
+        </div>
+      </section>
+
       <section class="sr6-box sr6-box--persoenliche-daten" aria-labelledby="persoenliche-daten-titel">
         <h1 id="persoenliche-daten-titel" class="sr6-box-title">Persönliche Daten</h1>
 
         <div class="sr6-box-content">
+          <div class="sr6-row sr6-row--2">
+            <label class="sr6-field">
+              <span>Name</span>
+              <input type="text" name="attr_name" />
+            </label>
+
+            <label class="sr6-field">
+              <span>Straßenname</span>
+              <input type="text" name="attr_strassenname" />
+            </label>
+          </div>
+
           <div class="sr6-row sr6-row--2">
             <label class="sr6-field">
               <span>Metatyp</span>
@@ -83,6 +146,78 @@
           </div>
         </div>
       </section>
+
+      <section class="sr6-box sr6-box--wichtige-kampf-infos" aria-labelledby="wichtige-kampf-infos-titel">
+        <h1 id="wichtige-kampf-infos-titel" class="sr6-box-title">Wichtige Kampf-Infos</h1>
+
+        <div class="sr6-box-content">
+          <div class="sr6-row sr6-row--1">
+            <label class="sr6-field">
+              <span>Primäre Fernkampfwaffe</span>
+              <input type="text" name="attr_primaere_fernkampfwaffe" />
+            </label>
+          </div>
+
+          <div class="sr6-row sr6-row--7">
+            <label class="sr6-field">
+              <span>Schaden</span>
+              <input type="text" name="attr_fernkampf_schaden" />
+            </label>
+
+            <label class="sr6-field">
+              <span>Modus</span>
+              <input type="text" name="attr_fernkampf_modus" />
+            </label>
+
+            <label class="sr6-field">
+              <span>Sehr Nah</span>
+              <input type="text" name="attr_fernkampf_sehr_nah" />
+            </label>
+
+            <label class="sr6-field">
+              <span>Nah</span>
+              <input type="text" name="attr_fernkampf_nah" />
+            </label>
+
+            <label class="sr6-field">
+              <span>Mittel</span>
+              <input type="text" name="attr_fernkampf_mittel" />
+            </label>
+
+            <label class="sr6-field">
+              <span>Weit</span>
+              <input type="text" name="attr_fernkampf_weit" />
+            </label>
+
+            <label class="sr6-field">
+              <span>Sehr Weit</span>
+              <input type="text" name="attr_fernkampf_sehr_weit" />
+            </label>
+          </div>
+
+          <div class="sr6-row sr6-row--1">
+            <label class="sr6-field">
+              <span>Munition</span>
+              <input type="text" name="attr_munition" />
+            </label>
+          </div>
+
+          <div class="sr6-row sr6-row--1">
+            <label class="sr6-field">
+              <span>Primäre Nahkampfwaffe</span>
+              <input type="text" name="attr_primaere_nahkampfwaffe" />
+            </label>
+          </div>
+
+          <div class="sr6-row sr6-row--1">
+            <label class="sr6-field">
+              <span>Primäre Panzerung</span>
+              <input type="text" name="attr_primaere_panzerung" />
+            </label>
+          </div>
+        </div>
+      </section>
+
     </div>
 
   </body>
