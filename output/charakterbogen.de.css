@@ -134,6 +134,11 @@ body,
   border-bottom-color: var(--sr6-line);
 }
 
+.sr6-charactersheet-field input[readonly] {
+  color: #2a2a2a;
+  font-weight: 600;
+}
+
 .sr6-charactersheet-row-2 {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
@@ -154,6 +159,12 @@ body,
 .sr6-charactersheet-row-7 {
   display: grid;
   grid-template-columns: repeat(7, minmax(0, 1fr));
+  gap: 0.4375rem;
+}
+
+.sr6-charactersheet-row-5 {
+  display: grid;
+  grid-template-columns: repeat(5, minmax(0, 1fr));
   gap: 0.4375rem;
 }
 
@@ -285,6 +296,14 @@ body,
 @media (max-width: 50rem) {
   .sr6-charactersheet-tab-allgemein-grid {
     grid-template-columns: minmax(0, 1fr);
+  }
+
+  .sr6-charactersheet-row-7 {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+
+  .sr6-charactersheet-row-5 {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 }
 
