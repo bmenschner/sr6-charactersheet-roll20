@@ -432,16 +432,143 @@
             </div>
           </div>
           <div id="sr6_daten_panel_4" class="sr6-charactersheet-tabpanel" role="tabpanel">
-            <p data-i18n="panel.magie_placeholder">Magie-Bereich (Platzhalter).</p>
+            <section class="sr6-charactersheet-box" aria-labelledby="magie-kern-titel">
+              <h2 id="magie-kern-titel" class="sr6-charactersheet-box-title" data-i18n="section.magie_kern">Magie: Kernwerte</h2>
+
+              <div class="sr6-charactersheet-box-content">
+                <div class="sr6-charactersheet-row sr6-charactersheet-row-2">
+                  <label class="sr6-charactersheet-field">
+                    <span data-i18n="field.magische_tradition">Magische Tradition</span>
+                    <input type="text" name="attr_sr6_magic_tradition" />
+                  </label>
+
+                  <label class="sr6-charactersheet-field">
+                    <span data-i18n="field.zauberpool">Zauberpool</span>
+                    <div class="sr6-charactersheet-field-input-with-dice"><input type="text" name="attr_sr6_magic_zauberpool" /><button type="roll" class="sr6-charactersheet-field-dice-button" name="roll_sr6_tab_magie_zauberpool" value="&{template:default} {{name=Magie-Test}} {{Pool=[[@{sr6_magic_zauberpool}]]}} {{Erfolge=[[@{sr6_magic_zauberpool}d6cs>4]]}}" aria-label="Wuerfeln">⚅</button></div>
+                  </label>
+                </div>
+
+                <div class="sr6-charactersheet-row sr6-charactersheet-row-3">
+                  <label class="sr6-charactersheet-field">
+                    <span data-i18n="field.entzug">Entzug</span>
+                    <input type="text" name="attr_sr6_magic_entzug" />
+                  </label>
+
+                  <label class="sr6-charactersheet-field">
+                    <span data-i18n="field.entzug_widerstand">Entzugwiderstand</span>
+                    <div class="sr6-charactersheet-field-input-with-dice"><input type="text" name="attr_sr6_magic_entzug_widerstand" /><button type="roll" class="sr6-charactersheet-field-dice-button" name="roll_sr6_tab_magie_entzug_widerstand" value="&{template:default} {{name=Entzugwiderstand}} {{Pool=[[@{sr6_magic_entzug_widerstand}]]}} {{Erfolge=[[@{sr6_magic_entzug_widerstand}d6cs>4]]}}" aria-label="Wuerfeln">⚅</button></div>
+                  </label>
+
+                  <label class="sr6-charactersheet-field">
+                    <span data-i18n="field.rituale_foki">Rituale/Foki</span>
+                    <input type="text" name="attr_sr6_magic_rituale_foki" />
+                  </label>
+                </div>
+              </div>
+            </section>
           </div>
           <div id="sr6_daten_panel_5" class="sr6-charactersheet-tabpanel" role="tabpanel">
-            <p data-i18n="panel.matrix_placeholder">Matrix-Bereich (Platzhalter).</p>
+            <section class="sr6-charactersheet-box" aria-labelledby="matrix-kern-titel">
+              <h2 id="matrix-kern-titel" class="sr6-charactersheet-box-title" data-i18n="section.matrix_kern">Matrix: Kernwerte</h2>
+
+              <div class="sr6-charactersheet-box-content">
+                <div class="sr6-charactersheet-row sr6-charactersheet-row-2">
+                  <label class="sr6-charactersheet-field">
+                    <span data-i18n="field.cyberdeck_persona">Cyberdeck/Persona</span>
+                    <input type="text" name="attr_sr6_matrix_cyberdeck_persona" />
+                  </label>
+
+                  <label class="sr6-charactersheet-field">
+                    <span data-i18n="field.matrix_initiative">Matrix-Initiative</span>
+                    <input type="text" name="attr_sr6_matrix_initiative" />
+                  </label>
+                </div>
+
+                <div class="sr6-charactersheet-row sr6-charactersheet-row-4">
+                  <label class="sr6-charactersheet-field">
+                    <span data-i18n="field.matrix_angriff">Angriff</span>
+                    <input type="text" name="attr_sr6_matrix_angriff" />
+                  </label>
+
+                  <label class="sr6-charactersheet-field">
+                    <span data-i18n="field.matrix_schleicher">Schleicher</span>
+                    <input type="text" name="attr_sr6_matrix_schleicher" />
+                  </label>
+
+                  <label class="sr6-charactersheet-field">
+                    <span data-i18n="field.matrix_datenverarbeitung">Datenverarbeitung</span>
+                    <input type="text" name="attr_sr6_matrix_datenverarbeitung" />
+                  </label>
+
+                  <label class="sr6-charactersheet-field">
+                    <span data-i18n="field.matrix_firewall">Firewall</span>
+                    <input type="text" name="attr_sr6_matrix_firewall" />
+                  </label>
+                </div>
+              </div>
+            </section>
           </div>
           <div id="sr6_daten_panel_6" class="sr6-charactersheet-tabpanel" role="tabpanel">
-            <p data-i18n="panel.rigging_placeholder">Rigging-Bereich (Platzhalter).</p>
+            <section class="sr6-charactersheet-box" aria-labelledby="rigging-kern-titel">
+              <h2 id="rigging-kern-titel" class="sr6-charactersheet-box-title" data-i18n="section.rigging_kern">Rigging: Kernwerte</h2>
+
+              <div class="sr6-charactersheet-box-content">
+                <div class="sr6-charactersheet-row sr6-charactersheet-row-2">
+                  <label class="sr6-charactersheet-field">
+                    <span data-i18n="field.fahrzeug_drohne">Fahrzeug/Drohne</span>
+                    <input type="text" name="attr_sr6_rigging_fahrzeug_drohne" />
+                  </label>
+
+                  <label class="sr6-charactersheet-field">
+                    <span data-i18n="field.sensorik">Sensorik</span>
+                    <input type="text" name="attr_sr6_rigging_sensorik" />
+                  </label>
+                </div>
+
+                <div class="sr6-charactersheet-row sr6-charactersheet-row-2">
+                  <label class="sr6-charactersheet-field">
+                    <span data-i18n="field.steuerungspool">Steuerungspool</span>
+                    <div class="sr6-charactersheet-field-input-with-dice"><input type="text" name="attr_sr6_rigging_steuerungspool" /><button type="roll" class="sr6-charactersheet-field-dice-button" name="roll_sr6_tab_rigging_steuerungspool" value="&{template:default} {{name=Rigging-Test}} {{Pool=[[@{sr6_rigging_steuerungspool}]]}} {{Erfolge=[[@{sr6_rigging_steuerungspool}d6cs>4]]}}" aria-label="Wuerfeln">⚅</button></div>
+                  </label>
+
+                  <label class="sr6-charactersheet-field">
+                    <span data-i18n="field.fernsteuerungspool">Fernsteuerungspool</span>
+                    <div class="sr6-charactersheet-field-input-with-dice"><input type="text" name="attr_sr6_rigging_fernsteuerungspool" /><button type="roll" class="sr6-charactersheet-field-dice-button" name="roll_sr6_tab_rigging_fernsteuerungspool" value="&{template:default} {{name=Fernsteuerung-Test}} {{Pool=[[@{sr6_rigging_fernsteuerungspool}]]}} {{Erfolge=[[@{sr6_rigging_fernsteuerungspool}d6cs>4]]}}" aria-label="Wuerfeln">⚅</button></div>
+                  </label>
+                </div>
+              </div>
+            </section>
           </div>
           <div id="sr6_daten_panel_7" class="sr6-charactersheet-tabpanel" role="tabpanel">
-            <p data-i18n="panel.ausruestung_placeholder">Ausrüstungs-Bereich (Platzhalter).</p>
+            <section class="sr6-charactersheet-box" aria-labelledby="ausruestung-kern-titel">
+              <h2 id="ausruestung-kern-titel" class="sr6-charactersheet-box-title" data-i18n="section.ausruestung_kern">Ausrüstung: Übersicht</h2>
+
+              <div class="sr6-charactersheet-box-content">
+                <div class="sr6-charactersheet-row sr6-charactersheet-row-3 sr6-charactersheet-gear-header">
+                  <span data-i18n="field.item">Item</span>
+                  <span data-i18n="field.menge">Menge</span>
+                  <span data-i18n="field.notiz">Notiz</span>
+                </div>
+
+                <div class="sr6-charactersheet-row sr6-charactersheet-row-3">
+                  <input type="text" name="attr_sr6_gear_item_1" />
+                  <input type="text" name="attr_sr6_gear_menge_1" />
+                  <input type="text" name="attr_sr6_gear_notiz_1" />
+                </div>
+
+                <div class="sr6-charactersheet-row sr6-charactersheet-row-3">
+                  <input type="text" name="attr_sr6_gear_item_2" />
+                  <input type="text" name="attr_sr6_gear_menge_2" />
+                  <input type="text" name="attr_sr6_gear_notiz_2" />
+                </div>
+
+                <div class="sr6-charactersheet-row sr6-charactersheet-row-3">
+                  <input type="text" name="attr_sr6_gear_item_3" />
+                  <input type="text" name="attr_sr6_gear_menge_3" />
+                  <input type="text" name="attr_sr6_gear_notiz_3" />
+                </div>
+              </div>
+            </section>
           </div>
           <div id="sr6_daten_panel_8" class="sr6-charactersheet-tabpanel" role="tabpanel">
             <div class="sr6-charactersheet-tab-biographie-personendaten">
@@ -538,7 +665,18 @@
                   <option value="fr">FR</option>
                 </select>
               </div>
-              <p data-i18n="panel.einstellungen_placeholder">Einstellungen-Bereich (Platzhalter).</p>
+
+              <div class="sr6-charactersheet-row sr6-charactersheet-row-2">
+                <label class="sr6-charactersheet-field">
+                  <span data-i18n="field.option_auto_berechnung">Auto-Berechnung</span>
+                  <input type="text" name="attr_sr6_setting_auto_berechnung" value="an" />
+                </label>
+
+                <label class="sr6-charactersheet-field">
+                  <span data-i18n="field.option_rolltemplate">Rolltemplate-Stil</span>
+                  <input type="text" name="attr_sr6_setting_rolltemplate" value="default" />
+                </label>
+              </div>
             </div>
           </div>
         </div>
@@ -625,6 +763,10 @@
             "section.kampf_fernkampf": "Kampf: Fernkampf",
             "section.kampf_nahkampf": "Kampf: Nahkampf & Abwehr",
             "section.fertigkeiten_basis": "Fertigkeiten (Basis)",
+            "section.magie_kern": "Magie: Kernwerte",
+            "section.matrix_kern": "Matrix: Kernwerte",
+            "section.rigging_kern": "Rigging: Kernwerte",
+            "section.ausruestung_kern": "Ausrüstung: Übersicht",
             "section.persoenliche_daten": "Persönliche Daten",
             "tab.allgemein": "Allgemein",
             "tab.fertigkeiten": "Fertigkeiten",
@@ -668,6 +810,26 @@
             "field.fertigkeitsmodifikator": "Mod.",
             "field.fertigkeits_pool": "Pool",
             "field.wurf": "Wurf",
+            "field.magische_tradition": "Magische Tradition",
+            "field.zauberpool": "Zauberpool",
+            "field.entzug": "Entzug",
+            "field.entzug_widerstand": "Entzugwiderstand",
+            "field.rituale_foki": "Rituale/Foki",
+            "field.cyberdeck_persona": "Cyberdeck/Persona",
+            "field.matrix_initiative": "Matrix-Initiative",
+            "field.matrix_angriff": "Angriff",
+            "field.matrix_schleicher": "Schleicher",
+            "field.matrix_datenverarbeitung": "Datenverarbeitung",
+            "field.matrix_firewall": "Firewall",
+            "field.fahrzeug_drohne": "Fahrzeug/Drohne",
+            "field.sensorik": "Sensorik",
+            "field.steuerungspool": "Steuerungspool",
+            "field.fernsteuerungspool": "Fernsteuerungspool",
+            "field.item": "Item",
+            "field.menge": "Menge",
+            "field.notiz": "Notiz",
+            "field.option_auto_berechnung": "Auto-Berechnung",
+            "field.option_rolltemplate": "Rolltemplate-Stil",
             "skill.athletik": "Athletik",
             "skill.heimlichkeit": "Heimlichkeit",
             "skill.wahrnehmung": "Wahrnehmung",
@@ -709,6 +871,10 @@
             "section.kampf_fernkampf": "Combat: Ranged",
             "section.kampf_nahkampf": "Combat: Melee & Defense",
             "section.fertigkeiten_basis": "Skills (Core)",
+            "section.magie_kern": "Magic: Core Values",
+            "section.matrix_kern": "Matrix: Core Values",
+            "section.rigging_kern": "Rigging: Core Values",
+            "section.ausruestung_kern": "Gear: Overview",
             "section.persoenliche_daten": "Personal Data",
             "tab.allgemein": "General",
             "tab.fertigkeiten": "Skills",
@@ -752,6 +918,26 @@
             "field.fertigkeitsmodifikator": "Mod.",
             "field.fertigkeits_pool": "Pool",
             "field.wurf": "Roll",
+            "field.magische_tradition": "Magical Tradition",
+            "field.zauberpool": "Spell Pool",
+            "field.entzug": "Drain",
+            "field.entzug_widerstand": "Drain Resistance",
+            "field.rituale_foki": "Rituals/Foci",
+            "field.cyberdeck_persona": "Cyberdeck/Persona",
+            "field.matrix_initiative": "Matrix Initiative",
+            "field.matrix_angriff": "Attack",
+            "field.matrix_schleicher": "Sleaze",
+            "field.matrix_datenverarbeitung": "Data Processing",
+            "field.matrix_firewall": "Firewall",
+            "field.fahrzeug_drohne": "Vehicle/Drone",
+            "field.sensorik": "Sensors",
+            "field.steuerungspool": "Control Pool",
+            "field.fernsteuerungspool": "Remote Control Pool",
+            "field.item": "Item",
+            "field.menge": "Qty",
+            "field.notiz": "Note",
+            "field.option_auto_berechnung": "Auto Calculation",
+            "field.option_rolltemplate": "Rolltemplate Style",
             "skill.athletik": "Athletics",
             "skill.heimlichkeit": "Stealth",
             "skill.wahrnehmung": "Perception",
@@ -793,6 +979,10 @@
             "section.kampf_fernkampf": "Combat : Distance",
             "section.kampf_nahkampf": "Combat : Mêlée & Défense",
             "section.fertigkeiten_basis": "Compétences (Base)",
+            "section.magie_kern": "Magie : Valeurs clés",
+            "section.matrix_kern": "Matrice : Valeurs clés",
+            "section.rigging_kern": "Rigging : Valeurs clés",
+            "section.ausruestung_kern": "Équipement : Vue d'ensemble",
             "section.persoenliche_daten": "Données personnelles",
             "tab.allgemein": "Général",
             "tab.fertigkeiten": "Compétences",
@@ -836,6 +1026,26 @@
             "field.fertigkeitsmodifikator": "Mod.",
             "field.fertigkeits_pool": "Réserve",
             "field.wurf": "Jet",
+            "field.magische_tradition": "Tradition magique",
+            "field.zauberpool": "Réserve de sort",
+            "field.entzug": "Drain",
+            "field.entzug_widerstand": "Résistance au drain",
+            "field.rituale_foki": "Rituels/Foci",
+            "field.cyberdeck_persona": "Cyberdeck/Persona",
+            "field.matrix_initiative": "Initiative matricielle",
+            "field.matrix_angriff": "Attaque",
+            "field.matrix_schleicher": "Furtivité",
+            "field.matrix_datenverarbeitung": "Traitement de données",
+            "field.matrix_firewall": "Pare-feu",
+            "field.fahrzeug_drohne": "Véhicule/Drone",
+            "field.sensorik": "Capteurs",
+            "field.steuerungspool": "Réserve de pilotage",
+            "field.fernsteuerungspool": "Réserve de télépilotage",
+            "field.item": "Objet",
+            "field.menge": "Qté",
+            "field.notiz": "Note",
+            "field.option_auto_berechnung": "Calcul auto",
+            "field.option_rolltemplate": "Style de gabarit",
             "skill.athletik": "Athlétisme",
             "skill.heimlichkeit": "Furtivité",
             "skill.wahrnehmung": "Perception",

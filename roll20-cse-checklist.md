@@ -27,7 +27,7 @@ Wir arbeiten **CSE-first**.
 ## Aktueller Stand (Ist)
 
 ### Bereits umgesetzt
-- Tab-Architektur mit 9 Bereichen vorhanden (Allgemein, Fertigkeiten, Kampf, Magie, Matrix, Rigging, Ausruestung, Biographie, Notizen).
+- Tab-Architektur mit 9 Bereichen vorhanden (Allgemein, Fertigkeiten, Kampf, Magie, Matrix, Rigging, Ausruestung, Biographie, Einstellungen).
 - Bereich "Allgemein" enthaelt die zwei Kernboxen:
   - Attribute
   - Wichtige Kampf-Infos
@@ -36,11 +36,12 @@ Wir arbeiten **CSE-first**.
   - Breakpoint bei 800px (`50rem`) -> Wechsel auf 1 Spalte.
 - Wuerfel-Elemente als Roll20-Rollbuttons (`type="roll"`) umgesetzt und an `attr_sr6_*`-Felder gebunden.
 
-### Noch offen / in Arbeit
+### Abgeschlossen
 - Klassen-Namensmigration auf finales vereinheitlichtes Schema (`sr6-charactersheet-*`) ist im `output`-HTML und `output`-CSS abgeschlossen (alte Alias-Klassen entfernt).
-- Attributnamen in `output/charakterbogen.de.html` sind auf ein `attr_sr6_*`-Schema migriert (Module: `attr`, `combat`, `bio`, `monitor`). Legacy-Namen sind dort bereinigt.
-- i18n-Umstellung ist im `output` integriert: `data-i18n`-Keys sind gesetzt, DE/EN/FR-Übersetzungen eingebunden und eine Sprachumschaltung (DE/EN/FR) mit Persistenz (`localStorage`) ist ergänzt. Live-Test in Roll20 steht noch aus.
-- Worker/API-Logik ist teilweise integriert (Rollbuttons aktiv mit thematischen Testnamen, Kampf-Kontext in Chat-Ausgabe fuer Waffe/Modus, `text/worker` fuer Attribut-Gesamtwerte + zentrale `sr6_derived_*`-Basiswerte), aber noch nicht final (keine erweiterten Rolltemplates, keine weitergehenden Berechnungen fuer Kampf/Matrix/Magie).
+- Attributnamen in `output/charakterbogen.de.html` sind auf ein `attr_sr6_*`-Schema migriert (Module: `attr`, `combat`, `bio`, `monitor`, `skill`, `magic`, `matrix`, `rigging`, `gear`, `setting`).
+- i18n-Umstellung ist integriert: `data-i18n`-Keys sind gesetzt, DE/EN/FR-Übersetzungen eingebunden (intern), Roll20-Sandbox-`output/translation.json` ist im korrekten flachen Format hinterlegt.
+- Roll20-Live-Check wurde durchgefuehrt (Rueckmeldung: keine Fehler/keine sichtbaren i18n-Fehler).
+- Worker/API-Logik ist fuer den aktuellen Sprint finalisiert (zentraler Recompute-Flow fuer Attribute + `sr6_derived_*`, thematische Rollbuttons mit lesbaren Ausgaben).
 
 ## Verbindlicher naechster Schritt
 
@@ -56,9 +57,9 @@ Wir arbeiten **CSE-first**.
 - Abgeleitete Werte sind im Bereich "Allgemein > Attribute" sichtbar gemacht (readonly-Felder fuer Initiative/Verteidigung/Monitor/Edge-Basis).
 
 ### Schritt 3: Roll20-Live-Check
-- i18n-Umschaltung (DE/EN/FR), Rollbuttons und Worker in Roll20 praktisch testen.
-- Gefundene UI-/Worker-Abweichungen im Output nachziehen.
-- Testprotokoll ist vorbereitet (`docs/roll20-live-check-v1.md`).
+- i18n-Umschaltung, Rollbuttons und Worker in Roll20 praktisch getestet.
+- Keine blocker-relevanten UI-/Worker-Abweichungen offen.
+- Testprotokoll liegt vor (`docs/roll20-live-check-v1.md`).
 
 ### Schritt 4: Modul-Ausbau Fertigkeiten
 - Reiter "Fertigkeiten" ist nicht mehr Platzhalter, sondern als wiederverwendbares Tabellenmodul mit Start-Fertigkeiten und Roll-Buttons angelegt.
@@ -66,7 +67,21 @@ Wir arbeiten **CSE-first**.
 ### Schritt 5: Modul-Ausbau Kampf
 - Reiter "Kampf" ist nicht mehr Platzhalter, sondern als eigenstaendiges Modul mit Fernkampf-/Nahkampf-Bereichen, Distanzwuerfen und Basiswerten fuer Initiative/Verteidigung angelegt.
 
+### Schritt 6: Modul-Ausbau Magie
+- Reiter "Magie" ist nicht mehr Platzhalter, sondern als Kernmodul mit Zauber-/Entzug-Feldern und Rollbuttons angelegt.
+
+### Schritt 7: Modul-Ausbau Matrix
+- Reiter "Matrix" ist nicht mehr Platzhalter, sondern als Kernmodul mit Persona-Werten und Matrix-Attributen angelegt.
+
+### Schritt 8: Modul-Ausbau Rigging
+- Reiter "Rigging" ist nicht mehr Platzhalter, sondern als Kernmodul mit Fahrzeug-/Sensorik- und Steuerungspools angelegt.
+
+### Schritt 9: Modul-Ausbau Ausruestung + Einstellungen
+- Reiter "Ausruestung" ist als tabellarische Uebersicht angelegt.
+- Reiter "Einstellungen" enthaelt Sprache + Projektoptionen und ist kein Platzhalter mehr.
+
 ## Akzeptanzkriterien fuer den aktuellen Sprint
 - CSE-Entscheidung klar dokumentiert.
 - Root-Checkliste vorhanden und aktuell.
-- Klassenmigrations-Start freigegeben.
+- Klassenmigrations-Start abgeschlossen.
+- Alle 9 Tabs ohne Platzhalter-Panel umgesetzt.
