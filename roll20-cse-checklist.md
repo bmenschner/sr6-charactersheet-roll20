@@ -40,7 +40,7 @@ Wir arbeiten **CSE-first**.
 - Klassen-Namensmigration auf finales vereinheitlichtes Schema (`sr6-charactersheet-*`) ist im `output`-HTML und `output`-CSS abgeschlossen (alte Alias-Klassen entfernt).
 - Attributnamen in `output/charakterbogen.de.html` sind auf ein `attr_sr6_*`-Schema migriert (Module: `attr`, `combat`, `bio`, `monitor`). Legacy-Namen sind dort bereinigt.
 - i18n-Umstellung ist im `output` integriert: `data-i18n`-Keys sind gesetzt, DE/EN/FR-Übersetzungen eingebunden und eine Sprachumschaltung (DE/EN/FR) mit Persistenz (`localStorage`) ist ergänzt. Live-Test in Roll20 steht noch aus.
-- Worker/API-Logik ist teilweise integriert (Rollbuttons aktiv mit thematischen Testnamen, Kampf-Kontext in Chat-Ausgabe fuer Waffe/Modus, `text/worker` fuer Attribut-Gesamtwerte), aber noch nicht final (keine erweiterten Rolltemplates, keine weitergehenden Berechnungen fuer Kampf/Matrix/Magie).
+- Worker/API-Logik ist teilweise integriert (Rollbuttons aktiv mit thematischen Testnamen, Kampf-Kontext in Chat-Ausgabe fuer Waffe/Modus, `text/worker` fuer Attribut-Gesamtwerte + zentrale `sr6_derived_*`-Basiswerte), aber noch nicht final (keine erweiterten Rolltemplates, keine weitergehenden Berechnungen fuer Kampf/Matrix/Magie).
 
 ## Verbindlicher naechster Schritt
 
@@ -50,7 +50,7 @@ Wir arbeiten **CSE-first**.
 - Konsistente Namenskonvention fuer `roll_...`-Buttons dokumentieren.
 
 ### Schritt 2: Worker-Ausbau
-- Abgeleitete Werte fuer zentrale Bereiche ergaenzen (z. B. Kampf-Basics, Monitore, Edge-nahe Summen).
+- Abgeleitete Werte fuer zentrale Bereiche sind begonnen (`sr6_derived_*` fuer Initiative/Verteidigung/Monitor/Edge-Basis).
 - Worker-Trigger auf Performance und Zirkularitaet pruefen.
 
 ### Schritt 3: Roll20-Live-Check

@@ -396,6 +396,40 @@
         });
       }
 
+      function updateDerivedBasics() {
+        const keys = [
+          "sr6_attr_reaktion_gesamtwert",
+          "sr6_attr_intuition_gesamtwert",
+          "sr6_attr_konstitution_gesamtwert",
+          "sr6_attr_willenskraft_gesamtwert",
+          "sr6_attr_edge_gesamtwert"
+        ];
+
+        getAttrs(keys, (values) => {
+          const reaktion = parseNumber(values.sr6_attr_reaktion_gesamtwert);
+          const intuition = parseNumber(values.sr6_attr_intuition_gesamtwert);
+          const konstitution = parseNumber(values.sr6_attr_konstitution_gesamtwert);
+          const willenskraft = parseNumber(values.sr6_attr_willenskraft_gesamtwert);
+          const edge = parseNumber(values.sr6_attr_edge_gesamtwert);
+
+          const initiativeBasis = reaktion + intuition;
+          const verteidigungBasis = reaktion + intuition;
+          const koerperMonitorMax = 8 + Math.ceil(konstitution / 2);
+          const geistMonitorMax = 8 + Math.ceil(willenskraft / 2);
+
+          setAttrs(
+            {
+              sr6_derived_initiative_basis: String(initiativeBasis),
+              sr6_derived_verteidigung_basis: String(verteidigungBasis),
+              sr6_derived_koerperlicher_monitor_max: String(koerperMonitorMax),
+              sr6_derived_geistiger_monitor_max: String(geistMonitorMax),
+              sr6_derived_edge_basis: String(edge)
+            },
+            { silent: true }
+          );
+        });
+      }
+
       SR6_ATTRIBUTES.forEach((attributeName) => {
         on(
           `change:sr6_attr_${attributeName}_grundwert change:sr6_attr_${attributeName}_modifikator`,
@@ -409,6 +443,17 @@
         SR6_ATTRIBUTES.forEach((attributeName) => {
           updateAttributeTotal(attributeName);
         });
+      });
+
+      on(
+        "change:sr6_attr_reaktion_gesamtwert change:sr6_attr_intuition_gesamtwert change:sr6_attr_konstitution_gesamtwert change:sr6_attr_willenskraft_gesamtwert change:sr6_attr_edge_gesamtwert",
+        () => {
+          updateDerivedBasics();
+        }
+      );
+
+      on("sheet:opened", () => {
+        updateDerivedBasics();
       });
     </script>
 
