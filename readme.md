@@ -1,12 +1,7 @@
-- best practices nutzen
-- Building_Character_Sheets als guideline benutzen
-
 # Documentation
 https://wiki.roll20.net/Character_Sheets
 https://wiki.roll20.net/Building_Character_Sheets
 https://wiki.roll20.net/Character_Sheet_Enhancement
-
-- Character_Sheet/API benutzen
 
 # API
 https://wiki.roll20.net/Character_Sheet/API
