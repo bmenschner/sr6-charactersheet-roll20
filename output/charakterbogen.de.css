@@ -192,9 +192,7 @@ body,
   cursor: pointer;
 }
 
-#sr6_daten_tab_1:checked + label,
-#sr6_daten_tab_2:checked + label,
-#sr6_daten_tab_3:checked + label {
+.sr6-daten-tabs-steuerung input[type="radio"]:checked + label {
   color: var(--sr6-title);
   border-bottom-color: var(--sr6-line);
 }
@@ -214,7 +212,13 @@ body,
 
 .sr6-daten-tabs:has(#sr6_daten_tab_1:checked) #sr6_daten_panel_1,
 .sr6-daten-tabs:has(#sr6_daten_tab_2:checked) #sr6_daten_panel_2,
-.sr6-daten-tabs:has(#sr6_daten_tab_3:checked) #sr6_daten_panel_3 {
+.sr6-daten-tabs:has(#sr6_daten_tab_3:checked) #sr6_daten_panel_3,
+.sr6-daten-tabs:has(#sr6_daten_tab_4:checked) #sr6_daten_panel_4,
+.sr6-daten-tabs:has(#sr6_daten_tab_5:checked) #sr6_daten_panel_5,
+.sr6-daten-tabs:has(#sr6_daten_tab_6:checked) #sr6_daten_panel_6,
+.sr6-daten-tabs:has(#sr6_daten_tab_7:checked) #sr6_daten_panel_7,
+.sr6-daten-tabs:has(#sr6_daten_tab_8:checked) #sr6_daten_panel_8,
+.sr6-daten-tabs:has(#sr6_daten_tab_9:checked) #sr6_daten_panel_9 {
   display: block;
 }
 
