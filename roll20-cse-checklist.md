@@ -1,6 +1,6 @@
 # Roll20 CSE Checklist (SR6)
 
-Stand: 2026-04-15
+Stand: 2026-04-16
 Ort: Root-Checkliste fuer den aktuellen Entwicklungsstand
 
 ## Ziel
@@ -34,13 +34,13 @@ Wir arbeiten **CSE-first**.
 - Bereich "Biographie" enthaelt den Block "Persoenliche Daten".
 - Responsive Verhalten fuer Allgemein-2-Spalten-Layout umgesetzt:
   - Breakpoint bei 800px (`50rem`) -> Wechsel auf 1 Spalte.
-- Wuerfel-Elemente als echte klickbare HTML-Buttons angelegt (kein reines Pseudoelement mehr).
+- Wuerfel-Elemente als Roll20-Rollbuttons (`type="roll"`) umgesetzt und an `attr_sr6_*`-Felder gebunden.
 
 ### Noch offen / in Arbeit
-- Klassen-Namensmigration auf finales vereinheitlichtes Schema (`sr6-charactersheet-*`) ist gestartet: Alias-Phase (alt+neu parallel) im `output`-HTML/CSS umgesetzt, Bereinigung alter Klassen noch offen.
+- Klassen-Namensmigration auf finales vereinheitlichtes Schema (`sr6-charactersheet-*`) ist im `output`-HTML und `output`-CSS abgeschlossen (alte Alias-Klassen entfernt).
 - Attributnamen in `output/charakterbogen.de.html` sind auf ein `attr_sr6_*`-Schema migriert (Module: `attr`, `combat`, `bio`, `monitor`). Legacy-Namen sind dort bereinigt.
-- i18n-Umstellung ist begonnen, aber sichtbare Labels sind aktuell noch weitgehend hardcoded.
-- Worker/API-Logik ist noch nicht final in den produktiven Output integriert.
+- i18n-Umstellung ist gestartet: `data-i18n`-Keys sind im `output`-HTML für Tabs, Titel und zentrale Feldlabels ergänzt; `src/i18n/translation.json` wurde für DE/EN/FR erweitert. Einbindung/Runtime-Test der Übersetzungsumschaltung ist noch offen.
+- Worker/API-Logik ist teilweise integriert (Rollbuttons aktiv), aber noch nicht final (kein dedizierter `sheet_workers.js` im Output-Pfad, keine erweiterten Rolltemplates).
 
 ## Verbindlicher naechster Schritt
 
