@@ -56,6 +56,7 @@ Wir arbeiten **CSE-first**.
 ### Schritt 3: Roll20-Live-Check
 - i18n-Umschaltung (DE/EN/FR), Rollbuttons und Worker in Roll20 praktisch testen.
 - Gefundene UI-/Worker-Abweichungen im Output nachziehen.
+- Testprotokoll ist vorbereitet (`docs/roll20-live-check-v1.md`).
 
 ## Akzeptanzkriterien fuer den aktuellen Sprint
 - CSE-Entscheidung klar dokumentiert.
