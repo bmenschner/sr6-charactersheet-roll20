@@ -8,14 +8,6 @@
   <body>
     <input id="sr6-tabs-toggle" class="sr6-tabs-toggle-input sr6-charactersheet-settings-toggle-input" type="checkbox" />
     <label class="sr6-tabs-toggle sr6-charactersheet-settings-toggle" for="sr6-tabs-toggle" aria-label="Tabs ein- und ausblenden"></label>
-    <div class="sr6-language-control">
-      <label for="sr6-language-select">Sprache</label>
-      <select id="sr6-language-select" name="attr_sr6_ui_sprache">
-        <option value="de">DE</option>
-        <option value="en">EN</option>
-        <option value="fr">FR</option>
-      </select>
-    </div>
 
     <div class="sr6-charactersheet">
       <section class="sr6-charactersheet-kopfbereich" aria-label="Kopfbereich">
@@ -71,7 +63,7 @@
           <label for="sr6_daten_tab_8" role="tab" aria-controls="sr6_daten_panel_8" data-i18n="tab.biographie">Biographie</label>
 
           <input type="radio" name="sr6_daten_tab" id="sr6_daten_tab_9" />
-          <label for="sr6_daten_tab_9" role="tab" aria-controls="sr6_daten_panel_9" data-i18n="tab.notizen">Notizen</label>
+          <label for="sr6_daten_tab_9" role="tab" aria-controls="sr6_daten_panel_9" data-i18n="tab.einstellungen">Einstellungen</label>
         </div>
 
         <div class="sr6-charactersheet-menu-content">
@@ -359,7 +351,17 @@
             </div>
           </div>
           <div id="sr6_daten_panel_9" class="sr6-charactersheet-tabpanel" role="tabpanel">
-            <p data-i18n="panel.notizen_placeholder">Notizen-Bereich (Platzhalter).</p>
+            <div class="sr6-settings-panel">
+              <div class="sr6-language-control">
+                <label for="sr6-language-select" data-i18n="ui.sprache">Sprache</label>
+                <select id="sr6-language-select" name="attr_sr6_ui_sprache">
+                  <option value="de">DE</option>
+                  <option value="en">EN</option>
+                  <option value="fr">FR</option>
+                </select>
+              </div>
+              <p data-i18n="panel.einstellungen_placeholder">Einstellungen-Bereich (Platzhalter).</p>
+            </div>
           </div>
         </div>
       </section>
@@ -451,7 +453,8 @@
             "tab.rigging": "Rigging",
             "tab.ausruestung": "Ausrüstung",
             "tab.biographie": "Biographie",
-            "tab.notizen": "Notizen",
+            "tab.einstellungen": "Einstellungen",
+            "ui.sprache": "Sprache",
             "field.monitor_koerperlich": "Körperlicher Zustand",
             "field.monitor_geistig": "Geistiger Zustand",
             "field.konstitution": "Konstitution",
@@ -497,7 +500,7 @@
             "panel.matrix_placeholder": "Matrix-Bereich (Platzhalter).",
             "panel.rigging_placeholder": "Rigging-Bereich (Platzhalter).",
             "panel.ausruestung_placeholder": "Ausrüstungs-Bereich (Platzhalter).",
-            "panel.notizen_placeholder": "Notizen-Bereich (Platzhalter)."
+            "panel.einstellungen_placeholder": "Einstellungen-Bereich (Platzhalter)."
           },
           en: {
             "ui.charakterbogen_titel": "Shadowrun 6 Character Sheet",
@@ -515,7 +518,8 @@
             "tab.rigging": "Rigging",
             "tab.ausruestung": "Gear",
             "tab.biographie": "Biography",
-            "tab.notizen": "Notes",
+            "tab.einstellungen": "Settings",
+            "ui.sprache": "Language",
             "field.monitor_koerperlich": "Physical Condition",
             "field.monitor_geistig": "Mental Condition",
             "field.konstitution": "Body",
@@ -561,7 +565,7 @@
             "panel.matrix_placeholder": "Matrix section (placeholder).",
             "panel.rigging_placeholder": "Rigging section (placeholder).",
             "panel.ausruestung_placeholder": "Gear section (placeholder).",
-            "panel.notizen_placeholder": "Notes section (placeholder)."
+            "panel.einstellungen_placeholder": "Settings section (placeholder)."
           },
           fr: {
             "ui.charakterbogen_titel": "Fiche de personnage Shadowrun 6",
@@ -579,7 +583,8 @@
             "tab.rigging": "Pilotage",
             "tab.ausruestung": "Équipement",
             "tab.biographie": "Biographie",
-            "tab.notizen": "Notes",
+            "tab.einstellungen": "Paramètres",
+            "ui.sprache": "Langue",
             "field.monitor_koerperlich": "État physique",
             "field.monitor_geistig": "État mental",
             "field.konstitution": "Constitution",
@@ -625,7 +630,7 @@
             "panel.matrix_placeholder": "Section matrice (placeholder).",
             "panel.rigging_placeholder": "Section pilotage (placeholder).",
             "panel.ausruestung_placeholder": "Section équipement (placeholder).",
-            "panel.notizen_placeholder": "Section notes (placeholder)."
+            "panel.einstellungen_placeholder": "Section paramètres (placeholder)."
           }
         };
 

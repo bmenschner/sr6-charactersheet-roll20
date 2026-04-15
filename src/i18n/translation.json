@@ -16,7 +16,8 @@
     "tab.rigging": "Rigging",
     "tab.ausruestung": "Ausrüstung",
     "tab.biographie": "Biographie",
-    "tab.notizen": "Notizen",
+    "tab.einstellungen": "Einstellungen",
+    "ui.sprache": "Sprache",
 
     "field.monitor_koerperlich": "Körperlicher Zustand",
     "field.monitor_geistig": "Geistiger Zustand",
@@ -64,7 +65,7 @@
     "panel.matrix_placeholder": "Matrix-Bereich (Platzhalter).",
     "panel.rigging_placeholder": "Rigging-Bereich (Platzhalter).",
     "panel.ausruestung_placeholder": "Ausrüstungs-Bereich (Platzhalter).",
-    "panel.notizen_placeholder": "Notizen-Bereich (Platzhalter)."
+    "panel.einstellungen_placeholder": "Einstellungen-Bereich (Platzhalter)."
   },
   "en": {
     "ui.charakterbogen_titel": "Shadowrun 6 Character Sheet",
@@ -83,7 +84,8 @@
     "tab.rigging": "Rigging",
     "tab.ausruestung": "Gear",
     "tab.biographie": "Biography",
-    "tab.notizen": "Notes",
+    "tab.einstellungen": "Settings",
+    "ui.sprache": "Language",
 
     "field.monitor_koerperlich": "Physical Condition",
     "field.monitor_geistig": "Mental Condition",
@@ -131,7 +133,7 @@
     "panel.matrix_placeholder": "Matrix section (placeholder).",
     "panel.rigging_placeholder": "Rigging section (placeholder).",
     "panel.ausruestung_placeholder": "Gear section (placeholder).",
-    "panel.notizen_placeholder": "Notes section (placeholder)."
+    "panel.einstellungen_placeholder": "Settings section (placeholder)."
   },
   "fr": {
     "ui.charakterbogen_titel": "Fiche de personnage Shadowrun 6",
@@ -150,7 +152,8 @@
     "tab.rigging": "Pilotage",
     "tab.ausruestung": "Équipement",
     "tab.biographie": "Biographie",
-    "tab.notizen": "Notes",
+    "tab.einstellungen": "Paramètres",
+    "ui.sprache": "Langue",
 
     "field.monitor_koerperlich": "État physique",
     "field.monitor_geistig": "État mental",
@@ -198,6 +201,6 @@
     "panel.matrix_placeholder": "Section matrice (placeholder).",
     "panel.rigging_placeholder": "Section pilotage (placeholder).",
     "panel.ausruestung_placeholder": "Section équipement (placeholder).",
-    "panel.notizen_placeholder": "Section notes (placeholder)."
+    "panel.einstellungen_placeholder": "Section paramètres (placeholder)."
   }
 }
