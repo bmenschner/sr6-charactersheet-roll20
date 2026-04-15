@@ -39,7 +39,7 @@ Wir arbeiten **CSE-first**.
 ### Noch offen / in Arbeit
 - Klassen-Namensmigration auf finales vereinheitlichtes Schema (`sr6-charactersheet-*`) ist im `output`-HTML und `output`-CSS abgeschlossen (alte Alias-Klassen entfernt).
 - Attributnamen in `output/charakterbogen.de.html` sind auf ein `attr_sr6_*`-Schema migriert (Module: `attr`, `combat`, `bio`, `monitor`). Legacy-Namen sind dort bereinigt.
-- i18n-Umstellung ist gestartet: `data-i18n`-Keys sind im `output`-HTML für Tabs, Titel und zentrale Feldlabels ergänzt; `src/i18n/translation.json` wurde für DE/EN/FR erweitert. Einbindung/Runtime-Test der Übersetzungsumschaltung ist noch offen.
+- i18n-Umstellung ist im `output` integriert: `data-i18n`-Keys sind gesetzt, DE/EN/FR-Übersetzungen eingebunden und eine Sprachumschaltung (DE/EN/FR) mit Persistenz (`localStorage`) ist ergänzt. Live-Test in Roll20 steht noch aus.
 - Worker/API-Logik ist teilweise integriert (Rollbuttons aktiv), aber noch nicht final (kein dedizierter `sheet_workers.js` im Output-Pfad, keine erweiterten Rolltemplates).
 
 ## Verbindlicher naechster Schritt

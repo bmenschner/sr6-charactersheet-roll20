@@ -8,6 +8,14 @@
   <body>
     <input id="sr6-tabs-toggle" class="sr6-tabs-toggle-input sr6-charactersheet-settings-toggle-input" type="checkbox" />
     <label class="sr6-tabs-toggle sr6-charactersheet-settings-toggle" for="sr6-tabs-toggle" aria-label="Tabs ein- und ausblenden"></label>
+    <div class="sr6-language-control">
+      <label for="sr6-language-select">Sprache</label>
+      <select id="sr6-language-select" name="attr_sr6_ui_sprache">
+        <option value="de">DE</option>
+        <option value="en">EN</option>
+        <option value="fr">FR</option>
+      </select>
+    </div>
 
     <div class="sr6-charactersheet">
       <section class="sr6-charactersheet-kopfbereich" aria-label="Kopfbereich">
@@ -358,5 +366,257 @@
 
     </div>
 
+    <script>
+      (function () {
+        const translations = {
+          de: {
+            "ui.charakterbogen_titel": "Shadowrun 6 Charakterbogen",
+            "section.charakterbild": "Charakterbild",
+            "section.zustandsmonitor": "Zustandsmonitor",
+            "section.edge_token": "Edge Token",
+            "section.attribute": "Attribute",
+            "section.wichtige_kampf_infos": "Wichtige Kampf-Infos",
+            "section.persoenliche_daten": "Persönliche Daten",
+            "tab.allgemein": "Allgemein",
+            "tab.fertigkeiten": "Fertigkeiten",
+            "tab.kampf": "Kampf",
+            "tab.magie": "Magie",
+            "tab.matrix": "Matrix",
+            "tab.rigging": "Rigging",
+            "tab.ausruestung": "Ausrüstung",
+            "tab.biographie": "Biographie",
+            "tab.notizen": "Notizen",
+            "field.monitor_koerperlich": "Körperlicher Zustand",
+            "field.monitor_geistig": "Geistiger Zustand",
+            "field.konstitution": "Konstitution",
+            "field.geschicklichkeit": "Geschicklichkeit",
+            "field.reaktion": "Reaktion",
+            "field.staerke": "Stärke",
+            "field.willenskraft": "Willenskraft",
+            "field.logik": "Logik",
+            "field.intuition": "Intuition",
+            "field.charisma": "Charisma",
+            "field.edge": "Edge",
+            "field.magie_resonanz": "Magie/Resonanz",
+            "field.grundwert": "Grundwert",
+            "field.modifikator": "Modifikator",
+            "field.gesamtwert": "Gesamtwert",
+            "field.primaere_fernkampfwaffe": "Primäre Fernkampfwaffe",
+            "field.schaden": "Schaden",
+            "field.modus": "Modus",
+            "field.s_nah": "S. Nah",
+            "field.nah": "Nah",
+            "field.mittel": "Mittel",
+            "field.weit": "Weit",
+            "field.s_weit": "S. Weit",
+            "field.munition": "Munition",
+            "field.primaere_nahkampfwaffe": "Primäre Nahkampfwaffe",
+            "field.primaere_panzerung": "Primäre Panzerung",
+            "field.name": "Name",
+            "field.strassenname": "Straßenname",
+            "field.metatyp": "Metatyp",
+            "field.ethnizitaet": "Ethnizität",
+            "field.alter": "Alter",
+            "field.geschlecht": "Geschlecht",
+            "field.groesse": "Größe",
+            "field.gewicht": "Gewicht",
+            "field.reputation": "Reputation",
+            "field.fahndungslevel": "Fahndungslevel",
+            "field.karma": "Karma",
+            "field.gesamtkarma": "Gesamtkarma",
+            "field.edge_max": "Edge Max",
+            "panel.fertigkeiten_placeholder": "Fertigkeiten-Bereich (Platzhalter).",
+            "panel.kampf_placeholder": "Kampf-Bereich (Platzhalter).",
+            "panel.magie_placeholder": "Magie-Bereich (Platzhalter).",
+            "panel.matrix_placeholder": "Matrix-Bereich (Platzhalter).",
+            "panel.rigging_placeholder": "Rigging-Bereich (Platzhalter).",
+            "panel.ausruestung_placeholder": "Ausrüstungs-Bereich (Platzhalter).",
+            "panel.notizen_placeholder": "Notizen-Bereich (Platzhalter)."
+          },
+          en: {
+            "ui.charakterbogen_titel": "Shadowrun 6 Character Sheet",
+            "section.charakterbild": "Character Image",
+            "section.zustandsmonitor": "Condition Monitor",
+            "section.edge_token": "Edge Token",
+            "section.attribute": "Attributes",
+            "section.wichtige_kampf_infos": "Key Combat Info",
+            "section.persoenliche_daten": "Personal Data",
+            "tab.allgemein": "General",
+            "tab.fertigkeiten": "Skills",
+            "tab.kampf": "Combat",
+            "tab.magie": "Magic",
+            "tab.matrix": "Matrix",
+            "tab.rigging": "Rigging",
+            "tab.ausruestung": "Gear",
+            "tab.biographie": "Biography",
+            "tab.notizen": "Notes",
+            "field.monitor_koerperlich": "Physical Condition",
+            "field.monitor_geistig": "Mental Condition",
+            "field.konstitution": "Body",
+            "field.geschicklichkeit": "Agility",
+            "field.reaktion": "Reaction",
+            "field.staerke": "Strength",
+            "field.willenskraft": "Willpower",
+            "field.logik": "Logic",
+            "field.intuition": "Intuition",
+            "field.charisma": "Charisma",
+            "field.edge": "Edge",
+            "field.magie_resonanz": "Magic/Resonance",
+            "field.grundwert": "Base",
+            "field.modifikator": "Modifier",
+            "field.gesamtwert": "Total",
+            "field.primaere_fernkampfwaffe": "Primary Ranged Weapon",
+            "field.schaden": "Damage",
+            "field.modus": "Mode",
+            "field.s_nah": "S. Near",
+            "field.nah": "Near",
+            "field.mittel": "Medium",
+            "field.weit": "Far",
+            "field.s_weit": "S. Far",
+            "field.munition": "Ammo",
+            "field.primaere_nahkampfwaffe": "Primary Melee Weapon",
+            "field.primaere_panzerung": "Primary Armor",
+            "field.name": "Name",
+            "field.strassenname": "Street Name",
+            "field.metatyp": "Metatype",
+            "field.ethnizitaet": "Ethnicity",
+            "field.alter": "Age",
+            "field.geschlecht": "Gender",
+            "field.groesse": "Height",
+            "field.gewicht": "Weight",
+            "field.reputation": "Reputation",
+            "field.fahndungslevel": "Notoriety",
+            "field.karma": "Karma",
+            "field.gesamtkarma": "Total Karma",
+            "field.edge_max": "Edge Max",
+            "panel.fertigkeiten_placeholder": "Skills section (placeholder).",
+            "panel.kampf_placeholder": "Combat section (placeholder).",
+            "panel.magie_placeholder": "Magic section (placeholder).",
+            "panel.matrix_placeholder": "Matrix section (placeholder).",
+            "panel.rigging_placeholder": "Rigging section (placeholder).",
+            "panel.ausruestung_placeholder": "Gear section (placeholder).",
+            "panel.notizen_placeholder": "Notes section (placeholder)."
+          },
+          fr: {
+            "ui.charakterbogen_titel": "Fiche de personnage Shadowrun 6",
+            "section.charakterbild": "Portrait",
+            "section.zustandsmonitor": "Moniteur d'état",
+            "section.edge_token": "Jeton d'Edge",
+            "section.attribute": "Attributs",
+            "section.wichtige_kampf_infos": "Infos de combat clés",
+            "section.persoenliche_daten": "Données personnelles",
+            "tab.allgemein": "Général",
+            "tab.fertigkeiten": "Compétences",
+            "tab.kampf": "Combat",
+            "tab.magie": "Magie",
+            "tab.matrix": "Matrice",
+            "tab.rigging": "Pilotage",
+            "tab.ausruestung": "Équipement",
+            "tab.biographie": "Biographie",
+            "tab.notizen": "Notes",
+            "field.monitor_koerperlich": "État physique",
+            "field.monitor_geistig": "État mental",
+            "field.konstitution": "Constitution",
+            "field.geschicklichkeit": "Agilité",
+            "field.reaktion": "Réaction",
+            "field.staerke": "Force",
+            "field.willenskraft": "Volonté",
+            "field.logik": "Logique",
+            "field.intuition": "Intuition",
+            "field.charisma": "Charisme",
+            "field.edge": "Edge",
+            "field.magie_resonanz": "Magie/Résonance",
+            "field.grundwert": "Base",
+            "field.modifikator": "Modificateur",
+            "field.gesamtwert": "Total",
+            "field.primaere_fernkampfwaffe": "Arme à distance principale",
+            "field.schaden": "Dégâts",
+            "field.modus": "Mode",
+            "field.s_nah": "T. Proche",
+            "field.nah": "Proche",
+            "field.mittel": "Moyen",
+            "field.weit": "Loin",
+            "field.s_weit": "T. Loin",
+            "field.munition": "Munitions",
+            "field.primaere_nahkampfwaffe": "Arme de mêlée principale",
+            "field.primaere_panzerung": "Armure principale",
+            "field.name": "Nom",
+            "field.strassenname": "Nom de rue",
+            "field.metatyp": "Métatype",
+            "field.ethnizitaet": "Ethnicité",
+            "field.alter": "Âge",
+            "field.geschlecht": "Genre",
+            "field.groesse": "Taille",
+            "field.gewicht": "Poids",
+            "field.reputation": "Réputation",
+            "field.fahndungslevel": "Niveau de recherche",
+            "field.karma": "Karma",
+            "field.gesamtkarma": "Karma total",
+            "field.edge_max": "Edge Max",
+            "panel.fertigkeiten_placeholder": "Section compétences (placeholder).",
+            "panel.kampf_placeholder": "Section combat (placeholder).",
+            "panel.magie_placeholder": "Section magie (placeholder).",
+            "panel.matrix_placeholder": "Section matrice (placeholder).",
+            "panel.rigging_placeholder": "Section pilotage (placeholder).",
+            "panel.ausruestung_placeholder": "Section équipement (placeholder).",
+            "panel.notizen_placeholder": "Section notes (placeholder)."
+          }
+        };
+
+        const STORAGE_KEY = "sr6_i18n_lang";
+        const FALLBACK_LANGUAGE = "de";
+        const availableLanguages = Object.keys(translations);
+
+        function resolveLanguage(candidate) {
+          return availableLanguages.includes(candidate) ? candidate : FALLBACK_LANGUAGE;
+        }
+
+        function applyLanguage(lang) {
+          const activeLanguage = resolveLanguage(lang);
+          const locale = translations[activeLanguage];
+          document.documentElement.lang = activeLanguage;
+
+          document.querySelectorAll("[data-i18n]").forEach((node) => {
+            const key = node.getAttribute("data-i18n");
+            if (locale[key]) {
+              node.textContent = locale[key];
+            }
+          });
+
+          const picker = document.getElementById("sr6-language-select");
+          if (picker && picker.value !== activeLanguage) {
+            picker.value = activeLanguage;
+          }
+
+          try {
+            localStorage.setItem(STORAGE_KEY, activeLanguage);
+          } catch (err) {
+          }
+        }
+
+        function getInitialLanguage() {
+          try {
+            const storedLanguage = localStorage.getItem(STORAGE_KEY);
+            if (storedLanguage) {
+              return resolveLanguage(storedLanguage);
+            }
+          } catch (err) {
+          }
+          return resolveLanguage(document.documentElement.lang);
+        }
+
+        document.addEventListener("DOMContentLoaded", () => {
+          const picker = document.getElementById("sr6-language-select");
+          const initialLanguage = getInitialLanguage();
+          applyLanguage(initialLanguage);
+
+          if (picker) {
+            picker.addEventListener("change", (event) => {
+              applyLanguage(event.target.value);
+            });
+          }
+        });
+      })();
+    </script>
   </body>
 </html>
