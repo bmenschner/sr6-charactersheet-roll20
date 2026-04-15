@@ -38,7 +38,7 @@ Wir arbeiten **CSE-first**.
 
 ### Noch offen / in Arbeit
 - Klassen-Namensmigration auf finales vereinheitlichtes Schema (`sr6-charactersheet-*`) ist gestartet: Alias-Phase (alt+neu parallel) im `output`-HTML/CSS umgesetzt, Bereinigung alter Klassen noch offen.
-- Attributnamen sind noch gemischt und noch nicht auf ein finales, durchgaengiges Schema migriert.
+- Attributnamen in `output/charakterbogen.de.html` sind auf ein `attr_sr6_*`-Schema migriert (Module: `attr`, `combat`, `bio`, `monitor`). Legacy-Namen sind dort bereinigt.
 - i18n-Umstellung ist begonnen, aber sichtbare Labels sind aktuell noch weitgehend hardcoded.
 - Worker/API-Logik ist noch nicht final in den produktiven Output integriert.
 
