@@ -1,0 +1,23 @@
+{
+  "de": {
+    "ui.charakterbogen_titel": "Shadowrun 6 Charakterbogen",
+    "section.grunddaten": "Grunddaten",
+    "field.charaktername": "Charaktername",
+    "field.spielername": "Spielername",
+    "field.metatyp": "Metatyp"
+  },
+  "en": {
+    "ui.charakterbogen_titel": "Shadowrun 6 Character Sheet",
+    "section.grunddaten": "Core Data",
+    "field.charaktername": "Character Name",
+    "field.spielername": "Player Name",
+    "field.metatyp": "Metatype"
+  },
+  "fr": {
+    "ui.charakterbogen_titel": "Fiche de personnage Shadowrun 6",
+    "section.grunddaten": "Donnees de base",
+    "field.charaktername": "Nom du personnage",
+    "field.spielername": "Nom du joueur",
+    "field.metatyp": "Metatype"
+  }
+}

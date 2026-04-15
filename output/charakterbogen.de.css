@@ -1,0 +1,96 @@
+:root {
+  --sr6-bg: #d2d2d2;
+  --sr6-line: #d400a6;
+  --sr6-line-soft: rgba(212, 0, 166, 0.5);
+  --sr6-text: #111111;
+  --sr6-title: #d400a6;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  color: var(--sr6-text);
+  font-family: "Segoe UI", "Helvetica Neue", Arial, sans-serif;
+}
+
+.ui-dialog {
+  background-color: #F5F5F5
+}
+
+.sr6-layout {
+  max-width: 980px;
+  margin: 0;
+}
+
+.sr6-box {
+  width: 306px;
+  border-bottom: 2px solid var(--sr6-line);
+  background: transparent;
+  position: relative;
+}
+
+.sr6-box::after {
+  content: none;
+}
+
+.sr6-box-title {
+  margin: 0;
+  padding: 8px 10px 7px;
+  font-size: 1rem;
+  font-weight: 700;
+  color: var(--sr6-title);
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+}
+
+.sr6-box-content {
+  padding: 8px 10px 10px;
+}
+
+.sr6-field {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+}
+
+.sr6-field>span {
+  font-size: 0.68rem;
+  color: var(--sr6-text);
+  letter-spacing: 0.01em;
+}
+
+.sr6-field input {
+  width: 100%;
+  height: 24px;
+  border: none;
+  border-bottom: 1px solid var(--sr6-line-soft);
+  background: transparent;
+  color: var(--sr6-text);
+  font-size: 0.86rem;
+  padding: 2px 4px;
+}
+
+.sr6-field input:focus {
+  outline: 1px solid var(--sr6-line);
+  border-bottom-color: var(--sr6-line);
+}
+
+.sr6-row--2 {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 8px;
+}
+
+.sr6-row--4 {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 7px;
+}
+
+.characterviewer label {
+  font-weight: bold;
+  font-size: 1.2em;
+  margin-bottom: 0px;
+}
