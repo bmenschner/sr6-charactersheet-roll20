@@ -48,6 +48,7 @@ Wir arbeiten **CSE-first**.
 - Rollbuttons auf thematische Rolltemplates sind aufgeteilt (Attribute, Fernkampf, Nahkampf).
 - Ergebnisfelder und Kontext sind in der Chat-Ausgabe eingebunden (Waffe/Modus bei Kampf).
 - Konsistente Namenskonvention fuer `roll_...`-Buttons ist dokumentiert (`docs/roll20-roll-button-naming-v1.md`).
+- Lesbare Roll-Ausgabe fuer `Attribut` ist umgesetzt (keine `sr6_*`-Schluessel mehr im Chat-Template-Feld `Attribut`).
 
 ### Schritt 2: Worker-Ausbau
 - Abgeleitete Werte fuer zentrale Bereiche sind begonnen (`sr6_derived_*` fuer Initiative/Verteidigung/Monitor/Edge-Basis).
