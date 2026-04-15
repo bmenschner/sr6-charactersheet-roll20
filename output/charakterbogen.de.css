@@ -151,6 +151,12 @@ body,
   gap: 0.4375rem;
 }
 
+.sr6-charactersheet-row-3 {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 0.4375rem;
+}
+
 .sr6-charactersheet-row-1 {
   display: grid;
   grid-template-columns: minmax(0, 1fr);
@@ -352,8 +358,18 @@ body,
   gap: 0.75rem;
 }
 
+.sr6-charactersheet-tab-kampf-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0.75rem;
+}
+
 @media (max-width: 50rem) {
   .sr6-charactersheet-tab-allgemein-grid {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .sr6-charactersheet-tab-kampf-grid {
     grid-template-columns: minmax(0, 1fr);
   }
 
@@ -363,6 +379,10 @@ body,
 
   .sr6-charactersheet-row-5 {
     grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .sr6-charactersheet-row-3 {
+    grid-template-columns: minmax(0, 1fr);
   }
 }
 

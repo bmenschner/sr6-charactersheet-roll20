@@ -63,6 +63,9 @@ Wir arbeiten **CSE-first**.
 ### Schritt 4: Modul-Ausbau Fertigkeiten
 - Reiter "Fertigkeiten" ist nicht mehr Platzhalter, sondern als wiederverwendbares Tabellenmodul mit Start-Fertigkeiten und Roll-Buttons angelegt.
 
+### Schritt 5: Modul-Ausbau Kampf
+- Reiter "Kampf" ist nicht mehr Platzhalter, sondern als eigenstaendiges Modul mit Fernkampf-/Nahkampf-Bereichen, Distanzwuerfen und Basiswerten fuer Initiative/Verteidigung angelegt.
+
 ## Akzeptanzkriterien fuer den aktuellen Sprint
 - CSE-Entscheidung klar dokumentiert.
 - Root-Checkliste vorhanden und aktuell.
