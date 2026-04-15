@@ -10,24 +10,40 @@
   box-sizing: border-box;
 }
 
+body,
 .ui-dialog {
-  background-color: #000000;
-  background-image: url("https://raw.githubusercontent.com/bmenschner/sr6-charactersheet-roll20/main/src/background.jpg");
-  background-repeat: no-repeat;
-  background-size: cover;
-  background-position: center center;
+  margin: 0;
+  padding: 1.5rem 1.5rem 1.5rem 0;
+  background-color: #d2d2d2;
+  background-image:
+    linear-gradient(rgba(255, 255, 255, 0.58), rgba(255, 255, 255, 0.58)),
+    url("https://raw.githubusercontent.com/bmenschner/sr6-charactersheet-roll20/main/src/background.jpg");
+  background-repeat: no-repeat, no-repeat;
+  background-size: cover, cover;
+  background-position: center center, center center;
   color: var(--sr6-text);
   font-family: "Segoe UI", "Helvetica Neue", Arial, sans-serif;
 }
 
-.sr6-layout {
-  max-width: 980px;
+.ui-dialog {
+  background-color: #f5f5f5;
+}
+
+.sr6-layout,
+.characterviewer .sr6-layout {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, calc((100% - 0.75rem) / 2)));
+  width: 100%;
+  max-width: none;
   margin: 0;
+  gap: 0.75rem;
 }
 
 .sr6-box {
-  width: 306px;
-  border-bottom: 2px solid var(--sr6-line);
+  width: 100%;
+  border: none;
+  border-bottom: 0.125rem solid var(--sr6-line);
+  border-radius: 0;
   background: transparent;
   position: relative;
 }
@@ -38,60 +54,60 @@
 
 .sr6-box-title {
   margin: 0;
-  padding: 8px 10px 7px;
-  font-size: 1rem;
+  padding: 0.5rem 0.625rem 0.4375rem;
+  font-size: 1.5rem;
   font-weight: 700;
   color: var(--sr6-title);
   text-transform: uppercase;
-  letter-spacing: 0.03em;
+  letter-spacing: 0.03rem;
 }
 
 .sr6-box-content {
-  padding: 8px 10px 10px;
+  padding: 0.5rem 0.625rem 0.625rem;
 }
 
 .sr6-field {
   display: flex;
   flex-direction: column;
-  gap: 3px;
+  gap: 0.1875rem;
 }
 
 .sr6-field>span {
   font-size: 0.68rem;
   color: var(--sr6-text);
-  letter-spacing: 0.01em;
+  letter-spacing: 0.01rem;
 }
 
 .sr6-field input {
   width: 100%;
-  height: 24px;
+  height: 1.5rem;
   border: none;
-  border-bottom: 1px solid var(--sr6-line-soft);
+  border-bottom: 0.0625rem solid var(--sr6-line-soft);
   background: transparent;
   color: var(--sr6-text);
   font-size: 0.86rem;
-  padding: 2px 4px;
+  padding: 0.125rem 0.25rem;
 }
 
 .sr6-field input:focus {
-  outline: 1px solid var(--sr6-line);
+  outline: 0.0625rem solid var(--sr6-line);
   border-bottom-color: var(--sr6-line);
 }
 
 .sr6-row--2 {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 8px;
+  gap: 0.5rem;
 }
 
 .sr6-row--4 {
   display: grid;
   grid-template-columns: repeat(4, minmax(0, 1fr));
-  gap: 7px;
+  gap: 0.4375rem;
 }
 
-.characterviewer label {
-  font-weight: bold;
-  font-size: 1.2em;
-  margin-bottom: 0px;
+.characterviewer .sr6-box .sr6-field > span {
+  font-weight: 700;
+  font-size: 1rem;
+  margin-bottom: 0;
 }
