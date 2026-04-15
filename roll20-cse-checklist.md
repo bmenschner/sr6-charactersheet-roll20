@@ -51,7 +51,7 @@ Wir arbeiten **CSE-first**.
 
 ### Schritt 2: Worker-Ausbau
 - Abgeleitete Werte fuer zentrale Bereiche sind begonnen (`sr6_derived_*` fuer Initiative/Verteidigung/Monitor/Edge-Basis).
-- Worker-Trigger auf Performance und Zirkularitaet pruefen.
+- Worker-Trigger fuer Attribute sind auf zentralen Recompute-Flow konsolidiert (weniger Event-Fragmentierung, geringeres Zirkularitaetsrisiko).
 
 ### Schritt 3: Roll20-Live-Check
 - i18n-Umschaltung (DE/EN/FR), Rollbuttons und Worker in Roll20 praktisch testen.

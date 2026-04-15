@@ -385,76 +385,51 @@
         return Number.isNaN(parsed) ? 0 : parsed;
       }
 
-      function updateAttributeTotal(attributeName) {
-        const baseKey = `sr6_attr_${attributeName}_grundwert`;
-        const modifierKey = `sr6_attr_${attributeName}_modifikator`;
-        const totalKey = `sr6_attr_${attributeName}_gesamtwert`;
+      function recomputeAll() {
+        const requestKeys = [];
+        const updates = {};
+        const totals = {};
 
-        getAttrs([baseKey, modifierKey], (values) => {
-          const total = parseNumber(values[baseKey]) + parseNumber(values[modifierKey]);
-          setAttrs({ [totalKey]: String(total) }, { silent: true });
-        });
-      }
-
-      function updateDerivedBasics() {
-        const keys = [
-          "sr6_attr_reaktion_gesamtwert",
-          "sr6_attr_intuition_gesamtwert",
-          "sr6_attr_konstitution_gesamtwert",
-          "sr6_attr_willenskraft_gesamtwert",
-          "sr6_attr_edge_gesamtwert"
-        ];
-
-        getAttrs(keys, (values) => {
-          const reaktion = parseNumber(values.sr6_attr_reaktion_gesamtwert);
-          const intuition = parseNumber(values.sr6_attr_intuition_gesamtwert);
-          const konstitution = parseNumber(values.sr6_attr_konstitution_gesamtwert);
-          const willenskraft = parseNumber(values.sr6_attr_willenskraft_gesamtwert);
-          const edge = parseNumber(values.sr6_attr_edge_gesamtwert);
-
-          const initiativeBasis = reaktion + intuition;
-          const verteidigungBasis = reaktion + intuition;
-          const koerperMonitorMax = 8 + Math.ceil(konstitution / 2);
-          const geistMonitorMax = 8 + Math.ceil(willenskraft / 2);
-
-          setAttrs(
-            {
-              sr6_derived_initiative_basis: String(initiativeBasis),
-              sr6_derived_verteidigung_basis: String(verteidigungBasis),
-              sr6_derived_koerperlicher_monitor_max: String(koerperMonitorMax),
-              sr6_derived_geistiger_monitor_max: String(geistMonitorMax),
-              sr6_derived_edge_basis: String(edge)
-            },
-            { silent: true }
-          );
-        });
-      }
-
-      SR6_ATTRIBUTES.forEach((attributeName) => {
-        on(
-          `change:sr6_attr_${attributeName}_grundwert change:sr6_attr_${attributeName}_modifikator`,
-          () => {
-            updateAttributeTotal(attributeName);
-          }
-        );
-      });
-
-      on("sheet:opened", () => {
         SR6_ATTRIBUTES.forEach((attributeName) => {
-          updateAttributeTotal(attributeName);
+          requestKeys.push(`sr6_attr_${attributeName}_grundwert`);
+          requestKeys.push(`sr6_attr_${attributeName}_modifikator`);
         });
+
+        getAttrs(requestKeys, (values) => {
+          SR6_ATTRIBUTES.forEach((attributeName) => {
+            const baseKey = `sr6_attr_${attributeName}_grundwert`;
+            const modifierKey = `sr6_attr_${attributeName}_modifikator`;
+            const totalKey = `sr6_attr_${attributeName}_gesamtwert`;
+            const total = parseNumber(values[baseKey]) + parseNumber(values[modifierKey]);
+
+            totals[attributeName] = total;
+            updates[totalKey] = String(total);
+          });
+
+          const reaktion = totals.reaktion || 0;
+          const intuition = totals.intuition || 0;
+          const konstitution = totals.konstitution || 0;
+          const willenskraft = totals.willenskraft || 0;
+          const edge = totals.edge || 0;
+
+          updates.sr6_derived_initiative_basis = String(reaktion + intuition);
+          updates.sr6_derived_verteidigung_basis = String(reaktion + intuition);
+          updates.sr6_derived_koerperlicher_monitor_max = String(8 + Math.ceil(konstitution / 2));
+          updates.sr6_derived_geistiger_monitor_max = String(8 + Math.ceil(willenskraft / 2));
+          updates.sr6_derived_edge_basis = String(edge);
+
+          setAttrs(updates, { silent: true });
+        });
+      }
+
+      const recalcEvents = [];
+      SR6_ATTRIBUTES.forEach((attributeName) => {
+        recalcEvents.push(`change:sr6_attr_${attributeName}_grundwert`);
+        recalcEvents.push(`change:sr6_attr_${attributeName}_modifikator`);
       });
 
-      on(
-        "change:sr6_attr_reaktion_gesamtwert change:sr6_attr_intuition_gesamtwert change:sr6_attr_konstitution_gesamtwert change:sr6_attr_willenskraft_gesamtwert change:sr6_attr_edge_gesamtwert",
-        () => {
-          updateDerivedBasics();
-        }
-      );
-
-      on("sheet:opened", () => {
-        updateDerivedBasics();
-      });
+      on(recalcEvents.join(" "), recomputeAll);
+      on("sheet:opened", recomputeAll);
     </script>
 
     <script>
