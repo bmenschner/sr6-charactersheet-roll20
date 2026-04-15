@@ -60,6 +60,9 @@ Wir arbeiten **CSE-first**.
 - Gefundene UI-/Worker-Abweichungen im Output nachziehen.
 - Testprotokoll ist vorbereitet (`docs/roll20-live-check-v1.md`).
 
+### Schritt 4: Modul-Ausbau Fertigkeiten
+- Reiter "Fertigkeiten" ist nicht mehr Platzhalter, sondern als wiederverwendbares Tabellenmodul mit Start-Fertigkeiten und Roll-Buttons angelegt.
+
 ## Akzeptanzkriterien fuer den aktuellen Sprint
 - CSE-Entscheidung klar dokumentiert.
 - Root-Checkliste vorhanden und aktuell.
