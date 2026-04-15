@@ -6,38 +6,38 @@
     <link rel="stylesheet" href="./charakterbogen.de.css" />
   </head>
   <body>
-    <input id="sr6-tabs-toggle" class="sr6-tabs-toggle-input" type="checkbox" />
-    <label class="sr6-tabs-toggle" for="sr6-tabs-toggle" aria-label="Tabs ein- und ausblenden"></label>
+    <input id="sr6-tabs-toggle" class="sr6-tabs-toggle-input sr6-charactersheet-settings-toggle-input" type="checkbox" />
+    <label class="sr6-tabs-toggle sr6-charactersheet-settings-toggle" for="sr6-tabs-toggle" aria-label="Tabs ein- und ausblenden"></label>
 
-    <div class="sr6-layout">
-      <section class="sr6-kopfbereich" aria-label="Kopfbereich">
-        <div class="sr6-kopfbereich-spalte sr6-kopfbereich-spalte--bild">
-          <h2 class="sr6-kopfbereich-titel">Charakterbild</h2>
-          <div class="sr6-platzhalter sr6-platzhalter--bild" aria-hidden="true">Platzhalter</div>
+    <div class="sr6-layout sr6-charactersheet">
+      <section class="sr6-kopfbereich sr6-charactersheet-kopfbereich" aria-label="Kopfbereich">
+        <div class="sr6-kopfbereich-spalte sr6-kopfbereich-spalte--bild sr6-charactersheet-kopfbereich-spalte sr6-charactersheet-kopfbereich-spalte--bild">
+          <h2 class="sr6-kopfbereich-titel sr6-charactersheet-kopfbereich-title">Charakterbild</h2>
+          <div class="sr6-platzhalter sr6-platzhalter--bild sr6-charactersheet-placeholder sr6-charactersheet-placeholder--bild" aria-hidden="true">Platzhalter</div>
         </div>
 
-        <div class="sr6-kopfbereich-spalte sr6-kopfbereich-spalte--zustand">
-          <h2 class="sr6-kopfbereich-titel">Zustandsmonitor</h2>
-          <div class="sr6-zustandsmonitor-zeilen">
-            <label class="sr6-field">
+        <div class="sr6-kopfbereich-spalte sr6-kopfbereich-spalte--zustand sr6-charactersheet-kopfbereich-spalte sr6-charactersheet-kopfbereich-spalte--zustand">
+          <h2 class="sr6-kopfbereich-titel sr6-charactersheet-kopfbereich-title">Zustandsmonitor</h2>
+          <div class="sr6-zustandsmonitor-zeilen sr6-charactersheet-zustandsmonitor-zeilen">
+            <label class="sr6-field sr6-charactersheet-field">
               <span>Körperlicher Zustand</span>
               <input type="text" name="attr_koerperlicher_zustand" />
             </label>
-            <label class="sr6-field">
+            <label class="sr6-field sr6-charactersheet-field">
               <span>Geistiger Zustand</span>
               <input type="text" name="attr_geistiger_zustand" />
             </label>
           </div>
         </div>
 
-        <div class="sr6-kopfbereich-spalte sr6-kopfbereich-spalte--edge">
-          <h2 class="sr6-kopfbereich-titel">Edge Token</h2>
-          <div class="sr6-platzhalter sr6-platzhalter--edge" aria-hidden="true">Platzhalter</div>
+        <div class="sr6-kopfbereich-spalte sr6-kopfbereich-spalte--edge sr6-charactersheet-kopfbereich-spalte sr6-charactersheet-kopfbereich-spalte--edge">
+          <h2 class="sr6-kopfbereich-titel sr6-charactersheet-kopfbereich-title">Edge Token</h2>
+          <div class="sr6-platzhalter sr6-platzhalter--edge sr6-charactersheet-placeholder sr6-charactersheet-placeholder--edge" aria-hidden="true">Platzhalter</div>
         </div>
       </section>
 
-      <section class="sr6-box sr6-daten-tabs" aria-label="Datenumschaltung">
-        <div class="sr6-daten-tabs-steuerung" role="tablist" aria-label="Datenbereiche">
+      <section class="sr6-box sr6-daten-tabs sr6-charactersheet-box sr6-charactersheet-menu" aria-label="Datenumschaltung">
+        <div class="sr6-daten-tabs-steuerung sr6-charactersheet-menu-tabs" role="tablist" aria-label="Datenbereiche">
           <input type="radio" name="sr6_daten_tab" id="sr6_daten_tab_1" checked />
           <label for="sr6_daten_tab_1" role="tab" aria-controls="sr6_daten_panel_1">Allgemein</label>
 
@@ -66,179 +66,179 @@
           <label for="sr6_daten_tab_9" role="tab" aria-controls="sr6_daten_panel_9">Notizen</label>
         </div>
 
-        <div class="sr6-daten-tabs-inhalt">
-          <div id="sr6_daten_panel_1" class="sr6-daten-panel" role="tabpanel">
-            <div class="sr6-allgemein-grid">
-              <section class="sr6-box sr6-box--attribute" aria-labelledby="attribute-titel">
-                <h1 id="attribute-titel" class="sr6-box-title">Attribute</h1>
+        <div class="sr6-daten-tabs-inhalt sr6-charactersheet-menu-content">
+          <div id="sr6_daten_panel_1" class="sr6-daten-panel sr6-charactersheet-tabpanel" role="tabpanel">
+            <div class="sr6-allgemein-grid sr6-charactersheet-tab-allgemein-grid">
+              <section class="sr6-box sr6-box--attribute sr6-charactersheet-box sr6-charactersheet-box-attribute" aria-labelledby="attribute-titel">
+                <h1 id="attribute-titel" class="sr6-box-title sr6-charactersheet-box-title">Attribute</h1>
 
-                <div class="sr6-box-content">
-                  <div class="sr6-row sr6-row--2">
-                    <div class="sr6-field sr6-attribut-feld">
+                <div class="sr6-box-content sr6-charactersheet-box-content">
+                  <div class="sr6-row sr6-row--2 sr6-charactersheet-row sr6-charactersheet-row-2">
+                    <div class="sr6-field sr6-charactersheet-field sr6-attribut-feld sr6-charactersheet-attr-field">
                       <span>Konstitution</span>
-                      <div class="sr6-attribut-werte">
-                        <div class="sr6-attribut-wert sr6-attribut-wert--mit-wuerfel"><span>Grundwert</span><div class="sr6-eingabe-mit-wuerfel"><input type="text" name="attr_konstitution_grundwert" /><button type="button" class="sr6-wuerfelicon" aria-label="Wuerfeln">⚅</button></div></div>
-                        <div class="sr6-attribut-wert"><span>Modifikator</span><input type="text" name="attr_konstitution_modifikator" /></div>
-                        <div class="sr6-attribut-wert sr6-attribut-wert--mit-wuerfel"><span>Gesamtwert</span><div class="sr6-eingabe-mit-wuerfel"><input type="text" name="attr_konstitution_gesamtwert" /><button type="button" class="sr6-wuerfelicon" aria-label="Wuerfeln">⚅</button></div></div>
+                      <div class="sr6-attribut-werte sr6-charactersheet-attr-values">
+                        <div class="sr6-attribut-wert sr6-attribut-wert--mit-wuerfel sr6-charactersheet-attr-value sr6-charactersheet-attr-value--with-dice"><span>Grundwert</span><div class="sr6-eingabe-mit-wuerfel sr6-charactersheet-field-input-with-dice"><input type="text" name="attr_konstitution_grundwert" /><button type="button" class="sr6-wuerfelicon sr6-charactersheet-field-dice-button" aria-label="Wuerfeln">⚅</button></div></div>
+                        <div class="sr6-attribut-wert sr6-charactersheet-attr-value"><span>Modifikator</span><input type="text" name="attr_konstitution_modifikator" /></div>
+                        <div class="sr6-attribut-wert sr6-attribut-wert--mit-wuerfel sr6-charactersheet-attr-value sr6-charactersheet-attr-value--with-dice"><span>Gesamtwert</span><div class="sr6-eingabe-mit-wuerfel sr6-charactersheet-field-input-with-dice"><input type="text" name="attr_konstitution_gesamtwert" /><button type="button" class="sr6-wuerfelicon sr6-charactersheet-field-dice-button" aria-label="Wuerfeln">⚅</button></div></div>
                       </div>
                     </div>
 
-                    <div class="sr6-field sr6-attribut-feld">
+                    <div class="sr6-field sr6-charactersheet-field sr6-attribut-feld sr6-charactersheet-attr-field">
                       <span>Geschicklichkeit</span>
-                      <div class="sr6-attribut-werte">
-                        <div class="sr6-attribut-wert sr6-attribut-wert--mit-wuerfel"><span>Grundwert</span><div class="sr6-eingabe-mit-wuerfel"><input type="text" name="attr_geschicklichkeit_grundwert" /><button type="button" class="sr6-wuerfelicon" aria-label="Wuerfeln">⚅</button></div></div>
-                        <div class="sr6-attribut-wert"><span>Modifikator</span><input type="text" name="attr_geschicklichkeit_modifikator" /></div>
-                        <div class="sr6-attribut-wert sr6-attribut-wert--mit-wuerfel"><span>Gesamtwert</span><div class="sr6-eingabe-mit-wuerfel"><input type="text" name="attr_geschicklichkeit_gesamtwert" /><button type="button" class="sr6-wuerfelicon" aria-label="Wuerfeln">⚅</button></div></div>
+                      <div class="sr6-attribut-werte sr6-charactersheet-attr-values">
+                        <div class="sr6-attribut-wert sr6-attribut-wert--mit-wuerfel sr6-charactersheet-attr-value sr6-charactersheet-attr-value--with-dice"><span>Grundwert</span><div class="sr6-eingabe-mit-wuerfel sr6-charactersheet-field-input-with-dice"><input type="text" name="attr_geschicklichkeit_grundwert" /><button type="button" class="sr6-wuerfelicon sr6-charactersheet-field-dice-button" aria-label="Wuerfeln">⚅</button></div></div>
+                        <div class="sr6-attribut-wert sr6-charactersheet-attr-value"><span>Modifikator</span><input type="text" name="attr_geschicklichkeit_modifikator" /></div>
+                        <div class="sr6-attribut-wert sr6-attribut-wert--mit-wuerfel sr6-charactersheet-attr-value sr6-charactersheet-attr-value--with-dice"><span>Gesamtwert</span><div class="sr6-eingabe-mit-wuerfel sr6-charactersheet-field-input-with-dice"><input type="text" name="attr_geschicklichkeit_gesamtwert" /><button type="button" class="sr6-wuerfelicon sr6-charactersheet-field-dice-button" aria-label="Wuerfeln">⚅</button></div></div>
                       </div>
                     </div>
                   </div>
 
-                  <div class="sr6-row sr6-row--2">
-                    <div class="sr6-field sr6-attribut-feld">
+                  <div class="sr6-row sr6-row--2 sr6-charactersheet-row sr6-charactersheet-row-2">
+                    <div class="sr6-field sr6-charactersheet-field sr6-attribut-feld sr6-charactersheet-attr-field">
                       <span>Reaktion</span>
-                      <div class="sr6-attribut-werte">
-                        <div class="sr6-attribut-wert sr6-attribut-wert--mit-wuerfel"><span>Grundwert</span><div class="sr6-eingabe-mit-wuerfel"><input type="text" name="attr_reaktion_grundwert" /><button type="button" class="sr6-wuerfelicon" aria-label="Wuerfeln">⚅</button></div></div>
-                        <div class="sr6-attribut-wert"><span>Modifikator</span><input type="text" name="attr_reaktion_modifikator" /></div>
-                        <div class="sr6-attribut-wert sr6-attribut-wert--mit-wuerfel"><span>Gesamtwert</span><div class="sr6-eingabe-mit-wuerfel"><input type="text" name="attr_reaktion_gesamtwert" /><button type="button" class="sr6-wuerfelicon" aria-label="Wuerfeln">⚅</button></div></div>
+                      <div class="sr6-attribut-werte sr6-charactersheet-attr-values">
+                        <div class="sr6-attribut-wert sr6-attribut-wert--mit-wuerfel sr6-charactersheet-attr-value sr6-charactersheet-attr-value--with-dice"><span>Grundwert</span><div class="sr6-eingabe-mit-wuerfel sr6-charactersheet-field-input-with-dice"><input type="text" name="attr_reaktion_grundwert" /><button type="button" class="sr6-wuerfelicon sr6-charactersheet-field-dice-button" aria-label="Wuerfeln">⚅</button></div></div>
+                        <div class="sr6-attribut-wert sr6-charactersheet-attr-value"><span>Modifikator</span><input type="text" name="attr_reaktion_modifikator" /></div>
+                        <div class="sr6-attribut-wert sr6-attribut-wert--mit-wuerfel sr6-charactersheet-attr-value sr6-charactersheet-attr-value--with-dice"><span>Gesamtwert</span><div class="sr6-eingabe-mit-wuerfel sr6-charactersheet-field-input-with-dice"><input type="text" name="attr_reaktion_gesamtwert" /><button type="button" class="sr6-wuerfelicon sr6-charactersheet-field-dice-button" aria-label="Wuerfeln">⚅</button></div></div>
                       </div>
                     </div>
 
-                    <div class="sr6-field sr6-attribut-feld">
+                    <div class="sr6-field sr6-charactersheet-field sr6-attribut-feld sr6-charactersheet-attr-field">
                       <span>Stärke</span>
-                      <div class="sr6-attribut-werte">
-                        <div class="sr6-attribut-wert sr6-attribut-wert--mit-wuerfel"><span>Grundwert</span><div class="sr6-eingabe-mit-wuerfel"><input type="text" name="attr_staerke_grundwert" /><button type="button" class="sr6-wuerfelicon" aria-label="Wuerfeln">⚅</button></div></div>
-                        <div class="sr6-attribut-wert"><span>Modifikator</span><input type="text" name="attr_staerke_modifikator" /></div>
-                        <div class="sr6-attribut-wert sr6-attribut-wert--mit-wuerfel"><span>Gesamtwert</span><div class="sr6-eingabe-mit-wuerfel"><input type="text" name="attr_staerke_gesamtwert" /><button type="button" class="sr6-wuerfelicon" aria-label="Wuerfeln">⚅</button></div></div>
+                      <div class="sr6-attribut-werte sr6-charactersheet-attr-values">
+                        <div class="sr6-attribut-wert sr6-attribut-wert--mit-wuerfel sr6-charactersheet-attr-value sr6-charactersheet-attr-value--with-dice"><span>Grundwert</span><div class="sr6-eingabe-mit-wuerfel sr6-charactersheet-field-input-with-dice"><input type="text" name="attr_staerke_grundwert" /><button type="button" class="sr6-wuerfelicon sr6-charactersheet-field-dice-button" aria-label="Wuerfeln">⚅</button></div></div>
+                        <div class="sr6-attribut-wert sr6-charactersheet-attr-value"><span>Modifikator</span><input type="text" name="attr_staerke_modifikator" /></div>
+                        <div class="sr6-attribut-wert sr6-attribut-wert--mit-wuerfel sr6-charactersheet-attr-value sr6-charactersheet-attr-value--with-dice"><span>Gesamtwert</span><div class="sr6-eingabe-mit-wuerfel sr6-charactersheet-field-input-with-dice"><input type="text" name="attr_staerke_gesamtwert" /><button type="button" class="sr6-wuerfelicon sr6-charactersheet-field-dice-button" aria-label="Wuerfeln">⚅</button></div></div>
                       </div>
                     </div>
                   </div>
 
-                  <div class="sr6-row sr6-row--2">
-                    <div class="sr6-field sr6-attribut-feld">
+                  <div class="sr6-row sr6-row--2 sr6-charactersheet-row sr6-charactersheet-row-2">
+                    <div class="sr6-field sr6-charactersheet-field sr6-attribut-feld sr6-charactersheet-attr-field">
                       <span>Willenskraft</span>
-                      <div class="sr6-attribut-werte">
-                        <div class="sr6-attribut-wert sr6-attribut-wert--mit-wuerfel"><span>Grundwert</span><div class="sr6-eingabe-mit-wuerfel"><input type="text" name="attr_willenskraft_grundwert" /><button type="button" class="sr6-wuerfelicon" aria-label="Wuerfeln">⚅</button></div></div>
-                        <div class="sr6-attribut-wert"><span>Modifikator</span><input type="text" name="attr_willenskraft_modifikator" /></div>
-                        <div class="sr6-attribut-wert sr6-attribut-wert--mit-wuerfel"><span>Gesamtwert</span><div class="sr6-eingabe-mit-wuerfel"><input type="text" name="attr_willenskraft_gesamtwert" /><button type="button" class="sr6-wuerfelicon" aria-label="Wuerfeln">⚅</button></div></div>
+                      <div class="sr6-attribut-werte sr6-charactersheet-attr-values">
+                        <div class="sr6-attribut-wert sr6-attribut-wert--mit-wuerfel sr6-charactersheet-attr-value sr6-charactersheet-attr-value--with-dice"><span>Grundwert</span><div class="sr6-eingabe-mit-wuerfel sr6-charactersheet-field-input-with-dice"><input type="text" name="attr_willenskraft_grundwert" /><button type="button" class="sr6-wuerfelicon sr6-charactersheet-field-dice-button" aria-label="Wuerfeln">⚅</button></div></div>
+                        <div class="sr6-attribut-wert sr6-charactersheet-attr-value"><span>Modifikator</span><input type="text" name="attr_willenskraft_modifikator" /></div>
+                        <div class="sr6-attribut-wert sr6-attribut-wert--mit-wuerfel sr6-charactersheet-attr-value sr6-charactersheet-attr-value--with-dice"><span>Gesamtwert</span><div class="sr6-eingabe-mit-wuerfel sr6-charactersheet-field-input-with-dice"><input type="text" name="attr_willenskraft_gesamtwert" /><button type="button" class="sr6-wuerfelicon sr6-charactersheet-field-dice-button" aria-label="Wuerfeln">⚅</button></div></div>
                       </div>
                     </div>
 
-                    <div class="sr6-field sr6-attribut-feld">
+                    <div class="sr6-field sr6-charactersheet-field sr6-attribut-feld sr6-charactersheet-attr-field">
                       <span>Logik</span>
-                      <div class="sr6-attribut-werte">
-                        <div class="sr6-attribut-wert sr6-attribut-wert--mit-wuerfel"><span>Grundwert</span><div class="sr6-eingabe-mit-wuerfel"><input type="text" name="attr_logik_grundwert" /><button type="button" class="sr6-wuerfelicon" aria-label="Wuerfeln">⚅</button></div></div>
-                        <div class="sr6-attribut-wert"><span>Modifikator</span><input type="text" name="attr_logik_modifikator" /></div>
-                        <div class="sr6-attribut-wert sr6-attribut-wert--mit-wuerfel"><span>Gesamtwert</span><div class="sr6-eingabe-mit-wuerfel"><input type="text" name="attr_logik_gesamtwert" /><button type="button" class="sr6-wuerfelicon" aria-label="Wuerfeln">⚅</button></div></div>
+                      <div class="sr6-attribut-werte sr6-charactersheet-attr-values">
+                        <div class="sr6-attribut-wert sr6-attribut-wert--mit-wuerfel sr6-charactersheet-attr-value sr6-charactersheet-attr-value--with-dice"><span>Grundwert</span><div class="sr6-eingabe-mit-wuerfel sr6-charactersheet-field-input-with-dice"><input type="text" name="attr_logik_grundwert" /><button type="button" class="sr6-wuerfelicon sr6-charactersheet-field-dice-button" aria-label="Wuerfeln">⚅</button></div></div>
+                        <div class="sr6-attribut-wert sr6-charactersheet-attr-value"><span>Modifikator</span><input type="text" name="attr_logik_modifikator" /></div>
+                        <div class="sr6-attribut-wert sr6-attribut-wert--mit-wuerfel sr6-charactersheet-attr-value sr6-charactersheet-attr-value--with-dice"><span>Gesamtwert</span><div class="sr6-eingabe-mit-wuerfel sr6-charactersheet-field-input-with-dice"><input type="text" name="attr_logik_gesamtwert" /><button type="button" class="sr6-wuerfelicon sr6-charactersheet-field-dice-button" aria-label="Wuerfeln">⚅</button></div></div>
                       </div>
                     </div>
                   </div>
 
-                  <div class="sr6-row sr6-row--2">
-                    <div class="sr6-field sr6-attribut-feld">
+                  <div class="sr6-row sr6-row--2 sr6-charactersheet-row sr6-charactersheet-row-2">
+                    <div class="sr6-field sr6-charactersheet-field sr6-attribut-feld sr6-charactersheet-attr-field">
                       <span>Intuition</span>
-                      <div class="sr6-attribut-werte">
-                        <div class="sr6-attribut-wert sr6-attribut-wert--mit-wuerfel"><span>Grundwert</span><div class="sr6-eingabe-mit-wuerfel"><input type="text" name="attr_intuition_grundwert" /><button type="button" class="sr6-wuerfelicon" aria-label="Wuerfeln">⚅</button></div></div>
-                        <div class="sr6-attribut-wert"><span>Modifikator</span><input type="text" name="attr_intuition_modifikator" /></div>
-                        <div class="sr6-attribut-wert sr6-attribut-wert--mit-wuerfel"><span>Gesamtwert</span><div class="sr6-eingabe-mit-wuerfel"><input type="text" name="attr_intuition_gesamtwert" /><button type="button" class="sr6-wuerfelicon" aria-label="Wuerfeln">⚅</button></div></div>
+                      <div class="sr6-attribut-werte sr6-charactersheet-attr-values">
+                        <div class="sr6-attribut-wert sr6-attribut-wert--mit-wuerfel sr6-charactersheet-attr-value sr6-charactersheet-attr-value--with-dice"><span>Grundwert</span><div class="sr6-eingabe-mit-wuerfel sr6-charactersheet-field-input-with-dice"><input type="text" name="attr_intuition_grundwert" /><button type="button" class="sr6-wuerfelicon sr6-charactersheet-field-dice-button" aria-label="Wuerfeln">⚅</button></div></div>
+                        <div class="sr6-attribut-wert sr6-charactersheet-attr-value"><span>Modifikator</span><input type="text" name="attr_intuition_modifikator" /></div>
+                        <div class="sr6-attribut-wert sr6-attribut-wert--mit-wuerfel sr6-charactersheet-attr-value sr6-charactersheet-attr-value--with-dice"><span>Gesamtwert</span><div class="sr6-eingabe-mit-wuerfel sr6-charactersheet-field-input-with-dice"><input type="text" name="attr_intuition_gesamtwert" /><button type="button" class="sr6-wuerfelicon sr6-charactersheet-field-dice-button" aria-label="Wuerfeln">⚅</button></div></div>
                       </div>
                     </div>
 
-                    <div class="sr6-field sr6-attribut-feld">
+                    <div class="sr6-field sr6-charactersheet-field sr6-attribut-feld sr6-charactersheet-attr-field">
                       <span>Charisma</span>
-                      <div class="sr6-attribut-werte">
-                        <div class="sr6-attribut-wert sr6-attribut-wert--mit-wuerfel"><span>Grundwert</span><div class="sr6-eingabe-mit-wuerfel"><input type="text" name="attr_charisma_grundwert" /><button type="button" class="sr6-wuerfelicon" aria-label="Wuerfeln">⚅</button></div></div>
-                        <div class="sr6-attribut-wert"><span>Modifikator</span><input type="text" name="attr_charisma_modifikator" /></div>
-                        <div class="sr6-attribut-wert sr6-attribut-wert--mit-wuerfel"><span>Gesamtwert</span><div class="sr6-eingabe-mit-wuerfel"><input type="text" name="attr_charisma_gesamtwert" /><button type="button" class="sr6-wuerfelicon" aria-label="Wuerfeln">⚅</button></div></div>
+                      <div class="sr6-attribut-werte sr6-charactersheet-attr-values">
+                        <div class="sr6-attribut-wert sr6-attribut-wert--mit-wuerfel sr6-charactersheet-attr-value sr6-charactersheet-attr-value--with-dice"><span>Grundwert</span><div class="sr6-eingabe-mit-wuerfel sr6-charactersheet-field-input-with-dice"><input type="text" name="attr_charisma_grundwert" /><button type="button" class="sr6-wuerfelicon sr6-charactersheet-field-dice-button" aria-label="Wuerfeln">⚅</button></div></div>
+                        <div class="sr6-attribut-wert sr6-charactersheet-attr-value"><span>Modifikator</span><input type="text" name="attr_charisma_modifikator" /></div>
+                        <div class="sr6-attribut-wert sr6-attribut-wert--mit-wuerfel sr6-charactersheet-attr-value sr6-charactersheet-attr-value--with-dice"><span>Gesamtwert</span><div class="sr6-eingabe-mit-wuerfel sr6-charactersheet-field-input-with-dice"><input type="text" name="attr_charisma_gesamtwert" /><button type="button" class="sr6-wuerfelicon sr6-charactersheet-field-dice-button" aria-label="Wuerfeln">⚅</button></div></div>
                       </div>
                     </div>
                   </div>
 
-                  <div class="sr6-row sr6-row--2">
-                    <div class="sr6-field sr6-attribut-feld">
+                  <div class="sr6-row sr6-row--2 sr6-charactersheet-row sr6-charactersheet-row-2">
+                    <div class="sr6-field sr6-charactersheet-field sr6-attribut-feld sr6-charactersheet-attr-field">
                       <span>Edge</span>
-                      <div class="sr6-attribut-werte">
-                        <div class="sr6-attribut-wert sr6-attribut-wert--mit-wuerfel"><span>Grundwert</span><div class="sr6-eingabe-mit-wuerfel"><input type="text" name="attr_edge_grundwert" /><button type="button" class="sr6-wuerfelicon" aria-label="Wuerfeln">⚅</button></div></div>
-                        <div class="sr6-attribut-wert"><span>Modifikator</span><input type="text" name="attr_edge_modifikator" /></div>
-                        <div class="sr6-attribut-wert sr6-attribut-wert--mit-wuerfel"><span>Gesamtwert</span><div class="sr6-eingabe-mit-wuerfel"><input type="text" name="attr_edge_gesamtwert" /><button type="button" class="sr6-wuerfelicon" aria-label="Wuerfeln">⚅</button></div></div>
+                      <div class="sr6-attribut-werte sr6-charactersheet-attr-values">
+                        <div class="sr6-attribut-wert sr6-attribut-wert--mit-wuerfel sr6-charactersheet-attr-value sr6-charactersheet-attr-value--with-dice"><span>Grundwert</span><div class="sr6-eingabe-mit-wuerfel sr6-charactersheet-field-input-with-dice"><input type="text" name="attr_edge_grundwert" /><button type="button" class="sr6-wuerfelicon sr6-charactersheet-field-dice-button" aria-label="Wuerfeln">⚅</button></div></div>
+                        <div class="sr6-attribut-wert sr6-charactersheet-attr-value"><span>Modifikator</span><input type="text" name="attr_edge_modifikator" /></div>
+                        <div class="sr6-attribut-wert sr6-attribut-wert--mit-wuerfel sr6-charactersheet-attr-value sr6-charactersheet-attr-value--with-dice"><span>Gesamtwert</span><div class="sr6-eingabe-mit-wuerfel sr6-charactersheet-field-input-with-dice"><input type="text" name="attr_edge_gesamtwert" /><button type="button" class="sr6-wuerfelicon sr6-charactersheet-field-dice-button" aria-label="Wuerfeln">⚅</button></div></div>
                       </div>
                     </div>
 
-                    <div class="sr6-field sr6-attribut-feld">
+                    <div class="sr6-field sr6-charactersheet-field sr6-attribut-feld sr6-charactersheet-attr-field">
                       <span>Magie/Resonanz</span>
-                      <div class="sr6-attribut-werte">
-                        <div class="sr6-attribut-wert sr6-attribut-wert--mit-wuerfel"><span>Grundwert</span><div class="sr6-eingabe-mit-wuerfel"><input type="text" name="attr_magie_resonanz_grundwert" /><button type="button" class="sr6-wuerfelicon" aria-label="Wuerfeln">⚅</button></div></div>
-                        <div class="sr6-attribut-wert"><span>Modifikator</span><input type="text" name="attr_magie_resonanz_modifikator" /></div>
-                        <div class="sr6-attribut-wert sr6-attribut-wert--mit-wuerfel"><span>Gesamtwert</span><div class="sr6-eingabe-mit-wuerfel"><input type="text" name="attr_magie_resonanz_gesamtwert" /><button type="button" class="sr6-wuerfelicon" aria-label="Wuerfeln">⚅</button></div></div>
+                      <div class="sr6-attribut-werte sr6-charactersheet-attr-values">
+                        <div class="sr6-attribut-wert sr6-attribut-wert--mit-wuerfel sr6-charactersheet-attr-value sr6-charactersheet-attr-value--with-dice"><span>Grundwert</span><div class="sr6-eingabe-mit-wuerfel sr6-charactersheet-field-input-with-dice"><input type="text" name="attr_magie_resonanz_grundwert" /><button type="button" class="sr6-wuerfelicon sr6-charactersheet-field-dice-button" aria-label="Wuerfeln">⚅</button></div></div>
+                        <div class="sr6-attribut-wert sr6-charactersheet-attr-value"><span>Modifikator</span><input type="text" name="attr_magie_resonanz_modifikator" /></div>
+                        <div class="sr6-attribut-wert sr6-attribut-wert--mit-wuerfel sr6-charactersheet-attr-value sr6-charactersheet-attr-value--with-dice"><span>Gesamtwert</span><div class="sr6-eingabe-mit-wuerfel sr6-charactersheet-field-input-with-dice"><input type="text" name="attr_magie_resonanz_gesamtwert" /><button type="button" class="sr6-wuerfelicon sr6-charactersheet-field-dice-button" aria-label="Wuerfeln">⚅</button></div></div>
                       </div>
                     </div>
                   </div>
                 </div>
               </section>
 
-              <section class="sr6-box sr6-box--wichtige-kampf-infos" aria-labelledby="wichtige-kampf-infos-titel">
-                <h1 id="wichtige-kampf-infos-titel" class="sr6-box-title">Wichtige Kampf-Infos</h1>
+              <section class="sr6-box sr6-box--wichtige-kampf-infos sr6-charactersheet-box sr6-charactersheet-box-wichtige-kampf-infos" aria-labelledby="wichtige-kampf-infos-titel">
+                <h1 id="wichtige-kampf-infos-titel" class="sr6-box-title sr6-charactersheet-box-title">Wichtige Kampf-Infos</h1>
 
-                <div class="sr6-box-content">
-                  <div class="sr6-row sr6-row--1">
-                    <label class="sr6-field">
+                <div class="sr6-box-content sr6-charactersheet-box-content">
+                  <div class="sr6-row sr6-row--1 sr6-charactersheet-row sr6-charactersheet-row-1">
+                    <label class="sr6-field sr6-charactersheet-field">
                       <span>Primäre Fernkampfwaffe</span>
                       <input type="text" name="attr_primaere_fernkampfwaffe" />
                     </label>
                   </div>
 
-                  <div class="sr6-row sr6-row--7">
-                    <label class="sr6-field">
+                  <div class="sr6-row sr6-row--7 sr6-charactersheet-row sr6-charactersheet-row-7">
+                    <label class="sr6-field sr6-charactersheet-field">
                       <span>Schaden</span>
                       <input type="text" name="attr_fernkampf_schaden" />
                     </label>
 
-                    <label class="sr6-field">
+                    <label class="sr6-field sr6-charactersheet-field">
                       <span>Modus</span>
                       <input type="text" name="attr_fernkampf_modus" />
                     </label>
 
-                    <label class="sr6-field">
+                    <label class="sr6-field sr6-charactersheet-field">
                       <span>S. Nah</span>
-                      <div class="sr6-eingabe-mit-wuerfel"><input type="text" name="attr_fernkampf_sehr_nah" /><button type="button" class="sr6-wuerfelicon" aria-label="Wuerfeln">⚅</button></div>
+                      <div class="sr6-eingabe-mit-wuerfel sr6-charactersheet-field-input-with-dice"><input type="text" name="attr_fernkampf_sehr_nah" /><button type="button" class="sr6-wuerfelicon sr6-charactersheet-field-dice-button" aria-label="Wuerfeln">⚅</button></div>
                     </label>
 
-                    <label class="sr6-field">
+                    <label class="sr6-field sr6-charactersheet-field">
                       <span>Nah</span>
-                      <div class="sr6-eingabe-mit-wuerfel"><input type="text" name="attr_fernkampf_nah" /><button type="button" class="sr6-wuerfelicon" aria-label="Wuerfeln">⚅</button></div>
+                      <div class="sr6-eingabe-mit-wuerfel sr6-charactersheet-field-input-with-dice"><input type="text" name="attr_fernkampf_nah" /><button type="button" class="sr6-wuerfelicon sr6-charactersheet-field-dice-button" aria-label="Wuerfeln">⚅</button></div>
                     </label>
 
-                    <label class="sr6-field">
+                    <label class="sr6-field sr6-charactersheet-field">
                       <span>Mittel</span>
-                      <div class="sr6-eingabe-mit-wuerfel"><input type="text" name="attr_fernkampf_mittel" /><button type="button" class="sr6-wuerfelicon" aria-label="Wuerfeln">⚅</button></div>
+                      <div class="sr6-eingabe-mit-wuerfel sr6-charactersheet-field-input-with-dice"><input type="text" name="attr_fernkampf_mittel" /><button type="button" class="sr6-wuerfelicon sr6-charactersheet-field-dice-button" aria-label="Wuerfeln">⚅</button></div>
                     </label>
 
-                    <label class="sr6-field">
+                    <label class="sr6-field sr6-charactersheet-field">
                       <span>Weit</span>
-                      <div class="sr6-eingabe-mit-wuerfel"><input type="text" name="attr_fernkampf_weit" /><button type="button" class="sr6-wuerfelicon" aria-label="Wuerfeln">⚅</button></div>
+                      <div class="sr6-eingabe-mit-wuerfel sr6-charactersheet-field-input-with-dice"><input type="text" name="attr_fernkampf_weit" /><button type="button" class="sr6-wuerfelicon sr6-charactersheet-field-dice-button" aria-label="Wuerfeln">⚅</button></div>
                     </label>
 
-                    <label class="sr6-field">
+                    <label class="sr6-field sr6-charactersheet-field">
                       <span>S. Weit</span>
-                      <div class="sr6-eingabe-mit-wuerfel"><input type="text" name="attr_fernkampf_sehr_weit" /><button type="button" class="sr6-wuerfelicon" aria-label="Wuerfeln">⚅</button></div>
+                      <div class="sr6-eingabe-mit-wuerfel sr6-charactersheet-field-input-with-dice"><input type="text" name="attr_fernkampf_sehr_weit" /><button type="button" class="sr6-wuerfelicon sr6-charactersheet-field-dice-button" aria-label="Wuerfeln">⚅</button></div>
                     </label>
                   </div>
 
-                  <div class="sr6-row sr6-row--1">
-                    <label class="sr6-field">
+                  <div class="sr6-row sr6-row--1 sr6-charactersheet-row sr6-charactersheet-row-1">
+                    <label class="sr6-field sr6-charactersheet-field">
                       <span>Munition</span>
                       <input type="text" name="attr_munition" />
                     </label>
                   </div>
 
-                  <div class="sr6-row sr6-row--1">
-                    <label class="sr6-field">
+                  <div class="sr6-row sr6-row--1 sr6-charactersheet-row sr6-charactersheet-row-1">
+                    <label class="sr6-field sr6-charactersheet-field">
                       <span>Primäre Nahkampfwaffe</span>
-                      <div class="sr6-eingabe-mit-wuerfel"><input type="text" name="attr_primaere_nahkampfwaffe" /><button type="button" class="sr6-wuerfelicon" aria-label="Wuerfeln">⚅</button></div>
+                      <div class="sr6-eingabe-mit-wuerfel sr6-charactersheet-field-input-with-dice"><input type="text" name="attr_primaere_nahkampfwaffe" /><button type="button" class="sr6-wuerfelicon sr6-charactersheet-field-dice-button" aria-label="Wuerfeln">⚅</button></div>
                     </label>
                   </div>
 
-                  <div class="sr6-row sr6-row--1">
-                    <label class="sr6-field">
+                  <div class="sr6-row sr6-row--1 sr6-charactersheet-row sr6-charactersheet-row-1">
+                    <label class="sr6-field sr6-charactersheet-field">
                       <span>Primäre Panzerung</span>
                       <input type="text" name="attr_primaere_panzerung" />
                     </label>
@@ -247,110 +247,110 @@
               </section>
             </div>
           </div>
-          <div id="sr6_daten_panel_2" class="sr6-daten-panel" role="tabpanel">
+          <div id="sr6_daten_panel_2" class="sr6-daten-panel sr6-charactersheet-tabpanel" role="tabpanel">
             <p>Fertigkeiten-Bereich (Platzhalter).</p>
           </div>
-          <div id="sr6_daten_panel_3" class="sr6-daten-panel" role="tabpanel">
+          <div id="sr6_daten_panel_3" class="sr6-daten-panel sr6-charactersheet-tabpanel" role="tabpanel">
             <p>Kampf-Bereich (Platzhalter).</p>
           </div>
-          <div id="sr6_daten_panel_4" class="sr6-daten-panel" role="tabpanel">
+          <div id="sr6_daten_panel_4" class="sr6-daten-panel sr6-charactersheet-tabpanel" role="tabpanel">
             <p>Magie-Bereich (Platzhalter).</p>
           </div>
-          <div id="sr6_daten_panel_5" class="sr6-daten-panel" role="tabpanel">
+          <div id="sr6_daten_panel_5" class="sr6-daten-panel sr6-charactersheet-tabpanel" role="tabpanel">
             <p>Matrix-Bereich (Platzhalter).</p>
           </div>
-          <div id="sr6_daten_panel_6" class="sr6-daten-panel" role="tabpanel">
+          <div id="sr6_daten_panel_6" class="sr6-daten-panel sr6-charactersheet-tabpanel" role="tabpanel">
             <p>Rigging-Bereich (Platzhalter).</p>
           </div>
-          <div id="sr6_daten_panel_7" class="sr6-daten-panel" role="tabpanel">
+          <div id="sr6_daten_panel_7" class="sr6-daten-panel sr6-charactersheet-tabpanel" role="tabpanel">
             <p>Ausrüstungs-Bereich (Platzhalter).</p>
           </div>
-          <div id="sr6_daten_panel_8" class="sr6-daten-panel" role="tabpanel">
-            <div class="sr6-biographie-persoenliche-daten">
-              <h2 class="sr6-kopfbereich-titel">Persönliche Daten</h2>
+          <div id="sr6_daten_panel_8" class="sr6-daten-panel sr6-charactersheet-tabpanel" role="tabpanel">
+            <div class="sr6-biographie-persoenliche-daten sr6-charactersheet-tab-biographie-personendaten">
+              <h2 class="sr6-kopfbereich-titel sr6-charactersheet-kopfbereich-title">Persönliche Daten</h2>
 
-              <div class="sr6-row sr6-row--2">
-                <label class="sr6-field">
+              <div class="sr6-row sr6-row--2 sr6-charactersheet-row sr6-charactersheet-row-2">
+                <label class="sr6-field sr6-charactersheet-field">
                   <span>Name</span>
                   <input type="text" name="attr_name" />
                 </label>
 
-                <label class="sr6-field">
+                <label class="sr6-field sr6-charactersheet-field">
                   <span>Straßenname</span>
                   <input type="text" name="attr_strassenname" />
                 </label>
               </div>
 
-              <div class="sr6-row sr6-row--2">
-                <label class="sr6-field">
+              <div class="sr6-row sr6-row--2 sr6-charactersheet-row sr6-charactersheet-row-2">
+                <label class="sr6-field sr6-charactersheet-field">
                   <span>Metatyp</span>
                   <input type="text" name="attr_metatyp" />
                 </label>
 
-                <label class="sr6-field">
+                <label class="sr6-field sr6-charactersheet-field">
                   <span>Ethnizität</span>
                   <input type="text" name="attr_ethnizitaet" />
                 </label>
               </div>
 
-              <div class="sr6-row sr6-row--4">
-                <label class="sr6-field">
+              <div class="sr6-row sr6-row--4 sr6-charactersheet-row sr6-charactersheet-row-4">
+                <label class="sr6-field sr6-charactersheet-field">
                   <span>Alter</span>
                   <input type="text" name="attr_alter" />
                 </label>
 
-                <label class="sr6-field">
+                <label class="sr6-field sr6-charactersheet-field">
                   <span>Geschlecht</span>
                   <input type="text" name="attr_geschlecht" />
                 </label>
 
-                <label class="sr6-field">
+                <label class="sr6-field sr6-charactersheet-field">
                   <span>Größe</span>
                   <input type="text" name="attr_groesse" />
                 </label>
 
-                <label class="sr6-field">
+                <label class="sr6-field sr6-charactersheet-field">
                   <span>Gewicht</span>
                   <input type="text" name="attr_gewicht" />
                 </label>
               </div>
 
-              <div class="sr6-row sr6-row--2">
-                <label class="sr6-field">
+              <div class="sr6-row sr6-row--2 sr6-charactersheet-row sr6-charactersheet-row-2">
+                <label class="sr6-field sr6-charactersheet-field">
                   <span>Reputation</span>
                   <input type="text" name="attr_reputation" />
                 </label>
 
-                <label class="sr6-field">
+                <label class="sr6-field sr6-charactersheet-field">
                   <span>Fahndungslevel</span>
                   <input type="text" name="attr_fahndungslevel" />
                 </label>
               </div>
 
-              <div class="sr6-row sr6-row--4">
-                <label class="sr6-field">
+              <div class="sr6-row sr6-row--4 sr6-charactersheet-row sr6-charactersheet-row-4">
+                <label class="sr6-field sr6-charactersheet-field">
                   <span>Karma</span>
                   <input type="text" name="attr_karma" />
                 </label>
 
-                <label class="sr6-field">
+                <label class="sr6-field sr6-charactersheet-field">
                   <span>Gesamtkarma</span>
                   <input type="text" name="attr_gesamtkarma" />
                 </label>
 
-                <label class="sr6-field">
+                <label class="sr6-field sr6-charactersheet-field">
                   <span>Edge</span>
                   <input type="text" name="attr_edge_biographie" />
                 </label>
 
-                <label class="sr6-field">
+                <label class="sr6-field sr6-charactersheet-field">
                   <span>Edge Max</span>
                   <input type="text" name="attr_edge_max" />
                 </label>
               </div>
             </div>
           </div>
-          <div id="sr6_daten_panel_9" class="sr6-daten-panel" role="tabpanel">
+          <div id="sr6_daten_panel_9" class="sr6-daten-panel sr6-charactersheet-tabpanel" role="tabpanel">
             <p>Notizen-Bereich (Platzhalter).</p>
           </div>
         </div>
