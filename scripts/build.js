@@ -5,6 +5,7 @@ const path = require('path');
 const rootDir = path.resolve(__dirname, '..');
 const srcDir = path.join(rootDir, 'src');
 const htmlDir = path.join(srcDir, 'html');
+const srcImagesDir = path.join(srcDir, 'assets', 'images');
 const outputDir = path.join(rootDir, 'output');
 const outputImagesDir = path.join(outputDir, 'assets', 'images');
 const htmlSourcePath = path.join(htmlDir, 'charactersheet.html');
@@ -89,14 +90,18 @@ function writeRoll20CompatibilityFiles() {
 }
 
 function copyStaticAssets() {
+  if (!fs.existsSync(srcImagesDir)) {
+    return;
+  }
+
   ensureDir(outputImagesDir);
-  const srcEntries = fs.readdirSync(srcDir, { withFileTypes: true });
+  const srcEntries = fs.readdirSync(srcImagesDir, { withFileTypes: true });
 
   srcEntries
     .filter((entry) => entry.isFile())
     .filter((entry) => ASSET_EXTENSIONS.has(path.extname(entry.name).toLowerCase()))
     .forEach((entry) => {
-      const fromPath = path.join(srcDir, entry.name);
+      const fromPath = path.join(srcImagesDir, entry.name);
       const toPath = path.join(outputImagesDir, entry.name);
       copyFile(fromPath, toPath);
     });

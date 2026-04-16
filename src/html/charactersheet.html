@@ -211,335 +211,36 @@
             class="sr6-charactersheet-tabpanel"
             role="tabpanel">
             <div class="sr6-charactersheet-tab-allgemein-grid">
+              <!-- BEGIN BLOCK: Attribute -->
               <!-- @include partials/boxes/attribute.html -->
+              <!-- END BLOCK: Attribute -->
+              <!-- BEGIN BLOCK: Initiative -->
               <!-- @include partials/boxes/initiative.html -->
+              <!-- END BLOCK: Initiative -->
+              <!-- BEGIN BLOCK: Wichtige Kampf-Infos -->
               <!-- @include partials/boxes/wichtige-kampf-infos.html -->
+              <!-- END BLOCK: Wichtige Kampf-Infos -->
             </div>
           </div>
           <div
             id="sr6_daten_panel_2"
             class="sr6-charactersheet-tabpanel"
             role="tabpanel">
-            <section
-              class="sr6-charactersheet-box sr6-charactersheet-box-fertigkeiten"
-              aria-labelledby="fertigkeiten-titel">
-              <h2
-                id="fertigkeiten-titel"
-                class="sr6-charactersheet-box-title"
-                data-i18n="section.fertigkeiten_basis">
-                Fertigkeiten (Basis)
-              </h2>
-
-              <div class="sr6-charactersheet-box-content">
-                <div class="sr6-charactersheet-skill-table-wrap">
-                  <div class="sr6-charactersheet-skill-table">
-                    <div
-                      class="sr6-charactersheet-skill-row sr6-charactersheet-skill-row--header">
-                      <span data-i18n="field.fertigkeit">Fertigkeit</span>
-                      <span data-i18n="field.fertigkeitsattribut"
-                        >Attribut</span
-                      >
-                      <span data-i18n="field.fertigkeitsrang">Rang</span>
-                      <span data-i18n="field.fertigkeitsmodifikator">Mod.</span>
-                      <span data-i18n="field.fertigkeits_pool">Pool</span>
-                      <span data-i18n="field.wurf">Wurf</span>
-                    </div>
-
-                    <div class="sr6-charactersheet-skill-row">
-                      <span data-i18n="skill.athletik">Athletik</span>
-                      <input
-                        type="text"
-                        name="attr_sr6_skill_athletik_attribut" />
-                      <input type="text" name="attr_sr6_skill_athletik_rang" />
-                      <input
-                        type="text"
-                        name="attr_sr6_skill_athletik_modifikator" />
-                      <input type="text" name="attr_sr6_skill_athletik_pool" />
-                      <button
-                        type="roll"
-                        class="sr6-charactersheet-field-dice-button"
-                        name="roll_sr6_skill_athletik"
-                        value="&{template:default} {{name=Fertigkeits-Test}} {{Fertigkeit=Athletik}} {{Pool=[[@{sr6_skill_athletik_pool}]]}} {{Erfolge=[[@{sr6_skill_athletik_pool}d6cs>4]]}}"
-                        aria-label="Wuerfeln"></button>
-                    </div>
-
-                    <div class="sr6-charactersheet-skill-row">
-                      <span data-i18n="skill.heimlichkeit">Heimlichkeit</span>
-                      <input
-                        type="text"
-                        name="attr_sr6_skill_heimlichkeit_attribut" />
-                      <input
-                        type="text"
-                        name="attr_sr6_skill_heimlichkeit_rang" />
-                      <input
-                        type="text"
-                        name="attr_sr6_skill_heimlichkeit_modifikator" />
-                      <input
-                        type="text"
-                        name="attr_sr6_skill_heimlichkeit_pool" />
-                      <button
-                        type="roll"
-                        class="sr6-charactersheet-field-dice-button"
-                        name="roll_sr6_skill_heimlichkeit"
-                        value="&{template:default} {{name=Fertigkeits-Test}} {{Fertigkeit=Heimlichkeit}} {{Pool=[[@{sr6_skill_heimlichkeit_pool}]]}} {{Erfolge=[[@{sr6_skill_heimlichkeit_pool}d6cs>4]]}}"
-                        aria-label="Wuerfeln"></button>
-                    </div>
-
-                    <div class="sr6-charactersheet-skill-row">
-                      <span data-i18n="skill.wahrnehmung">Wahrnehmung</span>
-                      <input
-                        type="text"
-                        name="attr_sr6_skill_wahrnehmung_attribut" />
-                      <input
-                        type="text"
-                        name="attr_sr6_skill_wahrnehmung_rang" />
-                      <input
-                        type="text"
-                        name="attr_sr6_skill_wahrnehmung_modifikator" />
-                      <input
-                        type="text"
-                        name="attr_sr6_skill_wahrnehmung_pool" />
-                      <button
-                        type="roll"
-                        class="sr6-charactersheet-field-dice-button"
-                        name="roll_sr6_skill_wahrnehmung"
-                        value="&{template:default} {{name=Fertigkeits-Test}} {{Fertigkeit=Wahrnehmung}} {{Pool=[[@{sr6_skill_wahrnehmung_pool}]]}} {{Erfolge=[[@{sr6_skill_wahrnehmung_pool}d6cs>4]]}}"
-                        aria-label="Wuerfeln"></button>
-                    </div>
-
-                    <div class="sr6-charactersheet-skill-row">
-                      <span data-i18n="skill.ueberreden">Überreden</span>
-                      <input
-                        type="text"
-                        name="attr_sr6_skill_ueberreden_attribut" />
-                      <input
-                        type="text"
-                        name="attr_sr6_skill_ueberreden_rang" />
-                      <input
-                        type="text"
-                        name="attr_sr6_skill_ueberreden_modifikator" />
-                      <input
-                        type="text"
-                        name="attr_sr6_skill_ueberreden_pool" />
-                      <button
-                        type="roll"
-                        class="sr6-charactersheet-field-dice-button"
-                        name="roll_sr6_skill_ueberreden"
-                        value="&{template:default} {{name=Fertigkeits-Test}} {{Fertigkeit=Ueberreden}} {{Pool=[[@{sr6_skill_ueberreden_pool}]]}} {{Erfolge=[[@{sr6_skill_ueberreden_pool}d6cs>4]]}}"
-                        aria-label="Wuerfeln"></button>
-                    </div>
-
-                    <div class="sr6-charactersheet-skill-row">
-                      <span data-i18n="skill.elektronik">Elektronik</span>
-                      <input
-                        type="text"
-                        name="attr_sr6_skill_elektronik_attribut" />
-                      <input
-                        type="text"
-                        name="attr_sr6_skill_elektronik_rang" />
-                      <input
-                        type="text"
-                        name="attr_sr6_skill_elektronik_modifikator" />
-                      <input
-                        type="text"
-                        name="attr_sr6_skill_elektronik_pool" />
-                      <button
-                        type="roll"
-                        class="sr6-charactersheet-field-dice-button"
-                        name="roll_sr6_skill_elektronik"
-                        value="&{template:default} {{name=Fertigkeits-Test}} {{Fertigkeit=Elektronik}} {{Pool=[[@{sr6_skill_elektronik_pool}]]}} {{Erfolge=[[@{sr6_skill_elektronik_pool}d6cs>4]]}}"
-                        aria-label="Wuerfeln"></button>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </section>
+            <!-- BEGIN BLOCK: Fertigkeiten -->
+            <!-- @include partials/boxes/fertigkeiten.html -->
+            <!-- END BLOCK: Fertigkeiten -->
           </div>
           <div
             id="sr6_daten_panel_3"
             class="sr6-charactersheet-tabpanel"
             role="tabpanel">
             <div class="sr6-charactersheet-tab-kampf-grid">
-              <section
-                class="sr6-charactersheet-box sr6-charactersheet-box-kampf-fernkampf"
-                aria-labelledby="kampf-fernkampf-titel">
-                <h2
-                  id="kampf-fernkampf-titel"
-                  class="sr6-charactersheet-box-title"
-                  data-i18n="section.kampf_fernkampf">
-                  Kampf: Fernkampf
-                </h2>
-
-                <div class="sr6-charactersheet-box-content">
-                  <div class="sr6-charactersheet-row sr6-charactersheet-row-1">
-                    <label class="sr6-charactersheet-field">
-                      <span data-i18n="field.primaere_fernkampfwaffe"
-                        >Primäre Fernkampfwaffe</span
-                      >
-                      <input
-                        type="text"
-                        name="attr_sr6_combat_primaere_fernkampfwaffe" />
-                    </label>
-                  </div>
-
-                  <div class="sr6-charactersheet-row sr6-charactersheet-row-3">
-                    <label class="sr6-charactersheet-field">
-                      <span data-i18n="field.schaden">Schaden</span>
-                      <input
-                        type="text"
-                        name="attr_sr6_combat_fernkampf_schaden" />
-                    </label>
-
-                    <label class="sr6-charactersheet-field">
-                      <span data-i18n="field.modus">Modus</span>
-                      <input
-                        type="text"
-                        name="attr_sr6_combat_fernkampf_modus" />
-                    </label>
-
-                    <label class="sr6-charactersheet-field">
-                      <span data-i18n="field.munition">Munition</span>
-                      <input type="text" name="attr_sr6_combat_munition" />
-                    </label>
-                  </div>
-
-                  <div class="sr6-charactersheet-row sr6-charactersheet-row-5">
-                    <label class="sr6-charactersheet-field">
-                      <span data-i18n="field.s_nah">S. Nah</span>
-                      <div class="sr6-charactersheet-field-input-with-dice">
-                        <input
-                          type="text"
-                          name="attr_sr6_combat_fernkampf_sehr_nah" /><button
-                          type="roll"
-                          class="sr6-charactersheet-field-dice-button"
-                          name="roll_sr6_tab_kampf_fernkampf_sehr_nah"
-                          value="&{template:default} {{name=Fernkampf-Test}} {{Waffe=@{sr6_combat_primaere_fernkampfwaffe}}} {{Modus=@{sr6_combat_fernkampf_modus}}} {{Attribut=S. Nah}} {{Pool=[[@{sr6_combat_fernkampf_sehr_nah}]]}} {{Erfolge=[[@{sr6_combat_fernkampf_sehr_nah}d6cs>4]]}}"
-                          aria-label="Wuerfeln"></button>
-                      </div>
-                    </label>
-
-                    <label class="sr6-charactersheet-field">
-                      <span data-i18n="field.nah">Nah</span>
-                      <div class="sr6-charactersheet-field-input-with-dice">
-                        <input
-                          type="text"
-                          name="attr_sr6_combat_fernkampf_nah" /><button
-                          type="roll"
-                          class="sr6-charactersheet-field-dice-button"
-                          name="roll_sr6_tab_kampf_fernkampf_nah"
-                          value="&{template:default} {{name=Fernkampf-Test}} {{Waffe=@{sr6_combat_primaere_fernkampfwaffe}}} {{Modus=@{sr6_combat_fernkampf_modus}}} {{Attribut=Nah}} {{Pool=[[@{sr6_combat_fernkampf_nah}]]}} {{Erfolge=[[@{sr6_combat_fernkampf_nah}d6cs>4]]}}"
-                          aria-label="Wuerfeln"></button>
-                      </div>
-                    </label>
-
-                    <label class="sr6-charactersheet-field">
-                      <span data-i18n="field.mittel">Mittel</span>
-                      <div class="sr6-charactersheet-field-input-with-dice">
-                        <input
-                          type="text"
-                          name="attr_sr6_combat_fernkampf_mittel" /><button
-                          type="roll"
-                          class="sr6-charactersheet-field-dice-button"
-                          name="roll_sr6_tab_kampf_fernkampf_mittel"
-                          value="&{template:default} {{name=Fernkampf-Test}} {{Waffe=@{sr6_combat_primaere_fernkampfwaffe}}} {{Modus=@{sr6_combat_fernkampf_modus}}} {{Attribut=Mittel}} {{Pool=[[@{sr6_combat_fernkampf_mittel}]]}} {{Erfolge=[[@{sr6_combat_fernkampf_mittel}d6cs>4]]}}"
-                          aria-label="Wuerfeln"></button>
-                      </div>
-                    </label>
-
-                    <label class="sr6-charactersheet-field">
-                      <span data-i18n="field.weit">Weit</span>
-                      <div class="sr6-charactersheet-field-input-with-dice">
-                        <input
-                          type="text"
-                          name="attr_sr6_combat_fernkampf_weit" /><button
-                          type="roll"
-                          class="sr6-charactersheet-field-dice-button"
-                          name="roll_sr6_tab_kampf_fernkampf_weit"
-                          value="&{template:default} {{name=Fernkampf-Test}} {{Waffe=@{sr6_combat_primaere_fernkampfwaffe}}} {{Modus=@{sr6_combat_fernkampf_modus}}} {{Attribut=Weit}} {{Pool=[[@{sr6_combat_fernkampf_weit}]]}} {{Erfolge=[[@{sr6_combat_fernkampf_weit}d6cs>4]]}}"
-                          aria-label="Wuerfeln"></button>
-                      </div>
-                    </label>
-
-                    <label class="sr6-charactersheet-field">
-                      <span data-i18n="field.s_weit">S. Weit</span>
-                      <div class="sr6-charactersheet-field-input-with-dice">
-                        <input
-                          type="text"
-                          name="attr_sr6_combat_fernkampf_sehr_weit" /><button
-                          type="roll"
-                          class="sr6-charactersheet-field-dice-button"
-                          name="roll_sr6_tab_kampf_fernkampf_sehr_weit"
-                          value="&{template:default} {{name=Fernkampf-Test}} {{Waffe=@{sr6_combat_primaere_fernkampfwaffe}}} {{Modus=@{sr6_combat_fernkampf_modus}}} {{Attribut=S. Weit}} {{Pool=[[@{sr6_combat_fernkampf_sehr_weit}]]}} {{Erfolge=[[@{sr6_combat_fernkampf_sehr_weit}d6cs>4]]}}"
-                          aria-label="Wuerfeln"></button>
-                      </div>
-                    </label>
-                  </div>
-                </div>
-              </section>
-
-              <section
-                class="sr6-charactersheet-box sr6-charactersheet-box-kampf-nahkampf"
-                aria-labelledby="kampf-nahkampf-titel">
-                <h2
-                  id="kampf-nahkampf-titel"
-                  class="sr6-charactersheet-box-title"
-                  data-i18n="section.kampf_nahkampf">
-                  Kampf: Nahkampf & Abwehr
-                </h2>
-
-                <div class="sr6-charactersheet-box-content">
-                  <div class="sr6-charactersheet-row sr6-charactersheet-row-1">
-                    <label class="sr6-charactersheet-field">
-                      <span data-i18n="field.primaere_nahkampfwaffe"
-                        >Primäre Nahkampfwaffe</span
-                      >
-                      <div class="sr6-charactersheet-field-input-with-dice">
-                        <input
-                          type="text"
-                          name="attr_sr6_combat_primaere_nahkampfwaffe" /><button
-                          type="roll"
-                          class="sr6-charactersheet-field-dice-button"
-                          name="roll_sr6_tab_kampf_primaere_nahkampfwaffe"
-                          value="&{template:default} {{name=Nahkampf-Test}} {{Waffe=@{sr6_combat_primaere_nahkampfwaffe}}} {{Attribut=Primaere Nahkampfwaffe}} {{Pool=[[@{sr6_combat_primaere_nahkampfwaffe}]]}} {{Erfolge=[[@{sr6_combat_primaere_nahkampfwaffe}d6cs>4]]}}"
-                          aria-label="Wuerfeln"></button>
-                      </div>
-                    </label>
-                  </div>
-
-                  <div class="sr6-charactersheet-row sr6-charactersheet-row-1">
-                    <label class="sr6-charactersheet-field">
-                      <span data-i18n="field.primaere_panzerung"
-                        >Primäre Panzerung</span
-                      >
-                      <input
-                        type="text"
-                        name="attr_sr6_combat_primaere_panzerung" />
-                    </label>
-                  </div>
-
-                  <div class="sr6-charactersheet-row sr6-charactersheet-row-2">
-                    <label class="sr6-charactersheet-field">
-                      <span data-i18n="field.initiative_basis"
-                        >Initiative (Basis)</span
-                      >
-                      <input
-                        type="text"
-                        name="attr_sr6_derived_initiative_basis"
-                        readonly />
-                    </label>
-
-                    <label class="sr6-charactersheet-field">
-                      <span data-i18n="field.verteidigung_basis"
-                        >Verteidigung (Basis)</span
-                      >
-                      <input
-                        type="text"
-                        name="attr_sr6_derived_verteidigung_basis"
-                        readonly />
-                    </label>
-                  </div>
-                </div>
-              </section>
+              <!-- BEGIN BLOCK: Kampf Fernkampf -->
+              <!-- @include partials/boxes/kampf-fernkampf.html -->
+              <!-- END BLOCK: Kampf Fernkampf -->
+              <!-- BEGIN BLOCK: Kampf Nahkampf und Abwehr -->
+              <!-- @include partials/boxes/kampf-nahkampf.html -->
+              <!-- END BLOCK: Kampf Nahkampf und Abwehr -->
             </div>
           </div>
           <div
@@ -782,7 +483,9 @@
             id="sr6_daten_panel_8"
             class="sr6-charactersheet-tabpanel"
             role="tabpanel">
+            <!-- BEGIN BLOCK: Biographie Persönliche Daten -->
             <!-- @include partials/boxes/biographie-personendaten.html -->
+            <!-- END BLOCK: Biographie Persönliche Daten -->
           </div>
           <div
             id="sr6_daten_panel_9"

@@ -6,6 +6,7 @@
   - `src/html/partials/boxes/*.html` (modulare Boxen, per Include eingebunden)
   - `src/css/charactersheet.css`
   - `src/i18n/translation.json`
+  - `src/assets/images/*`
 - Generierter Output:
   - `output/charactersheet.html`
   - `output/charactersheet.css`
@@ -18,7 +19,7 @@
   - baut `output/charactersheet.html` aus `src/html/charactersheet.html` zusammen
     - Include-Syntax: `<!-- @include partials/boxes/datei.html -->`
   - kopiert die übrigen Source-Dateien aus `src/` nach `output/`
-  - kopiert statische Bildassets aus `src/` nach `output/assets/images/`
+  - kopiert statische Bildassets aus `src/assets/images/` nach `output/assets/images/`
 - `npm run watch` (oder `npm run dev`)
   - beobachtet `src/` rekursiv
   - führt bei Änderungen automatisch den Build erneut aus
