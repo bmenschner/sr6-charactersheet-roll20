@@ -1,28 +1,38 @@
-# Documentation
-https://wiki.roll20.net/Character_Sheets
-https://wiki.roll20.net/Building_Character_Sheets
-https://wiki.roll20.net/Character_Sheet_Enhancement
-https://wiki.roll20.net/Custom_Sheet_Sandbox
+# SR6 Roll20 Character Sheet (Lokalworkflow)
 
-# API
-https://wiki.roll20.net/Character_Sheet/API
+## Source und Output
+- Source of Truth:
+  - `src/html/charactersheet.html`
+  - `src/css/charactersheet.css`
+  - `src/i18n/translation.json`
+- Generierter Output:
+  - `output/assets/charactersheet.html`
+  - `output/assets/charactersheet.css`
+  - `output/assets/translation.json`
+  - `output/assets/images/*`
 
-# Namensgebung
-- sr-6-charactersheet
-    - sr6-charactersheet-kopfbereich
-    - sr6-charactersheet-menu
-    - sr6-charactersheet-[Tabname]
-        - sr6-charactersheet-box-[titlename]
-            - sr6-charactersheet-box-[titlename]-[element]
+## Lokale Skripte
+- `npm run build`
+  - kopiert die Source-Dateien aus `src/` nach `output/assets/`
+  - kopiert statische Bildassets aus `src/` nach `output/assets/images/`
+- `npm run watch` (oder `npm run dev`)
+  - beobachtet `src/` rekursiv
+  - führt bei Änderungen automatisch den Build erneut aus
+- `npm run browser` (optional)
+  - startet Chromium lokal mit einem separaten Projekt-Profilordner:
+    - `.local/chromium-profile-roll20`
+  - Login und Extension-Setup bleiben manuell
 
-Beispiel:
-- sr-6-charactersheet
-    - sr6-charactersheet-kopfbereich
-    - sr6-charactersheet-menu
-    - sr6-charactersheet-allgemein
-        - sr6-charactersheet-allgemein-box-attribute
-            - sr6-charactersheet-box-attribute-konstitution
+## Roll20 Deploy-Flow (lokal)
+1. `npm run build`
+2. (optional) `npm run watch` für laufende Änderungen
+3. Roll20 Sheet Sandbox über lokalen Upload/Autouploader auf `output/assets/` aktualisieren
 
-# Data
-- Allgemein zieht Daten von anderen Tabelementen
-- Daten werden in den Tabelementen gespeichert
+Hinweis: Dieses Repository aktualisiert Roll20 nicht über Git-Sync, sondern nur lokal über Upload.
+
+## Referenzen
+- https://wiki.roll20.net/Character_Sheets
+- https://wiki.roll20.net/Building_Character_Sheets
+- https://wiki.roll20.net/Character_Sheet_Enhancement
+- https://wiki.roll20.net/Custom_Sheet_Sandbox
+- https://wiki.roll20.net/Character_Sheet/API

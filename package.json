@@ -1,0 +1,12 @@
+{
+  "name": "sr6-roll20-sheet-local-workflow",
+  "private": true,
+  "version": "0.1.0",
+  "description": "Local build/watch workflow for Roll20 SR6 sheet",
+  "scripts": {
+    "build": "node scripts/build.js",
+    "watch": "node scripts/watch.js",
+    "dev": "node scripts/watch.js",
+    "browser": "node scripts/browser.js"
+  }
+}
