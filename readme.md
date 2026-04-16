@@ -16,9 +16,9 @@
 
 ## Lokale Skripte
 - `npm run build`
-  - baut `output/charactersheet.html` aus `src/html/charactersheet.html` zusammen
+  - führt zuerst `lint:includes` aus
+  - baut danach `output/charactersheet.html` aus `src/html/charactersheet.html` zusammen
     - Include-Syntax: `<!-- @include partials/pfad/datei.html -->`
-  - validiert Include-Pfade beim Build (kein Pfad außerhalb `src/html`)
   - kopiert die übrigen Source-Dateien aus `src/` nach `output/`
   - kopiert statische Bildassets aus `src/assets/images/` nach `output/assets/images/`
 - `npm run lint:includes`
@@ -29,6 +29,9 @@
 - `npm run watch` (oder `npm run dev`)
   - beobachtet `src/` rekursiv
   - führt bei Änderungen automatisch den Build erneut aus
+- `npm run dev`
+  - führt zuerst `lint:includes` aus
+  - startet danach den Watch-Modus
 - `npm run browser` (optional)
   - startet Chromium lokal mit einem separaten Projekt-Profilordner:
     - `.local/chromium-profile-roll20`
