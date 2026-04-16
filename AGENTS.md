@@ -1,157 +1,191 @@
 # AGENTS.md
 
-## 1. Kontext
-Dieses Repository enthält ein Roll20 Character Sheet.
+## 1. Projektkontext
 
-Wichtig:
-- kein Build-System in Roll20
+Dieses Repository enthält ein Roll20 Character Sheet (z. B. Shadowrun 6).
+
+Wichtige Eigenschaften von Roll20:
+
+- kein Build-System im Zielsystem
 - HTML, CSS, optional `translation.json`
-- feste Namenskonventionen: `attr_`, `act_`, `repeating_`
+- feste Namenskonventionen (`attr_`, `act_`, `repeating_`)
 - Sandbox ist upload-basiert (kein Git-Sync)
 
-→ Kein klassisches Frontend-Projekt
+Dieses Projekt ist **kein klassisches Frontend**.
 
 ---
 
-## 2. Struktur
+## 2. Projektstruktur
 
-Source:
+### Source of Truth
+
 - `src/html/charactersheet.html`
 - `src/css/charactersheet.css`
 - `src/i18n/translation.json`
 
-Output:
-- `output/assets/*` (generiert)
+### Generierter Output
 
-Docs:
-- `docs/`, `readme.md`, `roll20-checklist.md`
+- `output/charactersheet.html`
+- `output/charactersheet.css`
+- `output/assets/images/*`
+
+### Dokumentation
+
+- `docs/*`
+- `readme.md`
+- `roll20-checklist.md`
 
 ---
 
-## 3. Grundregeln
+## 3. Grundprinzipien
 
-- Arbeite in `src/` (source of truth)
-- `output/` nicht direkt bearbeiten
-- kleine, sichere Änderungen
-- bestehende Patterns wiederverwenden
+- Arbeite **source-first** (`src/`)
+- `output/` ist generiert → nicht direkt bearbeiten
+- kleine, nachvollziehbare Änderungen
+- bestehende Patterns bevorzugen
 - Roll20-Kompatibilität > moderne Web-Praktiken
-- keine Frameworks / Toolchains hinzufügen
+- keine neuen Frameworks oder Toolchains
 
 ---
 
-## 4. Workflow
+## 4. Lokaler Workflow
 
-src → build → output → Autouploader → Roll20
+src/ → build → output/ → Roll20 Autouploader → Sheet Sandbox
 
-- Git = Source of Truth
-- Sandbox nur über Upload aktualisieren
-- keine direkte Integration mit Roll20
-
----
-
-## 5. Codex-Verhalten
-
-Arbeite immer in diesem Ablauf:
-1. analysieren
-2. planen
-3. minimal ändern
-4. prüfen
-5. strukturiert antworten
+- Git ist die Source of Truth
+- Sandbox wird ausschließlich über Upload aktualisiert
+- Autouploader übernimmt das „Live Update“
+- keine direkte Integration mit Roll20 oder Git
 
 ---
 
-## 6. Datei-Regeln
+## 5. Codex-Arbeitsweise
 
-HTML:
-- `attr_*`, `act_*`, `repeating_*` nicht ohne Grund ändern
-- keine Datenpfade brechen
-- erweitern statt neu bauen
+Bei jeder Aufgabe:
 
-CSS:
-- gezielte Änderungen
+1. Ist-Zustand analysieren
+2. kurzen Plan erstellen
+3. minimal-invasive Änderung durchführen
+4. Roll20-Auswirkungen berücksichtigen
+5. Ergebnis strukturiert ausgeben
+
+---
+
+## 6. Dateispezifische Regeln
+
+### HTML (`charactersheet.html`)
+
+- `attr_*` Namen niemals leichtfertig ändern
+- `act_*` Buttons korrekt lassen
+- `repeating_` Sections stabil halten
+- keine bestehenden Datenpfade brechen
+- Erweiterung statt Rewrite
+
+### CSS (`charactersheet.css`)
+
+- nur Roll20-kompatible Styles
 - keine globalen Resets
-- Struktur respektieren
+- kleine, gezielte Änderungen
+- bestehende Struktur respektieren
 
-i18n:
-- UI-Texte in `translation.json`
-- Keys wiederverwenden
+### i18n (`translation.json`)
+
+- neue UI-Texte → in i18n aufnehmen
+- bestehende Keys wiederverwenden
 - keine unnötigen Hardcodings
+- Keys nur entfernen, wenn UI entfernt wurde
 
 ---
 
-## 7. Output
+## 7. Output-Regeln
 
-- `output/` ist generiert
+- `output/assets/*` ist generiert
 - Änderungen nur wenn explizit gefordert
-- nach `src/` Änderungen → Build nötig
+- nach `src/` Änderungen → auf notwendigen Rebuild hinweisen
+- keine stillen Änderungen an Output
 
 ---
 
-## 8. Safety Checks
+## 8. Roll20 Safety Checks (Pflicht)
 
-Immer prüfen:
-- Feldnamen korrekt (`attr_`, `act_`)
-- repeating sections stabil
-- bestehende Daten kompatibel
-- translation vollständig
+Vor Abschluss immer prüfen:
+
+- `attr_*` korrekt?
+- `act_*` korrekt?
+- repeating sections unverändert?
+- bestehende Attribute kompatibel?
+- translation keys vollständig?
+- keine Web-App Annahmen eingeführt?
 
 ---
 
-## 9. Debugging
+## 9. Debugging-Reihenfolge
 
-Reihenfolge:
-1. Attribute
-2. Buttons
+1. Attributnamen
+2. Button-Referenzen
 3. Repeating Sections
-4. i18n
+4. Translation Keys
 5. CSS
-6. Output vs Source
+6. Output vs. Source Sync
 
 ---
 
-## 10. Git
+## 10. Git-Regeln
 
 Verboten:
+
 - `git reset --hard`
 - `git clean -fd`
 - force push
 
+Grundsatz:
+
+- kleine Änderungen
+- Struktur respektieren
+
 ---
 
-## 11. Vermeiden
+## 11. Was vermieden werden muss
 
-- Frameworks
-- große Refactors
-- Feld-Umbenennungen
-- Output direkt ändern
+- Frameworks (React, Vue, etc.)
+- große Refactors ohne Not
+- Umbenennung von Roll20-Feldern
+- direkte Bearbeitung von generiertem Output
 - Hardcoding statt i18n
-- Browser/Profile/Logins anfassen
+- Änderungen an Browser-Profilen / Sessions
 
 ---
 
 ## 12. Ausgabeformat
 
-Immer verwenden:
+Bei jeder Antwort MUSS folgende Struktur verwendet werden:
 
 ### Plan
-- geplante Schritte
+
+- Beschreibe die geplanten Änderungen
 
 ### Änderungen
-- konkrete Änderungen
 
-### Dateien
-- betroffene Dateien
+- Liste die konkreten Änderungen auf
+
+### Betroffene Dateien
+
+- Nenne alle geänderten Dateien
 
 ### Test
-- wie prüfen
+
+- Beschreibe, wie die Änderungen überprüft werden können
 
 ### Hinweise
-- Risiken / Besonderheiten
+
+- Nenne Risiken oder wichtige Details
 
 ---
 
-## 13. Regel bei Unsicherheit
+## 13. Entscheidungsregel
 
-- weniger ändern
-- Struktur respektieren
-- Annahmen benennen
+Wenn unsicher:
+
+- weniger ändern statt mehr
+- bestehende Struktur respektieren
+- Annahmen klar benennen
