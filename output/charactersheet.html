@@ -619,54 +619,99 @@
                     </div>
                   </div>
 
-                  <div class="sr6-charactersheet-row sr6-charactersheet-row-5">
-                    <label class="sr6-charactersheet-field">
-                      <span data-i18n="field.initiative_basis"
-                        >Initiative (Basis)</span
-                      >
-                      <input
-                        type="text"
-                        name="attr_sr6_derived_initiative_basis"
-                        readonly />
-                    </label>
+                </div>
+              </section>
 
-                    <label class="sr6-charactersheet-field">
-                      <span data-i18n="field.verteidigung_basis"
-                        >Verteidigung (Basis)</span
-                      >
-                      <input
-                        type="text"
-                        name="attr_sr6_derived_verteidigung_basis"
-                        readonly />
-                    </label>
+              <section
+                class="sr6-charactersheet-box sr6-charactersheet-box-initiative"
+                aria-labelledby="initiative-titel">
+                <h1
+                  id="initiative-titel"
+                  class="sr6-charactersheet-box-title"
+                  data-i18n="section.initiative">
+                  Initiative
+                </h1>
 
-                    <label class="sr6-charactersheet-field">
-                      <span data-i18n="field.koerperlicher_monitor_max"
-                        >K. Monitor (Max)</span
-                      >
+                <div class="sr6-charactersheet-box-content">
+                  <div class="sr6-charactersheet-init-row">
+                    <span
+                      class="sr6-charactersheet-init-row-title"
+                      data-i18n="field.physisch"
+                      >Physisch</span
+                    >
+                    <div class="sr6-charactersheet-init-formula">
+                      <span data-i18n="field.basis_plus">Basis +</span>
                       <input
                         type="text"
-                        name="attr_sr6_derived_koerperlicher_monitor_max"
-                        readonly />
-                    </label>
+                        name="attr_sr6_initiative_physisch_modifikator_basis" />
+                    </div>
+                    <div class="sr6-charactersheet-init-formula-with-dice">
+                      <span data-i18n="field.eins_plus">1 +</span>
+                      <div class="sr6-charactersheet-field-input-with-dice">
+                        <input
+                          type="text"
+                          name="attr_sr6_initiative_physisch_modifikator_w6" /><button
+                          type="roll"
+                          class="sr6-charactersheet-field-dice-button"
+                          name="roll_sr6_initiative_physisch"
+                          value="&{template:default} {{name=Initiative: Physisch}} {{Basis=[[@{sr6_derived_initiative_basis}+@{sr6_initiative_physisch_modifikator_basis}]]}} {{W6=[[(1+@{sr6_initiative_physisch_modifikator_w6})d6]]}} {{Gesamt=[[@{sr6_derived_initiative_basis}+@{sr6_initiative_physisch_modifikator_basis}+((1+@{sr6_initiative_physisch_modifikator_w6})d6)]]}}"
+                          aria-label="Wuerfeln"></button>
+                      </div>
+                    </div>
+                  </div>
 
-                    <label class="sr6-charactersheet-field">
-                      <span data-i18n="field.geistiger_monitor_max"
-                        >G. Monitor (Max)</span
-                      >
+                  <div class="sr6-charactersheet-init-row">
+                    <span
+                      class="sr6-charactersheet-init-row-title"
+                      data-i18n="field.astral"
+                      >Astral</span
+                    >
+                    <div class="sr6-charactersheet-init-formula">
+                      <span data-i18n="field.basis_plus">Basis +</span>
                       <input
                         type="text"
-                        name="attr_sr6_derived_geistiger_monitor_max"
-                        readonly />
-                    </label>
+                        name="attr_sr6_initiative_astral_modifikator_basis" />
+                    </div>
+                    <div class="sr6-charactersheet-init-formula-with-dice">
+                      <span data-i18n="field.eins_plus">1 +</span>
+                      <div class="sr6-charactersheet-field-input-with-dice">
+                        <input
+                          type="text"
+                          name="attr_sr6_initiative_astral_modifikator_w6" /><button
+                          type="roll"
+                          class="sr6-charactersheet-field-dice-button"
+                          name="roll_sr6_initiative_astral"
+                          value="&{template:default} {{name=Initiative: Astral}} {{Basis=[[@{sr6_derived_initiative_basis}+@{sr6_initiative_astral_modifikator_basis}]]}} {{W6=[[(1+@{sr6_initiative_astral_modifikator_w6})d6]]}} {{Gesamt=[[@{sr6_derived_initiative_basis}+@{sr6_initiative_astral_modifikator_basis}+((1+@{sr6_initiative_astral_modifikator_w6})d6)]]}}"
+                          aria-label="Wuerfeln"></button>
+                      </div>
+                    </div>
+                  </div>
 
-                    <label class="sr6-charactersheet-field">
-                      <span data-i18n="field.edge_basis">Edge (Basis)</span>
+                  <div class="sr6-charactersheet-init-row">
+                    <span
+                      class="sr6-charactersheet-init-row-title"
+                      data-i18n="field.matrix"
+                      >Matrix</span
+                    >
+                    <div class="sr6-charactersheet-init-formula">
+                      <span data-i18n="field.basis_plus">Basis +</span>
                       <input
                         type="text"
-                        name="attr_sr6_derived_edge_basis"
-                        readonly />
-                    </label>
+                        name="attr_sr6_initiative_matrix_modifikator_basis" />
+                    </div>
+                    <div class="sr6-charactersheet-init-formula-with-dice">
+                      <span data-i18n="field.eins_plus">1 +</span>
+                      <div class="sr6-charactersheet-field-input-with-dice">
+                        <input
+                          type="text"
+                          name="attr_sr6_initiative_matrix_modifikator_w6" /><button
+                          type="roll"
+                          class="sr6-charactersheet-field-dice-button"
+                          name="roll_sr6_initiative_matrix"
+                          value="&{template:default} {{name=Initiative: Matrix}} {{Basis=[[@{sr6_derived_initiative_basis}+@{sr6_initiative_matrix_modifikator_basis}]]}} {{W6=[[(1+@{sr6_initiative_matrix_modifikator_w6})d6]]}} {{Gesamt=[[@{sr6_derived_initiative_basis}+@{sr6_initiative_matrix_modifikator_basis}+((1+@{sr6_initiative_matrix_modifikator_w6})d6)]]}}"
+                          aria-label="Wuerfeln"></button>
+                      </div>
+                    </div>
                   </div>
                 </div>
               </section>
@@ -1599,6 +1644,7 @@
             "section.rigging_kern": "Rigging: Kernwerte",
             "section.ausruestung_kern": "Ausrüstung: Übersicht",
             "section.persoenliche_daten": "Persönliche Daten",
+            "section.initiative": "Initiative",
             "tab.allgemein": "Allgemein",
             "tab.fertigkeiten": "Fertigkeiten",
             "tab.kampf": "Kampf",
@@ -1624,6 +1670,11 @@
             "field.grundwert": "Grundwert",
             "field.modifikator": "Modifikator",
             "field.gesamtwert": "Gesamtwert",
+            "field.physisch": "Physisch",
+            "field.astral": "Astral",
+            "field.matrix": "Matrix",
+            "field.basis_plus": "Basis +",
+            "field.eins_plus": "1 +",
             "field.primaere_fernkampfwaffe": "Primäre Fernkampfwaffe",
             "field.schaden": "Schaden",
             "field.modus": "Modus",
@@ -1710,6 +1761,7 @@
             "section.rigging_kern": "Rigging: Core Values",
             "section.ausruestung_kern": "Gear: Overview",
             "section.persoenliche_daten": "Personal Data",
+            "section.initiative": "Initiative",
             "tab.allgemein": "General",
             "tab.fertigkeiten": "Skills",
             "tab.kampf": "Combat",
@@ -1735,6 +1787,11 @@
             "field.grundwert": "Base",
             "field.modifikator": "Modifier",
             "field.gesamtwert": "Total",
+            "field.physisch": "Physical",
+            "field.astral": "Astral",
+            "field.matrix": "Matrix",
+            "field.basis_plus": "Base +",
+            "field.eins_plus": "1 +",
             "field.primaere_fernkampfwaffe": "Primary Ranged Weapon",
             "field.schaden": "Damage",
             "field.modus": "Mode",
@@ -1819,6 +1876,7 @@
             "section.rigging_kern": "Rigging : Valeurs clés",
             "section.ausruestung_kern": "Équipement : Vue d'ensemble",
             "section.persoenliche_daten": "Données personnelles",
+            "section.initiative": "Initiative",
             "tab.allgemein": "Général",
             "tab.fertigkeiten": "Compétences",
             "tab.kampf": "Combat",
@@ -1844,6 +1902,11 @@
             "field.grundwert": "Base",
             "field.modifikator": "Modificateur",
             "field.gesamtwert": "Total",
+            "field.physisch": "Physique",
+            "field.astral": "Astral",
+            "field.matrix": "Matrice",
+            "field.basis_plus": "Base +",
+            "field.eins_plus": "1 +",
             "field.primaere_fernkampfwaffe": "Arme à distance principale",
             "field.schaden": "Dégâts",
             "field.modus": "Mode",

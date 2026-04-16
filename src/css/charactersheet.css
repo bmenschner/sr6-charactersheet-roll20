@@ -25,8 +25,8 @@ body,
   font-family: "Segoe UI", "Helvetica Neue", Arial, sans-serif;
 }
 
-.ui-dialog {
-  background-color: #f5f5f5;
+.ui-dialog .charsheet input {
+    height: 24px;
 }
 
 .sr6-charactersheet,
@@ -276,7 +276,56 @@ body,
   gap: 0.4375rem;
 }
 
+.sr6-charactersheet-init-row {
+  display: grid;
+  grid-template-columns: 6rem minmax(0, 1fr) minmax(0, 1fr);
+  gap: 0.5rem;
+  align-items: end;
+}
+
+.sr6-charactersheet-init-row-title {
+  font-size: 0.86rem;
+  font-weight: 700;
+  line-height: 1.5rem;
+}
+
+.sr6-charactersheet-init-formula,
+.sr6-charactersheet-init-formula-with-dice {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr);
+  gap: 0.375rem;
+  align-items: end;
+}
+
+.sr6-charactersheet-init-formula > span,
+.sr6-charactersheet-init-formula-with-dice > span {
+  font-size: 0.68rem;
+  line-height: 1.5rem;
+  white-space: nowrap;
+}
+
+.sr6-charactersheet-init-formula > input {
+  width: 100%;
+  height: 1.5rem;
+  border: none;
+  border-bottom: 0.0625rem solid var(--sr6-line-soft);
+  background: transparent;
+  color: var(--sr6-text);
+  font-size: 0.86rem;
+  padding: 0.125rem 0.25rem;
+}
+
+.sr6-charactersheet-init-formula > input:focus,
+.sr6-charactersheet-init-formula-with-dice input:focus {
+  outline: 0.0625rem solid var(--sr6-line);
+  border-bottom-color: var(--sr6-line);
+}
+
 .sr6-charactersheet-box-content > .sr6-charactersheet-row + .sr6-charactersheet-row {
+  margin-top: 0.5rem;
+}
+
+.sr6-charactersheet-box-content > .sr6-charactersheet-init-row + .sr6-charactersheet-init-row {
   margin-top: 0.5rem;
 }
 
@@ -311,13 +360,18 @@ body,
   grid-template-columns: minmax(0, 1fr) 1.75rem;
   align-items: stretch;
   width: 100%;
-  height: 1.5rem;
 }
 
 .sr6-charactersheet-field-input-with-dice > input {
   width: 100%;
   min-width: 0;
   height: 100%;
+  border: none;
+  border-bottom: 0.0625rem solid var(--sr6-line-soft);
+  background: transparent;
+  color: var(--sr6-text);
+  font-size: 0.86rem;
+  padding: 0.125rem 0.25rem;
   padding-right: 0.25rem;
 }
 
@@ -501,6 +555,11 @@ body,
 
   .sr6-charactersheet-row-3 {
     grid-template-columns: minmax(0, 1fr);
+  }
+
+  .sr6-charactersheet-init-row {
+    grid-template-columns: minmax(0, 1fr);
+    align-items: stretch;
   }
 }
 
