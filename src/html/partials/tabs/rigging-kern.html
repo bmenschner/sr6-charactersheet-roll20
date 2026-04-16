@@ -11,23 +11,23 @@
 
               <div class="sr6-charactersheet-box-content">
                 <div class="sr6-charactersheet-row sr6-charactersheet-row-2">
-                  <label class="sr6-charactersheet-field">
+                  <div class="sr6-charactersheet-field">
                     <span data-i18n="field.fahrzeug_drohne"
                       >Fahrzeug/Drohne</span
                     >
                     <input
                       type="text"
                       name="attr_sr6_rigging_fahrzeug_drohne" />
-                  </label>
+                  </div>
 
-                  <label class="sr6-charactersheet-field">
+                  <div class="sr6-charactersheet-field">
                     <span data-i18n="field.sensorik">Sensorik</span>
                     <input type="text" name="attr_sr6_rigging_sensorik" />
-                  </label>
+                  </div>
                 </div>
 
                 <div class="sr6-charactersheet-row sr6-charactersheet-row-2">
-                  <label class="sr6-charactersheet-field">
+                  <div class="sr6-charactersheet-field">
                     <span data-i18n="field.steuerungspool">Steuerungspool</span>
                     <div class="sr6-charactersheet-field-input-with-dice">
                       <input
@@ -39,9 +39,9 @@
                         value="&{template:default} {{name=Rigging-Test}} {{Pool=[[@{sr6_rigging_steuerungspool}]]}} {{Erfolge=[[@{sr6_rigging_steuerungspool}d6cs>4]]}}"
                         aria-label="Wuerfeln"></button>
                     </div>
-                  </label>
+                  </div>
 
-                  <label class="sr6-charactersheet-field">
+                  <div class="sr6-charactersheet-field">
                     <span data-i18n="field.fernsteuerungspool"
                       >Fernsteuerungspool</span
                     >
@@ -55,7 +55,7 @@
                         value="&{template:default} {{name=Fernsteuerung-Test}} {{Pool=[[@{sr6_rigging_fernsteuerungspool}]]}} {{Erfolge=[[@{sr6_rigging_fernsteuerungspool}d6cs>4]]}}"
                         aria-label="Wuerfeln"></button>
                     </div>
-                  </label>
+                  </div>
                 </div>
               </div>
             </section>

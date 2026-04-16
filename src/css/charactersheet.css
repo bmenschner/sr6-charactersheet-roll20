@@ -496,23 +496,27 @@ body,
   font-size: 0.875rem;
 }
 
-.sr6-charactersheet-repeating {
+fieldset.repeating_sr6fernkampfwaffen,
+fieldset.repeating_sr6nahkampfwaffen,
+fieldset.repeating_sr6panzerung {
   margin: 0;
   padding: 0;
   border: none;
   min-inline-size: 0;
-  display: grid;
-  gap: 0.625rem;
 }
 
-.sr6-charactersheet-repeating .repitem {
-  display: grid;
-  gap: 0.5rem;
+fieldset.repeating_sr6fernkampfwaffen .repitem,
+fieldset.repeating_sr6nahkampfwaffen .repitem,
+fieldset.repeating_sr6panzerung .repitem {
+  margin-bottom: 0.625rem;
   padding-bottom: 0.625rem;
   border-bottom: 0.0625rem solid var(--sr6-line-soft);
 }
 
-.sr6-charactersheet-repeating .repitem:last-child {
+fieldset.repeating_sr6fernkampfwaffen .repitem:last-child,
+fieldset.repeating_sr6nahkampfwaffen .repitem:last-child,
+fieldset.repeating_sr6panzerung .repitem:last-child {
+  margin-bottom: 0;
   padding-bottom: 0;
   border-bottom: none;
 }

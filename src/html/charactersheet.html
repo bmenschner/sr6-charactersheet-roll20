@@ -1,11 +1,4 @@
-<!doctype html>
-<html lang="de">
-  <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <link rel="stylesheet" href="./charactersheet.css" />
-  </head>
-  <body>
+<div class="charsheet">
     <!-- Globales Roll20-Tabs-Toggle für CharSheet/Bio/Abilities -->
     <!-- BEGIN BLOCK: Tabs Toggle -->
     <!-- @include partials/shell/tabs-toggle.html -->
@@ -151,9 +144,10 @@
           </div>
         </div>
       </section>
+
     </div>
 
-    <!-- Roll20 Sheet Worker: berechnet abgeleitete Werte aus Attributen -->
+    <!-- Roll20 Sheet Worker -->
     <script type="text/worker">
       // Basis-Attributliste fuer die automatische Neuberechnung.
       const SR6_ATTRIBUTES = [
@@ -237,7 +231,7 @@
       on("change:sr6_combat_helm", normalizeLegacyCheckboxValues);
     </script>
 
-    <!-- Runtime-i18n im Browser: ersetzt data-i18n Keys beim Laden -->
+    <!-- Runtime-i18n -->
     <script>
       (function () {
         // Vollstaendige UI-Texte fuer de/en/fr. Roll20 nutzt parallel translation.json.
@@ -249,9 +243,9 @@
             "section.edge_token": "Edge Token",
             "section.attribute": "Attribute",
             "section.wichtige_kampf_infos": "Kampf",
-            "section.kampf_fernkampf": "Kampf: Fernkampf",
-            "section.kampf_nahkampf": "Kampf: Nahkampf & Abwehr",
-            "section.kampf_panzerung": "Kampf: Panzerung",
+            "section.kampf_fernkampf": "Fernkampfwaffen",
+            "section.kampf_nahkampf": "Nahkampfwaffen",
+            "section.kampf_panzerung": "Panzerung",
             "section.fertigkeiten_basis": "Fertigkeiten",
             "section.magie_kern": "Magie: Kernwerte",
             "section.matrix_kern": "Matrix: Kernwerte",
@@ -402,9 +396,9 @@
             "section.edge_token": "Edge Token",
             "section.attribute": "Attributes",
             "section.wichtige_kampf_infos": "Combat",
-            "section.kampf_fernkampf": "Combat: Ranged",
-            "section.kampf_nahkampf": "Combat: Melee & Defense",
-            "section.kampf_panzerung": "Combat: Armor",
+            "section.kampf_fernkampf": "Ranged Weapons",
+            "section.kampf_nahkampf": "Melee Weapons",
+            "section.kampf_panzerung": "Armor",
             "section.fertigkeiten_basis": "Skills (Core)",
             "section.magie_kern": "Magic: Core Values",
             "section.matrix_kern": "Matrix: Core Values",
@@ -551,9 +545,9 @@
             "section.edge_token": "Jeton d'Edge",
             "section.attribute": "Attributs",
             "section.wichtige_kampf_infos": "Combat",
-            "section.kampf_fernkampf": "Combat : Distance",
-            "section.kampf_nahkampf": "Combat : Mêlée & Défense",
-            "section.kampf_panzerung": "Combat : Armure",
+            "section.kampf_fernkampf": "Armes à distance",
+            "section.kampf_nahkampf": "Armes de mêlée",
+            "section.kampf_panzerung": "Armure",
             "section.fertigkeiten_basis": "Compétences (Base)",
             "section.magie_kern": "Magie : Valeurs clés",
             "section.matrix_kern": "Matrice : Valeurs clés",
@@ -758,5 +752,4 @@
         });
       })();
     </script>
-  </body>
-</html>
+</div>
