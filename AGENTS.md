@@ -21,8 +21,8 @@ Dieses Projekt ist **kein klassisches Frontend**.
 - `src/i18n/translation.json`
 
 ### Generierter Output
-- `output/assets/charactersheet.html`
-- `output/assets/charactersheet.css`
+- `output/charactersheet.html`
+- `output/charactersheet.css`
 - `output/assets/images/*`
 
 ### Dokumentation
