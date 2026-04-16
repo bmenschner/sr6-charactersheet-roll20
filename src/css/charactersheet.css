@@ -60,6 +60,8 @@ body,
 
 .sr6-charactersheet-kopfbereich-spalte {
   min-width: 0;
+  display: flex;
+  flex-direction: column;
 }
 
 .sr6-charactersheet-kopfbereich-title {
@@ -74,6 +76,7 @@ body,
 .sr6-charactersheet-placeholder {
   width: 100%;
   min-height: 6rem;
+  flex: 1 1 auto;
   display: grid;
   place-items: center;
   border: 0.0625rem dashed var(--sr6-line-soft);
