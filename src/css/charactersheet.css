@@ -17,7 +17,7 @@ body,
   background-color: #d2d2d2;
   background-image:
     linear-gradient(rgba(255, 255, 255, 0.58), rgba(255, 255, 255, 0.58)),
-    url("https://raw.githubusercontent.com/bmenschner/sr6-charactersheet-roll20/main/src/background.jpg");
+    url("https://raw.githubusercontent.com/bmenschner/sr6-charactersheet-roll20/main/src/assets/images/background.jpg");
   background-repeat: no-repeat, no-repeat;
   background-size: cover, cover;
   background-position: center center, center center;
