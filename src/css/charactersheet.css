@@ -552,7 +552,8 @@ body,
 
 fieldset.repeating_sr6fernkampfwaffen,
 fieldset.repeating_sr6nahkampfwaffen,
-fieldset.repeating_sr6panzerung {
+fieldset.repeating_sr6panzerung,
+fieldset.repeating_sr6combatmods {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
   gap: 0.625rem;
@@ -565,25 +566,29 @@ fieldset.repeating_sr6panzerung {
 
 fieldset.repeating_sr6fernkampfwaffen .repitem,
 fieldset.repeating_sr6nahkampfwaffen .repitem,
-fieldset.repeating_sr6panzerung .repitem {
+fieldset.repeating_sr6panzerung .repitem,
+fieldset.repeating_sr6combatmods .repitem {
   margin: 0;
 }
 
 fieldset.repeating_sr6fernkampfwaffen .repitem:last-child,
 fieldset.repeating_sr6nahkampfwaffen .repitem:last-child,
-fieldset.repeating_sr6panzerung .repitem:last-child {
+fieldset.repeating_sr6panzerung .repitem:last-child,
+fieldset.repeating_sr6combatmods .repitem:last-child {
   margin-bottom: 0;
 }
 
 fieldset.repeating_sr6fernkampfwaffen .repcontrol,
 fieldset.repeating_sr6nahkampfwaffen .repcontrol,
-fieldset.repeating_sr6panzerung .repcontrol {
+fieldset.repeating_sr6panzerung .repcontrol,
+fieldset.repeating_sr6combatmods .repcontrol {
   grid-column: 1 / -1;
 }
 
 .charsheet .repcontainer[data-groupname="repeating_sr6fernkampfwaffen"],
 .charsheet .repcontainer[data-groupname="repeating_sr6nahkampfwaffen"],
-.charsheet .repcontainer[data-groupname="repeating_sr6panzerung"] {
+.charsheet .repcontainer[data-groupname="repeating_sr6panzerung"],
+.charsheet .repcontainer[data-groupname="repeating_sr6combatmods"] {
   display: grid !important;
   grid-template-columns: repeat(2, minmax(0, 1fr));
   gap: 0.625rem;
@@ -592,7 +597,8 @@ fieldset.repeating_sr6panzerung .repcontrol {
 
 .charsheet .repcontainer[data-groupname="repeating_sr6fernkampfwaffen"] > .repitem,
 .charsheet .repcontainer[data-groupname="repeating_sr6nahkampfwaffen"] > .repitem,
-.charsheet .repcontainer[data-groupname="repeating_sr6panzerung"] > .repitem {
+.charsheet .repcontainer[data-groupname="repeating_sr6panzerung"] > .repitem,
+.charsheet .repcontainer[data-groupname="repeating_sr6combatmods"] > .repitem {
   margin: 0;
   grid-column: auto / span 1 !important;
 }
@@ -631,16 +637,27 @@ fieldset.repeating_sr6panzerung .repcontrol {
   margin-top: 0;
 }
 
+.sr6-charactersheet-subtitle {
+  margin: 0.75rem 0 0.5rem;
+  font-size: 1rem;
+  font-weight: 700;
+  color: var(--sr6-title);
+  text-transform: uppercase;
+  letter-spacing: 0.02rem;
+}
+
 @media (max-width: 50rem) {
   fieldset.repeating_sr6fernkampfwaffen,
   fieldset.repeating_sr6nahkampfwaffen,
-  fieldset.repeating_sr6panzerung {
+  fieldset.repeating_sr6panzerung,
+  fieldset.repeating_sr6combatmods {
     grid-template-columns: minmax(0, 1fr);
   }
 
   .charsheet .repcontainer[data-groupname="repeating_sr6fernkampfwaffen"],
   .charsheet .repcontainer[data-groupname="repeating_sr6nahkampfwaffen"],
-  .charsheet .repcontainer[data-groupname="repeating_sr6panzerung"] {
+  .charsheet .repcontainer[data-groupname="repeating_sr6panzerung"],
+  .charsheet .repcontainer[data-groupname="repeating_sr6combatmods"] {
     grid-template-columns: minmax(0, 1fr);
   }
 }

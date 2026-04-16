@@ -78,7 +78,7 @@
                 type="roll"
                 class="sr6-charactersheet-field-dice-button"
                 name="roll_fernkampf_s_nah"
-                value="&{template:default} {{name=Fernkampf-Test}} {{Waffe=@{fernkampfwaffe}}} {{Reichweite=S. Nah}} {{Pool=[[@{fernkampf_s_nah}]]}} {{Erfolge=[[@{fernkampf_s_nah}d6cs>4]]}}"
+                value="&{template:default} {{name=Fernkampf-Test}} {{Waffe=@{fernkampfwaffe}}} {{Reichweite=S. Nah}} {{Pool=[[@{fernkampf_s_nah_effektiv}]]}} {{Erfolge=[[@{fernkampf_s_nah_effektiv}d6cs>4]]}}"
                 aria-label="Wuerfeln"></button>
             </div>
           </div>
@@ -90,7 +90,7 @@
                 type="roll"
                 class="sr6-charactersheet-field-dice-button"
                 name="roll_fernkampf_nah"
-                value="&{template:default} {{name=Fernkampf-Test}} {{Waffe=@{fernkampfwaffe}}} {{Reichweite=Nah}} {{Pool=[[@{fernkampf_nah}]]}} {{Erfolge=[[@{fernkampf_nah}d6cs>4]]}}"
+                value="&{template:default} {{name=Fernkampf-Test}} {{Waffe=@{fernkampfwaffe}}} {{Reichweite=Nah}} {{Pool=[[@{fernkampf_nah_effektiv}]]}} {{Erfolge=[[@{fernkampf_nah_effektiv}d6cs>4]]}}"
                 aria-label="Wuerfeln"></button>
             </div>
           </div>
@@ -102,7 +102,7 @@
                 type="roll"
                 class="sr6-charactersheet-field-dice-button"
                 name="roll_fernkampf_mittel"
-                value="&{template:default} {{name=Fernkampf-Test}} {{Waffe=@{fernkampfwaffe}}} {{Reichweite=Mittel}} {{Pool=[[@{fernkampf_mittel}]]}} {{Erfolge=[[@{fernkampf_mittel}d6cs>4]]}}"
+                value="&{template:default} {{name=Fernkampf-Test}} {{Waffe=@{fernkampfwaffe}}} {{Reichweite=Mittel}} {{Pool=[[@{fernkampf_mittel_effektiv}]]}} {{Erfolge=[[@{fernkampf_mittel_effektiv}d6cs>4]]}}"
                 aria-label="Wuerfeln"></button>
             </div>
           </div>
@@ -114,7 +114,7 @@
                 type="roll"
                 class="sr6-charactersheet-field-dice-button"
                 name="roll_fernkampf_weit"
-                value="&{template:default} {{name=Fernkampf-Test}} {{Waffe=@{fernkampfwaffe}}} {{Reichweite=Weit}} {{Pool=[[@{fernkampf_weit}]]}} {{Erfolge=[[@{fernkampf_weit}d6cs>4]]}}"
+                value="&{template:default} {{name=Fernkampf-Test}} {{Waffe=@{fernkampfwaffe}}} {{Reichweite=Weit}} {{Pool=[[@{fernkampf_weit_effektiv}]]}} {{Erfolge=[[@{fernkampf_weit_effektiv}d6cs>4]]}}"
                 aria-label="Wuerfeln"></button>
             </div>
           </div>
@@ -126,29 +126,86 @@
                 type="roll"
                 class="sr6-charactersheet-field-dice-button"
                 name="roll_fernkampf_s_weit"
-                value="&{template:default} {{name=Fernkampf-Test}} {{Waffe=@{fernkampfwaffe}}} {{Reichweite=S. Weit}} {{Pool=[[@{fernkampf_s_weit}]]}} {{Erfolge=[[@{fernkampf_s_weit}d6cs>4]]}}"
+                value="&{template:default} {{name=Fernkampf-Test}} {{Waffe=@{fernkampfwaffe}}} {{Reichweite=S. Weit}} {{Pool=[[@{fernkampf_s_weit_effektiv}]]}} {{Erfolge=[[@{fernkampf_s_weit_effektiv}d6cs>4]]}}"
                 aria-label="Wuerfeln"></button>
             </div>
           </div>
         </div>
 
-        <div class="sr6-foundry-item-footer sr6-charactersheet-row sr6-charactersheet-row-1">
-          <div class="sr6-charactersheet-field sr6-charactersheet-mod-popup">
-            <details>
-              <summary data-i18n="field.modifikationen">Modifikationen</summary>
-              <div class="sr6-charactersheet-mod-popup-panel">
-                <span data-i18n="field.modifikationen">Modifikationen</span>
-                <textarea
-                  name="attr_fernkampf_modifikationen"
-                  rows="4"
-                  placeholder="z. B. Smartgun, Laufverlängerung, Gasventil"></textarea>
-              </div>
-            </details>
+        <div class="sr6-foundry-item-footer sr6-charactersheet-row sr6-charactersheet-row-5">
+          <div class="sr6-charactersheet-field">
+            <span data-i18n="field.eff_s_nah">Eff. S. Nah</span>
+            <input type="text" name="attr_fernkampf_s_nah_effektiv" readonly />
+          </div>
+          <div class="sr6-charactersheet-field">
+            <span data-i18n="field.eff_nah">Eff. Nah</span>
+            <input type="text" name="attr_fernkampf_nah_effektiv" readonly />
+          </div>
+          <div class="sr6-charactersheet-field">
+            <span data-i18n="field.eff_mittel">Eff. Mittel</span>
+            <input type="text" name="attr_fernkampf_mittel_effektiv" readonly />
+          </div>
+          <div class="sr6-charactersheet-field">
+            <span data-i18n="field.eff_weit">Eff. Weit</span>
+            <input type="text" name="attr_fernkampf_weit_effektiv" readonly />
+          </div>
+          <div class="sr6-charactersheet-field">
+            <span data-i18n="field.eff_s_weit">Eff. S. Weit</span>
+            <input type="text" name="attr_fernkampf_s_weit_effektiv" readonly />
           </div>
         </div>
       </div>
     </fieldset>
     <!-- END BLOCK: Repeating Fernkampfwaffen -->
+
+    <!-- BEGIN BLOCK: Repeating Fernkampf-Modifikationen -->
+    <h3 class="sr6-charactersheet-subtitle" data-i18n="section.fernkampf_modifikationen">
+      Fernkampf-Modifikationen
+    </h3>
+    <fieldset class="repeating_sr6combatmods">
+      <div class="sr6-foundry-item sr6-foundry-item--mod">
+        <div class="sr6-foundry-item-head sr6-charactersheet-row sr6-charactersheet-row-3">
+          <div class="sr6-charactersheet-field">
+            <span data-i18n="field.modifikation">Modifikation</span>
+            <input type="text" name="attr_mod_name" />
+          </div>
+          <div class="sr6-charactersheet-field">
+            <span data-i18n="field.zielwaffe">Zielwaffe</span>
+            <input type="text" name="attr_mod_target_waffe" />
+          </div>
+          <div class="sr6-charactersheet-field">
+            <span data-i18n="field.aktiv">Aktiv</span>
+            <select name="attr_mod_aktiv">
+              <option value="1">Ja</option>
+              <option value="0">Nein</option>
+            </select>
+          </div>
+        </div>
+        <div class="sr6-foundry-item-row sr6-charactersheet-row sr6-charactersheet-row-5">
+          <div class="sr6-charactersheet-field">
+            <span data-i18n="field.s_nah">S. Nah</span>
+            <input type="text" name="attr_mod_s_nah" value="0" />
+          </div>
+          <div class="sr6-charactersheet-field">
+            <span data-i18n="field.nah">Nah</span>
+            <input type="text" name="attr_mod_nah" value="0" />
+          </div>
+          <div class="sr6-charactersheet-field">
+            <span data-i18n="field.mittel">Mittel</span>
+            <input type="text" name="attr_mod_mittel" value="0" />
+          </div>
+          <div class="sr6-charactersheet-field">
+            <span data-i18n="field.weit">Weit</span>
+            <input type="text" name="attr_mod_weit" value="0" />
+          </div>
+          <div class="sr6-charactersheet-field">
+            <span data-i18n="field.s_weit">S. Weit</span>
+            <input type="text" name="attr_mod_s_weit" value="0" />
+          </div>
+        </div>
+      </div>
+    </fieldset>
+    <!-- END BLOCK: Repeating Fernkampf-Modifikationen -->
   </div>
 </section>
 <!-- END BLOCK: Kampf Fernkampf -->

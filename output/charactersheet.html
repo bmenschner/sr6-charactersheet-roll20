@@ -2859,7 +2859,7 @@
                 type="roll"
                 class="sr6-charactersheet-field-dice-button"
                 name="roll_fernkampf_s_nah"
-                value="&{template:default} {{name=Fernkampf-Test}} {{Waffe=@{fernkampfwaffe}}} {{Reichweite=S. Nah}} {{Pool=[[@{fernkampf_s_nah}]]}} {{Erfolge=[[@{fernkampf_s_nah}d6cs>4]]}}"
+                value="&{template:default} {{name=Fernkampf-Test}} {{Waffe=@{fernkampfwaffe}}} {{Reichweite=S. Nah}} {{Pool=[[@{fernkampf_s_nah_effektiv}]]}} {{Erfolge=[[@{fernkampf_s_nah_effektiv}d6cs>4]]}}"
                 aria-label="Wuerfeln"></button>
             </div>
           </div>
@@ -2871,7 +2871,7 @@
                 type="roll"
                 class="sr6-charactersheet-field-dice-button"
                 name="roll_fernkampf_nah"
-                value="&{template:default} {{name=Fernkampf-Test}} {{Waffe=@{fernkampfwaffe}}} {{Reichweite=Nah}} {{Pool=[[@{fernkampf_nah}]]}} {{Erfolge=[[@{fernkampf_nah}d6cs>4]]}}"
+                value="&{template:default} {{name=Fernkampf-Test}} {{Waffe=@{fernkampfwaffe}}} {{Reichweite=Nah}} {{Pool=[[@{fernkampf_nah_effektiv}]]}} {{Erfolge=[[@{fernkampf_nah_effektiv}d6cs>4]]}}"
                 aria-label="Wuerfeln"></button>
             </div>
           </div>
@@ -2883,7 +2883,7 @@
                 type="roll"
                 class="sr6-charactersheet-field-dice-button"
                 name="roll_fernkampf_mittel"
-                value="&{template:default} {{name=Fernkampf-Test}} {{Waffe=@{fernkampfwaffe}}} {{Reichweite=Mittel}} {{Pool=[[@{fernkampf_mittel}]]}} {{Erfolge=[[@{fernkampf_mittel}d6cs>4]]}}"
+                value="&{template:default} {{name=Fernkampf-Test}} {{Waffe=@{fernkampfwaffe}}} {{Reichweite=Mittel}} {{Pool=[[@{fernkampf_mittel_effektiv}]]}} {{Erfolge=[[@{fernkampf_mittel_effektiv}d6cs>4]]}}"
                 aria-label="Wuerfeln"></button>
             </div>
           </div>
@@ -2895,7 +2895,7 @@
                 type="roll"
                 class="sr6-charactersheet-field-dice-button"
                 name="roll_fernkampf_weit"
-                value="&{template:default} {{name=Fernkampf-Test}} {{Waffe=@{fernkampfwaffe}}} {{Reichweite=Weit}} {{Pool=[[@{fernkampf_weit}]]}} {{Erfolge=[[@{fernkampf_weit}d6cs>4]]}}"
+                value="&{template:default} {{name=Fernkampf-Test}} {{Waffe=@{fernkampfwaffe}}} {{Reichweite=Weit}} {{Pool=[[@{fernkampf_weit_effektiv}]]}} {{Erfolge=[[@{fernkampf_weit_effektiv}d6cs>4]]}}"
                 aria-label="Wuerfeln"></button>
             </div>
           </div>
@@ -2907,29 +2907,86 @@
                 type="roll"
                 class="sr6-charactersheet-field-dice-button"
                 name="roll_fernkampf_s_weit"
-                value="&{template:default} {{name=Fernkampf-Test}} {{Waffe=@{fernkampfwaffe}}} {{Reichweite=S. Weit}} {{Pool=[[@{fernkampf_s_weit}]]}} {{Erfolge=[[@{fernkampf_s_weit}d6cs>4]]}}"
+                value="&{template:default} {{name=Fernkampf-Test}} {{Waffe=@{fernkampfwaffe}}} {{Reichweite=S. Weit}} {{Pool=[[@{fernkampf_s_weit_effektiv}]]}} {{Erfolge=[[@{fernkampf_s_weit_effektiv}d6cs>4]]}}"
                 aria-label="Wuerfeln"></button>
             </div>
           </div>
         </div>
 
-        <div class="sr6-foundry-item-footer sr6-charactersheet-row sr6-charactersheet-row-1">
-          <div class="sr6-charactersheet-field sr6-charactersheet-mod-popup">
-            <details>
-              <summary data-i18n="field.modifikationen">Modifikationen</summary>
-              <div class="sr6-charactersheet-mod-popup-panel">
-                <span data-i18n="field.modifikationen">Modifikationen</span>
-                <textarea
-                  name="attr_fernkampf_modifikationen"
-                  rows="4"
-                  placeholder="z. B. Smartgun, Laufverlängerung, Gasventil"></textarea>
-              </div>
-            </details>
+        <div class="sr6-foundry-item-footer sr6-charactersheet-row sr6-charactersheet-row-5">
+          <div class="sr6-charactersheet-field">
+            <span data-i18n="field.eff_s_nah">Eff. S. Nah</span>
+            <input type="text" name="attr_fernkampf_s_nah_effektiv" readonly />
+          </div>
+          <div class="sr6-charactersheet-field">
+            <span data-i18n="field.eff_nah">Eff. Nah</span>
+            <input type="text" name="attr_fernkampf_nah_effektiv" readonly />
+          </div>
+          <div class="sr6-charactersheet-field">
+            <span data-i18n="field.eff_mittel">Eff. Mittel</span>
+            <input type="text" name="attr_fernkampf_mittel_effektiv" readonly />
+          </div>
+          <div class="sr6-charactersheet-field">
+            <span data-i18n="field.eff_weit">Eff. Weit</span>
+            <input type="text" name="attr_fernkampf_weit_effektiv" readonly />
+          </div>
+          <div class="sr6-charactersheet-field">
+            <span data-i18n="field.eff_s_weit">Eff. S. Weit</span>
+            <input type="text" name="attr_fernkampf_s_weit_effektiv" readonly />
           </div>
         </div>
       </div>
     </fieldset>
     <!-- END BLOCK: Repeating Fernkampfwaffen -->
+
+    <!-- BEGIN BLOCK: Repeating Fernkampf-Modifikationen -->
+    <h3 class="sr6-charactersheet-subtitle" data-i18n="section.fernkampf_modifikationen">
+      Fernkampf-Modifikationen
+    </h3>
+    <fieldset class="repeating_sr6combatmods">
+      <div class="sr6-foundry-item sr6-foundry-item--mod">
+        <div class="sr6-foundry-item-head sr6-charactersheet-row sr6-charactersheet-row-3">
+          <div class="sr6-charactersheet-field">
+            <span data-i18n="field.modifikation">Modifikation</span>
+            <input type="text" name="attr_mod_name" />
+          </div>
+          <div class="sr6-charactersheet-field">
+            <span data-i18n="field.zielwaffe">Zielwaffe</span>
+            <input type="text" name="attr_mod_target_waffe" />
+          </div>
+          <div class="sr6-charactersheet-field">
+            <span data-i18n="field.aktiv">Aktiv</span>
+            <select name="attr_mod_aktiv">
+              <option value="1">Ja</option>
+              <option value="0">Nein</option>
+            </select>
+          </div>
+        </div>
+        <div class="sr6-foundry-item-row sr6-charactersheet-row sr6-charactersheet-row-5">
+          <div class="sr6-charactersheet-field">
+            <span data-i18n="field.s_nah">S. Nah</span>
+            <input type="text" name="attr_mod_s_nah" value="0" />
+          </div>
+          <div class="sr6-charactersheet-field">
+            <span data-i18n="field.nah">Nah</span>
+            <input type="text" name="attr_mod_nah" value="0" />
+          </div>
+          <div class="sr6-charactersheet-field">
+            <span data-i18n="field.mittel">Mittel</span>
+            <input type="text" name="attr_mod_mittel" value="0" />
+          </div>
+          <div class="sr6-charactersheet-field">
+            <span data-i18n="field.weit">Weit</span>
+            <input type="text" name="attr_mod_weit" value="0" />
+          </div>
+          <div class="sr6-charactersheet-field">
+            <span data-i18n="field.s_weit">S. Weit</span>
+            <input type="text" name="attr_mod_s_weit" value="0" />
+          </div>
+        </div>
+      </div>
+    </fieldset>
+    <!-- END BLOCK: Repeating Fernkampf-Modifikationen -->
   </div>
 </section>
 <!-- END BLOCK: Kampf Fernkampf -->
@@ -3554,6 +3611,10 @@
         return Number.isNaN(parsed) ? 0 : parsed;
       }
 
+      function normalizeText(value) {
+        return (value || "").trim().toLowerCase();
+      }
+
       // Recompute-Flow: liest Grundwerte/Modifikatoren und schreibt Gesamt/Derived-Werte.
       function recomputeAll() {
         const requestKeys = [];
@@ -3592,6 +3653,101 @@
         });
       }
 
+      // Berechnet Fernkampf-Effektivwerte aus Basiswerten + aktiven Modifikatoren.
+      function recomputeFernkampfMods() {
+        const rangeFields = ["s_nah", "nah", "mittel", "weit", "s_weit"];
+
+        getSectionIDs("repeating_sr6fernkampfwaffen", (waffenIds) => {
+          getSectionIDs("repeating_sr6combatmods", (modIds) => {
+            const weaponKeys = [];
+            const modKeys = [];
+
+            waffenIds.forEach((id) => {
+              weaponKeys.push(`repeating_sr6fernkampfwaffen_${id}_fernkampfwaffe`);
+              rangeFields.forEach((field) => {
+                weaponKeys.push(`repeating_sr6fernkampfwaffen_${id}_fernkampf_${field}`);
+              });
+            });
+
+            modIds.forEach((id) => {
+              modKeys.push(`repeating_sr6combatmods_${id}_mod_target_waffe`);
+              modKeys.push(`repeating_sr6combatmods_${id}_mod_aktiv`);
+              rangeFields.forEach((field) => {
+                modKeys.push(`repeating_sr6combatmods_${id}_mod_${field}`);
+              });
+            });
+
+            const allKeys = [...weaponKeys, ...modKeys];
+            if (!allKeys.length) {
+              return;
+            }
+
+            getAttrs(allKeys, (values) => {
+              const updates = {};
+              const modsByTarget = {};
+
+              modIds.forEach((id) => {
+                const target = normalizeText(
+                  values[`repeating_sr6combatmods_${id}_mod_target_waffe`]
+                );
+                if (!target) {
+                  return;
+                }
+
+                const activeRaw = (values[`repeating_sr6combatmods_${id}_mod_aktiv`] || "")
+                  .trim()
+                  .toLowerCase();
+                const isActive = activeRaw === "1" || activeRaw === "on" || activeRaw === "ja";
+                if (!isActive) {
+                  return;
+                }
+
+                if (!modsByTarget[target]) {
+                  modsByTarget[target] = {
+                    s_nah: 0,
+                    nah: 0,
+                    mittel: 0,
+                    weit: 0,
+                    s_weit: 0,
+                  };
+                }
+
+                rangeFields.forEach((field) => {
+                  modsByTarget[target][field] += parseNumber(
+                    values[`repeating_sr6combatmods_${id}_mod_${field}`]
+                  );
+                });
+              });
+
+              waffenIds.forEach((id) => {
+                const weaponName = normalizeText(
+                  values[`repeating_sr6fernkampfwaffen_${id}_fernkampfwaffe`]
+                );
+                const modTotals = modsByTarget[weaponName] || {
+                  s_nah: 0,
+                  nah: 0,
+                  mittel: 0,
+                  weit: 0,
+                  s_weit: 0,
+                };
+
+                rangeFields.forEach((field) => {
+                  const baseValue = parseNumber(
+                    values[`repeating_sr6fernkampfwaffen_${id}_fernkampf_${field}`]
+                  );
+                  const effectiveValue = baseValue + modTotals[field];
+                  updates[
+                    `repeating_sr6fernkampfwaffen_${id}_fernkampf_${field}_effektiv`
+                  ] = String(effectiveValue);
+                });
+              });
+
+              setAttrs(updates, { silent: true });
+            });
+          });
+        });
+      }
+
       // Migration: altes Checkbox-Format konnte "on" in Helm hinterlassen.
       function normalizeLegacyCheckboxValues() {
         getAttrs(["sr6_combat_helm"], (values) => {
@@ -3608,10 +3764,30 @@
         recalcEvents.push(`change:sr6_attr_${attributeName}_modifikator`);
       });
 
+      const combatModEvents = [
+        "change:repeating_sr6fernkampfwaffen:fernkampfwaffe",
+        "change:repeating_sr6fernkampfwaffen:fernkampf_s_nah",
+        "change:repeating_sr6fernkampfwaffen:fernkampf_nah",
+        "change:repeating_sr6fernkampfwaffen:fernkampf_mittel",
+        "change:repeating_sr6fernkampfwaffen:fernkampf_weit",
+        "change:repeating_sr6fernkampfwaffen:fernkampf_s_weit",
+        "change:repeating_sr6combatmods:mod_target_waffe",
+        "change:repeating_sr6combatmods:mod_aktiv",
+        "change:repeating_sr6combatmods:mod_s_nah",
+        "change:repeating_sr6combatmods:mod_nah",
+        "change:repeating_sr6combatmods:mod_mittel",
+        "change:repeating_sr6combatmods:mod_weit",
+        "change:repeating_sr6combatmods:mod_s_weit",
+        "remove:repeating_sr6fernkampfwaffen",
+        "remove:repeating_sr6combatmods",
+      ];
+
       on(recalcEvents.join(" "), recomputeAll);
+      on(combatModEvents.join(" "), recomputeFernkampfMods);
       on("sheet:opened", () => {
         normalizeLegacyCheckboxValues();
         recomputeAll();
+        recomputeFernkampfMods();
       });
       on("change:sr6_combat_helm", normalizeLegacyCheckboxValues);
     </script>
@@ -3640,6 +3816,7 @@
             "section.initiative": "Initiative",
             "section.verteidigung": "Verteidigung",
             "section.schadenswiderstand": "Schadenswiderstand",
+            "section.fernkampf_modifikationen": "Fernkampf-Modifikationen",
             "tab.allgemein": "Allgemein",
             "tab.fertigkeiten": "Fertigkeiten",
             "tab.kampf": "Kampf",
@@ -3690,6 +3867,14 @@
             "field.fertigkeit": "Fertigkeit",
             "field.waffentyp": "Waffentyp",
             "field.modifikationen": "Modifikationen",
+            "field.modifikation": "Modifikation",
+            "field.zielwaffe": "Zielwaffe",
+            "field.aktiv": "Aktiv",
+            "field.eff_s_nah": "Eff. S. Nah",
+            "field.eff_nah": "Eff. Nah",
+            "field.eff_mittel": "Eff. Mittel",
+            "field.eff_weit": "Eff. Weit",
+            "field.eff_s_weit": "Eff. S. Weit",
             "field.sozial": "Sozial",
             "field.fertigkeitsattribut": "Attribut",
             "field.fertigkeitsrang": "Rang",
@@ -3796,6 +3981,7 @@
             "section.initiative": "Initiative",
             "section.verteidigung": "Defense",
             "section.schadenswiderstand": "Damage Resistance",
+            "section.fernkampf_modifikationen": "Ranged Modifications",
             "tab.allgemein": "General",
             "tab.fertigkeiten": "Skills",
             "tab.kampf": "Combat",
@@ -3846,6 +4032,14 @@
             "field.fertigkeit": "Skill",
             "field.waffentyp": "Weapon Type",
             "field.modifikationen": "Modifications",
+            "field.modifikation": "Modification",
+            "field.zielwaffe": "Target Weapon",
+            "field.aktiv": "Active",
+            "field.eff_s_nah": "Eff. S. Near",
+            "field.eff_nah": "Eff. Near",
+            "field.eff_mittel": "Eff. Medium",
+            "field.eff_weit": "Eff. Far",
+            "field.eff_s_weit": "Eff. S. Far",
             "field.sozial": "Social",
             "field.fertigkeitsattribut": "Attribute",
             "field.fertigkeitsrang": "Rank",
@@ -3948,6 +4142,7 @@
             "section.initiative": "Initiative",
             "section.verteidigung": "Défense",
             "section.schadenswiderstand": "Résistance aux dégâts",
+            "section.fernkampf_modifikationen": "Modifications à distance",
             "tab.allgemein": "Général",
             "tab.fertigkeiten": "Compétences",
             "tab.kampf": "Combat",
@@ -3998,6 +4193,14 @@
             "field.fertigkeit": "Compétence",
             "field.waffentyp": "Type d'arme",
             "field.modifikationen": "Modifications",
+            "field.modifikation": "Modification",
+            "field.zielwaffe": "Arme cible",
+            "field.aktiv": "Actif",
+            "field.eff_s_nah": "Eff. T. Proche",
+            "field.eff_nah": "Eff. Proche",
+            "field.eff_mittel": "Eff. Moyen",
+            "field.eff_weit": "Eff. Loin",
+            "field.eff_s_weit": "Eff. T. Loin",
             "field.sozial": "Social",
             "field.fertigkeitsattribut": "Attribut",
             "field.fertigkeitsrang": "Rang",
