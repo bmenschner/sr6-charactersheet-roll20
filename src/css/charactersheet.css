@@ -84,15 +84,8 @@ body,
 
 .sr6-charactersheet-zustandsmonitor-zeilen {
   display: grid;
-  grid-template-rows: auto repeat(2, auto);
+  grid-template-rows: repeat(2, auto);
   gap: 0.375rem;
-}
-
-.sr6-charactersheet-monitor-legend {
-  font-size: 0.8rem;
-  font-weight: 700;
-  color: var(--sr6-title);
-  letter-spacing: 0.01rem;
 }
 
 .sr6-charactersheet-monitor-row {
