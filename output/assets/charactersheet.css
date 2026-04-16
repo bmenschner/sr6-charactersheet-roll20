@@ -84,8 +84,103 @@ body,
 
 .sr6-charactersheet-zustandsmonitor-zeilen {
   display: grid;
-  grid-template-rows: repeat(2, auto);
-  gap: 0.5rem;
+  grid-template-rows: auto repeat(2, auto);
+  gap: 0.375rem;
+}
+
+.sr6-charactersheet-monitor-legend {
+  font-size: 0.8rem;
+  font-weight: 700;
+  color: var(--sr6-title);
+  letter-spacing: 0.01rem;
+}
+
+.sr6-charactersheet-monitor-row {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: 0.125rem;
+}
+
+.sr6-charactersheet-monitor-label {
+  font-size: 0.68rem;
+  color: var(--sr6-text);
+  letter-spacing: 0.01rem;
+}
+
+.sr6-charactersheet-monitor-track-wrap {
+  display: grid;
+  grid-template-columns: 2.4rem minmax(0, 1fr);
+  gap: 0.25rem;
+  align-items: center;
+}
+
+.sr6-charactersheet-monitor-track-wrap > input {
+  width: 100%;
+  height: 1.5rem;
+  text-align: center;
+  border: 0.0625rem solid var(--sr6-line-soft);
+  border-radius: 0.25rem;
+  background: rgba(255, 255, 255, 0.92);
+  color: var(--sr6-text);
+  font-size: 0.95rem;
+  padding: 0;
+}
+
+.sr6-charactersheet-monitor-track {
+  position: relative;
+  height: 1.5rem;
+  border: 0.0625rem solid rgba(0, 0, 0, 0.35);
+  border-radius: 0;
+  overflow: hidden;
+}
+
+.sr6-charactersheet-monitor-track--koerperlich {
+  background-color: #7f1d78;
+  background-image: repeating-linear-gradient(
+    to right,
+    rgba(255, 255, 255, 0.22) 0,
+    rgba(255, 255, 255, 0.22) 0.0625rem,
+    transparent 0.0625rem,
+    transparent calc(100% / 10)
+  );
+}
+
+.sr6-charactersheet-monitor-track--geistig {
+  background-color: #3499dd;
+  background-image: repeating-linear-gradient(
+    to right,
+    rgba(255, 255, 255, 0.25) 0,
+    rgba(255, 255, 255, 0.25) 0.0625rem,
+    transparent 0.0625rem,
+    transparent calc(100% / 10)
+  );
+}
+
+.sr6-charactersheet-monitor-mod {
+  position: absolute;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  color: #ffffff;
+  text-shadow: 0 0.0625rem 0.125rem rgba(0, 0, 0, 0.7);
+  font-size: 1rem;
+  line-height: 1;
+  white-space: nowrap;
+}
+
+.sr6-charactersheet-monitor-mod--1 {
+  left: 15%;
+}
+
+.sr6-charactersheet-monitor-mod--2 {
+  left: 42%;
+}
+
+.sr6-charactersheet-monitor-mod--3 {
+  left: 70%;
+}
+
+.sr6-charactersheet-monitor-track--geistig .sr6-charactersheet-monitor-mod--4 {
+  left: 88%;
 }
 
 .sr6-charactersheet-box::after {

@@ -39,15 +39,37 @@
             Zustandsmonitor
           </h2>
           <div class="sr6-charactersheet-zustandsmonitor-zeilen">
-            <label class="sr6-charactersheet-field">
-              <span data-i18n="field.monitor_koerperlich"
+            <span class="sr6-charactersheet-monitor-legend" data-i18n="field.schaden"
+              >Schaden</span
+            >
+
+            <label class="sr6-charactersheet-monitor-row">
+              <span class="sr6-charactersheet-monitor-label" data-i18n="field.monitor_koerperlich"
                 >Körperlicher Zustand</span
               >
-              <input type="text" name="attr_sr6_monitor_koerperlich" />
+              <div class="sr6-charactersheet-monitor-track-wrap">
+                <input type="text" name="attr_sr6_monitor_koerperlich" />
+                <div class="sr6-charactersheet-monitor-track sr6-charactersheet-monitor-track--koerperlich">
+                  <span class="sr6-charactersheet-monitor-mod sr6-charactersheet-monitor-mod--1">-3</span>
+                  <span class="sr6-charactersheet-monitor-mod sr6-charactersheet-monitor-mod--2">-2</span>
+                  <span class="sr6-charactersheet-monitor-mod sr6-charactersheet-monitor-mod--3">-1</span>
+                </div>
+              </div>
             </label>
-            <label class="sr6-charactersheet-field">
-              <span data-i18n="field.monitor_geistig">Geistiger Zustand</span>
-              <input type="text" name="attr_sr6_monitor_geistig" />
+
+            <label class="sr6-charactersheet-monitor-row">
+              <span class="sr6-charactersheet-monitor-label" data-i18n="field.monitor_geistig"
+                >Geistiger Zustand</span
+              >
+              <div class="sr6-charactersheet-monitor-track-wrap">
+                <input type="text" name="attr_sr6_monitor_geistig" />
+                <div class="sr6-charactersheet-monitor-track sr6-charactersheet-monitor-track--geistig">
+                  <span class="sr6-charactersheet-monitor-mod sr6-charactersheet-monitor-mod--1">-4</span>
+                  <span class="sr6-charactersheet-monitor-mod sr6-charactersheet-monitor-mod--2">-3</span>
+                  <span class="sr6-charactersheet-monitor-mod sr6-charactersheet-monitor-mod--3">-2</span>
+                  <span class="sr6-charactersheet-monitor-mod sr6-charactersheet-monitor-mod--4">-1</span>
+                </div>
+              </div>
             </label>
           </div>
         </div>
