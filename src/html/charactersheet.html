@@ -32,15 +32,41 @@
             class="sr6-charactersheet-tabpanel"
             role="tabpanel">
             <div class="sr6-charactersheet-tab-allgemein-grid">
-              <!-- BEGIN BLOCK: Attribute -->
-              <!-- @include partials/allgemein/attribute.html -->
-              <!-- END BLOCK: Attribute -->
-              <!-- BEGIN BLOCK: Initiative -->
-              <!-- @include partials/allgemein/initiative.html -->
-              <!-- END BLOCK: Initiative -->
-              <!-- BEGIN BLOCK: Wichtige Kampf-Infos -->
-              <!-- @include partials/allgemein/wichtige-kampf-infos.html -->
-              <!-- END BLOCK: Wichtige Kampf-Infos -->
+              <div class="sr6-charactersheet-tab-allgemein-column">
+                <!-- BEGIN BLOCK: Attribute -->
+                <!-- @include partials/allgemein/attribute.html -->
+                <!-- END BLOCK: Attribute -->
+                <!-- BEGIN BLOCK: Initiative -->
+                <!-- @include partials/allgemein/initiative.html -->
+                <!-- END BLOCK: Initiative -->
+              </div>
+              <div class="sr6-charactersheet-tab-allgemein-column">
+                <!-- BEGIN BLOCK: Fertigkeiten (Allgemein) -->
+                <!-- @include partials/allgemein/fertigkeiten.html -->
+                <!-- END BLOCK: Fertigkeiten (Allgemein) -->
+              </div>
+
+              <!-- BEGIN BLOCK: Allgemein Umbruch -->
+              <div
+                class="sr6-charactersheet-tab-allgemein-break"
+                aria-hidden="true"></div>
+              <!-- END BLOCK: Allgemein Umbruch -->
+
+              <div class="sr6-charactersheet-tab-allgemein-column sr6-charactersheet-tab-allgemein-column--full">
+                <!-- BEGIN BLOCK: Wichtige Kampf-Infos -->
+                <!-- @include partials/allgemein/wichtige-kampf-infos.html -->
+                <!-- END BLOCK: Wichtige Kampf-Infos -->
+              </div>
+              <div class="sr6-charactersheet-tab-allgemein-column">
+                <!-- BEGIN BLOCK: Verteidigung -->
+                <!-- @include partials/allgemein/verteidigung.html -->
+                <!-- END BLOCK: Verteidigung -->
+              </div>
+              <div class="sr6-charactersheet-tab-allgemein-column">
+                <!-- BEGIN BLOCK: Schadenswiderstand -->
+                <!-- @include partials/allgemein/schadenswiderstand.html -->
+                <!-- END BLOCK: Schadenswiderstand -->
+              </div>
             </div>
           </div>
           <!-- Panel 2: Fertigkeiten -->
@@ -216,6 +242,8 @@
             "section.ausruestung_kern": "Ausrüstung: Übersicht",
             "section.persoenliche_daten": "Persönliche Daten",
             "section.initiative": "Initiative",
+            "section.verteidigung": "Verteidigung",
+            "section.schadenswiderstand": "Schadenswiderstand",
             "tab.allgemein": "Allgemein",
             "tab.fertigkeiten": "Fertigkeiten",
             "tab.kampf": "Kampf",
@@ -284,10 +312,24 @@
             "field.option_auto_berechnung": "Auto-Berechnung",
             "field.option_rolltemplate": "Rolltemplate-Stil",
             "skill.athletik": "Athletik",
+            "skill.astral": "Astral",
+            "skill.beschwoeren": "Beschwören",
+            "skill.biotech": "Biotech",
+            "skill.cracken": "Cracken",
+            "skill.einfluss": "Einfluss",
             "skill.heimlichkeit": "Heimlichkeit",
+            "skill.exotische_waffen": "Exotische Waffen",
+            "skill.feuerwaffen": "Feuerwaffen",
+            "skill.hexerei": "Hexerei",
+            "skill.mechanik": "Mechanik",
+            "skill.nahkampf": "Nahkampf",
+            "skill.natur": "Natur",
+            "skill.steuern": "Steuern",
+            "skill.tasken": "Tasken",
             "skill.wahrnehmung": "Wahrnehmung",
             "skill.ueberreden": "Überreden",
             "skill.elektronik": "Elektronik",
+            "skill.verzaubern": "Verzaubern",
             "field.name": "Name",
             "field.strassenname": "Straßenname",
             "field.metatyp": "Metatyp",
@@ -303,6 +345,19 @@
             "field.edge_max": "Edge Max",
             "field.initiative_basis": "Initiative (Basis)",
             "field.verteidigung_basis": "Verteidigung (Basis)",
+            "field.verteidigung_physisch": "Verteidigung (Physisch)",
+            "field.verteidigung_zauber_direkt":
+              "Verteidigung (Zauber - Direkt)",
+            "field.verteidigung_zauber_indirekt":
+              "Verteidigung (Zauber - Indirekt)",
+            "field.verteidigung_astralkampf": "Verteidigung (Astralkampf)",
+            "field.schadenswiderstand_physisch":
+              "Schadenswiderstand (Physisch)",
+            "field.schadenswiderstand_astral": "Schadenswiderstand (Astral)",
+            "field.schadenswiderstand_matrix": "Schadenswiderstand (Matrix)",
+            "field.schadenswiderstand_biofeedback":
+              "Schadenswiderstand (Biofeedback)",
+            "field.toxinwiderstand": "Toxinwiderstand",
             "field.koerperlicher_monitor_max": "K. Monitor (Max)",
             "field.geistiger_monitor_max": "G. Monitor (Max)",
             "field.edge_basis": "Edge (Basis)",
@@ -333,6 +388,8 @@
             "section.ausruestung_kern": "Gear: Overview",
             "section.persoenliche_daten": "Personal Data",
             "section.initiative": "Initiative",
+            "section.verteidigung": "Defense",
+            "section.schadenswiderstand": "Damage Resistance",
             "tab.allgemein": "General",
             "tab.fertigkeiten": "Skills",
             "tab.kampf": "Combat",
@@ -401,10 +458,24 @@
             "field.option_auto_berechnung": "Auto Calculation",
             "field.option_rolltemplate": "Rolltemplate Style",
             "skill.athletik": "Athletics",
+            "skill.astral": "Astral",
+            "skill.beschwoeren": "Summoning",
+            "skill.biotech": "Biotech",
+            "skill.cracken": "Cracking",
+            "skill.einfluss": "Influence",
             "skill.heimlichkeit": "Stealth",
+            "skill.exotische_waffen": "Exotic Weapons",
+            "skill.feuerwaffen": "Firearms",
+            "skill.hexerei": "Sorcery",
+            "skill.mechanik": "Mechanics",
+            "skill.nahkampf": "Close Combat",
+            "skill.natur": "Outdoors",
+            "skill.steuern": "Piloting",
+            "skill.tasken": "Tasking",
             "skill.wahrnehmung": "Perception",
             "skill.ueberreden": "Con",
             "skill.elektronik": "Electronics",
+            "skill.verzaubern": "Enchanting",
             "field.name": "Name",
             "field.strassenname": "Street Name",
             "field.metatyp": "Metatype",
@@ -420,6 +491,17 @@
             "field.edge_max": "Edge Max",
             "field.initiative_basis": "Initiative (Base)",
             "field.verteidigung_basis": "Defense (Base)",
+            "field.verteidigung_physisch": "Defense (Physical)",
+            "field.verteidigung_zauber_direkt": "Defense (Spell - Direct)",
+            "field.verteidigung_zauber_indirekt": "Defense (Spell - Indirect)",
+            "field.verteidigung_astralkampf": "Defense (Astral Combat)",
+            "field.schadenswiderstand_physisch":
+              "Damage Resistance (Physical)",
+            "field.schadenswiderstand_astral": "Damage Resistance (Astral)",
+            "field.schadenswiderstand_matrix": "Damage Resistance (Matrix)",
+            "field.schadenswiderstand_biofeedback":
+              "Damage Resistance (Biofeedback)",
+            "field.toxinwiderstand": "Toxin Resistance",
             "field.koerperlicher_monitor_max": "Phys. Monitor (Max)",
             "field.geistiger_monitor_max": "Ment. Monitor (Max)",
             "field.edge_basis": "Edge (Base)",
@@ -448,6 +530,8 @@
             "section.ausruestung_kern": "Équipement : Vue d'ensemble",
             "section.persoenliche_daten": "Données personnelles",
             "section.initiative": "Initiative",
+            "section.verteidigung": "Défense",
+            "section.schadenswiderstand": "Résistance aux dégâts",
             "tab.allgemein": "Général",
             "tab.fertigkeiten": "Compétences",
             "tab.kampf": "Combat",
@@ -516,10 +600,24 @@
             "field.option_auto_berechnung": "Calcul auto",
             "field.option_rolltemplate": "Style de gabarit",
             "skill.athletik": "Athlétisme",
+            "skill.astral": "Astral",
+            "skill.beschwoeren": "Invocation",
+            "skill.biotech": "Biotech",
+            "skill.cracken": "Cracking",
+            "skill.einfluss": "Influence",
             "skill.heimlichkeit": "Furtivité",
+            "skill.exotische_waffen": "Armes exotiques",
+            "skill.feuerwaffen": "Armes à feu",
+            "skill.hexerei": "Sorcellerie",
+            "skill.mechanik": "Mécanique",
+            "skill.nahkampf": "Combat rapproché",
+            "skill.natur": "Nature",
+            "skill.steuern": "Pilotage",
+            "skill.tasken": "Tasking",
             "skill.wahrnehmung": "Perception",
             "skill.ueberreden": "Négociation",
             "skill.elektronik": "Électronique",
+            "skill.verzaubern": "Enchantement",
             "field.name": "Nom",
             "field.strassenname": "Nom de rue",
             "field.metatyp": "Métatype",
@@ -535,6 +633,20 @@
             "field.edge_max": "Edge Max",
             "field.initiative_basis": "Initiative (Base)",
             "field.verteidigung_basis": "Défense (Base)",
+            "field.verteidigung_physisch": "Défense (Physique)",
+            "field.verteidigung_zauber_direkt": "Défense (Sort - Direct)",
+            "field.verteidigung_zauber_indirekt":
+              "Défense (Sort - Indirect)",
+            "field.verteidigung_astralkampf": "Défense (Combat astral)",
+            "field.schadenswiderstand_physisch":
+              "Résistance aux dégâts (Physique)",
+            "field.schadenswiderstand_astral":
+              "Résistance aux dégâts (Astral)",
+            "field.schadenswiderstand_matrix":
+              "Résistance aux dégâts (Matrice)",
+            "field.schadenswiderstand_biofeedback":
+              "Résistance aux dégâts (Biofeedback)",
+            "field.toxinwiderstand": "Résistance aux toxines",
             "field.koerperlicher_monitor_max": "Moniteur phys. (Max)",
             "field.geistiger_monitor_max": "Moniteur ment. (Max)",
             "field.edge_basis": "Edge (Base)",

@@ -240,8 +240,9 @@
             class="sr6-charactersheet-tabpanel"
             role="tabpanel">
             <div class="sr6-charactersheet-tab-allgemein-grid">
-              <!-- BEGIN BLOCK: Attribute -->
-              <!-- BEGIN BLOCK: Attribute -->
+              <div class="sr6-charactersheet-tab-allgemein-column">
+                <!-- BEGIN BLOCK: Attribute -->
+                <!-- BEGIN BLOCK: Attribute -->
               <section
                 class="sr6-charactersheet-box sr6-charactersheet-box-attribute"
                 aria-labelledby="attribute-titel">
@@ -702,14 +703,119 @@
               </section>
 <!-- END BLOCK: Attribute -->
 
-              <!-- END BLOCK: Attribute -->
-              <!-- BEGIN BLOCK: Fertigkeiten (Allgemein) -->
-              <!-- BEGIN BLOCK: Fertigkeiten (Allgemein) -->
+                <!-- END BLOCK: Attribute -->
+                <!-- BEGIN BLOCK: Initiative -->
+                <!-- BEGIN BLOCK: Initiative -->
+<section
+  class="sr6-charactersheet-box sr6-charactersheet-box-initiative"
+  aria-labelledby="initiative-titel">
+  <h1
+    id="initiative-titel"
+    class="sr6-charactersheet-box-title"
+    data-i18n="section.initiative">
+    Initiative
+  </h1>
+
+  <div class="sr6-charactersheet-box-content">
+    <!-- BEGIN BLOCK: Zeile - Physische Initiative -->
+    <div class="sr6-charactersheet-init-row">
+      <span
+        class="sr6-charactersheet-init-row-title"
+        data-i18n="field.physisch"
+        >Physisch</span
+      >
+      <div class="sr6-charactersheet-init-formula">
+        <span data-i18n="field.basis_plus">Basis +</span>
+        <input
+          type="text"
+          name="attr_sr6_initiative_physisch_modifikator_basis" />
+      </div>
+      <div class="sr6-charactersheet-init-formula-with-dice">
+        <span data-i18n="field.eins_plus">1 +</span>
+        <div class="sr6-charactersheet-field-input-with-dice">
+          <input
+            type="text"
+            name="attr_sr6_initiative_physisch_modifikator_w6" /><button
+            type="roll"
+            class="sr6-charactersheet-field-dice-button"
+            name="roll_sr6_initiative_physisch"
+            value="&{template:default} {{name=Initiative: Physisch}} {{Basis=[[@{sr6_derived_initiative_basis}+@{sr6_initiative_physisch_modifikator_basis}]]}} {{W6=[[(1+@{sr6_initiative_physisch_modifikator_w6})d6]]}} {{Gesamt=[[@{sr6_derived_initiative_basis}+@{sr6_initiative_physisch_modifikator_basis}+((1+@{sr6_initiative_physisch_modifikator_w6})d6)]]}}"
+            aria-label="Wuerfeln"></button>
+        </div>
+      </div>
+    </div>
+    <!-- END BLOCK: Zeile - Physische Initiative -->
+
+    <!-- BEGIN BLOCK: Zeile - Astrale Initiative -->
+    <div class="sr6-charactersheet-init-row">
+      <span
+        class="sr6-charactersheet-init-row-title"
+        data-i18n="field.astral"
+        >Astral</span
+      >
+      <div class="sr6-charactersheet-init-formula">
+        <span data-i18n="field.basis_plus">Basis +</span>
+        <input
+          type="text"
+          name="attr_sr6_initiative_astral_modifikator_basis" />
+      </div>
+      <div class="sr6-charactersheet-init-formula-with-dice">
+        <span data-i18n="field.eins_plus">1 +</span>
+        <div class="sr6-charactersheet-field-input-with-dice">
+          <input
+            type="text"
+            name="attr_sr6_initiative_astral_modifikator_w6" /><button
+            type="roll"
+            class="sr6-charactersheet-field-dice-button"
+            name="roll_sr6_initiative_astral"
+            value="&{template:default} {{name=Initiative: Astral}} {{Basis=[[@{sr6_derived_initiative_basis}+@{sr6_initiative_astral_modifikator_basis}]]}} {{W6=[[(1+@{sr6_initiative_astral_modifikator_w6})d6]]}} {{Gesamt=[[@{sr6_derived_initiative_basis}+@{sr6_initiative_astral_modifikator_basis}+((1+@{sr6_initiative_astral_modifikator_w6})d6)]]}}"
+            aria-label="Wuerfeln"></button>
+        </div>
+      </div>
+    </div>
+    <!-- END BLOCK: Zeile - Astrale Initiative -->
+
+    <!-- BEGIN BLOCK: Zeile - Matrix-Initiative -->
+    <div class="sr6-charactersheet-init-row">
+      <span
+        class="sr6-charactersheet-init-row-title"
+        data-i18n="field.matrix"
+        >Matrix</span
+      >
+      <div class="sr6-charactersheet-init-formula">
+        <span data-i18n="field.basis_plus">Basis +</span>
+        <input
+          type="text"
+          name="attr_sr6_initiative_matrix_modifikator_basis" />
+      </div>
+      <div class="sr6-charactersheet-init-formula-with-dice">
+        <span data-i18n="field.eins_plus">1 +</span>
+        <div class="sr6-charactersheet-field-input-with-dice">
+          <input
+            type="text"
+            name="attr_sr6_initiative_matrix_modifikator_w6" /><button
+            type="roll"
+            class="sr6-charactersheet-field-dice-button"
+            name="roll_sr6_initiative_matrix"
+            value="&{template:default} {{name=Initiative: Matrix}} {{Basis=[[@{sr6_derived_initiative_basis}+@{sr6_initiative_matrix_modifikator_basis}]]}} {{W6=[[(1+@{sr6_initiative_matrix_modifikator_w6})d6]]}} {{Gesamt=[[@{sr6_derived_initiative_basis}+@{sr6_initiative_matrix_modifikator_basis}+((1+@{sr6_initiative_matrix_modifikator_w6})d6)]]}}"
+            aria-label="Wuerfeln"></button>
+        </div>
+      </div>
+    </div>
+    <!-- END BLOCK: Zeile - Matrix-Initiative -->
+  </div>
+</section>
+<!-- END BLOCK: Initiative -->
+
+                <!-- END BLOCK: Initiative -->
+              </div>
+              <div class="sr6-charactersheet-tab-allgemein-column">
+                <!-- BEGIN BLOCK: Fertigkeiten (Allgemein) -->
+                <!-- BEGIN BLOCK: Fertigkeiten (Allgemein) -->
 <section
   class="sr6-charactersheet-box sr6-charactersheet-box-fertigkeiten-allgemein"
-  aria-labelledby="fertigkeiten-allgemein-titel">
+  aria-label="Fertigkeiten">
   <h1
-    id="fertigkeiten-allgemein-titel"
     class="sr6-charactersheet-box-title"
     data-i18n="section.fertigkeiten_basis">
     Fertigkeiten
@@ -1386,304 +1492,513 @@
 </section>
 <!-- END BLOCK: Fertigkeiten (Allgemein) -->
 
-              <!-- END BLOCK: Fertigkeiten (Allgemein) -->
-              <!-- BEGIN BLOCK: Initiative -->
-              <!-- BEGIN BLOCK: Initiative -->
+                <!-- END BLOCK: Fertigkeiten (Allgemein) -->
+              </div>
 
+              <!-- BEGIN BLOCK: Allgemein Umbruch -->
+              <div
+                class="sr6-charactersheet-tab-allgemein-break"
+                aria-hidden="true"></div>
+              <!-- END BLOCK: Allgemein Umbruch -->
 
-              <section
-                class="sr6-charactersheet-box sr6-charactersheet-box-initiative"
-                aria-labelledby="initiative-titel">
-                <h1
-                  id="initiative-titel"
-                  class="sr6-charactersheet-box-title"
-                  data-i18n="section.initiative">
-                  Initiative
-                </h1>
+              <div class="sr6-charactersheet-tab-allgemein-column sr6-charactersheet-tab-allgemein-column--full">
+                <!-- BEGIN BLOCK: Wichtige Kampf-Infos -->
+                <!-- BEGIN BLOCK: Wichtige Kampf-Infos -->
+<section
+  class="sr6-charactersheet-box sr6-charactersheet-box-wichtige-kampf-infos"
+  aria-labelledby="wichtige-kampf-infos-titel">
+  <h1
+    id="wichtige-kampf-infos-titel"
+    class="sr6-charactersheet-box-title"
+    data-i18n="section.wichtige_kampf_infos">
+    Wichtige Kampf-Infos
+  </h1>
 
-                <div class="sr6-charactersheet-box-content">
-                  <!-- BEGIN BLOCK: Zeile - Physische Initiative -->
-                  <div class="sr6-charactersheet-init-row">
-                    <span
-                      class="sr6-charactersheet-init-row-title"
-                      data-i18n="field.physisch"
-                      >Physisch</span
-                    >
-                    <div class="sr6-charactersheet-init-formula">
-                      <span data-i18n="field.basis_plus">Basis +</span>
-                      <input
-                        type="text"
-                        name="attr_sr6_initiative_physisch_modifikator_basis" />
-                    </div>
-                    <div class="sr6-charactersheet-init-formula-with-dice">
-                      <span data-i18n="field.eins_plus">1 +</span>
-                      <div class="sr6-charactersheet-field-input-with-dice">
-                        <input
-                          type="text"
-                          name="attr_sr6_initiative_physisch_modifikator_w6" /><button
-                          type="roll"
-                          class="sr6-charactersheet-field-dice-button"
-                          name="roll_sr6_initiative_physisch"
-                          value="&{template:default} {{name=Initiative: Physisch}} {{Basis=[[@{sr6_derived_initiative_basis}+@{sr6_initiative_physisch_modifikator_basis}]]}} {{W6=[[(1+@{sr6_initiative_physisch_modifikator_w6})d6]]}} {{Gesamt=[[@{sr6_derived_initiative_basis}+@{sr6_initiative_physisch_modifikator_basis}+((1+@{sr6_initiative_physisch_modifikator_w6})d6)]]}}"
-                          aria-label="Wuerfeln"></button>
-                      </div>
-                    </div>
-                  </div>
-                  <!-- END BLOCK: Zeile - Physische Initiative -->
+  <div class="sr6-charactersheet-box-content">
+    <!-- BEGIN BLOCK: Zeile 1 - Primäre Fernkampfwaffe -->
+    <div class="sr6-charactersheet-row sr6-charactersheet-row-1">
+      <label class="sr6-charactersheet-field">
+        <span data-i18n="field.primaere_fernkampfwaffe">Primäre Fernkampfwaffe</span>
+        <input type="text" name="attr_sr6_combat_primaere_fernkampfwaffe" />
+      </label>
+    </div>
+    <!-- END BLOCK: Zeile 1 - Primäre Fernkampfwaffe -->
 
-                  <!-- BEGIN BLOCK: Zeile - Astrale Initiative -->
-                  <div class="sr6-charactersheet-init-row">
-                    <span
-                      class="sr6-charactersheet-init-row-title"
-                      data-i18n="field.astral"
-                      >Astral</span
-                    >
-                    <div class="sr6-charactersheet-init-formula">
-                      <span data-i18n="field.basis_plus">Basis +</span>
-                      <input
-                        type="text"
-                        name="attr_sr6_initiative_astral_modifikator_basis" />
-                    </div>
-                    <div class="sr6-charactersheet-init-formula-with-dice">
-                      <span data-i18n="field.eins_plus">1 +</span>
-                      <div class="sr6-charactersheet-field-input-with-dice">
-                        <input
-                          type="text"
-                          name="attr_sr6_initiative_astral_modifikator_w6" /><button
-                          type="roll"
-                          class="sr6-charactersheet-field-dice-button"
-                          name="roll_sr6_initiative_astral"
-                          value="&{template:default} {{name=Initiative: Astral}} {{Basis=[[@{sr6_derived_initiative_basis}+@{sr6_initiative_astral_modifikator_basis}]]}} {{W6=[[(1+@{sr6_initiative_astral_modifikator_w6})d6]]}} {{Gesamt=[[@{sr6_derived_initiative_basis}+@{sr6_initiative_astral_modifikator_basis}+((1+@{sr6_initiative_astral_modifikator_w6})d6)]]}}"
-                          aria-label="Wuerfeln"></button>
-                      </div>
-                    </div>
-                  </div>
-                  <!-- END BLOCK: Zeile - Astrale Initiative -->
+    <!-- BEGIN BLOCK: Zeile 2 - Schadens-/Modus-/Reichweitenwerte -->
+    <div class="sr6-charactersheet-row sr6-charactersheet-row-7">
+      <label class="sr6-charactersheet-field">
+        <span data-i18n="field.schaden">Schaden</span>
+        <input type="text" name="attr_sr6_combat_fernkampf_schaden" />
+      </label>
 
-                  <!-- BEGIN BLOCK: Zeile - Astrale Initiative (zweite Eingabegruppe) -->
-                  <div class="sr6-charactersheet-init-row">
-                    <span
-                      class="sr6-charactersheet-init-row-title"
-                      data-i18n="field.astral"
-                      >Astral</span
-                    >
-                    <div class="sr6-charactersheet-init-formula">
-                      <span data-i18n="field.basis_plus">Basis +</span>
-                      <input
-                        type="text"
-                        name="attr_sr6_initiative_astral_modifikator_basis" />
-                    </div>
-                    <div class="sr6-charactersheet-init-formula-with-dice">
-                      <span data-i18n="field.eins_plus">1 +</span>
-                      <div class="sr6-charactersheet-field-input-with-dice">
-                        <input
-                          type="text"
-                          name="attr_sr6_initiative_astral_modifikator_w6" /><button
-                          type="roll"
-                          class="sr6-charactersheet-field-dice-button"
-                          name="roll_sr6_initiative_astral"
-                          value="&{template:default} {{name=Initiative: Astral}} {{Basis=[[@{sr6_derived_initiative_basis}+@{sr6_initiative_astral_modifikator_basis}]]}} {{W6=[[(1+@{sr6_initiative_astral_modifikator_w6})d6]]}} {{Gesamt=[[@{sr6_derived_initiative_basis}+@{sr6_initiative_astral_modifikator_basis}+((1+@{sr6_initiative_astral_modifikator_w6})d6)]]}}"
-                          aria-label="Wuerfeln"></button>
-                      </div>
-                    </div>
-                  </div>
-                  <!-- END BLOCK: Zeile - Astrale Initiative (zweite Eingabegruppe) -->
+      <label class="sr6-charactersheet-field">
+        <span data-i18n="field.modus">Modus</span>
+        <input type="text" name="attr_sr6_combat_fernkampf_modus" />
+      </label>
 
-                  <!-- BEGIN BLOCK: Zeile - Matrix-Initiative -->
-                  <div class="sr6-charactersheet-init-row">
-                    <span
-                      class="sr6-charactersheet-init-row-title"
-                      data-i18n="field.matrix"
-                      >Matrix</span
-                    >
-                    <div class="sr6-charactersheet-init-formula">
-                      <span data-i18n="field.basis_plus">Basis +</span>
-                      <input
-                        type="text"
-                        name="attr_sr6_initiative_matrix_modifikator_basis" />
-                    </div>
-                    <div class="sr6-charactersheet-init-formula-with-dice">
-                      <span data-i18n="field.eins_plus">1 +</span>
-                      <div class="sr6-charactersheet-field-input-with-dice">
-                        <input
-                          type="text"
-                          name="attr_sr6_initiative_matrix_modifikator_w6" /><button
-                          type="roll"
-                          class="sr6-charactersheet-field-dice-button"
-                          name="roll_sr6_initiative_matrix"
-                          value="&{template:default} {{name=Initiative: Matrix}} {{Basis=[[@{sr6_derived_initiative_basis}+@{sr6_initiative_matrix_modifikator_basis}]]}} {{W6=[[(1+@{sr6_initiative_matrix_modifikator_w6})d6]]}} {{Gesamt=[[@{sr6_derived_initiative_basis}+@{sr6_initiative_matrix_modifikator_basis}+((1+@{sr6_initiative_matrix_modifikator_w6})d6)]]}}"
-                          aria-label="Wuerfeln"></button>
-                      </div>
-                    </div>
-                  </div>
-                  <!-- END BLOCK: Zeile - Matrix-Initiative -->
-                </div>
-              </section>
-<!-- END BLOCK: Initiative -->
+      <label class="sr6-charactersheet-field">
+        <span data-i18n="field.s_nah">S. Nah</span>
+        <div class="sr6-charactersheet-field-input-with-dice">
+          <input type="text" name="attr_sr6_combat_fernkampf_sehr_nah" /><button
+            type="roll"
+            class="sr6-charactersheet-field-dice-button"
+            name="roll_sr6_combat_fernkampf_sehr_nah"
+            value="&{template:default} {{name=Fernkampf-Test}} {{Waffe=@{sr6_combat_primaere_fernkampfwaffe}}} {{Modus=@{sr6_combat_fernkampf_modus}}} {{Attribut=S. Nah}} {{Pool=[[@{sr6_combat_fernkampf_sehr_nah}]]}} {{Erfolge=[[@{sr6_combat_fernkampf_sehr_nah}d6cs>4]]}}"
+            aria-label="Wuerfeln"></button>
+        </div>
+      </label>
 
-              <!-- END BLOCK: Initiative -->
-              <!-- BEGIN BLOCK: Wichtige Kampf-Infos -->
-              <!-- BEGIN BLOCK: Wichtige Kampf-Infos -->
+      <label class="sr6-charactersheet-field">
+        <span data-i18n="field.nah">Nah</span>
+        <div class="sr6-charactersheet-field-input-with-dice">
+          <input type="text" name="attr_sr6_combat_fernkampf_nah" /><button
+            type="roll"
+            class="sr6-charactersheet-field-dice-button"
+            name="roll_sr6_combat_fernkampf_nah"
+            value="&{template:default} {{name=Fernkampf-Test}} {{Waffe=@{sr6_combat_primaere_fernkampfwaffe}}} {{Modus=@{sr6_combat_fernkampf_modus}}} {{Attribut=Nah}} {{Pool=[[@{sr6_combat_fernkampf_nah}]]}} {{Erfolge=[[@{sr6_combat_fernkampf_nah}d6cs>4]]}}"
+            aria-label="Wuerfeln"></button>
+        </div>
+      </label>
 
+      <label class="sr6-charactersheet-field">
+        <span data-i18n="field.mittel">Mittel</span>
+        <div class="sr6-charactersheet-field-input-with-dice">
+          <input type="text" name="attr_sr6_combat_fernkampf_mittel" /><button
+            type="roll"
+            class="sr6-charactersheet-field-dice-button"
+            name="roll_sr6_combat_fernkampf_mittel"
+            value="&{template:default} {{name=Fernkampf-Test}} {{Waffe=@{sr6_combat_primaere_fernkampfwaffe}}} {{Modus=@{sr6_combat_fernkampf_modus}}} {{Attribut=Mittel}} {{Pool=[[@{sr6_combat_fernkampf_mittel}]]}} {{Erfolge=[[@{sr6_combat_fernkampf_mittel}d6cs>4]]}}"
+            aria-label="Wuerfeln"></button>
+        </div>
+      </label>
 
-              <section
-                class="sr6-charactersheet-box sr6-charactersheet-box-wichtige-kampf-infos"
-                aria-labelledby="wichtige-kampf-infos-titel">
-                <h1
-                  id="wichtige-kampf-infos-titel"
-                  class="sr6-charactersheet-box-title"
-                  data-i18n="section.wichtige_kampf_infos">
-                  Wichtige Kampf-Infos
-                </h1>
+      <label class="sr6-charactersheet-field">
+        <span data-i18n="field.weit">Weit</span>
+        <div class="sr6-charactersheet-field-input-with-dice">
+          <input type="text" name="attr_sr6_combat_fernkampf_weit" /><button
+            type="roll"
+            class="sr6-charactersheet-field-dice-button"
+            name="roll_sr6_combat_fernkampf_weit"
+            value="&{template:default} {{name=Fernkampf-Test}} {{Waffe=@{sr6_combat_primaere_fernkampfwaffe}}} {{Modus=@{sr6_combat_fernkampf_modus}}} {{Attribut=Weit}} {{Pool=[[@{sr6_combat_fernkampf_weit}]]}} {{Erfolge=[[@{sr6_combat_fernkampf_weit}d6cs>4]]}}"
+            aria-label="Wuerfeln"></button>
+        </div>
+      </label>
 
-                <div class="sr6-charactersheet-box-content">
-                  <!-- BEGIN BLOCK: Zeile 1 - Primäre Fernkampfwaffe -->
-                  <div class="sr6-charactersheet-row sr6-charactersheet-row-1">
-                    <label class="sr6-charactersheet-field">
-                      <span data-i18n="field.primaere_fernkampfwaffe"
-                        >Primäre Fernkampfwaffe</span
-                      >
-                      <input
-                        type="text"
-                        name="attr_sr6_combat_primaere_fernkampfwaffe" />
-                    </label>
-                  </div>
-                  <!-- END BLOCK: Zeile 1 - Primäre Fernkampfwaffe -->
+      <label class="sr6-charactersheet-field">
+        <span data-i18n="field.s_weit">S. Weit</span>
+        <div class="sr6-charactersheet-field-input-with-dice">
+          <input type="text" name="attr_sr6_combat_fernkampf_sehr_weit" /><button
+            type="roll"
+            class="sr6-charactersheet-field-dice-button"
+            name="roll_sr6_combat_fernkampf_sehr_weit"
+            value="&{template:default} {{name=Fernkampf-Test}} {{Waffe=@{sr6_combat_primaere_fernkampfwaffe}}} {{Modus=@{sr6_combat_fernkampf_modus}}} {{Attribut=S. Weit}} {{Pool=[[@{sr6_combat_fernkampf_sehr_weit}]]}} {{Erfolge=[[@{sr6_combat_fernkampf_sehr_weit}d6cs>4]]}}"
+            aria-label="Wuerfeln"></button>
+        </div>
+      </label>
+    </div>
+    <!-- END BLOCK: Zeile 2 - Schadens-/Modus-/Reichweitenwerte -->
 
-                  <!-- BEGIN BLOCK: Zeile 2 - Schadens-/Modus-/Reichweitenwerte -->
-                  <div class="sr6-charactersheet-row sr6-charactersheet-row-7">
-                    <label class="sr6-charactersheet-field">
-                      <span data-i18n="field.schaden">Schaden</span>
-                      <input
-                        type="text"
-                        name="attr_sr6_combat_fernkampf_schaden" />
-                    </label>
+    <!-- BEGIN BLOCK: Zeile 3 - Munition -->
+    <div class="sr6-charactersheet-row sr6-charactersheet-row-1">
+      <label class="sr6-charactersheet-field">
+        <span data-i18n="field.munition">Munition</span>
+        <input type="text" name="attr_sr6_combat_munition" />
+      </label>
+    </div>
+    <!-- END BLOCK: Zeile 3 - Munition -->
 
-                    <label class="sr6-charactersheet-field">
-                      <span data-i18n="field.modus">Modus</span>
-                      <input
-                        type="text"
-                        name="attr_sr6_combat_fernkampf_modus" />
-                    </label>
+    <!-- BEGIN BLOCK: Zeile 4 - Primäre Nahkampfwaffe -->
+    <div class="sr6-charactersheet-row sr6-charactersheet-row-1">
+      <label class="sr6-charactersheet-field">
+        <span data-i18n="field.primaere_nahkampfwaffe">Primäre Nahkampfwaffe</span>
+        <div class="sr6-charactersheet-field-input-with-dice">
+          <input type="text" name="attr_sr6_combat_primaere_nahkampfwaffe" /><button
+            type="roll"
+            class="sr6-charactersheet-field-dice-button"
+            name="roll_sr6_combat_primaere_nahkampfwaffe"
+            value="&{template:default} {{name=Nahkampf-Test}} {{Waffe=@{sr6_combat_primaere_nahkampfwaffe}}} {{Attribut=Primaere Nahkampfwaffe}} {{Pool=[[@{sr6_combat_primaere_nahkampfwaffe}]]}} {{Erfolge=[[@{sr6_combat_primaere_nahkampfwaffe}d6cs>4]]}}"
+            aria-label="Wuerfeln"></button>
+        </div>
+      </label>
+    </div>
+    <!-- END BLOCK: Zeile 4 - Primäre Nahkampfwaffe -->
 
-                    <label class="sr6-charactersheet-field">
-                      <span data-i18n="field.s_nah">S. Nah</span>
-                      <div class="sr6-charactersheet-field-input-with-dice">
-                        <input
-                          type="text"
-                          name="attr_sr6_combat_fernkampf_sehr_nah" /><button
-                          type="roll"
-                          class="sr6-charactersheet-field-dice-button"
-                          name="roll_sr6_combat_fernkampf_sehr_nah"
-                          value="&{template:default} {{name=Fernkampf-Test}} {{Waffe=@{sr6_combat_primaere_fernkampfwaffe}}} {{Modus=@{sr6_combat_fernkampf_modus}}} {{Attribut=S. Nah}} {{Pool=[[@{sr6_combat_fernkampf_sehr_nah}]]}} {{Erfolge=[[@{sr6_combat_fernkampf_sehr_nah}d6cs>4]]}}"
-                          aria-label="Wuerfeln"></button>
-                      </div>
-                    </label>
-
-                    <label class="sr6-charactersheet-field">
-                      <span data-i18n="field.nah">Nah</span>
-                      <div class="sr6-charactersheet-field-input-with-dice">
-                        <input
-                          type="text"
-                          name="attr_sr6_combat_fernkampf_nah" /><button
-                          type="roll"
-                          class="sr6-charactersheet-field-dice-button"
-                          name="roll_sr6_combat_fernkampf_nah"
-                          value="&{template:default} {{name=Fernkampf-Test}} {{Waffe=@{sr6_combat_primaere_fernkampfwaffe}}} {{Modus=@{sr6_combat_fernkampf_modus}}} {{Attribut=Nah}} {{Pool=[[@{sr6_combat_fernkampf_nah}]]}} {{Erfolge=[[@{sr6_combat_fernkampf_nah}d6cs>4]]}}"
-                          aria-label="Wuerfeln"></button>
-                      </div>
-                    </label>
-
-                    <label class="sr6-charactersheet-field">
-                      <span data-i18n="field.mittel">Mittel</span>
-                      <div class="sr6-charactersheet-field-input-with-dice">
-                        <input
-                          type="text"
-                          name="attr_sr6_combat_fernkampf_mittel" /><button
-                          type="roll"
-                          class="sr6-charactersheet-field-dice-button"
-                          name="roll_sr6_combat_fernkampf_mittel"
-                          value="&{template:default} {{name=Fernkampf-Test}} {{Waffe=@{sr6_combat_primaere_fernkampfwaffe}}} {{Modus=@{sr6_combat_fernkampf_modus}}} {{Attribut=Mittel}} {{Pool=[[@{sr6_combat_fernkampf_mittel}]]}} {{Erfolge=[[@{sr6_combat_fernkampf_mittel}d6cs>4]]}}"
-                          aria-label="Wuerfeln"></button>
-                      </div>
-                    </label>
-
-                    <label class="sr6-charactersheet-field">
-                      <span data-i18n="field.weit">Weit</span>
-                      <div class="sr6-charactersheet-field-input-with-dice">
-                        <input
-                          type="text"
-                          name="attr_sr6_combat_fernkampf_weit" /><button
-                          type="roll"
-                          class="sr6-charactersheet-field-dice-button"
-                          name="roll_sr6_combat_fernkampf_weit"
-                          value="&{template:default} {{name=Fernkampf-Test}} {{Waffe=@{sr6_combat_primaere_fernkampfwaffe}}} {{Modus=@{sr6_combat_fernkampf_modus}}} {{Attribut=Weit}} {{Pool=[[@{sr6_combat_fernkampf_weit}]]}} {{Erfolge=[[@{sr6_combat_fernkampf_weit}d6cs>4]]}}"
-                          aria-label="Wuerfeln"></button>
-                      </div>
-                    </label>
-
-                    <label class="sr6-charactersheet-field">
-                      <span data-i18n="field.s_weit">S. Weit</span>
-                      <div class="sr6-charactersheet-field-input-with-dice">
-                        <input
-                          type="text"
-                          name="attr_sr6_combat_fernkampf_sehr_weit" /><button
-                          type="roll"
-                          class="sr6-charactersheet-field-dice-button"
-                          name="roll_sr6_combat_fernkampf_sehr_weit"
-                          value="&{template:default} {{name=Fernkampf-Test}} {{Waffe=@{sr6_combat_primaere_fernkampfwaffe}}} {{Modus=@{sr6_combat_fernkampf_modus}}} {{Attribut=S. Weit}} {{Pool=[[@{sr6_combat_fernkampf_sehr_weit}]]}} {{Erfolge=[[@{sr6_combat_fernkampf_sehr_weit}d6cs>4]]}}"
-                          aria-label="Wuerfeln"></button>
-                      </div>
-                    </label>
-                  </div>
-                  <!-- END BLOCK: Zeile 2 - Schadens-/Modus-/Reichweitenwerte -->
-
-                  <!-- BEGIN BLOCK: Zeile 3 - Munition -->
-                  <div class="sr6-charactersheet-row sr6-charactersheet-row-1">
-                    <label class="sr6-charactersheet-field">
-                      <span data-i18n="field.munition">Munition</span>
-                      <input type="text" name="attr_sr6_combat_munition" />
-                    </label>
-                  </div>
-                  <!-- END BLOCK: Zeile 3 - Munition -->
-
-                  <!-- BEGIN BLOCK: Zeile 4 - Primäre Nahkampfwaffe -->
-                  <div class="sr6-charactersheet-row sr6-charactersheet-row-1">
-                    <label class="sr6-charactersheet-field">
-                      <span data-i18n="field.primaere_nahkampfwaffe"
-                        >Primäre Nahkampfwaffe</span
-                      >
-                      <div class="sr6-charactersheet-field-input-with-dice">
-                        <input
-                          type="text"
-                          name="attr_sr6_combat_primaere_nahkampfwaffe" /><button
-                          type="roll"
-                          class="sr6-charactersheet-field-dice-button"
-                          name="roll_sr6_combat_primaere_nahkampfwaffe"
-                          value="&{template:default} {{name=Nahkampf-Test}} {{Waffe=@{sr6_combat_primaere_nahkampfwaffe}}} {{Attribut=Primaere Nahkampfwaffe}} {{Pool=[[@{sr6_combat_primaere_nahkampfwaffe}]]}} {{Erfolge=[[@{sr6_combat_primaere_nahkampfwaffe}d6cs>4]]}}"
-                          aria-label="Wuerfeln"></button>
-                      </div>
-                    </label>
-                  </div>
-                  <!-- END BLOCK: Zeile 4 - Primäre Nahkampfwaffe -->
-
-                  <!-- BEGIN BLOCK: Zeile 5 - Primäre Panzerung -->
-                  <div class="sr6-charactersheet-row sr6-charactersheet-row-1">
-                    <label class="sr6-charactersheet-field">
-                      <span data-i18n="field.primaere_panzerung"
-                        >Primäre Panzerung</span
-                      >
-                      <input
-                        type="text"
-                        name="attr_sr6_combat_primaere_panzerung" />
-                    </label>
-                  </div>
-                  <!-- END BLOCK: Zeile 5 - Primäre Panzerung -->
-                </div>
-              </section>
+    <!-- BEGIN BLOCK: Zeile 5 - Primäre Panzerung -->
+    <div class="sr6-charactersheet-row sr6-charactersheet-row-1">
+      <label class="sr6-charactersheet-field">
+        <span data-i18n="field.primaere_panzerung">Primäre Panzerung</span>
+        <input type="text" name="attr_sr6_combat_primaere_panzerung" />
+      </label>
+    </div>
+    <!-- END BLOCK: Zeile 5 - Primäre Panzerung -->
+  </div>
+</section>
 <!-- END BLOCK: Wichtige Kampf-Infos -->
 
-              <!-- END BLOCK: Wichtige Kampf-Infos -->
+                <!-- END BLOCK: Wichtige Kampf-Infos -->
+              </div>
+              <div class="sr6-charactersheet-tab-allgemein-column">
+                <!-- BEGIN BLOCK: Verteidigung -->
+                <!-- BEGIN BLOCK: Verteidigung -->
+<section
+  class="sr6-charactersheet-box sr6-charactersheet-box-verteidigung"
+  aria-labelledby="verteidigung-titel">
+  <h1
+    id="verteidigung-titel"
+    class="sr6-charactersheet-box-title"
+    data-i18n="section.verteidigung">
+    Verteidigung
+  </h1>
+
+  <div class="sr6-charactersheet-box-content">
+    <!-- BEGIN BLOCK: Feld - Verteidigung (Physisch) -->
+    <div class="sr6-charactersheet-row sr6-charactersheet-row-1">
+      <div class="sr6-charactersheet-field sr6-charactersheet-attr-field">
+        <span data-i18n="field.verteidigung_physisch">Verteidigung (Physisch)</span>
+        <div class="sr6-charactersheet-attr-values">
+          <div class="sr6-charactersheet-attr-value sr6-charactersheet-attr-value--with-dice">
+            <span data-i18n="field.grundwert">Grundwert</span>
+            <div class="sr6-charactersheet-field-input-with-dice">
+              <input type="text" name="attr_sr6_verteidigung_physisch_grundwert" /><button
+                type="roll"
+                class="sr6-charactersheet-field-dice-button"
+                name="roll_sr6_verteidigung_physisch_grundwert"
+                value="&{template:default} {{name=Verteidigung}} {{Wert=Verteidigung (Physisch) Grundwert}} {{Pool=[[@{sr6_verteidigung_physisch_grundwert}]]}} {{Erfolge=[[@{sr6_verteidigung_physisch_grundwert}d6cs>4]]}}"
+                aria-label="Wuerfeln"></button>
+            </div>
+          </div>
+          <div class="sr6-charactersheet-attr-value">
+            <span data-i18n="field.modifikator">Modifikator</span>
+            <input type="text" name="attr_sr6_verteidigung_physisch_modifikator" />
+          </div>
+          <div class="sr6-charactersheet-attr-value sr6-charactersheet-attr-value--with-dice">
+            <span data-i18n="field.gesamtwert">Gesamtwert</span>
+            <div class="sr6-charactersheet-field-input-with-dice">
+              <input type="text" name="attr_sr6_verteidigung_physisch_gesamtwert" /><button
+                type="roll"
+                class="sr6-charactersheet-field-dice-button"
+                name="roll_sr6_verteidigung_physisch_gesamtwert"
+                value="&{template:default} {{name=Verteidigung}} {{Wert=Verteidigung (Physisch) Gesamtwert}} {{Pool=[[@{sr6_verteidigung_physisch_gesamtwert}]]}} {{Erfolge=[[@{sr6_verteidigung_physisch_gesamtwert}d6cs>4]]}}"
+                aria-label="Wuerfeln"></button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- END BLOCK: Feld - Verteidigung (Physisch) -->
+
+    <!-- BEGIN BLOCK: Feld - Verteidigung (Zauber - Direkt) -->
+    <div class="sr6-charactersheet-row sr6-charactersheet-row-1">
+      <div class="sr6-charactersheet-field sr6-charactersheet-attr-field">
+        <span data-i18n="field.verteidigung_zauber_direkt">Verteidigung (Zauber - Direkt)</span>
+        <div class="sr6-charactersheet-attr-values">
+          <div class="sr6-charactersheet-attr-value sr6-charactersheet-attr-value--with-dice">
+            <span data-i18n="field.grundwert">Grundwert</span>
+            <div class="sr6-charactersheet-field-input-with-dice">
+              <input type="text" name="attr_sr6_verteidigung_zauber_direkt_grundwert" /><button
+                type="roll"
+                class="sr6-charactersheet-field-dice-button"
+                name="roll_sr6_verteidigung_zauber_direkt_grundwert"
+                value="&{template:default} {{name=Verteidigung}} {{Wert=Verteidigung (Zauber - Direkt) Grundwert}} {{Pool=[[@{sr6_verteidigung_zauber_direkt_grundwert}]]}} {{Erfolge=[[@{sr6_verteidigung_zauber_direkt_grundwert}d6cs>4]]}}"
+                aria-label="Wuerfeln"></button>
+            </div>
+          </div>
+          <div class="sr6-charactersheet-attr-value">
+            <span data-i18n="field.modifikator">Modifikator</span>
+            <input type="text" name="attr_sr6_verteidigung_zauber_direkt_modifikator" />
+          </div>
+          <div class="sr6-charactersheet-attr-value sr6-charactersheet-attr-value--with-dice">
+            <span data-i18n="field.gesamtwert">Gesamtwert</span>
+            <div class="sr6-charactersheet-field-input-with-dice">
+              <input type="text" name="attr_sr6_verteidigung_zauber_direkt_gesamtwert" /><button
+                type="roll"
+                class="sr6-charactersheet-field-dice-button"
+                name="roll_sr6_verteidigung_zauber_direkt_gesamtwert"
+                value="&{template:default} {{name=Verteidigung}} {{Wert=Verteidigung (Zauber - Direkt) Gesamtwert}} {{Pool=[[@{sr6_verteidigung_zauber_direkt_gesamtwert}]]}} {{Erfolge=[[@{sr6_verteidigung_zauber_direkt_gesamtwert}d6cs>4]]}}"
+                aria-label="Wuerfeln"></button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- END BLOCK: Feld - Verteidigung (Zauber - Direkt) -->
+
+    <!-- BEGIN BLOCK: Feld - Verteidigung (Zauber - Indirekt) -->
+    <div class="sr6-charactersheet-row sr6-charactersheet-row-1">
+      <div class="sr6-charactersheet-field sr6-charactersheet-attr-field">
+        <span data-i18n="field.verteidigung_zauber_indirekt">Verteidigung (Zauber - Indirekt)</span>
+        <div class="sr6-charactersheet-attr-values">
+          <div class="sr6-charactersheet-attr-value sr6-charactersheet-attr-value--with-dice">
+            <span data-i18n="field.grundwert">Grundwert</span>
+            <div class="sr6-charactersheet-field-input-with-dice">
+              <input type="text" name="attr_sr6_verteidigung_zauber_indirekt_grundwert" /><button
+                type="roll"
+                class="sr6-charactersheet-field-dice-button"
+                name="roll_sr6_verteidigung_zauber_indirekt_grundwert"
+                value="&{template:default} {{name=Verteidigung}} {{Wert=Verteidigung (Zauber - Indirekt) Grundwert}} {{Pool=[[@{sr6_verteidigung_zauber_indirekt_grundwert}]]}} {{Erfolge=[[@{sr6_verteidigung_zauber_indirekt_grundwert}d6cs>4]]}}"
+                aria-label="Wuerfeln"></button>
+            </div>
+          </div>
+          <div class="sr6-charactersheet-attr-value">
+            <span data-i18n="field.modifikator">Modifikator</span>
+            <input type="text" name="attr_sr6_verteidigung_zauber_indirekt_modifikator" />
+          </div>
+          <div class="sr6-charactersheet-attr-value sr6-charactersheet-attr-value--with-dice">
+            <span data-i18n="field.gesamtwert">Gesamtwert</span>
+            <div class="sr6-charactersheet-field-input-with-dice">
+              <input type="text" name="attr_sr6_verteidigung_zauber_indirekt_gesamtwert" /><button
+                type="roll"
+                class="sr6-charactersheet-field-dice-button"
+                name="roll_sr6_verteidigung_zauber_indirekt_gesamtwert"
+                value="&{template:default} {{name=Verteidigung}} {{Wert=Verteidigung (Zauber - Indirekt) Gesamtwert}} {{Pool=[[@{sr6_verteidigung_zauber_indirekt_gesamtwert}]]}} {{Erfolge=[[@{sr6_verteidigung_zauber_indirekt_gesamtwert}d6cs>4]]}}"
+                aria-label="Wuerfeln"></button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- END BLOCK: Feld - Verteidigung (Zauber - Indirekt) -->
+
+    <!-- BEGIN BLOCK: Feld - Verteidigung (Astralkampf) -->
+    <div class="sr6-charactersheet-row sr6-charactersheet-row-1">
+      <div class="sr6-charactersheet-field sr6-charactersheet-attr-field">
+        <span data-i18n="field.verteidigung_astralkampf">Verteidigung (Astralkampf)</span>
+        <div class="sr6-charactersheet-attr-values">
+          <div class="sr6-charactersheet-attr-value sr6-charactersheet-attr-value--with-dice">
+            <span data-i18n="field.grundwert">Grundwert</span>
+            <div class="sr6-charactersheet-field-input-with-dice">
+              <input type="text" name="attr_sr6_verteidigung_astralkampf_grundwert" /><button
+                type="roll"
+                class="sr6-charactersheet-field-dice-button"
+                name="roll_sr6_verteidigung_astralkampf_grundwert"
+                value="&{template:default} {{name=Verteidigung}} {{Wert=Verteidigung (Astralkampf) Grundwert}} {{Pool=[[@{sr6_verteidigung_astralkampf_grundwert}]]}} {{Erfolge=[[@{sr6_verteidigung_astralkampf_grundwert}d6cs>4]]}}"
+                aria-label="Wuerfeln"></button>
+            </div>
+          </div>
+          <div class="sr6-charactersheet-attr-value">
+            <span data-i18n="field.modifikator">Modifikator</span>
+            <input type="text" name="attr_sr6_verteidigung_astralkampf_modifikator" />
+          </div>
+          <div class="sr6-charactersheet-attr-value sr6-charactersheet-attr-value--with-dice">
+            <span data-i18n="field.gesamtwert">Gesamtwert</span>
+            <div class="sr6-charactersheet-field-input-with-dice">
+              <input type="text" name="attr_sr6_verteidigung_astralkampf_gesamtwert" /><button
+                type="roll"
+                class="sr6-charactersheet-field-dice-button"
+                name="roll_sr6_verteidigung_astralkampf_gesamtwert"
+                value="&{template:default} {{name=Verteidigung}} {{Wert=Verteidigung (Astralkampf) Gesamtwert}} {{Pool=[[@{sr6_verteidigung_astralkampf_gesamtwert}]]}} {{Erfolge=[[@{sr6_verteidigung_astralkampf_gesamtwert}d6cs>4]]}}"
+                aria-label="Wuerfeln"></button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- END BLOCK: Feld - Verteidigung (Astralkampf) -->
+  </div>
+</section>
+<!-- END BLOCK: Verteidigung -->
+
+                <!-- END BLOCK: Verteidigung -->
+              </div>
+              <div class="sr6-charactersheet-tab-allgemein-column">
+                <!-- BEGIN BLOCK: Schadenswiderstand -->
+                <!-- BEGIN BLOCK: Schadenswiderstand -->
+<section
+  class="sr6-charactersheet-box sr6-charactersheet-box-schadenswiderstand"
+  aria-labelledby="schadenswiderstand-titel">
+  <h1
+    id="schadenswiderstand-titel"
+    class="sr6-charactersheet-box-title"
+    data-i18n="section.schadenswiderstand">
+    Schadenswiderstand
+  </h1>
+
+  <div class="sr6-charactersheet-box-content">
+    <!-- BEGIN BLOCK: Feld - Schadenswiderstand (Physisch) -->
+    <div class="sr6-charactersheet-row sr6-charactersheet-row-1">
+      <div class="sr6-charactersheet-field sr6-charactersheet-attr-field">
+        <span data-i18n="field.schadenswiderstand_physisch">Schadenswiderstand (Physisch)</span>
+        <div class="sr6-charactersheet-attr-values">
+          <div class="sr6-charactersheet-attr-value sr6-charactersheet-attr-value--with-dice">
+            <span data-i18n="field.grundwert">Grundwert</span>
+            <div class="sr6-charactersheet-field-input-with-dice">
+              <input type="text" name="attr_sr6_schadenswiderstand_physisch_grundwert" /><button
+                type="roll"
+                class="sr6-charactersheet-field-dice-button"
+                name="roll_sr6_schadenswiderstand_physisch_grundwert"
+                value="&{template:default} {{name=Schadenswiderstand}} {{Wert=Schadenswiderstand (Physisch) Grundwert}} {{Pool=[[@{sr6_schadenswiderstand_physisch_grundwert}]]}} {{Erfolge=[[@{sr6_schadenswiderstand_physisch_grundwert}d6cs>4]]}}"
+                aria-label="Wuerfeln"></button>
+            </div>
+          </div>
+          <div class="sr6-charactersheet-attr-value">
+            <span data-i18n="field.modifikator">Modifikator</span>
+            <input type="text" name="attr_sr6_schadenswiderstand_physisch_modifikator" />
+          </div>
+          <div class="sr6-charactersheet-attr-value sr6-charactersheet-attr-value--with-dice">
+            <span data-i18n="field.gesamtwert">Gesamtwert</span>
+            <div class="sr6-charactersheet-field-input-with-dice">
+              <input type="text" name="attr_sr6_schadenswiderstand_physisch_gesamtwert" /><button
+                type="roll"
+                class="sr6-charactersheet-field-dice-button"
+                name="roll_sr6_schadenswiderstand_physisch_gesamtwert"
+                value="&{template:default} {{name=Schadenswiderstand}} {{Wert=Schadenswiderstand (Physisch) Gesamtwert}} {{Pool=[[@{sr6_schadenswiderstand_physisch_gesamtwert}]]}} {{Erfolge=[[@{sr6_schadenswiderstand_physisch_gesamtwert}d6cs>4]]}}"
+                aria-label="Wuerfeln"></button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- END BLOCK: Feld - Schadenswiderstand (Physisch) -->
+
+    <!-- BEGIN BLOCK: Feld - Schadenswiderstand (Astral) -->
+    <div class="sr6-charactersheet-row sr6-charactersheet-row-1">
+      <div class="sr6-charactersheet-field sr6-charactersheet-attr-field">
+        <span data-i18n="field.schadenswiderstand_astral">Schadenswiderstand (Astral)</span>
+        <div class="sr6-charactersheet-attr-values">
+          <div class="sr6-charactersheet-attr-value sr6-charactersheet-attr-value--with-dice">
+            <span data-i18n="field.grundwert">Grundwert</span>
+            <div class="sr6-charactersheet-field-input-with-dice">
+              <input type="text" name="attr_sr6_schadenswiderstand_astral_grundwert" /><button
+                type="roll"
+                class="sr6-charactersheet-field-dice-button"
+                name="roll_sr6_schadenswiderstand_astral_grundwert"
+                value="&{template:default} {{name=Schadenswiderstand}} {{Wert=Schadenswiderstand (Astral) Grundwert}} {{Pool=[[@{sr6_schadenswiderstand_astral_grundwert}]]}} {{Erfolge=[[@{sr6_schadenswiderstand_astral_grundwert}d6cs>4]]}}"
+                aria-label="Wuerfeln"></button>
+            </div>
+          </div>
+          <div class="sr6-charactersheet-attr-value">
+            <span data-i18n="field.modifikator">Modifikator</span>
+            <input type="text" name="attr_sr6_schadenswiderstand_astral_modifikator" />
+          </div>
+          <div class="sr6-charactersheet-attr-value sr6-charactersheet-attr-value--with-dice">
+            <span data-i18n="field.gesamtwert">Gesamtwert</span>
+            <div class="sr6-charactersheet-field-input-with-dice">
+              <input type="text" name="attr_sr6_schadenswiderstand_astral_gesamtwert" /><button
+                type="roll"
+                class="sr6-charactersheet-field-dice-button"
+                name="roll_sr6_schadenswiderstand_astral_gesamtwert"
+                value="&{template:default} {{name=Schadenswiderstand}} {{Wert=Schadenswiderstand (Astral) Gesamtwert}} {{Pool=[[@{sr6_schadenswiderstand_astral_gesamtwert}]]}} {{Erfolge=[[@{sr6_schadenswiderstand_astral_gesamtwert}d6cs>4]]}}"
+                aria-label="Wuerfeln"></button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- END BLOCK: Feld - Schadenswiderstand (Astral) -->
+
+    <!-- BEGIN BLOCK: Feld - Schadenswiderstand (Matrix) -->
+    <div class="sr6-charactersheet-row sr6-charactersheet-row-1">
+      <div class="sr6-charactersheet-field sr6-charactersheet-attr-field">
+        <span data-i18n="field.schadenswiderstand_matrix">Schadenswiderstand (Matrix)</span>
+        <div class="sr6-charactersheet-attr-values">
+          <div class="sr6-charactersheet-attr-value sr6-charactersheet-attr-value--with-dice">
+            <span data-i18n="field.grundwert">Grundwert</span>
+            <div class="sr6-charactersheet-field-input-with-dice">
+              <input type="text" name="attr_sr6_schadenswiderstand_matrix_grundwert" /><button
+                type="roll"
+                class="sr6-charactersheet-field-dice-button"
+                name="roll_sr6_schadenswiderstand_matrix_grundwert"
+                value="&{template:default} {{name=Schadenswiderstand}} {{Wert=Schadenswiderstand (Matrix) Grundwert}} {{Pool=[[@{sr6_schadenswiderstand_matrix_grundwert}]]}} {{Erfolge=[[@{sr6_schadenswiderstand_matrix_grundwert}d6cs>4]]}}"
+                aria-label="Wuerfeln"></button>
+            </div>
+          </div>
+          <div class="sr6-charactersheet-attr-value">
+            <span data-i18n="field.modifikator">Modifikator</span>
+            <input type="text" name="attr_sr6_schadenswiderstand_matrix_modifikator" />
+          </div>
+          <div class="sr6-charactersheet-attr-value sr6-charactersheet-attr-value--with-dice">
+            <span data-i18n="field.gesamtwert">Gesamtwert</span>
+            <div class="sr6-charactersheet-field-input-with-dice">
+              <input type="text" name="attr_sr6_schadenswiderstand_matrix_gesamtwert" /><button
+                type="roll"
+                class="sr6-charactersheet-field-dice-button"
+                name="roll_sr6_schadenswiderstand_matrix_gesamtwert"
+                value="&{template:default} {{name=Schadenswiderstand}} {{Wert=Schadenswiderstand (Matrix) Gesamtwert}} {{Pool=[[@{sr6_schadenswiderstand_matrix_gesamtwert}]]}} {{Erfolge=[[@{sr6_schadenswiderstand_matrix_gesamtwert}d6cs>4]]}}"
+                aria-label="Wuerfeln"></button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- END BLOCK: Feld - Schadenswiderstand (Matrix) -->
+
+    <!-- BEGIN BLOCK: Feld - Schadenswiderstand (Biofeedback) -->
+    <div class="sr6-charactersheet-row sr6-charactersheet-row-1">
+      <div class="sr6-charactersheet-field sr6-charactersheet-attr-field">
+        <span data-i18n="field.schadenswiderstand_biofeedback">Schadenswiderstand (Biofeedback)</span>
+        <div class="sr6-charactersheet-attr-values">
+          <div class="sr6-charactersheet-attr-value sr6-charactersheet-attr-value--with-dice">
+            <span data-i18n="field.grundwert">Grundwert</span>
+            <div class="sr6-charactersheet-field-input-with-dice">
+              <input type="text" name="attr_sr6_schadenswiderstand_biofeedback_grundwert" /><button
+                type="roll"
+                class="sr6-charactersheet-field-dice-button"
+                name="roll_sr6_schadenswiderstand_biofeedback_grundwert"
+                value="&{template:default} {{name=Schadenswiderstand}} {{Wert=Schadenswiderstand (Biofeedback) Grundwert}} {{Pool=[[@{sr6_schadenswiderstand_biofeedback_grundwert}]]}} {{Erfolge=[[@{sr6_schadenswiderstand_biofeedback_grundwert}d6cs>4]]}}"
+                aria-label="Wuerfeln"></button>
+            </div>
+          </div>
+          <div class="sr6-charactersheet-attr-value">
+            <span data-i18n="field.modifikator">Modifikator</span>
+            <input type="text" name="attr_sr6_schadenswiderstand_biofeedback_modifikator" />
+          </div>
+          <div class="sr6-charactersheet-attr-value sr6-charactersheet-attr-value--with-dice">
+            <span data-i18n="field.gesamtwert">Gesamtwert</span>
+            <div class="sr6-charactersheet-field-input-with-dice">
+              <input type="text" name="attr_sr6_schadenswiderstand_biofeedback_gesamtwert" /><button
+                type="roll"
+                class="sr6-charactersheet-field-dice-button"
+                name="roll_sr6_schadenswiderstand_biofeedback_gesamtwert"
+                value="&{template:default} {{name=Schadenswiderstand}} {{Wert=Schadenswiderstand (Biofeedback) Gesamtwert}} {{Pool=[[@{sr6_schadenswiderstand_biofeedback_gesamtwert}]]}} {{Erfolge=[[@{sr6_schadenswiderstand_biofeedback_gesamtwert}d6cs>4]]}}"
+                aria-label="Wuerfeln"></button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- END BLOCK: Feld - Schadenswiderstand (Biofeedback) -->
+
+    <!-- BEGIN BLOCK: Feld - Toxinwiderstand -->
+    <div class="sr6-charactersheet-row sr6-charactersheet-row-1">
+      <div class="sr6-charactersheet-field sr6-charactersheet-attr-field">
+        <span data-i18n="field.toxinwiderstand">Toxinwiderstand</span>
+        <div class="sr6-charactersheet-attr-values">
+          <div class="sr6-charactersheet-attr-value sr6-charactersheet-attr-value--with-dice">
+            <span data-i18n="field.grundwert">Grundwert</span>
+            <div class="sr6-charactersheet-field-input-with-dice">
+              <input type="text" name="attr_sr6_toxinwiderstand_grundwert" /><button
+                type="roll"
+                class="sr6-charactersheet-field-dice-button"
+                name="roll_sr6_toxinwiderstand_grundwert"
+                value="&{template:default} {{name=Toxinwiderstand}} {{Wert=Toxinwiderstand Grundwert}} {{Pool=[[@{sr6_toxinwiderstand_grundwert}]]}} {{Erfolge=[[@{sr6_toxinwiderstand_grundwert}d6cs>4]]}}"
+                aria-label="Wuerfeln"></button>
+            </div>
+          </div>
+          <div class="sr6-charactersheet-attr-value">
+            <span data-i18n="field.modifikator">Modifikator</span>
+            <input type="text" name="attr_sr6_toxinwiderstand_modifikator" />
+          </div>
+          <div class="sr6-charactersheet-attr-value sr6-charactersheet-attr-value--with-dice">
+            <span data-i18n="field.gesamtwert">Gesamtwert</span>
+            <div class="sr6-charactersheet-field-input-with-dice">
+              <input type="text" name="attr_sr6_toxinwiderstand_gesamtwert" /><button
+                type="roll"
+                class="sr6-charactersheet-field-dice-button"
+                name="roll_sr6_toxinwiderstand_gesamtwert"
+                value="&{template:default} {{name=Toxinwiderstand}} {{Wert=Toxinwiderstand Gesamtwert}} {{Pool=[[@{sr6_toxinwiderstand_gesamtwert}]]}} {{Erfolge=[[@{sr6_toxinwiderstand_gesamtwert}d6cs>4]]}}"
+                aria-label="Wuerfeln"></button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- END BLOCK: Feld - Toxinwiderstand -->
+  </div>
+</section>
+<!-- END BLOCK: Schadenswiderstand -->
+
+                <!-- END BLOCK: Schadenswiderstand -->
+              </div>
             </div>
           </div>
           <!-- Panel 2: Fertigkeiten -->
@@ -1693,140 +2008,687 @@
             role="tabpanel">
             <!-- BEGIN BLOCK: Fertigkeiten -->
             <!-- BEGIN BLOCK: Fertigkeiten -->
-            <section
-              class="sr6-charactersheet-box sr6-charactersheet-box-fertigkeiten"
-              aria-labelledby="fertigkeiten-titel">
-              <h2
-                id="fertigkeiten-titel"
-                class="sr6-charactersheet-box-title"
-                data-i18n="section.fertigkeiten_basis">
-                Fertigkeiten (Basis)
-              </h2>
+<!-- BEGIN BLOCK: Fertigkeiten (Allgemein) -->
+<section
+  class="sr6-charactersheet-box sr6-charactersheet-box-fertigkeiten-allgemein"
+  aria-label="Fertigkeiten">
+  <h1
+    class="sr6-charactersheet-box-title"
+    data-i18n="section.fertigkeiten_basis">
+    Fertigkeiten
+  </h1>
 
-              <div class="sr6-charactersheet-box-content">
-                <div class="sr6-charactersheet-skill-table-wrap">
-                  <div class="sr6-charactersheet-skill-table">
-                    <div
-                      class="sr6-charactersheet-skill-row sr6-charactersheet-skill-row--header">
-                      <span data-i18n="field.fertigkeit">Fertigkeit</span>
-                      <span data-i18n="field.fertigkeitsattribut"
-                        >Attribut</span
-                      >
-                      <span data-i18n="field.fertigkeitsrang">Rang</span>
-                      <span data-i18n="field.fertigkeitsmodifikator">Mod.</span>
-                      <span data-i18n="field.fertigkeits_pool">Pool</span>
-                      <span data-i18n="field.wurf">Wurf</span>
-                    </div>
+  <div class="sr6-charactersheet-box-content">
+    <div class="sr6-charactersheet-skills-overview-grid">
+      <!-- BEGIN BLOCK: Fertigkeit - Astral -->
+      <div class="sr6-charactersheet-field sr6-charactersheet-attr-field">
+        <span data-i18n="skill.astral">Astral</span>
+        <div class="sr6-charactersheet-attr-values">
+          <div class="sr6-charactersheet-attr-value sr6-charactersheet-attr-value--with-dice">
+            <span data-i18n="field.grundwert">Grundwert</span>
+            <div class="sr6-charactersheet-field-input-with-dice">
+              <input type="text" name="attr_sr6_skill_astral_grundwert" /><button
+                type="roll"
+                class="sr6-charactersheet-field-dice-button"
+                name="roll_sr6_skill_astral_grundwert"
+                value="&{template:default} {{name=Fertigkeits-Test}} {{Fertigkeit=Astral (Grundwert)}} {{Pool=[[@{sr6_skill_astral_grundwert}]]}} {{Erfolge=[[@{sr6_skill_astral_grundwert}d6cs>4]]}}"
+                aria-label="Wuerfeln"></button>
+            </div>
+          </div>
+          <div class="sr6-charactersheet-attr-value">
+            <span data-i18n="field.modifikator">Modifikator</span><input
+              type="text"
+              name="attr_sr6_skill_astral_modifikator" />
+          </div>
+          <div class="sr6-charactersheet-attr-value sr6-charactersheet-attr-value--with-dice">
+            <span data-i18n="field.gesamtwert">Gesamtwert</span>
+            <div class="sr6-charactersheet-field-input-with-dice">
+              <input type="text" name="attr_sr6_skill_astral_gesamtwert" /><button
+                type="roll"
+                class="sr6-charactersheet-field-dice-button"
+                name="roll_sr6_skill_astral_gesamtwert"
+                value="&{template:default} {{name=Fertigkeits-Test}} {{Fertigkeit=Astral (Gesamtwert)}} {{Pool=[[@{sr6_skill_astral_gesamtwert}]]}} {{Erfolge=[[@{sr6_skill_astral_gesamtwert}d6cs>4]]}}"
+                aria-label="Wuerfeln"></button>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- END BLOCK: Fertigkeit - Astral -->
 
-                    <div class="sr6-charactersheet-skill-row">
-                      <span data-i18n="skill.athletik">Athletik</span>
-                      <input
-                        type="text"
-                        name="attr_sr6_skill_athletik_attribut" />
-                      <input type="text" name="attr_sr6_skill_athletik_rang" />
-                      <input
-                        type="text"
-                        name="attr_sr6_skill_athletik_modifikator" />
-                      <input type="text" name="attr_sr6_skill_athletik_pool" />
-                      <button
-                        type="roll"
-                        class="sr6-charactersheet-field-dice-button"
-                        name="roll_sr6_skill_athletik"
-                        value="&{template:default} {{name=Fertigkeits-Test}} {{Fertigkeit=Athletik}} {{Pool=[[@{sr6_skill_athletik_pool}]]}} {{Erfolge=[[@{sr6_skill_athletik_pool}d6cs>4]]}}"
-                        aria-label="Wuerfeln"></button>
-                    </div>
+      <!-- BEGIN BLOCK: Fertigkeit - Athletik -->
+      <div class="sr6-charactersheet-field sr6-charactersheet-attr-field">
+        <span data-i18n="skill.athletik">Athletik</span>
+        <div class="sr6-charactersheet-attr-values">
+          <div class="sr6-charactersheet-attr-value sr6-charactersheet-attr-value--with-dice">
+            <span data-i18n="field.grundwert">Grundwert</span>
+            <div class="sr6-charactersheet-field-input-with-dice">
+              <input type="text" name="attr_sr6_skill_athletik_grundwert" /><button
+                type="roll"
+                class="sr6-charactersheet-field-dice-button"
+                name="roll_sr6_skill_athletik_grundwert"
+                value="&{template:default} {{name=Fertigkeits-Test}} {{Fertigkeit=Athletik (Grundwert)}} {{Pool=[[@{sr6_skill_athletik_grundwert}]]}} {{Erfolge=[[@{sr6_skill_athletik_grundwert}d6cs>4]]}}"
+                aria-label="Wuerfeln"></button>
+            </div>
+          </div>
+          <div class="sr6-charactersheet-attr-value">
+            <span data-i18n="field.modifikator">Modifikator</span><input
+              type="text"
+              name="attr_sr6_skill_athletik_modifikator" />
+          </div>
+          <div class="sr6-charactersheet-attr-value sr6-charactersheet-attr-value--with-dice">
+            <span data-i18n="field.gesamtwert">Gesamtwert</span>
+            <div class="sr6-charactersheet-field-input-with-dice">
+              <input type="text" name="attr_sr6_skill_athletik_gesamtwert" /><button
+                type="roll"
+                class="sr6-charactersheet-field-dice-button"
+                name="roll_sr6_skill_athletik_gesamtwert"
+                value="&{template:default} {{name=Fertigkeits-Test}} {{Fertigkeit=Athletik (Gesamtwert)}} {{Pool=[[@{sr6_skill_athletik_gesamtwert}]]}} {{Erfolge=[[@{sr6_skill_athletik_gesamtwert}d6cs>4]]}}"
+                aria-label="Wuerfeln"></button>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- END BLOCK: Fertigkeit - Athletik -->
 
-                    <div class="sr6-charactersheet-skill-row">
-                      <span data-i18n="skill.heimlichkeit">Heimlichkeit</span>
-                      <input
-                        type="text"
-                        name="attr_sr6_skill_heimlichkeit_attribut" />
-                      <input
-                        type="text"
-                        name="attr_sr6_skill_heimlichkeit_rang" />
-                      <input
-                        type="text"
-                        name="attr_sr6_skill_heimlichkeit_modifikator" />
-                      <input
-                        type="text"
-                        name="attr_sr6_skill_heimlichkeit_pool" />
-                      <button
-                        type="roll"
-                        class="sr6-charactersheet-field-dice-button"
-                        name="roll_sr6_skill_heimlichkeit"
-                        value="&{template:default} {{name=Fertigkeits-Test}} {{Fertigkeit=Heimlichkeit}} {{Pool=[[@{sr6_skill_heimlichkeit_pool}]]}} {{Erfolge=[[@{sr6_skill_heimlichkeit_pool}d6cs>4]]}}"
-                        aria-label="Wuerfeln"></button>
-                    </div>
+      <!-- BEGIN BLOCK: Fertigkeit - Beschwören -->
+      <div class="sr6-charactersheet-field sr6-charactersheet-attr-field">
+        <span data-i18n="skill.beschwoeren">Beschwören</span>
+        <div class="sr6-charactersheet-attr-values">
+          <div class="sr6-charactersheet-attr-value sr6-charactersheet-attr-value--with-dice">
+            <span data-i18n="field.grundwert">Grundwert</span>
+            <div class="sr6-charactersheet-field-input-with-dice">
+              <input type="text" name="attr_sr6_skill_beschwoeren_grundwert" /><button
+                type="roll"
+                class="sr6-charactersheet-field-dice-button"
+                name="roll_sr6_skill_beschwoeren_grundwert"
+                value="&{template:default} {{name=Fertigkeits-Test}} {{Fertigkeit=Beschwoeren (Grundwert)}} {{Pool=[[@{sr6_skill_beschwoeren_grundwert}]]}} {{Erfolge=[[@{sr6_skill_beschwoeren_grundwert}d6cs>4]]}}"
+                aria-label="Wuerfeln"></button>
+            </div>
+          </div>
+          <div class="sr6-charactersheet-attr-value">
+            <span data-i18n="field.modifikator">Modifikator</span><input
+              type="text"
+              name="attr_sr6_skill_beschwoeren_modifikator" />
+          </div>
+          <div class="sr6-charactersheet-attr-value sr6-charactersheet-attr-value--with-dice">
+            <span data-i18n="field.gesamtwert">Gesamtwert</span>
+            <div class="sr6-charactersheet-field-input-with-dice">
+              <input type="text" name="attr_sr6_skill_beschwoeren_gesamtwert" /><button
+                type="roll"
+                class="sr6-charactersheet-field-dice-button"
+                name="roll_sr6_skill_beschwoeren_gesamtwert"
+                value="&{template:default} {{name=Fertigkeits-Test}} {{Fertigkeit=Beschwoeren (Gesamtwert)}} {{Pool=[[@{sr6_skill_beschwoeren_gesamtwert}]]}} {{Erfolge=[[@{sr6_skill_beschwoeren_gesamtwert}d6cs>4]]}}"
+                aria-label="Wuerfeln"></button>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- END BLOCK: Fertigkeit - Beschwören -->
 
-                    <div class="sr6-charactersheet-skill-row">
-                      <span data-i18n="skill.wahrnehmung">Wahrnehmung</span>
-                      <input
-                        type="text"
-                        name="attr_sr6_skill_wahrnehmung_attribut" />
-                      <input
-                        type="text"
-                        name="attr_sr6_skill_wahrnehmung_rang" />
-                      <input
-                        type="text"
-                        name="attr_sr6_skill_wahrnehmung_modifikator" />
-                      <input
-                        type="text"
-                        name="attr_sr6_skill_wahrnehmung_pool" />
-                      <button
-                        type="roll"
-                        class="sr6-charactersheet-field-dice-button"
-                        name="roll_sr6_skill_wahrnehmung"
-                        value="&{template:default} {{name=Fertigkeits-Test}} {{Fertigkeit=Wahrnehmung}} {{Pool=[[@{sr6_skill_wahrnehmung_pool}]]}} {{Erfolge=[[@{sr6_skill_wahrnehmung_pool}d6cs>4]]}}"
-                        aria-label="Wuerfeln"></button>
-                    </div>
+      <!-- BEGIN BLOCK: Fertigkeit - Biotech -->
+      <div class="sr6-charactersheet-field sr6-charactersheet-attr-field">
+        <span data-i18n="skill.biotech">Biotech</span>
+        <div class="sr6-charactersheet-attr-values">
+          <div class="sr6-charactersheet-attr-value sr6-charactersheet-attr-value--with-dice">
+            <span data-i18n="field.grundwert">Grundwert</span>
+            <div class="sr6-charactersheet-field-input-with-dice">
+              <input type="text" name="attr_sr6_skill_biotech_grundwert" /><button
+                type="roll"
+                class="sr6-charactersheet-field-dice-button"
+                name="roll_sr6_skill_biotech_grundwert"
+                value="&{template:default} {{name=Fertigkeits-Test}} {{Fertigkeit=Biotech (Grundwert)}} {{Pool=[[@{sr6_skill_biotech_grundwert}]]}} {{Erfolge=[[@{sr6_skill_biotech_grundwert}d6cs>4]]}}"
+                aria-label="Wuerfeln"></button>
+            </div>
+          </div>
+          <div class="sr6-charactersheet-attr-value">
+            <span data-i18n="field.modifikator">Modifikator</span><input
+              type="text"
+              name="attr_sr6_skill_biotech_modifikator" />
+          </div>
+          <div class="sr6-charactersheet-attr-value sr6-charactersheet-attr-value--with-dice">
+            <span data-i18n="field.gesamtwert">Gesamtwert</span>
+            <div class="sr6-charactersheet-field-input-with-dice">
+              <input type="text" name="attr_sr6_skill_biotech_gesamtwert" /><button
+                type="roll"
+                class="sr6-charactersheet-field-dice-button"
+                name="roll_sr6_skill_biotech_gesamtwert"
+                value="&{template:default} {{name=Fertigkeits-Test}} {{Fertigkeit=Biotech (Gesamtwert)}} {{Pool=[[@{sr6_skill_biotech_gesamtwert}]]}} {{Erfolge=[[@{sr6_skill_biotech_gesamtwert}d6cs>4]]}}"
+                aria-label="Wuerfeln"></button>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- END BLOCK: Fertigkeit - Biotech -->
 
-                    <div class="sr6-charactersheet-skill-row">
-                      <span data-i18n="skill.ueberreden">Überreden</span>
-                      <input
-                        type="text"
-                        name="attr_sr6_skill_ueberreden_attribut" />
-                      <input
-                        type="text"
-                        name="attr_sr6_skill_ueberreden_rang" />
-                      <input
-                        type="text"
-                        name="attr_sr6_skill_ueberreden_modifikator" />
-                      <input
-                        type="text"
-                        name="attr_sr6_skill_ueberreden_pool" />
-                      <button
-                        type="roll"
-                        class="sr6-charactersheet-field-dice-button"
-                        name="roll_sr6_skill_ueberreden"
-                        value="&{template:default} {{name=Fertigkeits-Test}} {{Fertigkeit=Ueberreden}} {{Pool=[[@{sr6_skill_ueberreden_pool}]]}} {{Erfolge=[[@{sr6_skill_ueberreden_pool}d6cs>4]]}}"
-                        aria-label="Wuerfeln"></button>
-                    </div>
+      <!-- BEGIN BLOCK: Fertigkeit - Cracken -->
+      <div class="sr6-charactersheet-field sr6-charactersheet-attr-field">
+        <span data-i18n="skill.cracken">Cracken</span>
+        <div class="sr6-charactersheet-attr-values">
+          <div class="sr6-charactersheet-attr-value sr6-charactersheet-attr-value--with-dice">
+            <span data-i18n="field.grundwert">Grundwert</span>
+            <div class="sr6-charactersheet-field-input-with-dice">
+              <input type="text" name="attr_sr6_skill_cracken_grundwert" /><button
+                type="roll"
+                class="sr6-charactersheet-field-dice-button"
+                name="roll_sr6_skill_cracken_grundwert"
+                value="&{template:default} {{name=Fertigkeits-Test}} {{Fertigkeit=Cracken (Grundwert)}} {{Pool=[[@{sr6_skill_cracken_grundwert}]]}} {{Erfolge=[[@{sr6_skill_cracken_grundwert}d6cs>4]]}}"
+                aria-label="Wuerfeln"></button>
+            </div>
+          </div>
+          <div class="sr6-charactersheet-attr-value">
+            <span data-i18n="field.modifikator">Modifikator</span><input
+              type="text"
+              name="attr_sr6_skill_cracken_modifikator" />
+          </div>
+          <div class="sr6-charactersheet-attr-value sr6-charactersheet-attr-value--with-dice">
+            <span data-i18n="field.gesamtwert">Gesamtwert</span>
+            <div class="sr6-charactersheet-field-input-with-dice">
+              <input type="text" name="attr_sr6_skill_cracken_gesamtwert" /><button
+                type="roll"
+                class="sr6-charactersheet-field-dice-button"
+                name="roll_sr6_skill_cracken_gesamtwert"
+                value="&{template:default} {{name=Fertigkeits-Test}} {{Fertigkeit=Cracken (Gesamtwert)}} {{Pool=[[@{sr6_skill_cracken_gesamtwert}]]}} {{Erfolge=[[@{sr6_skill_cracken_gesamtwert}d6cs>4]]}}"
+                aria-label="Wuerfeln"></button>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- END BLOCK: Fertigkeit - Cracken -->
 
-                    <div class="sr6-charactersheet-skill-row">
-                      <span data-i18n="skill.elektronik">Elektronik</span>
-                      <input
-                        type="text"
-                        name="attr_sr6_skill_elektronik_attribut" />
-                      <input
-                        type="text"
-                        name="attr_sr6_skill_elektronik_rang" />
-                      <input
-                        type="text"
-                        name="attr_sr6_skill_elektronik_modifikator" />
-                      <input
-                        type="text"
-                        name="attr_sr6_skill_elektronik_pool" />
-                      <button
-                        type="roll"
-                        class="sr6-charactersheet-field-dice-button"
-                        name="roll_sr6_skill_elektronik"
-                        value="&{template:default} {{name=Fertigkeits-Test}} {{Fertigkeit=Elektronik}} {{Pool=[[@{sr6_skill_elektronik_pool}]]}} {{Erfolge=[[@{sr6_skill_elektronik_pool}d6cs>4]]}}"
-                        aria-label="Wuerfeln"></button>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </section>
+      <!-- BEGIN BLOCK: Fertigkeit - Einfluss -->
+      <div class="sr6-charactersheet-field sr6-charactersheet-attr-field">
+        <span data-i18n="skill.einfluss">Einfluss</span>
+        <div class="sr6-charactersheet-attr-values">
+          <div class="sr6-charactersheet-attr-value sr6-charactersheet-attr-value--with-dice">
+            <span data-i18n="field.grundwert">Grundwert</span>
+            <div class="sr6-charactersheet-field-input-with-dice">
+              <input type="text" name="attr_sr6_skill_einfluss_grundwert" /><button
+                type="roll"
+                class="sr6-charactersheet-field-dice-button"
+                name="roll_sr6_skill_einfluss_grundwert"
+                value="&{template:default} {{name=Fertigkeits-Test}} {{Fertigkeit=Einfluss (Grundwert)}} {{Pool=[[@{sr6_skill_einfluss_grundwert}]]}} {{Erfolge=[[@{sr6_skill_einfluss_grundwert}d6cs>4]]}}"
+                aria-label="Wuerfeln"></button>
+            </div>
+          </div>
+          <div class="sr6-charactersheet-attr-value">
+            <span data-i18n="field.modifikator">Modifikator</span><input
+              type="text"
+              name="attr_sr6_skill_einfluss_modifikator" />
+          </div>
+          <div class="sr6-charactersheet-attr-value sr6-charactersheet-attr-value--with-dice">
+            <span data-i18n="field.gesamtwert">Gesamtwert</span>
+            <div class="sr6-charactersheet-field-input-with-dice">
+              <input type="text" name="attr_sr6_skill_einfluss_gesamtwert" /><button
+                type="roll"
+                class="sr6-charactersheet-field-dice-button"
+                name="roll_sr6_skill_einfluss_gesamtwert"
+                value="&{template:default} {{name=Fertigkeits-Test}} {{Fertigkeit=Einfluss (Gesamtwert)}} {{Pool=[[@{sr6_skill_einfluss_gesamtwert}]]}} {{Erfolge=[[@{sr6_skill_einfluss_gesamtwert}d6cs>4]]}}"
+                aria-label="Wuerfeln"></button>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- END BLOCK: Fertigkeit - Einfluss -->
+
+      <!-- BEGIN BLOCK: Fertigkeit - Elektronik -->
+      <div class="sr6-charactersheet-field sr6-charactersheet-attr-field">
+        <span data-i18n="skill.elektronik">Elektronik</span>
+        <div class="sr6-charactersheet-attr-values">
+          <div class="sr6-charactersheet-attr-value sr6-charactersheet-attr-value--with-dice">
+            <span data-i18n="field.grundwert">Grundwert</span>
+            <div class="sr6-charactersheet-field-input-with-dice">
+              <input type="text" name="attr_sr6_skill_elektronik_grundwert" /><button
+                type="roll"
+                class="sr6-charactersheet-field-dice-button"
+                name="roll_sr6_skill_elektronik_grundwert"
+                value="&{template:default} {{name=Fertigkeits-Test}} {{Fertigkeit=Elektronik (Grundwert)}} {{Pool=[[@{sr6_skill_elektronik_grundwert}]]}} {{Erfolge=[[@{sr6_skill_elektronik_grundwert}d6cs>4]]}}"
+                aria-label="Wuerfeln"></button>
+            </div>
+          </div>
+          <div class="sr6-charactersheet-attr-value">
+            <span data-i18n="field.modifikator">Modifikator</span><input
+              type="text"
+              name="attr_sr6_skill_elektronik_modifikator" />
+          </div>
+          <div class="sr6-charactersheet-attr-value sr6-charactersheet-attr-value--with-dice">
+            <span data-i18n="field.gesamtwert">Gesamtwert</span>
+            <div class="sr6-charactersheet-field-input-with-dice">
+              <input type="text" name="attr_sr6_skill_elektronik_gesamtwert" /><button
+                type="roll"
+                class="sr6-charactersheet-field-dice-button"
+                name="roll_sr6_skill_elektronik_gesamtwert"
+                value="&{template:default} {{name=Fertigkeits-Test}} {{Fertigkeit=Elektronik (Gesamtwert)}} {{Pool=[[@{sr6_skill_elektronik_gesamtwert}]]}} {{Erfolge=[[@{sr6_skill_elektronik_gesamtwert}d6cs>4]]}}"
+                aria-label="Wuerfeln"></button>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- END BLOCK: Fertigkeit - Elektronik -->
+
+      <!-- BEGIN BLOCK: Fertigkeit - Exotische Waffen -->
+      <div class="sr6-charactersheet-field sr6-charactersheet-attr-field">
+        <span data-i18n="skill.exotische_waffen">Exotische Waffen</span>
+        <div class="sr6-charactersheet-attr-values">
+          <div class="sr6-charactersheet-attr-value sr6-charactersheet-attr-value--with-dice">
+            <span data-i18n="field.grundwert">Grundwert</span>
+            <div class="sr6-charactersheet-field-input-with-dice">
+              <input type="text" name="attr_sr6_skill_exotische_waffen_grundwert" /><button
+                type="roll"
+                class="sr6-charactersheet-field-dice-button"
+                name="roll_sr6_skill_exotische_waffen_grundwert"
+                value="&{template:default} {{name=Fertigkeits-Test}} {{Fertigkeit=Exotische Waffen (Grundwert)}} {{Pool=[[@{sr6_skill_exotische_waffen_grundwert}]]}} {{Erfolge=[[@{sr6_skill_exotische_waffen_grundwert}d6cs>4]]}}"
+                aria-label="Wuerfeln"></button>
+            </div>
+          </div>
+          <div class="sr6-charactersheet-attr-value">
+            <span data-i18n="field.modifikator">Modifikator</span><input
+              type="text"
+              name="attr_sr6_skill_exotische_waffen_modifikator" />
+          </div>
+          <div class="sr6-charactersheet-attr-value sr6-charactersheet-attr-value--with-dice">
+            <span data-i18n="field.gesamtwert">Gesamtwert</span>
+            <div class="sr6-charactersheet-field-input-with-dice">
+              <input type="text" name="attr_sr6_skill_exotische_waffen_gesamtwert" /><button
+                type="roll"
+                class="sr6-charactersheet-field-dice-button"
+                name="roll_sr6_skill_exotische_waffen_gesamtwert"
+                value="&{template:default} {{name=Fertigkeits-Test}} {{Fertigkeit=Exotische Waffen (Gesamtwert)}} {{Pool=[[@{sr6_skill_exotische_waffen_gesamtwert}]]}} {{Erfolge=[[@{sr6_skill_exotische_waffen_gesamtwert}d6cs>4]]}}"
+                aria-label="Wuerfeln"></button>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- END BLOCK: Fertigkeit - Exotische Waffen -->
+
+      <!-- BEGIN BLOCK: Fertigkeit - Feuerwaffen -->
+      <div class="sr6-charactersheet-field sr6-charactersheet-attr-field">
+        <span data-i18n="skill.feuerwaffen">Feuerwaffen</span>
+        <div class="sr6-charactersheet-attr-values">
+          <div class="sr6-charactersheet-attr-value sr6-charactersheet-attr-value--with-dice">
+            <span data-i18n="field.grundwert">Grundwert</span>
+            <div class="sr6-charactersheet-field-input-with-dice">
+              <input type="text" name="attr_sr6_skill_feuerwaffen_grundwert" /><button
+                type="roll"
+                class="sr6-charactersheet-field-dice-button"
+                name="roll_sr6_skill_feuerwaffen_grundwert"
+                value="&{template:default} {{name=Fertigkeits-Test}} {{Fertigkeit=Feuerwaffen (Grundwert)}} {{Pool=[[@{sr6_skill_feuerwaffen_grundwert}]]}} {{Erfolge=[[@{sr6_skill_feuerwaffen_grundwert}d6cs>4]]}}"
+                aria-label="Wuerfeln"></button>
+            </div>
+          </div>
+          <div class="sr6-charactersheet-attr-value">
+            <span data-i18n="field.modifikator">Modifikator</span><input
+              type="text"
+              name="attr_sr6_skill_feuerwaffen_modifikator" />
+          </div>
+          <div class="sr6-charactersheet-attr-value sr6-charactersheet-attr-value--with-dice">
+            <span data-i18n="field.gesamtwert">Gesamtwert</span>
+            <div class="sr6-charactersheet-field-input-with-dice">
+              <input type="text" name="attr_sr6_skill_feuerwaffen_gesamtwert" /><button
+                type="roll"
+                class="sr6-charactersheet-field-dice-button"
+                name="roll_sr6_skill_feuerwaffen_gesamtwert"
+                value="&{template:default} {{name=Fertigkeits-Test}} {{Fertigkeit=Feuerwaffen (Gesamtwert)}} {{Pool=[[@{sr6_skill_feuerwaffen_gesamtwert}]]}} {{Erfolge=[[@{sr6_skill_feuerwaffen_gesamtwert}d6cs>4]]}}"
+                aria-label="Wuerfeln"></button>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- END BLOCK: Fertigkeit - Feuerwaffen -->
+
+      <!-- BEGIN BLOCK: Fertigkeit - Heimlichkeit -->
+      <div class="sr6-charactersheet-field sr6-charactersheet-attr-field">
+        <span data-i18n="skill.heimlichkeit">Heimlichkeit</span>
+        <div class="sr6-charactersheet-attr-values">
+          <div class="sr6-charactersheet-attr-value sr6-charactersheet-attr-value--with-dice">
+            <span data-i18n="field.grundwert">Grundwert</span>
+            <div class="sr6-charactersheet-field-input-with-dice">
+              <input type="text" name="attr_sr6_skill_heimlichkeit_grundwert" /><button
+                type="roll"
+                class="sr6-charactersheet-field-dice-button"
+                name="roll_sr6_skill_heimlichkeit_grundwert"
+                value="&{template:default} {{name=Fertigkeits-Test}} {{Fertigkeit=Heimlichkeit (Grundwert)}} {{Pool=[[@{sr6_skill_heimlichkeit_grundwert}]]}} {{Erfolge=[[@{sr6_skill_heimlichkeit_grundwert}d6cs>4]]}}"
+                aria-label="Wuerfeln"></button>
+            </div>
+          </div>
+          <div class="sr6-charactersheet-attr-value">
+            <span data-i18n="field.modifikator">Modifikator</span><input
+              type="text"
+              name="attr_sr6_skill_heimlichkeit_modifikator" />
+          </div>
+          <div class="sr6-charactersheet-attr-value sr6-charactersheet-attr-value--with-dice">
+            <span data-i18n="field.gesamtwert">Gesamtwert</span>
+            <div class="sr6-charactersheet-field-input-with-dice">
+              <input type="text" name="attr_sr6_skill_heimlichkeit_gesamtwert" /><button
+                type="roll"
+                class="sr6-charactersheet-field-dice-button"
+                name="roll_sr6_skill_heimlichkeit_gesamtwert"
+                value="&{template:default} {{name=Fertigkeits-Test}} {{Fertigkeit=Heimlichkeit (Gesamtwert)}} {{Pool=[[@{sr6_skill_heimlichkeit_gesamtwert}]]}} {{Erfolge=[[@{sr6_skill_heimlichkeit_gesamtwert}d6cs>4]]}}"
+                aria-label="Wuerfeln"></button>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- END BLOCK: Fertigkeit - Heimlichkeit -->
+
+      <!-- BEGIN BLOCK: Fertigkeit - Hexerei -->
+      <div class="sr6-charactersheet-field sr6-charactersheet-attr-field">
+        <span data-i18n="skill.hexerei">Hexerei</span>
+        <div class="sr6-charactersheet-attr-values">
+          <div class="sr6-charactersheet-attr-value sr6-charactersheet-attr-value--with-dice">
+            <span data-i18n="field.grundwert">Grundwert</span>
+            <div class="sr6-charactersheet-field-input-with-dice">
+              <input type="text" name="attr_sr6_skill_hexerei_grundwert" /><button
+                type="roll"
+                class="sr6-charactersheet-field-dice-button"
+                name="roll_sr6_skill_hexerei_grundwert"
+                value="&{template:default} {{name=Fertigkeits-Test}} {{Fertigkeit=Hexerei (Grundwert)}} {{Pool=[[@{sr6_skill_hexerei_grundwert}]]}} {{Erfolge=[[@{sr6_skill_hexerei_grundwert}d6cs>4]]}}"
+                aria-label="Wuerfeln"></button>
+            </div>
+          </div>
+          <div class="sr6-charactersheet-attr-value">
+            <span data-i18n="field.modifikator">Modifikator</span><input
+              type="text"
+              name="attr_sr6_skill_hexerei_modifikator" />
+          </div>
+          <div class="sr6-charactersheet-attr-value sr6-charactersheet-attr-value--with-dice">
+            <span data-i18n="field.gesamtwert">Gesamtwert</span>
+            <div class="sr6-charactersheet-field-input-with-dice">
+              <input type="text" name="attr_sr6_skill_hexerei_gesamtwert" /><button
+                type="roll"
+                class="sr6-charactersheet-field-dice-button"
+                name="roll_sr6_skill_hexerei_gesamtwert"
+                value="&{template:default} {{name=Fertigkeits-Test}} {{Fertigkeit=Hexerei (Gesamtwert)}} {{Pool=[[@{sr6_skill_hexerei_gesamtwert}]]}} {{Erfolge=[[@{sr6_skill_hexerei_gesamtwert}d6cs>4]]}}"
+                aria-label="Wuerfeln"></button>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- END BLOCK: Fertigkeit - Hexerei -->
+
+      <!-- BEGIN BLOCK: Fertigkeit - Mechanik -->
+      <div class="sr6-charactersheet-field sr6-charactersheet-attr-field">
+        <span data-i18n="skill.mechanik">Mechanik</span>
+        <div class="sr6-charactersheet-attr-values">
+          <div class="sr6-charactersheet-attr-value sr6-charactersheet-attr-value--with-dice">
+            <span data-i18n="field.grundwert">Grundwert</span>
+            <div class="sr6-charactersheet-field-input-with-dice">
+              <input type="text" name="attr_sr6_skill_mechanik_grundwert" /><button
+                type="roll"
+                class="sr6-charactersheet-field-dice-button"
+                name="roll_sr6_skill_mechanik_grundwert"
+                value="&{template:default} {{name=Fertigkeits-Test}} {{Fertigkeit=Mechanik (Grundwert)}} {{Pool=[[@{sr6_skill_mechanik_grundwert}]]}} {{Erfolge=[[@{sr6_skill_mechanik_grundwert}d6cs>4]]}}"
+                aria-label="Wuerfeln"></button>
+            </div>
+          </div>
+          <div class="sr6-charactersheet-attr-value">
+            <span data-i18n="field.modifikator">Modifikator</span><input
+              type="text"
+              name="attr_sr6_skill_mechanik_modifikator" />
+          </div>
+          <div class="sr6-charactersheet-attr-value sr6-charactersheet-attr-value--with-dice">
+            <span data-i18n="field.gesamtwert">Gesamtwert</span>
+            <div class="sr6-charactersheet-field-input-with-dice">
+              <input type="text" name="attr_sr6_skill_mechanik_gesamtwert" /><button
+                type="roll"
+                class="sr6-charactersheet-field-dice-button"
+                name="roll_sr6_skill_mechanik_gesamtwert"
+                value="&{template:default} {{name=Fertigkeits-Test}} {{Fertigkeit=Mechanik (Gesamtwert)}} {{Pool=[[@{sr6_skill_mechanik_gesamtwert}]]}} {{Erfolge=[[@{sr6_skill_mechanik_gesamtwert}d6cs>4]]}}"
+                aria-label="Wuerfeln"></button>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- END BLOCK: Fertigkeit - Mechanik -->
+
+      <!-- BEGIN BLOCK: Fertigkeit - Nahkampf -->
+      <div class="sr6-charactersheet-field sr6-charactersheet-attr-field">
+        <span data-i18n="skill.nahkampf">Nahkampf</span>
+        <div class="sr6-charactersheet-attr-values">
+          <div class="sr6-charactersheet-attr-value sr6-charactersheet-attr-value--with-dice">
+            <span data-i18n="field.grundwert">Grundwert</span>
+            <div class="sr6-charactersheet-field-input-with-dice">
+              <input type="text" name="attr_sr6_skill_nahkampf_grundwert" /><button
+                type="roll"
+                class="sr6-charactersheet-field-dice-button"
+                name="roll_sr6_skill_nahkampf_grundwert"
+                value="&{template:default} {{name=Fertigkeits-Test}} {{Fertigkeit=Nahkampf (Grundwert)}} {{Pool=[[@{sr6_skill_nahkampf_grundwert}]]}} {{Erfolge=[[@{sr6_skill_nahkampf_grundwert}d6cs>4]]}}"
+                aria-label="Wuerfeln"></button>
+            </div>
+          </div>
+          <div class="sr6-charactersheet-attr-value">
+            <span data-i18n="field.modifikator">Modifikator</span><input
+              type="text"
+              name="attr_sr6_skill_nahkampf_modifikator" />
+          </div>
+          <div class="sr6-charactersheet-attr-value sr6-charactersheet-attr-value--with-dice">
+            <span data-i18n="field.gesamtwert">Gesamtwert</span>
+            <div class="sr6-charactersheet-field-input-with-dice">
+              <input type="text" name="attr_sr6_skill_nahkampf_gesamtwert" /><button
+                type="roll"
+                class="sr6-charactersheet-field-dice-button"
+                name="roll_sr6_skill_nahkampf_gesamtwert"
+                value="&{template:default} {{name=Fertigkeits-Test}} {{Fertigkeit=Nahkampf (Gesamtwert)}} {{Pool=[[@{sr6_skill_nahkampf_gesamtwert}]]}} {{Erfolge=[[@{sr6_skill_nahkampf_gesamtwert}d6cs>4]]}}"
+                aria-label="Wuerfeln"></button>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- END BLOCK: Fertigkeit - Nahkampf -->
+
+      <!-- BEGIN BLOCK: Fertigkeit - Natur -->
+      <div class="sr6-charactersheet-field sr6-charactersheet-attr-field">
+        <span data-i18n="skill.natur">Natur</span>
+        <div class="sr6-charactersheet-attr-values">
+          <div class="sr6-charactersheet-attr-value sr6-charactersheet-attr-value--with-dice">
+            <span data-i18n="field.grundwert">Grundwert</span>
+            <div class="sr6-charactersheet-field-input-with-dice">
+              <input type="text" name="attr_sr6_skill_natur_grundwert" /><button
+                type="roll"
+                class="sr6-charactersheet-field-dice-button"
+                name="roll_sr6_skill_natur_grundwert"
+                value="&{template:default} {{name=Fertigkeits-Test}} {{Fertigkeit=Natur (Grundwert)}} {{Pool=[[@{sr6_skill_natur_grundwert}]]}} {{Erfolge=[[@{sr6_skill_natur_grundwert}d6cs>4]]}}"
+                aria-label="Wuerfeln"></button>
+            </div>
+          </div>
+          <div class="sr6-charactersheet-attr-value">
+            <span data-i18n="field.modifikator">Modifikator</span><input
+              type="text"
+              name="attr_sr6_skill_natur_modifikator" />
+          </div>
+          <div class="sr6-charactersheet-attr-value sr6-charactersheet-attr-value--with-dice">
+            <span data-i18n="field.gesamtwert">Gesamtwert</span>
+            <div class="sr6-charactersheet-field-input-with-dice">
+              <input type="text" name="attr_sr6_skill_natur_gesamtwert" /><button
+                type="roll"
+                class="sr6-charactersheet-field-dice-button"
+                name="roll_sr6_skill_natur_gesamtwert"
+                value="&{template:default} {{name=Fertigkeits-Test}} {{Fertigkeit=Natur (Gesamtwert)}} {{Pool=[[@{sr6_skill_natur_gesamtwert}]]}} {{Erfolge=[[@{sr6_skill_natur_gesamtwert}d6cs>4]]}}"
+                aria-label="Wuerfeln"></button>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- END BLOCK: Fertigkeit - Natur -->
+
+      <!-- BEGIN BLOCK: Fertigkeit - Steuern -->
+      <div class="sr6-charactersheet-field sr6-charactersheet-attr-field">
+        <span data-i18n="skill.steuern">Steuern</span>
+        <div class="sr6-charactersheet-attr-values">
+          <div class="sr6-charactersheet-attr-value sr6-charactersheet-attr-value--with-dice">
+            <span data-i18n="field.grundwert">Grundwert</span>
+            <div class="sr6-charactersheet-field-input-with-dice">
+              <input type="text" name="attr_sr6_skill_steuern_grundwert" /><button
+                type="roll"
+                class="sr6-charactersheet-field-dice-button"
+                name="roll_sr6_skill_steuern_grundwert"
+                value="&{template:default} {{name=Fertigkeits-Test}} {{Fertigkeit=Steuern (Grundwert)}} {{Pool=[[@{sr6_skill_steuern_grundwert}]]}} {{Erfolge=[[@{sr6_skill_steuern_grundwert}d6cs>4]]}}"
+                aria-label="Wuerfeln"></button>
+            </div>
+          </div>
+          <div class="sr6-charactersheet-attr-value">
+            <span data-i18n="field.modifikator">Modifikator</span><input
+              type="text"
+              name="attr_sr6_skill_steuern_modifikator" />
+          </div>
+          <div class="sr6-charactersheet-attr-value sr6-charactersheet-attr-value--with-dice">
+            <span data-i18n="field.gesamtwert">Gesamtwert</span>
+            <div class="sr6-charactersheet-field-input-with-dice">
+              <input type="text" name="attr_sr6_skill_steuern_gesamtwert" /><button
+                type="roll"
+                class="sr6-charactersheet-field-dice-button"
+                name="roll_sr6_skill_steuern_gesamtwert"
+                value="&{template:default} {{name=Fertigkeits-Test}} {{Fertigkeit=Steuern (Gesamtwert)}} {{Pool=[[@{sr6_skill_steuern_gesamtwert}]]}} {{Erfolge=[[@{sr6_skill_steuern_gesamtwert}d6cs>4]]}}"
+                aria-label="Wuerfeln"></button>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- END BLOCK: Fertigkeit - Steuern -->
+
+      <!-- BEGIN BLOCK: Fertigkeit - Tasken -->
+      <div class="sr6-charactersheet-field sr6-charactersheet-attr-field">
+        <span data-i18n="skill.tasken">Tasken</span>
+        <div class="sr6-charactersheet-attr-values">
+          <div class="sr6-charactersheet-attr-value sr6-charactersheet-attr-value--with-dice">
+            <span data-i18n="field.grundwert">Grundwert</span>
+            <div class="sr6-charactersheet-field-input-with-dice">
+              <input type="text" name="attr_sr6_skill_tasken_grundwert" /><button
+                type="roll"
+                class="sr6-charactersheet-field-dice-button"
+                name="roll_sr6_skill_tasken_grundwert"
+                value="&{template:default} {{name=Fertigkeits-Test}} {{Fertigkeit=Tasken (Grundwert)}} {{Pool=[[@{sr6_skill_tasken_grundwert}]]}} {{Erfolge=[[@{sr6_skill_tasken_grundwert}d6cs>4]]}}"
+                aria-label="Wuerfeln"></button>
+            </div>
+          </div>
+          <div class="sr6-charactersheet-attr-value">
+            <span data-i18n="field.modifikator">Modifikator</span><input
+              type="text"
+              name="attr_sr6_skill_tasken_modifikator" />
+          </div>
+          <div class="sr6-charactersheet-attr-value sr6-charactersheet-attr-value--with-dice">
+            <span data-i18n="field.gesamtwert">Gesamtwert</span>
+            <div class="sr6-charactersheet-field-input-with-dice">
+              <input type="text" name="attr_sr6_skill_tasken_gesamtwert" /><button
+                type="roll"
+                class="sr6-charactersheet-field-dice-button"
+                name="roll_sr6_skill_tasken_gesamtwert"
+                value="&{template:default} {{name=Fertigkeits-Test}} {{Fertigkeit=Tasken (Gesamtwert)}} {{Pool=[[@{sr6_skill_tasken_gesamtwert}]]}} {{Erfolge=[[@{sr6_skill_tasken_gesamtwert}d6cs>4]]}}"
+                aria-label="Wuerfeln"></button>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- END BLOCK: Fertigkeit - Tasken -->
+
+      <!-- BEGIN BLOCK: Fertigkeit - Überreden -->
+      <div class="sr6-charactersheet-field sr6-charactersheet-attr-field">
+        <span data-i18n="skill.ueberreden">Überreden</span>
+        <div class="sr6-charactersheet-attr-values">
+          <div class="sr6-charactersheet-attr-value sr6-charactersheet-attr-value--with-dice">
+            <span data-i18n="field.grundwert">Grundwert</span>
+            <div class="sr6-charactersheet-field-input-with-dice">
+              <input type="text" name="attr_sr6_skill_ueberreden_grundwert" /><button
+                type="roll"
+                class="sr6-charactersheet-field-dice-button"
+                name="roll_sr6_skill_ueberreden_grundwert"
+                value="&{template:default} {{name=Fertigkeits-Test}} {{Fertigkeit=Ueberreden (Grundwert)}} {{Pool=[[@{sr6_skill_ueberreden_grundwert}]]}} {{Erfolge=[[@{sr6_skill_ueberreden_grundwert}d6cs>4]]}}"
+                aria-label="Wuerfeln"></button>
+            </div>
+          </div>
+          <div class="sr6-charactersheet-attr-value">
+            <span data-i18n="field.modifikator">Modifikator</span><input
+              type="text"
+              name="attr_sr6_skill_ueberreden_modifikator" />
+          </div>
+          <div class="sr6-charactersheet-attr-value sr6-charactersheet-attr-value--with-dice">
+            <span data-i18n="field.gesamtwert">Gesamtwert</span>
+            <div class="sr6-charactersheet-field-input-with-dice">
+              <input type="text" name="attr_sr6_skill_ueberreden_gesamtwert" /><button
+                type="roll"
+                class="sr6-charactersheet-field-dice-button"
+                name="roll_sr6_skill_ueberreden_gesamtwert"
+                value="&{template:default} {{name=Fertigkeits-Test}} {{Fertigkeit=Ueberreden (Gesamtwert)}} {{Pool=[[@{sr6_skill_ueberreden_gesamtwert}]]}} {{Erfolge=[[@{sr6_skill_ueberreden_gesamtwert}d6cs>4]]}}"
+                aria-label="Wuerfeln"></button>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- END BLOCK: Fertigkeit - Überreden -->
+
+      <!-- BEGIN BLOCK: Fertigkeit - Verzaubern -->
+      <div class="sr6-charactersheet-field sr6-charactersheet-attr-field">
+        <span data-i18n="skill.verzaubern">Verzaubern</span>
+        <div class="sr6-charactersheet-attr-values">
+          <div class="sr6-charactersheet-attr-value sr6-charactersheet-attr-value--with-dice">
+            <span data-i18n="field.grundwert">Grundwert</span>
+            <div class="sr6-charactersheet-field-input-with-dice">
+              <input type="text" name="attr_sr6_skill_verzaubern_grundwert" /><button
+                type="roll"
+                class="sr6-charactersheet-field-dice-button"
+                name="roll_sr6_skill_verzaubern_grundwert"
+                value="&{template:default} {{name=Fertigkeits-Test}} {{Fertigkeit=Verzaubern (Grundwert)}} {{Pool=[[@{sr6_skill_verzaubern_grundwert}]]}} {{Erfolge=[[@{sr6_skill_verzaubern_grundwert}d6cs>4]]}}"
+                aria-label="Wuerfeln"></button>
+            </div>
+          </div>
+          <div class="sr6-charactersheet-attr-value">
+            <span data-i18n="field.modifikator">Modifikator</span><input
+              type="text"
+              name="attr_sr6_skill_verzaubern_modifikator" />
+          </div>
+          <div class="sr6-charactersheet-attr-value sr6-charactersheet-attr-value--with-dice">
+            <span data-i18n="field.gesamtwert">Gesamtwert</span>
+            <div class="sr6-charactersheet-field-input-with-dice">
+              <input type="text" name="attr_sr6_skill_verzaubern_gesamtwert" /><button
+                type="roll"
+                class="sr6-charactersheet-field-dice-button"
+                name="roll_sr6_skill_verzaubern_gesamtwert"
+                value="&{template:default} {{name=Fertigkeits-Test}} {{Fertigkeit=Verzaubern (Gesamtwert)}} {{Pool=[[@{sr6_skill_verzaubern_gesamtwert}]]}} {{Erfolge=[[@{sr6_skill_verzaubern_gesamtwert}d6cs>4]]}}"
+                aria-label="Wuerfeln"></button>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- END BLOCK: Fertigkeit - Verzaubern -->
+
+      <!-- BEGIN BLOCK: Fertigkeit - Wahrnehmung -->
+      <div class="sr6-charactersheet-field sr6-charactersheet-attr-field">
+        <span data-i18n="skill.wahrnehmung">Wahrnehmung</span>
+        <div class="sr6-charactersheet-attr-values">
+          <div class="sr6-charactersheet-attr-value sr6-charactersheet-attr-value--with-dice">
+            <span data-i18n="field.grundwert">Grundwert</span>
+            <div class="sr6-charactersheet-field-input-with-dice">
+              <input type="text" name="attr_sr6_skill_wahrnehmung_grundwert" /><button
+                type="roll"
+                class="sr6-charactersheet-field-dice-button"
+                name="roll_sr6_skill_wahrnehmung_grundwert"
+                value="&{template:default} {{name=Fertigkeits-Test}} {{Fertigkeit=Wahrnehmung (Grundwert)}} {{Pool=[[@{sr6_skill_wahrnehmung_grundwert}]]}} {{Erfolge=[[@{sr6_skill_wahrnehmung_grundwert}d6cs>4]]}}"
+                aria-label="Wuerfeln"></button>
+            </div>
+          </div>
+          <div class="sr6-charactersheet-attr-value">
+            <span data-i18n="field.modifikator">Modifikator</span><input
+              type="text"
+              name="attr_sr6_skill_wahrnehmung_modifikator" />
+          </div>
+          <div class="sr6-charactersheet-attr-value sr6-charactersheet-attr-value--with-dice">
+            <span data-i18n="field.gesamtwert">Gesamtwert</span>
+            <div class="sr6-charactersheet-field-input-with-dice">
+              <input type="text" name="attr_sr6_skill_wahrnehmung_gesamtwert" /><button
+                type="roll"
+                class="sr6-charactersheet-field-dice-button"
+                name="roll_sr6_skill_wahrnehmung_gesamtwert"
+                value="&{template:default} {{name=Fertigkeits-Test}} {{Fertigkeit=Wahrnehmung (Gesamtwert)}} {{Pool=[[@{sr6_skill_wahrnehmung_gesamtwert}]]}} {{Erfolge=[[@{sr6_skill_wahrnehmung_gesamtwert}d6cs>4]]}}"
+                aria-label="Wuerfeln"></button>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- END BLOCK: Fertigkeit - Wahrnehmung -->
+    </div>
+  </div>
+</section>
+<!-- END BLOCK: Fertigkeiten (Allgemein) -->
+
 <!-- END BLOCK: Fertigkeiten -->
 
             <!-- END BLOCK: Fertigkeiten -->
@@ -2554,6 +3416,8 @@
             "section.ausruestung_kern": "Ausrüstung: Übersicht",
             "section.persoenliche_daten": "Persönliche Daten",
             "section.initiative": "Initiative",
+            "section.verteidigung": "Verteidigung",
+            "section.schadenswiderstand": "Schadenswiderstand",
             "tab.allgemein": "Allgemein",
             "tab.fertigkeiten": "Fertigkeiten",
             "tab.kampf": "Kampf",
@@ -2655,6 +3519,19 @@
             "field.edge_max": "Edge Max",
             "field.initiative_basis": "Initiative (Basis)",
             "field.verteidigung_basis": "Verteidigung (Basis)",
+            "field.verteidigung_physisch": "Verteidigung (Physisch)",
+            "field.verteidigung_zauber_direkt":
+              "Verteidigung (Zauber - Direkt)",
+            "field.verteidigung_zauber_indirekt":
+              "Verteidigung (Zauber - Indirekt)",
+            "field.verteidigung_astralkampf": "Verteidigung (Astralkampf)",
+            "field.schadenswiderstand_physisch":
+              "Schadenswiderstand (Physisch)",
+            "field.schadenswiderstand_astral": "Schadenswiderstand (Astral)",
+            "field.schadenswiderstand_matrix": "Schadenswiderstand (Matrix)",
+            "field.schadenswiderstand_biofeedback":
+              "Schadenswiderstand (Biofeedback)",
+            "field.toxinwiderstand": "Toxinwiderstand",
             "field.koerperlicher_monitor_max": "K. Monitor (Max)",
             "field.geistiger_monitor_max": "G. Monitor (Max)",
             "field.edge_basis": "Edge (Basis)",
@@ -2685,6 +3562,8 @@
             "section.ausruestung_kern": "Gear: Overview",
             "section.persoenliche_daten": "Personal Data",
             "section.initiative": "Initiative",
+            "section.verteidigung": "Defense",
+            "section.schadenswiderstand": "Damage Resistance",
             "tab.allgemein": "General",
             "tab.fertigkeiten": "Skills",
             "tab.kampf": "Combat",
@@ -2786,6 +3665,17 @@
             "field.edge_max": "Edge Max",
             "field.initiative_basis": "Initiative (Base)",
             "field.verteidigung_basis": "Defense (Base)",
+            "field.verteidigung_physisch": "Defense (Physical)",
+            "field.verteidigung_zauber_direkt": "Defense (Spell - Direct)",
+            "field.verteidigung_zauber_indirekt": "Defense (Spell - Indirect)",
+            "field.verteidigung_astralkampf": "Defense (Astral Combat)",
+            "field.schadenswiderstand_physisch":
+              "Damage Resistance (Physical)",
+            "field.schadenswiderstand_astral": "Damage Resistance (Astral)",
+            "field.schadenswiderstand_matrix": "Damage Resistance (Matrix)",
+            "field.schadenswiderstand_biofeedback":
+              "Damage Resistance (Biofeedback)",
+            "field.toxinwiderstand": "Toxin Resistance",
             "field.koerperlicher_monitor_max": "Phys. Monitor (Max)",
             "field.geistiger_monitor_max": "Ment. Monitor (Max)",
             "field.edge_basis": "Edge (Base)",
@@ -2814,6 +3704,8 @@
             "section.ausruestung_kern": "Équipement : Vue d'ensemble",
             "section.persoenliche_daten": "Données personnelles",
             "section.initiative": "Initiative",
+            "section.verteidigung": "Défense",
+            "section.schadenswiderstand": "Résistance aux dégâts",
             "tab.allgemein": "Général",
             "tab.fertigkeiten": "Compétences",
             "tab.kampf": "Combat",
@@ -2915,6 +3807,20 @@
             "field.edge_max": "Edge Max",
             "field.initiative_basis": "Initiative (Base)",
             "field.verteidigung_basis": "Défense (Base)",
+            "field.verteidigung_physisch": "Défense (Physique)",
+            "field.verteidigung_zauber_direkt": "Défense (Sort - Direct)",
+            "field.verteidigung_zauber_indirekt":
+              "Défense (Sort - Indirect)",
+            "field.verteidigung_astralkampf": "Défense (Combat astral)",
+            "field.schadenswiderstand_physisch":
+              "Résistance aux dégâts (Physique)",
+            "field.schadenswiderstand_astral":
+              "Résistance aux dégâts (Astral)",
+            "field.schadenswiderstand_matrix":
+              "Résistance aux dégâts (Matrice)",
+            "field.schadenswiderstand_biofeedback":
+              "Résistance aux dégâts (Biofeedback)",
+            "field.toxinwiderstand": "Résistance aux toxines",
             "field.koerperlicher_monitor_max": "Moniteur phys. (Max)",
             "field.geistiger_monitor_max": "Moniteur ment. (Max)",
             "field.edge_basis": "Edge (Base)",
