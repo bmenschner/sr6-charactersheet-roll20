@@ -3,6 +3,7 @@
 ## Source und Output
 - Source of Truth:
   - `src/html/charactersheet.html`
+  - `src/html/partials/boxes/*.html` (modulare Boxen, per Include eingebunden)
   - `src/css/charactersheet.css`
   - `src/i18n/translation.json`
 - Generierter Output:
@@ -14,7 +15,9 @@
 
 ## Lokale Skripte
 - `npm run build`
-  - kopiert die Source-Dateien aus `src/` nach `output/`
+  - baut `output/charactersheet.html` aus `src/html/charactersheet.html` zusammen
+    - Include-Syntax: `<!-- @include partials/boxes/datei.html -->`
+  - kopiert die übrigen Source-Dateien aus `src/` nach `output/`
   - kopiert statische Bildassets aus `src/` nach `output/assets/images/`
 - `npm run watch` (oder `npm run dev`)
   - beobachtet `src/` rekursiv

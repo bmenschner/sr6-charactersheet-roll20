@@ -4,11 +4,14 @@ const path = require('path');
 
 const rootDir = path.resolve(__dirname, '..');
 const srcDir = path.join(rootDir, 'src');
+const htmlDir = path.join(srcDir, 'html');
 const outputDir = path.join(rootDir, 'output');
 const outputImagesDir = path.join(outputDir, 'assets', 'images');
+const htmlSourcePath = path.join(htmlDir, 'charactersheet.html');
+const htmlTargetPath = path.join(outputDir, 'charactersheet.html');
+const INCLUDE_PATTERN = /<!--\s*@include\s+([^\s]+)\s*-->/g;
 
 const SOURCE_FILES = [
-  { from: path.join(srcDir, 'html', 'charactersheet.html'), to: path.join(outputDir, 'charactersheet.html') },
   { from: path.join(srcDir, 'css', 'charactersheet.css'), to: path.join(outputDir, 'charactersheet.css') },
   { from: path.join(srcDir, 'i18n', 'translation.json'), to: path.join(outputDir, 'translation.full.json') }
 ];
@@ -25,6 +28,42 @@ function copyFile(fromPath, toPath) {
   const fromRel = path.relative(rootDir, fromPath);
   const toRel = path.relative(rootDir, toPath);
   console.log(`[build] copied ${fromRel} -> ${toRel}`);
+}
+
+function resolveHtmlIncludes(filePath, stack = []) {
+  const normalizedPath = path.resolve(filePath);
+  const fileRel = path.relative(rootDir, normalizedPath);
+
+  if (stack.includes(normalizedPath)) {
+    const loop = [...stack, normalizedPath]
+      .map((entry) => path.relative(rootDir, entry))
+      .join(' -> ');
+    throw new Error(`Include loop detected: ${loop}`);
+  }
+
+  if (!fs.existsSync(normalizedPath)) {
+    throw new Error(`Missing html source file: ${fileRel}`);
+  }
+
+  const nextStack = [...stack, normalizedPath];
+  const fileBody = fs.readFileSync(normalizedPath, 'utf8');
+  return fileBody.replace(INCLUDE_PATTERN, (_, includeRef) => {
+    const includePath = path.resolve(path.dirname(normalizedPath), includeRef);
+    const includeRel = path.relative(rootDir, includePath);
+
+    if (!includePath.startsWith(htmlDir + path.sep)) {
+      throw new Error(`Include outside src/html is not allowed: ${includeRel}`);
+    }
+
+    return resolveHtmlIncludes(includePath, nextStack);
+  });
+}
+
+function buildCharactersheetHtml() {
+  const htmlOutput = resolveHtmlIncludes(htmlSourcePath);
+  ensureDir(path.dirname(htmlTargetPath));
+  fs.writeFileSync(htmlTargetPath, htmlOutput, 'utf8');
+  console.log(`[build] wrote ${path.relative(rootDir, htmlTargetPath)} (html includes resolved)`);
 }
 
 function copyMainSources() {
@@ -66,6 +105,7 @@ function copyStaticAssets() {
 function runBuild() {
   console.log('[build] start');
   ensureDir(outputDir);
+  buildCharactersheetHtml();
   copyMainSources();
   writeRoll20CompatibilityFiles();
   copyStaticAssets();
