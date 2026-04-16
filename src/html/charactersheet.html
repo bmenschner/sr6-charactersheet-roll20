@@ -53,9 +53,9 @@
               <!-- END BLOCK: Allgemein Umbruch -->
 
               <div class="sr6-charactersheet-tab-allgemein-column sr6-charactersheet-tab-allgemein-column--full">
-                <!-- BEGIN BLOCK: Wichtige Kampf-Infos -->
-                <!-- @include partials/allgemein/wichtige-kampf-infos.html -->
-                <!-- END BLOCK: Wichtige Kampf-Infos -->
+                <!-- BEGIN BLOCK: Kampf -->
+                <!-- @include partials/allgemein/kampf.html -->
+                <!-- END BLOCK: Kampf -->
               </div>
               <div class="sr6-charactersheet-tab-allgemein-column">
                 <!-- BEGIN BLOCK: Verteidigung -->
@@ -87,9 +87,12 @@
               <!-- BEGIN BLOCK: Kampf Fernkampf -->
               <!-- @include partials/kampf/kampf-fernkampf.html -->
               <!-- END BLOCK: Kampf Fernkampf -->
-              <!-- BEGIN BLOCK: Kampf Nahkampf und Abwehr -->
+              <!-- BEGIN BLOCK: Kampf Nahkampf -->
               <!-- @include partials/kampf/kampf-nahkampf.html -->
-              <!-- END BLOCK: Kampf Nahkampf und Abwehr -->
+              <!-- END BLOCK: Kampf Nahkampf -->
+              <!-- BEGIN BLOCK: Kampf Panzerung -->
+              <!-- @include partials/kampf/kampf-panzerung.html -->
+              <!-- END BLOCK: Kampf Panzerung -->
             </div>
           </div>
           <!-- Panel 4: Magie -->
@@ -210,6 +213,15 @@
         });
       }
 
+      // Migration: altes Checkbox-Format konnte "on" in Helm hinterlassen.
+      function normalizeLegacyCheckboxValues() {
+        getAttrs(["sr6_combat_helm"], (values) => {
+          if ((values.sr6_combat_helm || "").trim().toLowerCase() === "on") {
+            setAttrs({ sr6_combat_helm: "" }, { silent: true });
+          }
+        });
+      }
+
       // Eventliste: reagiert auf Aenderungen in allen relevanten Attributfeldern.
       const recalcEvents = [];
       SR6_ATTRIBUTES.forEach((attributeName) => {
@@ -218,7 +230,11 @@
       });
 
       on(recalcEvents.join(" "), recomputeAll);
-      on("sheet:opened", recomputeAll);
+      on("sheet:opened", () => {
+        normalizeLegacyCheckboxValues();
+        recomputeAll();
+      });
+      on("change:sr6_combat_helm", normalizeLegacyCheckboxValues);
     </script>
 
     <!-- Runtime-i18n im Browser: ersetzt data-i18n Keys beim Laden -->
@@ -232,10 +248,11 @@
             "section.zustandsmonitor": "Zustandsmonitor",
             "section.edge_token": "Edge Token",
             "section.attribute": "Attribute",
-            "section.wichtige_kampf_infos": "Wichtige Kampf-Infos",
+            "section.wichtige_kampf_infos": "Kampf",
             "section.kampf_fernkampf": "Kampf: Fernkampf",
             "section.kampf_nahkampf": "Kampf: Nahkampf & Abwehr",
-            "section.fertigkeiten_basis": "Fertigkeiten (Basis)",
+            "section.kampf_panzerung": "Kampf: Panzerung",
+            "section.fertigkeiten_basis": "Fertigkeiten",
             "section.magie_kern": "Magie: Kernwerte",
             "section.matrix_kern": "Matrix: Kernwerte",
             "section.rigging_kern": "Rigging: Kernwerte",
@@ -274,6 +291,9 @@
             "field.matrix": "Matrix",
             "field.basis_plus": "Basis +",
             "field.eins_plus": "1 +",
+            "field.fernkampfwaffe": "Fernkampfwaffe",
+            "field.nahkampfwaffe": "Nahkampfwaffe",
+            "field.panzerung": "Panzerung",
             "field.primaere_fernkampfwaffe": "Primäre Fernkampfwaffe",
             "field.schaden": "Schaden",
             "field.modus": "Modus",
@@ -285,6 +305,9 @@
             "field.munition": "Munition",
             "field.primaere_nahkampfwaffe": "Primäre Nahkampfwaffe",
             "field.primaere_panzerung": "Primäre Panzerung",
+            "field.verteidigungswert": "Verteidigungswert",
+            "field.sekundaere_panzerung": "Sekundäre Panzerung",
+            "field.helm": "Helm",
             "field.fertigkeit": "Fertigkeit",
             "field.fertigkeitsattribut": "Attribut",
             "field.fertigkeitsrang": "Rang",
@@ -378,9 +401,10 @@
             "section.zustandsmonitor": "Condition Monitor",
             "section.edge_token": "Edge Token",
             "section.attribute": "Attributes",
-            "section.wichtige_kampf_infos": "Key Combat Info",
+            "section.wichtige_kampf_infos": "Combat",
             "section.kampf_fernkampf": "Combat: Ranged",
             "section.kampf_nahkampf": "Combat: Melee & Defense",
+            "section.kampf_panzerung": "Combat: Armor",
             "section.fertigkeiten_basis": "Skills (Core)",
             "section.magie_kern": "Magic: Core Values",
             "section.matrix_kern": "Matrix: Core Values",
@@ -420,6 +444,9 @@
             "field.matrix": "Matrix",
             "field.basis_plus": "Base +",
             "field.eins_plus": "1 +",
+            "field.fernkampfwaffe": "Ranged Weapon",
+            "field.nahkampfwaffe": "Melee Weapon",
+            "field.panzerung": "Armor",
             "field.primaere_fernkampfwaffe": "Primary Ranged Weapon",
             "field.schaden": "Damage",
             "field.modus": "Mode",
@@ -431,6 +458,9 @@
             "field.munition": "Ammo",
             "field.primaere_nahkampfwaffe": "Primary Melee Weapon",
             "field.primaere_panzerung": "Primary Armor",
+            "field.verteidigungswert": "Defense Value",
+            "field.sekundaere_panzerung": "Secondary Armor",
+            "field.helm": "Helmet",
             "field.fertigkeit": "Skill",
             "field.fertigkeitsattribut": "Attribute",
             "field.fertigkeitsrang": "Rank",
@@ -520,9 +550,10 @@
             "section.zustandsmonitor": "Moniteur d'état",
             "section.edge_token": "Jeton d'Edge",
             "section.attribute": "Attributs",
-            "section.wichtige_kampf_infos": "Infos de combat clés",
+            "section.wichtige_kampf_infos": "Combat",
             "section.kampf_fernkampf": "Combat : Distance",
             "section.kampf_nahkampf": "Combat : Mêlée & Défense",
+            "section.kampf_panzerung": "Combat : Armure",
             "section.fertigkeiten_basis": "Compétences (Base)",
             "section.magie_kern": "Magie : Valeurs clés",
             "section.matrix_kern": "Matrice : Valeurs clés",
@@ -562,6 +593,9 @@
             "field.matrix": "Matrice",
             "field.basis_plus": "Base +",
             "field.eins_plus": "1 +",
+            "field.fernkampfwaffe": "Arme à distance",
+            "field.nahkampfwaffe": "Arme de mêlée",
+            "field.panzerung": "Armure",
             "field.primaere_fernkampfwaffe": "Arme à distance principale",
             "field.schaden": "Dégâts",
             "field.modus": "Mode",
@@ -573,6 +607,9 @@
             "field.munition": "Munitions",
             "field.primaere_nahkampfwaffe": "Arme de mêlée principale",
             "field.primaere_panzerung": "Armure principale",
+            "field.verteidigungswert": "Valeur de défense",
+            "field.sekundaere_panzerung": "Armure secondaire",
+            "field.helm": "Casque",
             "field.fertigkeit": "Compétence",
             "field.fertigkeitsattribut": "Attribut",
             "field.fertigkeitsrang": "Rang",

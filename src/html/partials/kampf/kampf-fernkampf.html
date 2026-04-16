@@ -1,124 +1,119 @@
 <!-- BEGIN BLOCK: Kampf Fernkampf -->
-              <section
-                class="sr6-charactersheet-box sr6-charactersheet-box-kampf-fernkampf"
-                aria-labelledby="kampf-fernkampf-titel">
-                <h2
-                  id="kampf-fernkampf-titel"
-                  class="sr6-charactersheet-box-title"
-                  data-i18n="section.kampf_fernkampf">
-                  Kampf: Fernkampf
-                </h2>
+<section
+  class="sr6-charactersheet-box sr6-charactersheet-box-kampf-fernkampf"
+  aria-labelledby="kampf-fernkampf-titel">
+  <h2
+    id="kampf-fernkampf-titel"
+    class="sr6-charactersheet-box-title"
+    data-i18n="section.kampf_fernkampf">
+    Kampf: Fernkampf
+  </h2>
 
-                <div class="sr6-charactersheet-box-content">
-                  <!-- BEGIN BLOCK: Fernkampfwaffe -->
-                  <div class="sr6-charactersheet-row sr6-charactersheet-row-1">
-                    <label class="sr6-charactersheet-field">
-                      <span data-i18n="field.primaere_fernkampfwaffe"
-                        >Primäre Fernkampfwaffe</span
-                      >
-                      <input
-                        type="text"
-                        name="attr_sr6_combat_primaere_fernkampfwaffe" />
-                    </label>
-                  </div>
-                  <!-- END BLOCK: Fernkampfwaffe -->
+  <div class="sr6-charactersheet-box-content">
+    <!-- BEGIN BLOCK: Repeating Fernkampfwaffen -->
+    <fieldset class="repeating_sr6_fernkampfwaffen sr6-charactersheet-repeating">
+      <div class="sr6-charactersheet-row sr6-charactersheet-row-4">
+        <label class="sr6-charactersheet-field">
+          <span data-i18n="field.fernkampfwaffe">Fernkampfwaffe</span>
+          <input type="text" name="attr_waffe" />
+        </label>
 
-                  <!-- BEGIN BLOCK: Kernwerte - Schaden, Modus, Munition -->
-                  <div class="sr6-charactersheet-row sr6-charactersheet-row-3">
-                    <label class="sr6-charactersheet-field">
-                      <span data-i18n="field.schaden">Schaden</span>
-                      <input
-                        type="text"
-                        name="attr_sr6_combat_fernkampf_schaden" />
-                    </label>
+        <label class="sr6-charactersheet-field">
+          <span data-i18n="field.schaden">Schaden</span>
+          <input type="text" name="attr_schaden" />
+        </label>
 
-                    <label class="sr6-charactersheet-field">
-                      <span data-i18n="field.modus">Modus</span>
-                      <input
-                        type="text"
-                        name="attr_sr6_combat_fernkampf_modus" />
-                    </label>
+        <label class="sr6-charactersheet-field">
+          <span data-i18n="field.modus">Modus</span>
+          <input type="text" name="attr_modus" />
+        </label>
 
-                    <label class="sr6-charactersheet-field">
-                      <span data-i18n="field.munition">Munition</span>
-                      <input type="text" name="attr_sr6_combat_munition" />
-                    </label>
-                  </div>
-                  <!-- END BLOCK: Kernwerte - Schaden, Modus, Munition -->
+        <label class="sr6-charactersheet-field">
+          <span data-i18n="field.munition">Munition</span>
+          <select name="attr_munition">
+            <option value="Standard">Standard</option>
+            <option value="Huelsenlos">Hülsenlos</option>
+            <option value="APDS">APDS</option>
+            <option value="Explosiv">Explosiv</option>
+            <option value="Flechette">Flechette</option>
+            <option value="Gel">Gel</option>
+            <option value="Injektionspfeil">Injektionspfeil</option>
+            <option value="Schocker">Schocker</option>
+            <option value="DMSO-Gelpack">DMSO-Gelpack</option>
+          </select>
+        </label>
+      </div>
 
-                  <!-- BEGIN BLOCK: Reichweitenfelder mit Einzelwürfen -->
-                  <div class="sr6-charactersheet-row sr6-charactersheet-row-5">
-                    <label class="sr6-charactersheet-field">
-                      <span data-i18n="field.s_nah">S. Nah</span>
-                      <div class="sr6-charactersheet-field-input-with-dice">
-                        <input
-                          type="text"
-                          name="attr_sr6_combat_fernkampf_sehr_nah" /><button
-                          type="roll"
-                          class="sr6-charactersheet-field-dice-button"
-                          name="roll_sr6_tab_kampf_fernkampf_sehr_nah"
-                          value="&{template:default} {{name=Fernkampf-Test}} {{Waffe=@{sr6_combat_primaere_fernkampfwaffe}}} {{Modus=@{sr6_combat_fernkampf_modus}}} {{Attribut=S. Nah}} {{Pool=[[@{sr6_combat_fernkampf_sehr_nah}]]}} {{Erfolge=[[@{sr6_combat_fernkampf_sehr_nah}d6cs>4]]}}"
-                          aria-label="Wuerfeln"></button>
-                      </div>
-                    </label>
+      <div class="sr6-charactersheet-row sr6-charactersheet-row-5">
+        <label class="sr6-charactersheet-field">
+          <span data-i18n="field.s_nah">S. Nah</span>
+          <div class="sr6-charactersheet-field-input-with-dice">
+            <input type="text" name="attr_s_nah" /><button
+              type="roll"
+              class="sr6-charactersheet-field-dice-button"
+              name="roll_s_nah"
+              value="&{template:default} {{name=Fernkampf-Test}} {{Waffe=@{waffe}}} {{Reichweite=S. Nah}} {{Pool=[[@{s_nah}]]}} {{Erfolge=[[@{s_nah}d6cs>4]]}}"
+              aria-label="Wuerfeln"></button>
+          </div>
+        </label>
 
-                    <label class="sr6-charactersheet-field">
-                      <span data-i18n="field.nah">Nah</span>
-                      <div class="sr6-charactersheet-field-input-with-dice">
-                        <input
-                          type="text"
-                          name="attr_sr6_combat_fernkampf_nah" /><button
-                          type="roll"
-                          class="sr6-charactersheet-field-dice-button"
-                          name="roll_sr6_tab_kampf_fernkampf_nah"
-                          value="&{template:default} {{name=Fernkampf-Test}} {{Waffe=@{sr6_combat_primaere_fernkampfwaffe}}} {{Modus=@{sr6_combat_fernkampf_modus}}} {{Attribut=Nah}} {{Pool=[[@{sr6_combat_fernkampf_nah}]]}} {{Erfolge=[[@{sr6_combat_fernkampf_nah}d6cs>4]]}}"
-                          aria-label="Wuerfeln"></button>
-                      </div>
-                    </label>
+        <label class="sr6-charactersheet-field">
+          <span data-i18n="field.nah">Nah</span>
+          <div class="sr6-charactersheet-field-input-with-dice">
+            <input type="text" name="attr_nah" /><button
+              type="roll"
+              class="sr6-charactersheet-field-dice-button"
+              name="roll_nah"
+              value="&{template:default} {{name=Fernkampf-Test}} {{Waffe=@{waffe}}} {{Reichweite=Nah}} {{Pool=[[@{nah}]]}} {{Erfolge=[[@{nah}d6cs>4]]}}"
+              aria-label="Wuerfeln"></button>
+          </div>
+        </label>
 
-                    <label class="sr6-charactersheet-field">
-                      <span data-i18n="field.mittel">Mittel</span>
-                      <div class="sr6-charactersheet-field-input-with-dice">
-                        <input
-                          type="text"
-                          name="attr_sr6_combat_fernkampf_mittel" /><button
-                          type="roll"
-                          class="sr6-charactersheet-field-dice-button"
-                          name="roll_sr6_tab_kampf_fernkampf_mittel"
-                          value="&{template:default} {{name=Fernkampf-Test}} {{Waffe=@{sr6_combat_primaere_fernkampfwaffe}}} {{Modus=@{sr6_combat_fernkampf_modus}}} {{Attribut=Mittel}} {{Pool=[[@{sr6_combat_fernkampf_mittel}]]}} {{Erfolge=[[@{sr6_combat_fernkampf_mittel}d6cs>4]]}}"
-                          aria-label="Wuerfeln"></button>
-                      </div>
-                    </label>
+        <label class="sr6-charactersheet-field">
+          <span data-i18n="field.mittel">Mittel</span>
+          <div class="sr6-charactersheet-field-input-with-dice">
+            <input type="text" name="attr_mittel" /><button
+              type="roll"
+              class="sr6-charactersheet-field-dice-button"
+              name="roll_mittel"
+              value="&{template:default} {{name=Fernkampf-Test}} {{Waffe=@{waffe}}} {{Reichweite=Mittel}} {{Pool=[[@{mittel}]]}} {{Erfolge=[[@{mittel}d6cs>4]]}}"
+              aria-label="Wuerfeln"></button>
+          </div>
+        </label>
 
-                    <label class="sr6-charactersheet-field">
-                      <span data-i18n="field.weit">Weit</span>
-                      <div class="sr6-charactersheet-field-input-with-dice">
-                        <input
-                          type="text"
-                          name="attr_sr6_combat_fernkampf_weit" /><button
-                          type="roll"
-                          class="sr6-charactersheet-field-dice-button"
-                          name="roll_sr6_tab_kampf_fernkampf_weit"
-                          value="&{template:default} {{name=Fernkampf-Test}} {{Waffe=@{sr6_combat_primaere_fernkampfwaffe}}} {{Modus=@{sr6_combat_fernkampf_modus}}} {{Attribut=Weit}} {{Pool=[[@{sr6_combat_fernkampf_weit}]]}} {{Erfolge=[[@{sr6_combat_fernkampf_weit}d6cs>4]]}}"
-                          aria-label="Wuerfeln"></button>
-                      </div>
-                    </label>
+        <label class="sr6-charactersheet-field">
+          <span data-i18n="field.weit">Weit</span>
+          <div class="sr6-charactersheet-field-input-with-dice">
+            <input type="text" name="attr_weit" /><button
+              type="roll"
+              class="sr6-charactersheet-field-dice-button"
+              name="roll_weit"
+              value="&{template:default} {{name=Fernkampf-Test}} {{Waffe=@{waffe}}} {{Reichweite=Weit}} {{Pool=[[@{weit}]]}} {{Erfolge=[[@{weit}d6cs>4]]}}"
+              aria-label="Wuerfeln"></button>
+          </div>
+        </label>
 
-                    <label class="sr6-charactersheet-field">
-                      <span data-i18n="field.s_weit">S. Weit</span>
-                      <div class="sr6-charactersheet-field-input-with-dice">
-                        <input
-                          type="text"
-                          name="attr_sr6_combat_fernkampf_sehr_weit" /><button
-                          type="roll"
-                          class="sr6-charactersheet-field-dice-button"
-                          name="roll_sr6_tab_kampf_fernkampf_sehr_weit"
-                          value="&{template:default} {{name=Fernkampf-Test}} {{Waffe=@{sr6_combat_primaere_fernkampfwaffe}}} {{Modus=@{sr6_combat_fernkampf_modus}}} {{Attribut=S. Weit}} {{Pool=[[@{sr6_combat_fernkampf_sehr_weit}]]}} {{Erfolge=[[@{sr6_combat_fernkampf_sehr_weit}d6cs>4]]}}"
-                          aria-label="Wuerfeln"></button>
-                      </div>
-                    </label>
-                  </div>
-                  <!-- END BLOCK: Reichweitenfelder mit Einzelwürfen -->
-                </div>
-              </section>
+        <label class="sr6-charactersheet-field">
+          <span data-i18n="field.s_weit">S. Weit</span>
+          <div class="sr6-charactersheet-field-input-with-dice">
+            <input type="text" name="attr_s_weit" /><button
+              type="roll"
+              class="sr6-charactersheet-field-dice-button"
+              name="roll_s_weit"
+              value="&{template:default} {{name=Fernkampf-Test}} {{Waffe=@{waffe}}} {{Reichweite=S. Weit}} {{Pool=[[@{s_weit}]]}} {{Erfolge=[[@{s_weit}d6cs>4]]}}"
+              aria-label="Wuerfeln"></button>
+          </div>
+        </label>
+      </div>
+
+      <div class="sr6-charactersheet-row sr6-charactersheet-row-1">
+        <label class="sr6-charactersheet-field">
+          <span data-i18n="field.notiz">Notiz</span>
+          <input type="text" name="attr_notiz" />
+        </label>
+      </div>
+    </fieldset>
+    <!-- END BLOCK: Repeating Fernkampfwaffen -->
+  </div>
+</section>
 <!-- END BLOCK: Kampf Fernkampf -->

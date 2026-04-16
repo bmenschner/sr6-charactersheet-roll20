@@ -231,7 +231,23 @@ body,
   padding: 0.125rem 0.25rem;
 }
 
+.sr6-charactersheet-field select {
+  width: 100%;
+  height: 1.5rem;
+  border: none;
+  border-bottom: 0.0625rem solid var(--sr6-line-soft);
+  background: transparent;
+  color: var(--sr6-text);
+  font-size: 0.86rem;
+  padding: 0.125rem 0.25rem;
+}
+
 .sr6-charactersheet-field input:focus {
+  outline: 0.0625rem solid var(--sr6-line);
+  border-bottom-color: var(--sr6-line);
+}
+
+.sr6-charactersheet-field select:focus {
   outline: 0.0625rem solid var(--sr6-line);
   border-bottom-color: var(--sr6-line);
 }
@@ -239,6 +255,10 @@ body,
 .sr6-charactersheet-field input[readonly] {
   color: #2a2a2a;
   font-weight: 600;
+}
+
+.sr6-charactersheet-kampf-panzerung-row {
+  margin-top: 0.5rem;
 }
 
 .sr6-charactersheet-row-2 {
@@ -273,6 +293,12 @@ body,
 .sr6-charactersheet-row-5 {
   display: grid;
   grid-template-columns: repeat(5, minmax(0, 1fr));
+  gap: 0.4375rem;
+}
+
+.sr6-charactersheet-row-6 {
+  display: grid;
+  grid-template-columns: repeat(6, minmax(0, 1fr));
   gap: 0.4375rem;
 }
 
@@ -468,6 +494,27 @@ body,
 .sr6-charactersheet-tabpanel p {
   margin: 0;
   font-size: 0.875rem;
+}
+
+.sr6-charactersheet-repeating {
+  margin: 0;
+  padding: 0;
+  border: none;
+  min-inline-size: 0;
+  display: grid;
+  gap: 0.625rem;
+}
+
+.sr6-charactersheet-repeating .repitem {
+  display: grid;
+  gap: 0.5rem;
+  padding-bottom: 0.625rem;
+  border-bottom: 0.0625rem solid var(--sr6-line-soft);
+}
+
+.sr6-charactersheet-repeating .repitem:last-child {
+  padding-bottom: 0;
+  border-bottom: none;
 }
 
 .sr6-charactersheet-skill-table-wrap {

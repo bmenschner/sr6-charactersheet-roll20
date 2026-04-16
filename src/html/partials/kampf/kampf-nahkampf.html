@@ -1,72 +1,99 @@
-<!-- BEGIN BLOCK: Kampf Nahkampf und Abwehr -->
+<!-- BEGIN BLOCK: Kampf Nahkampf -->
+<section
+  class="sr6-charactersheet-box sr6-charactersheet-box-kampf-nahkampf"
+  aria-labelledby="kampf-nahkampf-titel">
+  <h2
+    id="kampf-nahkampf-titel"
+    class="sr6-charactersheet-box-title"
+    data-i18n="section.kampf_nahkampf">
+    Kampf: Nahkampf & Abwehr
+  </h2>
 
-              <section
-                class="sr6-charactersheet-box sr6-charactersheet-box-kampf-nahkampf"
-                aria-labelledby="kampf-nahkampf-titel">
-                <h2
-                  id="kampf-nahkampf-titel"
-                  class="sr6-charactersheet-box-title"
-                  data-i18n="section.kampf_nahkampf">
-                  Kampf: Nahkampf & Abwehr
-                </h2>
+  <div class="sr6-charactersheet-box-content">
+    <!-- BEGIN BLOCK: Repeating Nahkampfwaffen -->
+    <fieldset class="repeating_sr6_nahkampfwaffen sr6-charactersheet-repeating">
+      <div class="sr6-charactersheet-row sr6-charactersheet-row-2">
+        <label class="sr6-charactersheet-field">
+          <span data-i18n="field.nahkampfwaffe">Nahkampfwaffe</span>
+          <input type="text" name="attr_waffe" />
+        </label>
 
-                <div class="sr6-charactersheet-box-content">
-                  <!-- BEGIN BLOCK: Primäre Nahkampfwaffe mit Rollbutton -->
-                  <div class="sr6-charactersheet-row sr6-charactersheet-row-1">
-                    <label class="sr6-charactersheet-field">
-                      <span data-i18n="field.primaere_nahkampfwaffe"
-                        >Primäre Nahkampfwaffe</span
-                      >
-                      <div class="sr6-charactersheet-field-input-with-dice">
-                        <input
-                          type="text"
-                          name="attr_sr6_combat_primaere_nahkampfwaffe" /><button
-                          type="roll"
-                          class="sr6-charactersheet-field-dice-button"
-                          name="roll_sr6_tab_kampf_primaere_nahkampfwaffe"
-                          value="&{template:default} {{name=Nahkampf-Test}} {{Waffe=@{sr6_combat_primaere_nahkampfwaffe}}} {{Attribut=Primaere Nahkampfwaffe}} {{Pool=[[@{sr6_combat_primaere_nahkampfwaffe}]]}} {{Erfolge=[[@{sr6_combat_primaere_nahkampfwaffe}d6cs>4]]}}"
-                          aria-label="Wuerfeln"></button>
-                      </div>
-                    </label>
-                  </div>
-                  <!-- END BLOCK: Primäre Nahkampfwaffe mit Rollbutton -->
+        <label class="sr6-charactersheet-field">
+          <span data-i18n="field.schaden">Schaden</span>
+          <input type="text" name="attr_schaden" />
+        </label>
+      </div>
 
-                  <!-- BEGIN BLOCK: Primäre Panzerung -->
-                  <div class="sr6-charactersheet-row sr6-charactersheet-row-1">
-                    <label class="sr6-charactersheet-field">
-                      <span data-i18n="field.primaere_panzerung"
-                        >Primäre Panzerung</span
-                      >
-                      <input
-                        type="text"
-                        name="attr_sr6_combat_primaere_panzerung" />
-                    </label>
-                  </div>
-                  <!-- END BLOCK: Primäre Panzerung -->
+      <div class="sr6-charactersheet-row sr6-charactersheet-row-5">
+        <label class="sr6-charactersheet-field">
+          <span data-i18n="field.s_nah">S. Nah</span>
+          <div class="sr6-charactersheet-field-input-with-dice">
+            <input type="text" name="attr_s_nah" /><button
+              type="roll"
+              class="sr6-charactersheet-field-dice-button"
+              name="roll_s_nah"
+              value="&{template:default} {{name=Nahkampf-Test}} {{Waffe=@{waffe}}} {{Reichweite=S. Nah}} {{Pool=[[@{s_nah}]]}} {{Erfolge=[[@{s_nah}d6cs>4]]}}"
+              aria-label="Wuerfeln"></button>
+          </div>
+        </label>
 
-                  <!-- BEGIN BLOCK: Abgeleitete, read-only Kampf-Basiswerte -->
-                  <div class="sr6-charactersheet-row sr6-charactersheet-row-2">
-                    <label class="sr6-charactersheet-field">
-                      <span data-i18n="field.initiative_basis"
-                        >Initiative (Basis)</span
-                      >
-                      <input
-                        type="text"
-                        name="attr_sr6_derived_initiative_basis"
-                        readonly />
-                    </label>
+        <label class="sr6-charactersheet-field">
+          <span data-i18n="field.nah">Nah</span>
+          <div class="sr6-charactersheet-field-input-with-dice">
+            <input type="text" name="attr_nah" /><button
+              type="roll"
+              class="sr6-charactersheet-field-dice-button"
+              name="roll_nah"
+              value="&{template:default} {{name=Nahkampf-Test}} {{Waffe=@{waffe}}} {{Reichweite=Nah}} {{Pool=[[@{nah}]]}} {{Erfolge=[[@{nah}d6cs>4]]}}"
+              aria-label="Wuerfeln"></button>
+          </div>
+        </label>
 
-                    <label class="sr6-charactersheet-field">
-                      <span data-i18n="field.verteidigung_basis"
-                        >Verteidigung (Basis)</span
-                      >
-                      <input
-                        type="text"
-                        name="attr_sr6_derived_verteidigung_basis"
-                        readonly />
-                    </label>
-                  </div>
-                  <!-- END BLOCK: Abgeleitete, read-only Kampf-Basiswerte -->
-                </div>
-              </section>
-<!-- END BLOCK: Kampf Nahkampf und Abwehr -->
+        <label class="sr6-charactersheet-field">
+          <span data-i18n="field.mittel">Mittel</span>
+          <div class="sr6-charactersheet-field-input-with-dice">
+            <input type="text" name="attr_mittel" /><button
+              type="roll"
+              class="sr6-charactersheet-field-dice-button"
+              name="roll_mittel"
+              value="&{template:default} {{name=Nahkampf-Test}} {{Waffe=@{waffe}}} {{Reichweite=Mittel}} {{Pool=[[@{mittel}]]}} {{Erfolge=[[@{mittel}d6cs>4]]}}"
+              aria-label="Wuerfeln"></button>
+          </div>
+        </label>
+
+        <label class="sr6-charactersheet-field">
+          <span data-i18n="field.weit">Weit</span>
+          <div class="sr6-charactersheet-field-input-with-dice">
+            <input type="text" name="attr_weit" /><button
+              type="roll"
+              class="sr6-charactersheet-field-dice-button"
+              name="roll_weit"
+              value="&{template:default} {{name=Nahkampf-Test}} {{Waffe=@{waffe}}} {{Reichweite=Weit}} {{Pool=[[@{weit}]]}} {{Erfolge=[[@{weit}d6cs>4]]}}"
+              aria-label="Wuerfeln"></button>
+          </div>
+        </label>
+
+        <label class="sr6-charactersheet-field">
+          <span data-i18n="field.s_weit">S. Weit</span>
+          <div class="sr6-charactersheet-field-input-with-dice">
+            <input type="text" name="attr_s_weit" /><button
+              type="roll"
+              class="sr6-charactersheet-field-dice-button"
+              name="roll_s_weit"
+              value="&{template:default} {{name=Nahkampf-Test}} {{Waffe=@{waffe}}} {{Reichweite=S. Weit}} {{Pool=[[@{s_weit}]]}} {{Erfolge=[[@{s_weit}d6cs>4]]}}"
+              aria-label="Wuerfeln"></button>
+          </div>
+        </label>
+      </div>
+
+      <div class="sr6-charactersheet-row sr6-charactersheet-row-1">
+        <label class="sr6-charactersheet-field">
+          <span data-i18n="field.notiz">Notiz</span>
+          <input type="text" name="attr_notiz" />
+        </label>
+      </div>
+    </fieldset>
+    <!-- END BLOCK: Repeating Nahkampfwaffen -->
+  </div>
+</section>
+<!-- END BLOCK: Kampf Nahkampf -->
