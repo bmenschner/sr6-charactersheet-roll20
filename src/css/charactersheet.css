@@ -330,11 +330,19 @@ body,
   border: none;
   border-bottom: none;
   background: transparent;
-  color: var(--sr6-line);
-  font-size: 2rem;
+  color: transparent;
+  font-size: 0;
   line-height: 1;
   padding: 0;
   cursor: pointer;
+}
+
+.sr6-charactersheet .sr6-charactersheet-field-dice-button[type="roll"]::before {
+  content: "⚅" !important;
+  font-family: inherit !important;
+  color: var(--sr6-line);
+  font-size: 2rem;
+  line-height: 1;
 }
 
 .sr6-charactersheet-field-input-with-dice > .sr6-charactersheet-field-dice-button:focus-visible {
@@ -443,8 +451,8 @@ body,
   justify-content: center;
   border: none;
   background: transparent;
-  color: var(--sr6-line);
-  font-size: 2rem;
+  color: transparent;
+  font-size: 0;
   line-height: 1;
   padding: 0;
   cursor: pointer;
