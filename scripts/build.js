@@ -10,7 +10,7 @@ const outputImagesDir = path.join(outputAssetsDir, 'images');
 const SOURCE_FILES = [
   { from: path.join(srcDir, 'html', 'charactersheet.html'), to: path.join(outputAssetsDir, 'charactersheet.html') },
   { from: path.join(srcDir, 'css', 'charactersheet.css'), to: path.join(outputAssetsDir, 'charactersheet.css') },
-  { from: path.join(srcDir, 'i18n', 'translation.json'), to: path.join(outputAssetsDir, 'translation.json') }
+  { from: path.join(srcDir, 'i18n', 'translation.json'), to: path.join(outputAssetsDir, 'translation.full.json') }
 ];
 
 const ASSET_EXTENSIONS = new Set(['.png', '.jpg', '.jpeg', '.webp', '.svg', '.gif']);
@@ -36,6 +36,24 @@ function copyMainSources() {
   });
 }
 
+function writeRoll20CompatibilityFiles() {
+  const htmlSource = path.join(srcDir, 'html', 'charactersheet.html');
+  const cssSource = path.join(srcDir, 'css', 'charactersheet.css');
+  const i18nSource = path.join(srcDir, 'i18n', 'translation.json');
+
+  copyFile(htmlSource, path.join(outputAssetsDir, 'character_sheet.html'));
+  copyFile(cssSource, path.join(outputAssetsDir, 'character_sheet.css'));
+
+  const i18nRaw = fs.readFileSync(i18nSource, 'utf8');
+  const i18n = JSON.parse(i18nRaw);
+  const de = i18n.de && typeof i18n.de === 'object' ? i18n.de : i18n;
+
+  const translationTarget = path.join(outputAssetsDir, 'translation.json');
+  ensureDir(path.dirname(translationTarget));
+  fs.writeFileSync(translationTarget, `${JSON.stringify(de, null, 2)}\n`, 'utf8');
+  console.log(`[build] wrote ${path.relative(rootDir, translationTarget)} (flat roll20 format)`);
+}
+
 function copyStaticAssets() {
   ensureDir(outputImagesDir);
   const srcEntries = fs.readdirSync(srcDir, { withFileTypes: true });
@@ -54,6 +72,7 @@ function runBuild() {
   console.log('[build] start');
   ensureDir(outputAssetsDir);
   copyMainSources();
+  writeRoll20CompatibilityFiles();
   copyStaticAssets();
   console.log('[build] done');
 }

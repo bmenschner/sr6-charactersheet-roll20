@@ -8,7 +8,10 @@
 - Generierter Output:
   - `output/assets/charactersheet.html`
   - `output/assets/charactersheet.css`
+  - `output/assets/character_sheet.html` (Roll20-kompatibler Dateiname)
+  - `output/assets/character_sheet.css` (Roll20-kompatibler Dateiname)
   - `output/assets/translation.json`
+  - `output/assets/translation.full.json` (interner Vollstand DE/EN/FR)
   - `output/assets/images/*`
 
 ## Lokale Skripte
@@ -27,6 +30,11 @@
 1. `npm run build`
 2. (optional) `npm run watch` für laufende Änderungen
 3. Roll20 Sheet Sandbox über lokalen Upload/Autouploader auf `output/assets/` aktualisieren
+
+Für die Roll20-Sandbox verwende bevorzugt:
+- `output/assets/character_sheet.html`
+- `output/assets/character_sheet.css`
+- `output/assets/translation.json` (flaches Key-Value-Format)
 
 Hinweis: Dieses Repository aktualisiert Roll20 nicht über Git-Sync, sondern nur lokal über Upload.
 
