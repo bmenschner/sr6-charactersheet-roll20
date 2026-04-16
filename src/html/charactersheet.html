@@ -6,204 +6,21 @@
     <link rel="stylesheet" href="./charakterbogen.de.css" />
   </head>
   <body>
-    <input
-      id="sr6-tabs-toggle"
-      class="sr6-tabs-toggle-input sr6-charactersheet-settings-toggle-input"
-      type="checkbox" />
-    <label
-      class="sr6-tabs-toggle sr6-charactersheet-settings-toggle"
-      for="sr6-tabs-toggle"
-      aria-label="Tabs ein- und ausblenden"></label>
+    <!-- BEGIN BLOCK: Tabs Toggle -->
+    <!-- @include partials/boxes/tabs-toggle.html -->
+    <!-- END BLOCK: Tabs Toggle -->
 
     <div class="sr6-charactersheet">
-      <section class="sr6-charactersheet-kopfbereich" aria-label="Kopfbereich">
-        <div
-          class="sr6-charactersheet-kopfbereich-spalte sr6-charactersheet-kopfbereich-spalte--bild">
-          <h2
-            class="sr6-charactersheet-kopfbereich-title"
-            data-i18n="section.charakterbild">
-            Charakterbild
-          </h2>
-          <div
-            class="sr6-charactersheet-placeholder sr6-charactersheet-placeholder--bild"
-            aria-hidden="true">
-            Platzhalter
-          </div>
-        </div>
-
-        <div
-          class="sr6-charactersheet-kopfbereich-spalte sr6-charactersheet-kopfbereich-spalte--zustand">
-          <h2
-            class="sr6-charactersheet-kopfbereich-title"
-            data-i18n="section.zustandsmonitor">
-            Zustandsmonitor
-          </h2>
-          <div class="sr6-charactersheet-zustandsmonitor-zeilen">
-            <label class="sr6-charactersheet-monitor-row">
-              <span
-                class="sr6-charactersheet-monitor-label"
-                data-i18n="field.monitor_koerperlich"
-                >Körperlicher Zustand</span
-              >
-              <div class="sr6-charactersheet-monitor-track-wrap">
-                <input type="text" name="attr_sr6_monitor_koerperlich" />
-                <div
-                  class="sr6-charactersheet-monitor-track sr6-charactersheet-monitor-track--koerperlich">
-                  <span
-                    class="sr6-charactersheet-monitor-mod sr6-charactersheet-monitor-mod--1"
-                    >-3</span
-                  >
-                  <span
-                    class="sr6-charactersheet-monitor-mod sr6-charactersheet-monitor-mod--2"
-                    >-2</span
-                  >
-                  <span
-                    class="sr6-charactersheet-monitor-mod sr6-charactersheet-monitor-mod--3"
-                    >-1</span
-                  >
-                </div>
-              </div>
-            </label>
-
-            <label class="sr6-charactersheet-monitor-row">
-              <span
-                class="sr6-charactersheet-monitor-label"
-                data-i18n="field.monitor_geistig"
-                >Geistiger Zustand</span
-              >
-              <div class="sr6-charactersheet-monitor-track-wrap">
-                <input type="text" name="attr_sr6_monitor_geistig" />
-                <div
-                  class="sr6-charactersheet-monitor-track sr6-charactersheet-monitor-track--geistig">
-                  <span
-                    class="sr6-charactersheet-monitor-mod sr6-charactersheet-monitor-mod--1"
-                    >-4</span
-                  >
-                  <span
-                    class="sr6-charactersheet-monitor-mod sr6-charactersheet-monitor-mod--2"
-                    >-3</span
-                  >
-                  <span
-                    class="sr6-charactersheet-monitor-mod sr6-charactersheet-monitor-mod--3"
-                    >-2</span
-                  >
-                  <span
-                    class="sr6-charactersheet-monitor-mod sr6-charactersheet-monitor-mod--4"
-                    >-1</span
-                  >
-                </div>
-              </div>
-            </label>
-          </div>
-        </div>
-
-        <div
-          class="sr6-charactersheet-kopfbereich-spalte sr6-charactersheet-kopfbereich-spalte--edge">
-          <h2
-            class="sr6-charactersheet-kopfbereich-title"
-            data-i18n="section.edge_token">
-            Edge Token
-          </h2>
-          <div
-            class="sr6-charactersheet-placeholder sr6-charactersheet-placeholder--edge"
-            aria-hidden="true">
-            Platzhalter
-          </div>
-        </div>
-      </section>
+      <!-- BEGIN BLOCK: Kopfbereich -->
+      <!-- @include partials/boxes/kopfbereich.html -->
+      <!-- END BLOCK: Kopfbereich -->
 
       <section
         class="sr6-charactersheet-box sr6-charactersheet-menu"
         aria-label="Datenumschaltung">
-        <div
-          class="sr6-charactersheet-menu-tabs"
-          role="tablist"
-          aria-label="Datenbereiche">
-          <input
-            type="radio"
-            name="sr6_daten_tab"
-            id="sr6_daten_tab_1"
-            checked />
-          <label
-            for="sr6_daten_tab_1"
-            role="tab"
-            aria-controls="sr6_daten_panel_1"
-            data-i18n="tab.allgemein"
-            >Allgemein</label
-          >
-
-          <input type="radio" name="sr6_daten_tab" id="sr6_daten_tab_2" />
-          <label
-            for="sr6_daten_tab_2"
-            role="tab"
-            aria-controls="sr6_daten_panel_2"
-            data-i18n="tab.fertigkeiten"
-            >Fertigkeiten</label
-          >
-
-          <input type="radio" name="sr6_daten_tab" id="sr6_daten_tab_3" />
-          <label
-            for="sr6_daten_tab_3"
-            role="tab"
-            aria-controls="sr6_daten_panel_3"
-            data-i18n="tab.kampf"
-            >Kampf</label
-          >
-
-          <input type="radio" name="sr6_daten_tab" id="sr6_daten_tab_4" />
-          <label
-            for="sr6_daten_tab_4"
-            role="tab"
-            aria-controls="sr6_daten_panel_4"
-            data-i18n="tab.magie"
-            >Magie</label
-          >
-
-          <input type="radio" name="sr6_daten_tab" id="sr6_daten_tab_5" />
-          <label
-            for="sr6_daten_tab_5"
-            role="tab"
-            aria-controls="sr6_daten_panel_5"
-            data-i18n="tab.matrix"
-            >Matrix</label
-          >
-
-          <input type="radio" name="sr6_daten_tab" id="sr6_daten_tab_6" />
-          <label
-            for="sr6_daten_tab_6"
-            role="tab"
-            aria-controls="sr6_daten_panel_6"
-            data-i18n="tab.rigging"
-            >Rigging</label
-          >
-
-          <input type="radio" name="sr6_daten_tab" id="sr6_daten_tab_7" />
-          <label
-            for="sr6_daten_tab_7"
-            role="tab"
-            aria-controls="sr6_daten_panel_7"
-            data-i18n="tab.ausruestung"
-            >Ausrüstung</label
-          >
-
-          <input type="radio" name="sr6_daten_tab" id="sr6_daten_tab_8" />
-          <label
-            for="sr6_daten_tab_8"
-            role="tab"
-            aria-controls="sr6_daten_panel_8"
-            data-i18n="tab.biographie"
-            >Biographie</label
-          >
-
-          <input type="radio" name="sr6_daten_tab" id="sr6_daten_tab_9" />
-          <label
-            for="sr6_daten_tab_9"
-            role="tab"
-            aria-controls="sr6_daten_panel_9"
-            data-i18n="tab.einstellungen"
-            >Einstellungen</label
-          >
-        </div>
+        <!-- BEGIN BLOCK: Menue Tabs -->
+        <!-- @include partials/boxes/menu-tabs.html -->
+        <!-- END BLOCK: Menue Tabs -->
 
         <div class="sr6-charactersheet-menu-content">
           <div
