@@ -247,237 +247,33 @@
             id="sr6_daten_panel_4"
             class="sr6-charactersheet-tabpanel"
             role="tabpanel">
-            <section
-              class="sr6-charactersheet-box"
-              aria-labelledby="magie-kern-titel">
-              <h2
-                id="magie-kern-titel"
-                class="sr6-charactersheet-box-title"
-                data-i18n="section.magie_kern">
-                Magie: Kernwerte
-              </h2>
-
-              <div class="sr6-charactersheet-box-content">
-                <div class="sr6-charactersheet-row sr6-charactersheet-row-2">
-                  <label class="sr6-charactersheet-field">
-                    <span data-i18n="field.magische_tradition"
-                      >Magische Tradition</span
-                    >
-                    <input type="text" name="attr_sr6_magic_tradition" />
-                  </label>
-
-                  <label class="sr6-charactersheet-field">
-                    <span data-i18n="field.zauberpool">Zauberpool</span>
-                    <div class="sr6-charactersheet-field-input-with-dice">
-                      <input
-                        type="text"
-                        name="attr_sr6_magic_zauberpool" /><button
-                        type="roll"
-                        class="sr6-charactersheet-field-dice-button"
-                        name="roll_sr6_tab_magie_zauberpool"
-                        value="&{template:default} {{name=Magie-Test}} {{Pool=[[@{sr6_magic_zauberpool}]]}} {{Erfolge=[[@{sr6_magic_zauberpool}d6cs>4]]}}"
-                        aria-label="Wuerfeln"></button>
-                    </div>
-                  </label>
-                </div>
-
-                <div class="sr6-charactersheet-row sr6-charactersheet-row-3">
-                  <label class="sr6-charactersheet-field">
-                    <span data-i18n="field.entzug">Entzug</span>
-                    <input type="text" name="attr_sr6_magic_entzug" />
-                  </label>
-
-                  <label class="sr6-charactersheet-field">
-                    <span data-i18n="field.entzug_widerstand"
-                      >Entzugwiderstand</span
-                    >
-                    <div class="sr6-charactersheet-field-input-with-dice">
-                      <input
-                        type="text"
-                        name="attr_sr6_magic_entzug_widerstand" /><button
-                        type="roll"
-                        class="sr6-charactersheet-field-dice-button"
-                        name="roll_sr6_tab_magie_entzug_widerstand"
-                        value="&{template:default} {{name=Entzugwiderstand}} {{Pool=[[@{sr6_magic_entzug_widerstand}]]}} {{Erfolge=[[@{sr6_magic_entzug_widerstand}d6cs>4]]}}"
-                        aria-label="Wuerfeln"></button>
-                    </div>
-                  </label>
-
-                  <label class="sr6-charactersheet-field">
-                    <span data-i18n="field.rituale_foki">Rituale/Foki</span>
-                    <input type="text" name="attr_sr6_magic_rituale_foki" />
-                  </label>
-                </div>
-              </div>
-            </section>
+            <!-- BEGIN BLOCK: Magie Kernwerte -->
+            <!-- @include partials/boxes/magie-kern.html -->
+            <!-- END BLOCK: Magie Kernwerte -->
           </div>
           <div
             id="sr6_daten_panel_5"
             class="sr6-charactersheet-tabpanel"
             role="tabpanel">
-            <section
-              class="sr6-charactersheet-box"
-              aria-labelledby="matrix-kern-titel">
-              <h2
-                id="matrix-kern-titel"
-                class="sr6-charactersheet-box-title"
-                data-i18n="section.matrix_kern">
-                Matrix: Kernwerte
-              </h2>
-
-              <div class="sr6-charactersheet-box-content">
-                <div class="sr6-charactersheet-row sr6-charactersheet-row-2">
-                  <label class="sr6-charactersheet-field">
-                    <span data-i18n="field.cyberdeck_persona"
-                      >Cyberdeck/Persona</span
-                    >
-                    <input
-                      type="text"
-                      name="attr_sr6_matrix_cyberdeck_persona" />
-                  </label>
-
-                  <label class="sr6-charactersheet-field">
-                    <span data-i18n="field.matrix_initiative"
-                      >Matrix-Initiative</span
-                    >
-                    <input type="text" name="attr_sr6_matrix_initiative" />
-                  </label>
-                </div>
-
-                <div class="sr6-charactersheet-row sr6-charactersheet-row-4">
-                  <label class="sr6-charactersheet-field">
-                    <span data-i18n="field.matrix_angriff">Angriff</span>
-                    <input type="text" name="attr_sr6_matrix_angriff" />
-                  </label>
-
-                  <label class="sr6-charactersheet-field">
-                    <span data-i18n="field.matrix_schleicher">Schleicher</span>
-                    <input type="text" name="attr_sr6_matrix_schleicher" />
-                  </label>
-
-                  <label class="sr6-charactersheet-field">
-                    <span data-i18n="field.matrix_datenverarbeitung"
-                      >Datenverarbeitung</span
-                    >
-                    <input
-                      type="text"
-                      name="attr_sr6_matrix_datenverarbeitung" />
-                  </label>
-
-                  <label class="sr6-charactersheet-field">
-                    <span data-i18n="field.matrix_firewall">Firewall</span>
-                    <input type="text" name="attr_sr6_matrix_firewall" />
-                  </label>
-                </div>
-              </div>
-            </section>
+            <!-- BEGIN BLOCK: Matrix Kernwerte -->
+            <!-- @include partials/boxes/matrix-kern.html -->
+            <!-- END BLOCK: Matrix Kernwerte -->
           </div>
           <div
             id="sr6_daten_panel_6"
             class="sr6-charactersheet-tabpanel"
             role="tabpanel">
-            <section
-              class="sr6-charactersheet-box"
-              aria-labelledby="rigging-kern-titel">
-              <h2
-                id="rigging-kern-titel"
-                class="sr6-charactersheet-box-title"
-                data-i18n="section.rigging_kern">
-                Rigging: Kernwerte
-              </h2>
-
-              <div class="sr6-charactersheet-box-content">
-                <div class="sr6-charactersheet-row sr6-charactersheet-row-2">
-                  <label class="sr6-charactersheet-field">
-                    <span data-i18n="field.fahrzeug_drohne"
-                      >Fahrzeug/Drohne</span
-                    >
-                    <input
-                      type="text"
-                      name="attr_sr6_rigging_fahrzeug_drohne" />
-                  </label>
-
-                  <label class="sr6-charactersheet-field">
-                    <span data-i18n="field.sensorik">Sensorik</span>
-                    <input type="text" name="attr_sr6_rigging_sensorik" />
-                  </label>
-                </div>
-
-                <div class="sr6-charactersheet-row sr6-charactersheet-row-2">
-                  <label class="sr6-charactersheet-field">
-                    <span data-i18n="field.steuerungspool">Steuerungspool</span>
-                    <div class="sr6-charactersheet-field-input-with-dice">
-                      <input
-                        type="text"
-                        name="attr_sr6_rigging_steuerungspool" /><button
-                        type="roll"
-                        class="sr6-charactersheet-field-dice-button"
-                        name="roll_sr6_tab_rigging_steuerungspool"
-                        value="&{template:default} {{name=Rigging-Test}} {{Pool=[[@{sr6_rigging_steuerungspool}]]}} {{Erfolge=[[@{sr6_rigging_steuerungspool}d6cs>4]]}}"
-                        aria-label="Wuerfeln"></button>
-                    </div>
-                  </label>
-
-                  <label class="sr6-charactersheet-field">
-                    <span data-i18n="field.fernsteuerungspool"
-                      >Fernsteuerungspool</span
-                    >
-                    <div class="sr6-charactersheet-field-input-with-dice">
-                      <input
-                        type="text"
-                        name="attr_sr6_rigging_fernsteuerungspool" /><button
-                        type="roll"
-                        class="sr6-charactersheet-field-dice-button"
-                        name="roll_sr6_tab_rigging_fernsteuerungspool"
-                        value="&{template:default} {{name=Fernsteuerung-Test}} {{Pool=[[@{sr6_rigging_fernsteuerungspool}]]}} {{Erfolge=[[@{sr6_rigging_fernsteuerungspool}d6cs>4]]}}"
-                        aria-label="Wuerfeln"></button>
-                    </div>
-                  </label>
-                </div>
-              </div>
-            </section>
+            <!-- BEGIN BLOCK: Rigging Kernwerte -->
+            <!-- @include partials/boxes/rigging-kern.html -->
+            <!-- END BLOCK: Rigging Kernwerte -->
           </div>
           <div
             id="sr6_daten_panel_7"
             class="sr6-charactersheet-tabpanel"
             role="tabpanel">
-            <section
-              class="sr6-charactersheet-box"
-              aria-labelledby="ausruestung-kern-titel">
-              <h2
-                id="ausruestung-kern-titel"
-                class="sr6-charactersheet-box-title"
-                data-i18n="section.ausruestung_kern">
-                Ausrüstung: Übersicht
-              </h2>
-
-              <div class="sr6-charactersheet-box-content">
-                <div
-                  class="sr6-charactersheet-row sr6-charactersheet-row-3 sr6-charactersheet-gear-header">
-                  <span data-i18n="field.item">Item</span>
-                  <span data-i18n="field.menge">Menge</span>
-                  <span data-i18n="field.notiz">Notiz</span>
-                </div>
-
-                <div class="sr6-charactersheet-row sr6-charactersheet-row-3">
-                  <input type="text" name="attr_sr6_gear_item_1" />
-                  <input type="text" name="attr_sr6_gear_menge_1" />
-                  <input type="text" name="attr_sr6_gear_notiz_1" />
-                </div>
-
-                <div class="sr6-charactersheet-row sr6-charactersheet-row-3">
-                  <input type="text" name="attr_sr6_gear_item_2" />
-                  <input type="text" name="attr_sr6_gear_menge_2" />
-                  <input type="text" name="attr_sr6_gear_notiz_2" />
-                </div>
-
-                <div class="sr6-charactersheet-row sr6-charactersheet-row-3">
-                  <input type="text" name="attr_sr6_gear_item_3" />
-                  <input type="text" name="attr_sr6_gear_menge_3" />
-                  <input type="text" name="attr_sr6_gear_notiz_3" />
-                </div>
-              </div>
-            </section>
+            <!-- BEGIN BLOCK: Ausruestung Kernwerte -->
+            <!-- @include partials/boxes/ausruestung-kern.html -->
+            <!-- END BLOCK: Ausruestung Kernwerte -->
           </div>
           <div
             id="sr6_daten_panel_8"
@@ -491,40 +287,9 @@
             id="sr6_daten_panel_9"
             class="sr6-charactersheet-tabpanel"
             role="tabpanel">
-            <div class="sr6-settings-panel">
-              <div class="sr6-language-control">
-                <label for="sr6-language-select" data-i18n="ui.sprache"
-                  >Sprache</label
-                >
-                <select id="sr6-language-select" name="attr_sr6_ui_sprache">
-                  <option value="de">DE</option>
-                  <option value="en">EN</option>
-                  <option value="fr">FR</option>
-                </select>
-              </div>
-
-              <div class="sr6-charactersheet-row sr6-charactersheet-row-2">
-                <label class="sr6-charactersheet-field">
-                  <span data-i18n="field.option_auto_berechnung"
-                    >Auto-Berechnung</span
-                  >
-                  <input
-                    type="text"
-                    name="attr_sr6_setting_auto_berechnung"
-                    value="an" />
-                </label>
-
-                <label class="sr6-charactersheet-field">
-                  <span data-i18n="field.option_rolltemplate"
-                    >Rolltemplate-Stil</span
-                  >
-                  <input
-                    type="text"
-                    name="attr_sr6_setting_rolltemplate"
-                    value="default" />
-                </label>
-              </div>
-            </div>
+            <!-- BEGIN BLOCK: Einstellungen -->
+            <!-- @include partials/boxes/einstellungen.html -->
+            <!-- END BLOCK: Einstellungen -->
           </div>
         </div>
       </section>
