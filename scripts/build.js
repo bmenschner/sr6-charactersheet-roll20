@@ -31,6 +31,7 @@ function copyFile(fromPath, toPath) {
   console.log(`[build] copied ${fromRel} -> ${toRel}`);
 }
 
+// Resolves nested HTML includes from src/html while preventing loops/path escapes.
 function resolveHtmlIncludes(filePath, stack = []) {
   const normalizedPath = path.resolve(filePath);
   const fileRel = path.relative(rootDir, normalizedPath);
@@ -60,6 +61,7 @@ function resolveHtmlIncludes(filePath, stack = []) {
   });
 }
 
+// Builds the single Roll20 HTML artifact from the modular source structure.
 function buildCharactersheetHtml() {
   const htmlOutput = resolveHtmlIncludes(htmlSourcePath);
   ensureDir(path.dirname(htmlTargetPath));
@@ -67,6 +69,7 @@ function buildCharactersheetHtml() {
   console.log(`[build] wrote ${path.relative(rootDir, htmlTargetPath)} (html includes resolved)`);
 }
 
+// Copies direct source artifacts that are not composed (css + full i18n source dump).
 function copyMainSources() {
   SOURCE_FILES.forEach(({ from, to }) => {
     if (!fs.existsSync(from)) {
@@ -76,6 +79,7 @@ function copyMainSources() {
   });
 }
 
+// Writes Roll20-compatible flat translation.json (de fallback) next to full translation file.
 function writeRoll20CompatibilityFiles() {
   const i18nSource = path.join(srcDir, 'i18n', 'translation.json');
 
@@ -89,6 +93,7 @@ function writeRoll20CompatibilityFiles() {
   console.log(`[build] wrote ${path.relative(rootDir, translationTarget)} (flat roll20 format)`);
 }
 
+// Copies static image assets into output/assets/images for upload workflows.
 function copyStaticAssets() {
   if (!fs.existsSync(srcImagesDir)) {
     return;
@@ -107,6 +112,7 @@ function copyStaticAssets() {
     });
 }
 
+// Main local build pipeline.
 function runBuild() {
   console.log('[build] start');
   ensureDir(outputDir);

@@ -6,8 +6,10 @@
     <link rel="stylesheet" href="./charakterbogen.de.css" />
   </head>
   <body>
+    <!-- Globales Roll20-Tabs-Toggle für CharSheet/Bio/Abilities -->
     <!-- BEGIN BLOCK: Tabs Toggle -->
-    <!-- Block: Tabs Toggle -->
+    <!-- BEGIN BLOCK: Tabs Toggle -->
+<!-- BEGIN BLOCK: Steuerung der externen Roll20-Top-Tabs -->
 <input
   id="sr6-tabs-toggle"
   class="sr6-tabs-toggle-input sr6-charactersheet-settings-toggle-input"
@@ -16,14 +18,17 @@
   class="sr6-tabs-toggle sr6-charactersheet-settings-toggle"
   for="sr6-tabs-toggle"
   aria-label="Tabs ein- und ausblenden"></label>
-<!-- End Block: Tabs Toggle -->
+<!-- END BLOCK: Steuerung der externen Roll20-Top-Tabs -->
+<!-- END BLOCK: Tabs Toggle -->
 
     <!-- END BLOCK: Tabs Toggle -->
 
     <div class="sr6-charactersheet">
+      <!-- Oberer Kopfbereich mit Logo, Header und Zustandsinfos -->
       <!-- BEGIN BLOCK: Kopfbereich -->
-      <!-- Block: Kopfbereich -->
+      <!-- BEGIN BLOCK: Kopfbereich -->
 <section class="sr6-charactersheet-kopfbereich" aria-label="Kopfbereich">
+  <!-- BEGIN BLOCK: Spalte 1 - Platzhalter für Charakterbild -->
   <div
     class="sr6-charactersheet-kopfbereich-spalte sr6-charactersheet-kopfbereich-spalte--bild">
     <h2
@@ -37,7 +42,9 @@
       Platzhalter
     </div>
   </div>
+  <!-- END BLOCK: Spalte 1 - Platzhalter für Charakterbild -->
 
+  <!-- BEGIN BLOCK: Spalte 2 - Körperlicher und geistiger Zustandsmonitor -->
   <div
     class="sr6-charactersheet-kopfbereich-spalte sr6-charactersheet-kopfbereich-spalte--zustand">
     <h2
@@ -103,7 +110,9 @@
       </label>
     </div>
   </div>
+  <!-- END BLOCK: Spalte 2 - Körperlicher und geistiger Zustandsmonitor -->
 
+  <!-- BEGIN BLOCK: Spalte 3 - Platzhalter für Edge-Token -->
   <div
     class="sr6-charactersheet-kopfbereich-spalte sr6-charactersheet-kopfbereich-spalte--edge">
     <h2
@@ -117,8 +126,9 @@
       Platzhalter
     </div>
   </div>
+  <!-- END BLOCK: Spalte 3 - Platzhalter für Edge-Token -->
 </section>
-<!-- End Block: Kopfbereich -->
+<!-- END BLOCK: Kopfbereich -->
 
       <!-- END BLOCK: Kopfbereich -->
 
@@ -126,7 +136,8 @@
         class="sr6-charactersheet-box sr6-charactersheet-menu"
         aria-label="Datenumschaltung">
         <!-- BEGIN BLOCK: Menue Tabs -->
-        <!-- Block: Menue Tabs -->
+        <!-- BEGIN BLOCK: Menue Tabs -->
+<!-- BEGIN BLOCK: Primäre Navigation innerhalb des Sheets -->
 <div
   class="sr6-charactersheet-menu-tabs"
   role="tablist"
@@ -216,18 +227,21 @@
     >Einstellungen</label
   >
 </div>
-<!-- End Block: Menue Tabs -->
+<!-- END BLOCK: Primäre Navigation innerhalb des Sheets -->
+<!-- END BLOCK: Menue Tabs -->
 
         <!-- END BLOCK: Menue Tabs -->
 
+        <!-- Inhaltscontainer aller internen Daten-Panels -->
         <div class="sr6-charactersheet-menu-content">
+          <!-- Panel 1: Allgemein -->
           <div
             id="sr6_daten_panel_1"
             class="sr6-charactersheet-tabpanel"
             role="tabpanel">
             <div class="sr6-charactersheet-tab-allgemein-grid">
               <!-- BEGIN BLOCK: Attribute -->
-              <!-- Block: Attribute -->
+              <!-- BEGIN BLOCK: Attribute -->
               <section
                 class="sr6-charactersheet-box sr6-charactersheet-box-attribute"
                 aria-labelledby="attribute-titel">
@@ -239,7 +253,9 @@
                 </h1>
 
                 <div class="sr6-charactersheet-box-content">
+                  <!-- BEGIN BLOCK: Attribut-Zeilen als 2-Spalten-Grid -->
                   <div class="sr6-charactersheet-row sr6-charactersheet-row-2">
+                    <!-- BEGIN BLOCK: Attribut - Konstitution -->
                     <div
                       class="sr6-charactersheet-field sr6-charactersheet-attr-field">
                       <span data-i18n="field.konstitution">Konstitution</span>
@@ -280,7 +296,9 @@
                         </div>
                       </div>
                     </div>
+                    <!-- END BLOCK: Attribut - Konstitution -->
 
+                    <!-- BEGIN BLOCK: Attribut - Geschicklichkeit -->
                     <div
                       class="sr6-charactersheet-field sr6-charactersheet-attr-field">
                       <span data-i18n="field.geschicklichkeit"
@@ -323,9 +341,11 @@
                         </div>
                       </div>
                     </div>
+                    <!-- END BLOCK: Attribut - Geschicklichkeit -->
                   </div>
 
                   <div class="sr6-charactersheet-row sr6-charactersheet-row-2">
+                    <!-- BEGIN BLOCK: Attribut - Reaktion -->
                     <div
                       class="sr6-charactersheet-field sr6-charactersheet-attr-field">
                       <span data-i18n="field.reaktion">Reaktion</span>
@@ -366,7 +386,9 @@
                         </div>
                       </div>
                     </div>
+                    <!-- END BLOCK: Attribut - Reaktion -->
 
+                    <!-- BEGIN BLOCK: Attribut - Stärke -->
                     <div
                       class="sr6-charactersheet-field sr6-charactersheet-attr-field">
                       <span data-i18n="field.staerke">Stärke</span>
@@ -407,9 +429,11 @@
                         </div>
                       </div>
                     </div>
+                    <!-- END BLOCK: Attribut - Stärke -->
                   </div>
 
                   <div class="sr6-charactersheet-row sr6-charactersheet-row-2">
+                    <!-- BEGIN BLOCK: Attribut - Willenskraft -->
                     <div
                       class="sr6-charactersheet-field sr6-charactersheet-attr-field">
                       <span data-i18n="field.willenskraft">Willenskraft</span>
@@ -450,7 +474,9 @@
                         </div>
                       </div>
                     </div>
+                    <!-- END BLOCK: Attribut - Willenskraft -->
 
+                    <!-- BEGIN BLOCK: Attribut - Logik -->
                     <div
                       class="sr6-charactersheet-field sr6-charactersheet-attr-field">
                       <span data-i18n="field.logik">Logik</span>
@@ -491,9 +517,11 @@
                         </div>
                       </div>
                     </div>
+                    <!-- END BLOCK: Attribut - Logik -->
                   </div>
 
                   <div class="sr6-charactersheet-row sr6-charactersheet-row-2">
+                    <!-- BEGIN BLOCK: Attribut - Intuition -->
                     <div
                       class="sr6-charactersheet-field sr6-charactersheet-attr-field">
                       <span data-i18n="field.intuition">Intuition</span>
@@ -534,7 +562,9 @@
                         </div>
                       </div>
                     </div>
+                    <!-- END BLOCK: Attribut - Intuition -->
 
+                    <!-- BEGIN BLOCK: Attribut - Charisma -->
                     <div
                       class="sr6-charactersheet-field sr6-charactersheet-attr-field">
                       <span data-i18n="field.charisma">Charisma</span>
@@ -575,9 +605,11 @@
                         </div>
                       </div>
                     </div>
+                    <!-- END BLOCK: Attribut - Charisma -->
                   </div>
 
                   <div class="sr6-charactersheet-row sr6-charactersheet-row-2">
+                    <!-- BEGIN BLOCK: Attribut - Edge -->
                     <div
                       class="sr6-charactersheet-field sr6-charactersheet-attr-field">
                       <span data-i18n="field.edge">Edge</span>
@@ -618,7 +650,9 @@
                         </div>
                       </div>
                     </div>
+                    <!-- END BLOCK: Attribut - Edge -->
 
+                    <!-- BEGIN BLOCK: Attribut - Magie/Resonanz -->
                     <div
                       class="sr6-charactersheet-field sr6-charactersheet-attr-field">
                       <span data-i18n="field.magie_resonanz"
@@ -661,14 +695,16 @@
                         </div>
                       </div>
                     </div>
+                    <!-- END BLOCK: Attribut - Magie/Resonanz -->
                   </div>
+                  <!-- END BLOCK: Attribut-Zeilen als 2-Spalten-Grid -->
                 </div>
               </section>
-<!-- End Block: Attribute -->
+<!-- END BLOCK: Attribute -->
 
               <!-- END BLOCK: Attribute -->
               <!-- BEGIN BLOCK: Initiative -->
-              <!-- Block: Initiative -->
+              <!-- BEGIN BLOCK: Initiative -->
 
 
               <section
@@ -682,6 +718,7 @@
                 </h1>
 
                 <div class="sr6-charactersheet-box-content">
+                  <!-- BEGIN BLOCK: Zeile - Physische Initiative -->
                   <div class="sr6-charactersheet-init-row">
                     <span
                       class="sr6-charactersheet-init-row-title"
@@ -708,7 +745,9 @@
                       </div>
                     </div>
                   </div>
+                  <!-- END BLOCK: Zeile - Physische Initiative -->
 
+                  <!-- BEGIN BLOCK: Zeile - Astrale Initiative -->
                   <div class="sr6-charactersheet-init-row">
                     <span
                       class="sr6-charactersheet-init-row-title"
@@ -735,7 +774,9 @@
                       </div>
                     </div>
                   </div>
+                  <!-- END BLOCK: Zeile - Astrale Initiative -->
 
+                  <!-- BEGIN BLOCK: Zeile - Astrale Initiative (zweite Eingabegruppe) -->
                   <div class="sr6-charactersheet-init-row">
                     <span
                       class="sr6-charactersheet-init-row-title"
@@ -762,7 +803,9 @@
                       </div>
                     </div>
                   </div>
+                  <!-- END BLOCK: Zeile - Astrale Initiative (zweite Eingabegruppe) -->
 
+                  <!-- BEGIN BLOCK: Zeile - Matrix-Initiative -->
                   <div class="sr6-charactersheet-init-row">
                     <span
                       class="sr6-charactersheet-init-row-title"
@@ -789,13 +832,14 @@
                       </div>
                     </div>
                   </div>
+                  <!-- END BLOCK: Zeile - Matrix-Initiative -->
                 </div>
               </section>
-<!-- End Block: Initiative -->
+<!-- END BLOCK: Initiative -->
 
               <!-- END BLOCK: Initiative -->
               <!-- BEGIN BLOCK: Wichtige Kampf-Infos -->
-              <!-- Block: Wichtige Kampf-Infos -->
+              <!-- BEGIN BLOCK: Wichtige Kampf-Infos -->
 
 
               <section
@@ -809,6 +853,7 @@
                 </h1>
 
                 <div class="sr6-charactersheet-box-content">
+                  <!-- BEGIN BLOCK: Zeile 1 - Primäre Fernkampfwaffe -->
                   <div class="sr6-charactersheet-row sr6-charactersheet-row-1">
                     <label class="sr6-charactersheet-field">
                       <span data-i18n="field.primaere_fernkampfwaffe"
@@ -819,7 +864,9 @@
                         name="attr_sr6_combat_primaere_fernkampfwaffe" />
                     </label>
                   </div>
+                  <!-- END BLOCK: Zeile 1 - Primäre Fernkampfwaffe -->
 
+                  <!-- BEGIN BLOCK: Zeile 2 - Schadens-/Modus-/Reichweitenwerte -->
                   <div class="sr6-charactersheet-row sr6-charactersheet-row-7">
                     <label class="sr6-charactersheet-field">
                       <span data-i18n="field.schaden">Schaden</span>
@@ -905,14 +952,18 @@
                       </div>
                     </label>
                   </div>
+                  <!-- END BLOCK: Zeile 2 - Schadens-/Modus-/Reichweitenwerte -->
 
+                  <!-- BEGIN BLOCK: Zeile 3 - Munition -->
                   <div class="sr6-charactersheet-row sr6-charactersheet-row-1">
                     <label class="sr6-charactersheet-field">
                       <span data-i18n="field.munition">Munition</span>
                       <input type="text" name="attr_sr6_combat_munition" />
                     </label>
                   </div>
+                  <!-- END BLOCK: Zeile 3 - Munition -->
 
+                  <!-- BEGIN BLOCK: Zeile 4 - Primäre Nahkampfwaffe -->
                   <div class="sr6-charactersheet-row sr6-charactersheet-row-1">
                     <label class="sr6-charactersheet-field">
                       <span data-i18n="field.primaere_nahkampfwaffe"
@@ -930,7 +981,9 @@
                       </div>
                     </label>
                   </div>
+                  <!-- END BLOCK: Zeile 4 - Primäre Nahkampfwaffe -->
 
+                  <!-- BEGIN BLOCK: Zeile 5 - Primäre Panzerung -->
                   <div class="sr6-charactersheet-row sr6-charactersheet-row-1">
                     <label class="sr6-charactersheet-field">
                       <span data-i18n="field.primaere_panzerung"
@@ -941,19 +994,21 @@
                         name="attr_sr6_combat_primaere_panzerung" />
                     </label>
                   </div>
+                  <!-- END BLOCK: Zeile 5 - Primäre Panzerung -->
                 </div>
               </section>
-<!-- End Block: Wichtige Kampf-Infos -->
+<!-- END BLOCK: Wichtige Kampf-Infos -->
 
               <!-- END BLOCK: Wichtige Kampf-Infos -->
             </div>
           </div>
+          <!-- Panel 2: Fertigkeiten -->
           <div
             id="sr6_daten_panel_2"
             class="sr6-charactersheet-tabpanel"
             role="tabpanel">
             <!-- BEGIN BLOCK: Fertigkeiten -->
-            <!-- Block: Fertigkeiten -->
+            <!-- BEGIN BLOCK: Fertigkeiten -->
             <section
               class="sr6-charactersheet-box sr6-charactersheet-box-fertigkeiten"
               aria-labelledby="fertigkeiten-titel">
@@ -1088,17 +1143,18 @@
                 </div>
               </div>
             </section>
-<!-- End Block: Fertigkeiten -->
+<!-- END BLOCK: Fertigkeiten -->
 
             <!-- END BLOCK: Fertigkeiten -->
           </div>
+          <!-- Panel 3: Kampf -->
           <div
             id="sr6_daten_panel_3"
             class="sr6-charactersheet-tabpanel"
             role="tabpanel">
             <div class="sr6-charactersheet-tab-kampf-grid">
               <!-- BEGIN BLOCK: Kampf Fernkampf -->
-              <!-- Block: Kampf Fernkampf -->
+              <!-- BEGIN BLOCK: Kampf Fernkampf -->
               <section
                 class="sr6-charactersheet-box sr6-charactersheet-box-kampf-fernkampf"
                 aria-labelledby="kampf-fernkampf-titel">
@@ -1110,6 +1166,7 @@
                 </h2>
 
                 <div class="sr6-charactersheet-box-content">
+                  <!-- BEGIN BLOCK: Fernkampfwaffe -->
                   <div class="sr6-charactersheet-row sr6-charactersheet-row-1">
                     <label class="sr6-charactersheet-field">
                       <span data-i18n="field.primaere_fernkampfwaffe"
@@ -1120,7 +1177,9 @@
                         name="attr_sr6_combat_primaere_fernkampfwaffe" />
                     </label>
                   </div>
+                  <!-- END BLOCK: Fernkampfwaffe -->
 
+                  <!-- BEGIN BLOCK: Kernwerte - Schaden, Modus, Munition -->
                   <div class="sr6-charactersheet-row sr6-charactersheet-row-3">
                     <label class="sr6-charactersheet-field">
                       <span data-i18n="field.schaden">Schaden</span>
@@ -1141,7 +1200,9 @@
                       <input type="text" name="attr_sr6_combat_munition" />
                     </label>
                   </div>
+                  <!-- END BLOCK: Kernwerte - Schaden, Modus, Munition -->
 
+                  <!-- BEGIN BLOCK: Reichweitenfelder mit Einzelwürfen -->
                   <div class="sr6-charactersheet-row sr6-charactersheet-row-5">
                     <label class="sr6-charactersheet-field">
                       <span data-i18n="field.s_nah">S. Nah</span>
@@ -1213,13 +1274,14 @@
                       </div>
                     </label>
                   </div>
+                  <!-- END BLOCK: Reichweitenfelder mit Einzelwürfen -->
                 </div>
               </section>
-<!-- End Block: Kampf Fernkampf -->
+<!-- END BLOCK: Kampf Fernkampf -->
 
               <!-- END BLOCK: Kampf Fernkampf -->
               <!-- BEGIN BLOCK: Kampf Nahkampf und Abwehr -->
-              <!-- Block: Kampf Nahkampf und Abwehr -->
+              <!-- BEGIN BLOCK: Kampf Nahkampf und Abwehr -->
 
               <section
                 class="sr6-charactersheet-box sr6-charactersheet-box-kampf-nahkampf"
@@ -1232,6 +1294,7 @@
                 </h2>
 
                 <div class="sr6-charactersheet-box-content">
+                  <!-- BEGIN BLOCK: Primäre Nahkampfwaffe mit Rollbutton -->
                   <div class="sr6-charactersheet-row sr6-charactersheet-row-1">
                     <label class="sr6-charactersheet-field">
                       <span data-i18n="field.primaere_nahkampfwaffe"
@@ -1249,7 +1312,9 @@
                       </div>
                     </label>
                   </div>
+                  <!-- END BLOCK: Primäre Nahkampfwaffe mit Rollbutton -->
 
+                  <!-- BEGIN BLOCK: Primäre Panzerung -->
                   <div class="sr6-charactersheet-row sr6-charactersheet-row-1">
                     <label class="sr6-charactersheet-field">
                       <span data-i18n="field.primaere_panzerung"
@@ -1260,7 +1325,9 @@
                         name="attr_sr6_combat_primaere_panzerung" />
                     </label>
                   </div>
+                  <!-- END BLOCK: Primäre Panzerung -->
 
+                  <!-- BEGIN BLOCK: Abgeleitete, read-only Kampf-Basiswerte -->
                   <div class="sr6-charactersheet-row sr6-charactersheet-row-2">
                     <label class="sr6-charactersheet-field">
                       <span data-i18n="field.initiative_basis"
@@ -1282,19 +1349,21 @@
                         readonly />
                     </label>
                   </div>
+                  <!-- END BLOCK: Abgeleitete, read-only Kampf-Basiswerte -->
                 </div>
               </section>
-<!-- End Block: Kampf Nahkampf und Abwehr -->
+<!-- END BLOCK: Kampf Nahkampf und Abwehr -->
 
               <!-- END BLOCK: Kampf Nahkampf und Abwehr -->
             </div>
           </div>
+          <!-- Panel 4: Magie -->
           <div
             id="sr6_daten_panel_4"
             class="sr6-charactersheet-tabpanel"
             role="tabpanel">
             <!-- BEGIN BLOCK: Magie Kernwerte -->
-            <!-- Block: Magie Kernwerte -->
+            <!-- BEGIN BLOCK: Magie Kernwerte -->
             <section
               class="sr6-charactersheet-box"
               aria-labelledby="magie-kern-titel">
@@ -1358,16 +1427,17 @@
                 </div>
               </div>
             </section>
-<!-- End Block: Magie Kernwerte -->
+<!-- END BLOCK: Magie Kernwerte -->
 
             <!-- END BLOCK: Magie Kernwerte -->
           </div>
+          <!-- Panel 5: Matrix -->
           <div
             id="sr6_daten_panel_5"
             class="sr6-charactersheet-tabpanel"
             role="tabpanel">
             <!-- BEGIN BLOCK: Matrix Kernwerte -->
-            <!-- Block: Matrix Kernwerte -->
+            <!-- BEGIN BLOCK: Matrix Kernwerte -->
             <section
               class="sr6-charactersheet-box"
               aria-labelledby="matrix-kern-titel">
@@ -1424,16 +1494,17 @@
                 </div>
               </div>
             </section>
-<!-- End Block: Matrix Kernwerte -->
+<!-- END BLOCK: Matrix Kernwerte -->
 
             <!-- END BLOCK: Matrix Kernwerte -->
           </div>
+          <!-- Panel 6: Rigging -->
           <div
             id="sr6_daten_panel_6"
             class="sr6-charactersheet-tabpanel"
             role="tabpanel">
             <!-- BEGIN BLOCK: Rigging Kernwerte -->
-            <!-- Block: Rigging Kernwerte -->
+            <!-- BEGIN BLOCK: Rigging Kernwerte -->
             <section
               class="sr6-charactersheet-box"
               aria-labelledby="rigging-kern-titel">
@@ -1494,16 +1565,17 @@
                 </div>
               </div>
             </section>
-<!-- End Block: Rigging Kernwerte -->
+<!-- END BLOCK: Rigging Kernwerte -->
 
             <!-- END BLOCK: Rigging Kernwerte -->
           </div>
+          <!-- Panel 7: Ausruestung -->
           <div
             id="sr6_daten_panel_7"
             class="sr6-charactersheet-tabpanel"
             role="tabpanel">
             <!-- BEGIN BLOCK: Ausruestung Kernwerte -->
-            <!-- Block: Ausruestung Kernwerte -->
+            <!-- BEGIN BLOCK: Ausruestung Kernwerte -->
             <section
               class="sr6-charactersheet-box"
               aria-labelledby="ausruestung-kern-titel">
@@ -1541,16 +1613,17 @@
                 </div>
               </div>
             </section>
-<!-- End Block: Ausruestung Kernwerte -->
+<!-- END BLOCK: Ausruestung Kernwerte -->
 
             <!-- END BLOCK: Ausruestung Kernwerte -->
           </div>
+          <!-- Panel 8: Biographie -->
           <div
             id="sr6_daten_panel_8"
             class="sr6-charactersheet-tabpanel"
             role="tabpanel">
             <!-- BEGIN BLOCK: Biographie Persönliche Daten -->
-            <!-- Block: Biographie Persönliche Daten -->
+            <!-- BEGIN BLOCK: Biographie Persönliche Daten -->
             <div class="sr6-charactersheet-tab-biographie-personendaten">
               <h2
                 class="sr6-charactersheet-kopfbereich-title"
@@ -1558,6 +1631,7 @@
                 Persönliche Daten
               </h2>
 
+              <!-- BEGIN BLOCK: Zeile 1 - Name / Straßenname -->
               <div class="sr6-charactersheet-row sr6-charactersheet-row-2">
                 <label class="sr6-charactersheet-field">
                   <span data-i18n="field.name">Name</span>
@@ -1569,7 +1643,9 @@
                   <input type="text" name="attr_sr6_bio_strassenname" />
                 </label>
               </div>
+              <!-- END BLOCK: Zeile 1 - Name / Straßenname -->
 
+              <!-- BEGIN BLOCK: Zeile 2 - Metatyp / Ethnizität -->
               <div class="sr6-charactersheet-row sr6-charactersheet-row-2">
                 <label class="sr6-charactersheet-field">
                   <span data-i18n="field.metatyp">Metatyp</span>
@@ -1581,7 +1657,9 @@
                   <input type="text" name="attr_sr6_bio_ethnizitaet" />
                 </label>
               </div>
+              <!-- END BLOCK: Zeile 2 - Metatyp / Ethnizität -->
 
+              <!-- BEGIN BLOCK: Zeile 3 - Alter / Geschlecht / Größe / Gewicht -->
               <div class="sr6-charactersheet-row sr6-charactersheet-row-4">
                 <label class="sr6-charactersheet-field">
                   <span data-i18n="field.alter">Alter</span>
@@ -1603,7 +1681,9 @@
                   <input type="text" name="attr_sr6_bio_gewicht" />
                 </label>
               </div>
+              <!-- END BLOCK: Zeile 3 - Alter / Geschlecht / Größe / Gewicht -->
 
+              <!-- BEGIN BLOCK: Zeile 4 - Reputation / Fahndungslevel -->
               <div class="sr6-charactersheet-row sr6-charactersheet-row-2">
                 <label class="sr6-charactersheet-field">
                   <span data-i18n="field.reputation">Reputation</span>
@@ -1615,7 +1695,9 @@
                   <input type="text" name="attr_sr6_bio_fahndungslevel" />
                 </label>
               </div>
+              <!-- END BLOCK: Zeile 4 - Reputation / Fahndungslevel -->
 
+              <!-- BEGIN BLOCK: Zeile 5 - Karma / Gesamtkarma / Edge / Edge Max -->
               <div class="sr6-charactersheet-row sr6-charactersheet-row-4">
                 <label class="sr6-charactersheet-field">
                   <span data-i18n="field.karma">Karma</span>
@@ -1637,18 +1719,21 @@
                   <input type="text" name="attr_sr6_bio_edge_max" />
                 </label>
               </div>
+              <!-- END BLOCK: Zeile 5 - Karma / Gesamtkarma / Edge / Edge Max -->
             </div>
-<!-- End Block: Biographie Persönliche Daten -->
+<!-- END BLOCK: Biographie Persönliche Daten -->
 
             <!-- END BLOCK: Biographie Persönliche Daten -->
           </div>
+          <!-- Panel 9: Einstellungen -->
           <div
             id="sr6_daten_panel_9"
             class="sr6-charactersheet-tabpanel"
             role="tabpanel">
             <!-- BEGIN BLOCK: Einstellungen -->
-            <!-- Block: Einstellungen -->
+            <!-- BEGIN BLOCK: Einstellungen -->
             <div class="sr6-settings-panel">
+              <!-- BEGIN BLOCK: Sprachumschalter für Runtime-i18n -->
               <div class="sr6-language-control">
                 <label for="sr6-language-select" data-i18n="ui.sprache"
                   >Sprache</label
@@ -1659,7 +1744,9 @@
                   <option value="fr">FR</option>
                 </select>
               </div>
+              <!-- END BLOCK: Sprachumschalter für Runtime-i18n -->
 
+              <!-- BEGIN BLOCK: Konfigurationsfelder -->
               <div class="sr6-charactersheet-row sr6-charactersheet-row-2">
                 <label class="sr6-charactersheet-field">
                   <span data-i18n="field.option_auto_berechnung"
@@ -1681,8 +1768,9 @@
                     value="default" />
                 </label>
               </div>
+              <!-- END BLOCK: Konfigurationsfelder -->
             </div>
-<!-- End Block: Einstellungen -->
+<!-- END BLOCK: Einstellungen -->
 
             <!-- END BLOCK: Einstellungen -->
           </div>
@@ -1690,7 +1778,9 @@
       </section>
     </div>
 
+    <!-- Roll20 Sheet Worker: berechnet abgeleitete Werte aus Attributen -->
     <script type="text/worker">
+      // Basis-Attributliste fuer die automatische Neuberechnung.
       const SR6_ATTRIBUTES = [
         "konstitution",
         "geschicklichkeit",
@@ -1704,11 +1794,13 @@
         "magie_resonanz"
       ];
 
+      // Parse helper mit Roll20-sicherem 0-Fallback.
       function parseNumber(value) {
         const parsed = parseInt(value, 10);
         return Number.isNaN(parsed) ? 0 : parsed;
       }
 
+      // Recompute-Flow: liest Grundwerte/Modifikatoren und schreibt Gesamt/Derived-Werte.
       function recomputeAll() {
         const requestKeys = [];
         const updates = {};
@@ -1746,6 +1838,7 @@
         });
       }
 
+      // Eventliste: reagiert auf Aenderungen in allen relevanten Attributfeldern.
       const recalcEvents = [];
       SR6_ATTRIBUTES.forEach((attributeName) => {
         recalcEvents.push(`change:sr6_attr_${attributeName}_grundwert`);
@@ -1756,8 +1849,10 @@
       on("sheet:opened", recomputeAll);
     </script>
 
+    <!-- Runtime-i18n im Browser: ersetzt data-i18n Keys beim Laden -->
     <script>
       (function () {
+        // Vollstaendige UI-Texte fuer de/en/fr. Roll20 nutzt parallel translation.json.
         const translations = {
           de: {
             "ui.charakterbogen_titel": "Shadowrun 6 Charakterbogen",
@@ -2110,6 +2205,7 @@
           },
         };
 
+        // Sprachverwaltung mit LocalStorage-Fallback auf Deutsch.
         const STORAGE_KEY = "sr6_i18n_lang";
         const FALLBACK_LANGUAGE = "de";
         const availableLanguages = Object.keys(translations);
@@ -2120,6 +2216,7 @@
             : FALLBACK_LANGUAGE;
         }
 
+        // Wendet die gewaehlte Sprache auf alle data-i18n Knoten an.
         function applyLanguage(lang) {
           const activeLanguage = resolveLanguage(lang);
           const locale = translations[activeLanguage];
@@ -2142,6 +2239,7 @@
           } catch (err) {}
         }
 
+        // Initiale Sprache aus Storage oder aus <html lang>.
         function getInitialLanguage() {
           try {
             const storedLanguage = localStorage.getItem(STORAGE_KEY);

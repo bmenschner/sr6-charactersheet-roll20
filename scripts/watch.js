@@ -9,6 +9,7 @@ const srcDir = path.join(rootDir, 'src');
 const watchedDirs = new Map();
 let rebuildTimer = null;
 
+// Debounce rapid fs events into a single rebuild.
 function scheduleBuild(reason) {
   if (rebuildTimer) {
     clearTimeout(rebuildTimer);
@@ -24,6 +25,7 @@ function scheduleBuild(reason) {
   }, 150);
 }
 
+// Starts watching a directory once; refresh handles dynamic subdir changes.
 function watchDirectory(dirPath) {
   if (watchedDirs.has(dirPath)) {
     return;
@@ -47,6 +49,7 @@ function watchDirectory(dirPath) {
   watchedDirs.set(dirPath, watcher);
 }
 
+// Collects all subdirectories so watcher coverage stays recursive.
 function collectDirectories(startDir) {
   const dirs = [startDir];
   const stack = [startDir];
@@ -67,6 +70,7 @@ function collectDirectories(startDir) {
   return dirs;
 }
 
+// Stops watchers for removed directories to avoid stale handles.
 function closeRemovedWatchers(validDirs) {
   for (const [dirPath, watcher] of watchedDirs.entries()) {
     if (!validDirs.has(dirPath)) {
@@ -76,6 +80,7 @@ function closeRemovedWatchers(validDirs) {
   }
 }
 
+// Re-syncs watchers after filesystem renames/creates.
 function refreshWatchers() {
   const allDirs = collectDirectories(srcDir);
   const validSet = new Set(allDirs);
@@ -84,6 +89,7 @@ function refreshWatchers() {
   allDirs.forEach(watchDirectory);
 }
 
+// Watch mode entrypoint: initial build + recursive directory watch.
 function start() {
   if (!fs.existsSync(srcDir)) {
     console.error('[watch] missing src directory');

@@ -19,6 +19,7 @@ function assertInsideSrcHtml(filePath) {
   return normalized;
 }
 
+// Recursively traverses include graph and validates existence/scope/loop safety.
 function walkIncludes(filePath, stack = [], stats = { files: new Set(), includes: 0 }) {
   const normalized = assertInsideSrcHtml(filePath);
   const rel = path.relative(rootDir, normalized);
@@ -48,6 +49,7 @@ function walkIncludes(filePath, stack = [], stats = { files: new Set(), includes
   return stats;
 }
 
+// Lint entrypoint used in CI/local scripts before build/watch.
 function run() {
   if (!fs.existsSync(entryFile)) {
     throw new Error(`Missing entry file: ${path.relative(rootDir, entryFile)}`);
