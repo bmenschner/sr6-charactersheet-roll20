@@ -3580,6 +3580,27 @@
     "edge",
     "magie_resonanz"
   ];
+  const SR6_SKILLS = [
+    "astral",
+    "athletik",
+    "beschwoeren",
+    "biotech",
+    "cracken",
+    "einfluss",
+    "elektronik",
+    "exotische_waffen",
+    "feuerwaffen",
+    "heimlichkeit",
+    "hexerei",
+    "mechanik",
+    "nahkampf",
+    "natur",
+    "steuern",
+    "tasken",
+    "ueberreden",
+    "verzaubern",
+    "wahrnehmung"
+  ];
 
   // Parse helper mit Roll20-sicherem 0-Fallback.
   function parseNumber(value) {
@@ -3597,6 +3618,10 @@
       requestKeys.push(`sr6_attr_${attributeName}_grundwert`);
       requestKeys.push(`sr6_attr_${attributeName}_modifikator`);
     });
+    SR6_SKILLS.forEach((skillName) => {
+      requestKeys.push(`sr6_skill_${skillName}_grundwert`);
+      requestKeys.push(`sr6_skill_${skillName}_modifikator`);
+    });
 
     getAttrs(requestKeys, (values) => {
       SR6_ATTRIBUTES.forEach((attributeName) => {
@@ -3606,6 +3631,14 @@
         const total = parseNumber(values[baseKey]) + parseNumber(values[modifierKey]);
 
         totals[attributeName] = total;
+        updates[totalKey] = String(total);
+      });
+      SR6_SKILLS.forEach((skillName) => {
+        const baseKey = `sr6_skill_${skillName}_grundwert`;
+        const modifierKey = `sr6_skill_${skillName}_modifikator`;
+        const totalKey = `sr6_skill_${skillName}_gesamtwert`;
+        const total = parseNumber(values[baseKey]) + parseNumber(values[modifierKey]);
+
         updates[totalKey] = String(total);
       });
 
@@ -3644,6 +3677,10 @@
   SR6_ATTRIBUTES.forEach((attributeName) => {
     recalcEvents.push(`change:sr6_attr_${attributeName}_grundwert`);
     recalcEvents.push(`change:sr6_attr_${attributeName}_modifikator`);
+  });
+  SR6_SKILLS.forEach((skillName) => {
+    recalcEvents.push(`change:sr6_skill_${skillName}_grundwert`);
+    recalcEvents.push(`change:sr6_skill_${skillName}_modifikator`);
   });
 
   on(recalcEvents.join(" "), recomputeAll);
