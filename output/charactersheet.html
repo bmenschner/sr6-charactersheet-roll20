@@ -270,14 +270,24 @@
                 <!-- BEGIN BLOCK: Attribute -->
                 <!-- BEGIN BLOCK: Attribute -->
               <section
-                class="sr6-charactersheet-box sr6-charactersheet-box-attribute"
+                class="sr6-charactersheet-box sr6-charactersheet-box-attribute sr6-editable-section sr6-editable-overview-section"
                 aria-labelledby="attribute-titel">
-                <h1
-                  id="attribute-titel"
-                  class="sr6-charactersheet-box-title"
-                  data-i18n="section.attribute">
-                  Attribute
-                </h1>
+                <div class="sr6-editable-section-title-row">
+                  <h1
+                    id="attribute-titel"
+                    class="sr6-charactersheet-box-title"
+                    data-i18n="section.attribute">
+                    Attribute
+                  </h1>
+                  <label class="sr6-editable-section-toggle">
+                    <input
+                      type="checkbox"
+                      name="attr_sr6_allgemein_attribute_edit_mode"
+                      class="sr6-editable-section-mode"
+                      />
+                    <span data-i18n="field.editieren">Editieren</span>
+                  </label>
+                </div>
 
                 <div class="sr6-charactersheet-box-content">
                   <!-- BEGIN BLOCK: Attribut-Zeilen als 2-Spalten-Grid -->
@@ -733,14 +743,24 @@
                 <!-- BEGIN BLOCK: Initiative -->
                 <!-- BEGIN BLOCK: Initiative -->
 <section
-  class="sr6-charactersheet-box sr6-charactersheet-box-initiative"
+  class="sr6-charactersheet-box sr6-charactersheet-box-initiative sr6-editable-section sr6-editable-overview-section"
   aria-labelledby="initiative-titel">
-  <h1
-    id="initiative-titel"
-    class="sr6-charactersheet-box-title"
-    data-i18n="section.initiative">
-    Initiative
-  </h1>
+  <div class="sr6-editable-section-title-row">
+    <h1
+      id="initiative-titel"
+      class="sr6-charactersheet-box-title"
+      data-i18n="section.initiative">
+      Initiative
+    </h1>
+    <label class="sr6-editable-section-toggle">
+      <input
+        type="checkbox"
+        name="attr_sr6_allgemein_initiative_edit_mode"
+        class="sr6-editable-section-mode"
+                      />
+                    <span data-i18n="field.editieren">Editieren</span>
+    </label>
+  </div>
 
   <div class="sr6-charactersheet-box-content">
     <!-- BEGIN BLOCK: Zeile - Physische Initiative -->
@@ -839,13 +859,23 @@
                 <!-- BEGIN BLOCK: Fertigkeiten (Allgemein) -->
                 <!-- BEGIN BLOCK: Fertigkeiten (Allgemein) -->
 <section
-  class="sr6-charactersheet-box sr6-charactersheet-box-fertigkeiten-allgemein"
+  class="sr6-charactersheet-box sr6-charactersheet-box-fertigkeiten-allgemein sr6-editable-section sr6-editable-overview-section"
   aria-label="Fertigkeiten">
-  <h1
-    class="sr6-charactersheet-box-title"
-    data-i18n="section.fertigkeiten_basis">
-    Fertigkeiten
-  </h1>
+  <div class="sr6-editable-section-title-row">
+    <h1
+      class="sr6-charactersheet-box-title"
+      data-i18n="section.fertigkeiten_basis">
+      Fertigkeiten
+    </h1>
+    <label class="sr6-editable-section-toggle">
+      <input
+        type="checkbox"
+        name="attr_sr6_fertigkeiten_edit_mode"
+        class="sr6-editable-section-mode"
+                      />
+                    <span data-i18n="field.editieren">Editieren</span>
+    </label>
+  </div>
 
   <div class="sr6-charactersheet-box-content">
     <div class="sr6-charactersheet-skills-overview-grid">
@@ -1531,14 +1561,24 @@
                 <!-- BEGIN BLOCK: Kampf -->
                 <!-- BEGIN BLOCK: Kampf -->
 <section
-  class="sr6-charactersheet-box sr6-charactersheet-box-kampf"
+  class="sr6-charactersheet-box sr6-charactersheet-box-kampf sr6-editable-section sr6-editable-overview-section"
   aria-labelledby="kampf-titel">
-  <h1
-    id="kampf-titel"
-    class="sr6-charactersheet-box-title"
-    data-i18n="section.wichtige_kampf_infos">
-    Kampf
-  </h1>
+  <div class="sr6-editable-section-title-row">
+    <h1
+      id="kampf-titel"
+      class="sr6-charactersheet-box-title"
+      data-i18n="section.wichtige_kampf_infos">
+      Kampf
+    </h1>
+    <label class="sr6-editable-section-toggle">
+      <input
+        type="checkbox"
+        name="attr_sr6_allgemein_kampf_edit_mode"
+        class="sr6-editable-section-mode"
+                      />
+                    <span data-i18n="field.editieren">Editieren</span>
+    </label>
+  </div>
 
   <div class="sr6-charactersheet-box-content">
     <!-- BEGIN BLOCK: Kampf Spalten -->
@@ -1753,14 +1793,24 @@
                 <!-- BEGIN BLOCK: Verteidigung -->
                 <!-- BEGIN BLOCK: Verteidigung -->
 <section
-  class="sr6-charactersheet-box sr6-charactersheet-box-verteidigung"
+  class="sr6-charactersheet-box sr6-charactersheet-box-verteidigung sr6-editable-section sr6-editable-overview-section"
   aria-labelledby="verteidigung-titel">
-  <h1
-    id="verteidigung-titel"
-    class="sr6-charactersheet-box-title"
-    data-i18n="section.verteidigung">
-    Verteidigung
-  </h1>
+  <div class="sr6-editable-section-title-row">
+    <h1
+      id="verteidigung-titel"
+      class="sr6-charactersheet-box-title"
+      data-i18n="section.verteidigung">
+      Verteidigung
+    </h1>
+    <label class="sr6-editable-section-toggle">
+      <input
+        type="checkbox"
+        name="attr_sr6_allgemein_verteidigung_edit_mode"
+        class="sr6-editable-section-mode"
+                      />
+                    <span data-i18n="field.editieren">Editieren</span>
+    </label>
+  </div>
 
   <div class="sr6-charactersheet-box-content">
     <!-- BEGIN BLOCK: Feld - Verteidigung (Physisch) -->
@@ -1916,14 +1966,24 @@
                 <!-- BEGIN BLOCK: Schadenswiderstand -->
                 <!-- BEGIN BLOCK: Schadenswiderstand -->
 <section
-  class="sr6-charactersheet-box sr6-charactersheet-box-schadenswiderstand"
+  class="sr6-charactersheet-box sr6-charactersheet-box-schadenswiderstand sr6-editable-section sr6-editable-overview-section"
   aria-labelledby="schadenswiderstand-titel">
-  <h1
-    id="schadenswiderstand-titel"
-    class="sr6-charactersheet-box-title"
-    data-i18n="section.schadenswiderstand">
-    Schadenswiderstand
-  </h1>
+  <div class="sr6-editable-section-title-row">
+    <h1
+      id="schadenswiderstand-titel"
+      class="sr6-charactersheet-box-title"
+      data-i18n="section.schadenswiderstand">
+      Schadenswiderstand
+    </h1>
+    <label class="sr6-editable-section-toggle">
+      <input
+        type="checkbox"
+        name="attr_sr6_allgemein_schadenswiderstand_edit_mode"
+        class="sr6-editable-section-mode"
+                      />
+                    <span data-i18n="field.editieren">Editieren</span>
+    </label>
+  </div>
 
   <div class="sr6-charactersheet-box-content">
     <!-- BEGIN BLOCK: Feld - Schadenswiderstand (Physisch) -->
@@ -2122,13 +2182,23 @@
             <!-- BEGIN BLOCK: Fertigkeiten -->
 <!-- BEGIN BLOCK: Fertigkeiten (Allgemein) -->
 <section
-  class="sr6-charactersheet-box sr6-charactersheet-box-fertigkeiten-allgemein"
+  class="sr6-charactersheet-box sr6-charactersheet-box-fertigkeiten-allgemein sr6-editable-section sr6-editable-overview-section"
   aria-label="Fertigkeiten">
-  <h1
-    class="sr6-charactersheet-box-title"
-    data-i18n="section.fertigkeiten_basis">
-    Fertigkeiten
-  </h1>
+  <div class="sr6-editable-section-title-row">
+    <h1
+      class="sr6-charactersheet-box-title"
+      data-i18n="section.fertigkeiten_basis">
+      Fertigkeiten
+    </h1>
+    <label class="sr6-editable-section-toggle">
+      <input
+        type="checkbox"
+        name="attr_sr6_fertigkeiten_edit_mode"
+        class="sr6-editable-section-mode"
+                      />
+                    <span data-i18n="field.editieren">Editieren</span>
+    </label>
+  </div>
 
   <div class="sr6-charactersheet-box-content">
     <div class="sr6-charactersheet-skills-overview-grid">
@@ -3334,8 +3404,8 @@
             type="checkbox"
             name="attr_sr6_magic_zauber_edit_mode"
             class="sr6-editable-section-mode"
-            checked />
-          <span data-i18n="field.editieren">Editieren</span>
+                      />
+                    <span data-i18n="field.editieren">Editieren</span>
         </label>
       </div>
       <div class="sr6-charactersheet-box-content">
@@ -3443,8 +3513,8 @@
           type="checkbox"
           name="attr_sr6_magic_adeptenkraefte_edit_mode"
           class="sr6-editable-section-mode"
-          checked />
-        <span data-i18n="field.editieren">Editieren</span>
+                      />
+                    <span data-i18n="field.editieren">Editieren</span>
       </label>
       </div>
       <div class="sr6-charactersheet-box-content">
@@ -3491,8 +3561,8 @@
         type="checkbox"
         name="attr_sr6_magic_foki_edit_mode"
         class="sr6-editable-section-mode"
-        checked />
-      <span data-i18n="field.editieren">Editieren</span>
+                      />
+                    <span data-i18n="field.editieren">Editieren</span>
     </label>
     </div>
     <div class="sr6-charactersheet-box-content">
@@ -3556,8 +3626,8 @@
         type="checkbox"
         name="attr_sr6_magic_metamagie_edit_mode"
         class="sr6-editable-section-mode"
-        checked />
-      <span data-i18n="field.editieren">Editieren</span>
+                      />
+                    <span data-i18n="field.editieren">Editieren</span>
     </label>
     </div>
     <div class="sr6-charactersheet-box-content">
@@ -3606,8 +3676,8 @@
           type="checkbox"
           name="attr_sr6_magic_rituale_edit_mode"
           class="sr6-editable-section-mode"
-          checked />
-        <span data-i18n="field.editieren">Editieren</span>
+                      />
+                    <span data-i18n="field.editieren">Editieren</span>
       </label>
       </div>
       <div class="sr6-charactersheet-box-content">
@@ -3673,8 +3743,8 @@
         type="checkbox"
         name="attr_sr6_magic_geister_edit_mode"
         class="sr6-editable-section-mode"
-        checked />
-      <span data-i18n="field.editieren">Editieren</span>
+                      />
+                    <span data-i18n="field.editieren">Editieren</span>
     </label>
     </div>
     <div class="sr6-charactersheet-box-content">
@@ -3882,8 +3952,8 @@
           type="checkbox"
           name="attr_sr6_ausruestung_edit_mode"
           class="sr6-editable-section-mode"
-          checked />
-        <span data-i18n="field.editieren">Editieren</span>
+                      />
+                    <span data-i18n="field.editieren">Editieren</span>
       </label>
     </div>
     <div class="sr6-charactersheet-box-content">
@@ -3932,8 +4002,8 @@
           type="checkbox"
           name="attr_sr6_cyberware_edit_mode"
           class="sr6-editable-section-mode"
-          checked />
-        <span data-i18n="field.editieren">Editieren</span>
+                      />
+                    <span data-i18n="field.editieren">Editieren</span>
       </label>
     </div>
     <div class="sr6-charactersheet-box-content">
@@ -3977,8 +4047,8 @@
           type="checkbox"
           name="attr_sr6_bioware_edit_mode"
           class="sr6-editable-section-mode"
-          checked />
-        <span data-i18n="field.editieren">Editieren</span>
+                      />
+                    <span data-i18n="field.editieren">Editieren</span>
       </label>
     </div>
     <div class="sr6-charactersheet-box-content">
@@ -4022,8 +4092,8 @@
           type="checkbox"
           name="attr_sr6_sin_edit_mode"
           class="sr6-editable-section-mode"
-          checked />
-        <span data-i18n="field.editieren">Editieren</span>
+                      />
+                    <span data-i18n="field.editieren">Editieren</span>
       </label>
     </div>
     <div class="sr6-charactersheet-box-content">
@@ -4072,8 +4142,8 @@
           type="checkbox"
           name="attr_sr6_lebensstil_edit_mode"
           class="sr6-editable-section-mode"
-          checked />
-        <span data-i18n="field.editieren">Editieren</span>
+                      />
+                    <span data-i18n="field.editieren">Editieren</span>
       </label>
     </div>
     <div class="sr6-charactersheet-box-content">
@@ -4272,6 +4342,19 @@
 
     </div>
 
+    <!-- BEGIN BLOCK: Globales Bearbeitungsschloss -->
+    <div class="sr6-global-edit-lock">
+      <label class="sr6-global-edit-lock-toggle" title="Bearbeitung sperren/entsperren">
+        <input
+          type="checkbox"
+          name="attr_sr6_global_edit_lock"
+          class="sr6-global-edit-lock-input"
+          checked />
+        <span class="sr6-global-edit-lock-icon" aria-hidden="true"></span>
+      </label>
+    </div>
+    <!-- END BLOCK: Globales Bearbeitungsschloss -->
+
     <!-- BEGIN BLOCK: Roll20 Sheet Worker -->
     <script type="text/worker">
   // Basis-Attributliste fuer die automatische Neuberechnung.
@@ -4414,6 +4497,49 @@
     setAttrs({ sr6_daten_tab: "allgemein" }, { silent: true });
   }
 
+  // Beim Laden alle Editier-Toggles auf Listenansicht (inaktiv) setzen.
+  function getEditModeResetPayload() {
+    return {
+      sr6_allgemein_attribute_edit_mode: "0",
+      sr6_allgemein_initiative_edit_mode: "0",
+      sr6_fertigkeiten_edit_mode: "0",
+      sr6_allgemein_kampf_edit_mode: "0",
+      sr6_allgemein_verteidigung_edit_mode: "0",
+      sr6_allgemein_schadenswiderstand_edit_mode: "0",
+      sr6_magic_zauber_edit_mode: "0",
+      sr6_magic_adeptenkraefte_edit_mode: "0",
+      sr6_magic_foki_edit_mode: "0",
+      sr6_magic_metamagie_edit_mode: "0",
+      sr6_magic_rituale_edit_mode: "0",
+      sr6_magic_geister_edit_mode: "0",
+      sr6_ausruestung_edit_mode: "0",
+      sr6_cyberware_edit_mode: "0",
+      sr6_bioware_edit_mode: "0",
+      sr6_sin_edit_mode: "0",
+      sr6_lebensstil_edit_mode: "0",
+    };
+  }
+
+  function resetEditModesOnOpen() {
+    setAttrs(getEditModeResetPayload(), { silent: true });
+  }
+
+  // Beim Laden ist das globale Schloss immer aktiv.
+  function resetGlobalEditLockOnOpen() {
+    setAttrs({ sr6_global_edit_lock: "on" }, { silent: true });
+  }
+
+  // Bei aktivem Schloss alle Editiermodi hart deaktivieren.
+  function enforceEditLock() {
+    setAttrs(getEditModeResetPayload(), { silent: true });
+  }
+
+  function onGlobalEditLockChanged(eventInfo) {
+    if ((eventInfo.newValue || "").trim().toLowerCase() === "on") {
+      enforceEditLock();
+    }
+  }
+
   // Eventliste: reagiert auf Aenderungen in allen relevanten Attributfeldern.
   const recalcEvents = [];
   SR6_ATTRIBUTES.forEach((attributeName) => {
@@ -4430,10 +4556,13 @@
   on(recalcEvents.join(" "), recomputeAll);
   on("sheet:opened", () => {
     resetTabToAllgemeinOnOpen();
+    resetGlobalEditLockOnOpen();
+    resetEditModesOnOpen();
     normalizeLegacyCheckboxValues();
     recomputeAll();
   });
   on("change:sr6_combat_helm", normalizeLegacyCheckboxValues);
+  on("change:sr6_global_edit_lock", onGlobalEditLockChanged);
 </script>
 
     <!-- END BLOCK: Roll20 Sheet Worker -->

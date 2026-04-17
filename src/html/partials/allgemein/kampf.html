@@ -1,13 +1,23 @@
 <!-- BEGIN BLOCK: Kampf -->
 <section
-  class="sr6-charactersheet-box sr6-charactersheet-box-kampf"
+  class="sr6-charactersheet-box sr6-charactersheet-box-kampf sr6-editable-section sr6-editable-overview-section"
   aria-labelledby="kampf-titel">
-  <h1
-    id="kampf-titel"
-    class="sr6-charactersheet-box-title"
-    data-i18n="section.wichtige_kampf_infos">
-    Kampf
-  </h1>
+  <div class="sr6-editable-section-title-row">
+    <h1
+      id="kampf-titel"
+      class="sr6-charactersheet-box-title"
+      data-i18n="section.wichtige_kampf_infos">
+      Kampf
+    </h1>
+    <label class="sr6-editable-section-toggle">
+      <input
+        type="checkbox"
+        name="attr_sr6_allgemein_kampf_edit_mode"
+        class="sr6-editable-section-mode"
+                      />
+                    <span data-i18n="field.editieren">Editieren</span>
+    </label>
+  </div>
 
   <div class="sr6-charactersheet-box-content">
     <!-- BEGIN BLOCK: Kampf Spalten -->
