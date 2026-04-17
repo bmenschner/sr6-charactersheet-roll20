@@ -1,39 +1,240 @@
-<!-- BEGIN BLOCK: Ausruestung Kernwerte -->
-            <section
-              class="sr6-charactersheet-box"
-              aria-labelledby="ausruestung-kern-titel">
-              <h2
-                id="ausruestung-kern-titel"
-                class="sr6-charactersheet-box-title"
-                data-i18n="section.ausruestung_kern">
-                Ausrüstung: Übersicht
-              </h2>
-
-              <div class="sr6-charactersheet-box-content">
-                <div
-                  class="sr6-charactersheet-row sr6-charactersheet-row-3 sr6-charactersheet-gear-header">
-                  <span data-i18n="field.item">Item</span>
-                  <span data-i18n="field.menge">Menge</span>
-                  <span data-i18n="field.notiz">Notiz</span>
-                </div>
-
-                <div class="sr6-charactersheet-row sr6-charactersheet-row-3">
-                  <input type="text" name="attr_sr6_gear_item_1" />
-                  <input type="text" name="attr_sr6_gear_menge_1" />
-                  <input type="text" name="attr_sr6_gear_notiz_1" />
-                </div>
-
-                <div class="sr6-charactersheet-row sr6-charactersheet-row-3">
-                  <input type="text" name="attr_sr6_gear_item_2" />
-                  <input type="text" name="attr_sr6_gear_menge_2" />
-                  <input type="text" name="attr_sr6_gear_notiz_2" />
-                </div>
-
-                <div class="sr6-charactersheet-row sr6-charactersheet-row-3">
-                  <input type="text" name="attr_sr6_gear_item_3" />
-                  <input type="text" name="attr_sr6_gear_menge_3" />
-                  <input type="text" name="attr_sr6_gear_notiz_3" />
-                </div>
+<!-- BEGIN BLOCK: Ausruestung Tab -->
+<div class="sr6-charactersheet-tab-ausruestung-grid">
+  <!-- BEGIN BLOCK: Ausruestung -->
+  <section
+    class="sr6-charactersheet-box sr6-charactersheet-tab-ausruestung-item--full sr6-editable-section sr6-ausruestung-section"
+    aria-labelledby="ausruestung-titel">
+    <div class="sr6-editable-section-title-row">
+      <h2 id="ausruestung-titel" class="sr6-charactersheet-box-title" data-i18n="section.ausruestung">
+        Ausrüstung
+      </h2>
+      <label class="sr6-editable-section-toggle">
+        <input
+          type="checkbox"
+          name="attr_sr6_ausruestung_edit_mode"
+          class="sr6-editable-section-mode"
+          checked />
+        <span data-i18n="field.editieren">Editieren</span>
+      </label>
+    </div>
+    <div class="sr6-charactersheet-box-content">
+      <div class="sr6-generic-list-header sr6-generic-list-header--4" aria-hidden="true">
+        <span data-i18n="field.name">Name</span>
+        <span data-i18n="field.stufe">Stufe</span>
+        <span data-i18n="field.anzahl">Anzahl</span>
+        <span data-i18n="field.notiz">Notiz</span>
+      </div>
+      <fieldset class="repeating_sr6ausruestung">
+        <div class="sr6-foundry-item">
+          <div class="sr6-editable-item-fields">
+            <div class="sr6-foundry-item-head sr6-charactersheet-row sr6-charactersheet-row-4">
+              <div class="sr6-charactersheet-field">
+                <span data-i18n="field.name">Name</span>
+                <input type="text" name="attr_ausruestung_name" />
               </div>
-            </section>
-<!-- END BLOCK: Ausruestung Kernwerte -->
+              <div class="sr6-charactersheet-field">
+                <span data-i18n="field.stufe">Stufe</span>
+                <input type="text" name="attr_ausruestung_stufe" />
+              </div>
+              <div class="sr6-charactersheet-field">
+                <span data-i18n="field.anzahl">Anzahl</span>
+                <input type="text" name="attr_ausruestung_anzahl" />
+              </div>
+              <div class="sr6-charactersheet-field">
+                <span data-i18n="field.notiz">Notiz</span>
+                <input type="text" name="attr_ausruestung_notiz" />
+              </div>
+            </div>
+          </div>
+        </div>
+      </fieldset>
+    </div>
+  </section>
+  <!-- END BLOCK: Ausruestung -->
+
+  <!-- BEGIN BLOCK: Cyberware -->
+  <section class="sr6-charactersheet-box sr6-editable-section sr6-cyberware-section" aria-labelledby="cyberware-titel">
+    <div class="sr6-editable-section-title-row">
+      <h2 id="cyberware-titel" class="sr6-charactersheet-box-title" data-i18n="section.cyberware">
+        Cyberware
+      </h2>
+      <label class="sr6-editable-section-toggle">
+        <input
+          type="checkbox"
+          name="attr_sr6_cyberware_edit_mode"
+          class="sr6-editable-section-mode"
+          checked />
+        <span data-i18n="field.editieren">Editieren</span>
+      </label>
+    </div>
+    <div class="sr6-charactersheet-box-content">
+      <div class="sr6-generic-list-header sr6-generic-list-header--3" aria-hidden="true">
+        <span data-i18n="field.name">Name</span>
+        <span data-i18n="field.stufe">Stufe</span>
+        <span data-i18n="field.notiz">Notiz</span>
+      </div>
+      <fieldset class="repeating_sr6cyberware">
+        <div class="sr6-foundry-item">
+          <div class="sr6-editable-item-fields">
+            <div class="sr6-foundry-item-head sr6-charactersheet-row sr6-charactersheet-row-3">
+              <div class="sr6-charactersheet-field">
+                <span data-i18n="field.name">Name</span>
+                <input type="text" name="attr_cyberware_name" />
+              </div>
+              <div class="sr6-charactersheet-field">
+                <span data-i18n="field.stufe">Stufe</span>
+                <input type="text" name="attr_cyberware_stufe" />
+              </div>
+              <div class="sr6-charactersheet-field">
+                <span data-i18n="field.notiz">Notiz</span>
+                <input type="text" name="attr_cyberware_notiz" />
+              </div>
+            </div>
+          </div>
+        </div>
+      </fieldset>
+    </div>
+  </section>
+  <!-- END BLOCK: Cyberware -->
+
+  <!-- BEGIN BLOCK: Bioware -->
+  <section class="sr6-charactersheet-box sr6-editable-section sr6-bioware-section" aria-labelledby="bioware-titel">
+    <div class="sr6-editable-section-title-row">
+      <h2 id="bioware-titel" class="sr6-charactersheet-box-title" data-i18n="section.bioware">
+        Bioware
+      </h2>
+      <label class="sr6-editable-section-toggle">
+        <input
+          type="checkbox"
+          name="attr_sr6_bioware_edit_mode"
+          class="sr6-editable-section-mode"
+          checked />
+        <span data-i18n="field.editieren">Editieren</span>
+      </label>
+    </div>
+    <div class="sr6-charactersheet-box-content">
+      <div class="sr6-generic-list-header sr6-generic-list-header--3" aria-hidden="true">
+        <span data-i18n="field.name">Name</span>
+        <span data-i18n="field.stufe">Stufe</span>
+        <span data-i18n="field.notiz">Notiz</span>
+      </div>
+      <fieldset class="repeating_sr6bioware">
+        <div class="sr6-foundry-item">
+          <div class="sr6-editable-item-fields">
+            <div class="sr6-foundry-item-head sr6-charactersheet-row sr6-charactersheet-row-3">
+              <div class="sr6-charactersheet-field">
+                <span data-i18n="field.name">Name</span>
+                <input type="text" name="attr_bioware_name" />
+              </div>
+              <div class="sr6-charactersheet-field">
+                <span data-i18n="field.stufe">Stufe</span>
+                <input type="text" name="attr_bioware_stufe" />
+              </div>
+              <div class="sr6-charactersheet-field">
+                <span data-i18n="field.notiz">Notiz</span>
+                <input type="text" name="attr_bioware_notiz" />
+              </div>
+            </div>
+          </div>
+        </div>
+      </fieldset>
+    </div>
+  </section>
+  <!-- END BLOCK: Bioware -->
+
+  <!-- BEGIN BLOCK: SIN -->
+  <section class="sr6-charactersheet-box sr6-editable-section sr6-sin-section" aria-labelledby="sin-titel">
+    <div class="sr6-editable-section-title-row">
+      <h2 id="sin-titel" class="sr6-charactersheet-box-title" data-i18n="section.sin">
+        SIN
+      </h2>
+      <label class="sr6-editable-section-toggle">
+        <input
+          type="checkbox"
+          name="attr_sr6_sin_edit_mode"
+          class="sr6-editable-section-mode"
+          checked />
+        <span data-i18n="field.editieren">Editieren</span>
+      </label>
+    </div>
+    <div class="sr6-charactersheet-box-content">
+      <div class="sr6-generic-list-header sr6-generic-list-header--4" aria-hidden="true">
+        <span data-i18n="field.name">Name</span>
+        <span data-i18n="field.stufe">Stufe</span>
+        <span data-i18n="field.anzahl">Anzahl</span>
+        <span data-i18n="field.notiz">Notiz</span>
+      </div>
+      <fieldset class="repeating_sr6sin">
+        <div class="sr6-foundry-item">
+          <div class="sr6-editable-item-fields">
+            <div class="sr6-foundry-item-head sr6-charactersheet-row sr6-charactersheet-row-4">
+              <div class="sr6-charactersheet-field">
+                <span data-i18n="field.name">Name</span>
+                <input type="text" name="attr_sin_name" />
+              </div>
+              <div class="sr6-charactersheet-field">
+                <span data-i18n="field.stufe">Stufe</span>
+                <input type="text" name="attr_sin_stufe" />
+              </div>
+              <div class="sr6-charactersheet-field">
+                <span data-i18n="field.anzahl">Anzahl</span>
+                <input type="text" name="attr_sin_anzahl" />
+              </div>
+              <div class="sr6-charactersheet-field">
+                <span data-i18n="field.notiz">Notiz</span>
+                <input type="text" name="attr_sin_notiz" />
+              </div>
+            </div>
+          </div>
+        </div>
+      </fieldset>
+    </div>
+  </section>
+  <!-- END BLOCK: SIN -->
+
+  <!-- BEGIN BLOCK: Lebensstil -->
+  <section class="sr6-charactersheet-box sr6-editable-section sr6-lebensstil-section" aria-labelledby="lebensstil-titel">
+    <div class="sr6-editable-section-title-row">
+      <h2 id="lebensstil-titel" class="sr6-charactersheet-box-title" data-i18n="section.lebensstil">
+        Lebensstil
+      </h2>
+      <label class="sr6-editable-section-toggle">
+        <input
+          type="checkbox"
+          name="attr_sr6_lebensstil_edit_mode"
+          class="sr6-editable-section-mode"
+          checked />
+        <span data-i18n="field.editieren">Editieren</span>
+      </label>
+    </div>
+    <div class="sr6-charactersheet-box-content">
+      <div class="sr6-generic-list-header sr6-generic-list-header--3" aria-hidden="true">
+        <span data-i18n="field.name">Name</span>
+        <span data-i18n="field.art">Art</span>
+        <span data-i18n="field.kosten">Kosten</span>
+      </div>
+      <fieldset class="repeating_sr6lebensstil">
+        <div class="sr6-foundry-item">
+          <div class="sr6-editable-item-fields">
+            <div class="sr6-foundry-item-head sr6-charactersheet-row sr6-charactersheet-row-3">
+              <div class="sr6-charactersheet-field">
+                <span data-i18n="field.name">Name</span>
+                <input type="text" name="attr_lebensstil_name" />
+              </div>
+              <div class="sr6-charactersheet-field">
+                <span data-i18n="field.art">Art</span>
+                <input type="text" name="attr_lebensstil_art" />
+              </div>
+              <div class="sr6-charactersheet-field">
+                <span data-i18n="field.kosten">Kosten</span>
+                <input type="text" name="attr_lebensstil_kosten" />
+              </div>
+            </div>
+          </div>
+        </div>
+      </fieldset>
+    </div>
+  </section>
+  <!-- END BLOCK: Lebensstil -->
+</div>
+<!-- END BLOCK: Ausruestung Tab -->
