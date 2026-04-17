@@ -679,6 +679,34 @@ fieldset.repeating_sr6geister .repcontrol {
   color: var(--sr6-line);
 }
 
+/* Roll20-Repeating-Labels lokalisieren */
+.charsheet .repcontrol {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.5rem;
+  margin-top: 0.25rem;
+}
+
+.charsheet .repcontrol button.repcontrol_add,
+.charsheet .repcontrol button.repcontrol_edit {
+  font-size: 0;
+  float: none;
+  margin: 0;
+}
+
+.charsheet .repcontrol button.repcontrol_add::after {
+  content: "Hinzufügen";
+  font-size: 0.7rem;
+  line-height: 1.1;
+}
+
+.charsheet .repcontrol button.repcontrol_edit::after {
+  content: "Sortieren/Löschen";
+  font-size: 0.7rem;
+  line-height: 1.1;
+}
+
 .sr6-foundry-item {
   background: rgba(255, 255, 255, 0.78);
   border: 0.0625rem solid rgba(0, 0, 0, 0.12);
@@ -789,6 +817,13 @@ fieldset.repeating_sr6geister .repcontrol {
   padding: 0;
   height: 1.25rem;
   font-size: 0.82rem;
+}
+
+.sr6-editable-section:has(.sr6-editable-section-mode:not(:checked)) .sr6-editable-item-fields select {
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  background-image: none;
 }
 
 .sr6-zauber-list-roll {
