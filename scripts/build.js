@@ -5,12 +5,14 @@ const path = require('path');
 const rootDir = path.resolve(__dirname, '..');
 const srcDir = path.join(rootDir, 'src');
 const htmlDir = path.join(srcDir, 'html');
+const i18nDir = path.join(srcDir, 'i18n');
 const srcImagesDir = path.join(srcDir, 'assets', 'images');
 const outputDir = path.join(rootDir, 'output');
 const outputImagesDir = path.join(outputDir, 'assets', 'images');
 const htmlSourcePath = path.join(htmlDir, 'charactersheet.html');
 const htmlTargetPath = path.join(outputDir, 'charactersheet.html');
 const INCLUDE_PATTERN = /<!--\s*@include\s+([^\s]+)\s*-->/g;
+const INCLUDE_ROOTS = [htmlDir, i18nDir];
 
 const SOURCE_FILES = [
   { from: path.join(srcDir, 'css', 'charactersheet.css'), to: path.join(outputDir, 'charactersheet.css') },
@@ -51,11 +53,7 @@ function resolveHtmlIncludes(filePath, stack = []) {
   const fileBody = fs.readFileSync(normalizedPath, 'utf8');
   return fileBody.replace(INCLUDE_PATTERN, (_, includeRef) => {
     const includePath = path.resolve(path.dirname(normalizedPath), includeRef);
-    const includeRel = path.relative(rootDir, includePath);
-
-    if (!includePath.startsWith(htmlDir + path.sep)) {
-      throw new Error(`Include outside src/html is not allowed: ${includeRel}`);
-    }
+    assertAllowedIncludePath(includePath);
 
     return resolveHtmlIncludes(includePath, nextStack);
   });
@@ -133,3 +131,19 @@ if (require.main === module) {
 }
 
 module.exports = { runBuild };
+function isInsideRoot(filePath, rootPath) {
+  const normalizedFilePath = path.resolve(filePath);
+  const normalizedRootPath = path.resolve(rootPath);
+  return (
+    normalizedFilePath === normalizedRootPath ||
+    normalizedFilePath.startsWith(normalizedRootPath + path.sep)
+  );
+}
+
+function assertAllowedIncludePath(filePath) {
+  if (!INCLUDE_ROOTS.some((rootPath) => isInsideRoot(filePath, rootPath))) {
+    throw new Error(
+      `Include outside allowed roots is not allowed: ${path.relative(rootDir, filePath)}`
+    );
+  }
+}
