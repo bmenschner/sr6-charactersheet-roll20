@@ -1,0 +1,81 @@
+    <!-- Runtime-i18n -->
+    <script id="sr6-i18n-data" type="application/json">
+      <!-- @include ../../../i18n/translation.json -->
+    </script>
+    <script>
+      (function () {
+        // Verwendet die zentrale i18n-Quelle aus src/i18n/translation.json.
+        function readTranslations() {
+          const dataNode = document.getElementById("sr6-i18n-data");
+          if (!dataNode) {
+            return { de: {} };
+          }
+
+          try {
+            const parsed = JSON.parse(dataNode.textContent || "{}");
+            if (parsed && typeof parsed === "object" && Object.keys(parsed).length > 0) {
+              return parsed;
+            }
+          } catch (err) {}
+
+          return { de: {} };
+        }
+
+        const translations = readTranslations();
+        const STORAGE_KEY = "sr6_i18n_lang";
+        const FALLBACK_LANGUAGE = "de";
+        const availableLanguages = Object.keys(translations);
+
+        function resolveLanguage(candidate) {
+          return availableLanguages.includes(candidate)
+            ? candidate
+            : FALLBACK_LANGUAGE;
+        }
+
+        // Wendet die gewaehlte Sprache auf alle data-i18n Knoten an.
+        function applyLanguage(lang) {
+          const activeLanguage = resolveLanguage(lang);
+          const locale = translations[activeLanguage] || translations[FALLBACK_LANGUAGE] || {};
+          document.documentElement.lang = activeLanguage;
+
+          document.querySelectorAll("[data-i18n]").forEach((node) => {
+            const key = node.getAttribute("data-i18n");
+            if (locale[key]) {
+              node.textContent = locale[key];
+            }
+          });
+
+          const picker = document.getElementById("sr6-language-select");
+          if (picker && picker.value !== activeLanguage) {
+            picker.value = activeLanguage;
+          }
+
+          try {
+            localStorage.setItem(STORAGE_KEY, activeLanguage);
+          } catch (err) {}
+        }
+
+        // Initiale Sprache aus Storage oder aus <html lang>.
+        function getInitialLanguage() {
+          try {
+            const storedLanguage = localStorage.getItem(STORAGE_KEY);
+            if (storedLanguage) {
+              return resolveLanguage(storedLanguage);
+            }
+          } catch (err) {}
+          return resolveLanguage(document.documentElement.lang);
+        }
+
+        document.addEventListener("DOMContentLoaded", () => {
+          const picker = document.getElementById("sr6-language-select");
+          const initialLanguage = getInitialLanguage();
+          applyLanguage(initialLanguage);
+
+          if (picker) {
+            picker.addEventListener("change", (event) => {
+              applyLanguage(event.target.value);
+            });
+          }
+        });
+      })();
+    </script>

@@ -4,6 +4,8 @@ const path = require('path');
 
 const rootDir = path.resolve(__dirname, '..');
 const srcHtmlDir = path.join(rootDir, 'src', 'html');
+const srcI18nDir = path.join(rootDir, 'src', 'i18n');
+const includeRoots = [srcHtmlDir, srcI18nDir];
 const entryFile = path.join(srcHtmlDir, 'charactersheet.html');
 const INCLUDE_PATTERN = /<!--\s*@include\s+([^\s]+)\s*-->/g;
 
@@ -13,8 +15,18 @@ function normalize(filePath) {
 
 function assertInsideSrcHtml(filePath) {
   const normalized = normalize(filePath);
-  if (!normalized.startsWith(srcHtmlDir + path.sep)) {
-    throw new Error(`Include outside src/html is not allowed: ${path.relative(rootDir, normalized)}`);
+  const isInsideAllowedRoots = includeRoots.some((rootPath) => {
+    const normalizedRootPath = normalize(rootPath);
+    return (
+      normalized === normalizedRootPath ||
+      normalized.startsWith(normalizedRootPath + path.sep)
+    );
+  });
+
+  if (!isInsideAllowedRoots) {
+    throw new Error(
+      `Include outside allowed roots is not allowed: ${path.relative(rootDir, normalized)}`
+    );
   }
   return normalized;
 }
