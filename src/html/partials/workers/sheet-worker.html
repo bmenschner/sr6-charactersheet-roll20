@@ -12,6 +12,27 @@
     "edge",
     "magie_resonanz"
   ];
+  const SR6_SKILLS = [
+    "astral",
+    "athletik",
+    "beschwoeren",
+    "biotech",
+    "cracken",
+    "einfluss",
+    "elektronik",
+    "exotische_waffen",
+    "feuerwaffen",
+    "heimlichkeit",
+    "hexerei",
+    "mechanik",
+    "nahkampf",
+    "natur",
+    "steuern",
+    "tasken",
+    "ueberreden",
+    "verzaubern",
+    "wahrnehmung"
+  ];
 
   // Parse helper mit Roll20-sicherem 0-Fallback.
   function parseNumber(value) {
@@ -19,16 +40,34 @@
     return Number.isNaN(parsed) ? 0 : parsed;
   }
 
+  // Mappt die Dropdown-Werte der Tradition auf interne Attribut-Keys.
+  function mapTraditionsattributToKey(value) {
+    const normalized = (value || "").trim().toLowerCase();
+    if (normalized === "charisma") return "charisma";
+    if (normalized === "intuition") return "intuition";
+    if (normalized === "konstitution") return "konstitution";
+    if (normalized === "logik") return "logik";
+    if (normalized === "willenskraft") return "willenskraft";
+    return "";
+  }
+
   // Recompute-Flow: liest Grundwerte/Modifikatoren und schreibt Gesamt/Derived-Werte.
   function recomputeAll() {
     const requestKeys = [];
     const updates = {};
     const totals = {};
+    const skillTotals = {};
 
     SR6_ATTRIBUTES.forEach((attributeName) => {
       requestKeys.push(`sr6_attr_${attributeName}_grundwert`);
       requestKeys.push(`sr6_attr_${attributeName}_modifikator`);
     });
+    SR6_SKILLS.forEach((skillName) => {
+      requestKeys.push(`sr6_skill_${skillName}_grundwert`);
+      requestKeys.push(`sr6_skill_${skillName}_modifikator`);
+    });
+    requestKeys.push("sr6_magic_traditionsattribut_1");
+    requestKeys.push("sr6_magic_traditionsattribut_2");
 
     getAttrs(requestKeys, (values) => {
       SR6_ATTRIBUTES.forEach((attributeName) => {
@@ -38,6 +77,15 @@
         const total = parseNumber(values[baseKey]) + parseNumber(values[modifierKey]);
 
         totals[attributeName] = total;
+        updates[totalKey] = String(total);
+      });
+      SR6_SKILLS.forEach((skillName) => {
+        const baseKey = `sr6_skill_${skillName}_grundwert`;
+        const modifierKey = `sr6_skill_${skillName}_modifikator`;
+        const totalKey = `sr6_skill_${skillName}_gesamtwert`;
+        const total = parseNumber(values[baseKey]) + parseNumber(values[modifierKey]);
+
+        skillTotals[skillName] = total;
         updates[totalKey] = String(total);
       });
 
@@ -52,6 +100,26 @@
       updates.sr6_derived_koerperlicher_monitor_max = String(8 + Math.ceil(konstitution / 2));
       updates.sr6_derived_geistiger_monitor_max = String(8 + Math.ceil(willenskraft / 2));
       updates.sr6_derived_edge_basis = String(edge);
+
+      // Magie-Tab: Werte aus Allgemein ableiten.
+      updates.sr6_magic_magie = String(totals.magie_resonanz || 0);
+      updates.sr6_magic_zauberpool = String(skillTotals.hexerei || 0);
+      updates.sr6_magic_spruchzauberei = String(
+        parseNumber(updates.sr6_magic_magie) + parseNumber(updates.sr6_magic_zauberpool)
+      );
+      updates.sr6_magic_waffenloser_kampf = String((skillTotals.astral || 0) + (totals.willenskraft || 0));
+      updates.sr6_magic_waffenfoki = String((skillTotals.nahkampf || 0) + (totals.willenskraft || 0));
+      updates.sr6_magic_astrale_verteidigung = String((totals.logik || 0) + (totals.intuition || 0));
+      updates.sr6_magic_astraler_schadenswiderstand = String(totals.willenskraft || 0);
+      updates.sr6_magic_astrale_initiative = String((totals.logik || 0) + (totals.intuition || 0));
+
+      const traditionKey1 = mapTraditionsattributToKey(values.sr6_magic_traditionsattribut_1);
+      const traditionKey2 = mapTraditionsattributToKey(values.sr6_magic_traditionsattribut_2);
+      const traditionValue1 = traditionKey1 ? (totals[traditionKey1] || 0) : 0;
+      const traditionValue2 = traditionKey2 ? (totals[traditionKey2] || 0) : 0;
+      updates.sr6_magic_entzug_widerstand = String(traditionValue1 + traditionValue2);
+      updates.sr6_magic_astralkampf_angriffswert = String((totals.magie_resonanz || 0) + traditionValue1);
+      updates.sr6_magic_astralkampf_verteidigungswert = String(totals.intuition || 0);
 
       setAttrs(updates, { silent: true });
     });
@@ -77,6 +145,12 @@
     recalcEvents.push(`change:sr6_attr_${attributeName}_grundwert`);
     recalcEvents.push(`change:sr6_attr_${attributeName}_modifikator`);
   });
+  SR6_SKILLS.forEach((skillName) => {
+    recalcEvents.push(`change:sr6_skill_${skillName}_grundwert`);
+    recalcEvents.push(`change:sr6_skill_${skillName}_modifikator`);
+  });
+  recalcEvents.push("change:sr6_magic_traditionsattribut_1");
+  recalcEvents.push("change:sr6_magic_traditionsattribut_2");
 
   on(recalcEvents.join(" "), recomputeAll);
   on("sheet:opened", () => {
