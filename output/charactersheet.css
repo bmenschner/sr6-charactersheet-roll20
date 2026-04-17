@@ -847,6 +847,45 @@ fieldset.repeating_sr6geister .repcontrol {
   display: none;
 }
 
+/* Allgemein/Fertigkeiten: Listenansicht fuer nicht-repeating Boxen */
+.sr6-editable-overview-section:has(.sr6-editable-section-mode:not(:checked)) .sr6-charactersheet-field input,
+.sr6-editable-overview-section:has(.sr6-editable-section-mode:not(:checked)) .sr6-charactersheet-field select,
+.sr6-editable-overview-section:has(.sr6-editable-section-mode:not(:checked)) .sr6-charactersheet-row > input,
+.sr6-editable-overview-section:has(.sr6-editable-section-mode:not(:checked)) .sr6-charactersheet-init-formula > input {
+  pointer-events: none;
+  user-select: none;
+  border-bottom: none;
+  padding: 0 0.25rem;
+  margin: 0;
+  height: 1.875rem;
+  line-height: 1.875rem;
+  font-size: 0.82rem;
+}
+
+.sr6-editable-overview-section:has(.sr6-editable-section-mode:not(:checked)) .sr6-charactersheet-field-input-with-dice {
+  grid-template-columns: minmax(0, 1fr);
+}
+
+.sr6-editable-overview-section:has(.sr6-editable-section-mode:not(:checked)) .sr6-charactersheet-field-dice-button {
+  display: none;
+}
+
+.sr6-editable-overview-section:has(.sr6-editable-section-mode:not(:checked)) .sr6-charactersheet-attr-value > span,
+.sr6-editable-overview-section:has(.sr6-editable-section-mode:not(:checked)) .sr6-charactersheet-init-formula > span,
+.sr6-editable-overview-section:has(.sr6-editable-section-mode:not(:checked)) .sr6-charactersheet-init-formula-with-dice > span {
+  display: none;
+}
+
+/* Attribute/Fertigkeiten: zweite Ueberschrift (Grundwert/Modifikator/Gesamtwert) in Listenansicht sichtbar lassen */
+.sr6-charactersheet-box-attribute.sr6-editable-overview-section:has(.sr6-editable-section-mode:not(:checked)) .sr6-charactersheet-attr-value > span,
+.sr6-charactersheet-box-fertigkeiten-allgemein.sr6-editable-overview-section:has(.sr6-editable-section-mode:not(:checked)) .sr6-charactersheet-attr-value > span {
+  display: block;
+}
+
+.sr6-editable-overview-section:has(.sr6-editable-section-mode:not(:checked)) .sr6-charactersheet-attr-values {
+  gap: 0.375rem;
+}
+
 .sr6-zauber-list-roll {
   display: none;
 }

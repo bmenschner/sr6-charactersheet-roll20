@@ -139,6 +139,32 @@
     setAttrs({ sr6_daten_tab: "allgemein" }, { silent: true });
   }
 
+  // Beim Laden alle Editier-Toggles auf Listenansicht (inaktiv) setzen.
+  function resetEditModesOnOpen() {
+    setAttrs(
+      {
+        sr6_allgemein_attribute_edit_mode: "0",
+        sr6_allgemein_initiative_edit_mode: "0",
+        sr6_fertigkeiten_edit_mode: "0",
+        sr6_allgemein_kampf_edit_mode: "0",
+        sr6_allgemein_verteidigung_edit_mode: "0",
+        sr6_allgemein_schadenswiderstand_edit_mode: "0",
+        sr6_magic_zauber_edit_mode: "0",
+        sr6_magic_adeptenkraefte_edit_mode: "0",
+        sr6_magic_foki_edit_mode: "0",
+        sr6_magic_metamagie_edit_mode: "0",
+        sr6_magic_rituale_edit_mode: "0",
+        sr6_magic_geister_edit_mode: "0",
+        sr6_ausruestung_edit_mode: "0",
+        sr6_cyberware_edit_mode: "0",
+        sr6_bioware_edit_mode: "0",
+        sr6_sin_edit_mode: "0",
+        sr6_lebensstil_edit_mode: "0",
+      },
+      { silent: true }
+    );
+  }
+
   // Eventliste: reagiert auf Aenderungen in allen relevanten Attributfeldern.
   const recalcEvents = [];
   SR6_ATTRIBUTES.forEach((attributeName) => {
@@ -155,6 +181,7 @@
   on(recalcEvents.join(" "), recomputeAll);
   on("sheet:opened", () => {
     resetTabToAllgemeinOnOpen();
+    resetEditModesOnOpen();
     normalizeLegacyCheckboxValues();
     recomputeAll();
   });
