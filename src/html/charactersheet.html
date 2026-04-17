@@ -216,6 +216,11 @@
         });
       }
 
+      // Beim Laden immer mit dem Tab "Allgemein" starten.
+      function resetTabToAllgemeinOnOpen() {
+        setAttrs({ sr6_daten_tab: "allgemein" }, { silent: true });
+      }
+
       // Eventliste: reagiert auf Aenderungen in allen relevanten Attributfeldern.
       const recalcEvents = [];
       SR6_ATTRIBUTES.forEach((attributeName) => {
@@ -225,6 +230,7 @@
 
       on(recalcEvents.join(" "), recomputeAll);
       on("sheet:opened", () => {
+        resetTabToAllgemeinOnOpen();
         normalizeLegacyCheckboxValues();
         recomputeAll();
       });
