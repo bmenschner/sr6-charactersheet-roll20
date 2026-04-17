@@ -253,6 +253,20 @@ body,
   border-bottom-color: var(--sr6-line);
 }
 
+.sr6-charactersheet-tradition-values {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr);
+  gap: 0.375rem;
+  align-items: end;
+}
+
+.sr6-charactersheet-tradition-plus {
+  font-size: 1rem;
+  line-height: var(--sr6-field-height);
+  font-weight: 700;
+  color: var(--sr6-title);
+}
+
 .sr6-charactersheet-mod-popup details {
   width: 100%;
 }
@@ -581,6 +595,31 @@ fieldset.repeating_sr6panzerung .repcontrol {
   grid-column: 1 / -1;
 }
 
+fieldset.repeating_sr6zauber,
+fieldset.repeating_sr6rituale,
+fieldset.repeating_sr6metamagie,
+fieldset.repeating_sr6foki,
+fieldset.repeating_sr6adeptenkraefte,
+fieldset.repeating_sr6geister {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: 0.625rem;
+  align-items: start;
+  margin: 0;
+  padding: 0;
+  border: none;
+  min-inline-size: 0;
+}
+
+fieldset.repeating_sr6zauber .repcontrol,
+fieldset.repeating_sr6rituale .repcontrol,
+fieldset.repeating_sr6metamagie .repcontrol,
+fieldset.repeating_sr6foki .repcontrol,
+fieldset.repeating_sr6adeptenkraefte .repcontrol,
+fieldset.repeating_sr6geister .repcontrol {
+  margin-top: 0.25rem;
+}
+
 .charsheet .repcontainer[data-groupname="repeating_sr6fernkampfwaffen"],
 .charsheet .repcontainer[data-groupname="repeating_sr6nahkampfwaffen"],
 .charsheet .repcontainer[data-groupname="repeating_sr6panzerung"] {
@@ -590,11 +629,54 @@ fieldset.repeating_sr6panzerung .repcontrol {
   align-items: start;
 }
 
+.charsheet .repcontainer[data-groupname="repeating_sr6zauber"],
+.charsheet .repcontainer[data-groupname="repeating_sr6rituale"],
+.charsheet .repcontainer[data-groupname="repeating_sr6metamagie"],
+.charsheet .repcontainer[data-groupname="repeating_sr6foki"],
+.charsheet .repcontainer[data-groupname="repeating_sr6adeptenkraefte"],
+.charsheet .repcontainer[data-groupname="repeating_sr6geister"] {
+  display: grid !important;
+  grid-template-columns: minmax(0, 1fr);
+  gap: 0.625rem;
+  align-items: start;
+}
+
 .charsheet .repcontainer[data-groupname="repeating_sr6fernkampfwaffen"] > .repitem,
 .charsheet .repcontainer[data-groupname="repeating_sr6nahkampfwaffen"] > .repitem,
 .charsheet .repcontainer[data-groupname="repeating_sr6panzerung"] > .repitem {
   margin: 0;
   grid-column: auto / span 1 !important;
+}
+
+.charsheet .repcontainer[data-groupname="repeating_sr6zauber"] > .repitem,
+.charsheet .repcontainer[data-groupname="repeating_sr6rituale"] > .repitem,
+.charsheet .repcontainer[data-groupname="repeating_sr6metamagie"] > .repitem,
+.charsheet .repcontainer[data-groupname="repeating_sr6foki"] > .repitem,
+.charsheet .repcontainer[data-groupname="repeating_sr6adeptenkraefte"] > .repitem,
+.charsheet .repcontainer[data-groupname="repeating_sr6geister"] > .repitem {
+  margin: 0;
+}
+
+.charsheet .repcontrol .btn,
+.charsheet .repcontrol button.btn,
+.charsheet .repcontrol button.repcontrol_add,
+.charsheet .repcontrol button.repcontrol_edit {
+  font-size: 0.75rem;
+  line-height: 1.1;
+  padding: 0.140625rem 0.375rem;
+  min-height: auto;
+  border: 0.0625rem solid var(--sr6-line-soft);
+  border-radius: 0.25rem;
+  background: rgba(255, 255, 255, 0.88);
+  color: var(--sr6-title);
+}
+
+.charsheet .repcontrol .btn:hover,
+.charsheet .repcontrol button.btn:hover,
+.charsheet .repcontrol button.repcontrol_add:hover,
+.charsheet .repcontrol button.repcontrol_edit:hover {
+  border-color: var(--sr6-line);
+  color: var(--sr6-line);
 }
 
 .sr6-foundry-item {
@@ -762,12 +844,32 @@ fieldset.repeating_sr6panzerung .repcontrol {
   gap: 0.75rem;
 }
 
+.sr6-charactersheet-tab-magie-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0.75rem;
+}
+
+.sr6-charactersheet-tab-magie-column {
+  display: grid;
+  gap: 0.75rem;
+  align-content: start;
+}
+
+.sr6-charactersheet-tab-magie-item--full {
+  grid-column: 1 / -1;
+}
+
 @media (max-width: 50rem) {
   .sr6-charactersheet-tab-allgemein-grid {
     grid-template-columns: minmax(0, 1fr);
   }
 
   .sr6-charactersheet-tab-kampf-grid {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .sr6-charactersheet-tab-magie-grid {
     grid-template-columns: minmax(0, 1fr);
   }
 

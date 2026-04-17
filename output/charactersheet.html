@@ -3149,71 +3149,399 @@
             class="sr6-charactersheet-tabpanel"
             role="tabpanel">
             <!-- BEGIN BLOCK: Magie Kernwerte -->
-            <!-- BEGIN BLOCK: Magie Kernwerte -->
-            <section
-              class="sr6-charactersheet-box"
-              aria-labelledby="magie-kern-titel">
-              <h2
-                id="magie-kern-titel"
-                class="sr6-charactersheet-box-title"
-                data-i18n="section.magie_kern">
-                Magie: Kernwerte
-              </h2>
+            <!-- BEGIN BLOCK: Magie Tab -->
+<div class="sr6-charactersheet-tab-magie-grid">
+  <!-- BEGIN BLOCK: Magie Kernwerte -->
+  <section
+    class="sr6-charactersheet-box sr6-charactersheet-tab-magie-item--full"
+    aria-labelledby="magie-kern-titel">
+      <h2
+        id="magie-kern-titel"
+        class="sr6-charactersheet-box-title"
+        data-i18n="section.magie_kern">
+        Magie: Kernwerte
+      </h2>
 
-              <div class="sr6-charactersheet-box-content">
-                <div class="sr6-charactersheet-row sr6-charactersheet-row-2">
-                  <div class="sr6-charactersheet-field">
-                    <span data-i18n="field.magische_tradition"
-                      >Magische Tradition</span
-                    >
-                    <input type="text" name="attr_sr6_magic_tradition" />
-                  </div>
+      <div class="sr6-charactersheet-box-content">
+        <div class="sr6-charactersheet-row sr6-charactersheet-row-2">
+          <div class="sr6-charactersheet-field">
+            <span data-i18n="field.magische_tradition">Magische Tradition</span>
+            <input type="text" name="attr_sr6_magic_tradition" />
+          </div>
 
-                  <div class="sr6-charactersheet-field">
-                    <span data-i18n="field.zauberpool">Zauberpool</span>
-                    <div class="sr6-charactersheet-field-input-with-dice">
-                      <input
-                        type="text"
-                        name="attr_sr6_magic_zauberpool" /><button
-                        type="roll"
-                        class="sr6-charactersheet-field-dice-button"
-                        name="roll_sr6_tab_magie_zauberpool"
-                        value="&{template:default} {{name=Magie-Test}} {{Pool=[[@{sr6_magic_zauberpool}]]}} {{Erfolge=[[@{sr6_magic_zauberpool}d6cs>4]]}}"
-                        aria-label="Wuerfeln"></button>
-                    </div>
-                  </div>
-                </div>
+          <div class="sr6-charactersheet-field">
+            <span data-i18n="field.traditionsattribut">Traditionsattribut</span>
+            <div class="sr6-charactersheet-tradition-values">
+              <div class="sr6-charactersheet-field">
+                <select name="attr_sr6_magic_traditionsattribut_1">
+                  <option value="Willenskraft" data-i18n="field.willenskraft">Willenskraft</option>
+                  <option value="Logik" data-i18n="field.logik">Logik</option>
+                  <option value="Intuition" data-i18n="field.intuition">Intuition</option>
+                  <option value="Charisma" data-i18n="field.charisma">Charisma</option>
+                </select>
+              </div>
+              <span class="sr6-charactersheet-tradition-plus" aria-hidden="true">+</span>
+              <div class="sr6-charactersheet-field">
+                <select name="attr_sr6_magic_traditionsattribut_2">
+                  <option value="Willenskraft" data-i18n="field.willenskraft">Willenskraft</option>
+                  <option value="Logik" data-i18n="field.logik">Logik</option>
+                  <option value="Intuition" data-i18n="field.intuition">Intuition</option>
+                  <option value="Charisma" data-i18n="field.charisma">Charisma</option>
+                </select>
+              </div>
+            </div>
+          </div>
+        </div>
 
-                <div class="sr6-charactersheet-row sr6-charactersheet-row-3">
-                  <div class="sr6-charactersheet-field">
-                    <span data-i18n="field.entzug">Entzug</span>
-                    <input type="text" name="attr_sr6_magic_entzug" />
-                  </div>
+        <div class="sr6-charactersheet-row sr6-charactersheet-row-3">
+          <div class="sr6-charactersheet-field">
+            <span data-i18n="field.magie">Magie</span>
+            <div class="sr6-charactersheet-field-input-with-dice">
+              <input type="text" name="attr_sr6_magic_magie" /><button
+                type="roll"
+                class="sr6-charactersheet-field-dice-button"
+                name="roll_sr6_tab_magie_magie"
+                value="&{template:default} {{name=Magie}} {{Pool=[[@{sr6_magic_magie}]]}} {{Erfolge=[[@{sr6_magic_magie}d6cs>4]]}}"
+                aria-label="Wuerfeln"></button>
+            </div>
+          </div>
 
-                  <div class="sr6-charactersheet-field">
-                    <span data-i18n="field.entzug_widerstand"
-                      >Entzugwiderstand</span
-                    >
-                    <div class="sr6-charactersheet-field-input-with-dice">
-                      <input
-                        type="text"
-                        name="attr_sr6_magic_entzug_widerstand" /><button
-                        type="roll"
-                        class="sr6-charactersheet-field-dice-button"
-                        name="roll_sr6_tab_magie_entzug_widerstand"
-                        value="&{template:default} {{name=Entzugwiderstand}} {{Pool=[[@{sr6_magic_entzug_widerstand}]]}} {{Erfolge=[[@{sr6_magic_entzug_widerstand}d6cs>4]]}}"
-                        aria-label="Wuerfeln"></button>
-                    </div>
-                  </div>
+          <div class="sr6-charactersheet-field">
+            <span data-i18n="field.zauberpool">Zauberpool</span>
+            <div class="sr6-charactersheet-field-input-with-dice">
+              <input type="text" name="attr_sr6_magic_zauberpool" /><button
+                type="roll"
+                class="sr6-charactersheet-field-dice-button"
+                name="roll_sr6_tab_magie_zauberpool"
+                value="&{template:default} {{name=Magie-Test}} {{Pool=[[@{sr6_magic_zauberpool}]]}} {{Erfolge=[[@{sr6_magic_zauberpool}d6cs>4]]}}"
+                aria-label="Wuerfeln"></button>
+            </div>
+          </div>
 
-                  <div class="sr6-charactersheet-field">
-                    <span data-i18n="field.rituale_foki">Rituale/Foki</span>
-                    <input type="text" name="attr_sr6_magic_rituale_foki" />
-                  </div>
+          <div class="sr6-charactersheet-field">
+            <span data-i18n="field.entzug_widerstand">Entzugwiderstand</span>
+            <div class="sr6-charactersheet-field-input-with-dice">
+              <input type="text" name="attr_sr6_magic_entzug_widerstand" /><button
+                type="roll"
+                class="sr6-charactersheet-field-dice-button"
+                name="roll_sr6_tab_magie_entzug_widerstand"
+                value="&{template:default} {{name=Entzugwiderstand}} {{Pool=[[@{sr6_magic_entzug_widerstand}]]}} {{Erfolge=[[@{sr6_magic_entzug_widerstand}d6cs>4]]}}"
+                aria-label="Wuerfeln"></button>
+            </div>
+          </div>
+        </div>
+
+        <div class="sr6-charactersheet-row sr6-charactersheet-row-2">
+          <div class="sr6-charactersheet-field">
+            <span data-i18n="field.astrale_initiative">Astrale Initiative</span>
+            <div class="sr6-charactersheet-field-input-with-dice">
+              <input type="text" name="attr_sr6_magic_astrale_initiative" /><button
+                type="roll"
+                class="sr6-charactersheet-field-dice-button"
+                name="roll_sr6_tab_magie_astrale_initiative"
+                value="&{template:default} {{name=Astrale Initiative}} {{Pool=[[@{sr6_magic_astrale_initiative}]]}} {{Erfolge=[[@{sr6_magic_astrale_initiative}d6cs>4]]}}"
+                aria-label="Wuerfeln"></button>
+            </div>
+          </div>
+
+          <div class="sr6-charactersheet-field">
+            <span data-i18n="field.astrale_verteidigung">Astrale Verteidigung</span>
+            <div class="sr6-charactersheet-field-input-with-dice">
+              <input type="text" name="attr_sr6_magic_astrale_verteidigung" /><button
+                type="roll"
+                class="sr6-charactersheet-field-dice-button"
+                name="roll_sr6_tab_magie_astrale_verteidigung"
+                value="&{template:default} {{name=Astrale Verteidigung}} {{Pool=[[@{sr6_magic_astrale_verteidigung}]]}} {{Erfolge=[[@{sr6_magic_astrale_verteidigung}d6cs>4]]}}"
+                aria-label="Wuerfeln"></button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  <!-- END BLOCK: Magie Kernwerte -->
+
+  <!-- BEGIN BLOCK: Magie Zauber -->
+  <section
+    class="sr6-charactersheet-box sr6-charactersheet-tab-magie-item--full"
+    aria-labelledby="magie-zauber-titel">
+      <h2
+        id="magie-zauber-titel"
+        class="sr6-charactersheet-box-title"
+        data-i18n="section.magie_zauber">
+        Zauber
+      </h2>
+      <div class="sr6-charactersheet-box-content">
+        <fieldset class="repeating_sr6zauber">
+          <div class="sr6-foundry-item">
+            <div class="sr6-foundry-item-head sr6-charactersheet-row sr6-charactersheet-row-3">
+              <div class="sr6-charactersheet-field">
+                <span data-i18n="field.zauber_name">Zaubername</span>
+                <input type="text" name="attr_zauber_name" />
+              </div>
+              <div class="sr6-charactersheet-field">
+                <span data-i18n="field.zauber_art">Art</span>
+                <select name="attr_zauber_art">
+                  <option value="Kampf" data-i18n="field.zauber_art_kampf">Kampf</option>
+                  <option value="Detection" data-i18n="field.zauber_art_detection">Detection</option>
+                  <option value="Heilung" data-i18n="field.zauber_art_heilung">Heilung</option>
+                  <option value="Illusion" data-i18n="field.zauber_art_illusion">Illusion</option>
+                  <option value="Manipulation" data-i18n="field.zauber_art_manipulation">Manipulation</option>
+                </select>
+              </div>
+              <div class="sr6-charactersheet-field">
+                <span data-i18n="field.reichweite">Reichweite</span>
+                <select name="attr_zauber_reichweite">
+                  <option value="Selbst" data-i18n="field.reichweite_selbst">Selbst</option>
+                  <option value="Beruehrung" data-i18n="field.reichweite_beruehrung">Berührung</option>
+                  <option value="Sicht" data-i18n="field.reichweite_sicht">Sicht</option>
+                  <option value="Spezial" data-i18n="field.reichweite_spezial">Spezial</option>
+                </select>
+              </div>
+            </div>
+            <div class="sr6-foundry-item-row sr6-charactersheet-row sr6-charactersheet-row-3">
+              <div class="sr6-charactersheet-field">
+                <span data-i18n="field.dauer">Dauer</span>
+                <select name="attr_zauber_dauer">
+                  <option value="Sofort" data-i18n="field.dauer_sofort">Sofort</option>
+                  <option value="Aufrechterhalten" data-i18n="field.dauer_aufrechterhalten">Aufrechterhalten</option>
+                  <option value="Permanent" data-i18n="field.dauer_permanent">Permanent</option>
+                  <option value="Spezial" data-i18n="field.reichweite_spezial">Spezial</option>
+                </select>
+              </div>
+              <div class="sr6-charactersheet-field">
+                <span data-i18n="field.entzug">Entzug</span>
+                <input type="text" name="attr_zauber_entzug" />
+              </div>
+              <div class="sr6-charactersheet-field">
+                <span data-i18n="field.aufrechterhalten">Aufrechterhalten</span>
+                <input type="checkbox" name="attr_zauber_aufrechterhalten" value="1" />
+              </div>
+            </div>
+            <div class="sr6-foundry-item-footer sr6-charactersheet-row sr6-charactersheet-row-2">
+              <div class="sr6-charactersheet-field">
+                <span data-i18n="field.notiz">Notiz</span>
+                <input type="text" name="attr_zauber_notiz" />
+              </div>
+              <div class="sr6-charactersheet-field">
+                <span data-i18n="field.wurf">Wurf</span>
+                <div class="sr6-charactersheet-field-input-with-dice">
+                  <input type="text" name="attr_zauber_wurfpool" /><button
+                    type="roll"
+                    class="sr6-charactersheet-field-dice-button"
+                    name="roll_zauber_probe"
+                    value="&{template:default} {{name=Zauberprobe}} {{Zauber=@{zauber_name}}} {{Pool=[[@{zauber_wurfpool}]]}} {{Erfolge=[[@{zauber_wurfpool}d6cs>4]]}} {{Entzug=@{zauber_entzug}}}"
+                    aria-label="Wuerfeln"></button>
                 </div>
               </div>
-            </section>
-<!-- END BLOCK: Magie Kernwerte -->
+            </div>
+          </div>
+        </fieldset>
+      </div>
+  </section>
+  <!-- END BLOCK: Magie Zauber -->
+
+  <!-- BEGIN BLOCK: Magie Adeptenkraefte -->
+  <section
+    class="sr6-charactersheet-box sr6-charactersheet-tab-magie-item--full"
+    aria-labelledby="magie-adeptenkraefte-titel">
+      <h2
+        id="magie-adeptenkraefte-titel"
+        class="sr6-charactersheet-box-title"
+        data-i18n="section.magie_adeptenkraefte">
+        Adeptenkräfte
+      </h2>
+      <div class="sr6-charactersheet-box-content">
+        <fieldset class="repeating_sr6adeptenkraefte">
+          <div class="sr6-foundry-item">
+            <div class="sr6-foundry-item-head sr6-charactersheet-row sr6-charactersheet-row-3">
+              <div class="sr6-charactersheet-field">
+                <span data-i18n="field.name">Name</span>
+                <input type="text" name="attr_adeptenkraft_name" />
+              </div>
+              <div class="sr6-charactersheet-field">
+                <span data-i18n="field.stufe">Stufe</span>
+                <input type="text" name="attr_adeptenkraft_stufe" />
+              </div>
+              <div class="sr6-charactersheet-field">
+                <span data-i18n="field.kraftpunkt">Kraftpunkt</span>
+                <input type="text" name="attr_adeptenkraft_kraftpunkt" />
+              </div>
+            </div>
+          </div>
+        </fieldset>
+      </div>
+  </section>
+  <!-- END BLOCK: Magie Adeptenkraefte -->
+
+  <!-- BEGIN BLOCK: Magie Foki -->
+  <section class="sr6-charactersheet-box" aria-labelledby="magie-foki-titel">
+    <h2
+      id="magie-foki-titel"
+      class="sr6-charactersheet-box-title"
+      data-i18n="section.magie_foki">
+      Foki
+    </h2>
+    <div class="sr6-charactersheet-box-content">
+      <fieldset class="repeating_sr6foki">
+        <div class="sr6-foundry-item">
+          <div class="sr6-foundry-item-head sr6-charactersheet-row sr6-charactersheet-row-3">
+            <div class="sr6-charactersheet-field">
+              <span data-i18n="field.fokus_name">Fokusname</span>
+              <input type="text" name="attr_fokus_name" />
+            </div>
+            <div class="sr6-charactersheet-field">
+              <span data-i18n="field.fokus_art">Art</span>
+              <select name="attr_fokus_art">
+                <option value="Waffenfokus" data-i18n="field.fokus_art_waffenfokus">Waffenfokus</option>
+                <option value="Kraftfokus" data-i18n="field.fokus_art_kraftfokus">Kraftfokus</option>
+                <option value="Zauberfokus" data-i18n="field.fokus_art_zauberfokus">Zauberfokus</option>
+                <option value="Fetisch" data-i18n="field.fokus_art_fetisch">Fetisch</option>
+              </select>
+            </div>
+            <div class="sr6-charactersheet-field">
+              <span data-i18n="field.stufe">Stufe</span>
+              <input type="text" name="attr_fokus_stufe" />
+            </div>
+          </div>
+          <div class="sr6-foundry-item-footer sr6-charactersheet-row sr6-charactersheet-row-2">
+            <div class="sr6-charactersheet-field">
+              <span data-i18n="field.notiz">Notiz</span>
+              <input type="text" name="attr_fokus_notiz" />
+            </div>
+            <div class="sr6-charactersheet-field">
+              <span data-i18n="field.aktiv">Aktiv</span>
+              <input type="checkbox" name="attr_fokus_aktiv" value="1" />
+            </div>
+          </div>
+        </div>
+      </fieldset>
+    </div>
+  </section>
+  <!-- END BLOCK: Magie Foki -->
+
+  <!-- BEGIN BLOCK: Magie Metamagie -->
+  <section class="sr6-charactersheet-box" aria-labelledby="magie-metamagie-titel">
+    <h2
+      id="magie-metamagie-titel"
+      class="sr6-charactersheet-box-title"
+      data-i18n="section.magie_metamagie">
+      Metamagie
+    </h2>
+    <div class="sr6-charactersheet-box-content">
+      <fieldset class="repeating_sr6metamagie">
+        <div class="sr6-foundry-item">
+          <div class="sr6-foundry-item-head sr6-charactersheet-row sr6-charactersheet-row-2">
+            <div class="sr6-charactersheet-field">
+              <span data-i18n="field.metamagie_name">Name</span>
+              <input type="text" name="attr_metamagie_name" />
+            </div>
+            <div class="sr6-charactersheet-field">
+              <span data-i18n="field.initiationsgrad">Initiationsgrad</span>
+              <input type="text" name="attr_metamagie_initiationsgrad" />
+            </div>
+          </div>
+          <div class="sr6-foundry-item-footer sr6-charactersheet-row sr6-charactersheet-row-1">
+            <div class="sr6-charactersheet-field">
+              <span data-i18n="field.notiz">Notiz</span>
+              <input type="text" name="attr_metamagie_notiz" />
+            </div>
+          </div>
+        </div>
+      </fieldset>
+    </div>
+  </section>
+  <!-- END BLOCK: Magie Metamagie -->
+
+  <!-- BEGIN BLOCK: Magie Rituale -->
+  <section class="sr6-charactersheet-box" aria-labelledby="magie-rituale-titel">
+      <h2
+        id="magie-rituale-titel"
+        class="sr6-charactersheet-box-title"
+        data-i18n="section.magie_rituale">
+        Rituale
+      </h2>
+      <div class="sr6-charactersheet-box-content">
+        <fieldset class="repeating_sr6rituale">
+          <div class="sr6-foundry-item">
+            <div class="sr6-foundry-item-head sr6-charactersheet-row sr6-charactersheet-row-3">
+              <div class="sr6-charactersheet-field">
+                <span data-i18n="field.ritual_name">Ritualname</span>
+                <input type="text" name="attr_ritual_name" />
+              </div>
+              <div class="sr6-charactersheet-field">
+                <span data-i18n="field.ritual_schwelle">Schwelle</span>
+                <input type="text" name="attr_ritual_schwelle" />
+              </div>
+              <div class="sr6-charactersheet-field">
+                <span data-i18n="field.dauer">Dauer</span>
+                <input type="text" name="attr_ritual_dauer" />
+              </div>
+            </div>
+            <div class="sr6-foundry-item-footer sr6-charactersheet-row sr6-charactersheet-row-2">
+              <div class="sr6-charactersheet-field">
+                <span data-i18n="field.notiz">Notiz</span>
+                <input type="text" name="attr_ritual_notiz" />
+              </div>
+              <div class="sr6-charactersheet-field">
+                <span data-i18n="field.wurf">Wurf</span>
+                <div class="sr6-charactersheet-field-input-with-dice">
+                  <input type="text" name="attr_ritual_wurfpool" /><button
+                    type="roll"
+                    class="sr6-charactersheet-field-dice-button"
+                    name="roll_ritual_probe"
+                    value="&{template:default} {{name=Ritualprobe}} {{Ritual=@{ritual_name}}} {{Pool=[[@{ritual_wurfpool}]]}} {{Erfolge=[[@{ritual_wurfpool}d6cs>4]]}} {{Schwelle=@{ritual_schwelle}}}"
+                    aria-label="Wuerfeln"></button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </fieldset>
+      </div>
+  </section>
+  <!-- END BLOCK: Magie Rituale -->
+
+  <!-- BEGIN BLOCK: Magie Geister -->
+  <section class="sr6-charactersheet-box" aria-labelledby="magie-geister-titel">
+    <h2
+      id="magie-geister-titel"
+      class="sr6-charactersheet-box-title"
+      data-i18n="section.magie_geister">
+      Geister
+    </h2>
+    <div class="sr6-charactersheet-box-content">
+      <fieldset class="repeating_sr6geister">
+        <div class="sr6-foundry-item">
+          <div class="sr6-foundry-item-head sr6-charactersheet-row sr6-charactersheet-row-4">
+            <div class="sr6-charactersheet-field">
+              <span data-i18n="field.name">Name</span>
+              <input type="text" name="attr_geist_name" />
+            </div>
+            <div class="sr6-charactersheet-field">
+              <span data-i18n="field.typ">Typ</span>
+              <input type="text" name="attr_geist_typ" />
+            </div>
+            <div class="sr6-charactersheet-field">
+              <span data-i18n="field.stufe">Stufe</span>
+              <input type="text" name="attr_geist_stufe" />
+            </div>
+            <div class="sr6-charactersheet-field">
+              <span data-i18n="field.dienste">Dienste</span>
+              <input type="text" name="attr_geist_dienste" />
+            </div>
+          </div>
+          <div class="sr6-foundry-item-footer sr6-charactersheet-row sr6-charactersheet-row-1">
+            <div class="sr6-charactersheet-field">
+              <span data-i18n="field.kraefte">Kräfte</span>
+              <input type="text" name="attr_geist_kraefte" />
+            </div>
+          </div>
+        </div>
+      </fieldset>
+    </div>
+  </section>
+  <!-- END BLOCK: Magie Geister -->
+</div>
+<!-- END BLOCK: Magie Tab -->
 
             <!-- END BLOCK: Magie Kernwerte -->
           </div>
@@ -3709,6 +4037,12 @@
   "section.kampf_panzerung": "Panzerung",
   "section.fertigkeiten_basis": "Fertigkeiten",
   "section.magie_kern": "Magie: Kernwerte",
+  "section.magie_zauber": "Zauber",
+  "section.magie_adeptenkraefte": "Adeptenkräfte",
+  "section.magie_rituale": "Rituale",
+  "section.magie_geister": "Geister",
+  "section.magie_metamagie": "Metamagie",
+  "section.magie_foki": "Foki",
   "section.matrix_kern": "Matrix: Kernwerte",
   "section.rigging_kern": "Rigging: Kernwerte",
   "section.ausruestung_kern": "Ausrüstung: Übersicht",
@@ -3737,6 +4071,7 @@
   "field.intuition": "Intuition",
   "field.charisma": "Charisma",
   "field.edge": "Edge",
+  "field.magie": "Magie",
   "field.magie_resonanz": "Magie/Resonanz",
   "field.grundwert": "Grundwert",
   "field.modifikator": "Modifikator",
@@ -3773,10 +4108,49 @@
   "field.fertigkeits_pool": "Pool",
   "field.wurf": "Wurf",
   "field.magische_tradition": "Magische Tradition",
+  "field.traditionsattribut": "Traditionsattribut",
+  "field.wert_1": "Wert 1",
+  "field.wert_2": "Wert 2",
   "field.zauberpool": "Zauberpool",
   "field.entzug": "Entzug",
   "field.entzug_widerstand": "Entzugwiderstand",
   "field.rituale_foki": "Rituale/Foki",
+  "field.astraler_angriff": "Astraler Angriff",
+  "field.astrale_initiative": "Astrale Initiative",
+  "field.astrale_verteidigung": "Astrale Verteidigung",
+  "field.zauber_name": "Zaubername",
+  "field.zauber_art": "Art",
+  "field.zauber_art_kampf": "Kampf",
+  "field.zauber_art_detection": "Detection",
+  "field.zauber_art_heilung": "Heilung",
+  "field.zauber_art_illusion": "Illusion",
+  "field.zauber_art_manipulation": "Manipulation",
+  "field.reichweite": "Reichweite",
+  "field.reichweite_selbst": "Selbst",
+  "field.reichweite_beruehrung": "Berührung",
+  "field.reichweite_sicht": "Sicht",
+  "field.reichweite_spezial": "Spezial",
+  "field.dauer": "Dauer",
+  "field.dauer_sofort": "Sofort",
+  "field.dauer_aufrechterhalten": "Aufrechterhalten",
+  "field.dauer_permanent": "Permanent",
+  "field.aufrechterhalten": "Aufrechterhalten",
+  "field.ritual_name": "Ritualname",
+  "field.ritual_schwelle": "Schwelle",
+  "field.metamagie_name": "Name",
+  "field.initiationsgrad": "Initiationsgrad",
+  "field.fokus_name": "Fokusname",
+  "field.fokus_art": "Art",
+  "field.fokus_art_waffenfokus": "Waffenfokus",
+  "field.fokus_art_kraftfokus": "Kraftfokus",
+  "field.fokus_art_zauberfokus": "Zauberfokus",
+  "field.fokus_art_fetisch": "Fetisch",
+  "field.stufe": "Stufe",
+  "field.aktiv": "Aktiv",
+  "field.kraftpunkt": "Kraftpunkt",
+  "field.typ": "Typ",
+  "field.dienste": "Dienste",
+  "field.kraefte": "Kräfte",
   "field.cyberdeck_persona": "Cyberdeck/Persona",
   "field.matrix_initiative": "Matrix-Initiative",
   "field.matrix_angriff": "Angriff",
