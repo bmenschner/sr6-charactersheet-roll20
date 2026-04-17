@@ -18,10 +18,12 @@ body,
   background-color: #d2d2d2;
   background-image:
     linear-gradient(rgba(255, 255, 255, 0.58), rgba(255, 255, 255, 0.58)),
+    url("https://raw.githubusercontent.com/bmenschner/sr6-charactersheet-roll20/feature/background/src/assets/images/foundry-border-right.webp"),
+    url("https://raw.githubusercontent.com/bmenschner/sr6-charactersheet-roll20/feature/background/src/assets/images/foundry-background.webp"),
     url("https://raw.githubusercontent.com/bmenschner/sr6-charactersheet-roll20/main/src/assets/images/background.jpg");
-  background-repeat: no-repeat, no-repeat;
-  background-size: cover, cover;
-  background-position: center center, center center;
+  background-repeat: repeat, no-repeat, repeat, repeat;
+  background-size: auto, auto, auto, cover;
+  background-position: left top, right top, left top, center top;
   color: var(--sr6-text);
   font-family: "Segoe UI", "Helvetica Neue", Arial, sans-serif;
 }
