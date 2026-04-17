@@ -995,6 +995,23 @@ fieldset.repeating_sr6geister .repcontrol {
   margin-bottom: 0;
 }
 
+.sr6-info-icon {
+  display: inline-block;
+  margin-left: 0.25rem;
+  width: 0.875rem;
+  height: 0.875rem;
+  line-height: 0.875rem;
+  border: 0.0625rem solid var(--sr6-line-soft);
+  border-radius: 999rem;
+  text-align: center;
+  font-size: 0.625rem;
+  font-weight: 700;
+  color: var(--sr6-title);
+  background: rgba(255, 255, 255, 0.85);
+  cursor: help;
+  vertical-align: text-top;
+}
+
 /* Roll20 tabs: standardmaessig ausblenden, per Button einblenden */
 .nav.nav-tabs {
   position: fixed;
