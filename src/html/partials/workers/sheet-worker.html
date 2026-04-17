@@ -40,6 +40,17 @@
     return Number.isNaN(parsed) ? 0 : parsed;
   }
 
+  // Mappt die Dropdown-Werte der Tradition auf interne Attribut-Keys.
+  function mapTraditionsattributToKey(value) {
+    const normalized = (value || "").trim().toLowerCase();
+    if (normalized === "charisma") return "charisma";
+    if (normalized === "intuition") return "intuition";
+    if (normalized === "konstitution") return "konstitution";
+    if (normalized === "logik") return "logik";
+    if (normalized === "willenskraft") return "willenskraft";
+    return "";
+  }
+
   // Recompute-Flow: liest Grundwerte/Modifikatoren und schreibt Gesamt/Derived-Werte.
   function recomputeAll() {
     const requestKeys = [];
@@ -54,6 +65,8 @@
       requestKeys.push(`sr6_skill_${skillName}_grundwert`);
       requestKeys.push(`sr6_skill_${skillName}_modifikator`);
     });
+    requestKeys.push("sr6_magic_traditionsattribut_1");
+    requestKeys.push("sr6_magic_traditionsattribut_2");
 
     getAttrs(requestKeys, (values) => {
       SR6_ATTRIBUTES.forEach((attributeName) => {
@@ -86,6 +99,16 @@
       updates.sr6_derived_geistiger_monitor_max = String(8 + Math.ceil(willenskraft / 2));
       updates.sr6_derived_edge_basis = String(edge);
 
+      // Magie-Tab: Werte aus Allgemein ableiten.
+      updates.sr6_magic_magie = String(totals.magie_resonanz || 0);
+      updates.sr6_magic_zauberpool = String(parseNumber(updates.sr6_skill_hexerei_gesamtwert));
+
+      const traditionKey1 = mapTraditionsattributToKey(values.sr6_magic_traditionsattribut_1);
+      const traditionKey2 = mapTraditionsattributToKey(values.sr6_magic_traditionsattribut_2);
+      const traditionValue1 = traditionKey1 ? (totals[traditionKey1] || 0) : 0;
+      const traditionValue2 = traditionKey2 ? (totals[traditionKey2] || 0) : 0;
+      updates.sr6_magic_entzug_widerstand = String(traditionValue1 + traditionValue2);
+
       setAttrs(updates, { silent: true });
     });
   }
@@ -114,6 +137,8 @@
     recalcEvents.push(`change:sr6_skill_${skillName}_grundwert`);
     recalcEvents.push(`change:sr6_skill_${skillName}_modifikator`);
   });
+  recalcEvents.push("change:sr6_magic_traditionsattribut_1");
+  recalcEvents.push("change:sr6_magic_traditionsattribut_2");
 
   on(recalcEvents.join(" "), recomputeAll);
   on("sheet:opened", () => {

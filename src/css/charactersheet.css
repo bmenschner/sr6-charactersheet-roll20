@@ -757,6 +757,13 @@ fieldset.repeating_sr6geister .repcontrol {
 
 .sr6-editable-section:has(.sr6-editable-section-mode:checked) .sr6-editable-section-toggle {
   border-color: var(--sr6-line);
+  background: var(--sr6-line);
+  color: #fff;
+}
+
+.sr6-editable-section:has(.sr6-editable-section-mode:not(:checked)) .sr6-editable-section-toggle {
+  border-color: var(--sr6-line);
+  background: rgba(255, 255, 255, 0.88);
   color: var(--sr6-line);
 }
 
