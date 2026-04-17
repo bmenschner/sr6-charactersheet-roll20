@@ -661,7 +661,7 @@ fieldset.repeating_sr6geister .repcontrol {
 .charsheet .repcontrol button.btn,
 .charsheet .repcontrol button.repcontrol_add,
 .charsheet .repcontrol button.repcontrol_edit {
-  font-size: 0.75rem;
+  font-size: 0.7em;
   line-height: 1.1;
   padding: 0.140625rem 0.375rem;
   min-height: auto;
@@ -711,6 +711,82 @@ fieldset.repeating_sr6geister .repcontrol {
 
 .sr6-foundry-item--armor .sr6-foundry-item-head {
   margin-top: 0;
+}
+
+.sr6-zauber-title-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.5rem;
+}
+
+.sr6-zauber-title-row .sr6-charactersheet-box-title {
+  padding-right: 0;
+}
+
+.sr6-zauber-title-row + .sr6-charactersheet-box-content {
+  padding-top: 0.25rem;
+}
+
+.sr6-zauber-item-toolbar {
+  display: flex;
+  justify-content: flex-end;
+  margin-bottom: 0.375rem;
+}
+
+.sr6-zauber-title-row .sr6-zauber-edit-toggle {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: fit-content;
+  max-width: max-content;
+  padding: 0.140625rem 0.375rem;
+  border: 0.0625rem solid var(--sr6-line-soft);
+  border-radius: 0.25rem;
+  color: var(--sr6-title);
+  font-size: 0.7em;
+  line-height: 1.1;
+  font-weight: 600;
+  background: rgba(255, 255, 255, 0.88);
+  cursor: pointer;
+  margin: 0;
+  flex: 0 0 auto;
+}
+
+.sr6-zauber-edit-mode {
+  position: absolute;
+  opacity: 0;
+  pointer-events: none;
+  width: 0;
+  height: 0;
+}
+
+.sr6-zauber-section:has(.sr6-zauber-edit-mode:checked) .sr6-zauber-edit-toggle {
+  border-color: var(--sr6-line);
+  color: var(--sr6-line);
+}
+
+.sr6-zauber-section:has(.sr6-zauber-edit-mode:not(:checked)) .sr6-zauber-item-fields .sr6-foundry-item-row,
+.sr6-zauber-section:has(.sr6-zauber-edit-mode:not(:checked)) .sr6-zauber-item-fields .sr6-foundry-item-footer {
+  display: none;
+}
+
+.sr6-zauber-section:has(.sr6-zauber-edit-mode:not(:checked)) .sr6-zauber-item-fields .sr6-foundry-item-head {
+  margin-top: 0;
+}
+
+.sr6-zauber-section:has(.sr6-zauber-edit-mode:not(:checked)) .sr6-zauber-item-fields .sr6-foundry-item-head .sr6-charactersheet-field > span {
+  display: none;
+}
+
+.sr6-zauber-section:has(.sr6-zauber-edit-mode:not(:checked)) .sr6-zauber-item-fields .sr6-foundry-item-head input,
+.sr6-zauber-section:has(.sr6-zauber-edit-mode:not(:checked)) .sr6-zauber-item-fields .sr6-foundry-item-head select {
+  pointer-events: none;
+  user-select: none;
+  border-bottom: none;
+  padding: 0;
+  height: 1.25rem;
+  font-size: 0.82rem;
 }
 
 @media (max-width: 50rem) {
