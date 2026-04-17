@@ -140,29 +140,46 @@
   }
 
   // Beim Laden alle Editier-Toggles auf Listenansicht (inaktiv) setzen.
+  function getEditModeResetPayload() {
+    return {
+      sr6_allgemein_attribute_edit_mode: "0",
+      sr6_allgemein_initiative_edit_mode: "0",
+      sr6_fertigkeiten_edit_mode: "0",
+      sr6_allgemein_kampf_edit_mode: "0",
+      sr6_allgemein_verteidigung_edit_mode: "0",
+      sr6_allgemein_schadenswiderstand_edit_mode: "0",
+      sr6_magic_zauber_edit_mode: "0",
+      sr6_magic_adeptenkraefte_edit_mode: "0",
+      sr6_magic_foki_edit_mode: "0",
+      sr6_magic_metamagie_edit_mode: "0",
+      sr6_magic_rituale_edit_mode: "0",
+      sr6_magic_geister_edit_mode: "0",
+      sr6_ausruestung_edit_mode: "0",
+      sr6_cyberware_edit_mode: "0",
+      sr6_bioware_edit_mode: "0",
+      sr6_sin_edit_mode: "0",
+      sr6_lebensstil_edit_mode: "0",
+    };
+  }
+
   function resetEditModesOnOpen() {
-    setAttrs(
-      {
-        sr6_allgemein_attribute_edit_mode: "0",
-        sr6_allgemein_initiative_edit_mode: "0",
-        sr6_fertigkeiten_edit_mode: "0",
-        sr6_allgemein_kampf_edit_mode: "0",
-        sr6_allgemein_verteidigung_edit_mode: "0",
-        sr6_allgemein_schadenswiderstand_edit_mode: "0",
-        sr6_magic_zauber_edit_mode: "0",
-        sr6_magic_adeptenkraefte_edit_mode: "0",
-        sr6_magic_foki_edit_mode: "0",
-        sr6_magic_metamagie_edit_mode: "0",
-        sr6_magic_rituale_edit_mode: "0",
-        sr6_magic_geister_edit_mode: "0",
-        sr6_ausruestung_edit_mode: "0",
-        sr6_cyberware_edit_mode: "0",
-        sr6_bioware_edit_mode: "0",
-        sr6_sin_edit_mode: "0",
-        sr6_lebensstil_edit_mode: "0",
-      },
-      { silent: true }
-    );
+    setAttrs(getEditModeResetPayload(), { silent: true });
+  }
+
+  // Beim Laden ist das globale Schloss immer aktiv.
+  function resetGlobalEditLockOnOpen() {
+    setAttrs({ sr6_global_edit_lock: "on" }, { silent: true });
+  }
+
+  // Bei aktivem Schloss alle Editiermodi hart deaktivieren.
+  function enforceEditLock() {
+    setAttrs(getEditModeResetPayload(), { silent: true });
+  }
+
+  function onGlobalEditLockChanged(eventInfo) {
+    if ((eventInfo.newValue || "").trim().toLowerCase() === "on") {
+      enforceEditLock();
+    }
   }
 
   // Eventliste: reagiert auf Aenderungen in allen relevanten Attributfeldern.
@@ -181,9 +198,11 @@
   on(recalcEvents.join(" "), recomputeAll);
   on("sheet:opened", () => {
     resetTabToAllgemeinOnOpen();
+    resetGlobalEditLockOnOpen();
     resetEditModesOnOpen();
     normalizeLegacyCheckboxValues();
     recomputeAll();
   });
   on("change:sr6_combat_helm", normalizeLegacyCheckboxValues);
+  on("change:sr6_global_edit_lock", onGlobalEditLockChanged);
 </script>
