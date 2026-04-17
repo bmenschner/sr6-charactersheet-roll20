@@ -26,6 +26,11 @@ body,
   font-family: "Segoe UI", "Helvetica Neue", Arial, sans-serif;
 }
 
+#dialog-window.ui-dialog .sheetform,
+#dialog-window.ui-dialog .sheetform .charsheet {
+  background: transparent !important;
+}
+
 .ui-dialog .charsheet input {
     height: var(--sr6-field-height);
 }
