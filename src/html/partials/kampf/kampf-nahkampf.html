@@ -16,25 +16,25 @@
         <div class="sr6-foundry-item-head sr6-charactersheet-row sr6-charactersheet-row-3">
           <div class="sr6-charactersheet-field">
             <span data-i18n="field.nahkampfwaffe">Nahkampfwaffe</span>
-            <input type="text" name="attr_nahkampfwaffe" />
+            <input type="text" name="attr_sr6_nahkampfwaffe" />
           </div>
 
           <div class="sr6-charactersheet-field">
             <span data-i18n="field.fertigkeit">Fertigkeit</span>
-            <select name="attr_nahkampf_fertigkeit">
-              <option value="Nahkampf">Nahkampf</option>
-              <option value="Exotische Waffen">Exotische Waffen</option>
+            <select name="attr_sr6_nahkampf_fertigkeit">
+              <option value="Nahkampf" data-i18n="skill.nahkampf">Nahkampf</option>
+              <option value="Exotische Waffen" data-i18n="skill.exotische_waffen">Exotische Waffen</option>
             </select>
           </div>
 
           <div class="sr6-charactersheet-field">
             <span data-i18n="field.waffentyp">Waffentyp</span>
-            <select name="attr_nahkampf_waffentyp">
-              <option value="Klinge">Klinge</option>
-              <option value="Knüppel">Knüppel</option>
-              <option value="Unbewaffnet">Unbewaffnet</option>
-              <option value="Stangenwaffe">Stangenwaffe</option>
-              <option value="Exotisch">Exotisch</option>
+            <select name="attr_sr6_nahkampf_waffentyp">
+              <option value="Klinge" data-i18n="field.waffentyp_klinge">Klinge</option>
+              <option value="Knüppel" data-i18n="field.waffentyp_knueppel">Knüppel</option>
+              <option value="Unbewaffnet" data-i18n="field.waffentyp_unbewaffnet">Unbewaffnet</option>
+              <option value="Stangenwaffe" data-i18n="field.waffentyp_stangenwaffe">Stangenwaffe</option>
+              <option value="Exotisch" data-i18n="field.waffentyp_exotisch">Exotisch</option>
             </select>
           </div>
         </div>
@@ -42,7 +42,7 @@
         <div class="sr6-foundry-item-row sr6-charactersheet-row sr6-charactersheet-row-1">
           <div class="sr6-charactersheet-field">
             <span data-i18n="field.schaden">Schaden</span>
-            <input type="text" name="attr_nahkampf_schaden" />
+            <input type="text" name="attr_sr6_nahkampf_schaden" />
           </div>
         </div>
 
@@ -50,11 +50,11 @@
           <div class="sr6-charactersheet-field">
             <span data-i18n="field.s_nah">S. Nah</span>
             <div class="sr6-charactersheet-field-input-with-dice">
-              <input type="text" name="attr_nahkampf_s_nah" /><button
+              <input type="text" name="attr_sr6_nahkampf_s_nah" /><button
                 type="roll"
                 class="sr6-charactersheet-field-dice-button"
-                name="roll_nahkampf_s_nah"
-                value="&{template:default} {{name=Nahkampf-Test}} {{Waffe=@{nahkampfwaffe}}} {{Reichweite=S. Nah}} {{Pool=[[@{nahkampf_s_nah}]]}} {{Erfolge=[[@{nahkampf_s_nah}d6cs>4]]}}"
+                name="roll_sr6_nahkampf_s_nah"
+                value="&{template:default} {{name=Nahkampf-Test}} {{Waffe=@{sr6_nahkampfwaffe}}} {{Reichweite=S. Nah}} {{Pool=[[@{sr6_nahkampf_s_nah}]]}} {{Erfolge=[[@{sr6_nahkampf_s_nah}d6cs>4]]}}"
                 aria-label="Wuerfeln"></button>
             </div>
           </div>
@@ -62,11 +62,11 @@
           <div class="sr6-charactersheet-field">
             <span data-i18n="field.nah">Nah</span>
             <div class="sr6-charactersheet-field-input-with-dice">
-              <input type="text" name="attr_nahkampf_nah" /><button
+              <input type="text" name="attr_sr6_nahkampf_nah" /><button
                 type="roll"
                 class="sr6-charactersheet-field-dice-button"
-                name="roll_nahkampf_nah"
-                value="&{template:default} {{name=Nahkampf-Test}} {{Waffe=@{nahkampfwaffe}}} {{Reichweite=Nah}} {{Pool=[[@{nahkampf_nah}]]}} {{Erfolge=[[@{nahkampf_nah}d6cs>4]]}}"
+                name="roll_sr6_nahkampf_nah"
+                value="&{template:default} {{name=Nahkampf-Test}} {{Waffe=@{sr6_nahkampfwaffe}}} {{Reichweite=Nah}} {{Pool=[[@{sr6_nahkampf_nah}]]}} {{Erfolge=[[@{sr6_nahkampf_nah}d6cs>4]]}}"
                 aria-label="Wuerfeln"></button>
             </div>
           </div>
@@ -74,11 +74,11 @@
           <div class="sr6-charactersheet-field">
             <span data-i18n="field.mittel">Mittel</span>
             <div class="sr6-charactersheet-field-input-with-dice">
-              <input type="text" name="attr_nahkampf_mittel" /><button
+              <input type="text" name="attr_sr6_nahkampf_mittel" /><button
                 type="roll"
                 class="sr6-charactersheet-field-dice-button"
-                name="roll_nahkampf_mittel"
-                value="&{template:default} {{name=Nahkampf-Test}} {{Waffe=@{nahkampfwaffe}}} {{Reichweite=Mittel}} {{Pool=[[@{nahkampf_mittel}]]}} {{Erfolge=[[@{nahkampf_mittel}d6cs>4]]}}"
+                name="roll_sr6_nahkampf_mittel"
+                value="&{template:default} {{name=Nahkampf-Test}} {{Waffe=@{sr6_nahkampfwaffe}}} {{Reichweite=Mittel}} {{Pool=[[@{sr6_nahkampf_mittel}]]}} {{Erfolge=[[@{sr6_nahkampf_mittel}d6cs>4]]}}"
                 aria-label="Wuerfeln"></button>
             </div>
           </div>
@@ -86,11 +86,11 @@
           <div class="sr6-charactersheet-field">
             <span data-i18n="field.weit">Weit</span>
             <div class="sr6-charactersheet-field-input-with-dice">
-              <input type="text" name="attr_nahkampf_weit" /><button
+              <input type="text" name="attr_sr6_nahkampf_weit" /><button
                 type="roll"
                 class="sr6-charactersheet-field-dice-button"
-                name="roll_nahkampf_weit"
-                value="&{template:default} {{name=Nahkampf-Test}} {{Waffe=@{nahkampfwaffe}}} {{Reichweite=Weit}} {{Pool=[[@{nahkampf_weit}]]}} {{Erfolge=[[@{nahkampf_weit}d6cs>4]]}}"
+                name="roll_sr6_nahkampf_weit"
+                value="&{template:default} {{name=Nahkampf-Test}} {{Waffe=@{sr6_nahkampfwaffe}}} {{Reichweite=Weit}} {{Pool=[[@{sr6_nahkampf_weit}]]}} {{Erfolge=[[@{sr6_nahkampf_weit}d6cs>4]]}}"
                 aria-label="Wuerfeln"></button>
             </div>
           </div>
@@ -98,11 +98,11 @@
           <div class="sr6-charactersheet-field">
             <span data-i18n="field.s_weit">S. Weit</span>
             <div class="sr6-charactersheet-field-input-with-dice">
-              <input type="text" name="attr_nahkampf_s_weit" /><button
+              <input type="text" name="attr_sr6_nahkampf_s_weit" /><button
                 type="roll"
                 class="sr6-charactersheet-field-dice-button"
-                name="roll_nahkampf_s_weit"
-                value="&{template:default} {{name=Nahkampf-Test}} {{Waffe=@{nahkampfwaffe}}} {{Reichweite=S. Weit}} {{Pool=[[@{nahkampf_s_weit}]]}} {{Erfolge=[[@{nahkampf_s_weit}d6cs>4]]}}"
+                name="roll_sr6_nahkampf_s_weit"
+                value="&{template:default} {{name=Nahkampf-Test}} {{Waffe=@{sr6_nahkampfwaffe}}} {{Reichweite=S. Weit}} {{Pool=[[@{sr6_nahkampf_s_weit}]]}} {{Erfolge=[[@{sr6_nahkampf_s_weit}d6cs>4]]}}"
                 aria-label="Wuerfeln"></button>
             </div>
           </div>
@@ -115,7 +115,7 @@
               <div class="sr6-charactersheet-mod-popup-panel">
                 <span data-i18n="field.modifikationen">Modifikationen</span>
                 <textarea
-                  name="attr_nahkampf_modifikationen"
+                  name="attr_sr6_nahkampf_modifikationen"
                   rows="4"
                   placeholder="z. B. Reichweitenmodul, Teleskopschaft"></textarea>
               </div>

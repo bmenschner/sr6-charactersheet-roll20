@@ -11,6 +11,7 @@
 - Generierter Output:
   - `output/charactersheet.html`
   - `output/charactersheet.css`
+  - `output/sheet_workers.js`
   - `output/translation.json` (flaches Roll20-Format)
   - `output/translation.full.json` (interner Vollstand DE/EN/FR)
   - `output/assets/images/*`
@@ -52,6 +53,7 @@
 Für die Roll20-Sandbox verwende bevorzugt:
 - `output/charactersheet.html`
 - `output/charactersheet.css`
+- `output/sheet_workers.js` (wenn Worker separat gepflegt/geladen werden)
 - `output/translation.json` (flaches Key-Value-Format)
 
 ## Neue Box hinzufügen (Kurzablauf)

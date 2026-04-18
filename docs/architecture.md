@@ -17,10 +17,11 @@
 1. Include-Lint (`npm run lint:includes`)
 2. HTML Include-Aufloesung -> `output/charactersheet.html`
 3. CSS-Modulbundle aus `src/css/modules/manifest.json` -> `output/charactersheet.css`
-4. i18n:
+4. Worker-Bundle aus `src/workers/sheet_workers.js` -> `output/sheet_workers.js`
+5. i18n:
    - `translation.full.json` (voll)
    - `translation.json` (flat, Roll20-kompatibel)
-5. statische Assets -> `output/assets/images`
+6. statische Assets -> `output/assets/images`
 
 ## Include-Roots
 Include-Dateien duerfen nur in diesen Roots liegen:

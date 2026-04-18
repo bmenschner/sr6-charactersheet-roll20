@@ -203,11 +203,11 @@
             <div class="sr6-foundry-item-head sr6-charactersheet-row sr6-charactersheet-row-3">
               <div class="sr6-charactersheet-field">
                 <span data-i18n="field.zauber_name">Zaubername</span>
-                <input type="text" name="attr_zauber_name" />
+                <input type="text" name="attr_sr6_zauber_name" />
               </div>
               <div class="sr6-charactersheet-field">
                 <span data-i18n="field.zauber_art">Art</span>
-                <select name="attr_zauber_art">
+                <select name="attr_sr6_zauber_art">
                   <option value="Kampf" data-i18n="field.zauber_art_kampf">Kampf</option>
                   <option value="Detection" data-i18n="field.zauber_art_detection">Detection</option>
                   <option value="Heilung" data-i18n="field.zauber_art_heilung">Heilung</option>
@@ -217,7 +217,7 @@
               </div>
               <div class="sr6-charactersheet-field">
                 <span data-i18n="field.reichweite">Reichweite</span>
-                <select name="attr_zauber_reichweite">
+                <select name="attr_sr6_zauber_reichweite">
                   <option value="Selbst" data-i18n="field.reichweite_selbst">Selbst</option>
                   <option value="Beruehrung" data-i18n="field.reichweite_beruehrung">Berührung</option>
                   <option value="Sicht" data-i18n="field.reichweite_sicht">Sicht</option>
@@ -228,7 +228,7 @@
             <div class="sr6-foundry-item-row sr6-charactersheet-row sr6-charactersheet-row-3">
               <div class="sr6-charactersheet-field">
                 <span data-i18n="field.dauer">Dauer</span>
-                <select name="attr_zauber_dauer">
+                <select name="attr_sr6_zauber_dauer">
                   <option value="Sofort" data-i18n="field.dauer_sofort">Sofort</option>
                   <option value="Aufrechterhalten" data-i18n="field.dauer_aufrechterhalten">Aufrechterhalten</option>
                   <option value="Permanent" data-i18n="field.dauer_permanent">Permanent</option>
@@ -237,26 +237,26 @@
               </div>
               <div class="sr6-charactersheet-field">
                 <span data-i18n="field.entzug">Entzug</span>
-                <input type="text" name="attr_zauber_entzug" />
+                <input type="text" name="attr_sr6_zauber_entzug" />
               </div>
               <div class="sr6-charactersheet-field">
                 <span data-i18n="field.aufrechterhalten">Aufrechterhalten</span>
-                <input type="checkbox" name="attr_zauber_aufrechterhalten" value="1" />
+                <input type="checkbox" name="attr_sr6_zauber_aufrechterhalten" value="1" />
               </div>
             </div>
             <div class="sr6-foundry-item-footer sr6-charactersheet-row sr6-charactersheet-row-2">
               <div class="sr6-charactersheet-field">
                 <span data-i18n="field.notiz">Notiz</span>
-                <input type="text" name="attr_zauber_notiz" />
+                <input type="text" name="attr_sr6_zauber_notiz" />
               </div>
               <div class="sr6-charactersheet-field">
                 <span data-i18n="field.wurf">Wurf</span>
                 <div class="sr6-charactersheet-field-input-with-dice">
-                  <input type="text" name="attr_zauber_wurfpool" /><button
+                  <input type="text" name="attr_sr6_zauber_wurfpool" /><button
                     type="roll"
                     class="sr6-charactersheet-field-dice-button"
-                    name="roll_zauber_probe"
-                    value="&{template:default} {{name=Zauberprobe}} {{Zauber=@{zauber_name}}} {{Pool=[[@{zauber_wurfpool}]]}} {{Erfolge=[[@{zauber_wurfpool}d6cs>4]]}} {{Entzug=@{zauber_entzug}}}"
+                    name="roll_sr6_zauber_probe"
+                    value="&{template:default} {{name=Zauberprobe}} {{Zauber=@{sr6_zauber_name}}} {{Pool=[[@{sr6_zauber_wurfpool}]]}} {{Erfolge=[[@{sr6_zauber_wurfpool}d6cs>4]]}} {{Entzug=@{sr6_zauber_entzug}}}"
                     aria-label="Wuerfeln"></button>
                 </div>
               </div>
@@ -265,8 +265,8 @@
               <button
                 type="roll"
                 class="sr6-charactersheet-field-dice-button"
-                name="roll_zauber_probe_list"
-                value="&{template:default} {{name=Zauberprobe}} {{Zauber=@{zauber_name}}} {{Pool=[[@{zauber_wurfpool}]]}} {{Erfolge=[[@{zauber_wurfpool}d6cs>4]]}} {{Entzug=@{zauber_entzug}}}"
+                name="roll_sr6_zauber_probe_list"
+                value="&{template:default} {{name=Zauberprobe}} {{Zauber=@{sr6_zauber_name}}} {{Pool=[[@{sr6_zauber_wurfpool}]]}} {{Erfolge=[[@{sr6_zauber_wurfpool}d6cs>4]]}} {{Entzug=@{sr6_zauber_entzug}}}"
                 aria-label="Wuerfeln"></button>
             </div>
             </div>
@@ -308,15 +308,15 @@
             <div class="sr6-foundry-item-head sr6-charactersheet-row sr6-charactersheet-row-3">
               <div class="sr6-charactersheet-field">
                 <span data-i18n="field.name">Name</span>
-                <input type="text" name="attr_adeptenkraft_name" />
+                <input type="text" name="attr_sr6_adeptenkraft_name" />
               </div>
               <div class="sr6-charactersheet-field">
                 <span data-i18n="field.stufe">Stufe</span>
-                <input type="text" name="attr_adeptenkraft_stufe" />
+                <input type="text" name="attr_sr6_adeptenkraft_stufe" />
               </div>
               <div class="sr6-charactersheet-field">
                 <span data-i18n="field.kraftpunkt">Kraftpunkt</span>
-                <input type="text" name="attr_adeptenkraft_kraftpunkt" />
+                <input type="text" name="attr_sr6_adeptenkraft_kraftpunkt" />
               </div>
             </div>
             </div>
@@ -358,11 +358,11 @@
           <div class="sr6-foundry-item-head sr6-charactersheet-row sr6-charactersheet-row-3">
             <div class="sr6-charactersheet-field">
               <span data-i18n="field.fokus_name">Fokusname</span>
-              <input type="text" name="attr_fokus_name" />
+              <input type="text" name="attr_sr6_fokus_name" />
             </div>
             <div class="sr6-charactersheet-field">
               <span data-i18n="field.fokus_art">Art</span>
-              <select name="attr_fokus_art">
+              <select name="attr_sr6_fokus_art">
                 <option value="Waffenfokus" data-i18n="field.fokus_art_waffenfokus">Waffenfokus</option>
                 <option value="Kraftfokus" data-i18n="field.fokus_art_kraftfokus">Kraftfokus</option>
                 <option value="Zauberfokus" data-i18n="field.fokus_art_zauberfokus">Zauberfokus</option>
@@ -371,17 +371,17 @@
             </div>
             <div class="sr6-charactersheet-field">
               <span data-i18n="field.stufe">Stufe</span>
-              <input type="text" name="attr_fokus_stufe" />
+              <input type="text" name="attr_sr6_fokus_stufe" />
             </div>
           </div>
           <div class="sr6-foundry-item-footer sr6-charactersheet-row sr6-charactersheet-row-2">
             <div class="sr6-charactersheet-field sr6-foki-notiz-field">
               <span data-i18n="field.notiz">Notiz</span>
-              <input type="text" name="attr_fokus_notiz" />
+              <input type="text" name="attr_sr6_fokus_notiz" />
             </div>
             <div class="sr6-charactersheet-field">
               <span data-i18n="field.aktiv">Aktiv</span>
-              <input type="checkbox" name="attr_fokus_aktiv" value="1" />
+              <input type="checkbox" name="attr_sr6_fokus_aktiv" value="1" />
             </div>
           </div>
           </div>
@@ -421,17 +421,17 @@
           <div class="sr6-foundry-item-head sr6-charactersheet-row sr6-charactersheet-row-2">
             <div class="sr6-charactersheet-field">
               <span data-i18n="field.metamagie_name">Name</span>
-              <input type="text" name="attr_metamagie_name" />
+              <input type="text" name="attr_sr6_metamagie_name" />
             </div>
             <div class="sr6-charactersheet-field">
               <span data-i18n="field.initiationsgrad">Initiationsgrad</span>
-              <input type="text" name="attr_metamagie_initiationsgrad" />
+              <input type="text" name="attr_sr6_metamagie_initiationsgrad" />
             </div>
           </div>
           <div class="sr6-foundry-item-footer sr6-charactersheet-row sr6-charactersheet-row-1">
             <div class="sr6-charactersheet-field">
               <span data-i18n="field.notiz">Notiz</span>
-              <input type="text" name="attr_metamagie_notiz" />
+              <input type="text" name="attr_sr6_metamagie_notiz" />
             </div>
           </div>
           </div>
@@ -473,30 +473,30 @@
             <div class="sr6-foundry-item-head sr6-charactersheet-row sr6-charactersheet-row-3">
               <div class="sr6-charactersheet-field">
                 <span data-i18n="field.ritual_name">Ritualname</span>
-                <input type="text" name="attr_ritual_name" />
+                <input type="text" name="attr_sr6_ritual_name" />
               </div>
               <div class="sr6-charactersheet-field">
                 <span data-i18n="field.ritual_schwelle">Schwelle</span>
-                <input type="text" name="attr_ritual_schwelle" />
+                <input type="text" name="attr_sr6_ritual_schwelle" />
               </div>
               <div class="sr6-charactersheet-field">
                 <span data-i18n="field.dauer">Dauer</span>
-                <input type="text" name="attr_ritual_dauer" />
+                <input type="text" name="attr_sr6_ritual_dauer" />
               </div>
             </div>
             <div class="sr6-foundry-item-footer sr6-charactersheet-row sr6-charactersheet-row-2">
               <div class="sr6-charactersheet-field">
                 <span data-i18n="field.notiz">Notiz</span>
-                <input type="text" name="attr_ritual_notiz" />
+                <input type="text" name="attr_sr6_ritual_notiz" />
               </div>
               <div class="sr6-charactersheet-field">
                 <span data-i18n="field.wurf">Wurf</span>
                 <div class="sr6-charactersheet-field-input-with-dice">
-                  <input type="text" name="attr_ritual_wurfpool" /><button
+                  <input type="text" name="attr_sr6_ritual_wurfpool" /><button
                     type="roll"
                     class="sr6-charactersheet-field-dice-button"
-                    name="roll_ritual_probe"
-                    value="&{template:default} {{name=Ritualprobe}} {{Ritual=@{ritual_name}}} {{Pool=[[@{ritual_wurfpool}]]}} {{Erfolge=[[@{ritual_wurfpool}d6cs>4]]}} {{Schwelle=@{ritual_schwelle}}}"
+                    name="roll_sr6_ritual_probe"
+                    value="&{template:default} {{name=Ritualprobe}} {{Ritual=@{sr6_ritual_name}}} {{Pool=[[@{sr6_ritual_wurfpool}]]}} {{Erfolge=[[@{sr6_ritual_wurfpool}d6cs>4]]}} {{Schwelle=@{sr6_ritual_schwelle}}}"
                     aria-label="Wuerfeln"></button>
                 </div>
               </div>
@@ -540,25 +540,25 @@
           <div class="sr6-foundry-item-head sr6-charactersheet-row sr6-charactersheet-row-4">
             <div class="sr6-charactersheet-field">
               <span data-i18n="field.name">Name</span>
-              <input type="text" name="attr_geist_name" />
+              <input type="text" name="attr_sr6_geist_name" />
             </div>
             <div class="sr6-charactersheet-field">
               <span data-i18n="field.typ">Typ</span>
-              <input type="text" name="attr_geist_typ" />
+              <input type="text" name="attr_sr6_geist_typ" />
             </div>
             <div class="sr6-charactersheet-field">
               <span data-i18n="field.stufe">Stufe</span>
-              <input type="text" name="attr_geist_stufe" />
+              <input type="text" name="attr_sr6_geist_stufe" />
             </div>
             <div class="sr6-charactersheet-field">
               <span data-i18n="field.dienste">Dienste</span>
-              <input type="text" name="attr_geist_dienste" />
+              <input type="text" name="attr_sr6_geist_dienste" />
             </div>
           </div>
           <div class="sr6-foundry-item-footer sr6-charactersheet-row sr6-charactersheet-row-1">
             <div class="sr6-charactersheet-field">
               <span data-i18n="field.kraefte">Kräfte</span>
-              <input type="text" name="attr_geist_kraefte" />
+              <input type="text" name="attr_sr6_geist_kraefte" />
             </div>
           </div>
           </div>

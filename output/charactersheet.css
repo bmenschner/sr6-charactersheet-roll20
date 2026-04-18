@@ -1519,7 +1519,7 @@ fieldset.repeating_sr6riggingmanoever .repcontrol {
 }
 
 .sr6-foki-section:has(.sr6-editable-section-mode:not(:checked)) .sr6-generic-list-header > span:nth-child(4),
-.sr6-foki-section:has(.sr6-editable-section-mode:not(:checked)) .sr6-editable-item-fields [name="attr_fokus_notiz"] {
+.sr6-foki-section:has(.sr6-editable-section-mode:not(:checked)) .sr6-editable-item-fields [name="attr_sr6_fokus_notiz"] {
   display: none;
 }
 

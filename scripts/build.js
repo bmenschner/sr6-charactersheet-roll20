@@ -7,6 +7,7 @@ const srcDir = path.join(rootDir, 'src');
 const htmlDir = path.join(srcDir, 'html');
 const i18nDir = path.join(srcDir, 'i18n');
 const workersDir = path.join(srcDir, 'workers');
+const workerSourcePath = path.join(workersDir, 'sheet_workers.js');
 const cssDir = path.join(srcDir, 'css');
 const cssModulesDir = path.join(cssDir, 'modules');
 const cssManifestPath = path.join(cssModulesDir, 'manifest.json');
@@ -16,6 +17,7 @@ const outputImagesDir = path.join(outputDir, 'assets', 'images');
 const htmlSourcePath = path.join(htmlDir, 'charactersheet.html');
 const htmlTargetPath = path.join(outputDir, 'charactersheet.html');
 const cssTargetPath = path.join(outputDir, 'charactersheet.css');
+const workerTargetPath = path.join(outputDir, 'sheet_workers.js');
 const INCLUDE_PATTERN = /<!--\s*@include\s+([^\s]+)\s*-->/g;
 const INCLUDE_ROOTS = [htmlDir, i18nDir, workersDir];
 
@@ -124,6 +126,18 @@ function buildCharactersheetCss() {
   console.log(`[build] wrote ${path.relative(rootDir, cssTargetPath)} (css modules bundled)`);
 }
 
+// Builds the worker bundle for explicit Roll20 worker script uploads.
+function buildSheetWorkersJs() {
+  if (!fs.existsSync(workerSourcePath)) {
+    throw new Error(`Missing worker source file: ${path.relative(rootDir, workerSourcePath)}`);
+  }
+
+  const workerOutput = `${resolveHtmlIncludes(workerSourcePath).trimEnd()}\n`;
+  ensureDir(path.dirname(workerTargetPath));
+  fs.writeFileSync(workerTargetPath, workerOutput, 'utf8');
+  console.log(`[build] wrote ${path.relative(rootDir, workerTargetPath)} (worker modules bundled)`);
+}
+
 // Copies direct source artifacts that are not composed (full i18n source dump).
 function copyMainSources() {
   SOURCE_FILES.forEach(({ from, to }) => {
@@ -173,6 +187,7 @@ function runBuild() {
   ensureDir(outputDir);
   buildCharactersheetHtml();
   buildCharactersheetCss();
+  buildSheetWorkersJs();
   copyMainSources();
   writeRoll20CompatibilityFiles();
   copyStaticAssets();

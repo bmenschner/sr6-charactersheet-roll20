@@ -91,11 +91,11 @@ Beispiele:
 - `sr6-wuerfelicon` -> `sr6-charactersheet-field-dice-button`
 
 ### Attribute (Beispiele)
-- `attr_konstitution_grundwert` -> `attr_sr6_attr_konstitution_grundwert`
-- `attr_konstitution_modifikator` -> `attr_sr6_attr_konstitution_modifikator`
-- `attr_konstitution_gesamtwert` -> `attr_sr6_attr_konstitution_gesamtwert`
-- `attr_primaere_nahkampfwaffe` -> `attr_sr6_combat_primaere_nahkampfwaffe`
-- `attr_edge_biographie` -> `attr_sr6_bio_edge`
+- `attr_sr6_konstitution_grundwert` -> `attr_sr6_attr_konstitution_grundwert`
+- `attr_sr6_konstitution_modifikator` -> `attr_sr6_attr_konstitution_modifikator`
+- `attr_sr6_konstitution_gesamtwert` -> `attr_sr6_attr_konstitution_gesamtwert`
+- `attr_sr6_primaere_nahkampfwaffe` -> `attr_sr6_combat_primaere_nahkampfwaffe`
+- `attr_sr6_edge_biographie` -> `attr_sr6_bio_edge`
 
 ## Umsetzungsstrategie (empfohlen)
 

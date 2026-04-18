@@ -24,17 +24,17 @@ Quelle: Felddefinitionen fuer das Character Sheet (Vollumfang inkl. Matrix/Reson
 | core | identity | Concept | `field.concept` | `concept` | `text` | no | no |
 | core | identity | Karma | `field.karma` | `karma_current` | `number` | no | no |
 | core | identity | Nuyen | `field.nuyen` | `nuyen_current` | `number` | no | no |
-| attr | attributes | Body | `field.body` | `attr_body` | `number` | no | no |
-| attr | attributes | Agility | `field.agility` | `attr_agility` | `number` | no | no |
-| attr | attributes | Reaction | `field.reaction` | `attr_reaction` | `number` | no | no |
-| attr | attributes | Strength | `field.strength` | `attr_strength` | `number` | no | no |
-| attr | attributes | Willpower | `field.willpower` | `attr_willpower` | `number` | no | no |
-| attr | attributes | Logic | `field.logic` | `attr_logic` | `number` | no | no |
-| attr | attributes | Intuition | `field.intuition` | `attr_intuition` | `number` | no | no |
-| attr | attributes | Charisma | `field.charisma` | `attr_charisma` | `number` | no | no |
-| attr | attributes | Edge | `field.edge` | `attr_edge` | `number` | no | no |
-| attr | attributes | Magic | `field.magic` | `attr_magic` | `number` | no | no |
-| attr | attributes | Resonance | `field.resonance` | `attr_resonance` | `number` | no | no |
+| attr | attributes | Body | `field.body` | `attr_sr6_body` | `number` | no | no |
+| attr | attributes | Agility | `field.agility` | `attr_sr6_agility` | `number` | no | no |
+| attr | attributes | Reaction | `field.reaction` | `attr_sr6_reaction` | `number` | no | no |
+| attr | attributes | Strength | `field.strength` | `attr_sr6_strength` | `number` | no | no |
+| attr | attributes | Willpower | `field.willpower` | `attr_sr6_willpower` | `number` | no | no |
+| attr | attributes | Logic | `field.logic` | `attr_sr6_logic` | `number` | no | no |
+| attr | attributes | Intuition | `field.intuition` | `attr_sr6_intuition` | `number` | no | no |
+| attr | attributes | Charisma | `field.charisma` | `attr_sr6_charisma` | `number` | no | no |
+| attr | attributes | Edge | `field.edge` | `attr_sr6_edge` | `number` | no | no |
+| attr | attributes | Magic | `field.magic` | `attr_sr6_magic` | `number` | no | no |
+| attr | attributes | Resonance | `field.resonance` | `attr_sr6_resonance` | `number` | no | no |
 | derived | limits | Physical Defense | `field.physical_defense` | `derived_physical_defense` | `number` | no | yes |
 | derived | limits | Astral Defense | `field.astral_defense` | `derived_astral_defense` | `number` | no | yes |
 | derived | limits | Matrix Defense | `field.matrix_defense` | `derived_matrix_defense` | `number` | no | yes |
