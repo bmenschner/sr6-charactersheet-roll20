@@ -2130,41 +2130,6 @@
     </div>
     <!-- END BLOCK: Feld - Schadenswiderstand (Biofeedback) -->
 
-    <!-- BEGIN BLOCK: Feld - Toxinwiderstand -->
-    <div class="sr6-charactersheet-row sr6-charactersheet-row-1">
-      <div class="sr6-charactersheet-field sr6-charactersheet-attr-field">
-        <span data-i18n="field.toxinwiderstand">Toxinwiderstand</span>
-        <div class="sr6-charactersheet-attr-values">
-          <div class="sr6-charactersheet-attr-value sr6-charactersheet-attr-value--with-dice">
-            <span data-i18n="field.grundwert">Grundwert</span>
-            <div class="sr6-charactersheet-field-input-with-dice">
-              <input type="text" name="attr_sr6_toxinwiderstand_grundwert" /><button
-                type="roll"
-                class="sr6-charactersheet-field-dice-button"
-                name="roll_sr6_toxinwiderstand_grundwert"
-                value="&{template:default} {{name=Toxinwiderstand}} {{Wert=Toxinwiderstand Grundwert}} {{Pool=[[@{sr6_toxinwiderstand_grundwert}]]}} {{Erfolge=[[@{sr6_toxinwiderstand_grundwert}d6cs>4]]}}"
-                aria-label="Wuerfeln"></button>
-            </div>
-          </div>
-          <div class="sr6-charactersheet-attr-value">
-            <span data-i18n="field.modifikator">Modifikator</span>
-            <input type="text" name="attr_sr6_toxinwiderstand_modifikator" />
-          </div>
-          <div class="sr6-charactersheet-attr-value sr6-charactersheet-attr-value--with-dice">
-            <span data-i18n="field.gesamtwert">Gesamtwert</span>
-            <div class="sr6-charactersheet-field-input-with-dice">
-              <input type="text" name="attr_sr6_toxinwiderstand_gesamtwert" /><button
-                type="roll"
-                class="sr6-charactersheet-field-dice-button"
-                name="roll_sr6_toxinwiderstand_gesamtwert"
-                value="&{template:default} {{name=Toxinwiderstand}} {{Wert=Toxinwiderstand Gesamtwert}} {{Pool=[[@{sr6_toxinwiderstand_gesamtwert}]]}} {{Erfolge=[[@{sr6_toxinwiderstand_gesamtwert}d6cs>4]]}}"
-                aria-label="Wuerfeln"></button>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-    <!-- END BLOCK: Feld - Toxinwiderstand -->
   </div>
 </section>
 <!-- END BLOCK: Schadenswiderstand -->
@@ -2881,6 +2846,99 @@
             class="sr6-charactersheet-tabpanel"
             role="tabpanel">
             <div class="sr6-charactersheet-tab-kampf-grid">
+              <!-- BEGIN BLOCK: Kampf Kernwerte -->
+              <!-- BEGIN BLOCK: Kampf Kernwerte -->
+<section
+  class="sr6-charactersheet-box sr6-charactersheet-box-kampf-kernwerte"
+  aria-labelledby="kampf-kernwerte-titel">
+  <h2
+    id="kampf-kernwerte-titel"
+    class="sr6-charactersheet-box-title"
+    data-i18n="section.kampf_kernwerte">
+    Kampf: Kernwerte
+  </h2>
+
+  <div class="sr6-charactersheet-box-content">
+    <!-- BEGIN BLOCK: Zeile 1 -->
+    <div class="sr6-charactersheet-row sr6-charactersheet-row-2">
+      <div class="sr6-charactersheet-field">
+        <span data-i18n="field.primaere_fernkampfwaffe">Primäre Fernkampfwaffe</span>
+        <input type="text" name="attr_sr6_combat_primaere_fernkampfwaffe" />
+      </div>
+      <div class="sr6-charactersheet-field">
+        <span data-i18n="field.primaere_nahkampfwaffe">Primäre Nahkampfwaffe</span>
+        <input type="text" name="attr_sr6_combat_primaere_nahkampfwaffe" />
+      </div>
+    </div>
+    <!-- END BLOCK: Zeile 1 -->
+
+    <!-- BEGIN BLOCK: Zeile 2 -->
+    <div class="sr6-charactersheet-row sr6-charactersheet-row-3">
+      <div class="sr6-charactersheet-field">
+        <span data-i18n="field.fernkampfangriff">Fernkampfangriff</span>
+        <div class="sr6-charactersheet-field-input-with-dice">
+          <input type="text" name="attr_sr6_combat_fernkampfangriff" /><button
+            type="roll"
+            class="sr6-charactersheet-field-dice-button"
+            name="roll_sr6_combat_fernkampfangriff"
+            value="&{template:default} {{name=Kampf: Kernwerte}} {{Wert=Fernkampfangriff}} {{Pool=[[@{sr6_combat_fernkampfangriff}]]}} {{Erfolge=[[@{sr6_combat_fernkampfangriff}d6cs>4]]}}"
+            aria-label="Wuerfeln"></button>
+        </div>
+      </div>
+      <div class="sr6-charactersheet-field">
+        <span data-i18n="field.verteidigung_physisch">Verteidigung (Physisch)</span>
+        <div class="sr6-charactersheet-field-input-with-dice">
+          <input type="text" name="attr_sr6_verteidigung_physisch_gesamtwert" /><button
+            type="roll"
+            class="sr6-charactersheet-field-dice-button"
+            name="roll_sr6_combat_verteidigung_physisch_gesamtwert"
+            value="&{template:default} {{name=Kampf: Kernwerte}} {{Wert=Verteidigung (Physisch)}} {{Pool=[[@{sr6_verteidigung_physisch_gesamtwert}]]}} {{Erfolge=[[@{sr6_verteidigung_physisch_gesamtwert}d6cs>4]]}}"
+            aria-label="Wuerfeln"></button>
+        </div>
+      </div>
+      <div class="sr6-charactersheet-field">
+        <span data-i18n="field.schadenswiderstand_physisch">Schadenswiderstand (Physisch)</span>
+        <div class="sr6-charactersheet-field-input-with-dice">
+          <input type="text" name="attr_sr6_schadenswiderstand_physisch_gesamtwert" /><button
+            type="roll"
+            class="sr6-charactersheet-field-dice-button"
+            name="roll_sr6_combat_schadenswiderstand_physisch_gesamtwert"
+            value="&{template:default} {{name=Kampf: Kernwerte}} {{Wert=Schadenswiderstand (Physisch)}} {{Pool=[[@{sr6_schadenswiderstand_physisch_gesamtwert}]]}} {{Erfolge=[[@{sr6_schadenswiderstand_physisch_gesamtwert}d6cs>4]]}}"
+            aria-label="Wuerfeln"></button>
+        </div>
+      </div>
+    </div>
+    <!-- END BLOCK: Zeile 2 -->
+
+    <!-- BEGIN BLOCK: Zeile 3 -->
+    <div class="sr6-charactersheet-row sr6-charactersheet-row-5">
+      <div class="sr6-charactersheet-field">
+        <span data-i18n="field.verteidigungswert">Verteidigungswert</span>
+        <input type="text" name="attr_sr6_combat_verteidigungswert" />
+      </div>
+      <div class="sr6-charactersheet-field">
+        <span data-i18n="field.primaere_panzerung">Primäre Panzerung</span>
+        <input type="text" name="attr_sr6_combat_primaere_panzerung" />
+      </div>
+      <div class="sr6-charactersheet-field">
+        <span data-i18n="field.sekundaere_panzerung">Sekundäre Panzerung</span>
+        <input type="text" name="attr_sr6_combat_sekundaere_panzerung" />
+      </div>
+      <div class="sr6-charactersheet-field">
+        <span data-i18n="field.helm">Helm</span>
+        <input type="text" name="attr_sr6_combat_helm" />
+      </div>
+      <div class="sr6-charactersheet-field">
+        <span data-i18n="field.schild">Schild</span>
+        <input type="text" name="attr_sr6_combat_schild" />
+      </div>
+    </div>
+    <!-- END BLOCK: Zeile 3 -->
+  </div>
+</section>
+<!-- END BLOCK: Kampf Kernwerte -->
+
+              <!-- END BLOCK: Kampf Kernwerte -->
               <!-- BEGIN BLOCK: Kampf Fernkampf -->
               <!-- BEGIN BLOCK: Kampf Fernkampf -->
 <section
@@ -7077,6 +7135,7 @@
   "section.kampf_fernkampf": "Fernkampfwaffen",
   "section.kampf_nahkampf": "Nahkampfwaffen",
   "section.kampf_panzerung": "Panzerung",
+  "section.kampf_kernwerte": "Kampf: Kernwerte",
   "section.fertigkeiten_basis": "Fertigkeiten",
   "section.magie_kern": "Magie: Kernwerte",
   "section.magie_zauber": "Zauber",
@@ -7139,6 +7198,7 @@
   "field.nahkampfwaffe": "Nahkampfwaffe",
   "field.panzerung": "Panzerung",
   "field.primaere_fernkampfwaffe": "Primäre Fernkampfwaffe",
+  "field.fernkampfangriff": "Fernkampfangriff",
   "field.schaden": "Schaden",
   "field.modus": "Modus",
   "field.s_nah": "S. Nah",
@@ -7152,6 +7212,7 @@
   "field.verteidigungswert": "Verteidigungswert",
   "field.sekundaere_panzerung": "Sekundäre Panzerung",
   "field.helm": "Helm",
+  "field.schild": "Schild",
   "field.fertigkeit": "Fertigkeit",
   "field.waffentyp": "Waffentyp",
   "field.modifikationen": "Modifikationen",
