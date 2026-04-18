@@ -20,13 +20,20 @@ Dieses Projekt ist **kein klassisches Frontend**.
 ### Source of Truth
 
 - `src/html/charactersheet.html`
-- `src/css/charactersheet.css`
+- `src/html/partials/tabs/**`
+- `src/html/partials/workers/sheet-worker.html`
+- `src/css/modules/**` (Reihenfolge via `src/css/modules/manifest.json`)
+- `src/workers/**` (modular: `core/`, `compute/`, `ui/`)
 - `src/i18n/translation.json`
+- `src/assets/images/*`
 
 ### Generierter Output
 
 - `output/charactersheet.html`
 - `output/charactersheet.css`
+- `output/sheet_workers.js`
+- `output/translation.json`
+- `output/translation.full.json`
 - `output/assets/images/*`
 
 ### Dokumentation
@@ -56,6 +63,7 @@ src/ → build → output/ → Roll20 Autouploader → Sheet Sandbox
 - Sandbox wird ausschließlich über Upload aktualisiert
 - Autouploader übernimmt das „Live Update“
 - keine direkte Integration mit Roll20 oder Git
+- Kein Direkt-Push auf `main`: Änderungen laufen über Feature-Branches und Merge.
 
 ---
 
@@ -81,12 +89,13 @@ Bei jeder Aufgabe:
 - keine bestehenden Datenpfade brechen
 - Erweiterung statt Rewrite
 
-### CSS (`charactersheet.css`)
+### CSS (`src/css/modules/**`)
 
 - nur Roll20-kompatible Styles
 - keine globalen Resets
 - kleine, gezielte Änderungen
-- bestehende Struktur respektieren
+- bestehende Modulstruktur respektieren
+- neue/angepasste Module in `src/css/modules/manifest.json` korrekt führen
 
 ### i18n (`translation.json`)
 
@@ -99,7 +108,7 @@ Bei jeder Aufgabe:
 
 ## 7. Output-Regeln
 
-- `output/assets/*` ist generiert
+- `output/*` ist generiert
 - Änderungen nur wenn explizit gefordert
 - nach `src/` Änderungen → auf notwendigen Rebuild hinweisen
 - keine stillen Änderungen an Output
@@ -116,6 +125,7 @@ Vor Abschluss immer prüfen:
 - bestehende Attribute kompatibel?
 - translation keys vollständig?
 - keine Web-App Annahmen eingeführt?
+- Build erfolgreich (`npm run build`)?
 
 ---
 
