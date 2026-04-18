@@ -903,7 +903,7 @@ fieldset.repeating_sr6riggingmanoever .repcontrol {
 }
 /* END MODULE: src/css/modules/20-editable-controls.css */
 
-/* BEGIN MODULE: src/css/modules/30-list-views.css */
+/* BEGIN MODULE: src/css/modules/30-list-overview.css */
 /* Allgemein/Fertigkeiten: Listenansicht fuer nicht-repeating Boxen */
 .sr6-editable-overview-section:has(.sr6-editable-section-mode:not(:checked)) .sr6-charactersheet-field input,
 .sr6-editable-overview-section:has(.sr6-editable-section-mode:not(:checked)) .sr6-charactersheet-field select,
@@ -1101,7 +1101,9 @@ fieldset.repeating_sr6riggingmanoever .repcontrol {
 #sr6_daten_panel_1 .sr6-charactersheet-box-fertigkeiten-allgemein.sr6-editable-overview-section:has(.sr6-editable-section-mode:not(:checked)) .sr6-charactersheet-attr-value:last-child .sr6-charactersheet-field-dice-button {
   display: flex;
 }
+/* END MODULE: src/css/modules/30-list-overview.css */
 
+/* BEGIN MODULE: src/css/modules/31-list-zauber.css */
 .sr6-zauber-list-roll {
   display: none;
 }
@@ -1216,7 +1218,9 @@ fieldset.repeating_sr6riggingmanoever .repcontrol {
   border: none;
   box-shadow: none;
 }
+/* END MODULE: src/css/modules/31-list-zauber.css */
 
+/* BEGIN MODULE: src/css/modules/32-list-repeating-shared.css */
 .sr6-generic-list-header {
   display: none;
 }
@@ -1556,7 +1560,7 @@ fieldset.repeating_sr6riggingmanoever .repcontrol {
   display: none;
 }
 /* END BLOCK: Magie Listenansicht Spalten ausblenden */
-/* END MODULE: src/css/modules/30-list-views.css */
+/* END MODULE: src/css/modules/32-list-repeating-shared.css */
 
 /* BEGIN MODULE: src/css/modules/40-layout-and-tab-sections.css */
 @media (max-width: 50rem) {

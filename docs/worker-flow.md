@@ -10,7 +10,7 @@
 - `compute/combat.js`: abgeleitete Kern-/Kampfwerte
 - `compute/magic.js`: Magie-spezifische Ableitungen
 - `compute/matrix.js`: Matrix-Handlungs-Gesamtwerte
-- `compute/rigging.js`: Rigging-Compute-Slot (aktuell no-op)
+- `compute/rigging.js`: Rigging-Compute-Slot (derzeit ohne automatische Ableitungen, bewusst)
 - `ui/defaults.js`: Open-State Defaults (Tab/Edit-Modi)
 - `ui/legacy.js`: Legacy-Normalisierung
 

@@ -3,7 +3,9 @@
     "00-foundation.css",
     "10-shell-repeating.css",
     "20-editable-controls.css",
-    "30-list-views.css",
+    "30-list-overview.css",
+    "31-list-zauber.css",
+    "32-list-repeating-shared.css",
     "40-layout-and-tab-sections.css",
     "50-overlays-and-roll20-tabs.css"
   ]
