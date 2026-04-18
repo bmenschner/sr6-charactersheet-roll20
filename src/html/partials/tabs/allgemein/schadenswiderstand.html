@@ -1,0 +1,169 @@
+<!-- BEGIN BLOCK: Schadenswiderstand -->
+<section
+  class="sr6-charactersheet-box sr6-charactersheet-box-schadenswiderstand sr6-editable-section sr6-editable-overview-section"
+  aria-labelledby="schadenswiderstand-titel">
+  <div class="sr6-editable-section-title-row">
+    <h1
+      id="schadenswiderstand-titel"
+      class="sr6-charactersheet-box-title"
+      data-i18n="section.schadenswiderstand">
+      Schadenswiderstand
+    </h1>
+    <label class="sr6-editable-section-toggle">
+      <input
+        type="checkbox"
+        name="attr_sr6_allgemein_schadenswiderstand_edit_mode"
+        class="sr6-editable-section-mode"
+                      />
+                    <span data-i18n="field.editieren">Editieren</span>
+    </label>
+  </div>
+
+  <div class="sr6-charactersheet-box-content">
+    <!-- BEGIN BLOCK: Feld - Schadenswiderstand (Physisch) -->
+    <div class="sr6-charactersheet-row sr6-charactersheet-row-1">
+      <div class="sr6-charactersheet-field sr6-charactersheet-attr-field">
+        <span data-i18n="field.schadenswiderstand_physisch">Schadenswiderstand (Physisch)</span>
+        <div class="sr6-charactersheet-attr-values">
+          <div class="sr6-charactersheet-attr-value sr6-charactersheet-attr-value--with-dice">
+            <span data-i18n="field.grundwert">Grundwert</span>
+            <div class="sr6-charactersheet-field-input-with-dice">
+              <input type="text" name="attr_sr6_schadenswiderstand_physisch_grundwert" /><button
+                type="roll"
+                class="sr6-charactersheet-field-dice-button"
+                name="roll_sr6_schadenswiderstand_physisch_grundwert"
+                value="&{template:default} {{name=Schadenswiderstand}} {{Wert=Schadenswiderstand (Physisch) Grundwert}} {{Pool=[[@{sr6_schadenswiderstand_physisch_grundwert}]]}} {{Erfolge=[[@{sr6_schadenswiderstand_physisch_grundwert}d6cs>4]]}}"
+                aria-label="Wuerfeln"></button>
+            </div>
+          </div>
+          <div class="sr6-charactersheet-attr-value">
+            <span data-i18n="field.modifikator">Modifikator</span>
+            <input type="text" name="attr_sr6_schadenswiderstand_physisch_modifikator" />
+          </div>
+          <div class="sr6-charactersheet-attr-value sr6-charactersheet-attr-value--with-dice">
+            <span data-i18n="field.gesamtwert">Gesamtwert</span>
+            <div class="sr6-charactersheet-field-input-with-dice">
+              <input type="text" name="attr_sr6_schadenswiderstand_physisch_gesamtwert" /><button
+                type="roll"
+                class="sr6-charactersheet-field-dice-button"
+                name="roll_sr6_schadenswiderstand_physisch_gesamtwert"
+                value="&{template:default} {{name=Schadenswiderstand}} {{Wert=Schadenswiderstand (Physisch) Gesamtwert}} {{Pool=[[@{sr6_schadenswiderstand_physisch_gesamtwert}]]}} {{Erfolge=[[@{sr6_schadenswiderstand_physisch_gesamtwert}d6cs>4]]}}"
+                aria-label="Wuerfeln"></button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- END BLOCK: Feld - Schadenswiderstand (Physisch) -->
+
+    <!-- BEGIN BLOCK: Feld - Schadenswiderstand (Astral) -->
+    <div class="sr6-charactersheet-row sr6-charactersheet-row-1">
+      <div class="sr6-charactersheet-field sr6-charactersheet-attr-field">
+        <span data-i18n="field.schadenswiderstand_astral">Schadenswiderstand (Astral)</span>
+        <div class="sr6-charactersheet-attr-values">
+          <div class="sr6-charactersheet-attr-value sr6-charactersheet-attr-value--with-dice">
+            <span data-i18n="field.grundwert">Grundwert</span>
+            <div class="sr6-charactersheet-field-input-with-dice">
+              <input type="text" name="attr_sr6_schadenswiderstand_astral_grundwert" /><button
+                type="roll"
+                class="sr6-charactersheet-field-dice-button"
+                name="roll_sr6_schadenswiderstand_astral_grundwert"
+                value="&{template:default} {{name=Schadenswiderstand}} {{Wert=Schadenswiderstand (Astral) Grundwert}} {{Pool=[[@{sr6_schadenswiderstand_astral_grundwert}]]}} {{Erfolge=[[@{sr6_schadenswiderstand_astral_grundwert}d6cs>4]]}}"
+                aria-label="Wuerfeln"></button>
+            </div>
+          </div>
+          <div class="sr6-charactersheet-attr-value">
+            <span data-i18n="field.modifikator">Modifikator</span>
+            <input type="text" name="attr_sr6_schadenswiderstand_astral_modifikator" />
+          </div>
+          <div class="sr6-charactersheet-attr-value sr6-charactersheet-attr-value--with-dice">
+            <span data-i18n="field.gesamtwert">Gesamtwert</span>
+            <div class="sr6-charactersheet-field-input-with-dice">
+              <input type="text" name="attr_sr6_schadenswiderstand_astral_gesamtwert" /><button
+                type="roll"
+                class="sr6-charactersheet-field-dice-button"
+                name="roll_sr6_schadenswiderstand_astral_gesamtwert"
+                value="&{template:default} {{name=Schadenswiderstand}} {{Wert=Schadenswiderstand (Astral) Gesamtwert}} {{Pool=[[@{sr6_schadenswiderstand_astral_gesamtwert}]]}} {{Erfolge=[[@{sr6_schadenswiderstand_astral_gesamtwert}d6cs>4]]}}"
+                aria-label="Wuerfeln"></button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- END BLOCK: Feld - Schadenswiderstand (Astral) -->
+
+    <!-- BEGIN BLOCK: Feld - Schadenswiderstand (Matrix) -->
+    <div class="sr6-charactersheet-row sr6-charactersheet-row-1">
+      <div class="sr6-charactersheet-field sr6-charactersheet-attr-field">
+        <span data-i18n="field.schadenswiderstand_matrix">Schadenswiderstand (Matrix)</span>
+        <div class="sr6-charactersheet-attr-values">
+          <div class="sr6-charactersheet-attr-value sr6-charactersheet-attr-value--with-dice">
+            <span data-i18n="field.grundwert">Grundwert</span>
+            <div class="sr6-charactersheet-field-input-with-dice">
+              <input type="text" name="attr_sr6_schadenswiderstand_matrix_grundwert" /><button
+                type="roll"
+                class="sr6-charactersheet-field-dice-button"
+                name="roll_sr6_schadenswiderstand_matrix_grundwert"
+                value="&{template:default} {{name=Schadenswiderstand}} {{Wert=Schadenswiderstand (Matrix) Grundwert}} {{Pool=[[@{sr6_schadenswiderstand_matrix_grundwert}]]}} {{Erfolge=[[@{sr6_schadenswiderstand_matrix_grundwert}d6cs>4]]}}"
+                aria-label="Wuerfeln"></button>
+            </div>
+          </div>
+          <div class="sr6-charactersheet-attr-value">
+            <span data-i18n="field.modifikator">Modifikator</span>
+            <input type="text" name="attr_sr6_schadenswiderstand_matrix_modifikator" />
+          </div>
+          <div class="sr6-charactersheet-attr-value sr6-charactersheet-attr-value--with-dice">
+            <span data-i18n="field.gesamtwert">Gesamtwert</span>
+            <div class="sr6-charactersheet-field-input-with-dice">
+              <input type="text" name="attr_sr6_schadenswiderstand_matrix_gesamtwert" /><button
+                type="roll"
+                class="sr6-charactersheet-field-dice-button"
+                name="roll_sr6_schadenswiderstand_matrix_gesamtwert"
+                value="&{template:default} {{name=Schadenswiderstand}} {{Wert=Schadenswiderstand (Matrix) Gesamtwert}} {{Pool=[[@{sr6_schadenswiderstand_matrix_gesamtwert}]]}} {{Erfolge=[[@{sr6_schadenswiderstand_matrix_gesamtwert}d6cs>4]]}}"
+                aria-label="Wuerfeln"></button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- END BLOCK: Feld - Schadenswiderstand (Matrix) -->
+
+    <!-- BEGIN BLOCK: Feld - Schadenswiderstand (Biofeedback) -->
+    <div class="sr6-charactersheet-row sr6-charactersheet-row-1">
+      <div class="sr6-charactersheet-field sr6-charactersheet-attr-field">
+        <span data-i18n="field.schadenswiderstand_biofeedback">Schadenswiderstand (Biofeedback)</span>
+        <div class="sr6-charactersheet-attr-values">
+          <div class="sr6-charactersheet-attr-value sr6-charactersheet-attr-value--with-dice">
+            <span data-i18n="field.grundwert">Grundwert</span>
+            <div class="sr6-charactersheet-field-input-with-dice">
+              <input type="text" name="attr_sr6_schadenswiderstand_biofeedback_grundwert" /><button
+                type="roll"
+                class="sr6-charactersheet-field-dice-button"
+                name="roll_sr6_schadenswiderstand_biofeedback_grundwert"
+                value="&{template:default} {{name=Schadenswiderstand}} {{Wert=Schadenswiderstand (Biofeedback) Grundwert}} {{Pool=[[@{sr6_schadenswiderstand_biofeedback_grundwert}]]}} {{Erfolge=[[@{sr6_schadenswiderstand_biofeedback_grundwert}d6cs>4]]}}"
+                aria-label="Wuerfeln"></button>
+            </div>
+          </div>
+          <div class="sr6-charactersheet-attr-value">
+            <span data-i18n="field.modifikator">Modifikator</span>
+            <input type="text" name="attr_sr6_schadenswiderstand_biofeedback_modifikator" />
+          </div>
+          <div class="sr6-charactersheet-attr-value sr6-charactersheet-attr-value--with-dice">
+            <span data-i18n="field.gesamtwert">Gesamtwert</span>
+            <div class="sr6-charactersheet-field-input-with-dice">
+              <input type="text" name="attr_sr6_schadenswiderstand_biofeedback_gesamtwert" /><button
+                type="roll"
+                class="sr6-charactersheet-field-dice-button"
+                name="roll_sr6_schadenswiderstand_biofeedback_gesamtwert"
+                value="&{template:default} {{name=Schadenswiderstand}} {{Wert=Schadenswiderstand (Biofeedback) Gesamtwert}} {{Pool=[[@{sr6_schadenswiderstand_biofeedback_gesamtwert}]]}} {{Erfolge=[[@{sr6_schadenswiderstand_biofeedback_gesamtwert}d6cs>4]]}}"
+                aria-label="Wuerfeln"></button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- END BLOCK: Feld - Schadenswiderstand (Biofeedback) -->
+
+  </div>
+</section>
+<!-- END BLOCK: Schadenswiderstand -->

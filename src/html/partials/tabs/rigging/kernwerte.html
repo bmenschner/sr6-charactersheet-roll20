@@ -1,0 +1,486 @@
+<!-- BEGIN BLOCK: Rigging Tab -->
+<div class="sr6-charactersheet-tab-rigging-grid">
+  <!-- BEGIN BLOCK: Rigging Kernwerte -->
+  <section class="sr6-charactersheet-box sr6-charactersheet-tab-rigging-item--full" aria-labelledby="rigging-kern-titel">
+    <h2 id="rigging-kern-titel" class="sr6-charactersheet-box-title" data-i18n="section.rigging_kern">
+      Rigging: Kernwerte
+    </h2>
+
+    <div class="sr6-charactersheet-box-content">
+      <div class="sr6-charactersheet-row sr6-charactersheet-row-3">
+        <div class="sr6-charactersheet-field">
+          <span data-i18n="field.riggerkonsole">Riggerkonsole</span>
+          <input type="text" name="attr_sr6_rigging_riggerkonsole" />
+        </div>
+
+        <div class="sr6-charactersheet-field">
+          <span data-i18n="field.modus">Modus</span>
+          <select name="attr_sr6_rigging_modus">
+            <option value="AR" data-i18n="field.rigging_modus_ar">AR</option>
+            <option value="VR Kalt" data-i18n="field.rigging_modus_vr_kalt">VR - Kalt</option>
+            <option value="VR Heiss" data-i18n="field.rigging_modus_vr_heiss">VR - Heiß</option>
+          </select>
+        </div>
+
+        <div class="sr6-charactersheet-field">
+          <span data-i18n="field.rigging_initiative">Rigging-Initiative</span>
+          <div class="sr6-charactersheet-field-input-with-dice">
+            <input type="text" name="attr_sr6_rigging_initiative" /><button
+              type="roll"
+              class="sr6-charactersheet-field-dice-button"
+              name="roll_sr6_tab_rigging_initiative"
+              value="&{template:default} {{name=Rigging-Initiative}} {{Basis=[[@{sr6_rigging_initiative}]]}} {{Gesamt=[[@{sr6_rigging_initiative}+3d6]]}}"
+              aria-label="Wuerfeln"></button>
+          </div>
+        </div>
+      </div>
+
+      <div class="sr6-charactersheet-row sr6-charactersheet-row-4">
+        <div class="sr6-charactersheet-field">
+          <span data-i18n="field.matrix_angriff">Angriff</span>
+          <div class="sr6-charactersheet-field-input-with-dice">
+            <input type="text" name="attr_sr6_rigging_angriff" /><button
+              type="roll"
+              class="sr6-charactersheet-field-dice-button"
+              name="roll_sr6_tab_rigging_angriff"
+              value="&{template:default} {{name=Rigging-Kernwert}} {{Wert=Angriff}} {{Pool=[[@{sr6_rigging_angriff}]]}} {{Erfolge=[[@{sr6_rigging_angriff}d6cs>4]]}}"
+              aria-label="Wuerfeln"></button>
+          </div>
+        </div>
+
+        <div class="sr6-charactersheet-field">
+          <span data-i18n="field.matrix_schleicher">Schleicher</span>
+          <div class="sr6-charactersheet-field-input-with-dice">
+            <input type="text" name="attr_sr6_rigging_schleicher" /><button
+              type="roll"
+              class="sr6-charactersheet-field-dice-button"
+              name="roll_sr6_tab_rigging_schleicher"
+              value="&{template:default} {{name=Rigging-Kernwert}} {{Wert=Schleicher}} {{Pool=[[@{sr6_rigging_schleicher}]]}} {{Erfolge=[[@{sr6_rigging_schleicher}d6cs>4]]}}"
+              aria-label="Wuerfeln"></button>
+          </div>
+        </div>
+
+        <div class="sr6-charactersheet-field">
+          <span data-i18n="field.matrix_datenverarbeitung">Datenverarbeitung</span>
+          <div class="sr6-charactersheet-field-input-with-dice">
+            <input type="text" name="attr_sr6_rigging_datenverarbeitung" /><button
+              type="roll"
+              class="sr6-charactersheet-field-dice-button"
+              name="roll_sr6_tab_rigging_datenverarbeitung"
+              value="&{template:default} {{name=Rigging-Kernwert}} {{Wert=Datenverarbeitung}} {{Pool=[[@{sr6_rigging_datenverarbeitung}]]}} {{Erfolge=[[@{sr6_rigging_datenverarbeitung}d6cs>4]]}}"
+              aria-label="Wuerfeln"></button>
+          </div>
+        </div>
+
+        <div class="sr6-charactersheet-field">
+          <span data-i18n="field.matrix_firewall">Firewall</span>
+          <div class="sr6-charactersheet-field-input-with-dice">
+            <input type="text" name="attr_sr6_rigging_firewall" /><button
+              type="roll"
+              class="sr6-charactersheet-field-dice-button"
+              name="roll_sr6_tab_rigging_firewall"
+              value="&{template:default} {{name=Rigging-Kernwert}} {{Wert=Firewall}} {{Pool=[[@{sr6_rigging_firewall}]]}} {{Erfolge=[[@{sr6_rigging_firewall}d6cs>4]]}}"
+              aria-label="Wuerfeln"></button>
+          </div>
+        </div>
+      </div>
+
+      <div class="sr6-charactersheet-row sr6-charactersheet-row-5">
+        <div class="sr6-charactersheet-field">
+          <span data-i18n="field.angriffswert">Angriffswert</span>
+          <div class="sr6-charactersheet-field-input-with-dice">
+            <input type="text" name="attr_sr6_rigging_angriffswert" /><button
+              type="roll"
+              class="sr6-charactersheet-field-dice-button"
+              name="roll_sr6_tab_rigging_angriffswert"
+              value="&{template:default} {{name=Rigging-Kernwert}} {{Wert=Angriffswert}} {{Pool=[[@{sr6_rigging_angriffswert}]]}} {{Erfolge=[[@{sr6_rigging_angriffswert}d6cs>4]]}}"
+              aria-label="Wuerfeln"></button>
+          </div>
+        </div>
+
+        <div class="sr6-charactersheet-field">
+          <span data-i18n="field.verteidigungswert">Verteidigungswert</span>
+          <div class="sr6-charactersheet-field-input-with-dice">
+            <input type="text" name="attr_sr6_rigging_verteidigungswert" /><button
+              type="roll"
+              class="sr6-charactersheet-field-dice-button"
+              name="roll_sr6_tab_rigging_verteidigungswert"
+              value="&{template:default} {{name=Rigging-Kernwert}} {{Wert=Verteidigungswert}} {{Pool=[[@{sr6_rigging_verteidigungswert}]]}} {{Erfolge=[[@{sr6_rigging_verteidigungswert}d6cs>4]]}}"
+              aria-label="Wuerfeln"></button>
+          </div>
+        </div>
+
+        <div class="sr6-charactersheet-field">
+          <span data-i18n="field.matrix_verteidigung">Matrix Verteidigung</span>
+          <div class="sr6-charactersheet-field-input-with-dice">
+            <input type="text" name="attr_sr6_rigging_matrix_verteidigung" /><button
+              type="roll"
+              class="sr6-charactersheet-field-dice-button"
+              name="roll_sr6_tab_rigging_matrix_verteidigung"
+              value="&{template:default} {{name=Rigging-Kernwert}} {{Wert=Matrix Verteidigung}} {{Pool=[[@{sr6_rigging_matrix_verteidigung}]]}} {{Erfolge=[[@{sr6_rigging_matrix_verteidigung}d6cs>4]]}}"
+              aria-label="Wuerfeln"></button>
+          </div>
+        </div>
+
+        <div class="sr6-charactersheet-field">
+          <span data-i18n="field.matrix_schadenswiderstand">Matrix Schadenswiderstand</span>
+          <div class="sr6-charactersheet-field-input-with-dice">
+            <input type="text" name="attr_sr6_rigging_matrix_schadenswiderstand" /><button
+              type="roll"
+              class="sr6-charactersheet-field-dice-button"
+              name="roll_sr6_tab_rigging_matrix_schadenswiderstand"
+              value="&{template:default} {{name=Rigging-Kernwert}} {{Wert=Matrix Schadenswiderstand}} {{Pool=[[@{sr6_rigging_matrix_schadenswiderstand}]]}} {{Erfolge=[[@{sr6_rigging_matrix_schadenswiderstand}d6cs>4]]}}"
+              aria-label="Wuerfeln"></button>
+          </div>
+        </div>
+
+        <div class="sr6-charactersheet-field">
+          <span data-i18n="field.biofeedback_schadenswiderstand">Biofeedback Schadenswiderstand</span>
+          <div class="sr6-charactersheet-field-input-with-dice">
+            <input type="text" name="attr_sr6_rigging_biofeedback_schadenswiderstand" /><button
+              type="roll"
+              class="sr6-charactersheet-field-dice-button"
+              name="roll_sr6_tab_rigging_biofeedback_schadenswiderstand"
+              value="&{template:default} {{name=Rigging-Kernwert}} {{Wert=Biofeedback Schadenswiderstand}} {{Pool=[[@{sr6_rigging_biofeedback_schadenswiderstand}]]}} {{Erfolge=[[@{sr6_rigging_biofeedback_schadenswiderstand}d6cs>4]]}}"
+              aria-label="Wuerfeln"></button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  <!-- END BLOCK: Rigging Kernwerte -->
+
+  <!-- BEGIN BLOCK: Rigging Fahrzeuge -->
+  <section
+    class="sr6-charactersheet-box sr6-charactersheet-tab-rigging-item--full sr6-editable-section sr6-rigging-fahrzeuge-section"
+    aria-labelledby="rigging-fahrzeuge-titel">
+    <div class="sr6-editable-section-title-row">
+      <h2 id="rigging-fahrzeuge-titel" class="sr6-charactersheet-box-title" data-i18n="section.rigging_fahrzeuge">
+        Fahrzeuge
+      </h2>
+      <label class="sr6-editable-section-toggle">
+        <input
+          type="checkbox"
+          name="attr_sr6_rigging_fahrzeuge_edit_mode"
+          class="sr6-editable-section-mode" />
+        <span data-i18n="field.editieren">Editieren</span>
+      </label>
+    </div>
+    <div class="sr6-charactersheet-box-content">
+      <div class="sr6-rigging-fahrzeuge-list-header" aria-hidden="true">
+        <div class="sr6-rigging-fahrzeuge-list-header-group sr6-rigging-fahrzeuge-list-header-group--9">
+          <span data-i18n="field.name">Name</span>
+          <span data-i18n="field.handling">Handling</span>
+          <span data-i18n="field.beschleunigung">Beschleunigung</span>
+          <span data-i18n="field.intervall">Intervall</span>
+          <span data-i18n="field.geschwindigkeit">Geschwindigkeit</span>
+          <span data-i18n="field.rumpf">Rumpf</span>
+          <span data-i18n="field.panzerung">Panzerung</span>
+          <span data-i18n="field.pilot">Pilot</span>
+          <span data-i18n="field.sensor">Sensor</span>
+        </div>
+      </div>
+
+      <fieldset class="repeating_sr6riggingfahrzeuge">
+        <div class="sr6-foundry-item">
+          <div class="sr6-editable-item-fields">
+            <div class="sr6-foundry-item-head sr6-rigging-fahrzeug-fields-main sr6-charactersheet-row sr6-charactersheet-row-9">
+              <div class="sr6-charactersheet-field">
+                <span data-i18n="field.name">Name</span>
+                <input type="text" name="attr_sr6_rigging_fahrzeug_name" />
+              </div>
+              <div class="sr6-charactersheet-field">
+                <span data-i18n="field.handling">Handling</span>
+                <input type="text" name="attr_sr6_rigging_fahrzeug_handling" />
+              </div>
+              <div class="sr6-charactersheet-field">
+                <span data-i18n="field.beschleunigung">Beschleunigung</span>
+                <input type="text" name="attr_sr6_rigging_fahrzeug_beschleunigung" />
+              </div>
+              <div class="sr6-charactersheet-field">
+                <span data-i18n="field.intervall">Intervall</span>
+                <input type="text" name="attr_sr6_rigging_fahrzeug_intervall" />
+              </div>
+              <div class="sr6-charactersheet-field">
+                <span data-i18n="field.geschwindigkeit">Geschwindigkeit</span>
+                <input type="text" name="attr_sr6_rigging_fahrzeug_geschwindigkeit" />
+              </div>
+              <div class="sr6-charactersheet-field">
+                <span data-i18n="field.rumpf">Rumpf</span>
+                <input type="text" name="attr_sr6_rigging_fahrzeug_rumpf" />
+              </div>
+              <div class="sr6-charactersheet-field">
+                <span data-i18n="field.panzerung">Panzerung</span>
+                <input type="text" name="attr_sr6_rigging_fahrzeug_panzerung" />
+              </div>
+              <div class="sr6-charactersheet-field">
+                <span data-i18n="field.pilot">Pilot</span>
+                <input type="text" name="attr_sr6_rigging_fahrzeug_pilot" />
+              </div>
+              <div class="sr6-charactersheet-field">
+                <span data-i18n="field.sensor">Sensor</span>
+                <input type="text" name="attr_sr6_rigging_fahrzeug_sensor" />
+              </div>
+            </div>
+
+            <div class="sr6-foundry-item-row sr6-rigging-fahrzeug-fields-secondary sr6-charactersheet-row sr6-charactersheet-row-2">
+              <div class="sr6-charactersheet-field">
+                <span data-i18n="field.sitze">Sitze</span>
+                <input type="text" name="attr_sr6_rigging_fahrzeug_sitze" />
+              </div>
+              <div class="sr6-charactersheet-field">
+                <span data-i18n="field.notiz">Notiz</span>
+                <input type="text" name="attr_sr6_rigging_fahrzeug_notiz" />
+              </div>
+            </div>
+
+            <div class="sr6-foundry-item-footer sr6-rigging-fahrzeug-fields-links sr6-charactersheet-row sr6-charactersheet-row-2">
+              <div class="sr6-charactersheet-field">
+                <span data-i18n="field.waffen">Waffen</span>
+                <select name="attr_sr6_rigging_fahrzeug_waffe">
+                  <option value="" data-i18n="field.keine">Keine</option>
+                  <option value="Pistole" data-i18n="field.waffentyp_pistole">Pistole</option>
+                  <option value="Maschinenpistole" data-i18n="field.waffentyp_maschinenpistole">Maschinenpistole</option>
+                  <option value="Sturmgewehr" data-i18n="field.waffentyp_sturmgewehr">Sturmgewehr</option>
+                  <option value="Schrotflinte" data-i18n="field.waffentyp_schrotflinte">Schrotflinte</option>
+                  <option value="Scharfschuetzengewehr" data-i18n="field.waffentyp_scharfschuetzengewehr">Scharfschützengewehr</option>
+                  <option value="Schwere Waffe" data-i18n="field.waffentyp_schwere_waffe">Schwere Waffe</option>
+                  <option value="Werfer" data-i18n="field.waffentyp_werfer">Werfer</option>
+                  <option value="Bogen/Armbrust" data-i18n="field.waffentyp_bogen_armbrust">Bogen/Armbrust</option>
+                  <option value="Nahkampfwaffe" data-i18n="field.nahkampfwaffe">Nahkampfwaffe</option>
+                  <option value="Exotisch" data-i18n="field.waffentyp_exotisch">Exotisch</option>
+                </select>
+              </div>
+              <div class="sr6-charactersheet-field">
+                <span data-i18n="field.modus">Modus</span>
+                <select name="attr_sr6_rigging_fahrzeug_modus">
+                  <option value="Autonom" data-i18n="field.fahrzeug_modus_autonom">Autonom</option>
+                  <option value="Remote" data-i18n="field.fahrzeug_modus_remote">Remote</option>
+                  <option value="Manuell" data-i18n="field.fahrzeug_modus_manuell">Manuell</option>
+                  <option value="Eingesprungen (VR)" data-i18n="field.fahrzeug_modus_eingesprungen_vr">Eingesprungen (VR)</option>
+                  <option value="Eingesprungen (AR)" data-i18n="field.fahrzeug_modus_eingesprungen_ar">Eingesprungen (AR)</option>
+                  <option value="Agent" data-i18n="field.fahrzeug_modus_agent">Agent</option>
+                </select>
+              </div>
+            </div>
+          </div>
+        </div>
+      </fieldset>
+    </div>
+  </section>
+  <!-- END BLOCK: Rigging Fahrzeuge -->
+
+  <!-- BEGIN BLOCK: Rigging Programme -->
+  <section class="sr6-charactersheet-box sr6-editable-section sr6-matrix-programme-section" aria-labelledby="rigging-programme-titel">
+    <div class="sr6-editable-section-title-row">
+      <h2 id="rigging-programme-titel" class="sr6-charactersheet-box-title" data-i18n="section.matrix_programme">
+        Programme
+      </h2>
+      <label class="sr6-editable-section-toggle">
+        <input
+          type="checkbox"
+          name="attr_sr6_rigging_programme_edit_mode"
+          class="sr6-editable-section-mode" />
+        <span data-i18n="field.editieren">Editieren</span>
+      </label>
+    </div>
+    <div class="sr6-charactersheet-box-content">
+      <div class="sr6-generic-list-header sr6-generic-list-header--5" aria-hidden="true">
+        <span data-i18n="field.name">Name</span>
+        <span data-i18n="field.art">Art</span>
+        <span data-i18n="field.stufe">Stufe</span>
+        <span data-i18n="field.aktiv">Aktiv</span>
+        <span data-i18n="field.notiz">Notiz</span>
+      </div>
+      <fieldset class="repeating_sr6riggingprogramme">
+        <div class="sr6-foundry-item">
+          <div class="sr6-editable-item-fields">
+            <div class="sr6-foundry-item-head sr6-charactersheet-row sr6-charactersheet-row-5">
+              <div class="sr6-charactersheet-field">
+                <span data-i18n="field.name">Name</span>
+                <input type="text" name="attr_sr6_rigging_programm_name" />
+              </div>
+              <div class="sr6-charactersheet-field">
+                <span data-i18n="field.art">Art</span>
+                <input type="text" name="attr_sr6_rigging_programm_art" />
+              </div>
+              <div class="sr6-charactersheet-field">
+                <span data-i18n="field.stufe">Stufe</span>
+                <input type="text" name="attr_sr6_rigging_programm_stufe" />
+              </div>
+              <div class="sr6-charactersheet-field">
+                <span data-i18n="field.aktiv">Aktiv</span>
+                <input type="checkbox" name="attr_sr6_rigging_programm_aktiv" value="1" />
+              </div>
+              <div class="sr6-charactersheet-field">
+                <span data-i18n="field.notiz">Notiz</span>
+                <input type="text" name="attr_sr6_rigging_programm_notiz" />
+              </div>
+            </div>
+          </div>
+        </div>
+      </fieldset>
+    </div>
+  </section>
+  <!-- END BLOCK: Rigging Programme -->
+
+  <!-- BEGIN BLOCK: Rigging Zubehoer -->
+  <section class="sr6-charactersheet-box sr6-editable-section sr6-ausruestung-section" aria-labelledby="rigging-zubehoer-titel">
+    <div class="sr6-editable-section-title-row">
+      <h2 id="rigging-zubehoer-titel" class="sr6-charactersheet-box-title" data-i18n="section.zubehoer">
+        Zubehör
+      </h2>
+      <label class="sr6-editable-section-toggle">
+        <input
+          type="checkbox"
+          name="attr_sr6_rigging_zubehoer_edit_mode"
+          class="sr6-editable-section-mode" />
+        <span data-i18n="field.editieren">Editieren</span>
+      </label>
+    </div>
+    <div class="sr6-charactersheet-box-content">
+      <div class="sr6-generic-list-header sr6-generic-list-header--4" aria-hidden="true">
+        <span data-i18n="field.name">Name</span>
+        <span data-i18n="field.stufe">Stufe</span>
+        <span data-i18n="field.anzahl">Anzahl</span>
+        <span data-i18n="field.notiz">Notiz</span>
+      </div>
+      <fieldset class="repeating_sr6riggingzubehoer">
+        <div class="sr6-foundry-item">
+          <div class="sr6-editable-item-fields">
+            <div class="sr6-foundry-item-head sr6-charactersheet-row sr6-charactersheet-row-4">
+              <div class="sr6-charactersheet-field">
+                <span data-i18n="field.name">Name</span>
+                <input type="text" name="attr_sr6_rigging_zubehoer_name" />
+              </div>
+              <div class="sr6-charactersheet-field">
+                <span data-i18n="field.stufe">Stufe</span>
+                <input type="text" name="attr_sr6_rigging_zubehoer_stufe" />
+              </div>
+              <div class="sr6-charactersheet-field">
+                <span data-i18n="field.anzahl">Anzahl</span>
+                <input type="text" name="attr_sr6_rigging_zubehoer_anzahl" />
+              </div>
+              <div class="sr6-charactersheet-field">
+                <span data-i18n="field.notiz">Notiz</span>
+                <input type="text" name="attr_sr6_rigging_zubehoer_notiz" />
+              </div>
+            </div>
+          </div>
+        </div>
+      </fieldset>
+    </div>
+  </section>
+  <!-- END BLOCK: Rigging Zubehoer -->
+
+  <!-- BEGIN BLOCK: Rigging Agenten -->
+  <section class="sr6-charactersheet-box sr6-editable-section sr6-geister-section" aria-labelledby="rigging-agenten-titel">
+    <div class="sr6-editable-section-title-row">
+      <h2 id="rigging-agenten-titel" class="sr6-charactersheet-box-title" data-i18n="section.agenten">
+        Agenten
+      </h2>
+      <label class="sr6-editable-section-toggle">
+        <input
+          type="checkbox"
+          name="attr_sr6_rigging_agenten_edit_mode"
+          class="sr6-editable-section-mode" />
+        <span data-i18n="field.editieren">Editieren</span>
+      </label>
+    </div>
+    <div class="sr6-charactersheet-box-content">
+      <div class="sr6-generic-list-header sr6-generic-list-header--5" aria-hidden="true">
+        <span data-i18n="field.name">Name</span>
+        <span data-i18n="field.typ">Typ</span>
+        <span data-i18n="field.stufe">Stufe</span>
+        <span data-i18n="field.overwatch">Overwatch</span>
+        <span data-i18n="field.notiz">Notiz</span>
+      </div>
+      <fieldset class="repeating_sr6riggingagenten">
+        <div class="sr6-foundry-item">
+          <div class="sr6-editable-item-fields">
+            <div class="sr6-foundry-item-head sr6-charactersheet-row sr6-charactersheet-row-4">
+              <div class="sr6-charactersheet-field">
+                <span data-i18n="field.name">Name</span>
+                <input type="text" name="attr_sr6_rigging_agent_name" />
+              </div>
+              <div class="sr6-charactersheet-field">
+                <span data-i18n="field.typ">Typ</span>
+                <input type="text" name="attr_sr6_rigging_agent_typ" />
+              </div>
+              <div class="sr6-charactersheet-field">
+                <span data-i18n="field.stufe">Stufe</span>
+                <input type="text" name="attr_sr6_rigging_agent_stufe" />
+              </div>
+              <div class="sr6-charactersheet-field">
+                <span data-i18n="field.overwatch">Overwatch</span>
+                <input type="text" name="attr_sr6_rigging_agent_overwatch" />
+              </div>
+            </div>
+            <div class="sr6-foundry-item-footer sr6-charactersheet-row sr6-charactersheet-row-1">
+              <div class="sr6-charactersheet-field">
+                <span data-i18n="field.notiz">Notiz</span>
+                <input type="text" name="attr_sr6_rigging_agent_notiz" />
+              </div>
+            </div>
+          </div>
+        </div>
+      </fieldset>
+    </div>
+  </section>
+  <!-- END BLOCK: Rigging Agenten -->
+
+  <!-- BEGIN BLOCK: Rigging Manoever -->
+  <section class="sr6-charactersheet-box sr6-editable-section sr6-manoever-section" aria-labelledby="rigging-manoever-titel">
+    <div class="sr6-editable-section-title-row">
+      <h2 id="rigging-manoever-titel" class="sr6-charactersheet-box-title" data-i18n="section.manoever">
+        Manöver
+      </h2>
+      <label class="sr6-editable-section-toggle">
+        <input
+          type="checkbox"
+          name="attr_sr6_rigging_manoever_edit_mode"
+          class="sr6-editable-section-mode" />
+        <span data-i18n="field.editieren">Editieren</span>
+      </label>
+    </div>
+    <div class="sr6-charactersheet-box-content">
+      <div class="sr6-generic-list-header sr6-generic-list-header--4" aria-hidden="true">
+        <span data-i18n="field.name">Name</span>
+        <span data-i18n="field.stufe">Stufe</span>
+        <span data-i18n="field.notiz">Notiz</span>
+        <span data-i18n="field.wurf">Wurf</span>
+      </div>
+      <fieldset class="repeating_sr6riggingmanoever">
+        <div class="sr6-foundry-item">
+          <div class="sr6-editable-item-fields">
+            <div class="sr6-foundry-item-head sr6-charactersheet-row sr6-charactersheet-row-4">
+              <div class="sr6-charactersheet-field">
+                <span data-i18n="field.name">Name</span>
+                <input type="text" name="attr_sr6_rigging_manoever_name" />
+              </div>
+              <div class="sr6-charactersheet-field">
+                <span data-i18n="field.stufe">Stufe</span>
+                <input type="text" name="attr_sr6_rigging_manoever_stufe" />
+              </div>
+              <div class="sr6-charactersheet-field">
+                <span data-i18n="field.notiz">Notiz</span>
+                <input type="text" name="attr_sr6_rigging_manoever_notiz" />
+              </div>
+              <div class="sr6-charactersheet-field">
+                <span data-i18n="field.wurf">Wurf</span>
+                <button
+                  type="roll"
+                  class="sr6-charactersheet-field-dice-button"
+                  name="roll_sr6_rigging_manoever"
+                  value="&{template:default} {{name=Manoever-Test}} {{Manoever=@{sr6_rigging_manoever_name}}} {{Stufe=@{sr6_rigging_manoever_stufe}}} {{Erfolge=[[@{sr6_rigging_manoever_stufe}d6cs>4]]}}"
+                  aria-label="Wuerfeln"></button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </fieldset>
+    </div>
+  </section>
+  <!-- END BLOCK: Rigging Manoever -->
+</div>
+<!-- END BLOCK: Rigging Tab -->

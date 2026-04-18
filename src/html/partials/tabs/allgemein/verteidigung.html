@@ -1,0 +1,168 @@
+<!-- BEGIN BLOCK: Verteidigung -->
+<section
+  class="sr6-charactersheet-box sr6-charactersheet-box-verteidigung sr6-editable-section sr6-editable-overview-section"
+  aria-labelledby="verteidigung-titel">
+  <div class="sr6-editable-section-title-row">
+    <h1
+      id="verteidigung-titel"
+      class="sr6-charactersheet-box-title"
+      data-i18n="section.verteidigung">
+      Verteidigung
+    </h1>
+    <label class="sr6-editable-section-toggle">
+      <input
+        type="checkbox"
+        name="attr_sr6_allgemein_verteidigung_edit_mode"
+        class="sr6-editable-section-mode"
+                      />
+                    <span data-i18n="field.editieren">Editieren</span>
+    </label>
+  </div>
+
+  <div class="sr6-charactersheet-box-content">
+    <!-- BEGIN BLOCK: Feld - Verteidigung (Physisch) -->
+    <div class="sr6-charactersheet-row sr6-charactersheet-row-1">
+      <div class="sr6-charactersheet-field sr6-charactersheet-attr-field">
+        <span data-i18n="field.verteidigung_physisch">Verteidigung (Physisch)</span>
+        <div class="sr6-charactersheet-attr-values">
+          <div class="sr6-charactersheet-attr-value sr6-charactersheet-attr-value--with-dice">
+            <span data-i18n="field.grundwert">Grundwert</span>
+            <div class="sr6-charactersheet-field-input-with-dice">
+              <input type="text" name="attr_sr6_verteidigung_physisch_grundwert" /><button
+                type="roll"
+                class="sr6-charactersheet-field-dice-button"
+                name="roll_sr6_verteidigung_physisch_grundwert"
+                value="&{template:default} {{name=Verteidigung}} {{Wert=Verteidigung (Physisch) Grundwert}} {{Pool=[[@{sr6_verteidigung_physisch_grundwert}]]}} {{Erfolge=[[@{sr6_verteidigung_physisch_grundwert}d6cs>4]]}}"
+                aria-label="Wuerfeln"></button>
+            </div>
+          </div>
+          <div class="sr6-charactersheet-attr-value">
+            <span data-i18n="field.modifikator">Modifikator</span>
+            <input type="text" name="attr_sr6_verteidigung_physisch_modifikator" />
+          </div>
+          <div class="sr6-charactersheet-attr-value sr6-charactersheet-attr-value--with-dice">
+            <span data-i18n="field.gesamtwert">Gesamtwert</span>
+            <div class="sr6-charactersheet-field-input-with-dice">
+              <input type="text" name="attr_sr6_verteidigung_physisch_gesamtwert" /><button
+                type="roll"
+                class="sr6-charactersheet-field-dice-button"
+                name="roll_sr6_verteidigung_physisch_gesamtwert"
+                value="&{template:default} {{name=Verteidigung}} {{Wert=Verteidigung (Physisch) Gesamtwert}} {{Pool=[[@{sr6_verteidigung_physisch_gesamtwert}]]}} {{Erfolge=[[@{sr6_verteidigung_physisch_gesamtwert}d6cs>4]]}}"
+                aria-label="Wuerfeln"></button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- END BLOCK: Feld - Verteidigung (Physisch) -->
+
+    <!-- BEGIN BLOCK: Feld - Verteidigung (Zauber - Direkt) -->
+    <div class="sr6-charactersheet-row sr6-charactersheet-row-1">
+      <div class="sr6-charactersheet-field sr6-charactersheet-attr-field">
+        <span data-i18n="field.verteidigung_zauber_direkt">Verteidigung (Zauber - Direkt)</span>
+        <div class="sr6-charactersheet-attr-values">
+          <div class="sr6-charactersheet-attr-value sr6-charactersheet-attr-value--with-dice">
+            <span data-i18n="field.grundwert">Grundwert</span>
+            <div class="sr6-charactersheet-field-input-with-dice">
+              <input type="text" name="attr_sr6_verteidigung_zauber_direkt_grundwert" /><button
+                type="roll"
+                class="sr6-charactersheet-field-dice-button"
+                name="roll_sr6_verteidigung_zauber_direkt_grundwert"
+                value="&{template:default} {{name=Verteidigung}} {{Wert=Verteidigung (Zauber - Direkt) Grundwert}} {{Pool=[[@{sr6_verteidigung_zauber_direkt_grundwert}]]}} {{Erfolge=[[@{sr6_verteidigung_zauber_direkt_grundwert}d6cs>4]]}}"
+                aria-label="Wuerfeln"></button>
+            </div>
+          </div>
+          <div class="sr6-charactersheet-attr-value">
+            <span data-i18n="field.modifikator">Modifikator</span>
+            <input type="text" name="attr_sr6_verteidigung_zauber_direkt_modifikator" />
+          </div>
+          <div class="sr6-charactersheet-attr-value sr6-charactersheet-attr-value--with-dice">
+            <span data-i18n="field.gesamtwert">Gesamtwert</span>
+            <div class="sr6-charactersheet-field-input-with-dice">
+              <input type="text" name="attr_sr6_verteidigung_zauber_direkt_gesamtwert" /><button
+                type="roll"
+                class="sr6-charactersheet-field-dice-button"
+                name="roll_sr6_verteidigung_zauber_direkt_gesamtwert"
+                value="&{template:default} {{name=Verteidigung}} {{Wert=Verteidigung (Zauber - Direkt) Gesamtwert}} {{Pool=[[@{sr6_verteidigung_zauber_direkt_gesamtwert}]]}} {{Erfolge=[[@{sr6_verteidigung_zauber_direkt_gesamtwert}d6cs>4]]}}"
+                aria-label="Wuerfeln"></button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- END BLOCK: Feld - Verteidigung (Zauber - Direkt) -->
+
+    <!-- BEGIN BLOCK: Feld - Verteidigung (Zauber - Indirekt) -->
+    <div class="sr6-charactersheet-row sr6-charactersheet-row-1">
+      <div class="sr6-charactersheet-field sr6-charactersheet-attr-field">
+        <span data-i18n="field.verteidigung_zauber_indirekt">Verteidigung (Zauber - Indirekt)</span>
+        <div class="sr6-charactersheet-attr-values">
+          <div class="sr6-charactersheet-attr-value sr6-charactersheet-attr-value--with-dice">
+            <span data-i18n="field.grundwert">Grundwert</span>
+            <div class="sr6-charactersheet-field-input-with-dice">
+              <input type="text" name="attr_sr6_verteidigung_zauber_indirekt_grundwert" /><button
+                type="roll"
+                class="sr6-charactersheet-field-dice-button"
+                name="roll_sr6_verteidigung_zauber_indirekt_grundwert"
+                value="&{template:default} {{name=Verteidigung}} {{Wert=Verteidigung (Zauber - Indirekt) Grundwert}} {{Pool=[[@{sr6_verteidigung_zauber_indirekt_grundwert}]]}} {{Erfolge=[[@{sr6_verteidigung_zauber_indirekt_grundwert}d6cs>4]]}}"
+                aria-label="Wuerfeln"></button>
+            </div>
+          </div>
+          <div class="sr6-charactersheet-attr-value">
+            <span data-i18n="field.modifikator">Modifikator</span>
+            <input type="text" name="attr_sr6_verteidigung_zauber_indirekt_modifikator" />
+          </div>
+          <div class="sr6-charactersheet-attr-value sr6-charactersheet-attr-value--with-dice">
+            <span data-i18n="field.gesamtwert">Gesamtwert</span>
+            <div class="sr6-charactersheet-field-input-with-dice">
+              <input type="text" name="attr_sr6_verteidigung_zauber_indirekt_gesamtwert" /><button
+                type="roll"
+                class="sr6-charactersheet-field-dice-button"
+                name="roll_sr6_verteidigung_zauber_indirekt_gesamtwert"
+                value="&{template:default} {{name=Verteidigung}} {{Wert=Verteidigung (Zauber - Indirekt) Gesamtwert}} {{Pool=[[@{sr6_verteidigung_zauber_indirekt_gesamtwert}]]}} {{Erfolge=[[@{sr6_verteidigung_zauber_indirekt_gesamtwert}d6cs>4]]}}"
+                aria-label="Wuerfeln"></button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- END BLOCK: Feld - Verteidigung (Zauber - Indirekt) -->
+
+    <!-- BEGIN BLOCK: Feld - Verteidigung (Astralkampf) -->
+    <div class="sr6-charactersheet-row sr6-charactersheet-row-1">
+      <div class="sr6-charactersheet-field sr6-charactersheet-attr-field">
+        <span data-i18n="field.verteidigung_astralkampf">Verteidigung (Astralkampf)</span>
+        <div class="sr6-charactersheet-attr-values">
+          <div class="sr6-charactersheet-attr-value sr6-charactersheet-attr-value--with-dice">
+            <span data-i18n="field.grundwert">Grundwert</span>
+            <div class="sr6-charactersheet-field-input-with-dice">
+              <input type="text" name="attr_sr6_verteidigung_astralkampf_grundwert" /><button
+                type="roll"
+                class="sr6-charactersheet-field-dice-button"
+                name="roll_sr6_verteidigung_astralkampf_grundwert"
+                value="&{template:default} {{name=Verteidigung}} {{Wert=Verteidigung (Astralkampf) Grundwert}} {{Pool=[[@{sr6_verteidigung_astralkampf_grundwert}]]}} {{Erfolge=[[@{sr6_verteidigung_astralkampf_grundwert}d6cs>4]]}}"
+                aria-label="Wuerfeln"></button>
+            </div>
+          </div>
+          <div class="sr6-charactersheet-attr-value">
+            <span data-i18n="field.modifikator">Modifikator</span>
+            <input type="text" name="attr_sr6_verteidigung_astralkampf_modifikator" />
+          </div>
+          <div class="sr6-charactersheet-attr-value sr6-charactersheet-attr-value--with-dice">
+            <span data-i18n="field.gesamtwert">Gesamtwert</span>
+            <div class="sr6-charactersheet-field-input-with-dice">
+              <input type="text" name="attr_sr6_verteidigung_astralkampf_gesamtwert" /><button
+                type="roll"
+                class="sr6-charactersheet-field-dice-button"
+                name="roll_sr6_verteidigung_astralkampf_gesamtwert"
+                value="&{template:default} {{name=Verteidigung}} {{Wert=Verteidigung (Astralkampf) Gesamtwert}} {{Pool=[[@{sr6_verteidigung_astralkampf_gesamtwert}]]}} {{Erfolge=[[@{sr6_verteidigung_astralkampf_gesamtwert}d6cs>4]]}}"
+                aria-label="Wuerfeln"></button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- END BLOCK: Feld - Verteidigung (Astralkampf) -->
+  </div>
+</section>
+<!-- END BLOCK: Verteidigung -->

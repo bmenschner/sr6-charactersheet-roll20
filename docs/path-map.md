@@ -14,16 +14,30 @@
   - Einstellungen: `src/html/partials/tabs/einstellungen/index.html`
 
 ## Unterbereiche (Beispiele)
-- Allgemein / Attribute: `src/html/partials/allgemein/attribute.html`
-- Allgemein / Fertigkeiten: `src/html/partials/allgemein/fertigkeiten.html`
-- Kampf / Fernkampf: `src/html/partials/kampf/kampf-fernkampf.html`
-- Kampf / Nahkampf: `src/html/partials/kampf/kampf-nahkampf.html`
-- Kampf / Panzerung: `src/html/partials/kampf/kampf-panzerung.html`
+- Allgemein / Attribute: `src/html/partials/tabs/allgemein/attribute.html`
+- Allgemein / Fertigkeiten: `src/html/partials/tabs/allgemein/fertigkeiten.html`
+- Kampf / Fernkampf: `src/html/partials/tabs/kampf/fernkampf.html`
+- Kampf / Nahkampf: `src/html/partials/tabs/kampf/nahkampf.html`
+- Kampf / Panzerung: `src/html/partials/tabs/kampf/panzerung.html`
+
+Legacy-Aliase bestehen weiterhin:
+- `src/html/partials/allgemein/*` -> `tabs/allgemein/*`
+- `src/html/partials/kampf/*` -> `tabs/kampf/*`
+- `src/html/partials/tabs/*-kern.html` -> `tabs/<tab>/kernwerte.html`
 
 ## Schnelleinstieg (CSS)
 - Modulmanifest (Reihenfolge): `src/css/modules/manifest.json`
 - Allgemein / Attribute Listenansicht:
   - `src/css/modules/tabs/allgemein/attribute.css`
+- Weitere Tab-Startpunkte:
+  - `src/css/modules/tabs/fertigkeiten/index.css`
+  - `src/css/modules/tabs/kampf/index.css`
+  - `src/css/modules/tabs/magie/index.css`
+  - `src/css/modules/tabs/matrix/index.css`
+  - `src/css/modules/tabs/rigging/index.css`
+  - `src/css/modules/tabs/ausruestung/index.css`
+  - `src/css/modules/tabs/biographie/index.css`
+  - `src/css/modules/tabs/einstellungen/index.css`
 - Shared Listenansicht:
   - `src/css/modules/30-list-overview.css`
   - `src/css/modules/31-list-zauber.css`

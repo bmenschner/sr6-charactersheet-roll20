@@ -4,10 +4,18 @@
     "10-shell-repeating.css",
     "20-editable-controls.css",
     "30-list-overview.css",
-    "tabs/allgemein/attribute.css",
     "31-list-zauber.css",
     "32-list-repeating-shared.css",
     "40-layout-and-tab-sections.css",
+    "tabs/allgemein/attribute.css",
+    "tabs/fertigkeiten/index.css",
+    "tabs/kampf/index.css",
+    "tabs/magie/index.css",
+    "tabs/matrix/index.css",
+    "tabs/rigging/index.css",
+    "tabs/ausruestung/index.css",
+    "tabs/biographie/index.css",
+    "tabs/einstellungen/index.css",
     "50-overlays-and-roll20-tabs.css"
   ]
 }
