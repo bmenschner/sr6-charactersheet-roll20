@@ -4342,19 +4342,6 @@
 
     </div>
 
-    <!-- BEGIN BLOCK: Globales Bearbeitungsschloss -->
-    <div class="sr6-global-edit-lock">
-      <label class="sr6-global-edit-lock-toggle" title="Bearbeitung sperren/entsperren">
-        <input
-          type="checkbox"
-          name="attr_sr6_global_edit_lock"
-          class="sr6-global-edit-lock-input"
-          checked />
-        <span class="sr6-global-edit-lock-icon" aria-hidden="true"></span>
-      </label>
-    </div>
-    <!-- END BLOCK: Globales Bearbeitungsschloss -->
-
     <!-- BEGIN BLOCK: Roll20 Sheet Worker -->
     <script type="text/worker">
   // Basis-Attributliste fuer die automatische Neuberechnung.
@@ -4524,22 +4511,6 @@
     setAttrs(getEditModeResetPayload(), { silent: true });
   }
 
-  // Beim Laden ist das globale Schloss immer aktiv.
-  function resetGlobalEditLockOnOpen() {
-    setAttrs({ sr6_global_edit_lock: "on" }, { silent: true });
-  }
-
-  // Bei aktivem Schloss alle Editiermodi hart deaktivieren.
-  function enforceEditLock() {
-    setAttrs(getEditModeResetPayload(), { silent: true });
-  }
-
-  function onGlobalEditLockChanged(eventInfo) {
-    if ((eventInfo.newValue || "").trim().toLowerCase() === "on") {
-      enforceEditLock();
-    }
-  }
-
   // Eventliste: reagiert auf Aenderungen in allen relevanten Attributfeldern.
   const recalcEvents = [];
   SR6_ATTRIBUTES.forEach((attributeName) => {
@@ -4556,13 +4527,11 @@
   on(recalcEvents.join(" "), recomputeAll);
   on("sheet:opened", () => {
     resetTabToAllgemeinOnOpen();
-    resetGlobalEditLockOnOpen();
     resetEditModesOnOpen();
     normalizeLegacyCheckboxValues();
     recomputeAll();
   });
   on("change:sr6_combat_helm", normalizeLegacyCheckboxValues);
-  on("change:sr6_global_edit_lock", onGlobalEditLockChanged);
 </script>
 
     <!-- END BLOCK: Roll20 Sheet Worker -->
