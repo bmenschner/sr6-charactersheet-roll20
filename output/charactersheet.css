@@ -2269,7 +2269,7 @@ body:has(.sr6-tabs-toggle-input:checked) #tab-content.tab-content,
 .sr6-tabs-toggle,
 .sr6-charactersheet-settings-toggle {
   position: fixed;
-  top: 0.5rem;
+  top: 0rem;
   left: 50%;
   transform: translateX(-50%);
   z-index: 1100;

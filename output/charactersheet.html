@@ -6847,8 +6847,9 @@
 
     <!-- BEGIN BLOCK: Roll20 Sheet Worker -->
     <script type="text/worker">
+  // BEGIN BLOCK: Worker Bundle (single source)
   // BEGIN BLOCK: Worker Includes (core)
-  // BEGIN MODULE: workers/core/constants
+// BEGIN MODULE: workers/core/constants
 const SR6_ATTRIBUTES = [
   "konstitution",
   "geschicklichkeit",
@@ -6934,7 +6935,7 @@ const SR6_MATRIX_ACTIONS = [
 ];
 // END MODULE: workers/core/constants
 
-  // BEGIN MODULE: workers/core/helpers
+// BEGIN MODULE: workers/core/helpers
 function parseNumber(value) {
   const parsed = parseInt(value, 10);
   return Number.isNaN(parsed) ? 0 : parsed;
@@ -6951,7 +6952,7 @@ function mapTraditionsattributToKey(value) {
 }
 // END MODULE: workers/core/helpers
 
-  // BEGIN MODULE: workers/core/guards
+// BEGIN MODULE: workers/core/guards
 function setAttrsSilent(payload) {
   if (!payload || typeof payload !== "object") {
     return;
@@ -6963,10 +6964,10 @@ function setAttrsSilent(payload) {
 }
 // END MODULE: workers/core/guards
 
-  // END BLOCK: Worker Includes (core)
+// END BLOCK: Worker Includes (core)
 
-  // BEGIN BLOCK: Worker Includes (compute)
-  // BEGIN MODULE: workers/compute/attributes
+// BEGIN BLOCK: Worker Includes (compute)
+// BEGIN MODULE: workers/compute/attributes
 function appendAttributeRequestKeys(requestKeys) {
   SR6_ATTRIBUTES.forEach((attributeName) => {
     requestKeys.push(`sr6_attr_${attributeName}_grundwert`);
@@ -6987,7 +6988,7 @@ function computeAttributeTotals(values, updates, totals) {
 }
 // END MODULE: workers/compute/attributes
 
-  // BEGIN MODULE: workers/compute/skills
+// BEGIN MODULE: workers/compute/skills
 function appendSkillRequestKeys(requestKeys) {
   SR6_SKILLS.forEach((skillName) => {
     requestKeys.push(`sr6_skill_${skillName}_grundwert`);
@@ -7008,7 +7009,7 @@ function computeSkillTotals(values, updates, skillTotals) {
 }
 // END MODULE: workers/compute/skills
 
-  // BEGIN MODULE: workers/compute/combat
+// BEGIN MODULE: workers/compute/combat
 function computeCombatDerivedFromAttributes(totals, updates) {
   const reaktion = totals.reaktion || 0;
   const intuition = totals.intuition || 0;
@@ -7024,7 +7025,7 @@ function computeCombatDerivedFromAttributes(totals, updates) {
 }
 // END MODULE: workers/compute/combat
 
-  // BEGIN MODULE: workers/compute/magic
+// BEGIN MODULE: workers/compute/magic
 function appendMagicRequestKeys(requestKeys) {
   requestKeys.push("sr6_magic_traditionsattribut_1");
   requestKeys.push("sr6_magic_traditionsattribut_2");
@@ -7053,7 +7054,7 @@ function computeMagicDerived(values, totals, skillTotals, updates) {
 }
 // END MODULE: workers/compute/magic
 
-  // BEGIN MODULE: workers/compute/matrix
+// BEGIN MODULE: workers/compute/matrix
 function appendMatrixRequestKeys(requestKeys) {
   SR6_MATRIX_ACTIONS.forEach((actionName) => {
     requestKeys.push(`sr6_matrix_handlung_${actionName}_grundwert`);
@@ -7073,7 +7074,7 @@ function computeMatrixTotals(values, updates) {
 }
 // END MODULE: workers/compute/matrix
 
-  // BEGIN MODULE: workers/compute/rigging
+// BEGIN MODULE: workers/compute/rigging
 // Rigging-Compute-Slot.
 // Aktuell werden im Rigging-Tab keine automatischen Derived-Werte gesetzt,
 // da die angezeigten Kernwerte als direkte Eingaben gefuehrt werden.
@@ -7082,10 +7083,10 @@ function computeRiggingDerived(_values, _totals, _skillTotals, _updates) {
 }
 // END MODULE: workers/compute/rigging
 
-  // END BLOCK: Worker Includes (compute)
+// END BLOCK: Worker Includes (compute)
 
-  // BEGIN BLOCK: Worker Includes (ui)
-  // BEGIN MODULE: workers/ui/defaults
+// BEGIN BLOCK: Worker Includes (ui)
+// BEGIN MODULE: workers/ui/defaults
 function resetTabToAllgemeinOnOpen() {
   setAttrsSilent({ sr6_daten_tab: "allgemein" });
 }
@@ -7125,20 +7126,10 @@ function resetEditModesOnOpen() {
 }
 // END MODULE: workers/ui/defaults
 
-  // BEGIN MODULE: workers/ui/legacy
-function normalizeLegacyCheckboxValues() {
-  getAttrs(["sr6_combat_helm"], (values) => {
-    if ((values.sr6_combat_helm || "").trim().toLowerCase() === "on") {
-      setAttrsSilent({ sr6_combat_helm: "" });
-    }
-  });
-}
-// END MODULE: workers/ui/legacy
+// END BLOCK: Worker Includes (ui)
 
-  // END BLOCK: Worker Includes (ui)
-
-  // BEGIN BLOCK: Worker Includes (register)
-  // BEGIN MODULE: workers/core/register
+// BEGIN BLOCK: Worker Includes (register)
+// BEGIN MODULE: workers/core/register
 function recomputeAll() {
   const requestKeys = [];
   const updates = {};
@@ -7193,17 +7184,16 @@ function registerWorkerEvents() {
   on("sheet:opened", () => {
     resetTabToAllgemeinOnOpen();
     resetEditModesOnOpen();
-    normalizeLegacyCheckboxValues();
     recomputeAll();
   });
-
-  on("change:sr6_combat_helm", normalizeLegacyCheckboxValues);
 }
 
 registerWorkerEvents();
 // END MODULE: workers/core/register
 
-  // END BLOCK: Worker Includes (register)
+// END BLOCK: Worker Includes (register)
+
+  // END BLOCK: Worker Bundle (single source)
 </script>
 
     <!-- END BLOCK: Roll20 Sheet Worker -->
