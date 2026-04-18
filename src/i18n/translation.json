@@ -21,8 +21,9 @@
   "section.matrix_geraete": "Geräte",
   "section.matrix_handlungen": "Matrix-Handlungen",
   "section.rigging_kern": "Rigging: Kernwerte",
-  "section.rigging_fahrzeuge": "Fahrzeuge",
+  "section.rigging_fahrzeuge": "Fahrzeuge/Drohnen",
   "section.agenten": "Agenten",
+  "section.manoever": "Manöver",
   "section.zubehoer": "Zubehör",
   "section.ausruestung": "Ausrüstung",
   "section.cyberware": "Cyberware",
@@ -164,6 +165,9 @@
   "field.matrix_geraet_typ_riggerkonsole": "Riggerkonsole",
   "field.riggerkonsole": "Riggerkonsole",
   "field.rigging_initiative": "Rigging-Initiative",
+  "field.rigging_modus_ar": "AR",
+  "field.rigging_modus_vr_kalt": "VR - Kalt",
+  "field.rigging_modus_vr_heiss": "VR - Heiß",
   "field.angriffswert": "Angriffswert",
   "field.matrix_verteidigung": "Matrix Verteidigung",
   "field.matrix_schadenswiderstand": "Matrix Schadenswiderstand",
@@ -253,6 +257,7 @@
   "panel.magie_placeholder": "Magie-Bereich (Platzhalter).",
   "panel.matrix_placeholder": "Matrix-Bereich (Platzhalter).",
   "panel.rigging_placeholder": "Rigging-Bereich (Platzhalter).",
+  "panel.manoever_placeholder": "Manöver-Bereich (Platzhalter).",
   "panel.ausruestung_placeholder": "Ausrüstungs-Bereich (Platzhalter).",
   "panel.einstellungen_placeholder": "Einstellungen-Bereich (Platzhalter)."
 }
