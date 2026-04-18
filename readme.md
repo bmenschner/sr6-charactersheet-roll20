@@ -28,6 +28,11 @@
     - fehlende Dateien
     - zyklische Includes
     - Includes außerhalb von `src/html`, `src/i18n`, `src/workers`
+- `npm run lint:css-modules`
+  - prüft das CSS-Modulmanifest auf:
+    - ungültige/fehlende Einträge
+    - Duplikate
+    - nicht gelistete CSS-Module
 - `npm run watch` (oder `npm run dev`)
   - beobachtet `src/` rekursiv
   - führt bei Änderungen automatisch den Build erneut aus

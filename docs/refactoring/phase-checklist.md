@@ -11,6 +11,7 @@
 - [x] `src/css/modules/` eingefuehrt
 - [x] `manifest.json` fuer feste Lade-Reihenfolge eingefuehrt
 - [x] Build auf CSS-Bundling aus Modulen umgestellt
+- [x] `lint:css-modules` fuer Manifest-/Modul-Konsistenz eingefuehrt
 
 ## Phase 4: Worker modularisieren
 - [x] `src/workers/modules/` eingefuehrt
