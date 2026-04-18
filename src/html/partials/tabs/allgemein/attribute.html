@@ -1,470 +1,431 @@
 <!-- BEGIN BLOCK: Attribute -->
-              <section
-                class="sr6-charactersheet-box sr6-charactersheet-box-attribute sr6-editable-section sr6-editable-overview-section"
-                aria-labelledby="attribute-titel">
-                <div class="sr6-editable-section-title-row">
-                  <h1
-                    id="attribute-titel"
-                    class="sr6-charactersheet-box-title"
-                    data-i18n="section.attribute">
-                    Attribute
-                  </h1>
-                  <label class="sr6-editable-section-toggle">
-                    <input
-                      type="checkbox"
-                      name="attr_sr6_allgemein_attribute_edit_mode"
-                      class="sr6-editable-section-mode"
-                      />
-                    <span data-i18n="field.editieren">Editieren</span>
-                  </label>
-                </div>
+<section
+  class="sr6-charactersheet-box sr6-charactersheet-box-attribute sr6-editable-section sr6-editable-overview-section"
+  aria-labelledby="attribute-titel">
+  <div class="sr6-editable-section-title-row">
+    <h1
+      id="attribute-titel"
+      class="sr6-charactersheet-box-title"
+      data-i18n="section.attribute">
+      Attribute
+    </h1>
+    <label class="sr6-editable-section-toggle">
+      <input
+        type="checkbox"
+        name="attr_sr6_allgemein_attribute_edit_mode"
+        class="sr6-editable-section-mode" />
+      <span data-i18n="field.editieren">Editieren</span>
+    </label>
+  </div>
 
-                <div class="sr6-charactersheet-box-content">
-                  <!-- BEGIN BLOCK: Attribut-Zeilen als 2-Spalten-Grid -->
-                  <div class="sr6-charactersheet-row sr6-charactersheet-row-2">
-                    <!-- BEGIN BLOCK: Attribut - Konstitution -->
-                    <div
-                      class="sr6-charactersheet-field sr6-charactersheet-attr-field">
-                      <span data-i18n="field.konstitution">Konstitution</span>
-                      <div class="sr6-charactersheet-attr-values">
-                        <div
-                          class="sr6-charactersheet-attr-value sr6-charactersheet-attr-value--with-dice">
-                          <span data-i18n="field.grundwert">Grundwert</span>
-                          <div class="sr6-charactersheet-field-input-with-dice">
-                            <input
-                              type="text"
-                              name="attr_sr6_attr_konstitution_grundwert" /><button
-                              type="roll"
-                              class="sr6-charactersheet-field-dice-button"
-                              name="roll_sr6_attr_konstitution_grundwert"
-                              value="&{template:default} {{name=Attribut-Test}} {{Attribut=Konstitution (Grundwert)}} {{Pool=[[@{sr6_attr_konstitution_grundwert}]]}} {{Erfolge=[[@{sr6_attr_konstitution_grundwert}d6cs>4]]}}"
-                              aria-label="Wuerfeln"></button>
-                          </div>
-                        </div>
-                        <div class="sr6-charactersheet-attr-value">
-                          <span data-i18n="field.modifikator">Modifikator</span
-                          ><input
-                            type="text"
-                            name="attr_sr6_attr_konstitution_modifikator" />
-                        </div>
-                        <div
-                          class="sr6-charactersheet-attr-value sr6-charactersheet-attr-value--with-dice">
-                          <span data-i18n="field.gesamtwert">Gesamtwert</span>
-                          <div class="sr6-charactersheet-field-input-with-dice">
-                            <input
-                              type="text"
-                              name="attr_sr6_attr_konstitution_gesamtwert" /><button
-                              type="roll"
-                              class="sr6-charactersheet-field-dice-button"
-                              name="roll_sr6_attr_konstitution_gesamtwert"
-                              value="&{template:default} {{name=Attribut-Test}} {{Attribut=Konstitution (Gesamtwert)}} {{Pool=[[@{sr6_attr_konstitution_gesamtwert}]]}} {{Erfolge=[[@{sr6_attr_konstitution_gesamtwert}d6cs>4]]}}"
-                              aria-label="Wuerfeln"></button>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                    <!-- END BLOCK: Attribut - Konstitution -->
+  <div class="sr6-charactersheet-box-content">
+    <!-- BEGIN BLOCK: Attribut-Zeilen als 2-Spalten-Grid -->
+    <div class="sr6-charactersheet-row sr6-charactersheet-row-2">
+      <!-- BEGIN BLOCK: Attribut - Konstitution -->
+      <div class="sr6-charactersheet-field sr6-charactersheet-attr-field">
+        <span data-i18n="field.konstitution">Konstitution</span>
+        <div class="sr6-charactersheet-attr-values">
+          <div
+            class="sr6-charactersheet-attr-value sr6-charactersheet-attr-value--with-dice">
+            <span data-i18n="field.grundwert">Grundwert</span>
+            <div class="sr6-charactersheet-field-input-with-dice">
+              <input
+                type="text"
+                name="attr_sr6_attr_konstitution_grundwert" /><button
+                type="roll"
+                class="sr6-charactersheet-field-dice-button"
+                name="roll_sr6_attr_konstitution_grundwert"
+                value="&{template:default} {{name=Attribut-Test}} {{Attribut=Konstitution (Grundwert)}} {{Pool=[[@{sr6_attr_konstitution_grundwert}]]}} {{Erfolge=[[@{sr6_attr_konstitution_grundwert}d6cs>5]]}}"
+                aria-label="Wuerfeln"></button>
+            </div>
+          </div>
+          <div class="sr6-charactersheet-attr-value">
+            <span data-i18n="field.modifikator">Modifikator</span
+            ><input type="text" name="attr_sr6_attr_konstitution_modifikator" />
+          </div>
+          <div
+            class="sr6-charactersheet-attr-value sr6-charactersheet-attr-value--with-dice">
+            <span data-i18n="field.gesamtwert">Gesamtwert</span>
+            <div class="sr6-charactersheet-field-input-with-dice">
+              <input
+                type="text"
+                name="attr_sr6_attr_konstitution_gesamtwert" /><button
+                type="roll"
+                class="sr6-charactersheet-field-dice-button"
+                name="roll_sr6_attr_konstitution_gesamtwert"
+                value="&{template:default} {{name=Attribut-Test}} {{Attribut=Konstitution (Gesamtwert)}} {{Pool=[[@{sr6_attr_konstitution_gesamtwert}]]}} {{Erfolge=[[@{sr6_attr_konstitution_gesamtwert}d6cs>4]]}}"
+                aria-label="Wuerfeln"></button>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- END BLOCK: Attribut - Konstitution -->
 
-                    <!-- BEGIN BLOCK: Attribut - Geschicklichkeit -->
-                    <div
-                      class="sr6-charactersheet-field sr6-charactersheet-attr-field">
-                      <span data-i18n="field.geschicklichkeit"
-                        >Geschicklichkeit</span
-                      >
-                      <div class="sr6-charactersheet-attr-values">
-                        <div
-                          class="sr6-charactersheet-attr-value sr6-charactersheet-attr-value--with-dice">
-                          <span data-i18n="field.grundwert">Grundwert</span>
-                          <div class="sr6-charactersheet-field-input-with-dice">
-                            <input
-                              type="text"
-                              name="attr_sr6_attr_geschicklichkeit_grundwert" /><button
-                              type="roll"
-                              class="sr6-charactersheet-field-dice-button"
-                              name="roll_sr6_attr_geschicklichkeit_grundwert"
-                              value="&{template:default} {{name=Attribut-Test}} {{Attribut=Geschicklichkeit (Grundwert)}} {{Pool=[[@{sr6_attr_geschicklichkeit_grundwert}]]}} {{Erfolge=[[@{sr6_attr_geschicklichkeit_grundwert}d6cs>4]]}}"
-                              aria-label="Wuerfeln"></button>
-                          </div>
-                        </div>
-                        <div class="sr6-charactersheet-attr-value">
-                          <span data-i18n="field.modifikator">Modifikator</span
-                          ><input
-                            type="text"
-                            name="attr_sr6_attr_geschicklichkeit_modifikator" />
-                        </div>
-                        <div
-                          class="sr6-charactersheet-attr-value sr6-charactersheet-attr-value--with-dice">
-                          <span data-i18n="field.gesamtwert">Gesamtwert</span>
-                          <div class="sr6-charactersheet-field-input-with-dice">
-                            <input
-                              type="text"
-                              name="attr_sr6_attr_geschicklichkeit_gesamtwert" /><button
-                              type="roll"
-                              class="sr6-charactersheet-field-dice-button"
-                              name="roll_sr6_attr_geschicklichkeit_gesamtwert"
-                              value="&{template:default} {{name=Attribut-Test}} {{Attribut=Geschicklichkeit (Gesamtwert)}} {{Pool=[[@{sr6_attr_geschicklichkeit_gesamtwert}]]}} {{Erfolge=[[@{sr6_attr_geschicklichkeit_gesamtwert}d6cs>4]]}}"
-                              aria-label="Wuerfeln"></button>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                    <!-- END BLOCK: Attribut - Geschicklichkeit -->
-                  </div>
+      <!-- BEGIN BLOCK: Attribut - Geschicklichkeit -->
+      <div class="sr6-charactersheet-field sr6-charactersheet-attr-field">
+        <span data-i18n="field.geschicklichkeit">Geschicklichkeit</span>
+        <div class="sr6-charactersheet-attr-values">
+          <div
+            class="sr6-charactersheet-attr-value sr6-charactersheet-attr-value--with-dice">
+            <span data-i18n="field.grundwert">Grundwert</span>
+            <div class="sr6-charactersheet-field-input-with-dice">
+              <input
+                type="text"
+                name="attr_sr6_attr_geschicklichkeit_grundwert" /><button
+                type="roll"
+                class="sr6-charactersheet-field-dice-button"
+                name="roll_sr6_attr_geschicklichkeit_grundwert"
+                value="&{template:default} {{name=Attribut-Test}} {{Attribut=Geschicklichkeit (Grundwert)}} {{Pool=[[@{sr6_attr_geschicklichkeit_grundwert}]]}} {{Erfolge=[[@{sr6_attr_geschicklichkeit_grundwert}d6cs>4]]}}"
+                aria-label="Wuerfeln"></button>
+            </div>
+          </div>
+          <div class="sr6-charactersheet-attr-value">
+            <span data-i18n="field.modifikator">Modifikator</span
+            ><input
+              type="text"
+              name="attr_sr6_attr_geschicklichkeit_modifikator" />
+          </div>
+          <div
+            class="sr6-charactersheet-attr-value sr6-charactersheet-attr-value--with-dice">
+            <span data-i18n="field.gesamtwert">Gesamtwert</span>
+            <div class="sr6-charactersheet-field-input-with-dice">
+              <input
+                type="text"
+                name="attr_sr6_attr_geschicklichkeit_gesamtwert" /><button
+                type="roll"
+                class="sr6-charactersheet-field-dice-button"
+                name="roll_sr6_attr_geschicklichkeit_gesamtwert"
+                value="&{template:default} {{name=Attribut-Test}} {{Attribut=Geschicklichkeit (Gesamtwert)}} {{Pool=[[@{sr6_attr_geschicklichkeit_gesamtwert}]]}} {{Erfolge=[[@{sr6_attr_geschicklichkeit_gesamtwert}d6cs>4]]}}"
+                aria-label="Wuerfeln"></button>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- END BLOCK: Attribut - Geschicklichkeit -->
+    </div>
 
-                  <div class="sr6-charactersheet-row sr6-charactersheet-row-2">
-                    <!-- BEGIN BLOCK: Attribut - Reaktion -->
-                    <div
-                      class="sr6-charactersheet-field sr6-charactersheet-attr-field">
-                      <span data-i18n="field.reaktion">Reaktion</span>
-                      <div class="sr6-charactersheet-attr-values">
-                        <div
-                          class="sr6-charactersheet-attr-value sr6-charactersheet-attr-value--with-dice">
-                          <span data-i18n="field.grundwert">Grundwert</span>
-                          <div class="sr6-charactersheet-field-input-with-dice">
-                            <input
-                              type="text"
-                              name="attr_sr6_attr_reaktion_grundwert" /><button
-                              type="roll"
-                              class="sr6-charactersheet-field-dice-button"
-                              name="roll_sr6_attr_reaktion_grundwert"
-                              value="&{template:default} {{name=Attribut-Test}} {{Attribut=Reaktion (Grundwert)}} {{Pool=[[@{sr6_attr_reaktion_grundwert}]]}} {{Erfolge=[[@{sr6_attr_reaktion_grundwert}d6cs>4]]}}"
-                              aria-label="Wuerfeln"></button>
-                          </div>
-                        </div>
-                        <div class="sr6-charactersheet-attr-value">
-                          <span data-i18n="field.modifikator">Modifikator</span
-                          ><input
-                            type="text"
-                            name="attr_sr6_attr_reaktion_modifikator" />
-                        </div>
-                        <div
-                          class="sr6-charactersheet-attr-value sr6-charactersheet-attr-value--with-dice">
-                          <span data-i18n="field.gesamtwert">Gesamtwert</span>
-                          <div class="sr6-charactersheet-field-input-with-dice">
-                            <input
-                              type="text"
-                              name="attr_sr6_attr_reaktion_gesamtwert" /><button
-                              type="roll"
-                              class="sr6-charactersheet-field-dice-button"
-                              name="roll_sr6_attr_reaktion_gesamtwert"
-                              value="&{template:default} {{name=Attribut-Test}} {{Attribut=Reaktion (Gesamtwert)}} {{Pool=[[@{sr6_attr_reaktion_gesamtwert}]]}} {{Erfolge=[[@{sr6_attr_reaktion_gesamtwert}d6cs>4]]}}"
-                              aria-label="Wuerfeln"></button>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                    <!-- END BLOCK: Attribut - Reaktion -->
+    <div class="sr6-charactersheet-row sr6-charactersheet-row-2">
+      <!-- BEGIN BLOCK: Attribut - Reaktion -->
+      <div class="sr6-charactersheet-field sr6-charactersheet-attr-field">
+        <span data-i18n="field.reaktion">Reaktion</span>
+        <div class="sr6-charactersheet-attr-values">
+          <div
+            class="sr6-charactersheet-attr-value sr6-charactersheet-attr-value--with-dice">
+            <span data-i18n="field.grundwert">Grundwert</span>
+            <div class="sr6-charactersheet-field-input-with-dice">
+              <input
+                type="text"
+                name="attr_sr6_attr_reaktion_grundwert" /><button
+                type="roll"
+                class="sr6-charactersheet-field-dice-button"
+                name="roll_sr6_attr_reaktion_grundwert"
+                value="&{template:default} {{name=Attribut-Test}} {{Attribut=Reaktion (Grundwert)}} {{Pool=[[@{sr6_attr_reaktion_grundwert}]]}} {{Erfolge=[[@{sr6_attr_reaktion_grundwert}d6cs>4]]}}"
+                aria-label="Wuerfeln"></button>
+            </div>
+          </div>
+          <div class="sr6-charactersheet-attr-value">
+            <span data-i18n="field.modifikator">Modifikator</span
+            ><input type="text" name="attr_sr6_attr_reaktion_modifikator" />
+          </div>
+          <div
+            class="sr6-charactersheet-attr-value sr6-charactersheet-attr-value--with-dice">
+            <span data-i18n="field.gesamtwert">Gesamtwert</span>
+            <div class="sr6-charactersheet-field-input-with-dice">
+              <input
+                type="text"
+                name="attr_sr6_attr_reaktion_gesamtwert" /><button
+                type="roll"
+                class="sr6-charactersheet-field-dice-button"
+                name="roll_sr6_attr_reaktion_gesamtwert"
+                value="&{template:default} {{name=Attribut-Test}} {{Attribut=Reaktion (Gesamtwert)}} {{Pool=[[@{sr6_attr_reaktion_gesamtwert}]]}} {{Erfolge=[[@{sr6_attr_reaktion_gesamtwert}d6cs>4]]}}"
+                aria-label="Wuerfeln"></button>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- END BLOCK: Attribut - Reaktion -->
 
-                    <!-- BEGIN BLOCK: Attribut - Stärke -->
-                    <div
-                      class="sr6-charactersheet-field sr6-charactersheet-attr-field">
-                      <span data-i18n="field.staerke">Stärke</span>
-                      <div class="sr6-charactersheet-attr-values">
-                        <div
-                          class="sr6-charactersheet-attr-value sr6-charactersheet-attr-value--with-dice">
-                          <span data-i18n="field.grundwert">Grundwert</span>
-                          <div class="sr6-charactersheet-field-input-with-dice">
-                            <input
-                              type="text"
-                              name="attr_sr6_attr_staerke_grundwert" /><button
-                              type="roll"
-                              class="sr6-charactersheet-field-dice-button"
-                              name="roll_sr6_attr_staerke_grundwert"
-                              value="&{template:default} {{name=Attribut-Test}} {{Attribut=Staerke (Grundwert)}} {{Pool=[[@{sr6_attr_staerke_grundwert}]]}} {{Erfolge=[[@{sr6_attr_staerke_grundwert}d6cs>4]]}}"
-                              aria-label="Wuerfeln"></button>
-                          </div>
-                        </div>
-                        <div class="sr6-charactersheet-attr-value">
-                          <span data-i18n="field.modifikator">Modifikator</span
-                          ><input
-                            type="text"
-                            name="attr_sr6_attr_staerke_modifikator" />
-                        </div>
-                        <div
-                          class="sr6-charactersheet-attr-value sr6-charactersheet-attr-value--with-dice">
-                          <span data-i18n="field.gesamtwert">Gesamtwert</span>
-                          <div class="sr6-charactersheet-field-input-with-dice">
-                            <input
-                              type="text"
-                              name="attr_sr6_attr_staerke_gesamtwert" /><button
-                              type="roll"
-                              class="sr6-charactersheet-field-dice-button"
-                              name="roll_sr6_attr_staerke_gesamtwert"
-                              value="&{template:default} {{name=Attribut-Test}} {{Attribut=Staerke (Gesamtwert)}} {{Pool=[[@{sr6_attr_staerke_gesamtwert}]]}} {{Erfolge=[[@{sr6_attr_staerke_gesamtwert}d6cs>4]]}}"
-                              aria-label="Wuerfeln"></button>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                    <!-- END BLOCK: Attribut - Stärke -->
-                  </div>
+      <!-- BEGIN BLOCK: Attribut - Stärke -->
+      <div class="sr6-charactersheet-field sr6-charactersheet-attr-field">
+        <span data-i18n="field.staerke">Stärke</span>
+        <div class="sr6-charactersheet-attr-values">
+          <div
+            class="sr6-charactersheet-attr-value sr6-charactersheet-attr-value--with-dice">
+            <span data-i18n="field.grundwert">Grundwert</span>
+            <div class="sr6-charactersheet-field-input-with-dice">
+              <input
+                type="text"
+                name="attr_sr6_attr_staerke_grundwert" /><button
+                type="roll"
+                class="sr6-charactersheet-field-dice-button"
+                name="roll_sr6_attr_staerke_grundwert"
+                value="&{template:default} {{name=Attribut-Test}} {{Attribut=Staerke (Grundwert)}} {{Pool=[[@{sr6_attr_staerke_grundwert}]]}} {{Erfolge=[[@{sr6_attr_staerke_grundwert}d6cs>4]]}}"
+                aria-label="Wuerfeln"></button>
+            </div>
+          </div>
+          <div class="sr6-charactersheet-attr-value">
+            <span data-i18n="field.modifikator">Modifikator</span
+            ><input type="text" name="attr_sr6_attr_staerke_modifikator" />
+          </div>
+          <div
+            class="sr6-charactersheet-attr-value sr6-charactersheet-attr-value--with-dice">
+            <span data-i18n="field.gesamtwert">Gesamtwert</span>
+            <div class="sr6-charactersheet-field-input-with-dice">
+              <input
+                type="text"
+                name="attr_sr6_attr_staerke_gesamtwert" /><button
+                type="roll"
+                class="sr6-charactersheet-field-dice-button"
+                name="roll_sr6_attr_staerke_gesamtwert"
+                value="&{template:default} {{name=Attribut-Test}} {{Attribut=Staerke (Gesamtwert)}} {{Pool=[[@{sr6_attr_staerke_gesamtwert}]]}} {{Erfolge=[[@{sr6_attr_staerke_gesamtwert}d6cs>4]]}}"
+                aria-label="Wuerfeln"></button>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- END BLOCK: Attribut - Stärke -->
+    </div>
 
-                  <div class="sr6-charactersheet-row sr6-charactersheet-row-2">
-                    <!-- BEGIN BLOCK: Attribut - Willenskraft -->
-                    <div
-                      class="sr6-charactersheet-field sr6-charactersheet-attr-field">
-                      <span data-i18n="field.willenskraft">Willenskraft</span>
-                      <div class="sr6-charactersheet-attr-values">
-                        <div
-                          class="sr6-charactersheet-attr-value sr6-charactersheet-attr-value--with-dice">
-                          <span data-i18n="field.grundwert">Grundwert</span>
-                          <div class="sr6-charactersheet-field-input-with-dice">
-                            <input
-                              type="text"
-                              name="attr_sr6_attr_willenskraft_grundwert" /><button
-                              type="roll"
-                              class="sr6-charactersheet-field-dice-button"
-                              name="roll_sr6_attr_willenskraft_grundwert"
-                              value="&{template:default} {{name=Attribut-Test}} {{Attribut=Willenskraft (Grundwert)}} {{Pool=[[@{sr6_attr_willenskraft_grundwert}]]}} {{Erfolge=[[@{sr6_attr_willenskraft_grundwert}d6cs>4]]}}"
-                              aria-label="Wuerfeln"></button>
-                          </div>
-                        </div>
-                        <div class="sr6-charactersheet-attr-value">
-                          <span data-i18n="field.modifikator">Modifikator</span
-                          ><input
-                            type="text"
-                            name="attr_sr6_attr_willenskraft_modifikator" />
-                        </div>
-                        <div
-                          class="sr6-charactersheet-attr-value sr6-charactersheet-attr-value--with-dice">
-                          <span data-i18n="field.gesamtwert">Gesamtwert</span>
-                          <div class="sr6-charactersheet-field-input-with-dice">
-                            <input
-                              type="text"
-                              name="attr_sr6_attr_willenskraft_gesamtwert" /><button
-                              type="roll"
-                              class="sr6-charactersheet-field-dice-button"
-                              name="roll_sr6_attr_willenskraft_gesamtwert"
-                              value="&{template:default} {{name=Attribut-Test}} {{Attribut=Willenskraft (Gesamtwert)}} {{Pool=[[@{sr6_attr_willenskraft_gesamtwert}]]}} {{Erfolge=[[@{sr6_attr_willenskraft_gesamtwert}d6cs>4]]}}"
-                              aria-label="Wuerfeln"></button>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                    <!-- END BLOCK: Attribut - Willenskraft -->
+    <div class="sr6-charactersheet-row sr6-charactersheet-row-2">
+      <!-- BEGIN BLOCK: Attribut - Willenskraft -->
+      <div class="sr6-charactersheet-field sr6-charactersheet-attr-field">
+        <span data-i18n="field.willenskraft">Willenskraft</span>
+        <div class="sr6-charactersheet-attr-values">
+          <div
+            class="sr6-charactersheet-attr-value sr6-charactersheet-attr-value--with-dice">
+            <span data-i18n="field.grundwert">Grundwert</span>
+            <div class="sr6-charactersheet-field-input-with-dice">
+              <input
+                type="text"
+                name="attr_sr6_attr_willenskraft_grundwert" /><button
+                type="roll"
+                class="sr6-charactersheet-field-dice-button"
+                name="roll_sr6_attr_willenskraft_grundwert"
+                value="&{template:default} {{name=Attribut-Test}} {{Attribut=Willenskraft (Grundwert)}} {{Pool=[[@{sr6_attr_willenskraft_grundwert}]]}} {{Erfolge=[[@{sr6_attr_willenskraft_grundwert}d6cs>4]]}}"
+                aria-label="Wuerfeln"></button>
+            </div>
+          </div>
+          <div class="sr6-charactersheet-attr-value">
+            <span data-i18n="field.modifikator">Modifikator</span
+            ><input type="text" name="attr_sr6_attr_willenskraft_modifikator" />
+          </div>
+          <div
+            class="sr6-charactersheet-attr-value sr6-charactersheet-attr-value--with-dice">
+            <span data-i18n="field.gesamtwert">Gesamtwert</span>
+            <div class="sr6-charactersheet-field-input-with-dice">
+              <input
+                type="text"
+                name="attr_sr6_attr_willenskraft_gesamtwert" /><button
+                type="roll"
+                class="sr6-charactersheet-field-dice-button"
+                name="roll_sr6_attr_willenskraft_gesamtwert"
+                value="&{template:default} {{name=Attribut-Test}} {{Attribut=Willenskraft (Gesamtwert)}} {{Pool=[[@{sr6_attr_willenskraft_gesamtwert}]]}} {{Erfolge=[[@{sr6_attr_willenskraft_gesamtwert}d6cs>4]]}}"
+                aria-label="Wuerfeln"></button>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- END BLOCK: Attribut - Willenskraft -->
 
-                    <!-- BEGIN BLOCK: Attribut - Logik -->
-                    <div
-                      class="sr6-charactersheet-field sr6-charactersheet-attr-field">
-                      <span data-i18n="field.logik">Logik</span>
-                      <div class="sr6-charactersheet-attr-values">
-                        <div
-                          class="sr6-charactersheet-attr-value sr6-charactersheet-attr-value--with-dice">
-                          <span data-i18n="field.grundwert">Grundwert</span>
-                          <div class="sr6-charactersheet-field-input-with-dice">
-                            <input
-                              type="text"
-                              name="attr_sr6_attr_logik_grundwert" /><button
-                              type="roll"
-                              class="sr6-charactersheet-field-dice-button"
-                              name="roll_sr6_attr_logik_grundwert"
-                              value="&{template:default} {{name=Attribut-Test}} {{Attribut=Logik (Grundwert)}} {{Pool=[[@{sr6_attr_logik_grundwert}]]}} {{Erfolge=[[@{sr6_attr_logik_grundwert}d6cs>4]]}}"
-                              aria-label="Wuerfeln"></button>
-                          </div>
-                        </div>
-                        <div class="sr6-charactersheet-attr-value">
-                          <span data-i18n="field.modifikator">Modifikator</span
-                          ><input
-                            type="text"
-                            name="attr_sr6_attr_logik_modifikator" />
-                        </div>
-                        <div
-                          class="sr6-charactersheet-attr-value sr6-charactersheet-attr-value--with-dice">
-                          <span data-i18n="field.gesamtwert">Gesamtwert</span>
-                          <div class="sr6-charactersheet-field-input-with-dice">
-                            <input
-                              type="text"
-                              name="attr_sr6_attr_logik_gesamtwert" /><button
-                              type="roll"
-                              class="sr6-charactersheet-field-dice-button"
-                              name="roll_sr6_attr_logik_gesamtwert"
-                              value="&{template:default} {{name=Attribut-Test}} {{Attribut=Logik (Gesamtwert)}} {{Pool=[[@{sr6_attr_logik_gesamtwert}]]}} {{Erfolge=[[@{sr6_attr_logik_gesamtwert}d6cs>4]]}}"
-                              aria-label="Wuerfeln"></button>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                    <!-- END BLOCK: Attribut - Logik -->
-                  </div>
+      <!-- BEGIN BLOCK: Attribut - Logik -->
+      <div class="sr6-charactersheet-field sr6-charactersheet-attr-field">
+        <span data-i18n="field.logik">Logik</span>
+        <div class="sr6-charactersheet-attr-values">
+          <div
+            class="sr6-charactersheet-attr-value sr6-charactersheet-attr-value--with-dice">
+            <span data-i18n="field.grundwert">Grundwert</span>
+            <div class="sr6-charactersheet-field-input-with-dice">
+              <input type="text" name="attr_sr6_attr_logik_grundwert" /><button
+                type="roll"
+                class="sr6-charactersheet-field-dice-button"
+                name="roll_sr6_attr_logik_grundwert"
+                value="&{template:default} {{name=Attribut-Test}} {{Attribut=Logik (Grundwert)}} {{Pool=[[@{sr6_attr_logik_grundwert}]]}} {{Erfolge=[[@{sr6_attr_logik_grundwert}d6cs>4]]}}"
+                aria-label="Wuerfeln"></button>
+            </div>
+          </div>
+          <div class="sr6-charactersheet-attr-value">
+            <span data-i18n="field.modifikator">Modifikator</span
+            ><input type="text" name="attr_sr6_attr_logik_modifikator" />
+          </div>
+          <div
+            class="sr6-charactersheet-attr-value sr6-charactersheet-attr-value--with-dice">
+            <span data-i18n="field.gesamtwert">Gesamtwert</span>
+            <div class="sr6-charactersheet-field-input-with-dice">
+              <input type="text" name="attr_sr6_attr_logik_gesamtwert" /><button
+                type="roll"
+                class="sr6-charactersheet-field-dice-button"
+                name="roll_sr6_attr_logik_gesamtwert"
+                value="&{template:default} {{name=Attribut-Test}} {{Attribut=Logik (Gesamtwert)}} {{Pool=[[@{sr6_attr_logik_gesamtwert}]]}} {{Erfolge=[[@{sr6_attr_logik_gesamtwert}d6cs>4]]}}"
+                aria-label="Wuerfeln"></button>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- END BLOCK: Attribut - Logik -->
+    </div>
 
-                  <div class="sr6-charactersheet-row sr6-charactersheet-row-2">
-                    <!-- BEGIN BLOCK: Attribut - Intuition -->
-                    <div
-                      class="sr6-charactersheet-field sr6-charactersheet-attr-field">
-                      <span data-i18n="field.intuition">Intuition</span>
-                      <div class="sr6-charactersheet-attr-values">
-                        <div
-                          class="sr6-charactersheet-attr-value sr6-charactersheet-attr-value--with-dice">
-                          <span data-i18n="field.grundwert">Grundwert</span>
-                          <div class="sr6-charactersheet-field-input-with-dice">
-                            <input
-                              type="text"
-                              name="attr_sr6_attr_intuition_grundwert" /><button
-                              type="roll"
-                              class="sr6-charactersheet-field-dice-button"
-                              name="roll_sr6_attr_intuition_grundwert"
-                              value="&{template:default} {{name=Attribut-Test}} {{Attribut=Intuition (Grundwert)}} {{Pool=[[@{sr6_attr_intuition_grundwert}]]}} {{Erfolge=[[@{sr6_attr_intuition_grundwert}d6cs>4]]}}"
-                              aria-label="Wuerfeln"></button>
-                          </div>
-                        </div>
-                        <div class="sr6-charactersheet-attr-value">
-                          <span data-i18n="field.modifikator">Modifikator</span
-                          ><input
-                            type="text"
-                            name="attr_sr6_attr_intuition_modifikator" />
-                        </div>
-                        <div
-                          class="sr6-charactersheet-attr-value sr6-charactersheet-attr-value--with-dice">
-                          <span data-i18n="field.gesamtwert">Gesamtwert</span>
-                          <div class="sr6-charactersheet-field-input-with-dice">
-                            <input
-                              type="text"
-                              name="attr_sr6_attr_intuition_gesamtwert" /><button
-                              type="roll"
-                              class="sr6-charactersheet-field-dice-button"
-                              name="roll_sr6_attr_intuition_gesamtwert"
-                              value="&{template:default} {{name=Attribut-Test}} {{Attribut=Intuition (Gesamtwert)}} {{Pool=[[@{sr6_attr_intuition_gesamtwert}]]}} {{Erfolge=[[@{sr6_attr_intuition_gesamtwert}d6cs>4]]}}"
-                              aria-label="Wuerfeln"></button>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                    <!-- END BLOCK: Attribut - Intuition -->
+    <div class="sr6-charactersheet-row sr6-charactersheet-row-2">
+      <!-- BEGIN BLOCK: Attribut - Intuition -->
+      <div class="sr6-charactersheet-field sr6-charactersheet-attr-field">
+        <span data-i18n="field.intuition">Intuition</span>
+        <div class="sr6-charactersheet-attr-values">
+          <div
+            class="sr6-charactersheet-attr-value sr6-charactersheet-attr-value--with-dice">
+            <span data-i18n="field.grundwert">Grundwert</span>
+            <div class="sr6-charactersheet-field-input-with-dice">
+              <input
+                type="text"
+                name="attr_sr6_attr_intuition_grundwert" /><button
+                type="roll"
+                class="sr6-charactersheet-field-dice-button"
+                name="roll_sr6_attr_intuition_grundwert"
+                value="&{template:default} {{name=Attribut-Test}} {{Attribut=Intuition (Grundwert)}} {{Pool=[[@{sr6_attr_intuition_grundwert}]]}} {{Erfolge=[[@{sr6_attr_intuition_grundwert}d6cs>4]]}}"
+                aria-label="Wuerfeln"></button>
+            </div>
+          </div>
+          <div class="sr6-charactersheet-attr-value">
+            <span data-i18n="field.modifikator">Modifikator</span
+            ><input type="text" name="attr_sr6_attr_intuition_modifikator" />
+          </div>
+          <div
+            class="sr6-charactersheet-attr-value sr6-charactersheet-attr-value--with-dice">
+            <span data-i18n="field.gesamtwert">Gesamtwert</span>
+            <div class="sr6-charactersheet-field-input-with-dice">
+              <input
+                type="text"
+                name="attr_sr6_attr_intuition_gesamtwert" /><button
+                type="roll"
+                class="sr6-charactersheet-field-dice-button"
+                name="roll_sr6_attr_intuition_gesamtwert"
+                value="&{template:default} {{name=Attribut-Test}} {{Attribut=Intuition (Gesamtwert)}} {{Pool=[[@{sr6_attr_intuition_gesamtwert}]]}} {{Erfolge=[[@{sr6_attr_intuition_gesamtwert}d6cs>4]]}}"
+                aria-label="Wuerfeln"></button>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- END BLOCK: Attribut - Intuition -->
 
-                    <!-- BEGIN BLOCK: Attribut - Charisma -->
-                    <div
-                      class="sr6-charactersheet-field sr6-charactersheet-attr-field">
-                      <span data-i18n="field.charisma">Charisma</span>
-                      <div class="sr6-charactersheet-attr-values">
-                        <div
-                          class="sr6-charactersheet-attr-value sr6-charactersheet-attr-value--with-dice">
-                          <span data-i18n="field.grundwert">Grundwert</span>
-                          <div class="sr6-charactersheet-field-input-with-dice">
-                            <input
-                              type="text"
-                              name="attr_sr6_attr_charisma_grundwert" /><button
-                              type="roll"
-                              class="sr6-charactersheet-field-dice-button"
-                              name="roll_sr6_attr_charisma_grundwert"
-                              value="&{template:default} {{name=Attribut-Test}} {{Attribut=Charisma (Grundwert)}} {{Pool=[[@{sr6_attr_charisma_grundwert}]]}} {{Erfolge=[[@{sr6_attr_charisma_grundwert}d6cs>4]]}}"
-                              aria-label="Wuerfeln"></button>
-                          </div>
-                        </div>
-                        <div class="sr6-charactersheet-attr-value">
-                          <span data-i18n="field.modifikator">Modifikator</span
-                          ><input
-                            type="text"
-                            name="attr_sr6_attr_charisma_modifikator" />
-                        </div>
-                        <div
-                          class="sr6-charactersheet-attr-value sr6-charactersheet-attr-value--with-dice">
-                          <span data-i18n="field.gesamtwert">Gesamtwert</span>
-                          <div class="sr6-charactersheet-field-input-with-dice">
-                            <input
-                              type="text"
-                              name="attr_sr6_attr_charisma_gesamtwert" /><button
-                              type="roll"
-                              class="sr6-charactersheet-field-dice-button"
-                              name="roll_sr6_attr_charisma_gesamtwert"
-                              value="&{template:default} {{name=Attribut-Test}} {{Attribut=Charisma (Gesamtwert)}} {{Pool=[[@{sr6_attr_charisma_gesamtwert}]]}} {{Erfolge=[[@{sr6_attr_charisma_gesamtwert}d6cs>4]]}}"
-                              aria-label="Wuerfeln"></button>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                    <!-- END BLOCK: Attribut - Charisma -->
-                  </div>
+      <!-- BEGIN BLOCK: Attribut - Charisma -->
+      <div class="sr6-charactersheet-field sr6-charactersheet-attr-field">
+        <span data-i18n="field.charisma">Charisma</span>
+        <div class="sr6-charactersheet-attr-values">
+          <div
+            class="sr6-charactersheet-attr-value sr6-charactersheet-attr-value--with-dice">
+            <span data-i18n="field.grundwert">Grundwert</span>
+            <div class="sr6-charactersheet-field-input-with-dice">
+              <input
+                type="text"
+                name="attr_sr6_attr_charisma_grundwert" /><button
+                type="roll"
+                class="sr6-charactersheet-field-dice-button"
+                name="roll_sr6_attr_charisma_grundwert"
+                value="&{template:default} {{name=Attribut-Test}} {{Attribut=Charisma (Grundwert)}} {{Pool=[[@{sr6_attr_charisma_grundwert}]]}} {{Erfolge=[[@{sr6_attr_charisma_grundwert}d6cs>4]]}}"
+                aria-label="Wuerfeln"></button>
+            </div>
+          </div>
+          <div class="sr6-charactersheet-attr-value">
+            <span data-i18n="field.modifikator">Modifikator</span
+            ><input type="text" name="attr_sr6_attr_charisma_modifikator" />
+          </div>
+          <div
+            class="sr6-charactersheet-attr-value sr6-charactersheet-attr-value--with-dice">
+            <span data-i18n="field.gesamtwert">Gesamtwert</span>
+            <div class="sr6-charactersheet-field-input-with-dice">
+              <input
+                type="text"
+                name="attr_sr6_attr_charisma_gesamtwert" /><button
+                type="roll"
+                class="sr6-charactersheet-field-dice-button"
+                name="roll_sr6_attr_charisma_gesamtwert"
+                value="&{template:default} {{name=Attribut-Test}} {{Attribut=Charisma (Gesamtwert)}} {{Pool=[[@{sr6_attr_charisma_gesamtwert}]]}} {{Erfolge=[[@{sr6_attr_charisma_gesamtwert}d6cs>4]]}}"
+                aria-label="Wuerfeln"></button>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- END BLOCK: Attribut - Charisma -->
+    </div>
 
-                  <div class="sr6-charactersheet-row sr6-charactersheet-row-2">
-                    <!-- BEGIN BLOCK: Attribut - Edge -->
-                    <div
-                      class="sr6-charactersheet-field sr6-charactersheet-attr-field">
-                      <span data-i18n="field.edge">Edge</span>
-                      <div class="sr6-charactersheet-attr-values">
-                        <div
-                          class="sr6-charactersheet-attr-value sr6-charactersheet-attr-value--with-dice">
-                          <span data-i18n="field.grundwert">Grundwert</span>
-                          <div class="sr6-charactersheet-field-input-with-dice">
-                            <input
-                              type="text"
-                              name="attr_sr6_attr_edge_grundwert" /><button
-                              type="roll"
-                              class="sr6-charactersheet-field-dice-button"
-                              name="roll_sr6_attr_edge_grundwert"
-                              value="&{template:default} {{name=Attribut-Test}} {{Attribut=Edge (Grundwert)}} {{Pool=[[@{sr6_attr_edge_grundwert}]]}} {{Erfolge=[[@{sr6_attr_edge_grundwert}d6cs>4]]}}"
-                              aria-label="Wuerfeln"></button>
-                          </div>
-                        </div>
-                        <div class="sr6-charactersheet-attr-value">
-                          <span data-i18n="field.modifikator">Modifikator</span
-                          ><input
-                            type="text"
-                            name="attr_sr6_attr_edge_modifikator" />
-                        </div>
-                        <div
-                          class="sr6-charactersheet-attr-value sr6-charactersheet-attr-value--with-dice">
-                          <span data-i18n="field.gesamtwert">Gesamtwert</span>
-                          <div class="sr6-charactersheet-field-input-with-dice">
-                            <input
-                              type="text"
-                              name="attr_sr6_attr_edge_gesamtwert" /><button
-                              type="roll"
-                              class="sr6-charactersheet-field-dice-button"
-                              name="roll_sr6_attr_edge_gesamtwert"
-                              value="&{template:default} {{name=Attribut-Test}} {{Attribut=Edge (Gesamtwert)}} {{Pool=[[@{sr6_attr_edge_gesamtwert}]]}} {{Erfolge=[[@{sr6_attr_edge_gesamtwert}d6cs>4]]}}"
-                              aria-label="Wuerfeln"></button>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                    <!-- END BLOCK: Attribut - Edge -->
+    <div class="sr6-charactersheet-row sr6-charactersheet-row-2">
+      <!-- BEGIN BLOCK: Attribut - Edge -->
+      <div class="sr6-charactersheet-field sr6-charactersheet-attr-field">
+        <span data-i18n="field.edge">Edge</span>
+        <div class="sr6-charactersheet-attr-values">
+          <div
+            class="sr6-charactersheet-attr-value sr6-charactersheet-attr-value--with-dice">
+            <span data-i18n="field.grundwert">Grundwert</span>
+            <div class="sr6-charactersheet-field-input-with-dice">
+              <input type="text" name="attr_sr6_attr_edge_grundwert" /><button
+                type="roll"
+                class="sr6-charactersheet-field-dice-button"
+                name="roll_sr6_attr_edge_grundwert"
+                value="&{template:default} {{name=Attribut-Test}} {{Attribut=Edge (Grundwert)}} {{Pool=[[@{sr6_attr_edge_grundwert}]]}} {{Erfolge=[[@{sr6_attr_edge_grundwert}d6cs>4]]}}"
+                aria-label="Wuerfeln"></button>
+            </div>
+          </div>
+          <div class="sr6-charactersheet-attr-value">
+            <span data-i18n="field.modifikator">Modifikator</span
+            ><input type="text" name="attr_sr6_attr_edge_modifikator" />
+          </div>
+          <div
+            class="sr6-charactersheet-attr-value sr6-charactersheet-attr-value--with-dice">
+            <span data-i18n="field.gesamtwert">Gesamtwert</span>
+            <div class="sr6-charactersheet-field-input-with-dice">
+              <input type="text" name="attr_sr6_attr_edge_gesamtwert" /><button
+                type="roll"
+                class="sr6-charactersheet-field-dice-button"
+                name="roll_sr6_attr_edge_gesamtwert"
+                value="&{template:default} {{name=Attribut-Test}} {{Attribut=Edge (Gesamtwert)}} {{Pool=[[@{sr6_attr_edge_gesamtwert}]]}} {{Erfolge=[[@{sr6_attr_edge_gesamtwert}d6cs>4]]}}"
+                aria-label="Wuerfeln"></button>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- END BLOCK: Attribut - Edge -->
 
-                    <!-- BEGIN BLOCK: Attribut - Magie/Resonanz -->
-                    <div
-                      class="sr6-charactersheet-field sr6-charactersheet-attr-field">
-                      <span data-i18n="field.magie_resonanz"
-                        >Magie/Resonanz</span
-                      >
-                      <div class="sr6-charactersheet-attr-values">
-                        <div
-                          class="sr6-charactersheet-attr-value sr6-charactersheet-attr-value--with-dice">
-                          <span data-i18n="field.grundwert">Grundwert</span>
-                          <div class="sr6-charactersheet-field-input-with-dice">
-                            <input
-                              type="text"
-                              name="attr_sr6_attr_magie_resonanz_grundwert" /><button
-                              type="roll"
-                              class="sr6-charactersheet-field-dice-button"
-                              name="roll_sr6_attr_magie_resonanz_grundwert"
-                              value="&{template:default} {{name=Attribut-Test}} {{Attribut=Magie/Resonanz (Grundwert)}} {{Pool=[[@{sr6_attr_magie_resonanz_grundwert}]]}} {{Erfolge=[[@{sr6_attr_magie_resonanz_grundwert}d6cs>4]]}}"
-                              aria-label="Wuerfeln"></button>
-                          </div>
-                        </div>
-                        <div class="sr6-charactersheet-attr-value">
-                          <span data-i18n="field.modifikator">Modifikator</span
-                          ><input
-                            type="text"
-                            name="attr_sr6_attr_magie_resonanz_modifikator" />
-                        </div>
-                        <div
-                          class="sr6-charactersheet-attr-value sr6-charactersheet-attr-value--with-dice">
-                          <span data-i18n="field.gesamtwert">Gesamtwert</span>
-                          <div class="sr6-charactersheet-field-input-with-dice">
-                            <input
-                              type="text"
-                              name="attr_sr6_attr_magie_resonanz_gesamtwert" /><button
-                              type="roll"
-                              class="sr6-charactersheet-field-dice-button"
-                              name="roll_sr6_attr_magie_resonanz_gesamtwert"
-                              value="&{template:default} {{name=Attribut-Test}} {{Attribut=Magie/Resonanz (Gesamtwert)}} {{Pool=[[@{sr6_attr_magie_resonanz_gesamtwert}]]}} {{Erfolge=[[@{sr6_attr_magie_resonanz_gesamtwert}d6cs>4]]}}"
-                              aria-label="Wuerfeln"></button>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                    <!-- END BLOCK: Attribut - Magie/Resonanz -->
-                  </div>
-                  <!-- END BLOCK: Attribut-Zeilen als 2-Spalten-Grid -->
-                </div>
-              </section>
+      <!-- BEGIN BLOCK: Attribut - Magie/Resonanz -->
+      <div class="sr6-charactersheet-field sr6-charactersheet-attr-field">
+        <span data-i18n="field.magie_resonanz">Magie/Resonanz</span>
+        <div class="sr6-charactersheet-attr-values">
+          <div
+            class="sr6-charactersheet-attr-value sr6-charactersheet-attr-value--with-dice">
+            <span data-i18n="field.grundwert">Grundwert</span>
+            <div class="sr6-charactersheet-field-input-with-dice">
+              <input
+                type="text"
+                name="attr_sr6_attr_magie_resonanz_grundwert" /><button
+                type="roll"
+                class="sr6-charactersheet-field-dice-button"
+                name="roll_sr6_attr_magie_resonanz_grundwert"
+                value="&{template:default} {{name=Attribut-Test}} {{Attribut=Magie/Resonanz (Grundwert)}} {{Pool=[[@{sr6_attr_magie_resonanz_grundwert}]]}} {{Erfolge=[[@{sr6_attr_magie_resonanz_grundwert}d6cs>4]]}}"
+                aria-label="Wuerfeln"></button>
+            </div>
+          </div>
+          <div class="sr6-charactersheet-attr-value">
+            <span data-i18n="field.modifikator">Modifikator</span
+            ><input
+              type="text"
+              name="attr_sr6_attr_magie_resonanz_modifikator" />
+          </div>
+          <div
+            class="sr6-charactersheet-attr-value sr6-charactersheet-attr-value--with-dice">
+            <span data-i18n="field.gesamtwert">Gesamtwert</span>
+            <div class="sr6-charactersheet-field-input-with-dice">
+              <input
+                type="text"
+                name="attr_sr6_attr_magie_resonanz_gesamtwert" /><button
+                type="roll"
+                class="sr6-charactersheet-field-dice-button"
+                name="roll_sr6_attr_magie_resonanz_gesamtwert"
+                value="&{template:default} {{name=Attribut-Test}} {{Attribut=Magie/Resonanz (Gesamtwert)}} {{Pool=[[@{sr6_attr_magie_resonanz_gesamtwert}]]}} {{Erfolge=[[@{sr6_attr_magie_resonanz_gesamtwert}d6cs>4]]}}"
+                aria-label="Wuerfeln"></button>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- END BLOCK: Attribut - Magie/Resonanz -->
+    </div>
+    <!-- END BLOCK: Attribut-Zeilen als 2-Spalten-Grid -->
+  </div>
+</section>
 <!-- END BLOCK: Attribute -->

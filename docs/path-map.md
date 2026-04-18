@@ -26,10 +26,8 @@
 - Rigging: `src/html/partials/tabs/rigging/kernwerte.html` -> `src/html/partials/tabs/rigging/sections/*`
 - Ausruestung: `src/html/partials/tabs/ausruestung/kernwerte.html` -> `src/html/partials/tabs/ausruestung/sections/*`
 
-Legacy-Aliase bestehen weiterhin:
-- `src/html/partials/allgemein/*` -> `tabs/allgemein/*`
-- `src/html/partials/kampf/*` -> `tabs/kampf/*`
-- `src/html/partials/tabs/*-kern.html` -> `tabs/<tab>/kernwerte.html`
+Hinweis:
+- Legacy-Alias-Pfade wurden entfernt. Bitte nur `src/html/partials/tabs/**` verwenden.
 
 ## Schnelleinstieg (CSS)
 - Modulmanifest (Reihenfolge): `src/css/modules/manifest.json`

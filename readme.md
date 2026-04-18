@@ -57,10 +57,10 @@ Für die Roll20-Sandbox verwende bevorzugt:
 - `output/translation.json` (flaches Key-Value-Format)
 
 ## Neue Box hinzufügen (Kurzablauf)
-1. Neue Partial-Datei in einem passenden Unterordner anlegen, z. B. `src/html/partials/allgemein/neue-box.html`.
+1. Neue Partial-Datei im passenden Tab-Unterordner anlegen, z. B. `src/html/partials/tabs/allgemein/neue-box.html`.
 2. Block in `src/html/charactersheet.html` einhängen:
    - `<!-- BEGIN BLOCK: Neue Box -->`
-   - `<!-- @include partials/allgemein/neue-box.html -->`
+   - `<!-- @include partials/tabs/allgemein/neue-box.html -->`
    - `<!-- END BLOCK: Neue Box -->`
 3. Prüfen: `npm run lint:includes`
 4. Bauen: `npm run build`

@@ -2,14 +2,14 @@
 
 ## 1. HTML-Partial erstellen
 - Datei anlegen, z. B.:
-  - `src/html/partials/<tab>/<name>.html`
+  - `src/html/partials/tabs/<tab>/<name>.html`
 - Kommentarrahmen setzen:
   - `<!-- BEGIN BLOCK: ... -->`
   - `<!-- END BLOCK: ... -->`
 
 ## 2. Im Entry einhaengen
 - In `src/html/charactersheet.html` per Include einbinden:
-  - `<!-- @include partials/<tab>/<name>.html -->`
+  - `<!-- @include partials/tabs/<tab>/<name>.html -->`
 
 ## 3. Styling
 - Bevorzugt bestehende Komponentenklassen wiederverwenden.
