@@ -33,6 +33,54 @@
     "verzaubern",
     "wahrnehmung"
   ];
+  const SR6_MATRIX_ACTIONS = [
+    "ausstoepseln",
+    "befehl_vortaeuschen",
+    "bedrohungsanalyse",
+    "brute_force",
+    "datei_cracken",
+    "datei_editieren",
+    "datei_verschluesseln",
+    "datenbombe_entschaerfen",
+    "datenbombe_legen",
+    "datenspike",
+    "ersticken",
+    "garbage_in_garbage_out",
+    "geraet_formatieren",
+    "geraet_neu_starten",
+    "geraet_steuern",
+    "geraetesperre",
+    "hineinspringen",
+    "hintertuer_benutzen",
+    "hintertuer_mit_bekanntem_exploit_benutzen",
+    "host_betreten_verlassen",
+    "icon_aufspueren",
+    "icon_modifizieren",
+    "icon_veraendern",
+    "infrastruktur_unterwandern",
+    "interfacemodus_wechseln",
+    "kalibrierung",
+    "maskerade",
+    "matrixattribute_austauschen",
+    "matrixsignatur_loeschen",
+    "matrixsuche",
+    "matrixwahrnehmung",
+    "mittelsmetamensch",
+    "nachricht_uebermitteln",
+    "overwatch_wert_bestimmen",
+    "pop_up",
+    "programm_abstuerzen_lassen",
+    "pruefsummensuche",
+    "signal_stoeren",
+    "sondieren",
+    "stalking",
+    "teergrube",
+    "uebertragung_abfangen",
+    "verstecken",
+    "verzoegerter_befehl",
+    "virtuelles_zielen",
+    "volle_matrixabwehr"
+  ];
 
   // Parse helper mit Roll20-sicherem 0-Fallback.
   function parseNumber(value) {
@@ -66,6 +114,10 @@
       requestKeys.push(`sr6_skill_${skillName}_grundwert`);
       requestKeys.push(`sr6_skill_${skillName}_modifikator`);
     });
+    SR6_MATRIX_ACTIONS.forEach((actionName) => {
+      requestKeys.push(`sr6_matrix_handlung_${actionName}_grundwert`);
+      requestKeys.push(`sr6_matrix_handlung_${actionName}_modifikator`);
+    });
     requestKeys.push("sr6_magic_traditionsattribut_1");
     requestKeys.push("sr6_magic_traditionsattribut_2");
 
@@ -86,6 +138,14 @@
         const total = parseNumber(values[baseKey]) + parseNumber(values[modifierKey]);
 
         skillTotals[skillName] = total;
+        updates[totalKey] = String(total);
+      });
+      SR6_MATRIX_ACTIONS.forEach((actionName) => {
+        const baseKey = `sr6_matrix_handlung_${actionName}_grundwert`;
+        const modifierKey = `sr6_matrix_handlung_${actionName}_modifikator`;
+        const totalKey = `sr6_matrix_handlung_${actionName}_gesamtwert`;
+        const total = parseNumber(values[baseKey]) + parseNumber(values[modifierKey]);
+
         updates[totalKey] = String(total);
       });
 
@@ -154,6 +214,9 @@
       sr6_magic_metamagie_edit_mode: "0",
       sr6_magic_rituale_edit_mode: "0",
       sr6_magic_geister_edit_mode: "0",
+      sr6_matrix_programme_edit_mode: "0",
+      sr6_matrix_geraete_edit_mode: "0",
+      sr6_matrix_handlungen_edit_mode: "0",
       sr6_ausruestung_edit_mode: "0",
       sr6_cyberware_edit_mode: "0",
       sr6_bioware_edit_mode: "0",
@@ -175,6 +238,10 @@
   SR6_SKILLS.forEach((skillName) => {
     recalcEvents.push(`change:sr6_skill_${skillName}_grundwert`);
     recalcEvents.push(`change:sr6_skill_${skillName}_modifikator`);
+  });
+  SR6_MATRIX_ACTIONS.forEach((actionName) => {
+    recalcEvents.push(`change:sr6_matrix_handlung_${actionName}_grundwert`);
+    recalcEvents.push(`change:sr6_matrix_handlung_${actionName}_modifikator`);
   });
   recalcEvents.push("change:sr6_magic_traditionsattribut_1");
   recalcEvents.push("change:sr6_magic_traditionsattribut_2");
