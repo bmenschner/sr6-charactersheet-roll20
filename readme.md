@@ -5,7 +5,7 @@
   - `src/html/charactersheet.html`
   - `src/html/partials/**/*` (modulare HTML-Blöcke, per Include eingebunden)
   - `src/css/modules/**/*` (modulare Styles, gebündelt via `manifest.json`)
-  - `src/workers/modules/**/*` (modulare Worker-Logik)
+  - `src/workers/core/**/*, src/workers/compute/**/*, src/workers/ui/**/*` (modulare Worker-Logik)
   - `src/i18n/translation.json`
   - `src/assets/images/*`
 - Generierter Output:

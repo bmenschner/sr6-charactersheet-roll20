@@ -1,5 +1,4 @@
-// BEGIN MODULE: worker constants
-// Basis-Attributliste fuer die automatische Neuberechnung.
+// BEGIN MODULE: workers/core/constants
 const SR6_ATTRIBUTES = [
   "konstitution",
   "geschicklichkeit",
@@ -83,4 +82,4 @@ const SR6_MATRIX_ACTIONS = [
   "virtuelles_zielen",
   "volle_matrixabwehr"
 ];
-// END MODULE: worker constants
+// END MODULE: workers/core/constants

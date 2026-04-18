@@ -1,11 +1,9 @@
-// BEGIN MODULE: worker helpers
-// Parse helper mit Roll20-sicherem 0-Fallback.
+// BEGIN MODULE: workers/core/helpers
 function parseNumber(value) {
   const parsed = parseInt(value, 10);
   return Number.isNaN(parsed) ? 0 : parsed;
 }
 
-// Mappt die Dropdown-Werte der Tradition auf interne Attribut-Keys.
 function mapTraditionsattributToKey(value) {
   const normalized = (value || "").trim().toLowerCase();
   if (normalized === "charisma") return "charisma";
@@ -15,4 +13,4 @@ function mapTraditionsattributToKey(value) {
   if (normalized === "willenskraft") return "willenskraft";
   return "";
 }
-// END MODULE: worker helpers
+// END MODULE: workers/core/helpers
