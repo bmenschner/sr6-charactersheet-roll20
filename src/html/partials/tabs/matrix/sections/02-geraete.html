@@ -1,0 +1,84 @@
+  <!-- BEGIN BLOCK: Matrix Geraete -->
+  <section
+    class="sr6-charactersheet-box sr6-charactersheet-tab-matrix-item--full sr6-editable-section sr6-matrix-geraete-section"
+    aria-labelledby="matrix-geraete-titel">
+    <div class="sr6-editable-section-title-row">
+      <h2
+        id="matrix-geraete-titel"
+        class="sr6-charactersheet-box-title"
+        data-i18n="section.matrix_geraete">
+        Geräte
+      </h2>
+      <label class="sr6-editable-section-toggle">
+        <input
+          type="checkbox"
+          name="attr_sr6_matrix_geraete_edit_mode"
+          class="sr6-editable-section-mode" />
+        <span data-i18n="field.editieren">Editieren</span>
+      </label>
+    </div>
+    <div class="sr6-charactersheet-box-content">
+      <div class="sr6-generic-list-header sr6-generic-list-header--double" aria-hidden="true">
+        <div class="sr6-generic-list-header-group sr6-generic-list-header-group--6">
+          <span data-i18n="field.name">Name</span>
+          <span data-i18n="field.typ">Typ</span>
+          <span>Ang</span>
+          <span>Sch</span>
+          <span>DV</span>
+          <span>FW</span>
+        </div>
+        <div class="sr6-generic-list-header-group sr6-generic-list-header-group--6">
+          <span data-i18n="field.name">Name</span>
+          <span data-i18n="field.typ">Typ</span>
+          <span>Ang</span>
+          <span>Sch</span>
+          <span>DV</span>
+          <span>FW</span>
+        </div>
+      </div>
+      <fieldset class="repeating_sr6matrixgeraete">
+        <div class="sr6-foundry-item">
+          <div class="sr6-editable-item-fields">
+            <div class="sr6-foundry-item-head sr6-charactersheet-row sr6-charactersheet-row-3">
+              <div class="sr6-charactersheet-field">
+                <span data-i18n="field.name">Name</span>
+                <input type="text" name="attr_sr6_matrix_geraet_name" />
+              </div>
+              <div class="sr6-charactersheet-field">
+                <span data-i18n="field.typ">Typ</span>
+                <select name="attr_sr6_matrix_geraet_typ">
+                  <option value="Cyberdeck" data-i18n="field.matrix_geraet_typ_cyberdeck">Cyberdeck</option>
+                  <option value="Kommlink" data-i18n="field.matrix_geraet_typ_kommlink">Kommlink</option>
+                  <option value="Riggerkonsole" data-i18n="field.matrix_geraet_typ_riggerkonsole">Riggerkonsole</option>
+                  <option value="Host" data-i18n="field.matrix_geraet_typ_host">Host</option>
+                </select>
+              </div>
+              <div class="sr6-charactersheet-field sr6-matrix-geraet-programme-field">
+                <span data-i18n="section.matrix_programme">Programme</span>
+                <input type="text" name="attr_sr6_matrix_geraet_programme" />
+              </div>
+            </div>
+            <div class="sr6-foundry-item-row sr6-charactersheet-row sr6-charactersheet-row-4">
+              <div class="sr6-charactersheet-field">
+                <span data-i18n="field.matrix_angriff">Angriff</span>
+                <input type="text" name="attr_sr6_matrix_geraet_angriff" />
+              </div>
+              <div class="sr6-charactersheet-field">
+                <span data-i18n="field.matrix_schleicher">Schleicher</span>
+                <input type="text" name="attr_sr6_matrix_geraet_schleicher" />
+              </div>
+              <div class="sr6-charactersheet-field">
+                <span data-i18n="field.matrix_datenverarbeitung">Datenverarbeitung</span>
+                <input type="text" name="attr_sr6_matrix_geraet_datenverarbeitung" />
+              </div>
+              <div class="sr6-charactersheet-field">
+                <span data-i18n="field.matrix_firewall">Firewall</span>
+                <input type="text" name="attr_sr6_matrix_geraet_firewall" />
+              </div>
+            </div>
+          </div>
+        </div>
+      </fieldset>
+    </div>
+  </section>
+  <!-- END BLOCK: Matrix Geraete -->

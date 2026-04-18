@@ -1,0 +1,53 @@
+  <!-- BEGIN BLOCK: Rigging Manoever -->
+  <section class="sr6-charactersheet-box sr6-editable-section sr6-manoever-section" aria-labelledby="rigging-manoever-titel">
+    <div class="sr6-editable-section-title-row">
+      <h2 id="rigging-manoever-titel" class="sr6-charactersheet-box-title" data-i18n="section.manoever">
+        Manöver
+      </h2>
+      <label class="sr6-editable-section-toggle">
+        <input
+          type="checkbox"
+          name="attr_sr6_rigging_manoever_edit_mode"
+          class="sr6-editable-section-mode" />
+        <span data-i18n="field.editieren">Editieren</span>
+      </label>
+    </div>
+    <div class="sr6-charactersheet-box-content">
+      <div class="sr6-generic-list-header sr6-generic-list-header--4" aria-hidden="true">
+        <span data-i18n="field.name">Name</span>
+        <span data-i18n="field.stufe">Stufe</span>
+        <span data-i18n="field.notiz">Notiz</span>
+        <span data-i18n="field.wurf">Wurf</span>
+      </div>
+      <fieldset class="repeating_sr6riggingmanoever">
+        <div class="sr6-foundry-item">
+          <div class="sr6-editable-item-fields">
+            <div class="sr6-foundry-item-head sr6-charactersheet-row sr6-charactersheet-row-4">
+              <div class="sr6-charactersheet-field">
+                <span data-i18n="field.name">Name</span>
+                <input type="text" name="attr_sr6_rigging_manoever_name" />
+              </div>
+              <div class="sr6-charactersheet-field">
+                <span data-i18n="field.stufe">Stufe</span>
+                <input type="text" name="attr_sr6_rigging_manoever_stufe" />
+              </div>
+              <div class="sr6-charactersheet-field">
+                <span data-i18n="field.notiz">Notiz</span>
+                <input type="text" name="attr_sr6_rigging_manoever_notiz" />
+              </div>
+              <div class="sr6-charactersheet-field">
+                <span data-i18n="field.wurf">Wurf</span>
+                <button
+                  type="roll"
+                  class="sr6-charactersheet-field-dice-button"
+                  name="roll_sr6_rigging_manoever"
+                  value="&{template:default} {{name=Manoever-Test}} {{Manoever=@{sr6_rigging_manoever_name}}} {{Stufe=@{sr6_rigging_manoever_stufe}}} {{Erfolge=[[@{sr6_rigging_manoever_stufe}d6cs>4]]}}"
+                  aria-label="Wuerfeln"></button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </fieldset>
+    </div>
+  </section>
+  <!-- END BLOCK: Rigging Manoever -->

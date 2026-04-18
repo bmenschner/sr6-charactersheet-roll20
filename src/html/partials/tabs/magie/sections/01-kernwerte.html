@@ -1,0 +1,166 @@
+  <!-- BEGIN BLOCK: Magie Kernwerte -->
+  <section
+    class="sr6-charactersheet-box sr6-charactersheet-tab-magie-item--full"
+    aria-labelledby="magie-kern-titel">
+      <h2
+        id="magie-kern-titel"
+        class="sr6-charactersheet-box-title"
+        data-i18n="section.magie_kern">
+        Magie: Kernwerte
+      </h2>
+
+      <div class="sr6-charactersheet-box-content">
+        <div class="sr6-charactersheet-row sr6-charactersheet-row-2">
+          <div class="sr6-charactersheet-field">
+            <span data-i18n="field.magische_tradition">Magische Tradition</span>
+            <input type="text" name="attr_sr6_magic_tradition" />
+          </div>
+
+          <div class="sr6-charactersheet-field">
+            <span data-i18n="field.traditionsattribut">Traditionsattribut</span>
+            <div class="sr6-charactersheet-tradition-values">
+              <div class="sr6-charactersheet-field">
+                <select name="attr_sr6_magic_traditionsattribut_1">
+                  <option value="Charisma" data-i18n="field.charisma">Charisma</option>
+                  <option value="Intuition" data-i18n="field.intuition">Intuition</option>
+                  <option value="Konstitution" data-i18n="field.konstitution">Konstitution</option>
+                  <option value="Logik" data-i18n="field.logik">Logik</option>
+                  <option value="Willenskraft" data-i18n="field.willenskraft">Willenskraft</option>
+                </select>
+              </div>
+              <span class="sr6-charactersheet-tradition-plus" aria-hidden="true">+</span>
+              <div class="sr6-charactersheet-field">
+                <select name="attr_sr6_magic_traditionsattribut_2">
+                  <option value="Charisma" data-i18n="field.charisma">Charisma</option>
+                  <option value="Intuition" data-i18n="field.intuition">Intuition</option>
+                  <option value="Konstitution" data-i18n="field.konstitution">Konstitution</option>
+                  <option value="Logik" data-i18n="field.logik">Logik</option>
+                  <option value="Willenskraft" data-i18n="field.willenskraft">Willenskraft</option>
+                </select>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="sr6-charactersheet-row sr6-charactersheet-row-4">
+          <div class="sr6-charactersheet-field">
+            <span data-i18n="field.magie">Magie</span>
+            <div class="sr6-charactersheet-field-input-with-dice">
+              <input type="text" name="attr_sr6_magic_magie" /><button
+                type="roll"
+                class="sr6-charactersheet-field-dice-button"
+                name="roll_sr6_tab_magie_magie"
+                value="&{template:default} {{name=Magie}} {{Pool=[[@{sr6_magic_magie}]]}} {{Erfolge=[[@{sr6_magic_magie}d6cs>4]]}}"
+                aria-label="Wuerfeln"></button>
+            </div>
+          </div>
+
+          <div class="sr6-charactersheet-field">
+            <span data-i18n="skill.hexerei">Hexerei</span>
+            <div class="sr6-charactersheet-field-input-with-dice">
+              <input type="text" name="attr_sr6_magic_zauberpool" /><button
+                type="roll"
+                class="sr6-charactersheet-field-dice-button"
+                name="roll_sr6_tab_magie_zauberpool"
+                value="&{template:default} {{name=Magie-Test}} {{Pool=[[@{sr6_magic_zauberpool}]]}} {{Erfolge=[[@{sr6_magic_zauberpool}d6cs>4]]}}"
+                aria-label="Wuerfeln"></button>
+            </div>
+          </div>
+
+          <div class="sr6-charactersheet-field">
+            <div class="sr6-field-label-with-info"><span data-i18n="field.spruchzauberei">Spruchzauberei</span><span class="sr6-info-icon" title="Spruchzauberei = sr6_skill_hexerei_gesamtwert + sr6_attr_magie_resonanz_gesamtwert">i</span></div>
+            <div class="sr6-charactersheet-field-input-with-dice">
+              <input type="text" name="attr_sr6_magic_spruchzauberei" /><button
+                type="roll"
+                class="sr6-charactersheet-field-dice-button"
+                name="roll_sr6_tab_magie_spruchzauberei"
+                value="&{template:default} {{name=Spruchzauberei}} {{Pool=[[@{sr6_magic_spruchzauberei}]]}} {{Erfolge=[[@{sr6_magic_spruchzauberei}d6cs>4]]}}"
+                aria-label="Wuerfeln"></button>
+            </div>
+          </div>
+          <div class="sr6-charactersheet-field">
+            <div class="sr6-field-label-with-info"><span data-i18n="field.entzug_widerstand">Entzugwiderstand</span><span class="sr6-info-icon" title="Entzugswiderstand = Wert(sr6_magic_traditionsattribut_1) + Wert(sr6_magic_traditionsattribut_2)">i</span></div>
+            <div class="sr6-charactersheet-field-input-with-dice">
+              <input type="text" name="attr_sr6_magic_entzug_widerstand" /><button
+                type="roll"
+                class="sr6-charactersheet-field-dice-button"
+                name="roll_sr6_tab_magie_entzug_widerstand"
+                value="&{template:default} {{name=Entzugwiderstand}} {{Pool=[[@{sr6_magic_entzug_widerstand}]]}} {{Erfolge=[[@{sr6_magic_entzug_widerstand}d6cs>4]]}}"
+                aria-label="Wuerfeln"></button>
+            </div>
+          </div>
+        </div>
+
+        <div class="sr6-charactersheet-row sr6-charactersheet-row-5">
+          <div class="sr6-charactersheet-field">
+            <div class="sr6-field-label-with-info"><span data-i18n="field.waffenloser_kampf">Waffenloser Kampf</span><span class="sr6-info-icon" title="Waffenloser Kampf = sr6_skill_astral_gesamtwert + sr6_attr_willenskraft_gesamtwert">i</span></div>
+            <div class="sr6-charactersheet-field-input-with-dice">
+              <input type="text" name="attr_sr6_magic_waffenloser_kampf" /><button
+                type="roll"
+                class="sr6-charactersheet-field-dice-button"
+                name="roll_sr6_tab_magie_waffenloser_kampf"
+                value="&{template:default} {{name=Waffenloser Kampf}} {{Pool=[[@{sr6_magic_waffenloser_kampf}]]}} {{Erfolge=[[@{sr6_magic_waffenloser_kampf}d6cs>4]]}}"
+                aria-label="Wuerfeln"></button>
+            </div>
+          </div>
+
+          <div class="sr6-charactersheet-field">
+            <div class="sr6-field-label-with-info"><span data-i18n="field.waffenfoki">Waffenfoki</span><span class="sr6-info-icon" title="Waffenfoki = sr6_skill_nahkampf_gesamtwert + sr6_attr_willenskraft_gesamtwert">i</span></div>
+            <div class="sr6-charactersheet-field-input-with-dice">
+              <input type="text" name="attr_sr6_magic_waffenfoki" /><button
+                type="roll"
+                class="sr6-charactersheet-field-dice-button"
+                name="roll_sr6_tab_magie_waffenfoki"
+                value="&{template:default} {{name=Waffenfoki}} {{Pool=[[@{sr6_magic_waffenfoki}]]}} {{Erfolge=[[@{sr6_magic_waffenfoki}d6cs>4]]}}"
+                aria-label="Wuerfeln"></button>
+            </div>
+          </div>
+
+          <div class="sr6-charactersheet-field">
+            <div class="sr6-field-label-with-info"><span data-i18n="field.astrale_initiative">Astrale Initiative</span><span class="sr6-info-icon" title="Astrale Initiative (Basis) = sr6_attr_logik_gesamtwert + sr6_attr_intuition_gesamtwert">i</span></div>
+            <div class="sr6-charactersheet-field-input-with-dice">
+              <input type="text" name="attr_sr6_magic_astrale_initiative" /><button
+                type="roll"
+                class="sr6-charactersheet-field-dice-button"
+                name="roll_sr6_tab_magie_astrale_initiative"
+                value="&{template:default} {{name=Astrale Initiative}} {{Basis=[[@{sr6_magic_astrale_initiative}]]}} {{Gesamt=[[@{sr6_magic_astrale_initiative}+3d6]]}}"
+                aria-label="Wuerfeln"></button>
+            </div>
+          </div>
+
+          <div class="sr6-charactersheet-field">
+            <div class="sr6-field-label-with-info"><span data-i18n="field.astrale_verteidigung">Astrale Verteidigung</span><span class="sr6-info-icon" title="Astrale Verteidigung = sr6_attr_logik_gesamtwert + sr6_attr_intuition_gesamtwert">i</span></div>
+            <div class="sr6-charactersheet-field-input-with-dice">
+              <input type="text" name="attr_sr6_magic_astrale_verteidigung" /><button
+                type="roll"
+                class="sr6-charactersheet-field-dice-button"
+                name="roll_sr6_tab_magie_astrale_verteidigung"
+                value="&{template:default} {{name=Astrale Verteidigung}} {{Pool=[[@{sr6_magic_astrale_verteidigung}]]}} {{Erfolge=[[@{sr6_magic_astrale_verteidigung}d6cs>4]]}}"
+                aria-label="Wuerfeln"></button>
+            </div>
+          </div>
+
+          <div class="sr6-charactersheet-field">
+            <div class="sr6-field-label-with-info"><span data-i18n="field.astraler_schadenswiderstand">Astraler Schadenswiderstand</span><span class="sr6-info-icon" title="Astraler Schadenswiderstand = sr6_attr_willenskraft_gesamtwert">i</span></div>
+            <div class="sr6-charactersheet-field-input-with-dice">
+              <input type="text" name="attr_sr6_magic_astraler_schadenswiderstand" /><button
+                type="roll"
+                class="sr6-charactersheet-field-dice-button"
+                name="roll_sr6_tab_magie_astraler_schadenswiderstand"
+                value="&{template:default} {{name=Astraler Schadenswiderstand}} {{Pool=[[@{sr6_magic_astraler_schadenswiderstand}]]}} {{Erfolge=[[@{sr6_magic_astraler_schadenswiderstand}d6cs>4]]}}"
+                aria-label="Wuerfeln"></button>
+            </div>
+          </div>
+        </div>
+        <div class="sr6-charactersheet-row sr6-charactersheet-row-2">
+          <div class="sr6-charactersheet-field">
+            <div class="sr6-field-label-with-info"><span data-i18n="field.astralkampf_angriffswert">Astralkampf Angriffswert</span><span class="sr6-info-icon" title="Astralkampf Angriffswert = sr6_attr_magie_resonanz_gesamtwert + Wert(sr6_magic_traditionsattribut_1)">i</span></div>
+            <input type="text" name="attr_sr6_magic_astralkampf_angriffswert" />
+          </div>
+          <div class="sr6-charactersheet-field">
+            <div class="sr6-field-label-with-info"><span data-i18n="field.astralkampf_verteidigungswert">Astralkampf Verteidigungswert</span><span class="sr6-info-icon" title="Astralkampf Verteidigungswert = sr6_attr_intuition_gesamtwert">i</span></div>
+            <input type="text" name="attr_sr6_magic_astralkampf_verteidigungswert" />
+          </div>
+        </div>
+    </section>
+  <!-- END BLOCK: Magie Kernwerte -->

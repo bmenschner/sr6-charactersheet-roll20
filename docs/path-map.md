@@ -20,6 +20,12 @@
 - Kampf / Nahkampf: `src/html/partials/tabs/kampf/nahkampf.html`
 - Kampf / Panzerung: `src/html/partials/tabs/kampf/panzerung.html`
 
+## Grosse Tabs in Sections (Punkt 2)
+- Magie: `src/html/partials/tabs/magie/kernwerte.html` -> `src/html/partials/tabs/magie/sections/*`
+- Matrix: `src/html/partials/tabs/matrix/kernwerte.html` -> `src/html/partials/tabs/matrix/sections/*`
+- Rigging: `src/html/partials/tabs/rigging/kernwerte.html` -> `src/html/partials/tabs/rigging/sections/*`
+- Ausruestung: `src/html/partials/tabs/ausruestung/kernwerte.html` -> `src/html/partials/tabs/ausruestung/sections/*`
+
 Legacy-Aliase bestehen weiterhin:
 - `src/html/partials/allgemein/*` -> `tabs/allgemein/*`
 - `src/html/partials/kampf/*` -> `tabs/kampf/*`
