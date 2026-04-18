@@ -1,0 +1,218 @@
+.sr6-charactersheet-menu {
+  grid-column: 1 / -1;
+  padding: 0.5rem 0.625rem 0.625rem;
+}
+
+.sr6-charactersheet-menu-tabs {
+  display: flex;
+  align-items: flex-end;
+  gap: 0.5rem;
+  border-bottom: 0.125rem solid var(--sr6-line);
+  padding-bottom: 0.25rem;
+}
+
+.sr6-charactersheet-menu-tabs input[type="radio"] {
+  position: fixed;
+  top: -100vh;
+  left: -100vw;
+  opacity: 0;
+  pointer-events: none;
+}
+
+.sr6-charactersheet-menu-tabs label {
+  border: none;
+  border-bottom: 0.125rem solid transparent;
+  color: var(--sr6-text);
+  font-size: 1rem;
+  font-weight: 700;
+  padding: 0.1875rem 0.25rem;
+  cursor: pointer;
+}
+
+.sr6-charactersheet-menu-tabs input[type="radio"]:checked + label {
+  color: var(--sr6-title);
+  border-bottom-color: var(--sr6-line);
+}
+
+.sr6-charactersheet-menu-content {
+  padding-top: 0.5rem;
+}
+
+.sr6-charactersheet-tabpanel {
+  display: none;
+}
+
+.sr6-charactersheet-tabpanel p {
+  margin: 0;
+  font-size: 0.875rem;
+}
+
+fieldset.repeating_sr6fernkampfwaffen,
+fieldset.repeating_sr6nahkampfwaffen,
+fieldset.repeating_sr6panzerung,
+fieldset.repeating_sr6matrixgeraete,
+fieldset.repeating_sr6riggingfahrzeuge {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0.625rem;
+  align-items: start;
+  margin: 0;
+  padding: 0;
+  border: none;
+  min-inline-size: 0;
+}
+
+fieldset.repeating_sr6fernkampfwaffen .repitem,
+fieldset.repeating_sr6nahkampfwaffen .repitem,
+fieldset.repeating_sr6panzerung .repitem,
+fieldset.repeating_sr6matrixgeraete .repitem,
+fieldset.repeating_sr6riggingfahrzeuge .repitem {
+  margin: 0;
+}
+
+fieldset.repeating_sr6fernkampfwaffen .repitem:last-child,
+fieldset.repeating_sr6nahkampfwaffen .repitem:last-child,
+fieldset.repeating_sr6panzerung .repitem:last-child,
+fieldset.repeating_sr6matrixgeraete .repitem:last-child,
+fieldset.repeating_sr6riggingfahrzeuge .repitem:last-child {
+  margin-bottom: 0;
+}
+
+fieldset.repeating_sr6fernkampfwaffen .repcontrol,
+fieldset.repeating_sr6nahkampfwaffen .repcontrol,
+fieldset.repeating_sr6panzerung .repcontrol,
+fieldset.repeating_sr6matrixgeraete .repcontrol,
+fieldset.repeating_sr6riggingfahrzeuge .repcontrol {
+  grid-column: 1 / -1;
+}
+
+fieldset.repeating_sr6zauber,
+fieldset.repeating_sr6rituale,
+fieldset.repeating_sr6metamagie,
+fieldset.repeating_sr6foki,
+fieldset.repeating_sr6adeptenkraefte,
+fieldset.repeating_sr6geister,
+fieldset.repeating_sr6matrixzubehoer,
+fieldset.repeating_sr6matrixstrukturen,
+fieldset.repeating_sr6matrixsprites,
+fieldset.repeating_sr6matrixprogramme,
+fieldset.repeating_sr6riggingprogramme,
+fieldset.repeating_sr6riggingzubehoer,
+fieldset.repeating_sr6riggingagenten,
+fieldset.repeating_sr6riggingmanoever {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: 0.625rem;
+  align-items: start;
+  margin: 0;
+  padding: 0;
+  border: none;
+  min-inline-size: 0;
+}
+
+fieldset.repeating_sr6zauber .repcontrol,
+fieldset.repeating_sr6rituale .repcontrol,
+fieldset.repeating_sr6metamagie .repcontrol,
+fieldset.repeating_sr6foki .repcontrol,
+fieldset.repeating_sr6adeptenkraefte .repcontrol,
+fieldset.repeating_sr6geister .repcontrol,
+fieldset.repeating_sr6matrixzubehoer .repcontrol,
+fieldset.repeating_sr6matrixstrukturen .repcontrol,
+fieldset.repeating_sr6matrixsprites .repcontrol,
+fieldset.repeating_sr6matrixprogramme .repcontrol,
+fieldset.repeating_sr6riggingprogramme .repcontrol,
+fieldset.repeating_sr6riggingzubehoer .repcontrol,
+fieldset.repeating_sr6riggingagenten .repcontrol,
+fieldset.repeating_sr6riggingmanoever .repcontrol {
+  margin-top: 0.25rem;
+}
+
+.charsheet .repcontainer[data-groupname="repeating_sr6fernkampfwaffen"],
+.charsheet .repcontainer[data-groupname="repeating_sr6nahkampfwaffen"],
+.charsheet .repcontainer[data-groupname="repeating_sr6panzerung"],
+.charsheet .repcontainer[data-groupname="repeating_sr6matrixgeraete"],
+.charsheet .repcontainer[data-groupname="repeating_sr6riggingfahrzeuge"] {
+  display: grid !important;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0.625rem;
+  align-items: start;
+}
+
+.charsheet .repcontainer[data-groupname="repeating_sr6zauber"],
+.charsheet .repcontainer[data-groupname="repeating_sr6rituale"],
+.charsheet .repcontainer[data-groupname="repeating_sr6metamagie"],
+.charsheet .repcontainer[data-groupname="repeating_sr6foki"],
+.charsheet .repcontainer[data-groupname="repeating_sr6adeptenkraefte"],
+.charsheet .repcontainer[data-groupname="repeating_sr6geister"],
+.charsheet .repcontainer[data-groupname="repeating_sr6matrixzubehoer"],
+.charsheet .repcontainer[data-groupname="repeating_sr6matrixstrukturen"],
+.charsheet .repcontainer[data-groupname="repeating_sr6matrixsprites"],
+.charsheet .repcontainer[data-groupname="repeating_sr6matrixprogramme"],
+.charsheet .repcontainer[data-groupname="repeating_sr6riggingprogramme"],
+.charsheet .repcontainer[data-groupname="repeating_sr6riggingzubehoer"],
+.charsheet .repcontainer[data-groupname="repeating_sr6riggingagenten"],
+.charsheet .repcontainer[data-groupname="repeating_sr6riggingmanoever"],
+.charsheet .repcontainer[data-groupname="repeating_sr6ausruestung"],
+.charsheet .repcontainer[data-groupname="repeating_sr6cyberware"],
+.charsheet .repcontainer[data-groupname="repeating_sr6bioware"],
+.charsheet .repcontainer[data-groupname="repeating_sr6sin"],
+.charsheet .repcontainer[data-groupname="repeating_sr6lebensstil"] {
+  display: grid !important;
+  grid-template-columns: minmax(0, 1fr);
+  gap: 0.625rem;
+  align-items: start;
+}
+
+.charsheet .repcontainer[data-groupname="repeating_sr6fernkampfwaffen"] > .repitem,
+.charsheet .repcontainer[data-groupname="repeating_sr6nahkampfwaffen"] > .repitem,
+.charsheet .repcontainer[data-groupname="repeating_sr6panzerung"] > .repitem,
+.charsheet .repcontainer[data-groupname="repeating_sr6matrixgeraete"] > .repitem,
+.charsheet .repcontainer[data-groupname="repeating_sr6riggingfahrzeuge"] > .repitem {
+  margin: 0;
+  grid-column: auto / span 1 !important;
+}
+
+.charsheet .repcontainer[data-groupname="repeating_sr6zauber"] > .repitem,
+.charsheet .repcontainer[data-groupname="repeating_sr6rituale"] > .repitem,
+.charsheet .repcontainer[data-groupname="repeating_sr6metamagie"] > .repitem,
+.charsheet .repcontainer[data-groupname="repeating_sr6foki"] > .repitem,
+.charsheet .repcontainer[data-groupname="repeating_sr6adeptenkraefte"] > .repitem,
+.charsheet .repcontainer[data-groupname="repeating_sr6geister"] > .repitem,
+.charsheet .repcontainer[data-groupname="repeating_sr6matrixzubehoer"] > .repitem,
+.charsheet .repcontainer[data-groupname="repeating_sr6matrixstrukturen"] > .repitem,
+.charsheet .repcontainer[data-groupname="repeating_sr6matrixsprites"] > .repitem,
+.charsheet .repcontainer[data-groupname="repeating_sr6matrixprogramme"] > .repitem,
+.charsheet .repcontainer[data-groupname="repeating_sr6riggingprogramme"] > .repitem,
+.charsheet .repcontainer[data-groupname="repeating_sr6riggingzubehoer"] > .repitem,
+.charsheet .repcontainer[data-groupname="repeating_sr6riggingagenten"] > .repitem,
+.charsheet .repcontainer[data-groupname="repeating_sr6riggingmanoever"] > .repitem,
+.charsheet .repcontainer[data-groupname="repeating_sr6ausruestung"] > .repitem,
+.charsheet .repcontainer[data-groupname="repeating_sr6cyberware"] > .repitem,
+.charsheet .repcontainer[data-groupname="repeating_sr6bioware"] > .repitem,
+.charsheet .repcontainer[data-groupname="repeating_sr6sin"] > .repitem,
+.charsheet .repcontainer[data-groupname="repeating_sr6lebensstil"] > .repitem {
+  margin: 0;
+}
+
+.charsheet .repcontrol .btn,
+.charsheet .repcontrol button.btn,
+.charsheet .repcontrol button.repcontrol_add,
+.charsheet .repcontrol button.repcontrol_edit {
+  font-size: 0.7em;
+  line-height: 1.1;
+  padding: 0.140625rem 0.375rem;
+  min-height: auto;
+  border: 0.0625rem solid var(--sr6-line-soft);
+  border-radius: 0.25rem;
+  background: rgba(255, 255, 255, 0.88);
+  color: var(--sr6-title);
+}
+
+.charsheet .repcontrol .btn:hover,
+.charsheet .repcontrol button.btn:hover,
+.charsheet .repcontrol button.repcontrol_add:hover,
+.charsheet .repcontrol button.repcontrol_edit:hover {
+  border-color: var(--sr6-line);
+  color: var(--sr6-line);
+}
+

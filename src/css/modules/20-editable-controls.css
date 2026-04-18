@@ -1,0 +1,151 @@
+/* Roll20-Repeating-Labels lokalisieren */
+.charsheet .repcontrol {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.5rem;
+  margin-top: 0.25rem;
+}
+
+.charsheet .repcontrol button.repcontrol_add,
+.charsheet .repcontrol button.repcontrol_edit {
+  font-size: 0;
+  float: none;
+  margin: 0;
+}
+
+.charsheet .repcontrol button.repcontrol_add::after {
+  content: "Hinzufuegen";
+  font-size: 0.7rem;
+  line-height: 1.1;
+}
+
+.charsheet .repcontrol button.repcontrol_edit::after {
+  content: "Sortieren/Loeschen";
+  font-size: 0.7rem;
+  line-height: 1.1;
+}
+
+.sr6-foundry-item {
+  background: rgba(255, 255, 255, 0.78);
+  border: 0.0625rem solid rgba(0, 0, 0, 0.12);
+  border-left: 0.1875rem solid var(--sr6-line);
+  border-radius: 0.25rem;
+  padding: 0.5rem;
+  box-shadow: inset 0 0 0 0.0625rem rgba(255, 255, 255, 0.5);
+}
+
+.sr6-foundry-item-head,
+.sr6-foundry-item-row,
+.sr6-foundry-item-range,
+.sr6-foundry-item-footer {
+  margin-top: 0.375rem;
+}
+
+.sr6-foundry-item-head {
+  margin-top: 0;
+}
+
+.sr6-foundry-item-range {
+  padding-top: 0.25rem;
+  border-top: 0.0625rem solid rgba(0, 0, 0, 0.08);
+}
+
+.sr6-foundry-item-footer {
+  padding-top: 0.25rem;
+  border-top: 0.0625rem solid rgba(0, 0, 0, 0.08);
+}
+
+.sr6-foundry-item--armor .sr6-foundry-item-head {
+  margin-top: 0;
+}
+
+.sr6-editable-section-title-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.5rem;
+}
+
+.sr6-editable-section-title-row .sr6-charactersheet-box-title {
+  padding-right: 0;
+}
+
+.sr6-editable-section-title-row + .sr6-charactersheet-box-content {
+  padding-top: 0.25rem;
+}
+
+.sr6-editable-section-title-row .sr6-editable-section-toggle {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: fit-content;
+  max-width: max-content;
+  padding: 0.140625rem 0.375rem;
+  border: 0.0625rem solid var(--sr6-line-soft);
+  border-radius: 0.25rem;
+  color: var(--sr6-title);
+  font-size: 0.7em;
+  line-height: 1.1;
+  font-weight: 600;
+  background: rgba(255, 255, 255, 0.88);
+  cursor: pointer;
+  margin: 0;
+  flex: 0 0 auto;
+}
+
+.sr6-editable-section-mode {
+  position: absolute;
+  opacity: 0;
+  pointer-events: none;
+  width: 0;
+  height: 0;
+}
+
+.sr6-editable-section:has(.sr6-editable-section-mode:checked) .sr6-editable-section-toggle {
+  border-color: var(--sr6-line);
+  background: var(--sr6-line);
+  color: #fff;
+}
+
+.sr6-editable-section:has(.sr6-editable-section-mode:not(:checked)) .sr6-editable-section-toggle {
+  border-color: var(--sr6-line);
+  background: rgba(255, 255, 255, 0.88);
+  color: var(--sr6-line);
+}
+
+.sr6-editable-section:has(.sr6-editable-section-mode:not(:checked)) .sr6-editable-item-fields .sr6-foundry-item-row,
+.sr6-editable-section:has(.sr6-editable-section-mode:not(:checked)) .sr6-editable-item-fields .sr6-foundry-item-footer {
+  display: none;
+}
+
+.sr6-editable-section:has(.sr6-editable-section-mode:not(:checked)) .sr6-editable-item-fields .sr6-foundry-item-head {
+  margin-top: 0;
+}
+
+.sr6-editable-section:has(.sr6-editable-section-mode:not(:checked)) .sr6-editable-item-fields .sr6-foundry-item-head .sr6-charactersheet-field > span {
+  display: none;
+}
+
+.sr6-editable-section:has(.sr6-editable-section-mode:not(:checked)) .sr6-editable-item-fields .sr6-foundry-item-head input,
+.sr6-editable-section:has(.sr6-editable-section-mode:not(:checked)) .sr6-editable-item-fields .sr6-foundry-item-head select,
+.sr6-editable-section:has(.sr6-editable-section-mode:not(:checked)) .sr6-editable-item-fields .sr6-foundry-item-head textarea {
+  pointer-events: none;
+  user-select: none;
+  border-bottom: none;
+  padding: 0;
+  height: 1.25rem;
+  font-size: 0.82rem;
+}
+
+.sr6-editable-section:has(.sr6-editable-section-mode:not(:checked)) .sr6-editable-item-fields select {
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  background-image: none;
+}
+
+.sr6-editable-section:has(.sr6-editable-section-mode:not(:checked)) .repcontrol {
+  display: none;
+}
+

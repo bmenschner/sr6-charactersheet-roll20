@@ -4,7 +4,8 @@
 - Source of Truth:
   - `src/html/charactersheet.html`
   - `src/html/partials/**/*` (modulare HTML-Blöcke, per Include eingebunden)
-  - `src/css/charactersheet.css`
+  - `src/css/modules/**/*` (modulare Styles, gebündelt via `manifest.json`)
+  - `src/workers/modules/**/*` (modulare Worker-Logik)
   - `src/i18n/translation.json`
   - `src/assets/images/*`
 - Generierter Output:
@@ -19,13 +20,14 @@
   - führt zuerst `lint:includes` aus
   - baut danach `output/charactersheet.html` aus `src/html/charactersheet.html` zusammen
     - Include-Syntax: `<!-- @include partials/pfad/datei.html -->`
+  - bündelt CSS aus `src/css/modules/manifest.json` nach `output/charactersheet.css`
   - kopiert die übrigen Source-Dateien aus `src/` nach `output/`
   - kopiert statische Bildassets aus `src/assets/images/` nach `output/assets/images/`
 - `npm run lint:includes`
   - prüft Includes rekursiv auf:
     - fehlende Dateien
     - zyklische Includes
-    - Includes außerhalb von `src/html`
+    - Includes außerhalb von `src/html`, `src/i18n`, `src/workers`
 - `npm run watch` (oder `npm run dev`)
   - beobachtet `src/` rekursiv
   - führt bei Änderungen automatisch den Build erneut aus
@@ -55,6 +57,13 @@ Für die Roll20-Sandbox verwende bevorzugt:
    - `<!-- END BLOCK: Neue Box -->`
 3. Prüfen: `npm run lint:includes`
 4. Bauen: `npm run build`
+
+## Architektur-Doku
+- `CONTRIBUTING.md`
+- `docs/architecture.md`
+- `docs/adding-a-box.md`
+- `docs/worker-flow.md`
+- `docs/ui-patterns.md`
 
 Hinweis: Dieses Repository aktualisiert Roll20 nicht über Git-Sync, sondern nur lokal über Upload.
 

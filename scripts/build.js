@@ -6,16 +6,20 @@ const rootDir = path.resolve(__dirname, '..');
 const srcDir = path.join(rootDir, 'src');
 const htmlDir = path.join(srcDir, 'html');
 const i18nDir = path.join(srcDir, 'i18n');
+const workersDir = path.join(srcDir, 'workers');
+const cssDir = path.join(srcDir, 'css');
+const cssModulesDir = path.join(cssDir, 'modules');
+const cssManifestPath = path.join(cssModulesDir, 'manifest.json');
 const srcImagesDir = path.join(srcDir, 'assets', 'images');
 const outputDir = path.join(rootDir, 'output');
 const outputImagesDir = path.join(outputDir, 'assets', 'images');
 const htmlSourcePath = path.join(htmlDir, 'charactersheet.html');
 const htmlTargetPath = path.join(outputDir, 'charactersheet.html');
+const cssTargetPath = path.join(outputDir, 'charactersheet.css');
 const INCLUDE_PATTERN = /<!--\s*@include\s+([^\s]+)\s*-->/g;
-const INCLUDE_ROOTS = [htmlDir, i18nDir];
+const INCLUDE_ROOTS = [htmlDir, i18nDir, workersDir];
 
 const SOURCE_FILES = [
-  { from: path.join(srcDir, 'css', 'charactersheet.css'), to: path.join(outputDir, 'charactersheet.css') },
   { from: path.join(srcDir, 'i18n', 'translation.json'), to: path.join(outputDir, 'translation.full.json') }
 ];
 
@@ -33,7 +37,24 @@ function copyFile(fromPath, toPath) {
   console.log(`[build] copied ${fromRel} -> ${toRel}`);
 }
 
-// Resolves nested HTML includes from src/html while preventing loops/path escapes.
+function isInsideRoot(filePath, rootPath) {
+  const normalizedFilePath = path.resolve(filePath);
+  const normalizedRootPath = path.resolve(rootPath);
+  return (
+    normalizedFilePath === normalizedRootPath ||
+    normalizedFilePath.startsWith(normalizedRootPath + path.sep)
+  );
+}
+
+function assertAllowedIncludePath(filePath) {
+  if (!INCLUDE_ROOTS.some((rootPath) => isInsideRoot(filePath, rootPath))) {
+    throw new Error(
+      `Include outside allowed roots is not allowed: ${path.relative(rootDir, filePath)}`
+    );
+  }
+}
+
+// Resolves nested includes from src/html and allowed sibling roots while preventing loops/path escapes.
 function resolveHtmlIncludes(filePath, stack = []) {
   const normalizedPath = path.resolve(filePath);
   const fileRel = path.relative(rootDir, normalizedPath);
@@ -67,7 +88,43 @@ function buildCharactersheetHtml() {
   console.log(`[build] wrote ${path.relative(rootDir, htmlTargetPath)} (html includes resolved)`);
 }
 
-// Copies direct source artifacts that are not composed (css + full i18n source dump).
+function getCssModuleOrder() {
+  if (!fs.existsSync(cssManifestPath)) {
+    return [path.join(cssDir, 'charactersheet.css')];
+  }
+
+  const manifestRaw = fs.readFileSync(cssManifestPath, 'utf8');
+  const manifest = JSON.parse(manifestRaw);
+  const order = Array.isArray(manifest.order) ? manifest.order : [];
+
+  if (order.length === 0) {
+    throw new Error('CSS manifest has no entries: src/css/modules/manifest.json');
+  }
+
+  return order.map((entry) => path.join(cssModulesDir, entry));
+}
+
+// Builds the final Roll20 stylesheet from ordered css modules.
+function buildCharactersheetCss() {
+  const modulePaths = getCssModuleOrder();
+
+  const parts = modulePaths.map((modulePath) => {
+    if (!fs.existsSync(modulePath)) {
+      throw new Error(`Missing css module: ${path.relative(rootDir, modulePath)}`);
+    }
+
+    const moduleBody = fs.readFileSync(modulePath, 'utf8').trimEnd();
+    const moduleRel = path.relative(rootDir, modulePath);
+    return `/* BEGIN MODULE: ${moduleRel} */\n${moduleBody}\n/* END MODULE: ${moduleRel} */`;
+  });
+
+  const cssOutput = `${parts.join('\n\n')}\n`;
+  ensureDir(path.dirname(cssTargetPath));
+  fs.writeFileSync(cssTargetPath, cssOutput, 'utf8');
+  console.log(`[build] wrote ${path.relative(rootDir, cssTargetPath)} (css modules bundled)`);
+}
+
+// Copies direct source artifacts that are not composed (full i18n source dump).
 function copyMainSources() {
   SOURCE_FILES.forEach(({ from, to }) => {
     if (!fs.existsSync(from)) {
@@ -115,6 +172,7 @@ function runBuild() {
   console.log('[build] start');
   ensureDir(outputDir);
   buildCharactersheetHtml();
+  buildCharactersheetCss();
   copyMainSources();
   writeRoll20CompatibilityFiles();
   copyStaticAssets();
@@ -131,19 +189,3 @@ if (require.main === module) {
 }
 
 module.exports = { runBuild };
-function isInsideRoot(filePath, rootPath) {
-  const normalizedFilePath = path.resolve(filePath);
-  const normalizedRootPath = path.resolve(rootPath);
-  return (
-    normalizedFilePath === normalizedRootPath ||
-    normalizedFilePath.startsWith(normalizedRootPath + path.sep)
-  );
-}
-
-function assertAllowedIncludePath(filePath) {
-  if (!INCLUDE_ROOTS.some((rootPath) => isInsideRoot(filePath, rootPath))) {
-    throw new Error(
-      `Include outside allowed roots is not allowed: ${path.relative(rootDir, filePath)}`
-    );
-  }
-}
