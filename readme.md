@@ -69,6 +69,7 @@ Für die Roll20-Sandbox verwende bevorzugt:
 - `CONTRIBUTING.md`
 - `docs/architecture.md`
 - `docs/adding-a-box.md`
+- `docs/path-map.md`
 - `docs/worker-flow.md`
 - `docs/ui-patterns.md`
 

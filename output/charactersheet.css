@@ -1031,7 +1031,7 @@ fieldset.repeating_sr6riggingmanoever .repcontrol {
 }
 /* END MODULE: src/css/modules/30-list-overview.css */
 
-/* BEGIN MODULE: src/css/modules/allgemein/attribute.css */
+/* BEGIN MODULE: src/css/modules/tabs/allgemein/attribute.css */
 /* Allgemein (Panel 1): kompakte Listenansicht wie "Konstitution 3 (4) [Wuerfel]" */
 #sr6_daten_panel_1 .sr6-charactersheet-box-attribute.sr6-editable-overview-section:has(.sr6-editable-section-mode:not(:checked)) .sr6-charactersheet-field.sr6-charactersheet-attr-field,
 #sr6_daten_panel_1 .sr6-charactersheet-box-fertigkeiten-allgemein.sr6-editable-overview-section:has(.sr6-editable-section-mode:not(:checked)) .sr6-charactersheet-field.sr6-charactersheet-attr-field {
@@ -1127,7 +1127,7 @@ fieldset.repeating_sr6riggingmanoever .repcontrol {
 #sr6_daten_panel_1 .sr6-charactersheet-box-fertigkeiten-allgemein.sr6-editable-overview-section:has(.sr6-editable-section-mode:not(:checked)) .sr6-charactersheet-attr-value:last-child .sr6-charactersheet-field-dice-button {
   display: flex;
 }
-/* END MODULE: src/css/modules/allgemein/attribute.css */
+/* END MODULE: src/css/modules/tabs/allgemein/attribute.css */
 
 /* BEGIN MODULE: src/css/modules/31-list-zauber.css */
 .sr6-zauber-list-roll {
