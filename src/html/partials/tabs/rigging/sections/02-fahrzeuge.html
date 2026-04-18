@@ -1,0 +1,119 @@
+  <!-- BEGIN BLOCK: Rigging Fahrzeuge -->
+  <section
+    class="sr6-charactersheet-box sr6-charactersheet-tab-rigging-item--full sr6-editable-section sr6-rigging-fahrzeuge-section"
+    aria-labelledby="rigging-fahrzeuge-titel">
+    <div class="sr6-editable-section-title-row">
+      <h2 id="rigging-fahrzeuge-titel" class="sr6-charactersheet-box-title" data-i18n="section.rigging_fahrzeuge">
+        Fahrzeuge
+      </h2>
+      <label class="sr6-editable-section-toggle">
+        <input
+          type="checkbox"
+          name="attr_sr6_rigging_fahrzeuge_edit_mode"
+          class="sr6-editable-section-mode" />
+        <span data-i18n="field.editieren">Editieren</span>
+      </label>
+    </div>
+    <div class="sr6-charactersheet-box-content">
+      <div class="sr6-rigging-fahrzeuge-list-header" aria-hidden="true">
+        <div class="sr6-rigging-fahrzeuge-list-header-group sr6-rigging-fahrzeuge-list-header-group--9">
+          <span data-i18n="field.name">Name</span>
+          <span data-i18n="field.handling">Handling</span>
+          <span data-i18n="field.beschleunigung">Beschleunigung</span>
+          <span data-i18n="field.intervall">Intervall</span>
+          <span data-i18n="field.geschwindigkeit">Geschwindigkeit</span>
+          <span data-i18n="field.rumpf">Rumpf</span>
+          <span data-i18n="field.panzerung">Panzerung</span>
+          <span data-i18n="field.pilot">Pilot</span>
+          <span data-i18n="field.sensor">Sensor</span>
+        </div>
+      </div>
+
+      <fieldset class="repeating_sr6riggingfahrzeuge">
+        <div class="sr6-foundry-item">
+          <div class="sr6-editable-item-fields">
+            <div class="sr6-foundry-item-head sr6-rigging-fahrzeug-fields-main sr6-charactersheet-row sr6-charactersheet-row-9">
+              <div class="sr6-charactersheet-field">
+                <span data-i18n="field.name">Name</span>
+                <input type="text" name="attr_sr6_rigging_fahrzeug_name" />
+              </div>
+              <div class="sr6-charactersheet-field">
+                <span data-i18n="field.handling">Handling</span>
+                <input type="text" name="attr_sr6_rigging_fahrzeug_handling" />
+              </div>
+              <div class="sr6-charactersheet-field">
+                <span data-i18n="field.beschleunigung">Beschleunigung</span>
+                <input type="text" name="attr_sr6_rigging_fahrzeug_beschleunigung" />
+              </div>
+              <div class="sr6-charactersheet-field">
+                <span data-i18n="field.intervall">Intervall</span>
+                <input type="text" name="attr_sr6_rigging_fahrzeug_intervall" />
+              </div>
+              <div class="sr6-charactersheet-field">
+                <span data-i18n="field.geschwindigkeit">Geschwindigkeit</span>
+                <input type="text" name="attr_sr6_rigging_fahrzeug_geschwindigkeit" />
+              </div>
+              <div class="sr6-charactersheet-field">
+                <span data-i18n="field.rumpf">Rumpf</span>
+                <input type="text" name="attr_sr6_rigging_fahrzeug_rumpf" />
+              </div>
+              <div class="sr6-charactersheet-field">
+                <span data-i18n="field.panzerung">Panzerung</span>
+                <input type="text" name="attr_sr6_rigging_fahrzeug_panzerung" />
+              </div>
+              <div class="sr6-charactersheet-field">
+                <span data-i18n="field.pilot">Pilot</span>
+                <input type="text" name="attr_sr6_rigging_fahrzeug_pilot" />
+              </div>
+              <div class="sr6-charactersheet-field">
+                <span data-i18n="field.sensor">Sensor</span>
+                <input type="text" name="attr_sr6_rigging_fahrzeug_sensor" />
+              </div>
+            </div>
+
+            <div class="sr6-foundry-item-row sr6-rigging-fahrzeug-fields-secondary sr6-charactersheet-row sr6-charactersheet-row-2">
+              <div class="sr6-charactersheet-field">
+                <span data-i18n="field.sitze">Sitze</span>
+                <input type="text" name="attr_sr6_rigging_fahrzeug_sitze" />
+              </div>
+              <div class="sr6-charactersheet-field">
+                <span data-i18n="field.notiz">Notiz</span>
+                <input type="text" name="attr_sr6_rigging_fahrzeug_notiz" />
+              </div>
+            </div>
+
+            <div class="sr6-foundry-item-footer sr6-rigging-fahrzeug-fields-links sr6-charactersheet-row sr6-charactersheet-row-2">
+              <div class="sr6-charactersheet-field">
+                <span data-i18n="field.waffen">Waffen</span>
+                <select name="attr_sr6_rigging_fahrzeug_waffe">
+                  <option value="" data-i18n="field.keine">Keine</option>
+                  <option value="Pistole" data-i18n="field.waffentyp_pistole">Pistole</option>
+                  <option value="Maschinenpistole" data-i18n="field.waffentyp_maschinenpistole">Maschinenpistole</option>
+                  <option value="Sturmgewehr" data-i18n="field.waffentyp_sturmgewehr">Sturmgewehr</option>
+                  <option value="Schrotflinte" data-i18n="field.waffentyp_schrotflinte">Schrotflinte</option>
+                  <option value="Scharfschuetzengewehr" data-i18n="field.waffentyp_scharfschuetzengewehr">Scharfschützengewehr</option>
+                  <option value="Schwere Waffe" data-i18n="field.waffentyp_schwere_waffe">Schwere Waffe</option>
+                  <option value="Werfer" data-i18n="field.waffentyp_werfer">Werfer</option>
+                  <option value="Bogen/Armbrust" data-i18n="field.waffentyp_bogen_armbrust">Bogen/Armbrust</option>
+                  <option value="Nahkampfwaffe" data-i18n="field.nahkampfwaffe">Nahkampfwaffe</option>
+                  <option value="Exotisch" data-i18n="field.waffentyp_exotisch">Exotisch</option>
+                </select>
+              </div>
+              <div class="sr6-charactersheet-field">
+                <span data-i18n="field.modus">Modus</span>
+                <select name="attr_sr6_rigging_fahrzeug_modus">
+                  <option value="Autonom" data-i18n="field.fahrzeug_modus_autonom">Autonom</option>
+                  <option value="Remote" data-i18n="field.fahrzeug_modus_remote">Remote</option>
+                  <option value="Manuell" data-i18n="field.fahrzeug_modus_manuell">Manuell</option>
+                  <option value="Eingesprungen (VR)" data-i18n="field.fahrzeug_modus_eingesprungen_vr">Eingesprungen (VR)</option>
+                  <option value="Eingesprungen (AR)" data-i18n="field.fahrzeug_modus_eingesprungen_ar">Eingesprungen (AR)</option>
+                  <option value="Agent" data-i18n="field.fahrzeug_modus_agent">Agent</option>
+                </select>
+              </div>
+            </div>
+          </div>
+        </div>
+      </fieldset>
+    </div>
+  </section>
+  <!-- END BLOCK: Rigging Fahrzeuge -->

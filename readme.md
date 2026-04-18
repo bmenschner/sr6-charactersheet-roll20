@@ -11,6 +11,7 @@
 - Generierter Output:
   - `output/charactersheet.html`
   - `output/charactersheet.css`
+  - `output/sheet_workers.js`
   - `output/translation.json` (flaches Roll20-Format)
   - `output/translation.full.json` (interner Vollstand DE/EN/FR)
   - `output/assets/images/*`
@@ -52,13 +53,14 @@
 Für die Roll20-Sandbox verwende bevorzugt:
 - `output/charactersheet.html`
 - `output/charactersheet.css`
+- `output/sheet_workers.js` (wenn Worker separat gepflegt/geladen werden)
 - `output/translation.json` (flaches Key-Value-Format)
 
 ## Neue Box hinzufügen (Kurzablauf)
-1. Neue Partial-Datei in einem passenden Unterordner anlegen, z. B. `src/html/partials/allgemein/neue-box.html`.
+1. Neue Partial-Datei im passenden Tab-Unterordner anlegen, z. B. `src/html/partials/tabs/allgemein/neue-box.html`.
 2. Block in `src/html/charactersheet.html` einhängen:
    - `<!-- BEGIN BLOCK: Neue Box -->`
-   - `<!-- @include partials/allgemein/neue-box.html -->`
+   - `<!-- @include partials/tabs/allgemein/neue-box.html -->`
    - `<!-- END BLOCK: Neue Box -->`
 3. Prüfen: `npm run lint:includes`
 4. Bauen: `npm run build`
@@ -67,6 +69,7 @@ Für die Roll20-Sandbox verwende bevorzugt:
 - `CONTRIBUTING.md`
 - `docs/architecture.md`
 - `docs/adding-a-box.md`
+- `docs/path-map.md`
 - `docs/worker-flow.md`
 - `docs/ui-patterns.md`
 

@@ -5,7 +5,7 @@ Konsistente Benennung fuer alle Roll20-Buttons (`type="roll"`) im SR6-Sheet.
 
 ## Verbindliches Schema
 
-`name="roll_<attr_key_ohne_attr_prefix>"`
+`name="roll_<attr_sr6_key_ohne_attr_prefix>"`
 
 Beispiele:
 - `attr_sr6_attr_konstitution_grundwert` -> `roll_sr6_attr_konstitution_grundwert`

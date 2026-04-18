@@ -24,43 +24,9 @@
             id="sr6_daten_panel_1"
             class="sr6-charactersheet-tabpanel"
             role="tabpanel">
-            <div class="sr6-charactersheet-tab-allgemein-grid">
-              <div class="sr6-charactersheet-tab-allgemein-column">
-                <!-- BEGIN BLOCK: Attribute -->
-                <!-- @include partials/allgemein/attribute.html -->
-                <!-- END BLOCK: Attribute -->
-                <!-- BEGIN BLOCK: Initiative -->
-                <!-- @include partials/allgemein/initiative.html -->
-                <!-- END BLOCK: Initiative -->
-              </div>
-              <div class="sr6-charactersheet-tab-allgemein-column">
-                <!-- BEGIN BLOCK: Fertigkeiten (Allgemein) -->
-                <!-- @include partials/allgemein/fertigkeiten.html -->
-                <!-- END BLOCK: Fertigkeiten (Allgemein) -->
-              </div>
-
-              <!-- BEGIN BLOCK: Allgemein Umbruch -->
-              <div
-                class="sr6-charactersheet-tab-allgemein-break"
-                aria-hidden="true"></div>
-              <!-- END BLOCK: Allgemein Umbruch -->
-
-              <div class="sr6-charactersheet-tab-allgemein-column sr6-charactersheet-tab-allgemein-column--full">
-                <!-- BEGIN BLOCK: Kampf -->
-                <!-- @include partials/allgemein/kampf.html -->
-                <!-- END BLOCK: Kampf -->
-              </div>
-              <div class="sr6-charactersheet-tab-allgemein-column">
-                <!-- BEGIN BLOCK: Verteidigung -->
-                <!-- @include partials/allgemein/verteidigung.html -->
-                <!-- END BLOCK: Verteidigung -->
-              </div>
-              <div class="sr6-charactersheet-tab-allgemein-column">
-                <!-- BEGIN BLOCK: Schadenswiderstand -->
-                <!-- @include partials/allgemein/schadenswiderstand.html -->
-                <!-- END BLOCK: Schadenswiderstand -->
-              </div>
-            </div>
+            <!-- BEGIN BLOCK: Allgemein Tab -->
+            <!-- @include partials/tabs/allgemein/index.html -->
+            <!-- END BLOCK: Allgemein Tab -->
           </div>
           <!-- Panel 2: Fertigkeiten -->
           <div
@@ -68,7 +34,7 @@
             class="sr6-charactersheet-tabpanel"
             role="tabpanel">
             <!-- BEGIN BLOCK: Fertigkeiten -->
-            <!-- @include partials/tabs/fertigkeiten.html -->
+            <!-- @include partials/tabs/fertigkeiten/index.html -->
             <!-- END BLOCK: Fertigkeiten -->
           </div>
           <!-- Panel 3: Kampf -->
@@ -76,20 +42,9 @@
             id="sr6_daten_panel_3"
             class="sr6-charactersheet-tabpanel"
             role="tabpanel">
-            <div class="sr6-charactersheet-tab-kampf-grid">
-              <!-- BEGIN BLOCK: Kampf Kernwerte -->
-              <!-- @include partials/kampf/kampf-kernwerte.html -->
-              <!-- END BLOCK: Kampf Kernwerte -->
-              <!-- BEGIN BLOCK: Kampf Fernkampf -->
-              <!-- @include partials/kampf/kampf-fernkampf.html -->
-              <!-- END BLOCK: Kampf Fernkampf -->
-              <!-- BEGIN BLOCK: Kampf Nahkampf -->
-              <!-- @include partials/kampf/kampf-nahkampf.html -->
-              <!-- END BLOCK: Kampf Nahkampf -->
-              <!-- BEGIN BLOCK: Kampf Panzerung -->
-              <!-- @include partials/kampf/kampf-panzerung.html -->
-              <!-- END BLOCK: Kampf Panzerung -->
-            </div>
+            <!-- BEGIN BLOCK: Kampf Tab -->
+            <!-- @include partials/tabs/kampf/index.html -->
+            <!-- END BLOCK: Kampf Tab -->
           </div>
           <!-- Panel 4: Magie -->
           <div
@@ -97,7 +52,7 @@
             class="sr6-charactersheet-tabpanel"
             role="tabpanel">
             <!-- BEGIN BLOCK: Magie Kernwerte -->
-            <!-- @include partials/tabs/magie-kern.html -->
+            <!-- @include partials/tabs/magie/index.html -->
             <!-- END BLOCK: Magie Kernwerte -->
           </div>
           <!-- Panel 5: Matrix -->
@@ -106,7 +61,7 @@
             class="sr6-charactersheet-tabpanel"
             role="tabpanel">
             <!-- BEGIN BLOCK: Matrix Kernwerte -->
-            <!-- @include partials/tabs/matrix-kern.html -->
+            <!-- @include partials/tabs/matrix/index.html -->
             <!-- END BLOCK: Matrix Kernwerte -->
           </div>
           <!-- Panel 6: Rigging -->
@@ -115,7 +70,7 @@
             class="sr6-charactersheet-tabpanel"
             role="tabpanel">
             <!-- BEGIN BLOCK: Rigging Kernwerte -->
-            <!-- @include partials/tabs/rigging-kern.html -->
+            <!-- @include partials/tabs/rigging/index.html -->
             <!-- END BLOCK: Rigging Kernwerte -->
           </div>
           <!-- Panel 7: Ausruestung -->
@@ -124,7 +79,7 @@
             class="sr6-charactersheet-tabpanel"
             role="tabpanel">
             <!-- BEGIN BLOCK: Ausruestung Kernwerte -->
-            <!-- @include partials/tabs/ausruestung-kern.html -->
+            <!-- @include partials/tabs/ausruestung/index.html -->
             <!-- END BLOCK: Ausruestung Kernwerte -->
           </div>
           <!-- Panel 8: Biographie -->
@@ -133,7 +88,7 @@
             class="sr6-charactersheet-tabpanel"
             role="tabpanel">
             <!-- BEGIN BLOCK: Biographie Persönliche Daten -->
-            <!-- @include partials/tabs/biographie-personendaten.html -->
+            <!-- @include partials/tabs/biographie/index.html -->
             <!-- END BLOCK: Biographie Persönliche Daten -->
           </div>
           <!-- Panel 9: Einstellungen -->
@@ -142,7 +97,7 @@
             class="sr6-charactersheet-tabpanel"
             role="tabpanel">
             <!-- BEGIN BLOCK: Einstellungen -->
-            <!-- @include partials/tabs/einstellungen.html -->
+            <!-- @include partials/tabs/einstellungen/index.html -->
             <!-- END BLOCK: Einstellungen -->
           </div>
         </div>

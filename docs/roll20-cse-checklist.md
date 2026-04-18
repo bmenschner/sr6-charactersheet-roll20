@@ -25,18 +25,16 @@ Begruendung:
 5. Sichtbarer Text perspektivisch i18n-faehig halten.
 
 ## Ist-Stand (aktuell)
-- CSE-first kompatible Struktur: teilweise vorhanden
-- Einheitliche Klassenstruktur: in Arbeit
-- Attributschema `attr_sr6_<...>`: noch offen (teilweise alte Namen aktiv)
-- i18n-Key-only Labels: noch offen (derzeit teils hardcoded)
-- Worker/API-Abgleich: noch offen (noch kein `sheet_workers.js` im aktiven Output-Pfad)
+- CSE-first kompatible Struktur: umgesetzt
+- Einheitliche Klassenstruktur: modularisiert
+- Attributschema `attr_sr6_<...>`: umgesetzt
+- i18n-Key-only Labels: umgesetzt
+- Worker/API-Abgleich: umgesetzt (`output/sheet_workers.js` wird erzeugt)
 
 ## Konkrete naechste Schritte
-1. HTML/CSS Klassen auf finales Schema `sr6-charactersheet-*` migrieren (Alias-Phase ohne Bruch).
-2. Attributnamen auf `attr_sr6_<modul>_<bereich>_<feld>[_teil]` umstellen.
-3. Roll-Buttons/Wuerfel-Buttons an `Character_Sheet/API`-Flow anbinden.
-4. i18n-Keys in sichtbaren Labels vorbereiten (DE primar, EN/FR parallel).
-5. Wenn `sheet.json` eingefuehrt wird: CSE explizit halten (`legacy: false`).
+1. Roll- und Berechnungslogik je Tab schrittweise ausbauen.
+2. i18n-Keys in sichtbaren Labels weiter konsolidieren (DE primar, EN/FR parallel).
+3. Wenn `sheet.json` eingefuehrt wird: CSE explizit halten (`legacy: false`).
 
 ## Hinweis zu Legacy vs CSE
-Bei Widerspruechen zwischen alter Wiki-Doku und CSE-Verhalten gilt fuer dieses Projekt: CSE-first, dann ggf. gezielte Legacy-Kompatibilitaet.
+Bei Widerspruechen zwischen alter Wiki-Doku und CSE-Verhalten gilt fuer dieses Projekt: CSE-first.

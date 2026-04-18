@@ -1,0 +1,126 @@
+/* Allgemein/Fertigkeiten: Listenansicht fuer nicht-repeating Boxen */
+.sr6-editable-overview-section:has(.sr6-editable-section-mode:not(:checked)) .sr6-charactersheet-field input,
+.sr6-editable-overview-section:has(.sr6-editable-section-mode:not(:checked)) .sr6-charactersheet-field select,
+.sr6-editable-overview-section:has(.sr6-editable-section-mode:not(:checked)) .sr6-charactersheet-row > input,
+.sr6-editable-overview-section:has(.sr6-editable-section-mode:not(:checked)) .sr6-charactersheet-init-formula > input {
+  pointer-events: none;
+  user-select: none;
+  border-bottom: none;
+  padding: 0 0.25rem;
+  margin: 0;
+  height: 1.875rem;
+  line-height: 1.875rem;
+  font-size: 0.82rem;
+}
+
+.sr6-editable-overview-section:has(.sr6-editable-section-mode:not(:checked)) .sr6-charactersheet-field-input-with-dice {
+  grid-template-columns: minmax(0, 1fr);
+}
+
+.sr6-editable-overview-section:has(.sr6-editable-section-mode:not(:checked)) .sr6-charactersheet-field-dice-button {
+  display: none;
+}
+
+.sr6-editable-overview-section:has(.sr6-editable-section-mode:not(:checked)) .sr6-charactersheet-attr-value > span,
+.sr6-editable-overview-section:has(.sr6-editable-section-mode:not(:checked)) .sr6-charactersheet-init-formula > span,
+.sr6-editable-overview-section:has(.sr6-editable-section-mode:not(:checked)) .sr6-charactersheet-init-formula-with-dice > span {
+  display: none;
+}
+
+/* Attribute/Fertigkeiten: zweite Ueberschrift (Grundwert/Modifikator/Gesamtwert) in Listenansicht sichtbar lassen */
+.sr6-charactersheet-box-attribute.sr6-editable-overview-section:has(.sr6-editable-section-mode:not(:checked)) .sr6-charactersheet-attr-value > span,
+.sr6-charactersheet-box-fertigkeiten-allgemein.sr6-editable-overview-section:has(.sr6-editable-section-mode:not(:checked)) .sr6-charactersheet-attr-value > span {
+  display: block;
+}
+
+.sr6-editable-overview-section:has(.sr6-editable-section-mode:not(:checked)) .sr6-charactersheet-attr-values {
+  gap: 0.375rem;
+}
+
+/* Attribute/Fertigkeiten: Listenansicht als Ein-Zeilen-Darstellung pro Eintrag */
+.sr6-charactersheet-box-attribute.sr6-editable-overview-section:has(.sr6-editable-section-mode:not(:checked)) .sr6-charactersheet-field.sr6-charactersheet-attr-field,
+.sr6-charactersheet-box-fertigkeiten-allgemein.sr6-editable-overview-section:has(.sr6-editable-section-mode:not(:checked)) .sr6-charactersheet-field.sr6-charactersheet-attr-field {
+  display: grid;
+  grid-template-columns: minmax(8rem, 0.9fr) minmax(0, 1fr);
+  column-gap: 0.5rem;
+  row-gap: 0;
+  align-items: center;
+}
+
+.sr6-charactersheet-box-attribute.sr6-editable-overview-section:has(.sr6-editable-section-mode:not(:checked)) .sr6-charactersheet-field.sr6-charactersheet-attr-field > span,
+.sr6-charactersheet-box-fertigkeiten-allgemein.sr6-editable-overview-section:has(.sr6-editable-section-mode:not(:checked)) .sr6-charactersheet-field.sr6-charactersheet-attr-field > span {
+  margin: 0;
+  font-size: 1rem;
+  font-weight: 700;
+  line-height: 1.875rem;
+  white-space: nowrap;
+}
+
+.sr6-charactersheet-box-fertigkeiten-allgemein.sr6-editable-overview-section:has(.sr6-editable-section-mode:not(:checked)) .sr6-charactersheet-field.sr6-charactersheet-attr-field > span {
+  line-height: 1.5rem;
+}
+
+/* Fertigkeiten: komplette Zeile neu aufbauen (Name + 3 Werte in einer horizontalen Ebene) */
+.sr6-charactersheet-box-fertigkeiten-allgemein.sr6-editable-overview-section:has(.sr6-editable-section-mode:not(:checked)) .sr6-charactersheet-field.sr6-charactersheet-attr-field {
+  grid-template-columns: minmax(6rem, 0.42fr) minmax(0, 1fr) minmax(0, 1fr) minmax(0, 0.9375fr);
+  align-items: center;
+}
+
+.sr6-charactersheet-box-fertigkeiten-allgemein.sr6-editable-overview-section:has(.sr6-editable-section-mode:not(:checked)) .sr6-charactersheet-attr-values {
+  display: contents;
+}
+
+.sr6-charactersheet-box-attribute.sr6-editable-overview-section:has(.sr6-editable-section-mode:not(:checked)) .sr6-charactersheet-attr-values {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 0.5rem;
+  align-items: center;
+}
+
+.sr6-charactersheet-box-fertigkeiten-allgemein.sr6-editable-overview-section:has(.sr6-editable-section-mode:not(:checked)) .sr6-charactersheet-attr-value {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 0.25rem;
+  min-width: 0;
+  height: 1.75rem;
+}
+
+.sr6-charactersheet-box-attribute.sr6-editable-overview-section:has(.sr6-editable-section-mode:not(:checked)) .sr6-charactersheet-attr-value > span,
+.sr6-charactersheet-box-fertigkeiten-allgemein.sr6-editable-overview-section:has(.sr6-editable-section-mode:not(:checked)) .sr6-charactersheet-attr-value > span {
+  font-size: 0.8rem;
+  font-weight: 400;
+  white-space: nowrap;
+  margin: 0;
+}
+
+
+.sr6-charactersheet-box-attribute.sr6-editable-overview-section:has(.sr6-editable-section-mode:not(:checked)) .sr6-charactersheet-field-input-with-dice,
+.sr6-charactersheet-box-fertigkeiten-allgemein.sr6-editable-overview-section:has(.sr6-editable-section-mode:not(:checked)) .sr6-charactersheet-field-input-with-dice {
+  height: 2.3rem;
+  align-items: center;
+}
+
+.sr6-charactersheet-box-fertigkeiten-allgemein.sr6-editable-overview-section:has(.sr6-editable-section-mode:not(:checked)) .sr6-charactersheet-field-dice-button {
+  display: none;
+}
+
+.sr6-charactersheet-box-fertigkeiten-allgemein.sr6-editable-overview-section:has(.sr6-editable-section-mode:not(:checked)) .sr6-charactersheet-attr-value:last-child .sr6-charactersheet-field-input-with-dice {
+  grid-template-columns: minmax(0, 1fr) 1.75rem;
+}
+
+.sr6-charactersheet-box-fertigkeiten-allgemein.sr6-editable-overview-section:has(.sr6-editable-section-mode:not(:checked)) .sr6-charactersheet-attr-value:last-child .sr6-charactersheet-field-dice-button {
+  display: flex;
+}
+
+.sr6-charactersheet-box-attribute.sr6-editable-overview-section:has(.sr6-editable-section-mode:not(:checked)) .sr6-charactersheet-attr-value > input,
+.sr6-charactersheet-box-attribute.sr6-editable-overview-section:has(.sr6-editable-section-mode:not(:checked)) .sr6-charactersheet-field-input-with-dice > input,
+.sr6-charactersheet-box-fertigkeiten-allgemein.sr6-editable-overview-section:has(.sr6-editable-section-mode:not(:checked)) .sr6-charactersheet-attr-value > input,
+.sr6-charactersheet-box-fertigkeiten-allgemein.sr6-editable-overview-section:has(.sr6-editable-section-mode:not(:checked)) .sr6-charactersheet-field-input-with-dice > input {
+  height: 1.75rem;
+  line-height: 1.75rem;
+  font-size: 1rem;
+  font-weight: 400;
+  padding: 0 0.25rem;
+}
+

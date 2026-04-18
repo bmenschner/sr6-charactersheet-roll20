@@ -1,0 +1,64 @@
+  <!-- BEGIN BLOCK: Matrix Programme -->
+  <section
+    class="sr6-charactersheet-box sr6-charactersheet-tab-matrix-item--full sr6-editable-section sr6-matrix-programme-section"
+    aria-labelledby="matrix-programme-titel">
+    <div class="sr6-editable-section-title-row">
+      <h2
+        id="matrix-programme-titel"
+        class="sr6-charactersheet-box-title"
+        data-i18n="section.matrix_programme">
+        Programme
+      </h2>
+      <label class="sr6-editable-section-toggle">
+        <input
+          type="checkbox"
+          name="attr_sr6_matrix_programme_edit_mode"
+          class="sr6-editable-section-mode" />
+        <span data-i18n="field.editieren">Editieren</span>
+      </label>
+    </div>
+    <div class="sr6-charactersheet-box-content">
+      <div class="sr6-generic-list-header sr6-generic-list-header--5" aria-hidden="true">
+        <span data-i18n="field.name">Name</span>
+        <span data-i18n="field.art">Art</span>
+        <span data-i18n="field.stufe">Stufe</span>
+        <span data-i18n="field.aktiv">Aktiv</span>
+        <span data-i18n="field.notiz">Notiz</span>
+      </div>
+      <fieldset class="repeating_sr6matrixprogramme">
+        <div class="sr6-foundry-item">
+          <div class="sr6-editable-item-fields">
+            <div class="sr6-foundry-item-head sr6-charactersheet-row sr6-charactersheet-row-5">
+              <div class="sr6-charactersheet-field">
+                <span data-i18n="field.name">Name</span>
+                <input type="text" name="attr_sr6_matrix_programm_name" />
+              </div>
+              <div class="sr6-charactersheet-field">
+                <span data-i18n="field.art">Art</span>
+                <select name="attr_sr6_matrix_programm_art">
+                  <option value="Angriff" data-i18n="field.matrix_programm_art_angriff">Angriff</option>
+                  <option value="Schleicher" data-i18n="field.matrix_programm_art_schleicher">Schleicher</option>
+                  <option value="Datenverarbeitung" data-i18n="field.matrix_programm_art_datenverarbeitung">Datenverarbeitung</option>
+                  <option value="Firewall" data-i18n="field.matrix_programm_art_firewall">Firewall</option>
+                  <option value="Utility" data-i18n="field.matrix_programm_art_utility">Utility</option>
+                </select>
+              </div>
+              <div class="sr6-charactersheet-field">
+                <span data-i18n="field.stufe">Stufe</span>
+                <input type="text" name="attr_sr6_matrix_programm_stufe" />
+              </div>
+              <div class="sr6-charactersheet-field">
+                <span data-i18n="field.aktiv">Aktiv</span>
+                <input type="checkbox" name="attr_sr6_matrix_programm_aktiv" value="1" />
+              </div>
+              <div class="sr6-charactersheet-field">
+                <span data-i18n="field.notiz">Notiz</span>
+                <input type="text" name="attr_sr6_matrix_programm_notiz" />
+              </div>
+            </div>
+          </div>
+        </div>
+      </fieldset>
+    </div>
+  </section>
+  <!-- END BLOCK: Matrix Programme -->

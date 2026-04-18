@@ -1,0 +1,108 @@
+  <!-- BEGIN BLOCK: Magie Zauber -->
+  <section
+    class="sr6-charactersheet-box sr6-charactersheet-tab-magie-item--full sr6-editable-section sr6-zauber-section"
+    aria-labelledby="magie-zauber-titel">
+      <div class="sr6-editable-section-title-row">
+        <h2
+          id="magie-zauber-titel"
+          class="sr6-charactersheet-box-title"
+          data-i18n="section.magie_zauber">
+          Zauber
+        </h2>
+        <label class="sr6-editable-section-toggle">
+          <input
+            type="checkbox"
+            name="attr_sr6_magic_zauber_edit_mode"
+            class="sr6-editable-section-mode"
+                      />
+                    <span data-i18n="field.editieren">Editieren</span>
+        </label>
+      </div>
+      <div class="sr6-charactersheet-box-content">
+        <div class="sr6-zauber-list-header" aria-hidden="true">
+          <span data-i18n="field.zauber_name">Zaubername</span>
+          <span data-i18n="field.zauber_art">Art</span>
+          <span data-i18n="field.reichweite">Reichweite</span>
+          <span data-i18n="field.dauer">Dauer</span>
+          <span data-i18n="field.entzug">Entzug</span>
+          <span data-i18n="field.aufrechterhalten">Aufrechterhalten</span>
+          <span data-i18n="field.wurf">Wurf</span>
+        </div>
+        <fieldset class="repeating_sr6zauber">
+          <div class="sr6-foundry-item">
+            <div class="sr6-editable-item-fields">
+            <div class="sr6-foundry-item-head sr6-charactersheet-row sr6-charactersheet-row-3">
+              <div class="sr6-charactersheet-field">
+                <span data-i18n="field.zauber_name">Zaubername</span>
+                <input type="text" name="attr_sr6_zauber_name" />
+              </div>
+              <div class="sr6-charactersheet-field">
+                <span data-i18n="field.zauber_art">Art</span>
+                <select name="attr_sr6_zauber_art">
+                  <option value="Kampf" data-i18n="field.zauber_art_kampf">Kampf</option>
+                  <option value="Detection" data-i18n="field.zauber_art_detection">Detection</option>
+                  <option value="Heilung" data-i18n="field.zauber_art_heilung">Heilung</option>
+                  <option value="Illusion" data-i18n="field.zauber_art_illusion">Illusion</option>
+                  <option value="Manipulation" data-i18n="field.zauber_art_manipulation">Manipulation</option>
+                </select>
+              </div>
+              <div class="sr6-charactersheet-field">
+                <span data-i18n="field.reichweite">Reichweite</span>
+                <select name="attr_sr6_zauber_reichweite">
+                  <option value="Selbst" data-i18n="field.reichweite_selbst">Selbst</option>
+                  <option value="Beruehrung" data-i18n="field.reichweite_beruehrung">Berührung</option>
+                  <option value="Sicht" data-i18n="field.reichweite_sicht">Sicht</option>
+                  <option value="Spezial" data-i18n="field.reichweite_spezial">Spezial</option>
+                </select>
+              </div>
+            </div>
+            <div class="sr6-foundry-item-row sr6-charactersheet-row sr6-charactersheet-row-3">
+              <div class="sr6-charactersheet-field">
+                <span data-i18n="field.dauer">Dauer</span>
+                <select name="attr_sr6_zauber_dauer">
+                  <option value="Sofort" data-i18n="field.dauer_sofort">Sofort</option>
+                  <option value="Aufrechterhalten" data-i18n="field.dauer_aufrechterhalten">Aufrechterhalten</option>
+                  <option value="Permanent" data-i18n="field.dauer_permanent">Permanent</option>
+                  <option value="Spezial" data-i18n="field.reichweite_spezial">Spezial</option>
+                </select>
+              </div>
+              <div class="sr6-charactersheet-field">
+                <span data-i18n="field.entzug">Entzug</span>
+                <input type="text" name="attr_sr6_zauber_entzug" />
+              </div>
+              <div class="sr6-charactersheet-field">
+                <span data-i18n="field.aufrechterhalten">Aufrechterhalten</span>
+                <input type="checkbox" name="attr_sr6_zauber_aufrechterhalten" value="1" />
+              </div>
+            </div>
+            <div class="sr6-foundry-item-footer sr6-charactersheet-row sr6-charactersheet-row-2">
+              <div class="sr6-charactersheet-field">
+                <span data-i18n="field.notiz">Notiz</span>
+                <input type="text" name="attr_sr6_zauber_notiz" />
+              </div>
+              <div class="sr6-charactersheet-field">
+                <span data-i18n="field.wurf">Wurf</span>
+                <div class="sr6-charactersheet-field-input-with-dice">
+                  <input type="text" name="attr_sr6_zauber_wurfpool" /><button
+                    type="roll"
+                    class="sr6-charactersheet-field-dice-button"
+                    name="roll_sr6_zauber_probe"
+                    value="&{template:default} {{name=Zauberprobe}} {{Zauber=@{sr6_zauber_name}}} {{Pool=[[@{sr6_zauber_wurfpool}]]}} {{Erfolge=[[@{sr6_zauber_wurfpool}d6cs>4]]}} {{Entzug=@{sr6_zauber_entzug}}}"
+                    aria-label="Wuerfeln"></button>
+                </div>
+              </div>
+            </div>
+            <div class="sr6-zauber-list-roll">
+              <button
+                type="roll"
+                class="sr6-charactersheet-field-dice-button"
+                name="roll_sr6_zauber_probe_list"
+                value="&{template:default} {{name=Zauberprobe}} {{Zauber=@{sr6_zauber_name}}} {{Pool=[[@{sr6_zauber_wurfpool}]]}} {{Erfolge=[[@{sr6_zauber_wurfpool}d6cs>4]]}} {{Entzug=@{sr6_zauber_entzug}}}"
+                aria-label="Wuerfeln"></button>
+            </div>
+            </div>
+          </div>
+        </fieldset>
+      </div>
+  </section>
+  <!-- END BLOCK: Magie Zauber -->

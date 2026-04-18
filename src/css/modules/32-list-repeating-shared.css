@@ -1,0 +1,339 @@
+.sr6-generic-list-header {
+  display: none;
+}
+
+.sr6-generic-list-header span {
+  font-size: 10px;
+  font-weight: 700;
+  color: var(--sr6-text);
+  letter-spacing: 0.01rem;
+}
+
+.sr6-generic-list-header--3 {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+
+.sr6-generic-list-header--4 {
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+}
+
+.sr6-generic-list-header--5 {
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+}
+
+.sr6-generic-list-header--7 {
+  grid-template-columns: repeat(7, minmax(0, 1fr));
+}
+
+.sr6-generic-list-header--6 {
+  grid-template-columns: repeat(6, minmax(0, 1fr));
+}
+
+.sr6-adeptenkraefte-section:has(.sr6-editable-section-mode:not(:checked)) .sr6-generic-list-header,
+.sr6-foki-section:has(.sr6-editable-section-mode:not(:checked)) .sr6-generic-list-header,
+.sr6-metamagie-section:has(.sr6-editable-section-mode:not(:checked)) .sr6-generic-list-header,
+.sr6-rituale-section:has(.sr6-editable-section-mode:not(:checked)) .sr6-generic-list-header,
+.sr6-geister-section:has(.sr6-editable-section-mode:not(:checked)) .sr6-generic-list-header,
+.sr6-ausruestung-section:has(.sr6-editable-section-mode:not(:checked)) .sr6-generic-list-header,
+.sr6-cyberware-section:has(.sr6-editable-section-mode:not(:checked)) .sr6-generic-list-header,
+.sr6-bioware-section:has(.sr6-editable-section-mode:not(:checked)) .sr6-generic-list-header,
+.sr6-sin-section:has(.sr6-editable-section-mode:not(:checked)) .sr6-generic-list-header,
+.sr6-lebensstil-section:has(.sr6-editable-section-mode:not(:checked)) .sr6-generic-list-header,
+.sr6-manoever-section:has(.sr6-editable-section-mode:not(:checked)) .sr6-generic-list-header,
+.sr6-matrix-programme-section:has(.sr6-editable-section-mode:not(:checked)) .sr6-generic-list-header,
+.sr6-matrix-geraete-section:has(.sr6-editable-section-mode:not(:checked)) .sr6-generic-list-header,
+.sr6-matrix-handlungen-section:has(.sr6-editable-section-mode:not(:checked)) .sr6-generic-list-header {
+  display: grid;
+  gap: 0.375rem;
+  margin-bottom: 0.25rem;
+}
+
+.sr6-adeptenkraefte-section:has(.sr6-editable-section-mode:not(:checked)) .sr6-editable-item-fields,
+.sr6-foki-section:has(.sr6-editable-section-mode:not(:checked)) .sr6-editable-item-fields,
+.sr6-metamagie-section:has(.sr6-editable-section-mode:not(:checked)) .sr6-editable-item-fields,
+.sr6-rituale-section:has(.sr6-editable-section-mode:not(:checked)) .sr6-editable-item-fields,
+.sr6-geister-section:has(.sr6-editable-section-mode:not(:checked)) .sr6-editable-item-fields,
+.sr6-ausruestung-section:has(.sr6-editable-section-mode:not(:checked)) .sr6-editable-item-fields,
+.sr6-cyberware-section:has(.sr6-editable-section-mode:not(:checked)) .sr6-editable-item-fields,
+.sr6-bioware-section:has(.sr6-editable-section-mode:not(:checked)) .sr6-editable-item-fields,
+.sr6-sin-section:has(.sr6-editable-section-mode:not(:checked)) .sr6-editable-item-fields,
+.sr6-lebensstil-section:has(.sr6-editable-section-mode:not(:checked)) .sr6-editable-item-fields,
+.sr6-manoever-section:has(.sr6-editable-section-mode:not(:checked)) .sr6-editable-item-fields,
+.sr6-matrix-programme-section:has(.sr6-editable-section-mode:not(:checked)) .sr6-editable-item-fields,
+.sr6-matrix-geraete-section:has(.sr6-editable-section-mode:not(:checked)) .sr6-editable-item-fields,
+.sr6-matrix-handlungen-section:has(.sr6-editable-section-mode:not(:checked)) .sr6-editable-item-fields {
+  display: flex;
+  align-items: center;
+  flex-wrap: nowrap;
+  gap: 0.375rem;
+}
+
+.sr6-zauber-section:has(.sr6-editable-section-mode:not(:checked)) .sr6-editable-item-fields .sr6-charactersheet-field,
+.sr6-adeptenkraefte-section:has(.sr6-editable-section-mode:not(:checked)) .sr6-editable-item-fields .sr6-charactersheet-field,
+.sr6-foki-section:has(.sr6-editable-section-mode:not(:checked)) .sr6-editable-item-fields .sr6-charactersheet-field,
+.sr6-metamagie-section:has(.sr6-editable-section-mode:not(:checked)) .sr6-editable-item-fields .sr6-charactersheet-field,
+.sr6-rituale-section:has(.sr6-editable-section-mode:not(:checked)) .sr6-editable-item-fields .sr6-charactersheet-field,
+.sr6-geister-section:has(.sr6-editable-section-mode:not(:checked)) .sr6-editable-item-fields .sr6-charactersheet-field,
+.sr6-ausruestung-section:has(.sr6-editable-section-mode:not(:checked)) .sr6-editable-item-fields .sr6-charactersheet-field,
+.sr6-cyberware-section:has(.sr6-editable-section-mode:not(:checked)) .sr6-editable-item-fields .sr6-charactersheet-field,
+.sr6-bioware-section:has(.sr6-editable-section-mode:not(:checked)) .sr6-editable-item-fields .sr6-charactersheet-field,
+.sr6-sin-section:has(.sr6-editable-section-mode:not(:checked)) .sr6-editable-item-fields .sr6-charactersheet-field,
+.sr6-lebensstil-section:has(.sr6-editable-section-mode:not(:checked)) .sr6-editable-item-fields .sr6-charactersheet-field,
+.sr6-manoever-section:has(.sr6-editable-section-mode:not(:checked)) .sr6-editable-item-fields .sr6-charactersheet-field,
+.sr6-matrix-programme-section:has(.sr6-editable-section-mode:not(:checked)) .sr6-editable-item-fields .sr6-charactersheet-field,
+.sr6-matrix-geraete-section:has(.sr6-editable-section-mode:not(:checked)) .sr6-editable-item-fields .sr6-charactersheet-field,
+.sr6-matrix-handlungen-section:has(.sr6-editable-section-mode:not(:checked)) .sr6-editable-item-fields .sr6-charactersheet-field {
+  min-height: 1.875rem;
+  display: flex;
+  flex-direction: row;
+  gap: 0;
+  align-items: center;
+}
+
+.sr6-adeptenkraefte-section:has(.sr6-editable-section-mode:not(:checked)) .sr6-editable-item-fields .sr6-foundry-item-head,
+.sr6-metamagie-section:has(.sr6-editable-section-mode:not(:checked)) .sr6-editable-item-fields .sr6-foundry-item-head,
+.sr6-geister-section:has(.sr6-editable-section-mode:not(:checked)) .sr6-editable-item-fields .sr6-foundry-item-head {
+  display: grid;
+  gap: 0.375rem;
+  flex: 1 1 0;
+}
+
+.sr6-adeptenkraefte-section:has(.sr6-editable-section-mode:not(:checked)) .sr6-editable-item-fields .sr6-foundry-item-head {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+
+.sr6-metamagie-section:has(.sr6-editable-section-mode:not(:checked)) .sr6-editable-item-fields .sr6-foundry-item-head {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.sr6-geister-section:has(.sr6-editable-section-mode:not(:checked)) .sr6-editable-item-fields .sr6-foundry-item-head {
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+}
+
+.sr6-ausruestung-section:has(.sr6-editable-section-mode:not(:checked)) .sr6-editable-item-fields .sr6-foundry-item-head,
+.sr6-sin-section:has(.sr6-editable-section-mode:not(:checked)) .sr6-editable-item-fields .sr6-foundry-item-head {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 0.375rem;
+  flex: 1 1 0;
+}
+
+.sr6-cyberware-section:has(.sr6-editable-section-mode:not(:checked)) .sr6-editable-item-fields .sr6-foundry-item-head,
+.sr6-bioware-section:has(.sr6-editable-section-mode:not(:checked)) .sr6-editable-item-fields .sr6-foundry-item-head,
+.sr6-lebensstil-section:has(.sr6-editable-section-mode:not(:checked)) .sr6-editable-item-fields .sr6-foundry-item-head,
+.sr6-manoever-section:has(.sr6-editable-section-mode:not(:checked)) .sr6-editable-item-fields .sr6-foundry-item-head {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 0.375rem;
+  flex: 1 1 0;
+}
+
+.sr6-matrix-programme-section:has(.sr6-editable-section-mode:not(:checked)) .sr6-editable-item-fields .sr6-foundry-item-head,
+.sr6-matrix-geraete-section:has(.sr6-editable-section-mode:not(:checked)) .sr6-editable-item-fields .sr6-foundry-item-head {
+  display: grid;
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+  gap: 0.375rem;
+  flex: 1 1 0;
+}
+
+.sr6-matrix-geraete-section:has(.sr6-editable-section-mode:not(:checked)) .sr6-generic-list-header {
+  margin-bottom: 0.25rem;
+}
+
+.sr6-matrix-geraete-section:has(.sr6-editable-section-mode:not(:checked)) .sr6-generic-list-header--double {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 1.5rem;
+}
+
+.sr6-matrix-geraete-section:has(.sr6-editable-section-mode:not(:checked)) .sr6-generic-list-header-group--6 {
+  display: grid;
+  grid-template-columns: repeat(6, minmax(0, 1fr));
+  gap: 0.375rem;
+}
+
+.sr6-matrix-geraete-section:has(.sr6-editable-section-mode:not(:checked)) .sr6-editable-item-fields {
+  display: grid;
+  grid-template-columns: repeat(6, minmax(0, 1fr));
+  gap: 0.375rem;
+  align-items: center;
+  width: 100%;
+}
+
+.sr6-matrix-geraete-section:has(.sr6-editable-section-mode:not(:checked)) .sr6-editable-item-fields .sr6-matrix-geraet-programme-field {
+  display: none;
+}
+
+.sr6-matrix-geraete-section:has(.sr6-editable-section-mode:not(:checked)) .sr6-editable-item-fields .sr6-foundry-item-head,
+.sr6-matrix-geraete-section:has(.sr6-editable-section-mode:not(:checked)) .sr6-editable-item-fields .sr6-foundry-item-row {
+  display: contents;
+}
+
+.sr6-matrix-handlungen-section:has(.sr6-editable-section-mode:not(:checked)) .sr6-editable-item-fields .sr6-foundry-item-head {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 0.375rem;
+  flex: 1 1 0;
+}
+
+.sr6-foki-section:has(.sr6-editable-section-mode:not(:checked)) .sr6-editable-item-fields .sr6-foundry-item-head,
+.sr6-foki-section:has(.sr6-editable-section-mode:not(:checked)) .sr6-editable-item-fields .sr6-foundry-item-footer,
+.sr6-rituale-section:has(.sr6-editable-section-mode:not(:checked)) .sr6-editable-item-fields .sr6-foundry-item-head,
+.sr6-rituale-section:has(.sr6-editable-section-mode:not(:checked)) .sr6-editable-item-fields .sr6-foundry-item-footer,
+.sr6-metamagie-section:has(.sr6-editable-section-mode:not(:checked)) .sr6-editable-item-fields .sr6-foundry-item-footer,
+.sr6-geister-section:has(.sr6-editable-section-mode:not(:checked)) .sr6-editable-item-fields .sr6-foundry-item-footer {
+  display: grid;
+  gap: 0.375rem;
+}
+
+.sr6-foki-section:has(.sr6-editable-section-mode:not(:checked)) .sr6-editable-item-fields .sr6-foundry-item-head,
+.sr6-rituale-section:has(.sr6-editable-section-mode:not(:checked)) .sr6-editable-item-fields .sr6-foundry-item-head {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  flex: 3 1 0;
+}
+
+.sr6-foki-section:has(.sr6-editable-section-mode:not(:checked)) .sr6-editable-item-fields .sr6-foundry-item-footer,
+.sr6-rituale-section:has(.sr6-editable-section-mode:not(:checked)) .sr6-editable-item-fields .sr6-foundry-item-footer {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  flex: 2 1 0;
+  border-top: none;
+  padding-top: 0;
+}
+
+.sr6-metamagie-section:has(.sr6-editable-section-mode:not(:checked)) .sr6-editable-item-fields .sr6-foundry-item-footer,
+.sr6-geister-section:has(.sr6-editable-section-mode:not(:checked)) .sr6-editable-item-fields .sr6-foundry-item-footer {
+  grid-template-columns: minmax(0, 1fr);
+  border-top: none;
+  padding-top: 0;
+}
+
+.sr6-metamagie-section:has(.sr6-editable-section-mode:not(:checked)) .sr6-editable-item-fields .sr6-foundry-item-head {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  flex: 2 1 0;
+}
+
+.sr6-metamagie-section:has(.sr6-editable-section-mode:not(:checked)) .sr6-editable-item-fields .sr6-foundry-item-footer {
+  flex: 1 1 0;
+}
+
+.sr6-geister-section:has(.sr6-editable-section-mode:not(:checked)) .sr6-editable-item-fields .sr6-foundry-item-head {
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  flex: 4 1 0;
+}
+
+.sr6-geister-section:has(.sr6-editable-section-mode:not(:checked)) .sr6-editable-item-fields .sr6-foundry-item-footer {
+  flex: 1 1 0;
+  border-top: none;
+  padding-top: 0;
+}
+
+.sr6-adeptenkraefte-section:has(.sr6-editable-section-mode:not(:checked)) .sr6-editable-item-fields .sr6-charactersheet-field > span,
+.sr6-foki-section:has(.sr6-editable-section-mode:not(:checked)) .sr6-editable-item-fields .sr6-charactersheet-field > span,
+.sr6-metamagie-section:has(.sr6-editable-section-mode:not(:checked)) .sr6-editable-item-fields .sr6-charactersheet-field > span,
+.sr6-rituale-section:has(.sr6-editable-section-mode:not(:checked)) .sr6-editable-item-fields .sr6-charactersheet-field > span,
+.sr6-geister-section:has(.sr6-editable-section-mode:not(:checked)) .sr6-editable-item-fields .sr6-charactersheet-field > span,
+.sr6-ausruestung-section:has(.sr6-editable-section-mode:not(:checked)) .sr6-editable-item-fields .sr6-charactersheet-field > span,
+.sr6-cyberware-section:has(.sr6-editable-section-mode:not(:checked)) .sr6-editable-item-fields .sr6-charactersheet-field > span,
+.sr6-bioware-section:has(.sr6-editable-section-mode:not(:checked)) .sr6-editable-item-fields .sr6-charactersheet-field > span,
+.sr6-sin-section:has(.sr6-editable-section-mode:not(:checked)) .sr6-editable-item-fields .sr6-charactersheet-field > span,
+.sr6-lebensstil-section:has(.sr6-editable-section-mode:not(:checked)) .sr6-editable-item-fields .sr6-charactersheet-field > span,
+.sr6-manoever-section:has(.sr6-editable-section-mode:not(:checked)) .sr6-editable-item-fields .sr6-charactersheet-field > span,
+.sr6-matrix-programme-section:has(.sr6-editable-section-mode:not(:checked)) .sr6-editable-item-fields .sr6-charactersheet-field > span,
+.sr6-matrix-geraete-section:has(.sr6-editable-section-mode:not(:checked)) .sr6-editable-item-fields .sr6-charactersheet-field > span,
+.sr6-matrix-handlungen-section:has(.sr6-editable-section-mode:not(:checked)) .sr6-editable-item-fields .sr6-charactersheet-field > span {
+  display: none;
+}
+
+.sr6-adeptenkraefte-section:has(.sr6-editable-section-mode:not(:checked)) .sr6-editable-item-fields input:not([type="checkbox"]),
+.sr6-adeptenkraefte-section:has(.sr6-editable-section-mode:not(:checked)) .sr6-editable-item-fields select,
+.sr6-foki-section:has(.sr6-editable-section-mode:not(:checked)) .sr6-editable-item-fields input:not([type="checkbox"]),
+.sr6-foki-section:has(.sr6-editable-section-mode:not(:checked)) .sr6-editable-item-fields select,
+.sr6-metamagie-section:has(.sr6-editable-section-mode:not(:checked)) .sr6-editable-item-fields input:not([type="checkbox"]),
+.sr6-metamagie-section:has(.sr6-editable-section-mode:not(:checked)) .sr6-editable-item-fields select,
+.sr6-rituale-section:has(.sr6-editable-section-mode:not(:checked)) .sr6-editable-item-fields input:not([type="checkbox"]),
+.sr6-rituale-section:has(.sr6-editable-section-mode:not(:checked)) .sr6-editable-item-fields select,
+.sr6-geister-section:has(.sr6-editable-section-mode:not(:checked)) .sr6-editable-item-fields input:not([type="checkbox"]),
+.sr6-geister-section:has(.sr6-editable-section-mode:not(:checked)) .sr6-editable-item-fields select,
+.sr6-ausruestung-section:has(.sr6-editable-section-mode:not(:checked)) .sr6-editable-item-fields input:not([type="checkbox"]),
+.sr6-ausruestung-section:has(.sr6-editable-section-mode:not(:checked)) .sr6-editable-item-fields select,
+.sr6-cyberware-section:has(.sr6-editable-section-mode:not(:checked)) .sr6-editable-item-fields input:not([type="checkbox"]),
+.sr6-cyberware-section:has(.sr6-editable-section-mode:not(:checked)) .sr6-editable-item-fields select,
+.sr6-bioware-section:has(.sr6-editable-section-mode:not(:checked)) .sr6-editable-item-fields input:not([type="checkbox"]),
+.sr6-bioware-section:has(.sr6-editable-section-mode:not(:checked)) .sr6-editable-item-fields select,
+.sr6-sin-section:has(.sr6-editable-section-mode:not(:checked)) .sr6-editable-item-fields input:not([type="checkbox"]),
+.sr6-sin-section:has(.sr6-editable-section-mode:not(:checked)) .sr6-editable-item-fields select,
+.sr6-lebensstil-section:has(.sr6-editable-section-mode:not(:checked)) .sr6-editable-item-fields input:not([type="checkbox"]),
+.sr6-lebensstil-section:has(.sr6-editable-section-mode:not(:checked)) .sr6-editable-item-fields select,
+.sr6-manoever-section:has(.sr6-editable-section-mode:not(:checked)) .sr6-editable-item-fields input:not([type="checkbox"]),
+.sr6-manoever-section:has(.sr6-editable-section-mode:not(:checked)) .sr6-editable-item-fields select,
+.sr6-matrix-programme-section:has(.sr6-editable-section-mode:not(:checked)) .sr6-editable-item-fields input:not([type="checkbox"]),
+.sr6-matrix-programme-section:has(.sr6-editable-section-mode:not(:checked)) .sr6-editable-item-fields select,
+.sr6-matrix-geraete-section:has(.sr6-editable-section-mode:not(:checked)) .sr6-editable-item-fields input:not([type="checkbox"]),
+.sr6-matrix-geraete-section:has(.sr6-editable-section-mode:not(:checked)) .sr6-editable-item-fields select,
+.sr6-matrix-handlungen-section:has(.sr6-editable-section-mode:not(:checked)) .sr6-editable-item-fields input:not([type="checkbox"]),
+.sr6-matrix-handlungen-section:has(.sr6-editable-section-mode:not(:checked)) .sr6-editable-item-fields select {
+  pointer-events: none;
+  user-select: none;
+  border-bottom: none;
+  padding: 0 0.25rem;
+  margin: 0;
+  height: 1.875rem;
+  line-height: 1.875rem;
+  font-size: 0.82rem;
+}
+
+.sr6-foki-section:has(.sr6-editable-section-mode:not(:checked)) .sr6-editable-item-fields input[type="checkbox"],
+.sr6-rituale-section:has(.sr6-editable-section-mode:not(:checked)) .sr6-editable-item-fields input[type="checkbox"],
+.sr6-matrix-programme-section:has(.sr6-editable-section-mode:not(:checked)) .sr6-editable-item-fields input[type="checkbox"] {
+  justify-self: center;
+  width: 1rem;
+  height: 1rem;
+}
+
+/* BEGIN BLOCK: Magie Listenansicht Spalten ausblenden */
+.sr6-foki-section:has(.sr6-editable-section-mode:not(:checked)) .sr6-generic-list-header {
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+}
+
+.sr6-foki-section:has(.sr6-editable-section-mode:not(:checked)) .sr6-generic-list-header > span:nth-child(4),
+.sr6-foki-section:has(.sr6-editable-section-mode:not(:checked)) .sr6-editable-item-fields [name="attr_sr6_fokus_notiz"] {
+  display: none;
+}
+
+.sr6-foki-section:has(.sr6-editable-section-mode:not(:checked)) .sr6-editable-item-fields .sr6-foki-notiz-field {
+  display: none;
+}
+
+.sr6-foki-section:has(.sr6-editable-section-mode:not(:checked)) .sr6-editable-item-fields .sr6-foundry-item-footer {
+  grid-template-columns: minmax(0, 1fr);
+  flex: 1 1 0;
+}
+
+.sr6-metamagie-section:has(.sr6-editable-section-mode:not(:checked)) .sr6-generic-list-header {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.sr6-metamagie-section:has(.sr6-editable-section-mode:not(:checked)) .sr6-generic-list-header > span:nth-child(3),
+.sr6-metamagie-section:has(.sr6-editable-section-mode:not(:checked)) .sr6-editable-item-fields .sr6-foundry-item-footer {
+  display: none;
+}
+
+.sr6-rituale-section:has(.sr6-editable-section-mode:not(:checked)) .sr6-generic-list-header {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+
+.sr6-rituale-section:has(.sr6-editable-section-mode:not(:checked)) .sr6-generic-list-header > span:nth-child(4),
+.sr6-rituale-section:has(.sr6-editable-section-mode:not(:checked)) .sr6-generic-list-header > span:nth-child(5),
+.sr6-rituale-section:has(.sr6-editable-section-mode:not(:checked)) .sr6-editable-item-fields .sr6-foundry-item-footer {
+  display: none;
+}
+
+.sr6-geister-section:has(.sr6-editable-section-mode:not(:checked)) .sr6-generic-list-header {
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+}
+
+.sr6-geister-section:has(.sr6-editable-section-mode:not(:checked)) .sr6-generic-list-header > span:nth-child(5),
+.sr6-geister-section:has(.sr6-editable-section-mode:not(:checked)) .sr6-editable-item-fields .sr6-foundry-item-footer {
+  display: none;
+}
+/* END BLOCK: Magie Listenansicht Spalten ausblenden */
