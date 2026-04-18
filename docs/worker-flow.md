@@ -12,7 +12,7 @@
 - `compute/matrix.js`: Matrix-Handlungs-Gesamtwerte
 - `compute/rigging.js`: Rigging-Compute-Slot (derzeit ohne automatische Ableitungen, bewusst)
 - `ui/defaults.js`: Open-State Defaults (Tab/Edit-Modi)
-- `ui/legacy.js`: Legacy-Normalisierung
+- `ui/legacy.js`: Normalisierung historischer Checkbox-Werte (`sr6_combat_helm`)
 
 ## Ablauf bei Aenderung
 1. Roll20 `change:*` Event feuert
@@ -24,7 +24,7 @@
 ## Ablauf bei `sheet:opened`
 1. Tab auf `allgemein`
 2. Edit-Modi auf Listenansicht
-3. Legacy-Checkbox-Wert normalisieren
+3. Historischen Checkbox-Wert `sr6_combat_helm` normalisieren
 4. Komplett-Recompute
 
 ## Regel

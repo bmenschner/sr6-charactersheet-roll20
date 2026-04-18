@@ -17,7 +17,7 @@ Diese Konvention kombiniert:
    - CSE: dieses Verhalten kann entfallen (Migration/Kompatibilitaet beachten).
 4. IDs sind in CSE grundsaetzlich moeglich; trotzdem sollten wir IDs sparsam und zielgerichtet einsetzen (nur dort, wo sie semantisch wirklich helfen, z. B. gekoppelte Controls).
 
-Hinweis: Teile der historischen Doku unterscheiden Legacy- und CSE-Verhalten. Unsere Konvention ist daher **CSE-first**, aber mit klaren Migrationsregeln fuer Legacy-Faelle.
+Hinweis: Teile der historischen Doku unterscheiden Legacy- und CSE-Verhalten. Unsere Konvention ist **CSE-first**.
 
 ## Engine-Entscheidung (verbindlich fuer dieses Projekt)
 
@@ -26,7 +26,7 @@ Wir arbeiten **CSE-first**.
 Das bedeutet:
 - Klassen werden ohne `sheet-` im Quellcode gefuehrt.
 - Keine Legacy-only Workarounds als Standard.
-- Wenn Legacy-Kompatibilitaet benoetigt wird, loesen wir dies gezielt in einer Kompatibilitaetsschicht.
+- Historische Legacy-Pfade/Aliase sind entfernt; neue Arbeit erfolgt tab-first unter `src/html/partials/tabs/**`.
 
 ## Namensschema (verbindlich)
 
@@ -97,20 +97,19 @@ Beispiele:
 - `attr_sr6_primaere_nahkampfwaffe` -> `attr_sr6_combat_primaere_nahkampfwaffe`
 - `attr_sr6_edge_biographie` -> `attr_sr6_bio_edge`
 
-## Umsetzungsstrategie (empfohlen)
+## Umsetzungsstrategie (Status)
 
-1. Phase A: Alias-Phase (ohne Bruch)
-- Neue Klassen zusaetzlich vergeben (alte bleiben vorerst)
-- CSS selektiert alt + neu parallel
+1. Strukturmigration
+- Tab-first HTML-Struktur unter `src/html/partials/tabs/**`: umgesetzt
+- Legacy-Alias-Dateien: entfernt
 
-2. Phase B: Attribut-Migration
-- Neue `attr_sr6_...` Namen einfuehren
-- Sheet Worker / Roll Buttons auf neue Namen umstellen
-- Falls noetig, einmalige Migrationsroutine (Werte kopieren)
+2. Attribut-Migration
+- `attr_sr6_<...>`-Schema: umgesetzt
+- Worker und Roll-Buttons auf konsistente Feldnamen: umgesetzt
 
-3. Phase C: Bereinigung
-- Alte Klassen und alte Attributnamen entfernen
-- Doku und Feldkatalog final angleichen
+3. Bereinigung
+- Historische Alias-Pfade in HTML entfernt
+- Doku auf finale Pfade und Struktur umgestellt
 
 ## Verbindliche Regeln fuer neue Elemente
 
@@ -120,9 +119,6 @@ Beispiele:
 - Neue Tabinhalte immer unter `sr6-charactersheet-tab-<name>`.
 - IDs nur bei echtem Nutzen; bevorzugt klassen- und strukturgetriebene Selektoren.
 
-## Nächster konkreter Schritt
+## Aktueller Fokus
 
-Als naechstes wird eine **non-breaking Alias-Migration** in HTML/CSS umgesetzt:
-- neue Standardklassen zusaetzlich zu den bestehenden Klassen
-- keine visuelle oder funktionale Regression
-- danach Schritt 2: Attribute auf `attr_sr6_...`
+Die Namenskonvention ist im Projektzustand umgesetzt. Neue Arbeit erfolgt direkt im finalen Schema (tab-first, modulare CSS/Worker, kein Alias-Layer).
