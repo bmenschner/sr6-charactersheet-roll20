@@ -5,9 +5,29 @@ const path = require('path');
 const rootDir = path.resolve(__dirname, '..');
 const modulesDir = path.join(rootDir, 'src', 'css', 'modules');
 const manifestPath = path.join(modulesDir, 'manifest.json');
+const toPosixPath = (value) => value.split(path.sep).join('/');
 
 function fail(message) {
   throw new Error(message);
+}
+
+function collectCssFilesRecursively(dirPath, basePath = dirPath) {
+  const entries = fs.readdirSync(dirPath, { withFileTypes: true });
+  const files = [];
+
+  entries.forEach((entry) => {
+    const absolutePath = path.join(dirPath, entry.name);
+    if (entry.isDirectory()) {
+      files.push(...collectCssFilesRecursively(absolutePath, basePath));
+      return;
+    }
+
+    if (entry.isFile() && entry.name.toLowerCase().endsWith('.css')) {
+      files.push(toPosixPath(path.relative(basePath, absolutePath)));
+    }
+  });
+
+  return files;
 }
 
 function run() {
@@ -50,12 +70,7 @@ function run() {
     fail(`Duplicate entries in manifest: ${[...duplicates].join(', ')}`);
   }
 
-  const diskFiles = fs
-    .readdirSync(modulesDir, { withFileTypes: true })
-    .filter((entry) => entry.isFile())
-    .map((entry) => entry.name)
-    .filter((name) => name.toLowerCase().endsWith('.css'))
-    .sort();
+  const diskFiles = collectCssFilesRecursively(modulesDir).sort();
 
   const missingFromDisk = order.filter((entry) => !diskFiles.includes(entry));
   if (missingFromDisk.length > 0) {

@@ -1,0 +1,95 @@
+/* Allgemein (Panel 1): kompakte Listenansicht wie "Konstitution 3 (4) [Wuerfel]" */
+#sr6_daten_panel_1 .sr6-charactersheet-box-attribute.sr6-editable-overview-section:has(.sr6-editable-section-mode:not(:checked)) .sr6-charactersheet-field.sr6-charactersheet-attr-field,
+#sr6_daten_panel_1 .sr6-charactersheet-box-fertigkeiten-allgemein.sr6-editable-overview-section:has(.sr6-editable-section-mode:not(:checked)) .sr6-charactersheet-field.sr6-charactersheet-attr-field {
+  grid-template-columns: minmax(6rem, 0.46fr) minmax(0, 1fr);
+  align-items: center;
+}
+
+#sr6_daten_panel_1 .sr6-charactersheet-box-attribute.sr6-editable-overview-section:has(.sr6-editable-section-mode:not(:checked)) .sr6-charactersheet-field.sr6-charactersheet-attr-field > span,
+#sr6_daten_panel_1 .sr6-charactersheet-box-fertigkeiten-allgemein.sr6-editable-overview-section:has(.sr6-editable-section-mode:not(:checked)) .sr6-charactersheet-field.sr6-charactersheet-attr-field > span {
+  line-height: 1.75rem;
+}
+
+#sr6_daten_panel_1 .sr6-charactersheet-box-attribute.sr6-editable-overview-section:has(.sr6-editable-section-mode:not(:checked)) .sr6-charactersheet-attr-values,
+#sr6_daten_panel_1 .sr6-charactersheet-box-fertigkeiten-allgemein.sr6-editable-overview-section:has(.sr6-editable-section-mode:not(:checked)) .sr6-charactersheet-attr-values {
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
+}
+
+#sr6_daten_panel_1 .sr6-charactersheet-box-attribute.sr6-editable-overview-section:has(.sr6-editable-section-mode:not(:checked)) .sr6-charactersheet-attr-value,
+#sr6_daten_panel_1 .sr6-charactersheet-box-fertigkeiten-allgemein.sr6-editable-overview-section:has(.sr6-editable-section-mode:not(:checked)) .sr6-charactersheet-attr-value {
+  display: inline-flex;
+  align-items: center;
+  gap: 0;
+  flex: 0 0 auto;
+}
+
+#sr6_daten_panel_1 .sr6-charactersheet-box-attribute.sr6-editable-overview-section:has(.sr6-editable-section-mode:not(:checked)) .sr6-charactersheet-attr-value > span,
+#sr6_daten_panel_1 .sr6-charactersheet-box-fertigkeiten-allgemein.sr6-editable-overview-section:has(.sr6-editable-section-mode:not(:checked)) .sr6-charactersheet-attr-value > span {
+  display: none;
+}
+
+#sr6_daten_panel_1 .sr6-charactersheet-box-attribute.sr6-editable-overview-section:has(.sr6-editable-section-mode:not(:checked)) .sr6-charactersheet-attr-value:nth-child(2),
+#sr6_daten_panel_1 .sr6-charactersheet-box-fertigkeiten-allgemein.sr6-editable-overview-section:has(.sr6-editable-section-mode:not(:checked)) .sr6-charactersheet-attr-value:nth-child(2) {
+  display: none;
+}
+
+#sr6_daten_panel_1 .sr6-charactersheet-box-attribute.sr6-editable-overview-section:has(.sr6-editable-section-mode:not(:checked)) .sr6-charactersheet-attr-value:first-child .sr6-charactersheet-field-input-with-dice,
+#sr6_daten_panel_1 .sr6-charactersheet-box-fertigkeiten-allgemein.sr6-editable-overview-section:has(.sr6-editable-section-mode:not(:checked)) .sr6-charactersheet-attr-value:first-child .sr6-charactersheet-field-input-with-dice {
+  width: auto;
+  grid-template-columns: auto;
+}
+
+#sr6_daten_panel_1 .sr6-charactersheet-box-attribute.sr6-editable-overview-section:has(.sr6-editable-section-mode:not(:checked)) .sr6-charactersheet-attr-value:first-child .sr6-charactersheet-field-input-with-dice > input,
+#sr6_daten_panel_1 .sr6-charactersheet-box-fertigkeiten-allgemein.sr6-editable-overview-section:has(.sr6-editable-section-mode:not(:checked)) .sr6-charactersheet-attr-value:first-child .sr6-charactersheet-field-input-with-dice > input {
+  width: 2.25rem;
+  min-width: 2.25rem;
+  text-align: center;
+}
+
+#sr6_daten_panel_1 .sr6-charactersheet-box-attribute.sr6-editable-overview-section:has(.sr6-editable-section-mode:not(:checked)) .sr6-charactersheet-attr-value:first-child .sr6-charactersheet-field-dice-button,
+#sr6_daten_panel_1 .sr6-charactersheet-box-fertigkeiten-allgemein.sr6-editable-overview-section:has(.sr6-editable-section-mode:not(:checked)) .sr6-charactersheet-attr-value:first-child .sr6-charactersheet-field-dice-button {
+  display: none;
+}
+
+#sr6_daten_panel_1 .sr6-charactersheet-box-attribute.sr6-editable-overview-section:has(.sr6-editable-section-mode:not(:checked)) .sr6-charactersheet-attr-value:last-child .sr6-charactersheet-field-input-with-dice,
+#sr6_daten_panel_1 .sr6-charactersheet-box-fertigkeiten-allgemein.sr6-editable-overview-section:has(.sr6-editable-section-mode:not(:checked)) .sr6-charactersheet-attr-value:last-child .sr6-charactersheet-field-input-with-dice {
+  position: relative;
+  width: auto;
+  grid-template-columns: auto 1.75rem;
+}
+
+#sr6_daten_panel_1 .sr6-charactersheet-box-attribute.sr6-editable-overview-section:has(.sr6-editable-section-mode:not(:checked)) .sr6-charactersheet-attr-value:last-child .sr6-charactersheet-field-input-with-dice > input,
+#sr6_daten_panel_1 .sr6-charactersheet-box-fertigkeiten-allgemein.sr6-editable-overview-section:has(.sr6-editable-section-mode:not(:checked)) .sr6-charactersheet-attr-value:last-child .sr6-charactersheet-field-input-with-dice > input {
+  width: 2.25rem;
+  min-width: 2.25rem;
+  text-align: center;
+}
+
+#sr6_daten_panel_1 .sr6-charactersheet-box-attribute.sr6-editable-overview-section:has(.sr6-editable-section-mode:not(:checked)) .sr6-charactersheet-attr-value:last-child .sr6-charactersheet-field-input-with-dice::before,
+#sr6_daten_panel_1 .sr6-charactersheet-box-fertigkeiten-allgemein.sr6-editable-overview-section:has(.sr6-editable-section-mode:not(:checked)) .sr6-charactersheet-attr-value:last-child .sr6-charactersheet-field-input-with-dice::before {
+  content: "(";
+  position: absolute;
+  left: -0.2rem;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 1rem;
+  line-height: 1;
+}
+
+#sr6_daten_panel_1 .sr6-charactersheet-box-attribute.sr6-editable-overview-section:has(.sr6-editable-section-mode:not(:checked)) .sr6-charactersheet-attr-value:last-child .sr6-charactersheet-field-input-with-dice::after,
+#sr6_daten_panel_1 .sr6-charactersheet-box-fertigkeiten-allgemein.sr6-editable-overview-section:has(.sr6-editable-section-mode:not(:checked)) .sr6-charactersheet-attr-value:last-child .sr6-charactersheet-field-input-with-dice::after {
+  content: ")";
+  position: absolute;
+  right: 1.78rem;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 1rem;
+  line-height: 1;
+}
+
+#sr6_daten_panel_1 .sr6-charactersheet-box-attribute.sr6-editable-overview-section:has(.sr6-editable-section-mode:not(:checked)) .sr6-charactersheet-attr-value:last-child .sr6-charactersheet-field-dice-button,
+#sr6_daten_panel_1 .sr6-charactersheet-box-fertigkeiten-allgemein.sr6-editable-overview-section:has(.sr6-editable-section-mode:not(:checked)) .sr6-charactersheet-attr-value:last-child .sr6-charactersheet-field-dice-button {
+  display: flex;
+}
