@@ -16,7 +16,6 @@ Die Worker sind jetzt entlang der Zielarchitektur aufgeteilt:
   - `rigging.js`
 - `src/workers/ui/`
   - `defaults.js`
-  - `legacy.js`
 
 Eingebunden wird alles über:
 - `src/html/partials/workers/sheet-worker.html`
@@ -24,5 +23,5 @@ Eingebunden wird alles über:
 Include-Reihenfolge ist wichtig:
 1. core (constants/helpers/guards)
 2. compute (attributes/skills/combat/magic/matrix/rigging)
-3. ui (defaults/legacy)
+3. ui (defaults)
 4. core/register

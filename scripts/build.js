@@ -8,8 +8,7 @@ const htmlDir = path.join(srcDir, 'html');
 const i18nDir = path.join(srcDir, 'i18n');
 const workersDir = path.join(srcDir, 'workers');
 const workerSourcePath = path.join(workersDir, 'sheet_workers.js');
-const cssDir = path.join(srcDir, 'css');
-const cssModulesDir = path.join(cssDir, 'modules');
+const cssModulesDir = path.join(srcDir, 'css', 'modules');
 const cssManifestPath = path.join(cssModulesDir, 'manifest.json');
 const srcImagesDir = path.join(srcDir, 'assets', 'images');
 const outputDir = path.join(rootDir, 'output');
@@ -92,7 +91,7 @@ function buildCharactersheetHtml() {
 
 function getCssModuleOrder() {
   if (!fs.existsSync(cssManifestPath)) {
-    return [path.join(cssDir, 'charactersheet.css')];
+    throw new Error('Missing CSS manifest: src/css/modules/manifest.json');
   }
 
   const manifestRaw = fs.readFileSync(cssManifestPath, 'utf8');

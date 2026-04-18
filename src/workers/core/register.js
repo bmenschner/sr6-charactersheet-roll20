@@ -53,11 +53,8 @@ function registerWorkerEvents() {
   on("sheet:opened", () => {
     resetTabToAllgemeinOnOpen();
     resetEditModesOnOpen();
-    normalizeLegacyCheckboxValues();
     recomputeAll();
   });
-
-  on("change:sr6_combat_helm", normalizeLegacyCheckboxValues);
 }
 
 registerWorkerEvents();

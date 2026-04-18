@@ -276,16 +276,6 @@ function resetEditModesOnOpen() {
 }
 // END MODULE: workers/ui/defaults
 
-// BEGIN MODULE: workers/ui/legacy
-function normalizeLegacyCheckboxValues() {
-  getAttrs(["sr6_combat_helm"], (values) => {
-    if ((values.sr6_combat_helm || "").trim().toLowerCase() === "on") {
-      setAttrsSilent({ sr6_combat_helm: "" });
-    }
-  });
-}
-// END MODULE: workers/ui/legacy
-
 // END BLOCK: Worker Includes (ui)
 
 // BEGIN BLOCK: Worker Includes (register)
@@ -344,11 +334,8 @@ function registerWorkerEvents() {
   on("sheet:opened", () => {
     resetTabToAllgemeinOnOpen();
     resetEditModesOnOpen();
-    normalizeLegacyCheckboxValues();
     recomputeAll();
   });
-
-  on("change:sr6_combat_helm", normalizeLegacyCheckboxValues);
 }
 
 registerWorkerEvents();
