@@ -26,22 +26,47 @@
     <!-- BEGIN BLOCK: Zeile 2 -->
     <div class="sr6-charactersheet-row sr6-charactersheet-row-3">
       <div class="sr6-charactersheet-field">
+        <span data-i18n="field.fernkampfangriff">Fernkampfangriff</span>
+        <div class="sr6-charactersheet-field-input-with-dice">
+          <input type="text" name="attr_sr6_combat_fernkampfangriff" /><button
+            type="roll"
+            class="sr6-charactersheet-field-dice-button"
+            name="roll_sr6_combat_fernkampfangriff"
+            value="&{template:default} {{name=Kampf: Kernwerte}} {{Wert=Fernkampfangriff}} {{Pool=[[@{sr6_combat_fernkampfangriff}]]}} {{Erfolge=[[@{sr6_combat_fernkampfangriff}d6cs>4]]}}"
+            aria-label="Wuerfeln"></button>
+        </div>
+      </div>
+      <div class="sr6-charactersheet-field">
         <span data-i18n="field.verteidigung_physisch">Verteidigung (Physisch)</span>
-        <input type="text" name="attr_sr6_verteidigung_physisch_gesamtwert" />
+        <div class="sr6-charactersheet-field-input-with-dice">
+          <input type="text" name="attr_sr6_verteidigung_physisch_gesamtwert" /><button
+            type="roll"
+            class="sr6-charactersheet-field-dice-button"
+            name="roll_sr6_combat_verteidigung_physisch_gesamtwert"
+            value="&{template:default} {{name=Kampf: Kernwerte}} {{Wert=Verteidigung (Physisch)}} {{Pool=[[@{sr6_verteidigung_physisch_gesamtwert}]]}} {{Erfolge=[[@{sr6_verteidigung_physisch_gesamtwert}d6cs>4]]}}"
+            aria-label="Wuerfeln"></button>
+        </div>
       </div>
       <div class="sr6-charactersheet-field">
         <span data-i18n="field.schadenswiderstand_physisch">Schadenswiderstand (Physisch)</span>
-        <input type="text" name="attr_sr6_schadenswiderstand_physisch_gesamtwert" />
-      </div>
-      <div class="sr6-charactersheet-field">
-        <span data-i18n="field.verteidigungswert">Verteidigungswert</span>
-        <input type="text" name="attr_sr6_combat_verteidigungswert" />
+        <div class="sr6-charactersheet-field-input-with-dice">
+          <input type="text" name="attr_sr6_schadenswiderstand_physisch_gesamtwert" /><button
+            type="roll"
+            class="sr6-charactersheet-field-dice-button"
+            name="roll_sr6_combat_schadenswiderstand_physisch_gesamtwert"
+            value="&{template:default} {{name=Kampf: Kernwerte}} {{Wert=Schadenswiderstand (Physisch)}} {{Pool=[[@{sr6_schadenswiderstand_physisch_gesamtwert}]]}} {{Erfolge=[[@{sr6_schadenswiderstand_physisch_gesamtwert}d6cs>4]]}}"
+            aria-label="Wuerfeln"></button>
+        </div>
       </div>
     </div>
     <!-- END BLOCK: Zeile 2 -->
 
     <!-- BEGIN BLOCK: Zeile 3 -->
-    <div class="sr6-charactersheet-row sr6-charactersheet-row-4">
+    <div class="sr6-charactersheet-row sr6-charactersheet-row-5">
+      <div class="sr6-charactersheet-field">
+        <span data-i18n="field.verteidigungswert">Verteidigungswert</span>
+        <input type="text" name="attr_sr6_combat_verteidigungswert" />
+      </div>
       <div class="sr6-charactersheet-field">
         <span data-i18n="field.primaere_panzerung">Primäre Panzerung</span>
         <input type="text" name="attr_sr6_combat_primaere_panzerung" />
