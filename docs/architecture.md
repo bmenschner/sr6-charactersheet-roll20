@@ -6,7 +6,7 @@
   - Teilblaecke: `partials/**`
 - `src/css/modules/`
   - modulare Styles (Reihenfolge via `manifest.json`)
-- `src/workers/modules/`
+- `src/workers/core/, src/workers/compute/, src/workers/ui/`
   - modularer Sheet-Worker-Code
 - `src/i18n/translation.json`
   - DE/EN/FR Quelle

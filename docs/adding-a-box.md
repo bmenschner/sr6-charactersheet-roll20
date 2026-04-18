@@ -18,8 +18,8 @@
   - oder neues Modul anlegen und in `manifest.json` eintragen
 
 ## 4. Worker (nur wenn berechnete Felder)
-- Berechnung in `src/workers/modules/20-recompute.js`
-- Events in `src/workers/modules/40-events.js`
+- Berechnung in `src/workers/compute/<domain>.js`
+- Events in `src/workers/core/register.js`
 
 ## 5. i18n
 - Neue Labels/Sections in `src/i18n/translation.json` ergaenzen (de/en/fr)
