@@ -1,0 +1,223 @@
+@media (max-width: 50rem) {
+  .sr6-charactersheet-tab-allgemein-grid {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .sr6-charactersheet-tab-kampf-grid {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .sr6-charactersheet-tab-magie-grid {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .sr6-charactersheet-tab-ausruestung-grid {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .sr6-charactersheet-tab-matrix-grid {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .sr6-charactersheet-tab-rigging-grid {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .sr6-charactersheet-kampfinfos-grid {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .sr6-charactersheet-row-7 {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+
+  .sr6-charactersheet-row-9 {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+
+  .sr6-charactersheet-row-5 {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .sr6-charactersheet-row-3 {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .sr6-charactersheet-init-row {
+    grid-template-columns: minmax(0, 1fr);
+    align-items: stretch;
+  }
+
+  .sr6-charactersheet-skills-overview-grid {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+
+.sr6-charactersheet-menu:has(#sr6_daten_tab_1:checked) #sr6_daten_panel_1,
+.sr6-charactersheet-menu:has(#sr6_daten_tab_2:checked) #sr6_daten_panel_2,
+.sr6-charactersheet-menu:has(#sr6_daten_tab_3:checked) #sr6_daten_panel_3,
+.sr6-charactersheet-menu:has(#sr6_daten_tab_4:checked) #sr6_daten_panel_4,
+.sr6-charactersheet-menu:has(#sr6_daten_tab_5:checked) #sr6_daten_panel_5,
+.sr6-charactersheet-menu:has(#sr6_daten_tab_6:checked) #sr6_daten_panel_6,
+.sr6-charactersheet-menu:has(#sr6_daten_tab_7:checked) #sr6_daten_panel_7,
+.sr6-charactersheet-menu:has(#sr6_daten_tab_8:checked) #sr6_daten_panel_8,
+.sr6-charactersheet-menu:has(#sr6_daten_tab_9:checked) #sr6_daten_panel_9 {
+  display: block;
+}
+
+.characterviewer .sr6-charactersheet-box .sr6-charactersheet-field > span {
+  font-weight: 700;
+  font-size: 1rem;
+  margin-bottom: 0;
+}
+
+.sr6-info-icon {
+  display: inline-block;
+  margin-left: 0.25rem;
+  width: 0.875rem;
+  height: 0.875rem;
+  line-height: 0.875rem;
+  border: 0.0625rem solid var(--sr6-line-soft);
+  border-radius: 999rem;
+  text-align: center;
+  font-size: 0.625rem;
+  font-weight: 700;
+  color: var(--sr6-title);
+  background: rgba(255, 255, 255, 0.85);
+  cursor: help;
+  vertical-align: text-top;
+}
+
+.sr6-field-label-with-info {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.25rem;
+}
+
+.sr6-field-label-with-info > span {
+  font-size: 1rem;
+  font-weight: 700;
+  color: var(--sr6-text);
+  letter-spacing: 0.01rem;
+  margin-bottom: 0;
+}
+
+.sr6-field-label-with-info > .sr6-info-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  margin-left: 0;
+  margin-bottom: 0;
+  width: 0.875rem;
+  height: 0.875rem;
+  line-height: 0.875rem;
+  font-size: 0.625rem;
+  font-weight: 700;
+  color: var(--sr6-line);
+  border-color: var(--sr6-line);
+  background: rgba(255, 255, 255, 0.92);
+  vertical-align: middle;
+}
+
+/* Roll20 tabs: standardmaessig ausblenden, per Button einblenden */
+.nav.nav-tabs {
+  position: fixed;
+  top: 20px;
+  left: 0;
+  right: 0;
+  z-index: 1000;
+  transform: translateY(-100%);
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+  transition: transform 0.2s ease;
+}
+
+body:has(.sr6-tabs-toggle-input:checked) .nav.nav-tabs,
+.ui-dialog:has(.sr6-tabs-toggle-input:checked) .nav.nav-tabs {
+  transform: translateY(0);
+  opacity: 1;
+  visibility: visible;
+  pointer-events: auto;
+}
+
+body:has(.sr6-tabs-toggle-input:checked) .sr6-charactersheet,
+.ui-dialog:has(.sr6-tabs-toggle-input:checked) .sr6-charactersheet {
+  margin-top: 3rem;
+}
+
+body:has(.sr6-tabs-toggle-input:checked) #tab-content.tab-content,
+.ui-dialog:has(.sr6-tabs-toggle-input:checked) #tab-content.tab-content {
+  position: relative;
+  top: 50px;
+}
+
+.sr6-tabs-toggle-input,
+.sr6-charactersheet-settings-toggle-input {
+  position: fixed;
+  top: -100vh;
+  left: -100vw;
+  opacity: 0;
+  pointer-events: none;
+}
+
+.sr6-tabs-toggle,
+.sr6-charactersheet-settings-toggle {
+  position: fixed;
+  top: 0.5rem;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 1100;
+  border: none;
+  border-bottom: 0.125rem solid var(--sr6-line);
+  background: #ffffff;
+  color: var(--sr6-title);
+  font-size: 0.875rem;
+  font-weight: 700;
+  padding: 0.25rem 0.5rem;
+  cursor: pointer;
+}
+
+.sr6-tabs-toggle::after,
+.sr6-charactersheet-settings-toggle::after {
+  content: "Shadowrun 6 Charakterbogen - Einstellungen ▼";
+}
+
+.sr6-tabs-toggle-input:checked + .sr6-tabs-toggle::after,
+.sr6-charactersheet-settings-toggle-input:checked + .sr6-charactersheet-settings-toggle::after {
+  content: "Shadowrun 6 Charakterbogen - Einstellungen ▼";
+}
+
+.sr6-language-control {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.375rem;
+  border-bottom: 0.125rem solid var(--sr6-line);
+  background: #ffffff;
+  color: var(--sr6-title);
+  font-size: 0.75rem;
+  font-weight: 700;
+  padding: 0.25rem 0.375rem;
+}
+
+.sr6-language-control label {
+  margin: 0;
+  white-space: nowrap;
+}
+
+.sr6-language-control select {
+  border: 0.0625rem solid var(--sr6-line-soft);
+  background: #ffffff;
+  color: var(--sr6-text);
+  font-size: 0.75rem;
+  font-weight: 700;
+  padding: 0.125rem 0.25rem;
+  min-width: 3.75rem;
+}
+
+.sr6-settings-panel {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 0.75rem;
+}

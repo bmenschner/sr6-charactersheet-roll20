@@ -5,7 +5,8 @@ const path = require('path');
 const rootDir = path.resolve(__dirname, '..');
 const srcHtmlDir = path.join(rootDir, 'src', 'html');
 const srcI18nDir = path.join(rootDir, 'src', 'i18n');
-const includeRoots = [srcHtmlDir, srcI18nDir];
+const srcWorkersDir = path.join(rootDir, 'src', 'workers');
+const includeRoots = [srcHtmlDir, srcI18nDir, srcWorkersDir];
 const entryFile = path.join(srcHtmlDir, 'charactersheet.html');
 const INCLUDE_PATTERN = /<!--\s*@include\s+([^\s]+)\s*-->/g;
 

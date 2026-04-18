@@ -1,3 +1,4 @@
+/* BEGIN MODULE: src/css/modules/00-foundation.css */
 :root {
   --sr6-bg: #d2d2d2;
   --sr6-line: #840763;
@@ -527,7 +528,9 @@ body,
   outline: 0.0625rem solid var(--sr6-line);
   outline-offset: -0.0625rem;
 }
+/* END MODULE: src/css/modules/00-foundation.css */
 
+/* BEGIN MODULE: src/css/modules/10-shell-repeating.css */
 .sr6-charactersheet-menu {
   grid-column: 1 / -1;
   padding: 0.5rem 0.625rem 0.625rem;
@@ -745,7 +748,9 @@ fieldset.repeating_sr6riggingmanoever .repcontrol {
   border-color: var(--sr6-line);
   color: var(--sr6-line);
 }
+/* END MODULE: src/css/modules/10-shell-repeating.css */
 
+/* BEGIN MODULE: src/css/modules/20-editable-controls.css */
 /* Roll20-Repeating-Labels lokalisieren */
 .charsheet .repcontrol {
   display: flex;
@@ -896,7 +901,9 @@ fieldset.repeating_sr6riggingmanoever .repcontrol {
 .sr6-editable-section:has(.sr6-editable-section-mode:not(:checked)) .repcontrol {
   display: none;
 }
+/* END MODULE: src/css/modules/20-editable-controls.css */
 
+/* BEGIN MODULE: src/css/modules/30-list-views.css */
 /* Allgemein/Fertigkeiten: Listenansicht fuer nicht-repeating Boxen */
 .sr6-editable-overview-section:has(.sr6-editable-section-mode:not(:checked)) .sr6-charactersheet-field input,
 .sr6-editable-overview-section:has(.sr6-editable-section-mode:not(:checked)) .sr6-charactersheet-field select,
@@ -1549,7 +1556,9 @@ fieldset.repeating_sr6riggingmanoever .repcontrol {
   display: none;
 }
 /* END BLOCK: Magie Listenansicht Spalten ausblenden */
+/* END MODULE: src/css/modules/30-list-views.css */
 
+/* BEGIN MODULE: src/css/modules/40-layout-and-tab-sections.css */
 @media (max-width: 50rem) {
   fieldset.repeating_sr6fernkampfwaffen,
   fieldset.repeating_sr6nahkampfwaffen,
@@ -1997,7 +2006,9 @@ fieldset.repeating_sr6riggingfahrzeuge {
 .charsheet .repcontainer[data-groupname="repeating_sr6riggingfahrzeuge"] {
   grid-template-columns: minmax(0, 1fr);
 }
+/* END MODULE: src/css/modules/40-layout-and-tab-sections.css */
 
+/* BEGIN MODULE: src/css/modules/50-overlays-and-roll20-tabs.css */
 @media (max-width: 50rem) {
   .sr6-charactersheet-tab-allgemein-grid {
     grid-template-columns: minmax(0, 1fr);
@@ -2221,3 +2232,4 @@ body:has(.sr6-tabs-toggle-input:checked) #tab-content.tab-content,
   align-items: flex-start;
   gap: 0.75rem;
 }
+/* END MODULE: src/css/modules/50-overlays-and-roll20-tabs.css */
