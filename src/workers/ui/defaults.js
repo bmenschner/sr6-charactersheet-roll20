@@ -1,19 +1,8 @@
-// BEGIN MODULE: worker ui state
-// Migration: altes Checkbox-Format konnte "on" in Helm hinterlassen.
-function normalizeLegacyCheckboxValues() {
-  getAttrs(["sr6_combat_helm"], (values) => {
-    if ((values.sr6_combat_helm || "").trim().toLowerCase() === "on") {
-      setAttrs({ sr6_combat_helm: "" }, { silent: true });
-    }
-  });
-}
-
-// Beim Laden immer mit dem Tab "Allgemein" starten.
+// BEGIN MODULE: workers/ui/defaults
 function resetTabToAllgemeinOnOpen() {
-  setAttrs({ sr6_daten_tab: "allgemein" }, { silent: true });
+  setAttrsSilent({ sr6_daten_tab: "allgemein" });
 }
 
-// Beim Laden alle Editier-Toggles auf Listenansicht (inaktiv) setzen.
 function getEditModeResetPayload() {
   return {
     sr6_allgemein_attribute_edit_mode: "0",
@@ -45,6 +34,6 @@ function getEditModeResetPayload() {
 }
 
 function resetEditModesOnOpen() {
-  setAttrs(getEditModeResetPayload(), { silent: true });
+  setAttrsSilent(getEditModeResetPayload());
 }
-// END MODULE: worker ui state
+// END MODULE: workers/ui/defaults

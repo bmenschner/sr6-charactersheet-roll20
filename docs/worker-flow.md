@@ -1,17 +1,25 @@
 # Worker Recompute Flow
 
 ## Module
-- `00-constants.js`: Feldlisten (Attribute, Fertigkeiten, Matrix-Handlungen)
-- `10-helpers.js`: Parsing/Mapping-Helfer
-- `20-recompute.js`: zentrale Ableitungen und Gesamtwerte
-- `30-ui-state.js`: Open-State/Legacy-Normalisierung
-- `40-events.js`: Event-Registrierung
+- `core/constants.js`: Feldlisten (Attribute, Fertigkeiten, Matrix-Handlungen)
+- `core/helpers.js`: Parsing/Mapping-Helfer
+- `core/guards.js`: sichere `setAttrs`-Hilfen
+- `core/register.js`: Event-Registrierung + Recompute-Orchestrierung
+- `compute/attributes.js`: Attribut-Gesamtwerte
+- `compute/skills.js`: Fertigkeits-Gesamtwerte
+- `compute/combat.js`: abgeleitete Kern-/Kampfwerte
+- `compute/magic.js`: Magie-spezifische Ableitungen
+- `compute/matrix.js`: Matrix-Handlungs-Gesamtwerte
+- `compute/rigging.js`: Rigging-Compute-Slot (aktuell no-op)
+- `ui/defaults.js`: Open-State Defaults (Tab/Edit-Modi)
+- `ui/legacy.js`: Legacy-Normalisierung
 
 ## Ablauf bei Aenderung
 1. Roll20 `change:*` Event feuert
-2. `recomputeAll()` sammelt benoetigte Keys via `getAttrs`
-3. Gesamtsummen und abgeleitete Werte werden berechnet
-4. `setAttrs(..., { silent: true })` schreibt Updates zurueck
+2. `register.js` ruft `recomputeAll()` auf
+3. `recomputeAll()` sammelt benoetigte Keys via `getAttrs`
+4. Compute-Module schreiben in ein gemeinsames `updates`-Objekt
+5. `setAttrsSilent(...)` schreibt Updates zurueck
 
 ## Ablauf bei `sheet:opened`
 1. Tab auf `allgemein`
@@ -20,4 +28,5 @@
 4. Komplett-Recompute
 
 ## Regel
-- Neue berechnete Felder immer in `recomputeAll` zentral halten (Single Source of Compute Truth)
+- Neue berechnete Felder in das passende `compute/<domain>.js` legen.
+- `recomputeAll` bleibt Orchestrator (Single Source of Compute Flow).

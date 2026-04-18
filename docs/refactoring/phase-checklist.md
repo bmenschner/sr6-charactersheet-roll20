@@ -14,8 +14,8 @@
 - [x] `lint:css-modules` fuer Manifest-/Modul-Konsistenz eingefuehrt
 
 ## Phase 4: Worker modularisieren
-- [x] `src/workers/modules/` eingefuehrt
-- [x] Worker in 5 Module gesplittet (constants/helpers/recompute/ui-state/events)
+- [x] `src/workers/core/`, `src/workers/compute/`, `src/workers/ui/` eingefuehrt
+- [x] Worker in Core/Compute/UI-Module nach Domaenen gesplittet
 - [x] `sheet-worker.html` auf modulare Includes umgestellt
 
 ## Phase 5: Wiederverwendbare Muster
