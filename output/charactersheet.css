@@ -975,7 +975,7 @@ fieldset.repeating_sr6riggingmanoever .repcontrol {
 
 /* Fertigkeiten: komplette Zeile neu aufbauen (Name + 3 Werte in einer horizontalen Ebene) */
 .sr6-charactersheet-box-fertigkeiten-allgemein.sr6-editable-overview-section:has(.sr6-editable-section-mode:not(:checked)) .sr6-charactersheet-field.sr6-charactersheet-attr-field {
-  grid-template-columns: minmax(6rem, 0.42fr) minmax(0, 1fr) minmax(0, 1fr) minmax(0, 0.9375fr);
+  grid-template-columns: minmax(6rem, 1.5fr) minmax(0, 1fr) minmax(0, 1fr) minmax(0, 2fr);
   align-items: center;
 }
 
