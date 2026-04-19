@@ -2,6 +2,7 @@
 <!-- @include ./core/constants.js -->
 <!-- @include ./core/helpers.js -->
 <!-- @include ./core/guards.js -->
+<!-- @include ./core/rolls.js -->
 // END BLOCK: Worker Includes (core)
 
 // BEGIN BLOCK: Worker Includes (compute)

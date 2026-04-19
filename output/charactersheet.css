@@ -517,7 +517,8 @@ body,
   cursor: pointer;
 }
 
-.sr6-charactersheet .sr6-charactersheet-field-dice-button[type="roll"]::before {
+.sr6-charactersheet .sr6-charactersheet-field-dice-button[type="roll"]::before,
+.sr6-charactersheet .sr6-charactersheet-field-dice-button[type="action"]::before {
   content: "⚅" !important;
   font-family: inherit !important;
   color: var(--sr6-line);
