@@ -6,6 +6,7 @@
   --sr6-text: #111111;
   --sr6-title: #840763;
   --sr6-field-height: 24px;
+  --sr6-list-single-line-height: 2.4rem;
 }
 
 * {
@@ -887,7 +888,6 @@ fieldset.repeating_sr6riggingmanoever .repcontrol {
   user-select: none;
   border-bottom: none;
   padding: 0;
-  height: 1.25rem;
   font-size: 0.82rem;
 }
 
@@ -914,9 +914,15 @@ fieldset.repeating_sr6riggingmanoever .repcontrol {
   border-bottom: none;
   padding: 0 0.25rem;
   margin: 0;
-  height: 1.875rem;
-  line-height: 1.875rem;
+  height: var(--sr6-list-single-line-height);
+  line-height: var(--sr6-list-single-line-height);
   font-size: 0.82rem;
+}
+
+.sr6-editable-overview-section:has(.sr6-editable-section-mode:not(:checked)) .sr6-charactersheet-field select {
+  line-height: normal;
+  padding-top: 0;
+  padding-bottom: 0;
 }
 
 .sr6-editable-overview-section:has(.sr6-editable-section-mode:not(:checked)) .sr6-charactersheet-field-input-with-dice {
@@ -958,12 +964,12 @@ fieldset.repeating_sr6riggingmanoever .repcontrol {
   margin: 0;
   font-size: 1rem;
   font-weight: 700;
-  line-height: 1.875rem;
+  line-height: var(--sr6-list-single-line-height);
   white-space: nowrap;
 }
 
 .sr6-charactersheet-box-fertigkeiten-allgemein.sr6-editable-overview-section:has(.sr6-editable-section-mode:not(:checked)) .sr6-charactersheet-field.sr6-charactersheet-attr-field > span {
-  line-height: 1.5rem;
+  line-height: var(--sr6-list-single-line-height);
 }
 
 /* Fertigkeiten: komplette Zeile neu aufbauen (Name + 3 Werte in einer horizontalen Ebene) */
@@ -989,7 +995,7 @@ fieldset.repeating_sr6riggingmanoever .repcontrol {
   align-items: center;
   gap: 0.25rem;
   min-width: 0;
-  height: 1.75rem;
+  height: var(--sr6-list-single-line-height);
 }
 
 .sr6-charactersheet-box-attribute.sr6-editable-overview-section:has(.sr6-editable-section-mode:not(:checked)) .sr6-charactersheet-attr-value > span,
@@ -1003,7 +1009,7 @@ fieldset.repeating_sr6riggingmanoever .repcontrol {
 
 .sr6-charactersheet-box-attribute.sr6-editable-overview-section:has(.sr6-editable-section-mode:not(:checked)) .sr6-charactersheet-field-input-with-dice,
 .sr6-charactersheet-box-fertigkeiten-allgemein.sr6-editable-overview-section:has(.sr6-editable-section-mode:not(:checked)) .sr6-charactersheet-field-input-with-dice {
-  height: 2.3rem;
+  height: var(--sr6-list-single-line-height);
   align-items: center;
 }
 
@@ -1023,8 +1029,8 @@ fieldset.repeating_sr6riggingmanoever .repcontrol {
 .sr6-charactersheet-box-attribute.sr6-editable-overview-section:has(.sr6-editable-section-mode:not(:checked)) .sr6-charactersheet-field-input-with-dice > input,
 .sr6-charactersheet-box-fertigkeiten-allgemein.sr6-editable-overview-section:has(.sr6-editable-section-mode:not(:checked)) .sr6-charactersheet-attr-value > input,
 .sr6-charactersheet-box-fertigkeiten-allgemein.sr6-editable-overview-section:has(.sr6-editable-section-mode:not(:checked)) .sr6-charactersheet-field-input-with-dice > input {
-  height: 1.75rem;
-  line-height: 1.75rem;
+  height: var(--sr6-list-single-line-height);
+  line-height: var(--sr6-list-single-line-height);
   font-size: 1rem;
   font-weight: 400;
   padding: 0 0.25rem;
@@ -1119,13 +1125,20 @@ fieldset.repeating_sr6riggingmanoever .repcontrol {
   border-bottom: none;
   padding: 0 0.25rem;
   margin: 0;
-  height: 1.875rem;
-  line-height: 1.875rem;
+  height: var(--sr6-list-single-line-height);
+  line-height: var(--sr6-list-single-line-height);
   font-size: 0.82rem;
 }
 
+.sr6-zauber-section:has(.sr6-editable-section-mode:not(:checked)) .sr6-editable-item-fields .sr6-foundry-item-head select,
+.sr6-zauber-section:has(.sr6-editable-section-mode:not(:checked)) .sr6-editable-item-fields .sr6-foundry-item-row select {
+  line-height: normal;
+  padding-top: 0;
+  padding-bottom: 0;
+}
+
 .sr6-zauber-section:has(.sr6-editable-section-mode:not(:checked)) .sr6-editable-item-fields .sr6-charactersheet-field {
-  min-height: 1.875rem;
+  min-height: var(--sr6-list-single-line-height);
   align-items: center;
 }
 
@@ -1234,7 +1247,7 @@ fieldset.repeating_sr6riggingmanoever .repcontrol {
 .sr6-matrix-programme-section:has(.sr6-editable-section-mode:not(:checked)) .sr6-editable-item-fields .sr6-charactersheet-field,
 .sr6-matrix-geraete-section:has(.sr6-editable-section-mode:not(:checked)) .sr6-editable-item-fields .sr6-charactersheet-field,
 .sr6-matrix-handlungen-section:has(.sr6-editable-section-mode:not(:checked)) .sr6-editable-item-fields .sr6-charactersheet-field {
-  min-height: 1.875rem;
+  min-height: var(--sr6-list-single-line-height);
   display: flex;
   flex-direction: row;
   gap: 0;
@@ -1428,9 +1441,28 @@ fieldset.repeating_sr6riggingmanoever .repcontrol {
   border-bottom: none;
   padding: 0 0.25rem;
   margin: 0;
-  height: 1.875rem;
-  line-height: 1.875rem;
+  height: var(--sr6-list-single-line-height);
+  line-height: var(--sr6-list-single-line-height);
   font-size: 0.82rem;
+}
+
+.sr6-adeptenkraefte-section:has(.sr6-editable-section-mode:not(:checked)) .sr6-editable-item-fields select,
+.sr6-foki-section:has(.sr6-editable-section-mode:not(:checked)) .sr6-editable-item-fields select,
+.sr6-metamagie-section:has(.sr6-editable-section-mode:not(:checked)) .sr6-editable-item-fields select,
+.sr6-rituale-section:has(.sr6-editable-section-mode:not(:checked)) .sr6-editable-item-fields select,
+.sr6-geister-section:has(.sr6-editable-section-mode:not(:checked)) .sr6-editable-item-fields select,
+.sr6-ausruestung-section:has(.sr6-editable-section-mode:not(:checked)) .sr6-editable-item-fields select,
+.sr6-cyberware-section:has(.sr6-editable-section-mode:not(:checked)) .sr6-editable-item-fields select,
+.sr6-bioware-section:has(.sr6-editable-section-mode:not(:checked)) .sr6-editable-item-fields select,
+.sr6-sin-section:has(.sr6-editable-section-mode:not(:checked)) .sr6-editable-item-fields select,
+.sr6-lebensstil-section:has(.sr6-editable-section-mode:not(:checked)) .sr6-editable-item-fields select,
+.sr6-manoever-section:has(.sr6-editable-section-mode:not(:checked)) .sr6-editable-item-fields select,
+.sr6-matrix-programme-section:has(.sr6-editable-section-mode:not(:checked)) .sr6-editable-item-fields select,
+.sr6-matrix-geraete-section:has(.sr6-editable-section-mode:not(:checked)) .sr6-editable-item-fields select,
+.sr6-matrix-handlungen-section:has(.sr6-editable-section-mode:not(:checked)) .sr6-editable-item-fields select {
+  line-height: normal;
+  padding-top: 0;
+  padding-bottom: 0;
 }
 
 .sr6-foki-section:has(.sr6-editable-section-mode:not(:checked)) .sr6-editable-item-fields input[type="checkbox"],
@@ -1873,15 +1905,18 @@ fieldset.repeating_sr6riggingmanoever .repcontrol {
   display: grid !important;
   grid-template-columns: repeat(9, minmax(0, 1fr));
   grid-column: 1 / -1;
+  grid-row: 1;
+  order: 1;
   gap: 0.375rem;
   margin-top: 0;
 }
 
-.sr6-rigging-fahrzeuge-section:has(.sr6-editable-section-mode:not(:checked)) .sr6-rigging-fahrzeug-fields-secondary,
 .sr6-rigging-fahrzeuge-section:has(.sr6-editable-section-mode:not(:checked)) .sr6-rigging-fahrzeug-fields-links {
   display: grid !important;
   grid-template-columns: repeat(2, minmax(0, 1fr));
-  grid-column: 1 / -1;
+  grid-column: 1 / span 6;
+  grid-row: 2;
+  order: 2;
   gap: 0.375rem;
   border-top: none;
   padding-top: 0;
@@ -1889,7 +1924,19 @@ fieldset.repeating_sr6riggingmanoever .repcontrol {
 }
 
 .sr6-rigging-fahrzeuge-section:has(.sr6-editable-section-mode:not(:checked)) .sr6-rigging-fahrzeug-fields-secondary {
-  display: none !important;
+  display: grid !important;
+  grid-template-columns: minmax(0, 1fr);
+  grid-column: 7 / -1;
+  grid-row: 2;
+  order: 3;
+  gap: 0.375rem;
+  border-top: none;
+  padding-top: 0;
+  margin-top: 0;
+}
+
+.sr6-rigging-fahrzeuge-section:has(.sr6-editable-section-mode:not(:checked)) .sr6-rigging-fahrzeug-fields-secondary .sr6-charactersheet-field:first-child {
+  display: none;
 }
 
 .sr6-rigging-fahrzeuge-section:has(.sr6-editable-section-mode:not(:checked)) .sr6-rigging-fahrzeug-fields-main .sr6-charactersheet-field > span,
@@ -1899,6 +1946,7 @@ fieldset.repeating_sr6riggingmanoever .repcontrol {
 }
 
 .sr6-rigging-fahrzeuge-section:has(.sr6-editable-section-mode:not(:checked)) .sr6-rigging-fahrzeug-fields-main .sr6-charactersheet-field,
+.sr6-rigging-fahrzeuge-section:has(.sr6-editable-section-mode:not(:checked)) .sr6-rigging-fahrzeug-fields-secondary .sr6-charactersheet-field,
 .sr6-rigging-fahrzeuge-section:has(.sr6-editable-section-mode:not(:checked)) .sr6-rigging-fahrzeug-fields-links .sr6-charactersheet-field {
   display: grid;
   grid-template-columns: minmax(0, 1fr);
@@ -1907,6 +1955,7 @@ fieldset.repeating_sr6riggingmanoever .repcontrol {
 }
 
 .sr6-rigging-fahrzeuge-section:has(.sr6-editable-section-mode:not(:checked)) .sr6-rigging-fahrzeug-fields-main .sr6-charactersheet-field > span,
+.sr6-rigging-fahrzeuge-section:has(.sr6-editable-section-mode:not(:checked)) .sr6-rigging-fahrzeug-fields-secondary .sr6-charactersheet-field > span,
 .sr6-rigging-fahrzeuge-section:has(.sr6-editable-section-mode:not(:checked)) .sr6-rigging-fahrzeug-fields-links .sr6-charactersheet-field > span {
   display: block !important;
   font-size: 10px;
@@ -1950,7 +1999,7 @@ fieldset.repeating_sr6riggingfahrzeuge {
 
 #sr6_daten_panel_1 .sr6-charactersheet-box-attribute.sr6-editable-overview-section:has(.sr6-editable-section-mode:not(:checked)) .sr6-charactersheet-field.sr6-charactersheet-attr-field > span,
 #sr6_daten_panel_1 .sr6-charactersheet-box-fertigkeiten-allgemein.sr6-editable-overview-section:has(.sr6-editable-section-mode:not(:checked)) .sr6-charactersheet-field.sr6-charactersheet-attr-field > span {
-  line-height: 2.4rem;
+  line-height: var(--sr6-list-single-line-height);
 }
 
 #sr6_daten_panel_1 .sr6-charactersheet-box-attribute.sr6-editable-overview-section:has(.sr6-editable-section-mode:not(:checked)) .sr6-charactersheet-attr-values,

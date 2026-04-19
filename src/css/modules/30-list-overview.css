@@ -8,9 +8,15 @@
   border-bottom: none;
   padding: 0 0.25rem;
   margin: 0;
-  height: 1.875rem;
-  line-height: 1.875rem;
+  height: var(--sr6-list-single-line-height);
+  line-height: var(--sr6-list-single-line-height);
   font-size: 0.82rem;
+}
+
+.sr6-editable-overview-section:has(.sr6-editable-section-mode:not(:checked)) .sr6-charactersheet-field select {
+  line-height: normal;
+  padding-top: 0;
+  padding-bottom: 0;
 }
 
 .sr6-editable-overview-section:has(.sr6-editable-section-mode:not(:checked)) .sr6-charactersheet-field-input-with-dice {
@@ -52,12 +58,12 @@
   margin: 0;
   font-size: 1rem;
   font-weight: 700;
-  line-height: 1.875rem;
+  line-height: var(--sr6-list-single-line-height);
   white-space: nowrap;
 }
 
 .sr6-charactersheet-box-fertigkeiten-allgemein.sr6-editable-overview-section:has(.sr6-editable-section-mode:not(:checked)) .sr6-charactersheet-field.sr6-charactersheet-attr-field > span {
-  line-height: 1.5rem;
+  line-height: var(--sr6-list-single-line-height);
 }
 
 /* Fertigkeiten: komplette Zeile neu aufbauen (Name + 3 Werte in einer horizontalen Ebene) */
@@ -83,7 +89,7 @@
   align-items: center;
   gap: 0.25rem;
   min-width: 0;
-  height: 1.75rem;
+  height: var(--sr6-list-single-line-height);
 }
 
 .sr6-charactersheet-box-attribute.sr6-editable-overview-section:has(.sr6-editable-section-mode:not(:checked)) .sr6-charactersheet-attr-value > span,
@@ -97,7 +103,7 @@
 
 .sr6-charactersheet-box-attribute.sr6-editable-overview-section:has(.sr6-editable-section-mode:not(:checked)) .sr6-charactersheet-field-input-with-dice,
 .sr6-charactersheet-box-fertigkeiten-allgemein.sr6-editable-overview-section:has(.sr6-editable-section-mode:not(:checked)) .sr6-charactersheet-field-input-with-dice {
-  height: 2.3rem;
+  height: var(--sr6-list-single-line-height);
   align-items: center;
 }
 
@@ -117,10 +123,9 @@
 .sr6-charactersheet-box-attribute.sr6-editable-overview-section:has(.sr6-editable-section-mode:not(:checked)) .sr6-charactersheet-field-input-with-dice > input,
 .sr6-charactersheet-box-fertigkeiten-allgemein.sr6-editable-overview-section:has(.sr6-editable-section-mode:not(:checked)) .sr6-charactersheet-attr-value > input,
 .sr6-charactersheet-box-fertigkeiten-allgemein.sr6-editable-overview-section:has(.sr6-editable-section-mode:not(:checked)) .sr6-charactersheet-field-input-with-dice > input {
-  height: 1.75rem;
-  line-height: 1.75rem;
+  height: var(--sr6-list-single-line-height);
+  line-height: var(--sr6-list-single-line-height);
   font-size: 1rem;
   font-weight: 400;
   padding: 0 0.25rem;
 }
-

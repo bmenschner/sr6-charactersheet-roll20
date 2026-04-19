@@ -5,6 +5,7 @@
   --sr6-text: #111111;
   --sr6-title: #840763;
   --sr6-field-height: 24px;
+  --sr6-list-single-line-height: 2.4rem;
 }
 
 * {
@@ -527,4 +528,3 @@ body,
   outline: 0.0625rem solid var(--sr6-line);
   outline-offset: -0.0625rem;
 }
-

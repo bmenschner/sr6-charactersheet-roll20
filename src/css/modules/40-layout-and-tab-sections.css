@@ -380,15 +380,18 @@
   display: grid !important;
   grid-template-columns: repeat(9, minmax(0, 1fr));
   grid-column: 1 / -1;
+  grid-row: 1;
+  order: 1;
   gap: 0.375rem;
   margin-top: 0;
 }
 
-.sr6-rigging-fahrzeuge-section:has(.sr6-editable-section-mode:not(:checked)) .sr6-rigging-fahrzeug-fields-secondary,
 .sr6-rigging-fahrzeuge-section:has(.sr6-editable-section-mode:not(:checked)) .sr6-rigging-fahrzeug-fields-links {
   display: grid !important;
   grid-template-columns: repeat(2, minmax(0, 1fr));
-  grid-column: 1 / -1;
+  grid-column: 1 / span 6;
+  grid-row: 2;
+  order: 2;
   gap: 0.375rem;
   border-top: none;
   padding-top: 0;
@@ -396,7 +399,19 @@
 }
 
 .sr6-rigging-fahrzeuge-section:has(.sr6-editable-section-mode:not(:checked)) .sr6-rigging-fahrzeug-fields-secondary {
-  display: none !important;
+  display: grid !important;
+  grid-template-columns: minmax(0, 1fr);
+  grid-column: 7 / -1;
+  grid-row: 2;
+  order: 3;
+  gap: 0.375rem;
+  border-top: none;
+  padding-top: 0;
+  margin-top: 0;
+}
+
+.sr6-rigging-fahrzeuge-section:has(.sr6-editable-section-mode:not(:checked)) .sr6-rigging-fahrzeug-fields-secondary .sr6-charactersheet-field:first-child {
+  display: none;
 }
 
 .sr6-rigging-fahrzeuge-section:has(.sr6-editable-section-mode:not(:checked)) .sr6-rigging-fahrzeug-fields-main .sr6-charactersheet-field > span,
@@ -406,6 +421,7 @@
 }
 
 .sr6-rigging-fahrzeuge-section:has(.sr6-editable-section-mode:not(:checked)) .sr6-rigging-fahrzeug-fields-main .sr6-charactersheet-field,
+.sr6-rigging-fahrzeuge-section:has(.sr6-editable-section-mode:not(:checked)) .sr6-rigging-fahrzeug-fields-secondary .sr6-charactersheet-field,
 .sr6-rigging-fahrzeuge-section:has(.sr6-editable-section-mode:not(:checked)) .sr6-rigging-fahrzeug-fields-links .sr6-charactersheet-field {
   display: grid;
   grid-template-columns: minmax(0, 1fr);
@@ -414,6 +430,7 @@
 }
 
 .sr6-rigging-fahrzeuge-section:has(.sr6-editable-section-mode:not(:checked)) .sr6-rigging-fahrzeug-fields-main .sr6-charactersheet-field > span,
+.sr6-rigging-fahrzeuge-section:has(.sr6-editable-section-mode:not(:checked)) .sr6-rigging-fahrzeug-fields-secondary .sr6-charactersheet-field > span,
 .sr6-rigging-fahrzeuge-section:has(.sr6-editable-section-mode:not(:checked)) .sr6-rigging-fahrzeug-fields-links .sr6-charactersheet-field > span {
   display: block !important;
   font-size: 10px;
@@ -445,4 +462,3 @@ fieldset.repeating_sr6riggingfahrzeuge {
 .charsheet .repcontainer[data-groupname="repeating_sr6riggingfahrzeuge"] {
   grid-template-columns: minmax(0, 1fr);
 }
-

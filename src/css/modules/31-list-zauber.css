@@ -85,13 +85,20 @@
   border-bottom: none;
   padding: 0 0.25rem;
   margin: 0;
-  height: 1.875rem;
-  line-height: 1.875rem;
+  height: var(--sr6-list-single-line-height);
+  line-height: var(--sr6-list-single-line-height);
   font-size: 0.82rem;
 }
 
+.sr6-zauber-section:has(.sr6-editable-section-mode:not(:checked)) .sr6-editable-item-fields .sr6-foundry-item-head select,
+.sr6-zauber-section:has(.sr6-editable-section-mode:not(:checked)) .sr6-editable-item-fields .sr6-foundry-item-row select {
+  line-height: normal;
+  padding-top: 0;
+  padding-bottom: 0;
+}
+
 .sr6-zauber-section:has(.sr6-editable-section-mode:not(:checked)) .sr6-editable-item-fields .sr6-charactersheet-field {
-  min-height: 1.875rem;
+  min-height: var(--sr6-list-single-line-height);
   align-items: center;
 }
 
@@ -112,4 +119,3 @@
   border: none;
   box-shadow: none;
 }
-
