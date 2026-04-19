@@ -251,12 +251,35 @@ body,
   padding: 0.125rem 0.25rem;
 }
 
+.sr6-charactersheet-field textarea {
+  width: 100%;
+  min-height: 7rem;
+  border: none;
+  border-bottom: 0.0625rem solid var(--sr6-line-soft);
+  background: transparent;
+  color: var(--sr6-text);
+  font-size: 0.86rem;
+  line-height: 1.35;
+  padding: 0.25rem;
+  resize: vertical;
+}
+
+.sr6-charactersheet-field textarea.sr6-charactersheet-autogrow-textarea {
+  field-sizing: content;
+  overflow: auto;
+}
+
 .sr6-charactersheet-field input:focus {
   outline: 0.0625rem solid var(--sr6-line);
   border-bottom-color: var(--sr6-line);
 }
 
 .sr6-charactersheet-field select:focus {
+  outline: 0.0625rem solid var(--sr6-line);
+  border-bottom-color: var(--sr6-line);
+}
+
+.sr6-charactersheet-field textarea:focus {
   outline: 0.0625rem solid var(--sr6-line);
   border-bottom-color: var(--sr6-line);
 }

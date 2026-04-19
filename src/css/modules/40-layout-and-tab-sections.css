@@ -85,6 +85,16 @@
   margin-top: 0.5rem;
 }
 
+.sr6-charactersheet-tab-biographie-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0.75rem;
+}
+
+.sr6-charactersheet-tab-biographie-item--full {
+  grid-column: 1 / -1;
+}
+
 .sr6-charactersheet-gear-header > span {
   color: var(--sr6-title);
   font-size: 0.72rem;
