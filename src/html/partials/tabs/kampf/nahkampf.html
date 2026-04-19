@@ -1,18 +1,28 @@
 <!-- BEGIN BLOCK: Kampf Nahkampf -->
 <section
-  class="sr6-charactersheet-box sr6-charactersheet-box-kampf-nahkampf"
+  class="sr6-charactersheet-box sr6-charactersheet-box-kampf-nahkampf sr6-kampf-lockable-section"
   aria-labelledby="kampf-nahkampf-titel">
-  <h2
-    id="kampf-nahkampf-titel"
-    class="sr6-charactersheet-box-title"
-    data-i18n="section.kampf_nahkampf">
-    Nahkampfwaffen
-  </h2>
+  <div class="sr6-editable-section-title-row">
+    <h2
+      id="kampf-nahkampf-titel"
+      class="sr6-charactersheet-box-title"
+      data-i18n="section.kampf_nahkampf">
+      Nahkampfwaffen
+    </h2>
+    <label class="sr6-editable-section-toggle">
+      <input
+        type="checkbox"
+        name="attr_sr6_kampf_nahkampf_edit_mode"
+        class="sr6-editable-section-mode" />
+      <span data-i18n="field.editieren">Editieren</span>
+    </label>
+  </div>
 
   <div class="sr6-charactersheet-box-content">
     <!-- BEGIN BLOCK: Repeating Nahkampfwaffen -->
     <fieldset class="repeating_sr6nahkampfwaffen">
       <div class="sr6-foundry-item">
+        <div class="sr6-editable-item-fields">
         <div class="sr6-foundry-item-head sr6-charactersheet-row sr6-charactersheet-row-3">
           <div class="sr6-charactersheet-field">
             <span data-i18n="field.nahkampfwaffe">Nahkampfwaffe</span>
@@ -121,6 +131,7 @@
               </div>
             </details>
           </div>
+        </div>
         </div>
       </div>
     </fieldset>
