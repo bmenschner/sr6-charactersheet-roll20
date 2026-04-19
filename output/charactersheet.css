@@ -252,12 +252,35 @@ body,
   padding: 0.125rem 0.25rem;
 }
 
+.sr6-charactersheet-field textarea {
+  width: 100%;
+  min-height: 7rem;
+  border: none;
+  border-bottom: 0.0625rem solid var(--sr6-line-soft);
+  background: transparent;
+  color: var(--sr6-text);
+  font-size: 0.86rem;
+  line-height: 1.35;
+  padding: 0.25rem;
+  resize: vertical;
+}
+
+.sr6-charactersheet-field textarea.sr6-charactersheet-autogrow-textarea {
+  field-sizing: content;
+  overflow: auto;
+}
+
 .sr6-charactersheet-field input:focus {
   outline: 0.0625rem solid var(--sr6-line);
   border-bottom-color: var(--sr6-line);
 }
 
 .sr6-charactersheet-field select:focus {
+  outline: 0.0625rem solid var(--sr6-line);
+  border-bottom-color: var(--sr6-line);
+}
+
+.sr6-charactersheet-field textarea:focus {
   outline: 0.0625rem solid var(--sr6-line);
   border-bottom-color: var(--sr6-line);
 }
@@ -1275,17 +1298,23 @@ fieldset.repeating_sr6riggingmanoever .repcontrol {
   grid-template-columns: repeat(4, minmax(0, 1fr));
 }
 
-.sr6-ausruestung-section:has(.sr6-editable-section-mode:not(:checked)) .sr6-editable-item-fields .sr6-foundry-item-head,
-.sr6-sin-section:has(.sr6-editable-section-mode:not(:checked)) .sr6-editable-item-fields .sr6-foundry-item-head {
+.sr6-ausruestung-section:has(.sr6-editable-section-mode:not(:checked)) .sr6-editable-item-fields .sr6-foundry-item-head {
   display: grid;
   grid-template-columns: repeat(4, minmax(0, 1fr));
   gap: 0.375rem;
   flex: 1 1 0;
 }
 
+.sr6-sin-section:has(.sr6-editable-section-mode:not(:checked)) .sr6-editable-item-fields .sr6-foundry-item-head,
+.sr6-lebensstil-section:has(.sr6-editable-section-mode:not(:checked)) .sr6-editable-item-fields .sr6-foundry-item-head {
+  display: grid;
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+  gap: 0.375rem;
+  flex: 1 1 0;
+}
+
 .sr6-cyberware-section:has(.sr6-editable-section-mode:not(:checked)) .sr6-editable-item-fields .sr6-foundry-item-head,
 .sr6-bioware-section:has(.sr6-editable-section-mode:not(:checked)) .sr6-editable-item-fields .sr6-foundry-item-head,
-.sr6-lebensstil-section:has(.sr6-editable-section-mode:not(:checked)) .sr6-editable-item-fields .sr6-foundry-item-head,
 .sr6-manoever-section:has(.sr6-editable-section-mode:not(:checked)) .sr6-editable-item-fields .sr6-foundry-item-head {
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
@@ -1609,6 +1638,16 @@ fieldset.repeating_sr6riggingmanoever .repcontrol {
 
 .sr6-charactersheet-tab-biographie-personendaten .sr6-charactersheet-row + .sr6-charactersheet-row {
   margin-top: 0.5rem;
+}
+
+.sr6-charactersheet-tab-biographie-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0.75rem;
+}
+
+.sr6-charactersheet-tab-biographie-item--full {
+  grid-column: 1 / -1;
 }
 
 .sr6-charactersheet-gear-header > span {

@@ -237,7 +237,7 @@
     role="tab"
     aria-controls="sr6_daten_panel_8"
     data-i18n="tab.biographie"
-    >Biographie</label
+    >Leben</label
   >
 
   <input
@@ -6829,101 +6829,6 @@
   </section>
   <!-- END BLOCK: Bioware -->
 
-    <!-- BEGIN BLOCK: SIN -->
-  <section class="sr6-charactersheet-box sr6-editable-section sr6-sin-section" aria-labelledby="sin-titel">
-    <div class="sr6-editable-section-title-row">
-      <h2 id="sin-titel" class="sr6-charactersheet-box-title" data-i18n="section.sin">
-        SIN
-      </h2>
-      <label class="sr6-editable-section-toggle">
-        <input
-          type="checkbox"
-          name="attr_sr6_sin_edit_mode"
-          class="sr6-editable-section-mode"
-                      />
-                    <span data-i18n="field.editieren">Editieren</span>
-      </label>
-    </div>
-    <div class="sr6-charactersheet-box-content">
-      <div class="sr6-generic-list-header sr6-generic-list-header--4" aria-hidden="true">
-        <span data-i18n="field.name">Name</span>
-        <span data-i18n="field.stufe">Stufe</span>
-        <span data-i18n="field.anzahl">Anzahl</span>
-        <span data-i18n="field.notiz">Notiz</span>
-      </div>
-      <fieldset class="repeating_sr6sin">
-        <div class="sr6-foundry-item">
-          <div class="sr6-editable-item-fields">
-            <div class="sr6-foundry-item-head sr6-charactersheet-row sr6-charactersheet-row-4">
-              <div class="sr6-charactersheet-field">
-                <span data-i18n="field.name">Name</span>
-                <input type="text" name="attr_sr6_sin_name" />
-              </div>
-              <div class="sr6-charactersheet-field">
-                <span data-i18n="field.stufe">Stufe</span>
-                <input type="text" name="attr_sr6_sin_stufe" />
-              </div>
-              <div class="sr6-charactersheet-field">
-                <span data-i18n="field.anzahl">Anzahl</span>
-                <input type="text" name="attr_sr6_sin_anzahl" />
-              </div>
-              <div class="sr6-charactersheet-field">
-                <span data-i18n="field.notiz">Notiz</span>
-                <input type="text" name="attr_sr6_sin_notiz" />
-              </div>
-            </div>
-          </div>
-        </div>
-      </fieldset>
-    </div>
-  </section>
-  <!-- END BLOCK: SIN -->
-
-    <!-- BEGIN BLOCK: Lebensstil -->
-  <section class="sr6-charactersheet-box sr6-editable-section sr6-lebensstil-section" aria-labelledby="lebensstil-titel">
-    <div class="sr6-editable-section-title-row">
-      <h2 id="lebensstil-titel" class="sr6-charactersheet-box-title" data-i18n="section.lebensstil">
-        Lebensstil
-      </h2>
-      <label class="sr6-editable-section-toggle">
-        <input
-          type="checkbox"
-          name="attr_sr6_lebensstil_edit_mode"
-          class="sr6-editable-section-mode"
-                      />
-                    <span data-i18n="field.editieren">Editieren</span>
-      </label>
-    </div>
-    <div class="sr6-charactersheet-box-content">
-      <div class="sr6-generic-list-header sr6-generic-list-header--3" aria-hidden="true">
-        <span data-i18n="field.name">Name</span>
-        <span data-i18n="field.art">Art</span>
-        <span data-i18n="field.kosten">Kosten</span>
-      </div>
-      <fieldset class="repeating_sr6lebensstil">
-        <div class="sr6-foundry-item">
-          <div class="sr6-editable-item-fields">
-            <div class="sr6-foundry-item-head sr6-charactersheet-row sr6-charactersheet-row-3">
-              <div class="sr6-charactersheet-field">
-                <span data-i18n="field.name">Name</span>
-                <input type="text" name="attr_sr6_lebensstil_name" />
-              </div>
-              <div class="sr6-charactersheet-field">
-                <span data-i18n="field.art">Art</span>
-                <input type="text" name="attr_sr6_lebensstil_art" />
-              </div>
-              <div class="sr6-charactersheet-field">
-                <span data-i18n="field.kosten">Kosten</span>
-                <input type="text" name="attr_sr6_lebensstil_kosten" />
-              </div>
-            </div>
-          </div>
-        </div>
-      </fieldset>
-    </div>
-  </section>
-  <!-- END BLOCK: Lebensstil -->
-
 <!-- END BLOCK: Ausruestung Tab -->
 
 <!-- END BLOCK: Tab Ausruestung Entry -->
@@ -6959,8 +6864,8 @@
               </div>
               <!-- END BLOCK: Zeile 1 - Name / Straßenname -->
 
-              <!-- BEGIN BLOCK: Zeile 2 - Metatyp / Ethnizität -->
-              <div class="sr6-charactersheet-row sr6-charactersheet-row-2">
+              <!-- BEGIN BLOCK: Zeile 2 - Metatyp / Ethnizität / Alter / Geschlecht / Größe / Gewicht -->
+              <div class="sr6-charactersheet-row sr6-charactersheet-row-6">
                 <label class="sr6-charactersheet-field">
                   <span data-i18n="field.metatyp">Metatyp</span>
                   <input type="text" name="attr_sr6_bio_metatyp" />
@@ -6970,11 +6875,6 @@
                   <span data-i18n="field.ethnizitaet">Ethnizität</span>
                   <input type="text" name="attr_sr6_bio_ethnizitaet" />
                 </label>
-              </div>
-              <!-- END BLOCK: Zeile 2 - Metatyp / Ethnizität -->
-
-              <!-- BEGIN BLOCK: Zeile 3 - Alter / Geschlecht / Größe / Gewicht -->
-              <div class="sr6-charactersheet-row sr6-charactersheet-row-4">
                 <label class="sr6-charactersheet-field">
                   <span data-i18n="field.alter">Alter</span>
                   <input type="text" name="attr_sr6_bio_alter" />
@@ -6995,10 +6895,10 @@
                   <input type="text" name="attr_sr6_bio_gewicht" />
                 </label>
               </div>
-              <!-- END BLOCK: Zeile 3 - Alter / Geschlecht / Größe / Gewicht -->
+              <!-- END BLOCK: Zeile 2 - Metatyp / Ethnizität / Alter / Geschlecht / Größe / Gewicht -->
 
-              <!-- BEGIN BLOCK: Zeile 4 - Reputation / Fahndungslevel -->
-              <div class="sr6-charactersheet-row sr6-charactersheet-row-2">
+              <!-- BEGIN BLOCK: Zeile 4 - Reputation / Fahndungslevel / Karma / Gesamtkarma -->
+              <div class="sr6-charactersheet-row sr6-charactersheet-row-4">
                 <label class="sr6-charactersheet-field">
                   <span data-i18n="field.reputation">Reputation</span>
                   <input type="text" name="attr_sr6_bio_reputation" />
@@ -7008,11 +6908,6 @@
                   <span data-i18n="field.fahndungslevel">Fahndungslevel</span>
                   <input type="text" name="attr_sr6_bio_fahndungslevel" />
                 </label>
-              </div>
-              <!-- END BLOCK: Zeile 4 - Reputation / Fahndungslevel -->
-
-              <!-- BEGIN BLOCK: Zeile 5 - Karma / Gesamtkarma / Edge / Edge Max -->
-              <div class="sr6-charactersheet-row sr6-charactersheet-row-4">
                 <label class="sr6-charactersheet-field">
                   <span data-i18n="field.karma">Karma</span>
                   <input type="text" name="attr_sr6_bio_karma" />
@@ -7022,21 +6917,218 @@
                   <span data-i18n="field.gesamtkarma">Gesamtkarma</span>
                   <input type="text" name="attr_sr6_bio_gesamtkarma" />
                 </label>
-
-                <label class="sr6-charactersheet-field">
-                  <span data-i18n="field.edge">Edge</span>
-                  <input type="text" name="attr_sr6_bio_edge" />
-                </label>
-
-                <label class="sr6-charactersheet-field">
-                  <span data-i18n="field.edge_max">Edge Max</span>
-                  <input type="text" name="attr_sr6_bio_edge_max" />
-                </label>
               </div>
-              <!-- END BLOCK: Zeile 5 - Karma / Gesamtkarma / Edge / Edge Max -->
+              <!-- END BLOCK: Zeile 4 - Reputation / Fahndungslevel / Karma / Gesamtkarma -->
             </div>
 <!-- END BLOCK: Biographie Persönliche Daten -->
 
+            <div class="sr6-charactersheet-tab-biographie-grid">
+<!-- BEGIN BLOCK: Biographie SIN -->
+              <section class="sr6-charactersheet-box sr6-editable-section sr6-sin-section" aria-labelledby="bio-sin-titel">
+                <div class="sr6-editable-section-title-row">
+                  <h2 id="bio-sin-titel" class="sr6-charactersheet-box-title" data-i18n="section.sin">
+                    SIN
+                  </h2>
+                  <label class="sr6-editable-section-toggle">
+                    <input
+                      type="checkbox"
+                      name="attr_sr6_sin_edit_mode"
+                      class="sr6-editable-section-mode"
+                    />
+                    <span data-i18n="field.editieren">Editieren</span>
+                  </label>
+                </div>
+                <div class="sr6-charactersheet-box-content">
+                  <div class="sr6-generic-list-header sr6-generic-list-header--5" aria-hidden="true">
+                    <span data-i18n="field.name">Name</span>
+                    <span data-i18n="field.profession">Profession</span>
+                    <span data-i18n="field.typ">Typ</span>
+                    <span data-i18n="field.einfluss">Einfluß</span>
+                    <span data-i18n="field.loyalitaet">Loyalität</span>
+                  </div>
+                  <fieldset class="repeating_sr6sin">
+                    <div class="sr6-foundry-item">
+                      <div class="sr6-editable-item-fields">
+                        <div class="sr6-foundry-item-head sr6-charactersheet-row sr6-charactersheet-row-5">
+                          <div class="sr6-charactersheet-field">
+                            <span data-i18n="field.name">Name</span>
+                            <input type="text" name="attr_sr6_sin_name" />
+                          </div>
+                          <div class="sr6-charactersheet-field">
+                            <span data-i18n="field.profession">Profession</span>
+                            <input type="text" name="attr_sr6_sin_profession" />
+                          </div>
+                          <div class="sr6-charactersheet-field">
+                            <span data-i18n="field.typ">Typ</span>
+                            <input type="text" name="attr_sr6_sin_typ" />
+                          </div>
+                          <div class="sr6-charactersheet-field">
+                            <span data-i18n="field.einfluss">Einfluß</span>
+                            <input type="text" name="attr_sr6_sin_einfluss" />
+                          </div>
+                          <div class="sr6-charactersheet-field">
+                            <span data-i18n="field.loyalitaet">Loyalität</span>
+                            <input type="text" name="attr_sr6_sin_loyalitaet" />
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </fieldset>
+                </div>
+              </section>
+<!-- END BLOCK: Biographie SIN -->
+
+<!-- BEGIN BLOCK: Biographie Lebensstil -->
+              <section class="sr6-charactersheet-box sr6-editable-section sr6-lebensstil-section" aria-labelledby="bio-lebensstil-titel">
+                <div class="sr6-editable-section-title-row">
+                  <h2 id="bio-lebensstil-titel" class="sr6-charactersheet-box-title" data-i18n="section.lebensstil">
+                    Lebensstil
+                  </h2>
+                  <label class="sr6-editable-section-toggle">
+                    <input
+                      type="checkbox"
+                      name="attr_sr6_lebensstil_edit_mode"
+                      class="sr6-editable-section-mode"
+                    />
+                    <span data-i18n="field.editieren">Editieren</span>
+                  </label>
+                </div>
+                <div class="sr6-charactersheet-box-content">
+                  <div class="sr6-generic-list-header sr6-generic-list-header--5" aria-hidden="true">
+                    <span data-i18n="field.name">Name</span>
+                    <span data-i18n="field.profession">Profession</span>
+                    <span data-i18n="field.typ">Typ</span>
+                    <span data-i18n="field.einfluss">Einfluß</span>
+                    <span data-i18n="field.loyalitaet">Loyalität</span>
+                  </div>
+                  <fieldset class="repeating_sr6lebensstil">
+                    <div class="sr6-foundry-item">
+                      <div class="sr6-editable-item-fields">
+                        <div class="sr6-foundry-item-head sr6-charactersheet-row sr6-charactersheet-row-5">
+                          <div class="sr6-charactersheet-field">
+                            <span data-i18n="field.name">Name</span>
+                            <input type="text" name="attr_sr6_lebensstil_name" />
+                          </div>
+                          <div class="sr6-charactersheet-field">
+                            <span data-i18n="field.profession">Profession</span>
+                            <input type="text" name="attr_sr6_lebensstil_profession" />
+                          </div>
+                          <div class="sr6-charactersheet-field">
+                            <span data-i18n="field.typ">Typ</span>
+                            <input type="text" name="attr_sr6_lebensstil_typ" />
+                          </div>
+                          <div class="sr6-charactersheet-field">
+                            <span data-i18n="field.einfluss">Einfluß</span>
+                            <input type="text" name="attr_sr6_lebensstil_einfluss" />
+                          </div>
+                          <div class="sr6-charactersheet-field">
+                            <span data-i18n="field.loyalitaet">Loyalität</span>
+                            <input type="text" name="attr_sr6_lebensstil_loyalitaet" />
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </fieldset>
+                </div>
+              </section>
+<!-- END BLOCK: Biographie Lebensstil -->
+
+              <div class="sr6-charactersheet-tab-biographie-item--full">
+<!-- BEGIN BLOCK: Biographie Connections Full Width -->
+              <section class="sr6-charactersheet-box sr6-editable-section sr6-sin-section" aria-labelledby="bio-sin-full-titel">
+                <div class="sr6-editable-section-title-row">
+                  <h2 id="bio-sin-full-titel" class="sr6-charactersheet-box-title" data-i18n="section.connections">
+                    Connections
+                  </h2>
+                  <label class="sr6-editable-section-toggle">
+                    <input
+                      type="checkbox"
+                      name="attr_sr6_bio_sin_full_edit_mode"
+                      class="sr6-editable-section-mode"
+                    />
+                    <span data-i18n="field.editieren">Editieren</span>
+                  </label>
+                </div>
+                <div class="sr6-charactersheet-box-content">
+                  <div class="sr6-generic-list-header sr6-generic-list-header--5" aria-hidden="true">
+                    <span data-i18n="field.name">Name</span>
+                    <span data-i18n="field.profession">Profession</span>
+                    <span data-i18n="field.typ">Typ</span>
+                    <span data-i18n="field.einfluss">Einfluß</span>
+                    <span data-i18n="field.loyalitaet">Loyalität</span>
+                  </div>
+                  <fieldset class="repeating_sr6sin">
+                    <div class="sr6-foundry-item">
+                      <div class="sr6-editable-item-fields">
+                        <div class="sr6-foundry-item-head sr6-charactersheet-row sr6-charactersheet-row-5">
+                          <div class="sr6-charactersheet-field">
+                            <span data-i18n="field.name">Name</span>
+                            <input type="text" name="attr_sr6_sin_name" />
+                          </div>
+                          <div class="sr6-charactersheet-field">
+                            <span data-i18n="field.profession">Profession</span>
+                            <input type="text" name="attr_sr6_sin_profession" />
+                          </div>
+                          <div class="sr6-charactersheet-field">
+                            <span data-i18n="field.typ">Typ</span>
+                            <input type="text" name="attr_sr6_sin_typ" />
+                          </div>
+                          <div class="sr6-charactersheet-field">
+                            <span data-i18n="field.einfluss">Einfluß</span>
+                            <input type="text" name="attr_sr6_sin_einfluss" />
+                          </div>
+                          <div class="sr6-charactersheet-field">
+                            <span data-i18n="field.loyalitaet">Loyalität</span>
+                            <input type="text" name="attr_sr6_sin_loyalitaet" />
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </fieldset>
+                </div>
+              </section>
+<!-- END BLOCK: Biographie Connections Full Width -->
+
+              </div>
+              <div class="sr6-charactersheet-tab-biographie-item--full">
+<!-- BEGIN BLOCK: Biographie Charakterbeschreibung -->
+              <section
+                class="sr6-charactersheet-box sr6-charactersheet-box-biographie-charakterbeschreibung"
+                aria-labelledby="bio-charakterbeschreibung-titel">
+                <h2
+                  id="bio-charakterbeschreibung-titel"
+                  class="sr6-charactersheet-box-title"
+                  data-i18n="section.charakterbeschreibung">
+                  Charakterbeschreibung/Biographie/Notizen
+                </h2>
+                <div class="sr6-charactersheet-box-content">
+                  <label class="sr6-charactersheet-field">
+                    <span data-i18n="field.charakterbeschreibung">Charakterbeschreibung</span>
+                    <textarea
+                      name="attr_sr6_bio_charakterbeschreibung"
+                      class="sr6-charactersheet-autogrow-textarea"
+                      rows="6"></textarea>
+                  </label>
+                  <label class="sr6-charactersheet-field">
+                    <span data-i18n="field.biographie">Biographie</span>
+                    <textarea
+                      name="attr_sr6_bio_biographie"
+                      class="sr6-charactersheet-autogrow-textarea"
+                      rows="6"></textarea>
+                  </label>
+                  <label class="sr6-charactersheet-field">
+                    <span data-i18n="field.notizen">Notizen</span>
+                    <textarea
+                      name="attr_sr6_bio_notizen"
+                      class="sr6-charactersheet-autogrow-textarea"
+                      rows="6"></textarea>
+                  </label>
+                </div>
+              </section>
+<!-- END BLOCK: Biographie Charakterbeschreibung -->
+
+              </div>
+            </div>
 <!-- END BLOCK: Tab Biographie Entry -->
 
             <!-- END BLOCK: Biographie Persönliche Daten -->
@@ -7819,9 +7911,11 @@ registerWorkerEvents();
   "section.cyberware": "Cyberware",
   "section.bioware": "Bioware",
   "section.sin": "SIN",
+  "section.connections": "Connections",
   "section.lebensstil": "Lebensstil",
   "section.ausruestung_kern": "Ausrüstung: Übersicht",
   "section.persoenliche_daten": "Persönliche Daten",
+  "section.charakterbeschreibung": "Charakterbeschreibung/Biographie/Notizen",
   "section.initiative": "Initiative",
   "section.verteidigung": "Verteidigung",
   "section.schadenswiderstand": "Schadenswiderstand",
@@ -7832,7 +7926,7 @@ registerWorkerEvents();
   "tab.matrix": "Matrix",
   "tab.rigging": "Rigging",
   "tab.ausruestung": "Ausrüstung",
-  "tab.biographie": "Biographie",
+  "tab.biographie": "Leben",
   "tab.einstellungen": "Einstellungen",
   "ui.sprache": "Sprache",
   "ui.sprache_de": "DE",
@@ -7902,6 +7996,7 @@ registerWorkerEvents();
   "field.waffentyp_knueppel": "Knüppel",
   "field.waffentyp_unbewaffnet": "Unbewaffnet",
   "field.waffentyp_stangenwaffe": "Stangenwaffe",
+  "field.charakterbeschreibung": "Charakterbeschreibung",
   "field.modifikationen": "Modifikationen",
   "field.sozial": "Sozial",
   "field.fertigkeitsattribut": "Attribut",
@@ -7958,6 +8053,9 @@ registerWorkerEvents();
   "field.aktiv": "Aktiv",
   "field.kraftpunkt": "Kraftpunkt",
   "field.typ": "Typ",
+  "field.profession": "Profession",
+  "field.einfluss": "Einfluß",
+  "field.loyalitaet": "Loyalität",
   "field.dienste": "Dienste",
   "field.kraefte": "Kräfte",
   "field.cyberdeck_persona": "Cyberdeck/Persona",
@@ -8011,6 +8109,8 @@ registerWorkerEvents();
   "field.fahrzeug_modus_eingesprungen_ar": "Eingesprungen (AR)",
   "field.fahrzeug_modus_agent": "Agent",
   "field.item": "Item",
+  "field.biographie": "Biographie",
+  "field.notizen": "Notizen",
   "field.menge": "Menge",
   "field.kosten": "Kosten",
   "field.notiz": "Notiz",
