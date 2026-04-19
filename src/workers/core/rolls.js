@@ -1,10 +1,54 @@
 // BEGIN MODULE: workers/core/rolls
 function parseTemplateFields(template) {
   const fields = {};
-  const fieldRegex = /\{\{([^=]+)=([\s\S]*?)\}\}/g;
-  let match;
-  while ((match = fieldRegex.exec(template)) !== null) {
-    fields[(match[1] || "").trim()] = (match[2] || "").trim();
+  let index = 0;
+  while (index < template.length) {
+    const start = template.indexOf("{{", index);
+    if (start === -1) break;
+
+    let cursor = start + 2;
+    let key = "";
+    while (cursor < template.length && template[cursor] !== "=") {
+      key += template[cursor];
+      cursor += 1;
+    }
+    if (cursor >= template.length) break;
+    cursor += 1;
+
+    let value = "";
+    let attrDepth = 0;
+    while (cursor < template.length) {
+      const current = template[cursor];
+      const next = template[cursor + 1];
+
+      if (current === "@" && next === "{") {
+        attrDepth += 1;
+        value += "@{";
+        cursor += 2;
+        continue;
+      }
+
+      if (current === "}" && attrDepth > 0) {
+        attrDepth -= 1;
+        value += current;
+        cursor += 1;
+        continue;
+      }
+
+      if (current === "}" && next === "}" && attrDepth === 0) {
+        cursor += 2;
+        break;
+      }
+
+      value += current;
+      cursor += 1;
+    }
+
+    if (key.trim()) {
+      fields[key.trim()] = value.trim();
+    }
+
+    index = cursor;
   }
   return fields;
 }
@@ -25,9 +69,31 @@ function parsePoolAttributeFromFields(fields) {
   return match ? match[1] : "";
 }
 
-function resolveFieldText(templateValue, values) {
+function extractRepeatingRowPrefix(eventInfo) {
+  const sourceAttribute = (eventInfo && eventInfo.sourceAttribute) || "";
+  const match = sourceAttribute.match(/^(repeating_[^_]+_[^_]+)_/);
+  return match ? match[1] : "";
+}
+
+function buildAttrLookup(values, repeatingRowPrefix) {
+  return function lookupAttr(key) {
+    if (!key) return "";
+    if (Object.prototype.hasOwnProperty.call(values, key)) {
+      return values[key];
+    }
+    if (repeatingRowPrefix) {
+      const repeatingKey = `${repeatingRowPrefix}_${key}`;
+      if (Object.prototype.hasOwnProperty.call(values, repeatingKey)) {
+        return values[repeatingKey];
+      }
+    }
+    return "";
+  };
+}
+
+function resolveFieldText(templateValue, lookupAttr) {
   if (!templateValue) return "";
-  return templateValue.replace(/@\{([^}]+)\}/g, (_, key) => values[key] || "");
+  return templateValue.replace(/@\{([^}]+)\}/g, (_, key) => lookupAttr(key));
 }
 
 function buildDiceDetails(diceResults) {
@@ -54,10 +120,10 @@ function evaluateGlitch(diceResults, successCount) {
   return { isGlitch, isCriticalGlitch };
 }
 
-function buildResolvedFields(fields, values) {
+function buildResolvedFields(fields, lookupAttr) {
   const resolved = {};
   Object.keys(fields).forEach((key) => {
-    resolved[key] = resolveFieldText(fields[key], values);
+    resolved[key] = resolveFieldText(fields[key], lookupAttr);
   });
   return resolved;
 }
@@ -69,6 +135,7 @@ function buildProbeRows(resolvedFields) {
     "Fertigkeit",
     "Wert",
     "Waffe",
+    "Schadenswert",
     "Handlung",
     "Reichweite",
     "Munition",
@@ -98,10 +165,20 @@ function buildProbeRows(resolvedFields) {
 function deriveProbeTitle(resolvedFields) {
   const explicitName = resolvedFields.name;
   const attributeValue = resolvedFields.Attribut;
+  const skillValue = resolvedFields.Fertigkeit;
+  const hasCombatName = /kampf/i.test(explicitName || "");
+
+  if (hasCombatName) {
+    return "Kampf";
+  }
 
   if (attributeValue) {
     const shortAttribute = attributeValue.replace(/\s*\([^)]*\)\s*$/, "").trim();
     if (shortAttribute) return shortAttribute;
+  }
+
+  if (skillValue) {
+    return "Fertigkeiten";
   }
 
   if (explicitName) return explicitName;
@@ -152,16 +229,25 @@ function buildSr6ProbeMessage(payload) {
 function runSuccessProbeRoll(eventInfo) {
   const rawTemplate = (eventInfo && eventInfo.htmlAttributes && eventInfo.htmlAttributes.value) || "";
   if (!rawTemplate) return;
+  const repeatingRowPrefix = extractRepeatingRowPrefix(eventInfo);
 
   const fields = parseTemplateFields(rawTemplate);
   const poolAttribute = parsePoolAttributeFromFields(fields);
-  const resolvedAttributes = collectAttributeReferences(rawTemplate);
-  if (poolAttribute && !resolvedAttributes.includes(poolAttribute)) {
-    resolvedAttributes.push(poolAttribute);
+  const attributeRefs = collectAttributeReferences(rawTemplate);
+  if (poolAttribute && !attributeRefs.includes(poolAttribute)) {
+    attributeRefs.push(poolAttribute);
   }
+  const resolvedAttributes = [];
+  attributeRefs.forEach((attributeRef) => {
+    resolvedAttributes.push(attributeRef);
+    if (repeatingRowPrefix) {
+      resolvedAttributes.push(`${repeatingRowPrefix}_${attributeRef}`);
+    }
+  });
 
   getAttrs(resolvedAttributes, (values) => {
-    const resolvedFields = buildResolvedFields(fields, values);
+    const lookupAttr = buildAttrLookup(values, repeatingRowPrefix);
+    const resolvedFields = buildResolvedFields(fields, lookupAttr);
     const rows = buildProbeRows(resolvedFields);
     const name = deriveProbeTitle(resolvedFields);
 
@@ -180,7 +266,7 @@ function runSuccessProbeRoll(eventInfo) {
       return;
     }
 
-    const pool = Math.max(0, parseNumber(values[poolAttribute]));
+    const pool = Math.max(0, parseNumber(lookupAttr(poolAttribute)));
     const diceResults = [];
     for (let index = 0; index < pool; index += 1) {
       diceResults.push(rollD6());
