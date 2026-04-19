@@ -282,6 +282,25 @@
   font-size: 0.82rem;
 }
 
+.sr6-adeptenkraefte-section:has(.sr6-editable-section-mode:not(:checked)) .sr6-editable-item-fields select,
+.sr6-foki-section:has(.sr6-editable-section-mode:not(:checked)) .sr6-editable-item-fields select,
+.sr6-metamagie-section:has(.sr6-editable-section-mode:not(:checked)) .sr6-editable-item-fields select,
+.sr6-rituale-section:has(.sr6-editable-section-mode:not(:checked)) .sr6-editable-item-fields select,
+.sr6-geister-section:has(.sr6-editable-section-mode:not(:checked)) .sr6-editable-item-fields select,
+.sr6-ausruestung-section:has(.sr6-editable-section-mode:not(:checked)) .sr6-editable-item-fields select,
+.sr6-cyberware-section:has(.sr6-editable-section-mode:not(:checked)) .sr6-editable-item-fields select,
+.sr6-bioware-section:has(.sr6-editable-section-mode:not(:checked)) .sr6-editable-item-fields select,
+.sr6-sin-section:has(.sr6-editable-section-mode:not(:checked)) .sr6-editable-item-fields select,
+.sr6-lebensstil-section:has(.sr6-editable-section-mode:not(:checked)) .sr6-editable-item-fields select,
+.sr6-manoever-section:has(.sr6-editable-section-mode:not(:checked)) .sr6-editable-item-fields select,
+.sr6-matrix-programme-section:has(.sr6-editable-section-mode:not(:checked)) .sr6-editable-item-fields select,
+.sr6-matrix-geraete-section:has(.sr6-editable-section-mode:not(:checked)) .sr6-editable-item-fields select,
+.sr6-matrix-handlungen-section:has(.sr6-editable-section-mode:not(:checked)) .sr6-editable-item-fields select {
+  line-height: normal;
+  padding-top: 0;
+  padding-bottom: 0;
+}
+
 .sr6-foki-section:has(.sr6-editable-section-mode:not(:checked)) .sr6-editable-item-fields input[type="checkbox"],
 .sr6-rituale-section:has(.sr6-editable-section-mode:not(:checked)) .sr6-editable-item-fields input[type="checkbox"],
 .sr6-matrix-programme-section:has(.sr6-editable-section-mode:not(:checked)) .sr6-editable-item-fields input[type="checkbox"] {

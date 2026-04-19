@@ -919,6 +919,12 @@ fieldset.repeating_sr6riggingmanoever .repcontrol {
   font-size: 0.82rem;
 }
 
+.sr6-editable-overview-section:has(.sr6-editable-section-mode:not(:checked)) .sr6-charactersheet-field select {
+  line-height: normal;
+  padding-top: 0;
+  padding-bottom: 0;
+}
+
 .sr6-editable-overview-section:has(.sr6-editable-section-mode:not(:checked)) .sr6-charactersheet-field-input-with-dice {
   grid-template-columns: minmax(0, 1fr);
 }
@@ -1122,6 +1128,13 @@ fieldset.repeating_sr6riggingmanoever .repcontrol {
   height: var(--sr6-list-single-line-height);
   line-height: var(--sr6-list-single-line-height);
   font-size: 0.82rem;
+}
+
+.sr6-zauber-section:has(.sr6-editable-section-mode:not(:checked)) .sr6-editable-item-fields .sr6-foundry-item-head select,
+.sr6-zauber-section:has(.sr6-editable-section-mode:not(:checked)) .sr6-editable-item-fields .sr6-foundry-item-row select {
+  line-height: normal;
+  padding-top: 0;
+  padding-bottom: 0;
 }
 
 .sr6-zauber-section:has(.sr6-editable-section-mode:not(:checked)) .sr6-editable-item-fields .sr6-charactersheet-field {
@@ -1431,6 +1444,25 @@ fieldset.repeating_sr6riggingmanoever .repcontrol {
   height: var(--sr6-list-single-line-height);
   line-height: var(--sr6-list-single-line-height);
   font-size: 0.82rem;
+}
+
+.sr6-adeptenkraefte-section:has(.sr6-editable-section-mode:not(:checked)) .sr6-editable-item-fields select,
+.sr6-foki-section:has(.sr6-editable-section-mode:not(:checked)) .sr6-editable-item-fields select,
+.sr6-metamagie-section:has(.sr6-editable-section-mode:not(:checked)) .sr6-editable-item-fields select,
+.sr6-rituale-section:has(.sr6-editable-section-mode:not(:checked)) .sr6-editable-item-fields select,
+.sr6-geister-section:has(.sr6-editable-section-mode:not(:checked)) .sr6-editable-item-fields select,
+.sr6-ausruestung-section:has(.sr6-editable-section-mode:not(:checked)) .sr6-editable-item-fields select,
+.sr6-cyberware-section:has(.sr6-editable-section-mode:not(:checked)) .sr6-editable-item-fields select,
+.sr6-bioware-section:has(.sr6-editable-section-mode:not(:checked)) .sr6-editable-item-fields select,
+.sr6-sin-section:has(.sr6-editable-section-mode:not(:checked)) .sr6-editable-item-fields select,
+.sr6-lebensstil-section:has(.sr6-editable-section-mode:not(:checked)) .sr6-editable-item-fields select,
+.sr6-manoever-section:has(.sr6-editable-section-mode:not(:checked)) .sr6-editable-item-fields select,
+.sr6-matrix-programme-section:has(.sr6-editable-section-mode:not(:checked)) .sr6-editable-item-fields select,
+.sr6-matrix-geraete-section:has(.sr6-editable-section-mode:not(:checked)) .sr6-editable-item-fields select,
+.sr6-matrix-handlungen-section:has(.sr6-editable-section-mode:not(:checked)) .sr6-editable-item-fields select {
+  line-height: normal;
+  padding-top: 0;
+  padding-bottom: 0;
 }
 
 .sr6-foki-section:has(.sr6-editable-section-mode:not(:checked)) .sr6-editable-item-fields input[type="checkbox"],
@@ -1873,15 +1905,18 @@ fieldset.repeating_sr6riggingmanoever .repcontrol {
   display: grid !important;
   grid-template-columns: repeat(9, minmax(0, 1fr));
   grid-column: 1 / -1;
+  grid-row: 1;
+  order: 1;
   gap: 0.375rem;
   margin-top: 0;
 }
 
-.sr6-rigging-fahrzeuge-section:has(.sr6-editable-section-mode:not(:checked)) .sr6-rigging-fahrzeug-fields-secondary,
 .sr6-rigging-fahrzeuge-section:has(.sr6-editable-section-mode:not(:checked)) .sr6-rigging-fahrzeug-fields-links {
   display: grid !important;
   grid-template-columns: repeat(2, minmax(0, 1fr));
-  grid-column: 1 / -1;
+  grid-column: 1 / span 6;
+  grid-row: 2;
+  order: 2;
   gap: 0.375rem;
   border-top: none;
   padding-top: 0;
@@ -1889,7 +1924,19 @@ fieldset.repeating_sr6riggingmanoever .repcontrol {
 }
 
 .sr6-rigging-fahrzeuge-section:has(.sr6-editable-section-mode:not(:checked)) .sr6-rigging-fahrzeug-fields-secondary {
-  display: none !important;
+  display: grid !important;
+  grid-template-columns: minmax(0, 1fr);
+  grid-column: 7 / -1;
+  grid-row: 2;
+  order: 3;
+  gap: 0.375rem;
+  border-top: none;
+  padding-top: 0;
+  margin-top: 0;
+}
+
+.sr6-rigging-fahrzeuge-section:has(.sr6-editable-section-mode:not(:checked)) .sr6-rigging-fahrzeug-fields-secondary .sr6-charactersheet-field:first-child {
+  display: none;
 }
 
 .sr6-rigging-fahrzeuge-section:has(.sr6-editable-section-mode:not(:checked)) .sr6-rigging-fahrzeug-fields-main .sr6-charactersheet-field > span,
@@ -1899,6 +1946,7 @@ fieldset.repeating_sr6riggingmanoever .repcontrol {
 }
 
 .sr6-rigging-fahrzeuge-section:has(.sr6-editable-section-mode:not(:checked)) .sr6-rigging-fahrzeug-fields-main .sr6-charactersheet-field,
+.sr6-rigging-fahrzeuge-section:has(.sr6-editable-section-mode:not(:checked)) .sr6-rigging-fahrzeug-fields-secondary .sr6-charactersheet-field,
 .sr6-rigging-fahrzeuge-section:has(.sr6-editable-section-mode:not(:checked)) .sr6-rigging-fahrzeug-fields-links .sr6-charactersheet-field {
   display: grid;
   grid-template-columns: minmax(0, 1fr);
@@ -1907,6 +1955,7 @@ fieldset.repeating_sr6riggingmanoever .repcontrol {
 }
 
 .sr6-rigging-fahrzeuge-section:has(.sr6-editable-section-mode:not(:checked)) .sr6-rigging-fahrzeug-fields-main .sr6-charactersheet-field > span,
+.sr6-rigging-fahrzeuge-section:has(.sr6-editable-section-mode:not(:checked)) .sr6-rigging-fahrzeug-fields-secondary .sr6-charactersheet-field > span,
 .sr6-rigging-fahrzeuge-section:has(.sr6-editable-section-mode:not(:checked)) .sr6-rigging-fahrzeug-fields-links .sr6-charactersheet-field > span {
   display: block !important;
   font-size: 10px;
