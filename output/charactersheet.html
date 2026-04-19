@@ -7128,19 +7128,43 @@ function buildProbeRows(resolvedFields) {
   return rows.slice(0, 4);
 }
 
-function deriveProbeTitle(resolvedFields) {
+function deriveTitleFromPoolAttribute(poolAttribute) {
+  if (!poolAttribute) return "";
+
+  if (poolAttribute.startsWith("sr6_combat_")) return "Kampf";
+  if (poolAttribute.startsWith("sr6_fernkampf_")) return "Fernkampfwaffen";
+  if (poolAttribute.startsWith("sr6_nahkampf_")) return "Nahkampfwaffen";
+
+  if (poolAttribute.startsWith("sr6_matrix_handlung_")) return "Matrix-Handlungen";
+  if (poolAttribute.startsWith("sr6_matrix_")) return "Matrix: Kernwerte";
+
+  if (poolAttribute.startsWith("sr6_rigging_manoever_")) return "Manöver";
+  if (poolAttribute.startsWith("sr6_rigging_")) return "Rigging: Kernwerte";
+
+  if (poolAttribute.startsWith("sr6_magic_")) return "Magie: Kernwerte";
+  if (poolAttribute.startsWith("sr6_zauber_")) return "Zauber";
+  if (poolAttribute.startsWith("sr6_ritual_")) return "Rituale";
+
+  if (poolAttribute.startsWith("sr6_verteidigung_")) return "Verteidigung";
+  if (poolAttribute.startsWith("sr6_schadenswiderstand_")) return "Schadenswiderstand";
+  if (poolAttribute.startsWith("sr6_skill_")) return "Fertigkeiten";
+
+  return "";
+}
+
+function deriveProbeTitle(resolvedFields, poolAttribute) {
   const explicitName = resolvedFields.name;
   const attributeValue = resolvedFields.Attribut;
   const skillValue = resolvedFields.Fertigkeit;
-  const hasCombatName = /kampf/i.test(explicitName || "");
-
-  if (hasCombatName) {
-    return "Kampf";
-  }
 
   if (attributeValue) {
     const shortAttribute = attributeValue.replace(/\s*\([^)]*\)\s*$/, "").trim();
     if (shortAttribute) return shortAttribute;
+  }
+
+  const titleFromPoolAttribute = deriveTitleFromPoolAttribute(poolAttribute);
+  if (titleFromPoolAttribute) {
+    return titleFromPoolAttribute;
   }
 
   if (skillValue) {
@@ -7215,7 +7239,7 @@ function runSuccessProbeRoll(eventInfo) {
     const lookupAttr = buildAttrLookup(values, repeatingRowPrefix);
     const resolvedFields = buildResolvedFields(fields, lookupAttr);
     const rows = buildProbeRows(resolvedFields);
-    const name = deriveProbeTitle(resolvedFields);
+    const name = deriveProbeTitle(resolvedFields, poolAttribute);
 
     if (!poolAttribute) {
       const chatMessage = buildSr6ProbeMessage({
@@ -7263,6 +7287,8 @@ function runSuccessProbeRoll(eventInfo) {
 
 function registerSuccessProbeRollEvents() {
   on("clicked:probe", runSuccessProbeRoll);
+  on("clicked:repeating_sr6fernkampfwaffen:probe", runSuccessProbeRoll);
+  on("clicked:repeating_sr6nahkampfwaffen:probe", runSuccessProbeRoll);
 }
 // END MODULE: workers/core/rolls
 
