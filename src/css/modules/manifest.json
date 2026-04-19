@@ -16,6 +16,7 @@
     "tabs/ausruestung/index.css",
     "tabs/biographie/index.css",
     "tabs/einstellungen/index.css",
-    "50-overlays-and-roll20-tabs.css"
+    "50-overlays-and-roll20-tabs.css",
+    "60-rolltemplate-sr6probe.css"
   ]
 }

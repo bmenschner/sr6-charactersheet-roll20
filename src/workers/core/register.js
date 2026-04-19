@@ -49,6 +49,7 @@ function buildRecalcEvents() {
 function registerWorkerEvents() {
   const recalcEvents = buildRecalcEvents();
   on(recalcEvents.join(" "), recomputeAll);
+  registerSuccessProbeRollEvents();
 
   on("sheet:opened", () => {
     resetTabToAllgemeinOnOpen();
