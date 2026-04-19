@@ -2525,6 +2525,20 @@ body.sheet-darkmode .sheet-rolltemplate-sr6probe .sheet-sr6probe__value {
   color: #1f5f1f;
 }
 
+.sheet-rolltemplate-sr6probe .sheet-sr6probe__die--neutral,
+.sheet-sr6probe__die--neutral {
+  border-color: #d0d0d0;
+  background: #ececec;
+  color: #111111;
+}
+
+.sheet-rolltemplate-sr6probe .sheet-sr6probe__die--pool,
+.sheet-sr6probe__die--pool {
+  border-color: #d9cf6a;
+  background: #fef68e;
+  color: #111111;
+}
+
 .sheet-rolltemplate-sr6probe .sheet-sr6probe__die--fail,
 .sheet-sr6probe__die--fail {
   border-color: #e3a8af;
@@ -2536,6 +2550,12 @@ body.sheet-darkmode .sheet-rolltemplate-sr6probe .sheet-sr6probe__value {
 .sheet-sr6probe__die-plus {
   color: #840763;
   font-weight: 700;
+}
+
+.sheet-rolltemplate-sr6probe .inlinerollresult.showtip.tipsy-n-right,
+.sheet-sr6probe .inlinerollresult.showtip.tipsy-n-right {
+  background-color: transparent;
+  border: none;
 }
 /* END MODULE: SR6 Probe Rolltemplate */
 /* END MODULE: src/css/modules/60-rolltemplate-sr6probe.css */
