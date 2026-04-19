@@ -2377,3 +2377,47 @@ body:has(.sr6-tabs-toggle-input:checked) #tab-content.tab-content,
   gap: 0.75rem;
 }
 /* END MODULE: src/css/modules/50-overlays-and-roll20-tabs.css */
+
+/* BEGIN MODULE: src/css/modules/60-rolltemplate-sr6probe.css */
+/* BEGIN MODULE: SR6 Probe Rolltemplate */
+.sheet-rolltemplate-sr6probe .sheet-sr6probe {
+  border: 0.0625rem solid #7b1f83;
+  background: #f2f2f2;
+}
+
+.sheet-rolltemplate-sr6probe .sheet-sr6probe__header {
+  background: #7b1f83;
+  color: #ffffff;
+  font-weight: 700;
+  font-size: 1rem;
+  padding: 0.375rem 0.5rem;
+}
+
+.sheet-rolltemplate-sr6probe .sheet-sr6probe__row {
+  display: grid;
+  grid-template-columns: minmax(7.5rem, auto) 1fr;
+  gap: 0.5rem;
+  align-items: center;
+  padding: 0.375rem 0.5rem;
+}
+
+.sheet-rolltemplate-sr6probe .sheet-sr6probe__row:nth-child(odd) {
+  background: #e8e8e8;
+}
+
+.sheet-rolltemplate-sr6probe .sheet-sr6probe__label {
+  font-weight: 700;
+  color: #222222;
+}
+
+.sheet-rolltemplate-sr6probe .sheet-sr6probe__value {
+  color: #222222;
+}
+
+.sheet-rolltemplate-sr6probe .sheet-sr6probe__row--danger .sheet-sr6probe__label,
+.sheet-rolltemplate-sr6probe .sheet-sr6probe__row--danger .sheet-sr6probe__value {
+  color: #c62828;
+  font-weight: 700;
+}
+/* END MODULE: SR6 Probe Rolltemplate */
+/* END MODULE: src/css/modules/60-rolltemplate-sr6probe.css */

@@ -1,0 +1,63 @@
+<!-- BEGIN BLOCK: Rolltemplate SR6 Probe -->
+<rolltemplate class="sheet-rolltemplate-sr6probe">
+  <div class="sheet-sr6probe">
+    {{#name}}
+    <div class="sheet-sr6probe__header">{{name}}</div>
+    {{/name}}
+
+    {{#label1}}
+    <div class="sheet-sr6probe__row">
+      <span class="sheet-sr6probe__label">{{label1}}</span>
+      <span class="sheet-sr6probe__value">{{value1}}</span>
+    </div>
+    {{/label1}}
+    {{#label2}}
+    <div class="sheet-sr6probe__row">
+      <span class="sheet-sr6probe__label">{{label2}}</span>
+      <span class="sheet-sr6probe__value">{{value2}}</span>
+    </div>
+    {{/label2}}
+    {{#label3}}
+    <div class="sheet-sr6probe__row">
+      <span class="sheet-sr6probe__label">{{label3}}</span>
+      <span class="sheet-sr6probe__value">{{value3}}</span>
+    </div>
+    {{/label3}}
+    {{#label4}}
+    <div class="sheet-sr6probe__row">
+      <span class="sheet-sr6probe__label">{{label4}}</span>
+      <span class="sheet-sr6probe__value">{{value4}}</span>
+    </div>
+    {{/label4}}
+
+    {{#pool}}
+    <div class="sheet-sr6probe__row">
+      <span class="sheet-sr6probe__label">Pool</span>
+      <span class="sheet-sr6probe__value">{{pool}}</span>
+    </div>
+    {{/pool}}
+
+    {{#is_glitch}}
+    <div class="sheet-sr6probe__row sheet-sr6probe__row--danger">
+      <span class="sheet-sr6probe__label">Erfolge</span>
+      <span class="sheet-sr6probe__value">{{erfolge}}</span>
+    </div>
+    {{/is_glitch}}
+    {{^is_glitch}}
+    {{#erfolge}}
+    <div class="sheet-sr6probe__row">
+      <span class="sheet-sr6probe__label">Erfolge</span>
+      <span class="sheet-sr6probe__value">{{erfolge}}</span>
+    </div>
+    {{/erfolge}}
+    {{/is_glitch}}
+
+    {{#details}}
+    <div class="sheet-sr6probe__row">
+      <span class="sheet-sr6probe__label">Details</span>
+      <span class="sheet-sr6probe__value">{{details}}</span>
+    </div>
+    {{/details}}
+  </div>
+</rolltemplate>
+<!-- END BLOCK: Rolltemplate SR6 Probe -->

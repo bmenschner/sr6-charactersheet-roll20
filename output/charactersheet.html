@@ -746,9 +746,9 @@
           <input
             type="text"
             name="attr_sr6_initiative_physisch_modifikator_w6" /><button
-            type="roll"
+            type="action"
             class="sr6-charactersheet-field-dice-button"
-            name="roll_sr6_initiative_physisch"
+            name="act_probe"
             value="&{template:default} {{name=Initiative: Physisch}} {{Basis=[[@{sr6_derived_initiative_basis}+@{sr6_initiative_physisch_modifikator_basis}]]}} {{W6=[[(1+@{sr6_initiative_physisch_modifikator_w6})d6]]}} {{Gesamt=[[@{sr6_derived_initiative_basis}+@{sr6_initiative_physisch_modifikator_basis}+((1+@{sr6_initiative_physisch_modifikator_w6})d6)]]}}"
             aria-label="Wuerfeln"></button>
         </div>
@@ -775,9 +775,9 @@
           <input
             type="text"
             name="attr_sr6_initiative_astral_modifikator_w6" /><button
-            type="roll"
+            type="action"
             class="sr6-charactersheet-field-dice-button"
-            name="roll_sr6_initiative_astral"
+            name="act_probe"
             value="&{template:default} {{name=Initiative: Astral}} {{Basis=[[@{sr6_derived_initiative_basis}+@{sr6_initiative_astral_modifikator_basis}]]}} {{W6=[[(1+@{sr6_initiative_astral_modifikator_w6})d6]]}} {{Gesamt=[[@{sr6_derived_initiative_basis}+@{sr6_initiative_astral_modifikator_basis}+((1+@{sr6_initiative_astral_modifikator_w6})d6)]]}}"
             aria-label="Wuerfeln"></button>
         </div>
@@ -804,9 +804,9 @@
           <input
             type="text"
             name="attr_sr6_initiative_matrix_modifikator_w6" /><button
-            type="roll"
+            type="action"
             class="sr6-charactersheet-field-dice-button"
-            name="roll_sr6_initiative_matrix"
+            name="act_probe"
             value="&{template:default} {{name=Initiative: Matrix}} {{Basis=[[@{sr6_derived_initiative_basis}+@{sr6_initiative_matrix_modifikator_basis}]]}} {{W6=[[(1+@{sr6_initiative_matrix_modifikator_w6})d6]]}} {{Gesamt=[[@{sr6_derived_initiative_basis}+@{sr6_initiative_matrix_modifikator_basis}+((1+@{sr6_initiative_matrix_modifikator_w6})d6)]]}}"
             aria-label="Wuerfeln"></button>
         </div>
@@ -1570,9 +1570,9 @@
             <span data-i18n="field.s_nah">S. Nah</span>
             <div class="sr6-charactersheet-field-input-with-dice">
               <input type="text" name="attr_sr6_combat_fernkampf_sehr_nah" /><button
-                type="roll"
+                type="action"
                 class="sr6-charactersheet-field-dice-button"
-                name="roll_sr6_combat_fernkampf_sehr_nah"
+                name="act_probe"
                 value="&{template:default} {{name=Fernkampf-Test}} {{Waffe=@{sr6_combat_primaere_fernkampfwaffe}}} {{Modus=@{sr6_combat_fernkampf_modus}}} {{Attribut=S. Nah}} {{Pool=[[@{sr6_combat_fernkampf_sehr_nah}]]}} {{Erfolge=[[@{sr6_combat_fernkampf_sehr_nah}d6>5]]}}"
                 aria-label="Wuerfeln"></button>
             </div>
@@ -1581,9 +1581,9 @@
             <span data-i18n="field.nah">Nah</span>
             <div class="sr6-charactersheet-field-input-with-dice">
               <input type="text" name="attr_sr6_combat_fernkampf_nah" /><button
-                type="roll"
+                type="action"
                 class="sr6-charactersheet-field-dice-button"
-                name="roll_sr6_combat_fernkampf_nah"
+                name="act_probe"
                 value="&{template:default} {{name=Fernkampf-Test}} {{Waffe=@{sr6_combat_primaere_fernkampfwaffe}}} {{Modus=@{sr6_combat_fernkampf_modus}}} {{Attribut=Nah}} {{Pool=[[@{sr6_combat_fernkampf_nah}]]}} {{Erfolge=[[@{sr6_combat_fernkampf_nah}d6>5]]}}"
                 aria-label="Wuerfeln"></button>
             </div>
@@ -1592,9 +1592,9 @@
             <span data-i18n="field.mittel">Mittel</span>
             <div class="sr6-charactersheet-field-input-with-dice">
               <input type="text" name="attr_sr6_combat_fernkampf_mittel" /><button
-                type="roll"
+                type="action"
                 class="sr6-charactersheet-field-dice-button"
-                name="roll_sr6_combat_fernkampf_mittel"
+                name="act_probe"
                 value="&{template:default} {{name=Fernkampf-Test}} {{Waffe=@{sr6_combat_primaere_fernkampfwaffe}}} {{Modus=@{sr6_combat_fernkampf_modus}}} {{Attribut=Mittel}} {{Pool=[[@{sr6_combat_fernkampf_mittel}]]}} {{Erfolge=[[@{sr6_combat_fernkampf_mittel}d6>5]]}}"
                 aria-label="Wuerfeln"></button>
             </div>
@@ -1603,9 +1603,9 @@
             <span data-i18n="field.weit">Weit</span>
             <div class="sr6-charactersheet-field-input-with-dice">
               <input type="text" name="attr_sr6_combat_fernkampf_weit" /><button
-                type="roll"
+                type="action"
                 class="sr6-charactersheet-field-dice-button"
-                name="roll_sr6_combat_fernkampf_weit"
+                name="act_probe"
                 value="&{template:default} {{name=Fernkampf-Test}} {{Waffe=@{sr6_combat_primaere_fernkampfwaffe}}} {{Modus=@{sr6_combat_fernkampf_modus}}} {{Attribut=Weit}} {{Pool=[[@{sr6_combat_fernkampf_weit}]]}} {{Erfolge=[[@{sr6_combat_fernkampf_weit}d6>5]]}}"
                 aria-label="Wuerfeln"></button>
             </div>
@@ -1614,9 +1614,9 @@
             <span data-i18n="field.s_weit">S. Weit</span>
             <div class="sr6-charactersheet-field-input-with-dice">
               <input type="text" name="attr_sr6_combat_fernkampf_sehr_weit" /><button
-                type="roll"
+                type="action"
                 class="sr6-charactersheet-field-dice-button"
-                name="roll_sr6_combat_fernkampf_sehr_weit"
+                name="act_probe"
                 value="&{template:default} {{name=Fernkampf-Test}} {{Waffe=@{sr6_combat_primaere_fernkampfwaffe}}} {{Modus=@{sr6_combat_fernkampf_modus}}} {{Attribut=S. Weit}} {{Pool=[[@{sr6_combat_fernkampf_sehr_weit}]]}} {{Erfolge=[[@{sr6_combat_fernkampf_sehr_weit}d6>5]]}}"
                 aria-label="Wuerfeln"></button>
             </div>
@@ -1666,9 +1666,9 @@
             <span data-i18n="field.s_nah">S. Nah</span>
             <div class="sr6-charactersheet-field-input-with-dice">
               <input type="text" name="attr_sr6_combat_nahkampf_sehr_nah" /><button
-                type="roll"
+                type="action"
                 class="sr6-charactersheet-field-dice-button"
-                name="roll_sr6_combat_nahkampf_sehr_nah"
+                name="act_probe"
                 value="&{template:default} {{name=Nahkampf-Test}} {{Waffe=@{sr6_combat_primaere_nahkampfwaffe}}} {{Attribut=S. Nah}} {{Pool=[[@{sr6_combat_nahkampf_sehr_nah}]]}} {{Erfolge=[[@{sr6_combat_nahkampf_sehr_nah}d6>5]]}}"
                 aria-label="Wuerfeln"></button>
             </div>
@@ -1677,9 +1677,9 @@
             <span data-i18n="field.nah">Nah</span>
             <div class="sr6-charactersheet-field-input-with-dice">
               <input type="text" name="attr_sr6_combat_nahkampf_nah" /><button
-                type="roll"
+                type="action"
                 class="sr6-charactersheet-field-dice-button"
-                name="roll_sr6_combat_nahkampf_nah"
+                name="act_probe"
                 value="&{template:default} {{name=Nahkampf-Test}} {{Waffe=@{sr6_combat_primaere_nahkampfwaffe}}} {{Attribut=Nah}} {{Pool=[[@{sr6_combat_nahkampf_nah}]]}} {{Erfolge=[[@{sr6_combat_nahkampf_nah}d6>5]]}}"
                 aria-label="Wuerfeln"></button>
             </div>
@@ -1688,9 +1688,9 @@
             <span data-i18n="field.mittel">Mittel</span>
             <div class="sr6-charactersheet-field-input-with-dice">
               <input type="text" name="attr_sr6_combat_nahkampf_mittel" /><button
-                type="roll"
+                type="action"
                 class="sr6-charactersheet-field-dice-button"
-                name="roll_sr6_combat_nahkampf_mittel"
+                name="act_probe"
                 value="&{template:default} {{name=Nahkampf-Test}} {{Waffe=@{sr6_combat_primaere_nahkampfwaffe}}} {{Attribut=Mittel}} {{Pool=[[@{sr6_combat_nahkampf_mittel}]]}} {{Erfolge=[[@{sr6_combat_nahkampf_mittel}d6>5]]}}"
                 aria-label="Wuerfeln"></button>
             </div>
@@ -1699,9 +1699,9 @@
             <span data-i18n="field.weit">Weit</span>
             <div class="sr6-charactersheet-field-input-with-dice">
               <input type="text" name="attr_sr6_combat_nahkampf_weit" /><button
-                type="roll"
+                type="action"
                 class="sr6-charactersheet-field-dice-button"
-                name="roll_sr6_combat_nahkampf_weit"
+                name="act_probe"
                 value="&{template:default} {{name=Nahkampf-Test}} {{Waffe=@{sr6_combat_primaere_nahkampfwaffe}}} {{Attribut=Weit}} {{Pool=[[@{sr6_combat_nahkampf_weit}]]}} {{Erfolge=[[@{sr6_combat_nahkampf_weit}d6>5]]}}"
                 aria-label="Wuerfeln"></button>
             </div>
@@ -1710,9 +1710,9 @@
             <span data-i18n="field.s_weit">S. Weit</span>
             <div class="sr6-charactersheet-field-input-with-dice">
               <input type="text" name="attr_sr6_combat_nahkampf_sehr_weit" /><button
-                type="roll"
+                type="action"
                 class="sr6-charactersheet-field-dice-button"
-                name="roll_sr6_combat_nahkampf_sehr_weit"
+                name="act_probe"
                 value="&{template:default} {{name=Nahkampf-Test}} {{Waffe=@{sr6_combat_primaere_nahkampfwaffe}}} {{Attribut=S. Weit}} {{Pool=[[@{sr6_combat_nahkampf_sehr_weit}]]}} {{Erfolge=[[@{sr6_combat_nahkampf_sehr_weit}d6>5]]}}"
                 aria-label="Wuerfeln"></button>
             </div>
@@ -1784,9 +1784,9 @@
             <span data-i18n="field.grundwert">Grundwert</span>
             <div class="sr6-charactersheet-field-input-with-dice">
               <input type="text" name="attr_sr6_verteidigung_physisch_grundwert" /><button
-                type="roll"
+                type="action"
                 class="sr6-charactersheet-field-dice-button"
-                name="roll_sr6_verteidigung_physisch_grundwert"
+                name="act_probe"
                 value="&{template:default} {{name=Verteidigung}} {{Wert=Verteidigung (Physisch) Grundwert}} {{Pool=[[@{sr6_verteidigung_physisch_grundwert}]]}} {{Erfolge=[[@{sr6_verteidigung_physisch_grundwert}d6>5]]}}"
                 aria-label="Wuerfeln"></button>
             </div>
@@ -1799,9 +1799,9 @@
             <span data-i18n="field.gesamtwert">Gesamtwert</span>
             <div class="sr6-charactersheet-field-input-with-dice">
               <input type="text" name="attr_sr6_verteidigung_physisch_gesamtwert" /><button
-                type="roll"
+                type="action"
                 class="sr6-charactersheet-field-dice-button"
-                name="roll_sr6_verteidigung_physisch_gesamtwert"
+                name="act_probe"
                 value="&{template:default} {{name=Verteidigung}} {{Wert=Verteidigung (Physisch) Gesamtwert}} {{Pool=[[@{sr6_verteidigung_physisch_gesamtwert}]]}} {{Erfolge=[[@{sr6_verteidigung_physisch_gesamtwert}d6>5]]}}"
                 aria-label="Wuerfeln"></button>
             </div>
@@ -1820,9 +1820,9 @@
             <span data-i18n="field.grundwert">Grundwert</span>
             <div class="sr6-charactersheet-field-input-with-dice">
               <input type="text" name="attr_sr6_verteidigung_zauber_direkt_grundwert" /><button
-                type="roll"
+                type="action"
                 class="sr6-charactersheet-field-dice-button"
-                name="roll_sr6_verteidigung_zauber_direkt_grundwert"
+                name="act_probe"
                 value="&{template:default} {{name=Verteidigung}} {{Wert=Verteidigung (Zauber - Direkt) Grundwert}} {{Pool=[[@{sr6_verteidigung_zauber_direkt_grundwert}]]}} {{Erfolge=[[@{sr6_verteidigung_zauber_direkt_grundwert}d6>5]]}}"
                 aria-label="Wuerfeln"></button>
             </div>
@@ -1835,9 +1835,9 @@
             <span data-i18n="field.gesamtwert">Gesamtwert</span>
             <div class="sr6-charactersheet-field-input-with-dice">
               <input type="text" name="attr_sr6_verteidigung_zauber_direkt_gesamtwert" /><button
-                type="roll"
+                type="action"
                 class="sr6-charactersheet-field-dice-button"
-                name="roll_sr6_verteidigung_zauber_direkt_gesamtwert"
+                name="act_probe"
                 value="&{template:default} {{name=Verteidigung}} {{Wert=Verteidigung (Zauber - Direkt) Gesamtwert}} {{Pool=[[@{sr6_verteidigung_zauber_direkt_gesamtwert}]]}} {{Erfolge=[[@{sr6_verteidigung_zauber_direkt_gesamtwert}d6>5]]}}"
                 aria-label="Wuerfeln"></button>
             </div>
@@ -1856,9 +1856,9 @@
             <span data-i18n="field.grundwert">Grundwert</span>
             <div class="sr6-charactersheet-field-input-with-dice">
               <input type="text" name="attr_sr6_verteidigung_zauber_indirekt_grundwert" /><button
-                type="roll"
+                type="action"
                 class="sr6-charactersheet-field-dice-button"
-                name="roll_sr6_verteidigung_zauber_indirekt_grundwert"
+                name="act_probe"
                 value="&{template:default} {{name=Verteidigung}} {{Wert=Verteidigung (Zauber - Indirekt) Grundwert}} {{Pool=[[@{sr6_verteidigung_zauber_indirekt_grundwert}]]}} {{Erfolge=[[@{sr6_verteidigung_zauber_indirekt_grundwert}d6>5]]}}"
                 aria-label="Wuerfeln"></button>
             </div>
@@ -1871,9 +1871,9 @@
             <span data-i18n="field.gesamtwert">Gesamtwert</span>
             <div class="sr6-charactersheet-field-input-with-dice">
               <input type="text" name="attr_sr6_verteidigung_zauber_indirekt_gesamtwert" /><button
-                type="roll"
+                type="action"
                 class="sr6-charactersheet-field-dice-button"
-                name="roll_sr6_verteidigung_zauber_indirekt_gesamtwert"
+                name="act_probe"
                 value="&{template:default} {{name=Verteidigung}} {{Wert=Verteidigung (Zauber - Indirekt) Gesamtwert}} {{Pool=[[@{sr6_verteidigung_zauber_indirekt_gesamtwert}]]}} {{Erfolge=[[@{sr6_verteidigung_zauber_indirekt_gesamtwert}d6>5]]}}"
                 aria-label="Wuerfeln"></button>
             </div>
@@ -1892,9 +1892,9 @@
             <span data-i18n="field.grundwert">Grundwert</span>
             <div class="sr6-charactersheet-field-input-with-dice">
               <input type="text" name="attr_sr6_verteidigung_astralkampf_grundwert" /><button
-                type="roll"
+                type="action"
                 class="sr6-charactersheet-field-dice-button"
-                name="roll_sr6_verteidigung_astralkampf_grundwert"
+                name="act_probe"
                 value="&{template:default} {{name=Verteidigung}} {{Wert=Verteidigung (Astralkampf) Grundwert}} {{Pool=[[@{sr6_verteidigung_astralkampf_grundwert}]]}} {{Erfolge=[[@{sr6_verteidigung_astralkampf_grundwert}d6>5]]}}"
                 aria-label="Wuerfeln"></button>
             </div>
@@ -1907,9 +1907,9 @@
             <span data-i18n="field.gesamtwert">Gesamtwert</span>
             <div class="sr6-charactersheet-field-input-with-dice">
               <input type="text" name="attr_sr6_verteidigung_astralkampf_gesamtwert" /><button
-                type="roll"
+                type="action"
                 class="sr6-charactersheet-field-dice-button"
-                name="roll_sr6_verteidigung_astralkampf_gesamtwert"
+                name="act_probe"
                 value="&{template:default} {{name=Verteidigung}} {{Wert=Verteidigung (Astralkampf) Gesamtwert}} {{Pool=[[@{sr6_verteidigung_astralkampf_gesamtwert}]]}} {{Erfolge=[[@{sr6_verteidigung_astralkampf_gesamtwert}d6>5]]}}"
                 aria-label="Wuerfeln"></button>
             </div>
@@ -1957,9 +1957,9 @@
             <span data-i18n="field.grundwert">Grundwert</span>
             <div class="sr6-charactersheet-field-input-with-dice">
               <input type="text" name="attr_sr6_schadenswiderstand_physisch_grundwert" /><button
-                type="roll"
+                type="action"
                 class="sr6-charactersheet-field-dice-button"
-                name="roll_sr6_schadenswiderstand_physisch_grundwert"
+                name="act_probe"
                 value="&{template:default} {{name=Schadenswiderstand}} {{Wert=Schadenswiderstand (Physisch) Grundwert}} {{Pool=[[@{sr6_schadenswiderstand_physisch_grundwert}]]}} {{Erfolge=[[@{sr6_schadenswiderstand_physisch_grundwert}d6>5]]}}"
                 aria-label="Wuerfeln"></button>
             </div>
@@ -1972,9 +1972,9 @@
             <span data-i18n="field.gesamtwert">Gesamtwert</span>
             <div class="sr6-charactersheet-field-input-with-dice">
               <input type="text" name="attr_sr6_schadenswiderstand_physisch_gesamtwert" /><button
-                type="roll"
+                type="action"
                 class="sr6-charactersheet-field-dice-button"
-                name="roll_sr6_schadenswiderstand_physisch_gesamtwert"
+                name="act_probe"
                 value="&{template:default} {{name=Schadenswiderstand}} {{Wert=Schadenswiderstand (Physisch) Gesamtwert}} {{Pool=[[@{sr6_schadenswiderstand_physisch_gesamtwert}]]}} {{Erfolge=[[@{sr6_schadenswiderstand_physisch_gesamtwert}d6>5]]}}"
                 aria-label="Wuerfeln"></button>
             </div>
@@ -1993,9 +1993,9 @@
             <span data-i18n="field.grundwert">Grundwert</span>
             <div class="sr6-charactersheet-field-input-with-dice">
               <input type="text" name="attr_sr6_schadenswiderstand_astral_grundwert" /><button
-                type="roll"
+                type="action"
                 class="sr6-charactersheet-field-dice-button"
-                name="roll_sr6_schadenswiderstand_astral_grundwert"
+                name="act_probe"
                 value="&{template:default} {{name=Schadenswiderstand}} {{Wert=Schadenswiderstand (Astral) Grundwert}} {{Pool=[[@{sr6_schadenswiderstand_astral_grundwert}]]}} {{Erfolge=[[@{sr6_schadenswiderstand_astral_grundwert}d6>5]]}}"
                 aria-label="Wuerfeln"></button>
             </div>
@@ -2008,9 +2008,9 @@
             <span data-i18n="field.gesamtwert">Gesamtwert</span>
             <div class="sr6-charactersheet-field-input-with-dice">
               <input type="text" name="attr_sr6_schadenswiderstand_astral_gesamtwert" /><button
-                type="roll"
+                type="action"
                 class="sr6-charactersheet-field-dice-button"
-                name="roll_sr6_schadenswiderstand_astral_gesamtwert"
+                name="act_probe"
                 value="&{template:default} {{name=Schadenswiderstand}} {{Wert=Schadenswiderstand (Astral) Gesamtwert}} {{Pool=[[@{sr6_schadenswiderstand_astral_gesamtwert}]]}} {{Erfolge=[[@{sr6_schadenswiderstand_astral_gesamtwert}d6>5]]}}"
                 aria-label="Wuerfeln"></button>
             </div>
@@ -2029,9 +2029,9 @@
             <span data-i18n="field.grundwert">Grundwert</span>
             <div class="sr6-charactersheet-field-input-with-dice">
               <input type="text" name="attr_sr6_schadenswiderstand_matrix_grundwert" /><button
-                type="roll"
+                type="action"
                 class="sr6-charactersheet-field-dice-button"
-                name="roll_sr6_schadenswiderstand_matrix_grundwert"
+                name="act_probe"
                 value="&{template:default} {{name=Schadenswiderstand}} {{Wert=Schadenswiderstand (Matrix) Grundwert}} {{Pool=[[@{sr6_schadenswiderstand_matrix_grundwert}]]}} {{Erfolge=[[@{sr6_schadenswiderstand_matrix_grundwert}d6>5]]}}"
                 aria-label="Wuerfeln"></button>
             </div>
@@ -2044,9 +2044,9 @@
             <span data-i18n="field.gesamtwert">Gesamtwert</span>
             <div class="sr6-charactersheet-field-input-with-dice">
               <input type="text" name="attr_sr6_schadenswiderstand_matrix_gesamtwert" /><button
-                type="roll"
+                type="action"
                 class="sr6-charactersheet-field-dice-button"
-                name="roll_sr6_schadenswiderstand_matrix_gesamtwert"
+                name="act_probe"
                 value="&{template:default} {{name=Schadenswiderstand}} {{Wert=Schadenswiderstand (Matrix) Gesamtwert}} {{Pool=[[@{sr6_schadenswiderstand_matrix_gesamtwert}]]}} {{Erfolge=[[@{sr6_schadenswiderstand_matrix_gesamtwert}d6>5]]}}"
                 aria-label="Wuerfeln"></button>
             </div>
@@ -2065,9 +2065,9 @@
             <span data-i18n="field.grundwert">Grundwert</span>
             <div class="sr6-charactersheet-field-input-with-dice">
               <input type="text" name="attr_sr6_schadenswiderstand_biofeedback_grundwert" /><button
-                type="roll"
+                type="action"
                 class="sr6-charactersheet-field-dice-button"
-                name="roll_sr6_schadenswiderstand_biofeedback_grundwert"
+                name="act_probe"
                 value="&{template:default} {{name=Schadenswiderstand}} {{Wert=Schadenswiderstand (Biofeedback) Grundwert}} {{Pool=[[@{sr6_schadenswiderstand_biofeedback_grundwert}]]}} {{Erfolge=[[@{sr6_schadenswiderstand_biofeedback_grundwert}d6>5]]}}"
                 aria-label="Wuerfeln"></button>
             </div>
@@ -2080,9 +2080,9 @@
             <span data-i18n="field.gesamtwert">Gesamtwert</span>
             <div class="sr6-charactersheet-field-input-with-dice">
               <input type="text" name="attr_sr6_schadenswiderstand_biofeedback_gesamtwert" /><button
-                type="roll"
+                type="action"
                 class="sr6-charactersheet-field-dice-button"
-                name="roll_sr6_schadenswiderstand_biofeedback_gesamtwert"
+                name="act_probe"
                 value="&{template:default} {{name=Schadenswiderstand}} {{Wert=Schadenswiderstand (Biofeedback) Gesamtwert}} {{Pool=[[@{sr6_schadenswiderstand_biofeedback_gesamtwert}]]}} {{Erfolge=[[@{sr6_schadenswiderstand_biofeedback_gesamtwert}d6>5]]}}"
                 aria-label="Wuerfeln"></button>
             </div>
@@ -2850,9 +2850,9 @@
         <span data-i18n="field.fernkampfangriff">Fernkampfangriff</span>
         <div class="sr6-charactersheet-field-input-with-dice">
           <input type="text" name="attr_sr6_combat_fernkampfangriff" /><button
-            type="roll"
+            type="action"
             class="sr6-charactersheet-field-dice-button"
-            name="roll_sr6_combat_fernkampfangriff"
+            name="act_probe"
             value="&{template:default} {{name=Kampf: Kernwerte}} {{Wert=Fernkampfangriff}} {{Pool=[[@{sr6_combat_fernkampfangriff}]]}} {{Erfolge=[[@{sr6_combat_fernkampfangriff}d6>5]]}}"
             aria-label="Wuerfeln"></button>
         </div>
@@ -2861,9 +2861,9 @@
         <span data-i18n="field.verteidigung_physisch">Verteidigung (Physisch)</span>
         <div class="sr6-charactersheet-field-input-with-dice">
           <input type="text" name="attr_sr6_verteidigung_physisch_gesamtwert" /><button
-            type="roll"
+            type="action"
             class="sr6-charactersheet-field-dice-button"
-            name="roll_sr6_combat_verteidigung_physisch_gesamtwert"
+            name="act_probe"
             value="&{template:default} {{name=Kampf: Kernwerte}} {{Wert=Verteidigung (Physisch)}} {{Pool=[[@{sr6_verteidigung_physisch_gesamtwert}]]}} {{Erfolge=[[@{sr6_verteidigung_physisch_gesamtwert}d6>5]]}}"
             aria-label="Wuerfeln"></button>
         </div>
@@ -2872,9 +2872,9 @@
         <span data-i18n="field.schadenswiderstand_physisch">Schadenswiderstand (Physisch)</span>
         <div class="sr6-charactersheet-field-input-with-dice">
           <input type="text" name="attr_sr6_schadenswiderstand_physisch_gesamtwert" /><button
-            type="roll"
+            type="action"
             class="sr6-charactersheet-field-dice-button"
-            name="roll_sr6_combat_schadenswiderstand_physisch_gesamtwert"
+            name="act_probe"
             value="&{template:default} {{name=Kampf: Kernwerte}} {{Wert=Schadenswiderstand (Physisch)}} {{Pool=[[@{sr6_schadenswiderstand_physisch_gesamtwert}]]}} {{Erfolge=[[@{sr6_schadenswiderstand_physisch_gesamtwert}d6>5]]}}"
             aria-label="Wuerfeln"></button>
         </div>
@@ -2989,9 +2989,9 @@
             <span data-i18n="field.s_nah">S. Nah</span>
             <div class="sr6-charactersheet-field-input-with-dice">
               <input type="text" name="attr_sr6_fernkampf_s_nah" /><button
-                type="roll"
+                type="action"
                 class="sr6-charactersheet-field-dice-button"
-                name="roll_sr6_fernkampf_s_nah"
+                name="act_probe"
                 value="&{template:default} {{name=Fernkampf-Test}} {{Waffe=@{sr6_fernkampfwaffe}}} {{Reichweite=S. Nah}} {{Pool=[[@{sr6_fernkampf_s_nah}]]}} {{Erfolge=[[@{sr6_fernkampf_s_nah}d6>5]]}}"
                 aria-label="Wuerfeln"></button>
             </div>
@@ -3001,9 +3001,9 @@
             <span data-i18n="field.nah">Nah</span>
             <div class="sr6-charactersheet-field-input-with-dice">
               <input type="text" name="attr_sr6_fernkampf_nah" /><button
-                type="roll"
+                type="action"
                 class="sr6-charactersheet-field-dice-button"
-                name="roll_sr6_fernkampf_nah"
+                name="act_probe"
                 value="&{template:default} {{name=Fernkampf-Test}} {{Waffe=@{sr6_fernkampfwaffe}}} {{Reichweite=Nah}} {{Pool=[[@{sr6_fernkampf_nah}]]}} {{Erfolge=[[@{sr6_fernkampf_nah}d6>5]]}}"
                 aria-label="Wuerfeln"></button>
             </div>
@@ -3013,9 +3013,9 @@
             <span data-i18n="field.mittel">Mittel</span>
             <div class="sr6-charactersheet-field-input-with-dice">
               <input type="text" name="attr_sr6_fernkampf_mittel" /><button
-                type="roll"
+                type="action"
                 class="sr6-charactersheet-field-dice-button"
-                name="roll_sr6_fernkampf_mittel"
+                name="act_probe"
                 value="&{template:default} {{name=Fernkampf-Test}} {{Waffe=@{sr6_fernkampfwaffe}}} {{Reichweite=Mittel}} {{Pool=[[@{sr6_fernkampf_mittel}]]}} {{Erfolge=[[@{sr6_fernkampf_mittel}d6>5]]}}"
                 aria-label="Wuerfeln"></button>
             </div>
@@ -3025,9 +3025,9 @@
             <span data-i18n="field.weit">Weit</span>
             <div class="sr6-charactersheet-field-input-with-dice">
               <input type="text" name="attr_sr6_fernkampf_weit" /><button
-                type="roll"
+                type="action"
                 class="sr6-charactersheet-field-dice-button"
-                name="roll_sr6_fernkampf_weit"
+                name="act_probe"
                 value="&{template:default} {{name=Fernkampf-Test}} {{Waffe=@{sr6_fernkampfwaffe}}} {{Reichweite=Weit}} {{Pool=[[@{sr6_fernkampf_weit}]]}} {{Erfolge=[[@{sr6_fernkampf_weit}d6>5]]}}"
                 aria-label="Wuerfeln"></button>
             </div>
@@ -3037,9 +3037,9 @@
             <span data-i18n="field.s_weit">S. Weit</span>
             <div class="sr6-charactersheet-field-input-with-dice">
               <input type="text" name="attr_sr6_fernkampf_s_weit" /><button
-                type="roll"
+                type="action"
                 class="sr6-charactersheet-field-dice-button"
-                name="roll_sr6_fernkampf_s_weit"
+                name="act_probe"
                 value="&{template:default} {{name=Fernkampf-Test}} {{Waffe=@{sr6_fernkampfwaffe}}} {{Reichweite=S. Weit}} {{Pool=[[@{sr6_fernkampf_s_weit}]]}} {{Erfolge=[[@{sr6_fernkampf_s_weit}d6>5]]}}"
                 aria-label="Wuerfeln"></button>
             </div>
@@ -3122,9 +3122,9 @@
             <span data-i18n="field.s_nah">S. Nah</span>
             <div class="sr6-charactersheet-field-input-with-dice">
               <input type="text" name="attr_sr6_nahkampf_s_nah" /><button
-                type="roll"
+                type="action"
                 class="sr6-charactersheet-field-dice-button"
-                name="roll_sr6_nahkampf_s_nah"
+                name="act_probe"
                 value="&{template:default} {{name=Nahkampf-Test}} {{Waffe=@{sr6_nahkampfwaffe}}} {{Reichweite=S. Nah}} {{Pool=[[@{sr6_nahkampf_s_nah}]]}} {{Erfolge=[[@{sr6_nahkampf_s_nah}d6>5]]}}"
                 aria-label="Wuerfeln"></button>
             </div>
@@ -3134,9 +3134,9 @@
             <span data-i18n="field.nah">Nah</span>
             <div class="sr6-charactersheet-field-input-with-dice">
               <input type="text" name="attr_sr6_nahkampf_nah" /><button
-                type="roll"
+                type="action"
                 class="sr6-charactersheet-field-dice-button"
-                name="roll_sr6_nahkampf_nah"
+                name="act_probe"
                 value="&{template:default} {{name=Nahkampf-Test}} {{Waffe=@{sr6_nahkampfwaffe}}} {{Reichweite=Nah}} {{Pool=[[@{sr6_nahkampf_nah}]]}} {{Erfolge=[[@{sr6_nahkampf_nah}d6>5]]}}"
                 aria-label="Wuerfeln"></button>
             </div>
@@ -3146,9 +3146,9 @@
             <span data-i18n="field.mittel">Mittel</span>
             <div class="sr6-charactersheet-field-input-with-dice">
               <input type="text" name="attr_sr6_nahkampf_mittel" /><button
-                type="roll"
+                type="action"
                 class="sr6-charactersheet-field-dice-button"
-                name="roll_sr6_nahkampf_mittel"
+                name="act_probe"
                 value="&{template:default} {{name=Nahkampf-Test}} {{Waffe=@{sr6_nahkampfwaffe}}} {{Reichweite=Mittel}} {{Pool=[[@{sr6_nahkampf_mittel}]]}} {{Erfolge=[[@{sr6_nahkampf_mittel}d6>5]]}}"
                 aria-label="Wuerfeln"></button>
             </div>
@@ -3158,9 +3158,9 @@
             <span data-i18n="field.weit">Weit</span>
             <div class="sr6-charactersheet-field-input-with-dice">
               <input type="text" name="attr_sr6_nahkampf_weit" /><button
-                type="roll"
+                type="action"
                 class="sr6-charactersheet-field-dice-button"
-                name="roll_sr6_nahkampf_weit"
+                name="act_probe"
                 value="&{template:default} {{name=Nahkampf-Test}} {{Waffe=@{sr6_nahkampfwaffe}}} {{Reichweite=Weit}} {{Pool=[[@{sr6_nahkampf_weit}]]}} {{Erfolge=[[@{sr6_nahkampf_weit}d6>5]]}}"
                 aria-label="Wuerfeln"></button>
             </div>
@@ -3170,9 +3170,9 @@
             <span data-i18n="field.s_weit">S. Weit</span>
             <div class="sr6-charactersheet-field-input-with-dice">
               <input type="text" name="attr_sr6_nahkampf_s_weit" /><button
-                type="roll"
+                type="action"
                 class="sr6-charactersheet-field-dice-button"
-                name="roll_sr6_nahkampf_s_weit"
+                name="act_probe"
                 value="&{template:default} {{name=Nahkampf-Test}} {{Waffe=@{sr6_nahkampfwaffe}}} {{Reichweite=S. Weit}} {{Pool=[[@{sr6_nahkampf_s_weit}]]}} {{Erfolge=[[@{sr6_nahkampf_s_weit}d6>5]]}}"
                 aria-label="Wuerfeln"></button>
             </div>
@@ -3303,9 +3303,9 @@
             <span data-i18n="field.magie">Magie</span>
             <div class="sr6-charactersheet-field-input-with-dice">
               <input type="text" name="attr_sr6_magic_magie" /><button
-                type="roll"
+                type="action"
                 class="sr6-charactersheet-field-dice-button"
-                name="roll_sr6_tab_magie_magie"
+                name="act_probe"
                 value="&{template:default} {{name=Magie}} {{Pool=[[@{sr6_magic_magie}]]}} {{Erfolge=[[@{sr6_magic_magie}d6>5]]}}"
                 aria-label="Wuerfeln"></button>
             </div>
@@ -3315,9 +3315,9 @@
             <span data-i18n="skill.hexerei">Hexerei</span>
             <div class="sr6-charactersheet-field-input-with-dice">
               <input type="text" name="attr_sr6_magic_zauberpool" /><button
-                type="roll"
+                type="action"
                 class="sr6-charactersheet-field-dice-button"
-                name="roll_sr6_tab_magie_zauberpool"
+                name="act_probe"
                 value="&{template:default} {{name=Magie-Test}} {{Pool=[[@{sr6_magic_zauberpool}]]}} {{Erfolge=[[@{sr6_magic_zauberpool}d6>5]]}}"
                 aria-label="Wuerfeln"></button>
             </div>
@@ -3327,9 +3327,9 @@
             <div class="sr6-field-label-with-info"><span data-i18n="field.spruchzauberei">Spruchzauberei</span><span class="sr6-info-icon" title="Spruchzauberei = sr6_skill_hexerei_gesamtwert + sr6_attr_magie_resonanz_gesamtwert">i</span></div>
             <div class="sr6-charactersheet-field-input-with-dice">
               <input type="text" name="attr_sr6_magic_spruchzauberei" /><button
-                type="roll"
+                type="action"
                 class="sr6-charactersheet-field-dice-button"
-                name="roll_sr6_tab_magie_spruchzauberei"
+                name="act_probe"
                 value="&{template:default} {{name=Spruchzauberei}} {{Pool=[[@{sr6_magic_spruchzauberei}]]}} {{Erfolge=[[@{sr6_magic_spruchzauberei}d6>5]]}}"
                 aria-label="Wuerfeln"></button>
             </div>
@@ -3338,9 +3338,9 @@
             <div class="sr6-field-label-with-info"><span data-i18n="field.entzug_widerstand">Entzugwiderstand</span><span class="sr6-info-icon" title="Entzugswiderstand = Wert(sr6_magic_traditionsattribut_1) + Wert(sr6_magic_traditionsattribut_2)">i</span></div>
             <div class="sr6-charactersheet-field-input-with-dice">
               <input type="text" name="attr_sr6_magic_entzug_widerstand" /><button
-                type="roll"
+                type="action"
                 class="sr6-charactersheet-field-dice-button"
-                name="roll_sr6_tab_magie_entzug_widerstand"
+                name="act_probe"
                 value="&{template:default} {{name=Entzugwiderstand}} {{Pool=[[@{sr6_magic_entzug_widerstand}]]}} {{Erfolge=[[@{sr6_magic_entzug_widerstand}d6>5]]}}"
                 aria-label="Wuerfeln"></button>
             </div>
@@ -3352,9 +3352,9 @@
             <div class="sr6-field-label-with-info"><span data-i18n="field.waffenloser_kampf">Waffenloser Kampf</span><span class="sr6-info-icon" title="Waffenloser Kampf = sr6_skill_astral_gesamtwert + sr6_attr_willenskraft_gesamtwert">i</span></div>
             <div class="sr6-charactersheet-field-input-with-dice">
               <input type="text" name="attr_sr6_magic_waffenloser_kampf" /><button
-                type="roll"
+                type="action"
                 class="sr6-charactersheet-field-dice-button"
-                name="roll_sr6_tab_magie_waffenloser_kampf"
+                name="act_probe"
                 value="&{template:default} {{name=Waffenloser Kampf}} {{Pool=[[@{sr6_magic_waffenloser_kampf}]]}} {{Erfolge=[[@{sr6_magic_waffenloser_kampf}d6>5]]}}"
                 aria-label="Wuerfeln"></button>
             </div>
@@ -3364,9 +3364,9 @@
             <div class="sr6-field-label-with-info"><span data-i18n="field.waffenfoki">Waffenfoki</span><span class="sr6-info-icon" title="Waffenfoki = sr6_skill_nahkampf_gesamtwert + sr6_attr_willenskraft_gesamtwert">i</span></div>
             <div class="sr6-charactersheet-field-input-with-dice">
               <input type="text" name="attr_sr6_magic_waffenfoki" /><button
-                type="roll"
+                type="action"
                 class="sr6-charactersheet-field-dice-button"
-                name="roll_sr6_tab_magie_waffenfoki"
+                name="act_probe"
                 value="&{template:default} {{name=Waffenfoki}} {{Pool=[[@{sr6_magic_waffenfoki}]]}} {{Erfolge=[[@{sr6_magic_waffenfoki}d6>5]]}}"
                 aria-label="Wuerfeln"></button>
             </div>
@@ -3376,9 +3376,9 @@
             <div class="sr6-field-label-with-info"><span data-i18n="field.astrale_initiative">Astrale Initiative</span><span class="sr6-info-icon" title="Astrale Initiative (Basis) = sr6_attr_logik_gesamtwert + sr6_attr_intuition_gesamtwert">i</span></div>
             <div class="sr6-charactersheet-field-input-with-dice">
               <input type="text" name="attr_sr6_magic_astrale_initiative" /><button
-                type="roll"
+                type="action"
                 class="sr6-charactersheet-field-dice-button"
-                name="roll_sr6_tab_magie_astrale_initiative"
+                name="act_probe"
                 value="&{template:default} {{name=Astrale Initiative}} {{Basis=[[@{sr6_magic_astrale_initiative}]]}} {{Gesamt=[[@{sr6_magic_astrale_initiative}+3d6]]}}"
                 aria-label="Wuerfeln"></button>
             </div>
@@ -3388,9 +3388,9 @@
             <div class="sr6-field-label-with-info"><span data-i18n="field.astrale_verteidigung">Astrale Verteidigung</span><span class="sr6-info-icon" title="Astrale Verteidigung = sr6_attr_logik_gesamtwert + sr6_attr_intuition_gesamtwert">i</span></div>
             <div class="sr6-charactersheet-field-input-with-dice">
               <input type="text" name="attr_sr6_magic_astrale_verteidigung" /><button
-                type="roll"
+                type="action"
                 class="sr6-charactersheet-field-dice-button"
-                name="roll_sr6_tab_magie_astrale_verteidigung"
+                name="act_probe"
                 value="&{template:default} {{name=Astrale Verteidigung}} {{Pool=[[@{sr6_magic_astrale_verteidigung}]]}} {{Erfolge=[[@{sr6_magic_astrale_verteidigung}d6>5]]}}"
                 aria-label="Wuerfeln"></button>
             </div>
@@ -3400,9 +3400,9 @@
             <div class="sr6-field-label-with-info"><span data-i18n="field.astraler_schadenswiderstand">Astraler Schadenswiderstand</span><span class="sr6-info-icon" title="Astraler Schadenswiderstand = sr6_attr_willenskraft_gesamtwert">i</span></div>
             <div class="sr6-charactersheet-field-input-with-dice">
               <input type="text" name="attr_sr6_magic_astraler_schadenswiderstand" /><button
-                type="roll"
+                type="action"
                 class="sr6-charactersheet-field-dice-button"
-                name="roll_sr6_tab_magie_astraler_schadenswiderstand"
+                name="act_probe"
                 value="&{template:default} {{name=Astraler Schadenswiderstand}} {{Pool=[[@{sr6_magic_astraler_schadenswiderstand}]]}} {{Erfolge=[[@{sr6_magic_astraler_schadenswiderstand}d6>5]]}}"
                 aria-label="Wuerfeln"></button>
             </div>
@@ -3507,9 +3507,9 @@
                 <span data-i18n="field.wurf">Wurf</span>
                 <div class="sr6-charactersheet-field-input-with-dice">
                   <input type="text" name="attr_sr6_zauber_wurfpool" /><button
-                    type="roll"
+                    type="action"
                     class="sr6-charactersheet-field-dice-button"
-                    name="roll_sr6_zauber_probe"
+                    name="act_probe"
                     value="&{template:default} {{name=Zauberprobe}} {{Zauber=@{sr6_zauber_name}}} {{Pool=[[@{sr6_zauber_wurfpool}]]}} {{Erfolge=[[@{sr6_zauber_wurfpool}d6>5]]}} {{Entzug=@{sr6_zauber_entzug}}}"
                     aria-label="Wuerfeln"></button>
                 </div>
@@ -3517,9 +3517,9 @@
             </div>
             <div class="sr6-zauber-list-roll">
               <button
-                type="roll"
+                type="action"
                 class="sr6-charactersheet-field-dice-button"
-                name="roll_sr6_zauber_probe_list"
+                name="act_probe"
                 value="&{template:default} {{name=Zauberprobe}} {{Zauber=@{sr6_zauber_name}}} {{Pool=[[@{sr6_zauber_wurfpool}]]}} {{Erfolge=[[@{sr6_zauber_wurfpool}d6>5]]}} {{Entzug=@{sr6_zauber_entzug}}}"
                 aria-label="Wuerfeln"></button>
             </div>
@@ -3747,9 +3747,9 @@
                 <span data-i18n="field.wurf">Wurf</span>
                 <div class="sr6-charactersheet-field-input-with-dice">
                   <input type="text" name="attr_sr6_ritual_wurfpool" /><button
-                    type="roll"
+                    type="action"
                     class="sr6-charactersheet-field-dice-button"
-                    name="roll_sr6_ritual_probe"
+                    name="act_probe"
                     value="&{template:default} {{name=Ritualprobe}} {{Ritual=@{sr6_ritual_name}}} {{Pool=[[@{sr6_ritual_wurfpool}]]}} {{Erfolge=[[@{sr6_ritual_wurfpool}d6>5]]}} {{Schwelle=@{sr6_ritual_schwelle}}}"
                     aria-label="Wuerfeln"></button>
                 </div>
@@ -3867,9 +3867,9 @@
           <span data-i18n="field.matrix_initiative">Matrix-Initiative</span>
           <div class="sr6-charactersheet-field-input-with-dice">
             <input type="text" name="attr_sr6_matrix_initiative" /><button
-              type="roll"
+              type="action"
               class="sr6-charactersheet-field-dice-button"
-              name="roll_sr6_tab_matrix_initiative"
+              name="act_probe"
               value="&{template:default} {{name=Matrix-Initiative}} {{Basis=[[@{sr6_matrix_initiative}]]}} {{Gesamt=[[@{sr6_matrix_initiative}+3d6]]}}"
               aria-label="Wuerfeln"></button>
           </div>
@@ -3879,9 +3879,9 @@
           <span data-i18n="field.overwatch">Overwatch</span>
           <div class="sr6-charactersheet-field-input-with-dice">
             <input type="text" name="attr_sr6_matrix_overwatch" /><button
-              type="roll"
+              type="action"
               class="sr6-charactersheet-field-dice-button"
-              name="roll_sr6_tab_matrix_overwatch"
+              name="act_probe"
               value="&{template:default} {{name=Matrix-Kernwert}} {{Wert=Overwatch}} {{Pool=[[@{sr6_matrix_overwatch}]]}} {{Erfolge=[[@{sr6_matrix_overwatch}d6>5]]}}"
               aria-label="Wuerfeln"></button>
           </div>
@@ -3893,9 +3893,9 @@
           <span data-i18n="field.matrix_angriff">Angriff</span>
           <div class="sr6-charactersheet-field-input-with-dice">
             <input type="text" name="attr_sr6_matrix_angriff" /><button
-              type="roll"
+              type="action"
               class="sr6-charactersheet-field-dice-button"
-              name="roll_sr6_tab_matrix_angriff"
+              name="act_probe"
               value="&{template:default} {{name=Matrix-Kernwert}} {{Wert=Angriff}} {{Pool=[[@{sr6_matrix_angriff}]]}} {{Erfolge=[[@{sr6_matrix_angriff}d6>5]]}}"
               aria-label="Wuerfeln"></button>
           </div>
@@ -3905,9 +3905,9 @@
           <span data-i18n="field.matrix_schleicher">Schleicher</span>
           <div class="sr6-charactersheet-field-input-with-dice">
             <input type="text" name="attr_sr6_matrix_schleicher" /><button
-              type="roll"
+              type="action"
               class="sr6-charactersheet-field-dice-button"
-              name="roll_sr6_tab_matrix_schleicher"
+              name="act_probe"
               value="&{template:default} {{name=Matrix-Kernwert}} {{Wert=Schleicher}} {{Pool=[[@{sr6_matrix_schleicher}]]}} {{Erfolge=[[@{sr6_matrix_schleicher}d6>5]]}}"
               aria-label="Wuerfeln"></button>
           </div>
@@ -3917,9 +3917,9 @@
           <span data-i18n="field.matrix_datenverarbeitung">Datenverarbeitung</span>
           <div class="sr6-charactersheet-field-input-with-dice">
             <input type="text" name="attr_sr6_matrix_datenverarbeitung" /><button
-              type="roll"
+              type="action"
               class="sr6-charactersheet-field-dice-button"
-              name="roll_sr6_tab_matrix_datenverarbeitung"
+              name="act_probe"
               value="&{template:default} {{name=Matrix-Kernwert}} {{Wert=Datenverarbeitung}} {{Pool=[[@{sr6_matrix_datenverarbeitung}]]}} {{Erfolge=[[@{sr6_matrix_datenverarbeitung}d6>5]]}}"
               aria-label="Wuerfeln"></button>
           </div>
@@ -3929,9 +3929,9 @@
           <span data-i18n="field.matrix_firewall">Firewall</span>
           <div class="sr6-charactersheet-field-input-with-dice">
             <input type="text" name="attr_sr6_matrix_firewall" /><button
-              type="roll"
+              type="action"
               class="sr6-charactersheet-field-dice-button"
-              name="roll_sr6_tab_matrix_firewall"
+              name="act_probe"
               value="&{template:default} {{name=Matrix-Kernwert}} {{Wert=Firewall}} {{Pool=[[@{sr6_matrix_firewall}]]}} {{Erfolge=[[@{sr6_matrix_firewall}d6>5]]}}"
               aria-label="Wuerfeln"></button>
           </div>
@@ -3943,9 +3943,9 @@
           <span>Angriffswert</span>
           <div class="sr6-charactersheet-field-input-with-dice">
             <input type="text" name="attr_sr6_matrix_angriffswert" /><button
-              type="roll"
+              type="action"
               class="sr6-charactersheet-field-dice-button"
-              name="roll_sr6_tab_matrix_angriffswert"
+              name="act_probe"
               value="&{template:default} {{name=Matrix-Kernwert}} {{Wert=Angriffswert}} {{Pool=[[@{sr6_matrix_angriffswert}]]}} {{Erfolge=[[@{sr6_matrix_angriffswert}d6>5]]}}"
               aria-label="Wuerfeln"></button>
           </div>
@@ -3955,9 +3955,9 @@
           <span>Verteidigungswert</span>
           <div class="sr6-charactersheet-field-input-with-dice">
             <input type="text" name="attr_sr6_matrix_verteidigungswert" /><button
-              type="roll"
+              type="action"
               class="sr6-charactersheet-field-dice-button"
-              name="roll_sr6_tab_matrix_verteidigungswert"
+              name="act_probe"
               value="&{template:default} {{name=Matrix-Kernwert}} {{Wert=Verteidigungswert}} {{Pool=[[@{sr6_matrix_verteidigungswert}]]}} {{Erfolge=[[@{sr6_matrix_verteidigungswert}d6>5]]}}"
               aria-label="Wuerfeln"></button>
           </div>
@@ -3967,9 +3967,9 @@
           <span>Matrix Verteidigung</span>
           <div class="sr6-charactersheet-field-input-with-dice">
             <input type="text" name="attr_sr6_matrix_verteidigung" /><button
-              type="roll"
+              type="action"
               class="sr6-charactersheet-field-dice-button"
-              name="roll_sr6_tab_matrix_verteidigung"
+              name="act_probe"
               value="&{template:default} {{name=Matrix-Kernwert}} {{Wert=Matrix Verteidigung}} {{Pool=[[@{sr6_matrix_verteidigung}]]}} {{Erfolge=[[@{sr6_matrix_verteidigung}d6>5]]}}"
               aria-label="Wuerfeln"></button>
           </div>
@@ -3979,9 +3979,9 @@
           <span>Matrix Schadenswiderstand</span>
           <div class="sr6-charactersheet-field-input-with-dice">
             <input type="text" name="attr_sr6_matrix_schadenswiderstand" /><button
-              type="roll"
+              type="action"
               class="sr6-charactersheet-field-dice-button"
-              name="roll_sr6_tab_matrix_schadenswiderstand"
+              name="act_probe"
               value="&{template:default} {{name=Matrix-Kernwert}} {{Wert=Matrix Schadenswiderstand}} {{Pool=[[@{sr6_matrix_schadenswiderstand}]]}} {{Erfolge=[[@{sr6_matrix_schadenswiderstand}d6>5]]}}"
               aria-label="Wuerfeln"></button>
           </div>
@@ -3991,9 +3991,9 @@
           <span>Biofeedback Schadenswiderstand</span>
           <div class="sr6-charactersheet-field-input-with-dice">
             <input type="text" name="attr_sr6_matrix_biofeedback_schadenswiderstand" /><button
-              type="roll"
+              type="action"
               class="sr6-charactersheet-field-dice-button"
-              name="roll_sr6_tab_matrix_biofeedback_schadenswiderstand"
+              name="act_probe"
               value="&{template:default} {{name=Matrix-Kernwert}} {{Wert=Biofeedback Schadenswiderstand}} {{Pool=[[@{sr6_matrix_biofeedback_schadenswiderstand}]]}} {{Erfolge=[[@{sr6_matrix_biofeedback_schadenswiderstand}d6>5]]}}"
               aria-label="Wuerfeln"></button>
           </div>
@@ -4203,9 +4203,9 @@
               <span data-i18n="field.grundwert">Grundwert</span>
               <div class="sr6-charactersheet-field-input-with-dice">
                 <input type="text" name="attr_sr6_matrix_handlung_icon_aufspueren_grundwert" /><button
-                  type="roll"
+                  type="action"
                   class="sr6-charactersheet-field-dice-button"
-                  name="roll_sr6_matrix_handlung_icon_aufspueren_grundwert"
+                  name="act_probe"
                   value="&{template:default} {{name=Matrix-Handlung}} {{Handlung=Icon aufspueren (Grundwert)}} {{Pool=[[@{sr6_matrix_handlung_icon_aufspueren_grundwert}]]}} {{Erfolge=[[@{sr6_matrix_handlung_icon_aufspueren_grundwert}d6>5]]}}"
                   aria-label="Wuerfeln"></button>
               </div>
@@ -4219,9 +4219,9 @@
               <span data-i18n="field.gesamtwert">Gesamtwert</span>
               <div class="sr6-charactersheet-field-input-with-dice">
                 <input type="text" name="attr_sr6_matrix_handlung_icon_aufspueren_gesamtwert" /><button
-                  type="roll"
+                  type="action"
                   class="sr6-charactersheet-field-dice-button"
-                  name="roll_sr6_matrix_handlung_icon_aufspueren_gesamtwert"
+                  name="act_probe"
                   value="&{template:default} {{name=Matrix-Handlung}} {{Handlung=Icon aufspueren (Gesamtwert)}} {{Pool=[[@{sr6_matrix_handlung_icon_aufspueren_gesamtwert}]]}} {{Erfolge=[[@{sr6_matrix_handlung_icon_aufspueren_gesamtwert}d6>5]]}}"
                   aria-label="Wuerfeln"></button>
               </div>
@@ -4237,9 +4237,9 @@
               <span data-i18n="field.grundwert">Grundwert</span>
               <div class="sr6-charactersheet-field-input-with-dice">
                 <input type="text" name="attr_sr6_matrix_handlung_matrixsuche_grundwert" /><button
-                  type="roll"
+                  type="action"
                   class="sr6-charactersheet-field-dice-button"
-                  name="roll_sr6_matrix_handlung_matrixsuche_grundwert"
+                  name="act_probe"
                   value="&{template:default} {{name=Matrix-Handlung}} {{Handlung=Matrixsuche (Grundwert)}} {{Pool=[[@{sr6_matrix_handlung_matrixsuche_grundwert}]]}} {{Erfolge=[[@{sr6_matrix_handlung_matrixsuche_grundwert}d6>5]]}}"
                   aria-label="Wuerfeln"></button>
               </div>
@@ -4253,9 +4253,9 @@
               <span data-i18n="field.gesamtwert">Gesamtwert</span>
               <div class="sr6-charactersheet-field-input-with-dice">
                 <input type="text" name="attr_sr6_matrix_handlung_matrixsuche_gesamtwert" /><button
-                  type="roll"
+                  type="action"
                   class="sr6-charactersheet-field-dice-button"
-                  name="roll_sr6_matrix_handlung_matrixsuche_gesamtwert"
+                  name="act_probe"
                   value="&{template:default} {{name=Matrix-Handlung}} {{Handlung=Matrixsuche (Gesamtwert)}} {{Pool=[[@{sr6_matrix_handlung_matrixsuche_gesamtwert}]]}} {{Erfolge=[[@{sr6_matrix_handlung_matrixsuche_gesamtwert}d6>5]]}}"
                   aria-label="Wuerfeln"></button>
               </div>
@@ -4271,9 +4271,9 @@
               <span data-i18n="field.grundwert">Grundwert</span>
               <div class="sr6-charactersheet-field-input-with-dice">
                 <input type="text" name="attr_sr6_matrix_handlung_matrixwahrnehmung_grundwert" /><button
-                  type="roll"
+                  type="action"
                   class="sr6-charactersheet-field-dice-button"
-                  name="roll_sr6_matrix_handlung_matrixwahrnehmung_grundwert"
+                  name="act_probe"
                   value="&{template:default} {{name=Matrix-Handlung}} {{Handlung=Matrixwahrnehmung (Grundwert)}} {{Pool=[[@{sr6_matrix_handlung_matrixwahrnehmung_grundwert}]]}} {{Erfolge=[[@{sr6_matrix_handlung_matrixwahrnehmung_grundwert}d6>5]]}}"
                   aria-label="Wuerfeln"></button>
               </div>
@@ -4287,9 +4287,9 @@
               <span data-i18n="field.gesamtwert">Gesamtwert</span>
               <div class="sr6-charactersheet-field-input-with-dice">
                 <input type="text" name="attr_sr6_matrix_handlung_matrixwahrnehmung_gesamtwert" /><button
-                  type="roll"
+                  type="action"
                   class="sr6-charactersheet-field-dice-button"
-                  name="roll_sr6_matrix_handlung_matrixwahrnehmung_gesamtwert"
+                  name="act_probe"
                   value="&{template:default} {{name=Matrix-Handlung}} {{Handlung=Matrixwahrnehmung (Gesamtwert)}} {{Pool=[[@{sr6_matrix_handlung_matrixwahrnehmung_gesamtwert}]]}} {{Erfolge=[[@{sr6_matrix_handlung_matrixwahrnehmung_gesamtwert}d6>5]]}}"
                   aria-label="Wuerfeln"></button>
               </div>
@@ -4305,9 +4305,9 @@
               <span data-i18n="field.grundwert">Grundwert</span>
               <div class="sr6-charactersheet-field-input-with-dice">
                 <input type="text" name="attr_sr6_matrix_handlung_nachricht_uebermitteln_grundwert" /><button
-                  type="roll"
+                  type="action"
                   class="sr6-charactersheet-field-dice-button"
-                  name="roll_sr6_matrix_handlung_nachricht_uebermitteln_grundwert"
+                  name="act_probe"
                   value="&{template:default} {{name=Matrix-Handlung}} {{Handlung=Nachricht uebermitteln (Grundwert)}} {{Pool=[[@{sr6_matrix_handlung_nachricht_uebermitteln_grundwert}]]}} {{Erfolge=[[@{sr6_matrix_handlung_nachricht_uebermitteln_grundwert}d6>5]]}}"
                   aria-label="Wuerfeln"></button>
               </div>
@@ -4321,9 +4321,9 @@
               <span data-i18n="field.gesamtwert">Gesamtwert</span>
               <div class="sr6-charactersheet-field-input-with-dice">
                 <input type="text" name="attr_sr6_matrix_handlung_nachricht_uebermitteln_gesamtwert" /><button
-                  type="roll"
+                  type="action"
                   class="sr6-charactersheet-field-dice-button"
-                  name="roll_sr6_matrix_handlung_nachricht_uebermitteln_gesamtwert"
+                  name="act_probe"
                   value="&{template:default} {{name=Matrix-Handlung}} {{Handlung=Nachricht uebermitteln (Gesamtwert)}} {{Pool=[[@{sr6_matrix_handlung_nachricht_uebermitteln_gesamtwert}]]}} {{Erfolge=[[@{sr6_matrix_handlung_nachricht_uebermitteln_gesamtwert}d6>5]]}}"
                   aria-label="Wuerfeln"></button>
               </div>
@@ -4339,9 +4339,9 @@
               <span data-i18n="field.grundwert">Grundwert</span>
               <div class="sr6-charactersheet-field-input-with-dice">
                 <input type="text" name="attr_sr6_matrix_handlung_overwatch_wert_bestimmen_grundwert" /><button
-                  type="roll"
+                  type="action"
                   class="sr6-charactersheet-field-dice-button"
-                  name="roll_sr6_matrix_handlung_overwatch_wert_bestimmen_grundwert"
+                  name="act_probe"
                   value="&{template:default} {{name=Matrix-Handlung}} {{Handlung=Overwatch-Wert bestimmen (Grundwert)}} {{Pool=[[@{sr6_matrix_handlung_overwatch_wert_bestimmen_grundwert}]]}} {{Erfolge=[[@{sr6_matrix_handlung_overwatch_wert_bestimmen_grundwert}d6>5]]}}"
                   aria-label="Wuerfeln"></button>
               </div>
@@ -4355,9 +4355,9 @@
               <span data-i18n="field.gesamtwert">Gesamtwert</span>
               <div class="sr6-charactersheet-field-input-with-dice">
                 <input type="text" name="attr_sr6_matrix_handlung_overwatch_wert_bestimmen_gesamtwert" /><button
-                  type="roll"
+                  type="action"
                   class="sr6-charactersheet-field-dice-button"
-                  name="roll_sr6_matrix_handlung_overwatch_wert_bestimmen_gesamtwert"
+                  name="act_probe"
                   value="&{template:default} {{name=Matrix-Handlung}} {{Handlung=Overwatch-Wert bestimmen (Gesamtwert)}} {{Pool=[[@{sr6_matrix_handlung_overwatch_wert_bestimmen_gesamtwert}]]}} {{Erfolge=[[@{sr6_matrix_handlung_overwatch_wert_bestimmen_gesamtwert}d6>5]]}}"
                   aria-label="Wuerfeln"></button>
               </div>
@@ -4374,9 +4374,9 @@
               <span data-i18n="field.grundwert">Grundwert</span>
               <div class="sr6-charactersheet-field-input-with-dice">
                 <input type="text" name="attr_sr6_matrix_handlung_ausstoepseln_grundwert" /><button
-                  type="roll"
+                  type="action"
                   class="sr6-charactersheet-field-dice-button"
-                  name="roll_sr6_matrix_handlung_ausstoepseln_grundwert"
+                  name="act_probe"
                   value="&{template:default} {{name=Matrix-Handlung}} {{Handlung=Ausstoepseln (Grundwert)}} {{Pool=[[@{sr6_matrix_handlung_ausstoepseln_grundwert}]]}} {{Erfolge=[[@{sr6_matrix_handlung_ausstoepseln_grundwert}d6>5]]}}"
                   aria-label="Wuerfeln"></button>
               </div>
@@ -4390,9 +4390,9 @@
               <span data-i18n="field.gesamtwert">Gesamtwert</span>
               <div class="sr6-charactersheet-field-input-with-dice">
                 <input type="text" name="attr_sr6_matrix_handlung_ausstoepseln_gesamtwert" /><button
-                  type="roll"
+                  type="action"
                   class="sr6-charactersheet-field-dice-button"
-                  name="roll_sr6_matrix_handlung_ausstoepseln_gesamtwert"
+                  name="act_probe"
                   value="&{template:default} {{name=Matrix-Handlung}} {{Handlung=Ausstoepseln (Gesamtwert)}} {{Pool=[[@{sr6_matrix_handlung_ausstoepseln_gesamtwert}]]}} {{Erfolge=[[@{sr6_matrix_handlung_ausstoepseln_gesamtwert}d6>5]]}}"
                   aria-label="Wuerfeln"></button>
               </div>
@@ -4408,9 +4408,9 @@
               <span data-i18n="field.grundwert">Grundwert</span>
               <div class="sr6-charactersheet-field-input-with-dice">
                 <input type="text" name="attr_sr6_matrix_handlung_bedrohungsanalyse_grundwert" /><button
-                  type="roll"
+                  type="action"
                   class="sr6-charactersheet-field-dice-button"
-                  name="roll_sr6_matrix_handlung_bedrohungsanalyse_grundwert"
+                  name="act_probe"
                   value="&{template:default} {{name=Matrix-Handlung}} {{Handlung=Bedrohungsanalyse (Grundwert)}} {{Pool=[[@{sr6_matrix_handlung_bedrohungsanalyse_grundwert}]]}} {{Erfolge=[[@{sr6_matrix_handlung_bedrohungsanalyse_grundwert}d6>5]]}}"
                   aria-label="Wuerfeln"></button>
               </div>
@@ -4424,9 +4424,9 @@
               <span data-i18n="field.gesamtwert">Gesamtwert</span>
               <div class="sr6-charactersheet-field-input-with-dice">
                 <input type="text" name="attr_sr6_matrix_handlung_bedrohungsanalyse_gesamtwert" /><button
-                  type="roll"
+                  type="action"
                   class="sr6-charactersheet-field-dice-button"
-                  name="roll_sr6_matrix_handlung_bedrohungsanalyse_gesamtwert"
+                  name="act_probe"
                   value="&{template:default} {{name=Matrix-Handlung}} {{Handlung=Bedrohungsanalyse (Gesamtwert)}} {{Pool=[[@{sr6_matrix_handlung_bedrohungsanalyse_gesamtwert}]]}} {{Erfolge=[[@{sr6_matrix_handlung_bedrohungsanalyse_gesamtwert}d6>5]]}}"
                   aria-label="Wuerfeln"></button>
               </div>
@@ -4442,9 +4442,9 @@
               <span data-i18n="field.grundwert">Grundwert</span>
               <div class="sr6-charactersheet-field-input-with-dice">
                 <input type="text" name="attr_sr6_matrix_handlung_befehl_vortaeuschen_grundwert" /><button
-                  type="roll"
+                  type="action"
                   class="sr6-charactersheet-field-dice-button"
-                  name="roll_sr6_matrix_handlung_befehl_vortaeuschen_grundwert"
+                  name="act_probe"
                   value="&{template:default} {{name=Matrix-Handlung}} {{Handlung=Befehl vortaeuschen (Grundwert)}} {{Pool=[[@{sr6_matrix_handlung_befehl_vortaeuschen_grundwert}]]}} {{Erfolge=[[@{sr6_matrix_handlung_befehl_vortaeuschen_grundwert}d6>5]]}}"
                   aria-label="Wuerfeln"></button>
               </div>
@@ -4458,9 +4458,9 @@
               <span data-i18n="field.gesamtwert">Gesamtwert</span>
               <div class="sr6-charactersheet-field-input-with-dice">
                 <input type="text" name="attr_sr6_matrix_handlung_befehl_vortaeuschen_gesamtwert" /><button
-                  type="roll"
+                  type="action"
                   class="sr6-charactersheet-field-dice-button"
-                  name="roll_sr6_matrix_handlung_befehl_vortaeuschen_gesamtwert"
+                  name="act_probe"
                   value="&{template:default} {{name=Matrix-Handlung}} {{Handlung=Befehl vortaeuschen (Gesamtwert)}} {{Pool=[[@{sr6_matrix_handlung_befehl_vortaeuschen_gesamtwert}]]}} {{Erfolge=[[@{sr6_matrix_handlung_befehl_vortaeuschen_gesamtwert}d6>5]]}}"
                   aria-label="Wuerfeln"></button>
               </div>
@@ -4476,9 +4476,9 @@
               <span data-i18n="field.grundwert">Grundwert</span>
               <div class="sr6-charactersheet-field-input-with-dice">
                 <input type="text" name="attr_sr6_matrix_handlung_datei_editieren_grundwert" /><button
-                  type="roll"
+                  type="action"
                   class="sr6-charactersheet-field-dice-button"
-                  name="roll_sr6_matrix_handlung_datei_editieren_grundwert"
+                  name="act_probe"
                   value="&{template:default} {{name=Matrix-Handlung}} {{Handlung=Datei editieren (Grundwert)}} {{Pool=[[@{sr6_matrix_handlung_datei_editieren_grundwert}]]}} {{Erfolge=[[@{sr6_matrix_handlung_datei_editieren_grundwert}d6>5]]}}"
                   aria-label="Wuerfeln"></button>
               </div>
@@ -4492,9 +4492,9 @@
               <span data-i18n="field.gesamtwert">Gesamtwert</span>
               <div class="sr6-charactersheet-field-input-with-dice">
                 <input type="text" name="attr_sr6_matrix_handlung_datei_editieren_gesamtwert" /><button
-                  type="roll"
+                  type="action"
                   class="sr6-charactersheet-field-dice-button"
-                  name="roll_sr6_matrix_handlung_datei_editieren_gesamtwert"
+                  name="act_probe"
                   value="&{template:default} {{name=Matrix-Handlung}} {{Handlung=Datei editieren (Gesamtwert)}} {{Pool=[[@{sr6_matrix_handlung_datei_editieren_gesamtwert}]]}} {{Erfolge=[[@{sr6_matrix_handlung_datei_editieren_gesamtwert}d6>5]]}}"
                   aria-label="Wuerfeln"></button>
               </div>
@@ -4510,9 +4510,9 @@
               <span data-i18n="field.grundwert">Grundwert</span>
               <div class="sr6-charactersheet-field-input-with-dice">
                 <input type="text" name="attr_sr6_matrix_handlung_datei_verschluesseln_grundwert" /><button
-                  type="roll"
+                  type="action"
                   class="sr6-charactersheet-field-dice-button"
-                  name="roll_sr6_matrix_handlung_datei_verschluesseln_grundwert"
+                  name="act_probe"
                   value="&{template:default} {{name=Matrix-Handlung}} {{Handlung=Datei verschluesseln (Grundwert)}} {{Pool=[[@{sr6_matrix_handlung_datei_verschluesseln_grundwert}]]}} {{Erfolge=[[@{sr6_matrix_handlung_datei_verschluesseln_grundwert}d6>5]]}}"
                   aria-label="Wuerfeln"></button>
               </div>
@@ -4526,9 +4526,9 @@
               <span data-i18n="field.gesamtwert">Gesamtwert</span>
               <div class="sr6-charactersheet-field-input-with-dice">
                 <input type="text" name="attr_sr6_matrix_handlung_datei_verschluesseln_gesamtwert" /><button
-                  type="roll"
+                  type="action"
                   class="sr6-charactersheet-field-dice-button"
-                  name="roll_sr6_matrix_handlung_datei_verschluesseln_gesamtwert"
+                  name="act_probe"
                   value="&{template:default} {{name=Matrix-Handlung}} {{Handlung=Datei verschluesseln (Gesamtwert)}} {{Pool=[[@{sr6_matrix_handlung_datei_verschluesseln_gesamtwert}]]}} {{Erfolge=[[@{sr6_matrix_handlung_datei_verschluesseln_gesamtwert}d6>5]]}}"
                   aria-label="Wuerfeln"></button>
               </div>
@@ -4544,9 +4544,9 @@
               <span data-i18n="field.grundwert">Grundwert</span>
               <div class="sr6-charactersheet-field-input-with-dice">
                 <input type="text" name="attr_sr6_matrix_handlung_datenbombe_entschaerfen_grundwert" /><button
-                  type="roll"
+                  type="action"
                   class="sr6-charactersheet-field-dice-button"
-                  name="roll_sr6_matrix_handlung_datenbombe_entschaerfen_grundwert"
+                  name="act_probe"
                   value="&{template:default} {{name=Matrix-Handlung}} {{Handlung=Datenbombe entschaerfen (Grundwert)}} {{Pool=[[@{sr6_matrix_handlung_datenbombe_entschaerfen_grundwert}]]}} {{Erfolge=[[@{sr6_matrix_handlung_datenbombe_entschaerfen_grundwert}d6>5]]}}"
                   aria-label="Wuerfeln"></button>
               </div>
@@ -4560,9 +4560,9 @@
               <span data-i18n="field.gesamtwert">Gesamtwert</span>
               <div class="sr6-charactersheet-field-input-with-dice">
                 <input type="text" name="attr_sr6_matrix_handlung_datenbombe_entschaerfen_gesamtwert" /><button
-                  type="roll"
+                  type="action"
                   class="sr6-charactersheet-field-dice-button"
-                  name="roll_sr6_matrix_handlung_datenbombe_entschaerfen_gesamtwert"
+                  name="act_probe"
                   value="&{template:default} {{name=Matrix-Handlung}} {{Handlung=Datenbombe entschaerfen (Gesamtwert)}} {{Pool=[[@{sr6_matrix_handlung_datenbombe_entschaerfen_gesamtwert}]]}} {{Erfolge=[[@{sr6_matrix_handlung_datenbombe_entschaerfen_gesamtwert}d6>5]]}}"
                   aria-label="Wuerfeln"></button>
               </div>
@@ -4578,9 +4578,9 @@
               <span data-i18n="field.grundwert">Grundwert</span>
               <div class="sr6-charactersheet-field-input-with-dice">
                 <input type="text" name="attr_sr6_matrix_handlung_datenspike_grundwert" /><button
-                  type="roll"
+                  type="action"
                   class="sr6-charactersheet-field-dice-button"
-                  name="roll_sr6_matrix_handlung_datenspike_grundwert"
+                  name="act_probe"
                   value="&{template:default} {{name=Matrix-Handlung}} {{Handlung=Datenspike (Grundwert)}} {{Pool=[[@{sr6_matrix_handlung_datenspike_grundwert}]]}} {{Erfolge=[[@{sr6_matrix_handlung_datenspike_grundwert}d6>5]]}}"
                   aria-label="Wuerfeln"></button>
               </div>
@@ -4594,9 +4594,9 @@
               <span data-i18n="field.gesamtwert">Gesamtwert</span>
               <div class="sr6-charactersheet-field-input-with-dice">
                 <input type="text" name="attr_sr6_matrix_handlung_datenspike_gesamtwert" /><button
-                  type="roll"
+                  type="action"
                   class="sr6-charactersheet-field-dice-button"
-                  name="roll_sr6_matrix_handlung_datenspike_gesamtwert"
+                  name="act_probe"
                   value="&{template:default} {{name=Matrix-Handlung}} {{Handlung=Datenspike (Gesamtwert)}} {{Pool=[[@{sr6_matrix_handlung_datenspike_gesamtwert}]]}} {{Erfolge=[[@{sr6_matrix_handlung_datenspike_gesamtwert}d6>5]]}}"
                   aria-label="Wuerfeln"></button>
               </div>
@@ -4612,9 +4612,9 @@
               <span data-i18n="field.grundwert">Grundwert</span>
               <div class="sr6-charactersheet-field-input-with-dice">
                 <input type="text" name="attr_sr6_matrix_handlung_ersticken_grundwert" /><button
-                  type="roll"
+                  type="action"
                   class="sr6-charactersheet-field-dice-button"
-                  name="roll_sr6_matrix_handlung_ersticken_grundwert"
+                  name="act_probe"
                   value="&{template:default} {{name=Matrix-Handlung}} {{Handlung=Ersticken (Grundwert)}} {{Pool=[[@{sr6_matrix_handlung_ersticken_grundwert}]]}} {{Erfolge=[[@{sr6_matrix_handlung_ersticken_grundwert}d6>5]]}}"
                   aria-label="Wuerfeln"></button>
               </div>
@@ -4628,9 +4628,9 @@
               <span data-i18n="field.gesamtwert">Gesamtwert</span>
               <div class="sr6-charactersheet-field-input-with-dice">
                 <input type="text" name="attr_sr6_matrix_handlung_ersticken_gesamtwert" /><button
-                  type="roll"
+                  type="action"
                   class="sr6-charactersheet-field-dice-button"
-                  name="roll_sr6_matrix_handlung_ersticken_gesamtwert"
+                  name="act_probe"
                   value="&{template:default} {{name=Matrix-Handlung}} {{Handlung=Ersticken (Gesamtwert)}} {{Pool=[[@{sr6_matrix_handlung_ersticken_gesamtwert}]]}} {{Erfolge=[[@{sr6_matrix_handlung_ersticken_gesamtwert}d6>5]]}}"
                   aria-label="Wuerfeln"></button>
               </div>
@@ -4646,9 +4646,9 @@
               <span data-i18n="field.grundwert">Grundwert</span>
               <div class="sr6-charactersheet-field-input-with-dice">
                 <input type="text" name="attr_sr6_matrix_handlung_garbage_in_garbage_out_grundwert" /><button
-                  type="roll"
+                  type="action"
                   class="sr6-charactersheet-field-dice-button"
-                  name="roll_sr6_matrix_handlung_garbage_in_garbage_out_grundwert"
+                  name="act_probe"
                   value="&{template:default} {{name=Matrix-Handlung}} {{Handlung=Garbage In/Garbage Out (Grundwert)}} {{Pool=[[@{sr6_matrix_handlung_garbage_in_garbage_out_grundwert}]]}} {{Erfolge=[[@{sr6_matrix_handlung_garbage_in_garbage_out_grundwert}d6>5]]}}"
                   aria-label="Wuerfeln"></button>
               </div>
@@ -4662,9 +4662,9 @@
               <span data-i18n="field.gesamtwert">Gesamtwert</span>
               <div class="sr6-charactersheet-field-input-with-dice">
                 <input type="text" name="attr_sr6_matrix_handlung_garbage_in_garbage_out_gesamtwert" /><button
-                  type="roll"
+                  type="action"
                   class="sr6-charactersheet-field-dice-button"
-                  name="roll_sr6_matrix_handlung_garbage_in_garbage_out_gesamtwert"
+                  name="act_probe"
                   value="&{template:default} {{name=Matrix-Handlung}} {{Handlung=Garbage In/Garbage Out (Gesamtwert)}} {{Pool=[[@{sr6_matrix_handlung_garbage_in_garbage_out_gesamtwert}]]}} {{Erfolge=[[@{sr6_matrix_handlung_garbage_in_garbage_out_gesamtwert}d6>5]]}}"
                   aria-label="Wuerfeln"></button>
               </div>
@@ -4680,9 +4680,9 @@
               <span data-i18n="field.grundwert">Grundwert</span>
               <div class="sr6-charactersheet-field-input-with-dice">
                 <input type="text" name="attr_sr6_matrix_handlung_hineinspringen_grundwert" /><button
-                  type="roll"
+                  type="action"
                   class="sr6-charactersheet-field-dice-button"
-                  name="roll_sr6_matrix_handlung_hineinspringen_grundwert"
+                  name="act_probe"
                   value="&{template:default} {{name=Matrix-Handlung}} {{Handlung=Hineinspringen (Grundwert)}} {{Pool=[[@{sr6_matrix_handlung_hineinspringen_grundwert}]]}} {{Erfolge=[[@{sr6_matrix_handlung_hineinspringen_grundwert}d6>5]]}}"
                   aria-label="Wuerfeln"></button>
               </div>
@@ -4696,9 +4696,9 @@
               <span data-i18n="field.gesamtwert">Gesamtwert</span>
               <div class="sr6-charactersheet-field-input-with-dice">
                 <input type="text" name="attr_sr6_matrix_handlung_hineinspringen_gesamtwert" /><button
-                  type="roll"
+                  type="action"
                   class="sr6-charactersheet-field-dice-button"
-                  name="roll_sr6_matrix_handlung_hineinspringen_gesamtwert"
+                  name="act_probe"
                   value="&{template:default} {{name=Matrix-Handlung}} {{Handlung=Hineinspringen (Gesamtwert)}} {{Pool=[[@{sr6_matrix_handlung_hineinspringen_gesamtwert}]]}} {{Erfolge=[[@{sr6_matrix_handlung_hineinspringen_gesamtwert}d6>5]]}}"
                   aria-label="Wuerfeln"></button>
               </div>
@@ -4714,9 +4714,9 @@
               <span data-i18n="field.grundwert">Grundwert</span>
               <div class="sr6-charactersheet-field-input-with-dice">
                 <input type="text" name="attr_sr6_matrix_handlung_interfacemodus_wechseln_grundwert" /><button
-                  type="roll"
+                  type="action"
                   class="sr6-charactersheet-field-dice-button"
-                  name="roll_sr6_matrix_handlung_interfacemodus_wechseln_grundwert"
+                  name="act_probe"
                   value="&{template:default} {{name=Matrix-Handlung}} {{Handlung=Interfacemodus wechseln (Grundwert)}} {{Pool=[[@{sr6_matrix_handlung_interfacemodus_wechseln_grundwert}]]}} {{Erfolge=[[@{sr6_matrix_handlung_interfacemodus_wechseln_grundwert}d6>5]]}}"
                   aria-label="Wuerfeln"></button>
               </div>
@@ -4730,9 +4730,9 @@
               <span data-i18n="field.gesamtwert">Gesamtwert</span>
               <div class="sr6-charactersheet-field-input-with-dice">
                 <input type="text" name="attr_sr6_matrix_handlung_interfacemodus_wechseln_gesamtwert" /><button
-                  type="roll"
+                  type="action"
                   class="sr6-charactersheet-field-dice-button"
-                  name="roll_sr6_matrix_handlung_interfacemodus_wechseln_gesamtwert"
+                  name="act_probe"
                   value="&{template:default} {{name=Matrix-Handlung}} {{Handlung=Interfacemodus wechseln (Gesamtwert)}} {{Pool=[[@{sr6_matrix_handlung_interfacemodus_wechseln_gesamtwert}]]}} {{Erfolge=[[@{sr6_matrix_handlung_interfacemodus_wechseln_gesamtwert}d6>5]]}}"
                   aria-label="Wuerfeln"></button>
               </div>
@@ -4748,9 +4748,9 @@
               <span data-i18n="field.grundwert">Grundwert</span>
               <div class="sr6-charactersheet-field-input-with-dice">
                 <input type="text" name="attr_sr6_matrix_handlung_kalibrierung_grundwert" /><button
-                  type="roll"
+                  type="action"
                   class="sr6-charactersheet-field-dice-button"
-                  name="roll_sr6_matrix_handlung_kalibrierung_grundwert"
+                  name="act_probe"
                   value="&{template:default} {{name=Matrix-Handlung}} {{Handlung=Kalibrierung (Grundwert)}} {{Pool=[[@{sr6_matrix_handlung_kalibrierung_grundwert}]]}} {{Erfolge=[[@{sr6_matrix_handlung_kalibrierung_grundwert}d6>5]]}}"
                   aria-label="Wuerfeln"></button>
               </div>
@@ -4764,9 +4764,9 @@
               <span data-i18n="field.gesamtwert">Gesamtwert</span>
               <div class="sr6-charactersheet-field-input-with-dice">
                 <input type="text" name="attr_sr6_matrix_handlung_kalibrierung_gesamtwert" /><button
-                  type="roll"
+                  type="action"
                   class="sr6-charactersheet-field-dice-button"
-                  name="roll_sr6_matrix_handlung_kalibrierung_gesamtwert"
+                  name="act_probe"
                   value="&{template:default} {{name=Matrix-Handlung}} {{Handlung=Kalibrierung (Gesamtwert)}} {{Pool=[[@{sr6_matrix_handlung_kalibrierung_gesamtwert}]]}} {{Erfolge=[[@{sr6_matrix_handlung_kalibrierung_gesamtwert}d6>5]]}}"
                   aria-label="Wuerfeln"></button>
               </div>
@@ -4782,9 +4782,9 @@
               <span data-i18n="field.grundwert">Grundwert</span>
               <div class="sr6-charactersheet-field-input-with-dice">
                 <input type="text" name="attr_sr6_matrix_handlung_maskerade_grundwert" /><button
-                  type="roll"
+                  type="action"
                   class="sr6-charactersheet-field-dice-button"
-                  name="roll_sr6_matrix_handlung_maskerade_grundwert"
+                  name="act_probe"
                   value="&{template:default} {{name=Matrix-Handlung}} {{Handlung=Maskerade (Grundwert)}} {{Pool=[[@{sr6_matrix_handlung_maskerade_grundwert}]]}} {{Erfolge=[[@{sr6_matrix_handlung_maskerade_grundwert}d6>5]]}}"
                   aria-label="Wuerfeln"></button>
               </div>
@@ -4798,9 +4798,9 @@
               <span data-i18n="field.gesamtwert">Gesamtwert</span>
               <div class="sr6-charactersheet-field-input-with-dice">
                 <input type="text" name="attr_sr6_matrix_handlung_maskerade_gesamtwert" /><button
-                  type="roll"
+                  type="action"
                   class="sr6-charactersheet-field-dice-button"
-                  name="roll_sr6_matrix_handlung_maskerade_gesamtwert"
+                  name="act_probe"
                   value="&{template:default} {{name=Matrix-Handlung}} {{Handlung=Maskerade (Gesamtwert)}} {{Pool=[[@{sr6_matrix_handlung_maskerade_gesamtwert}]]}} {{Erfolge=[[@{sr6_matrix_handlung_maskerade_gesamtwert}d6>5]]}}"
                   aria-label="Wuerfeln"></button>
               </div>
@@ -4816,9 +4816,9 @@
               <span data-i18n="field.grundwert">Grundwert</span>
               <div class="sr6-charactersheet-field-input-with-dice">
                 <input type="text" name="attr_sr6_matrix_handlung_mittelsmetamensch_grundwert" /><button
-                  type="roll"
+                  type="action"
                   class="sr6-charactersheet-field-dice-button"
-                  name="roll_sr6_matrix_handlung_mittelsmetamensch_grundwert"
+                  name="act_probe"
                   value="&{template:default} {{name=Matrix-Handlung}} {{Handlung=Mittelsmetamensch (Grundwert)}} {{Pool=[[@{sr6_matrix_handlung_mittelsmetamensch_grundwert}]]}} {{Erfolge=[[@{sr6_matrix_handlung_mittelsmetamensch_grundwert}d6>5]]}}"
                   aria-label="Wuerfeln"></button>
               </div>
@@ -4832,9 +4832,9 @@
               <span data-i18n="field.gesamtwert">Gesamtwert</span>
               <div class="sr6-charactersheet-field-input-with-dice">
                 <input type="text" name="attr_sr6_matrix_handlung_mittelsmetamensch_gesamtwert" /><button
-                  type="roll"
+                  type="action"
                   class="sr6-charactersheet-field-dice-button"
-                  name="roll_sr6_matrix_handlung_mittelsmetamensch_gesamtwert"
+                  name="act_probe"
                   value="&{template:default} {{name=Matrix-Handlung}} {{Handlung=Mittelsmetamensch (Gesamtwert)}} {{Pool=[[@{sr6_matrix_handlung_mittelsmetamensch_gesamtwert}]]}} {{Erfolge=[[@{sr6_matrix_handlung_mittelsmetamensch_gesamtwert}d6>5]]}}"
                   aria-label="Wuerfeln"></button>
               </div>
@@ -4850,9 +4850,9 @@
               <span data-i18n="field.grundwert">Grundwert</span>
               <div class="sr6-charactersheet-field-input-with-dice">
                 <input type="text" name="attr_sr6_matrix_handlung_pop_up_grundwert" /><button
-                  type="roll"
+                  type="action"
                   class="sr6-charactersheet-field-dice-button"
-                  name="roll_sr6_matrix_handlung_pop_up_grundwert"
+                  name="act_probe"
                   value="&{template:default} {{name=Matrix-Handlung}} {{Handlung=Pop-up (Grundwert)}} {{Pool=[[@{sr6_matrix_handlung_pop_up_grundwert}]]}} {{Erfolge=[[@{sr6_matrix_handlung_pop_up_grundwert}d6>5]]}}"
                   aria-label="Wuerfeln"></button>
               </div>
@@ -4866,9 +4866,9 @@
               <span data-i18n="field.gesamtwert">Gesamtwert</span>
               <div class="sr6-charactersheet-field-input-with-dice">
                 <input type="text" name="attr_sr6_matrix_handlung_pop_up_gesamtwert" /><button
-                  type="roll"
+                  type="action"
                   class="sr6-charactersheet-field-dice-button"
-                  name="roll_sr6_matrix_handlung_pop_up_gesamtwert"
+                  name="act_probe"
                   value="&{template:default} {{name=Matrix-Handlung}} {{Handlung=Pop-up (Gesamtwert)}} {{Pool=[[@{sr6_matrix_handlung_pop_up_gesamtwert}]]}} {{Erfolge=[[@{sr6_matrix_handlung_pop_up_gesamtwert}d6>5]]}}"
                   aria-label="Wuerfeln"></button>
               </div>
@@ -4884,9 +4884,9 @@
               <span data-i18n="field.grundwert">Grundwert</span>
               <div class="sr6-charactersheet-field-input-with-dice">
                 <input type="text" name="attr_sr6_matrix_handlung_pruefsummensuche_grundwert" /><button
-                  type="roll"
+                  type="action"
                   class="sr6-charactersheet-field-dice-button"
-                  name="roll_sr6_matrix_handlung_pruefsummensuche_grundwert"
+                  name="act_probe"
                   value="&{template:default} {{name=Matrix-Handlung}} {{Handlung=Pruefsummensuche (Grundwert)}} {{Pool=[[@{sr6_matrix_handlung_pruefsummensuche_grundwert}]]}} {{Erfolge=[[@{sr6_matrix_handlung_pruefsummensuche_grundwert}d6>5]]}}"
                   aria-label="Wuerfeln"></button>
               </div>
@@ -4900,9 +4900,9 @@
               <span data-i18n="field.gesamtwert">Gesamtwert</span>
               <div class="sr6-charactersheet-field-input-with-dice">
                 <input type="text" name="attr_sr6_matrix_handlung_pruefsummensuche_gesamtwert" /><button
-                  type="roll"
+                  type="action"
                   class="sr6-charactersheet-field-dice-button"
-                  name="roll_sr6_matrix_handlung_pruefsummensuche_gesamtwert"
+                  name="act_probe"
                   value="&{template:default} {{name=Matrix-Handlung}} {{Handlung=Pruefsummensuche (Gesamtwert)}} {{Pool=[[@{sr6_matrix_handlung_pruefsummensuche_gesamtwert}]]}} {{Erfolge=[[@{sr6_matrix_handlung_pruefsummensuche_gesamtwert}d6>5]]}}"
                   aria-label="Wuerfeln"></button>
               </div>
@@ -4918,9 +4918,9 @@
               <span data-i18n="field.grundwert">Grundwert</span>
               <div class="sr6-charactersheet-field-input-with-dice">
                 <input type="text" name="attr_sr6_matrix_handlung_sondieren_grundwert" /><button
-                  type="roll"
+                  type="action"
                   class="sr6-charactersheet-field-dice-button"
-                  name="roll_sr6_matrix_handlung_sondieren_grundwert"
+                  name="act_probe"
                   value="&{template:default} {{name=Matrix-Handlung}} {{Handlung=Sondieren (Grundwert)}} {{Pool=[[@{sr6_matrix_handlung_sondieren_grundwert}]]}} {{Erfolge=[[@{sr6_matrix_handlung_sondieren_grundwert}d6>5]]}}"
                   aria-label="Wuerfeln"></button>
               </div>
@@ -4934,9 +4934,9 @@
               <span data-i18n="field.gesamtwert">Gesamtwert</span>
               <div class="sr6-charactersheet-field-input-with-dice">
                 <input type="text" name="attr_sr6_matrix_handlung_sondieren_gesamtwert" /><button
-                  type="roll"
+                  type="action"
                   class="sr6-charactersheet-field-dice-button"
-                  name="roll_sr6_matrix_handlung_sondieren_gesamtwert"
+                  name="act_probe"
                   value="&{template:default} {{name=Matrix-Handlung}} {{Handlung=Sondieren (Gesamtwert)}} {{Pool=[[@{sr6_matrix_handlung_sondieren_gesamtwert}]]}} {{Erfolge=[[@{sr6_matrix_handlung_sondieren_gesamtwert}d6>5]]}}"
                   aria-label="Wuerfeln"></button>
               </div>
@@ -4952,9 +4952,9 @@
               <span data-i18n="field.grundwert">Grundwert</span>
               <div class="sr6-charactersheet-field-input-with-dice">
                 <input type="text" name="attr_sr6_matrix_handlung_stalking_grundwert" /><button
-                  type="roll"
+                  type="action"
                   class="sr6-charactersheet-field-dice-button"
-                  name="roll_sr6_matrix_handlung_stalking_grundwert"
+                  name="act_probe"
                   value="&{template:default} {{name=Matrix-Handlung}} {{Handlung=Stalking (Grundwert)}} {{Pool=[[@{sr6_matrix_handlung_stalking_grundwert}]]}} {{Erfolge=[[@{sr6_matrix_handlung_stalking_grundwert}d6>5]]}}"
                   aria-label="Wuerfeln"></button>
               </div>
@@ -4968,9 +4968,9 @@
               <span data-i18n="field.gesamtwert">Gesamtwert</span>
               <div class="sr6-charactersheet-field-input-with-dice">
                 <input type="text" name="attr_sr6_matrix_handlung_stalking_gesamtwert" /><button
-                  type="roll"
+                  type="action"
                   class="sr6-charactersheet-field-dice-button"
-                  name="roll_sr6_matrix_handlung_stalking_gesamtwert"
+                  name="act_probe"
                   value="&{template:default} {{name=Matrix-Handlung}} {{Handlung=Stalking (Gesamtwert)}} {{Pool=[[@{sr6_matrix_handlung_stalking_gesamtwert}]]}} {{Erfolge=[[@{sr6_matrix_handlung_stalking_gesamtwert}d6>5]]}}"
                   aria-label="Wuerfeln"></button>
               </div>
@@ -4986,9 +4986,9 @@
               <span data-i18n="field.grundwert">Grundwert</span>
               <div class="sr6-charactersheet-field-input-with-dice">
                 <input type="text" name="attr_sr6_matrix_handlung_verstecken_grundwert" /><button
-                  type="roll"
+                  type="action"
                   class="sr6-charactersheet-field-dice-button"
-                  name="roll_sr6_matrix_handlung_verstecken_grundwert"
+                  name="act_probe"
                   value="&{template:default} {{name=Matrix-Handlung}} {{Handlung=Verstecken (Grundwert)}} {{Pool=[[@{sr6_matrix_handlung_verstecken_grundwert}]]}} {{Erfolge=[[@{sr6_matrix_handlung_verstecken_grundwert}d6>5]]}}"
                   aria-label="Wuerfeln"></button>
               </div>
@@ -5002,9 +5002,9 @@
               <span data-i18n="field.gesamtwert">Gesamtwert</span>
               <div class="sr6-charactersheet-field-input-with-dice">
                 <input type="text" name="attr_sr6_matrix_handlung_verstecken_gesamtwert" /><button
-                  type="roll"
+                  type="action"
                   class="sr6-charactersheet-field-dice-button"
-                  name="roll_sr6_matrix_handlung_verstecken_gesamtwert"
+                  name="act_probe"
                   value="&{template:default} {{name=Matrix-Handlung}} {{Handlung=Verstecken (Gesamtwert)}} {{Pool=[[@{sr6_matrix_handlung_verstecken_gesamtwert}]]}} {{Erfolge=[[@{sr6_matrix_handlung_verstecken_gesamtwert}d6>5]]}}"
                   aria-label="Wuerfeln"></button>
               </div>
@@ -5020,9 +5020,9 @@
               <span data-i18n="field.grundwert">Grundwert</span>
               <div class="sr6-charactersheet-field-input-with-dice">
                 <input type="text" name="attr_sr6_matrix_handlung_virtuelles_zielen_grundwert" /><button
-                  type="roll"
+                  type="action"
                   class="sr6-charactersheet-field-dice-button"
-                  name="roll_sr6_matrix_handlung_virtuelles_zielen_grundwert"
+                  name="act_probe"
                   value="&{template:default} {{name=Matrix-Handlung}} {{Handlung=Virtuelles Zielen (Grundwert)}} {{Pool=[[@{sr6_matrix_handlung_virtuelles_zielen_grundwert}]]}} {{Erfolge=[[@{sr6_matrix_handlung_virtuelles_zielen_grundwert}d6>5]]}}"
                   aria-label="Wuerfeln"></button>
               </div>
@@ -5036,9 +5036,9 @@
               <span data-i18n="field.gesamtwert">Gesamtwert</span>
               <div class="sr6-charactersheet-field-input-with-dice">
                 <input type="text" name="attr_sr6_matrix_handlung_virtuelles_zielen_gesamtwert" /><button
-                  type="roll"
+                  type="action"
                   class="sr6-charactersheet-field-dice-button"
-                  name="roll_sr6_matrix_handlung_virtuelles_zielen_gesamtwert"
+                  name="act_probe"
                   value="&{template:default} {{name=Matrix-Handlung}} {{Handlung=Virtuelles Zielen (Gesamtwert)}} {{Pool=[[@{sr6_matrix_handlung_virtuelles_zielen_gesamtwert}]]}} {{Erfolge=[[@{sr6_matrix_handlung_virtuelles_zielen_gesamtwert}d6>5]]}}"
                   aria-label="Wuerfeln"></button>
               </div>
@@ -5054,9 +5054,9 @@
               <span data-i18n="field.grundwert">Grundwert</span>
               <div class="sr6-charactersheet-field-input-with-dice">
                 <input type="text" name="attr_sr6_matrix_handlung_volle_matrixabwehr_grundwert" /><button
-                  type="roll"
+                  type="action"
                   class="sr6-charactersheet-field-dice-button"
-                  name="roll_sr6_matrix_handlung_volle_matrixabwehr_grundwert"
+                  name="act_probe"
                   value="&{template:default} {{name=Matrix-Handlung}} {{Handlung=Volle Matrixabwehr (Grundwert)}} {{Pool=[[@{sr6_matrix_handlung_volle_matrixabwehr_grundwert}]]}} {{Erfolge=[[@{sr6_matrix_handlung_volle_matrixabwehr_grundwert}d6>5]]}}"
                   aria-label="Wuerfeln"></button>
               </div>
@@ -5070,9 +5070,9 @@
               <span data-i18n="field.gesamtwert">Gesamtwert</span>
               <div class="sr6-charactersheet-field-input-with-dice">
                 <input type="text" name="attr_sr6_matrix_handlung_volle_matrixabwehr_gesamtwert" /><button
-                  type="roll"
+                  type="action"
                   class="sr6-charactersheet-field-dice-button"
-                  name="roll_sr6_matrix_handlung_volle_matrixabwehr_gesamtwert"
+                  name="act_probe"
                   value="&{template:default} {{name=Matrix-Handlung}} {{Handlung=Volle Matrixabwehr (Gesamtwert)}} {{Pool=[[@{sr6_matrix_handlung_volle_matrixabwehr_gesamtwert}]]}} {{Erfolge=[[@{sr6_matrix_handlung_volle_matrixabwehr_gesamtwert}d6>5]]}}"
                   aria-label="Wuerfeln"></button>
               </div>
@@ -5088,9 +5088,9 @@
               <span data-i18n="field.grundwert">Grundwert</span>
               <div class="sr6-charactersheet-field-input-with-dice">
                 <input type="text" name="attr_sr6_matrix_handlung_brute_force_grundwert" /><button
-                  type="roll"
+                  type="action"
                   class="sr6-charactersheet-field-dice-button"
-                  name="roll_sr6_matrix_handlung_brute_force_grundwert"
+                  name="act_probe"
                   value="&{template:default} {{name=Matrix-Handlung}} {{Handlung=Brute Force (Grundwert)}} {{Pool=[[@{sr6_matrix_handlung_brute_force_grundwert}]]}} {{Erfolge=[[@{sr6_matrix_handlung_brute_force_grundwert}d6>5]]}}"
                   aria-label="Wuerfeln"></button>
               </div>
@@ -5104,9 +5104,9 @@
               <span data-i18n="field.gesamtwert">Gesamtwert</span>
               <div class="sr6-charactersheet-field-input-with-dice">
                 <input type="text" name="attr_sr6_matrix_handlung_brute_force_gesamtwert" /><button
-                  type="roll"
+                  type="action"
                   class="sr6-charactersheet-field-dice-button"
-                  name="roll_sr6_matrix_handlung_brute_force_gesamtwert"
+                  name="act_probe"
                   value="&{template:default} {{name=Matrix-Handlung}} {{Handlung=Brute Force (Gesamtwert)}} {{Pool=[[@{sr6_matrix_handlung_brute_force_gesamtwert}]]}} {{Erfolge=[[@{sr6_matrix_handlung_brute_force_gesamtwert}d6>5]]}}"
                   aria-label="Wuerfeln"></button>
               </div>
@@ -5122,9 +5122,9 @@
               <span data-i18n="field.grundwert">Grundwert</span>
               <div class="sr6-charactersheet-field-input-with-dice">
                 <input type="text" name="attr_sr6_matrix_handlung_datei_cracken_grundwert" /><button
-                  type="roll"
+                  type="action"
                   class="sr6-charactersheet-field-dice-button"
-                  name="roll_sr6_matrix_handlung_datei_cracken_grundwert"
+                  name="act_probe"
                   value="&{template:default} {{name=Matrix-Handlung}} {{Handlung=Datei cracken (Grundwert)}} {{Pool=[[@{sr6_matrix_handlung_datei_cracken_grundwert}]]}} {{Erfolge=[[@{sr6_matrix_handlung_datei_cracken_grundwert}d6>5]]}}"
                   aria-label="Wuerfeln"></button>
               </div>
@@ -5138,9 +5138,9 @@
               <span data-i18n="field.gesamtwert">Gesamtwert</span>
               <div class="sr6-charactersheet-field-input-with-dice">
                 <input type="text" name="attr_sr6_matrix_handlung_datei_cracken_gesamtwert" /><button
-                  type="roll"
+                  type="action"
                   class="sr6-charactersheet-field-dice-button"
-                  name="roll_sr6_matrix_handlung_datei_cracken_gesamtwert"
+                  name="act_probe"
                   value="&{template:default} {{name=Matrix-Handlung}} {{Handlung=Datei cracken (Gesamtwert)}} {{Pool=[[@{sr6_matrix_handlung_datei_cracken_gesamtwert}]]}} {{Erfolge=[[@{sr6_matrix_handlung_datei_cracken_gesamtwert}d6>5]]}}"
                   aria-label="Wuerfeln"></button>
               </div>
@@ -5156,9 +5156,9 @@
               <span data-i18n="field.grundwert">Grundwert</span>
               <div class="sr6-charactersheet-field-input-with-dice">
                 <input type="text" name="attr_sr6_matrix_handlung_datenbombe_legen_grundwert" /><button
-                  type="roll"
+                  type="action"
                   class="sr6-charactersheet-field-dice-button"
-                  name="roll_sr6_matrix_handlung_datenbombe_legen_grundwert"
+                  name="act_probe"
                   value="&{template:default} {{name=Matrix-Handlung}} {{Handlung=Datenbombe legen (Grundwert)}} {{Pool=[[@{sr6_matrix_handlung_datenbombe_legen_grundwert}]]}} {{Erfolge=[[@{sr6_matrix_handlung_datenbombe_legen_grundwert}d6>5]]}}"
                   aria-label="Wuerfeln"></button>
               </div>
@@ -5172,9 +5172,9 @@
               <span data-i18n="field.gesamtwert">Gesamtwert</span>
               <div class="sr6-charactersheet-field-input-with-dice">
                 <input type="text" name="attr_sr6_matrix_handlung_datenbombe_legen_gesamtwert" /><button
-                  type="roll"
+                  type="action"
                   class="sr6-charactersheet-field-dice-button"
-                  name="roll_sr6_matrix_handlung_datenbombe_legen_gesamtwert"
+                  name="act_probe"
                   value="&{template:default} {{name=Matrix-Handlung}} {{Handlung=Datenbombe legen (Gesamtwert)}} {{Pool=[[@{sr6_matrix_handlung_datenbombe_legen_gesamtwert}]]}} {{Erfolge=[[@{sr6_matrix_handlung_datenbombe_legen_gesamtwert}d6>5]]}}"
                   aria-label="Wuerfeln"></button>
               </div>
@@ -5190,9 +5190,9 @@
               <span data-i18n="field.grundwert">Grundwert</span>
               <div class="sr6-charactersheet-field-input-with-dice">
                 <input type="text" name="attr_sr6_matrix_handlung_geraet_formatieren_grundwert" /><button
-                  type="roll"
+                  type="action"
                   class="sr6-charactersheet-field-dice-button"
-                  name="roll_sr6_matrix_handlung_geraet_formatieren_grundwert"
+                  name="act_probe"
                   value="&{template:default} {{name=Matrix-Handlung}} {{Handlung=Geraet formatieren (Grundwert)}} {{Pool=[[@{sr6_matrix_handlung_geraet_formatieren_grundwert}]]}} {{Erfolge=[[@{sr6_matrix_handlung_geraet_formatieren_grundwert}d6>5]]}}"
                   aria-label="Wuerfeln"></button>
               </div>
@@ -5206,9 +5206,9 @@
               <span data-i18n="field.gesamtwert">Gesamtwert</span>
               <div class="sr6-charactersheet-field-input-with-dice">
                 <input type="text" name="attr_sr6_matrix_handlung_geraet_formatieren_gesamtwert" /><button
-                  type="roll"
+                  type="action"
                   class="sr6-charactersheet-field-dice-button"
-                  name="roll_sr6_matrix_handlung_geraet_formatieren_gesamtwert"
+                  name="act_probe"
                   value="&{template:default} {{name=Matrix-Handlung}} {{Handlung=Geraet formatieren (Gesamtwert)}} {{Pool=[[@{sr6_matrix_handlung_geraet_formatieren_gesamtwert}]]}} {{Erfolge=[[@{sr6_matrix_handlung_geraet_formatieren_gesamtwert}d6>5]]}}"
                   aria-label="Wuerfeln"></button>
               </div>
@@ -5224,9 +5224,9 @@
               <span data-i18n="field.grundwert">Grundwert</span>
               <div class="sr6-charactersheet-field-input-with-dice">
                 <input type="text" name="attr_sr6_matrix_handlung_geraet_neu_starten_grundwert" /><button
-                  type="roll"
+                  type="action"
                   class="sr6-charactersheet-field-dice-button"
-                  name="roll_sr6_matrix_handlung_geraet_neu_starten_grundwert"
+                  name="act_probe"
                   value="&{template:default} {{name=Matrix-Handlung}} {{Handlung=Geraet neu starten (Grundwert)}} {{Pool=[[@{sr6_matrix_handlung_geraet_neu_starten_grundwert}]]}} {{Erfolge=[[@{sr6_matrix_handlung_geraet_neu_starten_grundwert}d6>5]]}}"
                   aria-label="Wuerfeln"></button>
               </div>
@@ -5240,9 +5240,9 @@
               <span data-i18n="field.gesamtwert">Gesamtwert</span>
               <div class="sr6-charactersheet-field-input-with-dice">
                 <input type="text" name="attr_sr6_matrix_handlung_geraet_neu_starten_gesamtwert" /><button
-                  type="roll"
+                  type="action"
                   class="sr6-charactersheet-field-dice-button"
-                  name="roll_sr6_matrix_handlung_geraet_neu_starten_gesamtwert"
+                  name="act_probe"
                   value="&{template:default} {{name=Matrix-Handlung}} {{Handlung=Geraet neu starten (Gesamtwert)}} {{Pool=[[@{sr6_matrix_handlung_geraet_neu_starten_gesamtwert}]]}} {{Erfolge=[[@{sr6_matrix_handlung_geraet_neu_starten_gesamtwert}d6>5]]}}"
                   aria-label="Wuerfeln"></button>
               </div>
@@ -5258,9 +5258,9 @@
               <span data-i18n="field.grundwert">Grundwert</span>
               <div class="sr6-charactersheet-field-input-with-dice">
                 <input type="text" name="attr_sr6_matrix_handlung_geraet_steuern_grundwert" /><button
-                  type="roll"
+                  type="action"
                   class="sr6-charactersheet-field-dice-button"
-                  name="roll_sr6_matrix_handlung_geraet_steuern_grundwert"
+                  name="act_probe"
                   value="&{template:default} {{name=Matrix-Handlung}} {{Handlung=Geraet steuern (Grundwert)}} {{Pool=[[@{sr6_matrix_handlung_geraet_steuern_grundwert}]]}} {{Erfolge=[[@{sr6_matrix_handlung_geraet_steuern_grundwert}d6>5]]}}"
                   aria-label="Wuerfeln"></button>
               </div>
@@ -5274,9 +5274,9 @@
               <span data-i18n="field.gesamtwert">Gesamtwert</span>
               <div class="sr6-charactersheet-field-input-with-dice">
                 <input type="text" name="attr_sr6_matrix_handlung_geraet_steuern_gesamtwert" /><button
-                  type="roll"
+                  type="action"
                   class="sr6-charactersheet-field-dice-button"
-                  name="roll_sr6_matrix_handlung_geraet_steuern_gesamtwert"
+                  name="act_probe"
                   value="&{template:default} {{name=Matrix-Handlung}} {{Handlung=Geraet steuern (Gesamtwert)}} {{Pool=[[@{sr6_matrix_handlung_geraet_steuern_gesamtwert}]]}} {{Erfolge=[[@{sr6_matrix_handlung_geraet_steuern_gesamtwert}d6>5]]}}"
                   aria-label="Wuerfeln"></button>
               </div>
@@ -5292,9 +5292,9 @@
               <span data-i18n="field.grundwert">Grundwert</span>
               <div class="sr6-charactersheet-field-input-with-dice">
                 <input type="text" name="attr_sr6_matrix_handlung_geraetesperre_grundwert" /><button
-                  type="roll"
+                  type="action"
                   class="sr6-charactersheet-field-dice-button"
-                  name="roll_sr6_matrix_handlung_geraetesperre_grundwert"
+                  name="act_probe"
                   value="&{template:default} {{name=Matrix-Handlung}} {{Handlung=Geraetesperre (Grundwert)}} {{Pool=[[@{sr6_matrix_handlung_geraetesperre_grundwert}]]}} {{Erfolge=[[@{sr6_matrix_handlung_geraetesperre_grundwert}d6>5]]}}"
                   aria-label="Wuerfeln"></button>
               </div>
@@ -5308,9 +5308,9 @@
               <span data-i18n="field.gesamtwert">Gesamtwert</span>
               <div class="sr6-charactersheet-field-input-with-dice">
                 <input type="text" name="attr_sr6_matrix_handlung_geraetesperre_gesamtwert" /><button
-                  type="roll"
+                  type="action"
                   class="sr6-charactersheet-field-dice-button"
-                  name="roll_sr6_matrix_handlung_geraetesperre_gesamtwert"
+                  name="act_probe"
                   value="&{template:default} {{name=Matrix-Handlung}} {{Handlung=Geraetesperre (Gesamtwert)}} {{Pool=[[@{sr6_matrix_handlung_geraetesperre_gesamtwert}]]}} {{Erfolge=[[@{sr6_matrix_handlung_geraetesperre_gesamtwert}d6>5]]}}"
                   aria-label="Wuerfeln"></button>
               </div>
@@ -5326,9 +5326,9 @@
               <span data-i18n="field.grundwert">Grundwert</span>
               <div class="sr6-charactersheet-field-input-with-dice">
                 <input type="text" name="attr_sr6_matrix_handlung_hintertuer_benutzen_grundwert" /><button
-                  type="roll"
+                  type="action"
                   class="sr6-charactersheet-field-dice-button"
-                  name="roll_sr6_matrix_handlung_hintertuer_benutzen_grundwert"
+                  name="act_probe"
                   value="&{template:default} {{name=Matrix-Handlung}} {{Handlung=Hintertuer benutzen (Grundwert)}} {{Pool=[[@{sr6_matrix_handlung_hintertuer_benutzen_grundwert}]]}} {{Erfolge=[[@{sr6_matrix_handlung_hintertuer_benutzen_grundwert}d6>5]]}}"
                   aria-label="Wuerfeln"></button>
               </div>
@@ -5342,9 +5342,9 @@
               <span data-i18n="field.gesamtwert">Gesamtwert</span>
               <div class="sr6-charactersheet-field-input-with-dice">
                 <input type="text" name="attr_sr6_matrix_handlung_hintertuer_benutzen_gesamtwert" /><button
-                  type="roll"
+                  type="action"
                   class="sr6-charactersheet-field-dice-button"
-                  name="roll_sr6_matrix_handlung_hintertuer_benutzen_gesamtwert"
+                  name="act_probe"
                   value="&{template:default} {{name=Matrix-Handlung}} {{Handlung=Hintertuer benutzen (Gesamtwert)}} {{Pool=[[@{sr6_matrix_handlung_hintertuer_benutzen_gesamtwert}]]}} {{Erfolge=[[@{sr6_matrix_handlung_hintertuer_benutzen_gesamtwert}d6>5]]}}"
                   aria-label="Wuerfeln"></button>
               </div>
@@ -5360,9 +5360,9 @@
               <span data-i18n="field.grundwert">Grundwert</span>
               <div class="sr6-charactersheet-field-input-with-dice">
                 <input type="text" name="attr_sr6_matrix_handlung_hintertuer_mit_bekanntem_exploit_benutzen_grundwert" /><button
-                  type="roll"
+                  type="action"
                   class="sr6-charactersheet-field-dice-button"
-                  name="roll_sr6_matrix_handlung_hintertuer_mit_bekanntem_exploit_benutzen_grundwert"
+                  name="act_probe"
                   value="&{template:default} {{name=Matrix-Handlung}} {{Handlung=Hintertuer mit bekanntem Exploit benutzen (Grundwert)}} {{Pool=[[@{sr6_matrix_handlung_hintertuer_mit_bekanntem_exploit_benutzen_grundwert}]]}} {{Erfolge=[[@{sr6_matrix_handlung_hintertuer_mit_bekanntem_exploit_benutzen_grundwert}d6>5]]}}"
                   aria-label="Wuerfeln"></button>
               </div>
@@ -5376,9 +5376,9 @@
               <span data-i18n="field.gesamtwert">Gesamtwert</span>
               <div class="sr6-charactersheet-field-input-with-dice">
                 <input type="text" name="attr_sr6_matrix_handlung_hintertuer_mit_bekanntem_exploit_benutzen_gesamtwert" /><button
-                  type="roll"
+                  type="action"
                   class="sr6-charactersheet-field-dice-button"
-                  name="roll_sr6_matrix_handlung_hintertuer_mit_bekanntem_exploit_benutzen_gesamtwert"
+                  name="act_probe"
                   value="&{template:default} {{name=Matrix-Handlung}} {{Handlung=Hintertuer mit bekanntem Exploit benutzen (Gesamtwert)}} {{Pool=[[@{sr6_matrix_handlung_hintertuer_mit_bekanntem_exploit_benutzen_gesamtwert}]]}} {{Erfolge=[[@{sr6_matrix_handlung_hintertuer_mit_bekanntem_exploit_benutzen_gesamtwert}d6>5]]}}"
                   aria-label="Wuerfeln"></button>
               </div>
@@ -5394,9 +5394,9 @@
               <span data-i18n="field.grundwert">Grundwert</span>
               <div class="sr6-charactersheet-field-input-with-dice">
                 <input type="text" name="attr_sr6_matrix_handlung_host_betreten_verlassen_grundwert" /><button
-                  type="roll"
+                  type="action"
                   class="sr6-charactersheet-field-dice-button"
-                  name="roll_sr6_matrix_handlung_host_betreten_verlassen_grundwert"
+                  name="act_probe"
                   value="&{template:default} {{name=Matrix-Handlung}} {{Handlung=Host betreten/verlassen (Grundwert)}} {{Pool=[[@{sr6_matrix_handlung_host_betreten_verlassen_grundwert}]]}} {{Erfolge=[[@{sr6_matrix_handlung_host_betreten_verlassen_grundwert}d6>5]]}}"
                   aria-label="Wuerfeln"></button>
               </div>
@@ -5410,9 +5410,9 @@
               <span data-i18n="field.gesamtwert">Gesamtwert</span>
               <div class="sr6-charactersheet-field-input-with-dice">
                 <input type="text" name="attr_sr6_matrix_handlung_host_betreten_verlassen_gesamtwert" /><button
-                  type="roll"
+                  type="action"
                   class="sr6-charactersheet-field-dice-button"
-                  name="roll_sr6_matrix_handlung_host_betreten_verlassen_gesamtwert"
+                  name="act_probe"
                   value="&{template:default} {{name=Matrix-Handlung}} {{Handlung=Host betreten/verlassen (Gesamtwert)}} {{Pool=[[@{sr6_matrix_handlung_host_betreten_verlassen_gesamtwert}]]}} {{Erfolge=[[@{sr6_matrix_handlung_host_betreten_verlassen_gesamtwert}d6>5]]}}"
                   aria-label="Wuerfeln"></button>
               </div>
@@ -5428,9 +5428,9 @@
               <span data-i18n="field.grundwert">Grundwert</span>
               <div class="sr6-charactersheet-field-input-with-dice">
                 <input type="text" name="attr_sr6_matrix_handlung_icon_modifizieren_grundwert" /><button
-                  type="roll"
+                  type="action"
                   class="sr6-charactersheet-field-dice-button"
-                  name="roll_sr6_matrix_handlung_icon_modifizieren_grundwert"
+                  name="act_probe"
                   value="&{template:default} {{name=Matrix-Handlung}} {{Handlung=Icon modifizieren (Grundwert)}} {{Pool=[[@{sr6_matrix_handlung_icon_modifizieren_grundwert}]]}} {{Erfolge=[[@{sr6_matrix_handlung_icon_modifizieren_grundwert}d6>5]]}}"
                   aria-label="Wuerfeln"></button>
               </div>
@@ -5444,9 +5444,9 @@
               <span data-i18n="field.gesamtwert">Gesamtwert</span>
               <div class="sr6-charactersheet-field-input-with-dice">
                 <input type="text" name="attr_sr6_matrix_handlung_icon_modifizieren_gesamtwert" /><button
-                  type="roll"
+                  type="action"
                   class="sr6-charactersheet-field-dice-button"
-                  name="roll_sr6_matrix_handlung_icon_modifizieren_gesamtwert"
+                  name="act_probe"
                   value="&{template:default} {{name=Matrix-Handlung}} {{Handlung=Icon modifizieren (Gesamtwert)}} {{Pool=[[@{sr6_matrix_handlung_icon_modifizieren_gesamtwert}]]}} {{Erfolge=[[@{sr6_matrix_handlung_icon_modifizieren_gesamtwert}d6>5]]}}"
                   aria-label="Wuerfeln"></button>
               </div>
@@ -5462,9 +5462,9 @@
               <span data-i18n="field.grundwert">Grundwert</span>
               <div class="sr6-charactersheet-field-input-with-dice">
                 <input type="text" name="attr_sr6_matrix_handlung_icon_veraendern_grundwert" /><button
-                  type="roll"
+                  type="action"
                   class="sr6-charactersheet-field-dice-button"
-                  name="roll_sr6_matrix_handlung_icon_veraendern_grundwert"
+                  name="act_probe"
                   value="&{template:default} {{name=Matrix-Handlung}} {{Handlung=Icon veraendern (Grundwert)}} {{Pool=[[@{sr6_matrix_handlung_icon_veraendern_grundwert}]]}} {{Erfolge=[[@{sr6_matrix_handlung_icon_veraendern_grundwert}d6>5]]}}"
                   aria-label="Wuerfeln"></button>
               </div>
@@ -5478,9 +5478,9 @@
               <span data-i18n="field.gesamtwert">Gesamtwert</span>
               <div class="sr6-charactersheet-field-input-with-dice">
                 <input type="text" name="attr_sr6_matrix_handlung_icon_veraendern_gesamtwert" /><button
-                  type="roll"
+                  type="action"
                   class="sr6-charactersheet-field-dice-button"
-                  name="roll_sr6_matrix_handlung_icon_veraendern_gesamtwert"
+                  name="act_probe"
                   value="&{template:default} {{name=Matrix-Handlung}} {{Handlung=Icon veraendern (Gesamtwert)}} {{Pool=[[@{sr6_matrix_handlung_icon_veraendern_gesamtwert}]]}} {{Erfolge=[[@{sr6_matrix_handlung_icon_veraendern_gesamtwert}d6>5]]}}"
                   aria-label="Wuerfeln"></button>
               </div>
@@ -5496,9 +5496,9 @@
               <span data-i18n="field.grundwert">Grundwert</span>
               <div class="sr6-charactersheet-field-input-with-dice">
                 <input type="text" name="attr_sr6_matrix_handlung_infrastruktur_unterwandern_grundwert" /><button
-                  type="roll"
+                  type="action"
                   class="sr6-charactersheet-field-dice-button"
-                  name="roll_sr6_matrix_handlung_infrastruktur_unterwandern_grundwert"
+                  name="act_probe"
                   value="&{template:default} {{name=Matrix-Handlung}} {{Handlung=Infrastruktur unterwandern (Grundwert)}} {{Pool=[[@{sr6_matrix_handlung_infrastruktur_unterwandern_grundwert}]]}} {{Erfolge=[[@{sr6_matrix_handlung_infrastruktur_unterwandern_grundwert}d6>5]]}}"
                   aria-label="Wuerfeln"></button>
               </div>
@@ -5512,9 +5512,9 @@
               <span data-i18n="field.gesamtwert">Gesamtwert</span>
               <div class="sr6-charactersheet-field-input-with-dice">
                 <input type="text" name="attr_sr6_matrix_handlung_infrastruktur_unterwandern_gesamtwert" /><button
-                  type="roll"
+                  type="action"
                   class="sr6-charactersheet-field-dice-button"
-                  name="roll_sr6_matrix_handlung_infrastruktur_unterwandern_gesamtwert"
+                  name="act_probe"
                   value="&{template:default} {{name=Matrix-Handlung}} {{Handlung=Infrastruktur unterwandern (Gesamtwert)}} {{Pool=[[@{sr6_matrix_handlung_infrastruktur_unterwandern_gesamtwert}]]}} {{Erfolge=[[@{sr6_matrix_handlung_infrastruktur_unterwandern_gesamtwert}d6>5]]}}"
                   aria-label="Wuerfeln"></button>
               </div>
@@ -5530,9 +5530,9 @@
               <span data-i18n="field.grundwert">Grundwert</span>
               <div class="sr6-charactersheet-field-input-with-dice">
                 <input type="text" name="attr_sr6_matrix_handlung_matrixattribute_austauschen_grundwert" /><button
-                  type="roll"
+                  type="action"
                   class="sr6-charactersheet-field-dice-button"
-                  name="roll_sr6_matrix_handlung_matrixattribute_austauschen_grundwert"
+                  name="act_probe"
                   value="&{template:default} {{name=Matrix-Handlung}} {{Handlung=Matrixattribute austauschen (Grundwert)}} {{Pool=[[@{sr6_matrix_handlung_matrixattribute_austauschen_grundwert}]]}} {{Erfolge=[[@{sr6_matrix_handlung_matrixattribute_austauschen_grundwert}d6>5]]}}"
                   aria-label="Wuerfeln"></button>
               </div>
@@ -5546,9 +5546,9 @@
               <span data-i18n="field.gesamtwert">Gesamtwert</span>
               <div class="sr6-charactersheet-field-input-with-dice">
                 <input type="text" name="attr_sr6_matrix_handlung_matrixattribute_austauschen_gesamtwert" /><button
-                  type="roll"
+                  type="action"
                   class="sr6-charactersheet-field-dice-button"
-                  name="roll_sr6_matrix_handlung_matrixattribute_austauschen_gesamtwert"
+                  name="act_probe"
                   value="&{template:default} {{name=Matrix-Handlung}} {{Handlung=Matrixattribute austauschen (Gesamtwert)}} {{Pool=[[@{sr6_matrix_handlung_matrixattribute_austauschen_gesamtwert}]]}} {{Erfolge=[[@{sr6_matrix_handlung_matrixattribute_austauschen_gesamtwert}d6>5]]}}"
                   aria-label="Wuerfeln"></button>
               </div>
@@ -5564,9 +5564,9 @@
               <span data-i18n="field.grundwert">Grundwert</span>
               <div class="sr6-charactersheet-field-input-with-dice">
                 <input type="text" name="attr_sr6_matrix_handlung_matrixsignatur_loeschen_grundwert" /><button
-                  type="roll"
+                  type="action"
                   class="sr6-charactersheet-field-dice-button"
-                  name="roll_sr6_matrix_handlung_matrixsignatur_loeschen_grundwert"
+                  name="act_probe"
                   value="&{template:default} {{name=Matrix-Handlung}} {{Handlung=Matrixsignatur loeschen (Grundwert)}} {{Pool=[[@{sr6_matrix_handlung_matrixsignatur_loeschen_grundwert}]]}} {{Erfolge=[[@{sr6_matrix_handlung_matrixsignatur_loeschen_grundwert}d6>5]]}}"
                   aria-label="Wuerfeln"></button>
               </div>
@@ -5580,9 +5580,9 @@
               <span data-i18n="field.gesamtwert">Gesamtwert</span>
               <div class="sr6-charactersheet-field-input-with-dice">
                 <input type="text" name="attr_sr6_matrix_handlung_matrixsignatur_loeschen_gesamtwert" /><button
-                  type="roll"
+                  type="action"
                   class="sr6-charactersheet-field-dice-button"
-                  name="roll_sr6_matrix_handlung_matrixsignatur_loeschen_gesamtwert"
+                  name="act_probe"
                   value="&{template:default} {{name=Matrix-Handlung}} {{Handlung=Matrixsignatur loeschen (Gesamtwert)}} {{Pool=[[@{sr6_matrix_handlung_matrixsignatur_loeschen_gesamtwert}]]}} {{Erfolge=[[@{sr6_matrix_handlung_matrixsignatur_loeschen_gesamtwert}d6>5]]}}"
                   aria-label="Wuerfeln"></button>
               </div>
@@ -5598,9 +5598,9 @@
               <span data-i18n="field.grundwert">Grundwert</span>
               <div class="sr6-charactersheet-field-input-with-dice">
                 <input type="text" name="attr_sr6_matrix_handlung_programm_abstuerzen_lassen_grundwert" /><button
-                  type="roll"
+                  type="action"
                   class="sr6-charactersheet-field-dice-button"
-                  name="roll_sr6_matrix_handlung_programm_abstuerzen_lassen_grundwert"
+                  name="act_probe"
                   value="&{template:default} {{name=Matrix-Handlung}} {{Handlung=Programm abstuerzen lassen (Grundwert)}} {{Pool=[[@{sr6_matrix_handlung_programm_abstuerzen_lassen_grundwert}]]}} {{Erfolge=[[@{sr6_matrix_handlung_programm_abstuerzen_lassen_grundwert}d6>5]]}}"
                   aria-label="Wuerfeln"></button>
               </div>
@@ -5614,9 +5614,9 @@
               <span data-i18n="field.gesamtwert">Gesamtwert</span>
               <div class="sr6-charactersheet-field-input-with-dice">
                 <input type="text" name="attr_sr6_matrix_handlung_programm_abstuerzen_lassen_gesamtwert" /><button
-                  type="roll"
+                  type="action"
                   class="sr6-charactersheet-field-dice-button"
-                  name="roll_sr6_matrix_handlung_programm_abstuerzen_lassen_gesamtwert"
+                  name="act_probe"
                   value="&{template:default} {{name=Matrix-Handlung}} {{Handlung=Programm abstuerzen lassen (Gesamtwert)}} {{Pool=[[@{sr6_matrix_handlung_programm_abstuerzen_lassen_gesamtwert}]]}} {{Erfolge=[[@{sr6_matrix_handlung_programm_abstuerzen_lassen_gesamtwert}d6>5]]}}"
                   aria-label="Wuerfeln"></button>
               </div>
@@ -5632,9 +5632,9 @@
               <span data-i18n="field.grundwert">Grundwert</span>
               <div class="sr6-charactersheet-field-input-with-dice">
                 <input type="text" name="attr_sr6_matrix_handlung_signal_stoeren_grundwert" /><button
-                  type="roll"
+                  type="action"
                   class="sr6-charactersheet-field-dice-button"
-                  name="roll_sr6_matrix_handlung_signal_stoeren_grundwert"
+                  name="act_probe"
                   value="&{template:default} {{name=Matrix-Handlung}} {{Handlung=Signal stoeren (Grundwert)}} {{Pool=[[@{sr6_matrix_handlung_signal_stoeren_grundwert}]]}} {{Erfolge=[[@{sr6_matrix_handlung_signal_stoeren_grundwert}d6>5]]}}"
                   aria-label="Wuerfeln"></button>
               </div>
@@ -5648,9 +5648,9 @@
               <span data-i18n="field.gesamtwert">Gesamtwert</span>
               <div class="sr6-charactersheet-field-input-with-dice">
                 <input type="text" name="attr_sr6_matrix_handlung_signal_stoeren_gesamtwert" /><button
-                  type="roll"
+                  type="action"
                   class="sr6-charactersheet-field-dice-button"
-                  name="roll_sr6_matrix_handlung_signal_stoeren_gesamtwert"
+                  name="act_probe"
                   value="&{template:default} {{name=Matrix-Handlung}} {{Handlung=Signal stoeren (Gesamtwert)}} {{Pool=[[@{sr6_matrix_handlung_signal_stoeren_gesamtwert}]]}} {{Erfolge=[[@{sr6_matrix_handlung_signal_stoeren_gesamtwert}d6>5]]}}"
                   aria-label="Wuerfeln"></button>
               </div>
@@ -5666,9 +5666,9 @@
               <span data-i18n="field.grundwert">Grundwert</span>
               <div class="sr6-charactersheet-field-input-with-dice">
                 <input type="text" name="attr_sr6_matrix_handlung_teergrube_grundwert" /><button
-                  type="roll"
+                  type="action"
                   class="sr6-charactersheet-field-dice-button"
-                  name="roll_sr6_matrix_handlung_teergrube_grundwert"
+                  name="act_probe"
                   value="&{template:default} {{name=Matrix-Handlung}} {{Handlung=Teergrube (Grundwert)}} {{Pool=[[@{sr6_matrix_handlung_teergrube_grundwert}]]}} {{Erfolge=[[@{sr6_matrix_handlung_teergrube_grundwert}d6>5]]}}"
                   aria-label="Wuerfeln"></button>
               </div>
@@ -5682,9 +5682,9 @@
               <span data-i18n="field.gesamtwert">Gesamtwert</span>
               <div class="sr6-charactersheet-field-input-with-dice">
                 <input type="text" name="attr_sr6_matrix_handlung_teergrube_gesamtwert" /><button
-                  type="roll"
+                  type="action"
                   class="sr6-charactersheet-field-dice-button"
-                  name="roll_sr6_matrix_handlung_teergrube_gesamtwert"
+                  name="act_probe"
                   value="&{template:default} {{name=Matrix-Handlung}} {{Handlung=Teergrube (Gesamtwert)}} {{Pool=[[@{sr6_matrix_handlung_teergrube_gesamtwert}]]}} {{Erfolge=[[@{sr6_matrix_handlung_teergrube_gesamtwert}d6>5]]}}"
                   aria-label="Wuerfeln"></button>
               </div>
@@ -5700,9 +5700,9 @@
               <span data-i18n="field.grundwert">Grundwert</span>
               <div class="sr6-charactersheet-field-input-with-dice">
                 <input type="text" name="attr_sr6_matrix_handlung_uebertragung_abfangen_grundwert" /><button
-                  type="roll"
+                  type="action"
                   class="sr6-charactersheet-field-dice-button"
-                  name="roll_sr6_matrix_handlung_uebertragung_abfangen_grundwert"
+                  name="act_probe"
                   value="&{template:default} {{name=Matrix-Handlung}} {{Handlung=Uebertragung abfangen (Grundwert)}} {{Pool=[[@{sr6_matrix_handlung_uebertragung_abfangen_grundwert}]]}} {{Erfolge=[[@{sr6_matrix_handlung_uebertragung_abfangen_grundwert}d6>5]]}}"
                   aria-label="Wuerfeln"></button>
               </div>
@@ -5716,9 +5716,9 @@
               <span data-i18n="field.gesamtwert">Gesamtwert</span>
               <div class="sr6-charactersheet-field-input-with-dice">
                 <input type="text" name="attr_sr6_matrix_handlung_uebertragung_abfangen_gesamtwert" /><button
-                  type="roll"
+                  type="action"
                   class="sr6-charactersheet-field-dice-button"
-                  name="roll_sr6_matrix_handlung_uebertragung_abfangen_gesamtwert"
+                  name="act_probe"
                   value="&{template:default} {{name=Matrix-Handlung}} {{Handlung=Uebertragung abfangen (Gesamtwert)}} {{Pool=[[@{sr6_matrix_handlung_uebertragung_abfangen_gesamtwert}]]}} {{Erfolge=[[@{sr6_matrix_handlung_uebertragung_abfangen_gesamtwert}d6>5]]}}"
                   aria-label="Wuerfeln"></button>
               </div>
@@ -5734,9 +5734,9 @@
               <span data-i18n="field.grundwert">Grundwert</span>
               <div class="sr6-charactersheet-field-input-with-dice">
                 <input type="text" name="attr_sr6_matrix_handlung_verzoegerter_befehl_grundwert" /><button
-                  type="roll"
+                  type="action"
                   class="sr6-charactersheet-field-dice-button"
-                  name="roll_sr6_matrix_handlung_verzoegerter_befehl_grundwert"
+                  name="act_probe"
                   value="&{template:default} {{name=Matrix-Handlung}} {{Handlung=Verzoegerter Befehl (Grundwert)}} {{Pool=[[@{sr6_matrix_handlung_verzoegerter_befehl_grundwert}]]}} {{Erfolge=[[@{sr6_matrix_handlung_verzoegerter_befehl_grundwert}d6>5]]}}"
                   aria-label="Wuerfeln"></button>
               </div>
@@ -5750,9 +5750,9 @@
               <span data-i18n="field.gesamtwert">Gesamtwert</span>
               <div class="sr6-charactersheet-field-input-with-dice">
                 <input type="text" name="attr_sr6_matrix_handlung_verzoegerter_befehl_gesamtwert" /><button
-                  type="roll"
+                  type="action"
                   class="sr6-charactersheet-field-dice-button"
-                  name="roll_sr6_matrix_handlung_verzoegerter_befehl_gesamtwert"
+                  name="act_probe"
                   value="&{template:default} {{name=Matrix-Handlung}} {{Handlung=Verzoegerter Befehl (Gesamtwert)}} {{Pool=[[@{sr6_matrix_handlung_verzoegerter_befehl_gesamtwert}]]}} {{Erfolge=[[@{sr6_matrix_handlung_verzoegerter_befehl_gesamtwert}d6>5]]}}"
                   aria-label="Wuerfeln"></button>
               </div>
@@ -5963,9 +5963,9 @@
           <span data-i18n="field.rigging_initiative">Rigging-Initiative</span>
           <div class="sr6-charactersheet-field-input-with-dice">
             <input type="text" name="attr_sr6_rigging_initiative" /><button
-              type="roll"
+              type="action"
               class="sr6-charactersheet-field-dice-button"
-              name="roll_sr6_tab_rigging_initiative"
+              name="act_probe"
               value="&{template:default} {{name=Rigging-Initiative}} {{Basis=[[@{sr6_rigging_initiative}]]}} {{Gesamt=[[@{sr6_rigging_initiative}+3d6]]}}"
               aria-label="Wuerfeln"></button>
           </div>
@@ -5977,9 +5977,9 @@
           <span data-i18n="field.matrix_angriff">Angriff</span>
           <div class="sr6-charactersheet-field-input-with-dice">
             <input type="text" name="attr_sr6_rigging_angriff" /><button
-              type="roll"
+              type="action"
               class="sr6-charactersheet-field-dice-button"
-              name="roll_sr6_tab_rigging_angriff"
+              name="act_probe"
               value="&{template:default} {{name=Rigging-Kernwert}} {{Wert=Angriff}} {{Pool=[[@{sr6_rigging_angriff}]]}} {{Erfolge=[[@{sr6_rigging_angriff}d6>5]]}}"
               aria-label="Wuerfeln"></button>
           </div>
@@ -5989,9 +5989,9 @@
           <span data-i18n="field.matrix_schleicher">Schleicher</span>
           <div class="sr6-charactersheet-field-input-with-dice">
             <input type="text" name="attr_sr6_rigging_schleicher" /><button
-              type="roll"
+              type="action"
               class="sr6-charactersheet-field-dice-button"
-              name="roll_sr6_tab_rigging_schleicher"
+              name="act_probe"
               value="&{template:default} {{name=Rigging-Kernwert}} {{Wert=Schleicher}} {{Pool=[[@{sr6_rigging_schleicher}]]}} {{Erfolge=[[@{sr6_rigging_schleicher}d6>5]]}}"
               aria-label="Wuerfeln"></button>
           </div>
@@ -6001,9 +6001,9 @@
           <span data-i18n="field.matrix_datenverarbeitung">Datenverarbeitung</span>
           <div class="sr6-charactersheet-field-input-with-dice">
             <input type="text" name="attr_sr6_rigging_datenverarbeitung" /><button
-              type="roll"
+              type="action"
               class="sr6-charactersheet-field-dice-button"
-              name="roll_sr6_tab_rigging_datenverarbeitung"
+              name="act_probe"
               value="&{template:default} {{name=Rigging-Kernwert}} {{Wert=Datenverarbeitung}} {{Pool=[[@{sr6_rigging_datenverarbeitung}]]}} {{Erfolge=[[@{sr6_rigging_datenverarbeitung}d6>5]]}}"
               aria-label="Wuerfeln"></button>
           </div>
@@ -6013,9 +6013,9 @@
           <span data-i18n="field.matrix_firewall">Firewall</span>
           <div class="sr6-charactersheet-field-input-with-dice">
             <input type="text" name="attr_sr6_rigging_firewall" /><button
-              type="roll"
+              type="action"
               class="sr6-charactersheet-field-dice-button"
-              name="roll_sr6_tab_rigging_firewall"
+              name="act_probe"
               value="&{template:default} {{name=Rigging-Kernwert}} {{Wert=Firewall}} {{Pool=[[@{sr6_rigging_firewall}]]}} {{Erfolge=[[@{sr6_rigging_firewall}d6>5]]}}"
               aria-label="Wuerfeln"></button>
           </div>
@@ -6027,9 +6027,9 @@
           <span data-i18n="field.angriffswert">Angriffswert</span>
           <div class="sr6-charactersheet-field-input-with-dice">
             <input type="text" name="attr_sr6_rigging_angriffswert" /><button
-              type="roll"
+              type="action"
               class="sr6-charactersheet-field-dice-button"
-              name="roll_sr6_tab_rigging_angriffswert"
+              name="act_probe"
               value="&{template:default} {{name=Rigging-Kernwert}} {{Wert=Angriffswert}} {{Pool=[[@{sr6_rigging_angriffswert}]]}} {{Erfolge=[[@{sr6_rigging_angriffswert}d6>5]]}}"
               aria-label="Wuerfeln"></button>
           </div>
@@ -6039,9 +6039,9 @@
           <span data-i18n="field.verteidigungswert">Verteidigungswert</span>
           <div class="sr6-charactersheet-field-input-with-dice">
             <input type="text" name="attr_sr6_rigging_verteidigungswert" /><button
-              type="roll"
+              type="action"
               class="sr6-charactersheet-field-dice-button"
-              name="roll_sr6_tab_rigging_verteidigungswert"
+              name="act_probe"
               value="&{template:default} {{name=Rigging-Kernwert}} {{Wert=Verteidigungswert}} {{Pool=[[@{sr6_rigging_verteidigungswert}]]}} {{Erfolge=[[@{sr6_rigging_verteidigungswert}d6>5]]}}"
               aria-label="Wuerfeln"></button>
           </div>
@@ -6051,9 +6051,9 @@
           <span data-i18n="field.matrix_verteidigung">Matrix Verteidigung</span>
           <div class="sr6-charactersheet-field-input-with-dice">
             <input type="text" name="attr_sr6_rigging_matrix_verteidigung" /><button
-              type="roll"
+              type="action"
               class="sr6-charactersheet-field-dice-button"
-              name="roll_sr6_tab_rigging_matrix_verteidigung"
+              name="act_probe"
               value="&{template:default} {{name=Rigging-Kernwert}} {{Wert=Matrix Verteidigung}} {{Pool=[[@{sr6_rigging_matrix_verteidigung}]]}} {{Erfolge=[[@{sr6_rigging_matrix_verteidigung}d6>5]]}}"
               aria-label="Wuerfeln"></button>
           </div>
@@ -6063,9 +6063,9 @@
           <span data-i18n="field.matrix_schadenswiderstand">Matrix Schadenswiderstand</span>
           <div class="sr6-charactersheet-field-input-with-dice">
             <input type="text" name="attr_sr6_rigging_matrix_schadenswiderstand" /><button
-              type="roll"
+              type="action"
               class="sr6-charactersheet-field-dice-button"
-              name="roll_sr6_tab_rigging_matrix_schadenswiderstand"
+              name="act_probe"
               value="&{template:default} {{name=Rigging-Kernwert}} {{Wert=Matrix Schadenswiderstand}} {{Pool=[[@{sr6_rigging_matrix_schadenswiderstand}]]}} {{Erfolge=[[@{sr6_rigging_matrix_schadenswiderstand}d6>5]]}}"
               aria-label="Wuerfeln"></button>
           </div>
@@ -6075,9 +6075,9 @@
           <span data-i18n="field.biofeedback_schadenswiderstand">Biofeedback Schadenswiderstand</span>
           <div class="sr6-charactersheet-field-input-with-dice">
             <input type="text" name="attr_sr6_rigging_biofeedback_schadenswiderstand" /><button
-              type="roll"
+              type="action"
               class="sr6-charactersheet-field-dice-button"
-              name="roll_sr6_tab_rigging_biofeedback_schadenswiderstand"
+              name="act_probe"
               value="&{template:default} {{name=Rigging-Kernwert}} {{Wert=Biofeedback Schadenswiderstand}} {{Pool=[[@{sr6_rigging_biofeedback_schadenswiderstand}]]}} {{Erfolge=[[@{sr6_rigging_biofeedback_schadenswiderstand}d6>5]]}}"
               aria-label="Wuerfeln"></button>
           </div>
@@ -6406,9 +6406,9 @@
               <div class="sr6-charactersheet-field">
                 <span data-i18n="field.wurf">Wurf</span>
                 <button
-                  type="roll"
+                  type="action"
                   class="sr6-charactersheet-field-dice-button"
-                  name="roll_sr6_rigging_manoever"
+                  name="act_probe"
                   value="&{template:default} {{name=Manoever-Test}} {{Manoever=@{sr6_rigging_manoever_name}}} {{Stufe=@{sr6_rigging_manoever_stufe}}} {{Erfolge=[[@{sr6_rigging_manoever_stufe}d6>5]]}}"
                   aria-label="Wuerfeln"></button>
               </div>
@@ -6975,6 +6975,16 @@ function parseTemplateFields(template) {
   return fields;
 }
 
+function collectAttributeReferences(template) {
+  const refs = [];
+  const attributeRefRegex = /@\{([^}]+)\}/g;
+  let match;
+  while ((match = attributeRefRegex.exec(template)) !== null) {
+    refs.push(match[1]);
+  }
+  return [...new Set(refs)];
+}
+
 function parsePoolAttributeFromFields(fields) {
   const erfolgeField = fields.Erfolge || "";
   const match = erfolgeField.match(/\[\[@\{([^}]+)\}d6>5\]\]/);
@@ -7001,31 +7011,110 @@ function evaluateGlitch(diceResults, successCount) {
   return { isGlitch, isCriticalGlitch };
 }
 
+function buildResolvedFields(fields, values) {
+  const resolved = {};
+  Object.keys(fields).forEach((key) => {
+    resolved[key] = resolveFieldText(fields[key], values);
+  });
+  return resolved;
+}
+
+function buildProbeRows(resolvedFields) {
+  const ignoredKeys = new Set(["name", "Pool", "Erfolge", "Details"]);
+  const preferredOrder = [
+    "Attribut",
+    "Fertigkeit",
+    "Wert",
+    "Waffe",
+    "Handlung",
+    "Reichweite",
+    "Munition",
+    "Modus",
+    "Basis",
+    "Gesamt"
+  ];
+
+  const rows = [];
+  const usedKeys = new Set();
+
+  preferredOrder.forEach((key) => {
+    if (!ignoredKeys.has(key) && resolvedFields[key]) {
+      rows.push({ label: key, value: resolvedFields[key] });
+      usedKeys.add(key);
+    }
+  });
+
+  Object.keys(resolvedFields).forEach((key) => {
+    if (ignoredKeys.has(key) || usedKeys.has(key) || !resolvedFields[key]) return;
+    rows.push({ label: key, value: resolvedFields[key] });
+  });
+
+  return rows.slice(0, 4);
+}
+
+function buildSr6ProbeMessage(payload) {
+  const parts = ["&{template:sr6probe}"];
+  const name = payload.name || "Probe";
+  parts.push(`{{name=${name}}}`);
+
+  const rows = Array.isArray(payload.rows) ? payload.rows : [];
+  rows.forEach((row, index) => {
+    const rowNumber = index + 1;
+    parts.push(`{{label${rowNumber}=${row.label}}}`);
+    parts.push(`{{value${rowNumber}=${row.value}}}`);
+  });
+
+  if (payload.pool !== undefined && payload.pool !== null && `${payload.pool}` !== "") {
+    parts.push(`{{pool=${payload.pool}}}`);
+  }
+
+  if (payload.erfolge !== undefined && payload.erfolge !== null && `${payload.erfolge}` !== "") {
+    parts.push(`{{erfolge=${payload.erfolge}}}`);
+  }
+
+  if (payload.details) {
+    parts.push(`{{details=${payload.details}}}`);
+  }
+
+  if (payload.isGlitch) {
+    parts.push("{{is_glitch=1}}");
+  }
+
+  return parts.join(" ");
+}
+
 function runSuccessProbeRoll(eventInfo) {
   const rawTemplate = (eventInfo && eventInfo.htmlAttributes && eventInfo.htmlAttributes.value) || "";
   if (!rawTemplate) return;
 
   const fields = parseTemplateFields(rawTemplate);
   const poolAttribute = parsePoolAttributeFromFields(fields);
-  if (!poolAttribute) return;
-
-  const labelName = fields.Attribut ? "Attribut" : fields.Fertigkeit ? "Fertigkeit" : "Wert";
-  const labelTemplate = fields.Attribut || fields.Fertigkeit || "";
-  const titleTemplate = fields.name || "Probe";
-
-  const uniqueAttributes = [poolAttribute];
-  const attributeRefRegex = /@\{([^}]+)\}/g;
-  let refMatch;
-  while ((refMatch = attributeRefRegex.exec(rawTemplate)) !== null) {
-    uniqueAttributes.push(refMatch[1]);
+  const resolvedAttributes = collectAttributeReferences(rawTemplate);
+  if (poolAttribute && !resolvedAttributes.includes(poolAttribute)) {
+    resolvedAttributes.push(poolAttribute);
   }
-  const resolvedAttributes = [...new Set(uniqueAttributes)];
 
   getAttrs(resolvedAttributes, (values) => {
-    const pool = Math.max(0, parseNumber(values[poolAttribute]));
-    const title = resolveFieldText(titleTemplate, values);
-    const probeLabel = resolveFieldText(labelTemplate, values);
+    const resolvedFields = buildResolvedFields(fields, values);
+    const rows = buildProbeRows(resolvedFields);
+    const name = resolvedFields.name || "Probe";
 
+    if (!poolAttribute) {
+      const chatMessage = buildSr6ProbeMessage({
+        name: name,
+        rows: rows,
+        pool: resolvedFields.Pool || "",
+        erfolge: resolvedFields.Erfolge || "",
+        details: resolvedFields.Details || "",
+        isGlitch: false
+      });
+      startRoll(chatMessage, (rollResult) => {
+        finishRoll(rollResult.rollId);
+      });
+      return;
+    }
+
+    const pool = Math.max(0, parseNumber(values[poolAttribute]));
     const diceResults = [];
     for (let index = 0; index < pool; index += 1) {
       diceResults.push(rollD6());
@@ -7033,13 +7122,19 @@ function runSuccessProbeRoll(eventInfo) {
 
     const successCount = diceResults.filter((die) => die >= 5).length;
     const { isGlitch, isCriticalGlitch } = evaluateGlitch(diceResults, successCount);
-    const glitchText = isCriticalGlitch ? "!! KRITISCHER GLITCH !!" : "!! GLITCH !!";
-    const erfolgeValue = isGlitch
-      ? `<span style='color:#c62828;font-weight:700;'>${glitchText}</span>`
-      : `${successCount}`;
-    const details = `Rolling ${pool}d6>5 = ${buildDiceDetails(diceResults)}`;
+    const glitchText = isCriticalGlitch ? "!! Kritischer Patzer !!" : "!! Patzer !!";
+    const erfolgeValue = isGlitch ? glitchText : `${successCount}`;
+    const details = buildDiceDetails(diceResults);
+    const poolValue = resolvedFields.Pool || pool;
 
-    const chatMessage = `&{template:default} {{name=${title}}} {{${labelName}=${probeLabel}}} {{Pool=[[${pool}]]}} {{Erfolge=${erfolgeValue}}} {{Details=${details}}}`;
+    const chatMessage = buildSr6ProbeMessage({
+      name: name,
+      rows: rows,
+      pool: poolValue,
+      erfolge: erfolgeValue,
+      details: details,
+      isGlitch: isGlitch
+    });
     startRoll(chatMessage, (rollResult) => {
       finishRoll(rollResult.rollId);
     });
@@ -7661,4 +7756,71 @@ registerWorkerEvents();
     </script>
 
     <!-- END BLOCK: Runtime-i18n -->
+
+    <!-- BEGIN BLOCK: Rolltemplate SR6 Probe -->
+    <!-- BEGIN BLOCK: Rolltemplate SR6 Probe -->
+<rolltemplate class="sheet-rolltemplate-sr6probe">
+  <div class="sheet-sr6probe">
+    {{#name}}
+    <div class="sheet-sr6probe__header">{{name}}</div>
+    {{/name}}
+
+    {{#label1}}
+    <div class="sheet-sr6probe__row">
+      <span class="sheet-sr6probe__label">{{label1}}</span>
+      <span class="sheet-sr6probe__value">{{value1}}</span>
+    </div>
+    {{/label1}}
+    {{#label2}}
+    <div class="sheet-sr6probe__row">
+      <span class="sheet-sr6probe__label">{{label2}}</span>
+      <span class="sheet-sr6probe__value">{{value2}}</span>
+    </div>
+    {{/label2}}
+    {{#label3}}
+    <div class="sheet-sr6probe__row">
+      <span class="sheet-sr6probe__label">{{label3}}</span>
+      <span class="sheet-sr6probe__value">{{value3}}</span>
+    </div>
+    {{/label3}}
+    {{#label4}}
+    <div class="sheet-sr6probe__row">
+      <span class="sheet-sr6probe__label">{{label4}}</span>
+      <span class="sheet-sr6probe__value">{{value4}}</span>
+    </div>
+    {{/label4}}
+
+    {{#pool}}
+    <div class="sheet-sr6probe__row">
+      <span class="sheet-sr6probe__label">Pool</span>
+      <span class="sheet-sr6probe__value">{{pool}}</span>
+    </div>
+    {{/pool}}
+
+    {{#is_glitch}}
+    <div class="sheet-sr6probe__row sheet-sr6probe__row--danger">
+      <span class="sheet-sr6probe__label">Erfolge</span>
+      <span class="sheet-sr6probe__value">{{erfolge}}</span>
+    </div>
+    {{/is_glitch}}
+    {{^is_glitch}}
+    {{#erfolge}}
+    <div class="sheet-sr6probe__row">
+      <span class="sheet-sr6probe__label">Erfolge</span>
+      <span class="sheet-sr6probe__value">{{erfolge}}</span>
+    </div>
+    {{/erfolge}}
+    {{/is_glitch}}
+
+    {{#details}}
+    <div class="sheet-sr6probe__row">
+      <span class="sheet-sr6probe__label">Details</span>
+      <span class="sheet-sr6probe__value">{{details}}</span>
+    </div>
+    {{/details}}
+  </div>
+</rolltemplate>
+<!-- END BLOCK: Rolltemplate SR6 Probe -->
+
+    <!-- END BLOCK: Rolltemplate SR6 Probe -->
 </div>
