@@ -50,6 +50,7 @@
 fieldset.repeating_sr6fernkampfwaffen,
 fieldset.repeating_sr6nahkampfwaffen,
 fieldset.repeating_sr6panzerung,
+fieldset.repeating_sr6ausruestung,
 fieldset.repeating_sr6matrixgeraete,
 fieldset.repeating_sr6riggingfahrzeuge {
   display: grid;
@@ -65,6 +66,7 @@ fieldset.repeating_sr6riggingfahrzeuge {
 fieldset.repeating_sr6fernkampfwaffen .repitem,
 fieldset.repeating_sr6nahkampfwaffen .repitem,
 fieldset.repeating_sr6panzerung .repitem,
+fieldset.repeating_sr6ausruestung .repitem,
 fieldset.repeating_sr6matrixgeraete .repitem,
 fieldset.repeating_sr6riggingfahrzeuge .repitem {
   margin: 0;
@@ -73,6 +75,7 @@ fieldset.repeating_sr6riggingfahrzeuge .repitem {
 fieldset.repeating_sr6fernkampfwaffen .repitem:last-child,
 fieldset.repeating_sr6nahkampfwaffen .repitem:last-child,
 fieldset.repeating_sr6panzerung .repitem:last-child,
+fieldset.repeating_sr6ausruestung .repitem:last-child,
 fieldset.repeating_sr6matrixgeraete .repitem:last-child,
 fieldset.repeating_sr6riggingfahrzeuge .repitem:last-child {
   margin-bottom: 0;
@@ -81,6 +84,7 @@ fieldset.repeating_sr6riggingfahrzeuge .repitem:last-child {
 fieldset.repeating_sr6fernkampfwaffen .repcontrol,
 fieldset.repeating_sr6nahkampfwaffen .repcontrol,
 fieldset.repeating_sr6panzerung .repcontrol,
+fieldset.repeating_sr6ausruestung .repcontrol,
 fieldset.repeating_sr6matrixgeraete .repcontrol,
 fieldset.repeating_sr6riggingfahrzeuge .repcontrol {
   grid-column: 1 / -1;
@@ -130,6 +134,7 @@ fieldset.repeating_sr6riggingmanoever .repcontrol {
 .charsheet .repcontainer[data-groupname="repeating_sr6fernkampfwaffen"],
 .charsheet .repcontainer[data-groupname="repeating_sr6nahkampfwaffen"],
 .charsheet .repcontainer[data-groupname="repeating_sr6panzerung"],
+.charsheet .repcontainer[data-groupname="repeating_sr6ausruestung"],
 .charsheet .repcontainer[data-groupname="repeating_sr6matrixgeraete"],
 .charsheet .repcontainer[data-groupname="repeating_sr6riggingfahrzeuge"] {
   display: grid !important;
@@ -152,7 +157,6 @@ fieldset.repeating_sr6riggingmanoever .repcontrol {
 .charsheet .repcontainer[data-groupname="repeating_sr6riggingzubehoer"],
 .charsheet .repcontainer[data-groupname="repeating_sr6riggingagenten"],
 .charsheet .repcontainer[data-groupname="repeating_sr6riggingmanoever"],
-.charsheet .repcontainer[data-groupname="repeating_sr6ausruestung"],
 .charsheet .repcontainer[data-groupname="repeating_sr6cyberware"],
 .charsheet .repcontainer[data-groupname="repeating_sr6bioware"],
 .charsheet .repcontainer[data-groupname="repeating_sr6sin"],
@@ -166,6 +170,7 @@ fieldset.repeating_sr6riggingmanoever .repcontrol {
 .charsheet .repcontainer[data-groupname="repeating_sr6fernkampfwaffen"] > .repitem,
 .charsheet .repcontainer[data-groupname="repeating_sr6nahkampfwaffen"] > .repitem,
 .charsheet .repcontainer[data-groupname="repeating_sr6panzerung"] > .repitem,
+.charsheet .repcontainer[data-groupname="repeating_sr6ausruestung"] > .repitem,
 .charsheet .repcontainer[data-groupname="repeating_sr6matrixgeraete"] > .repitem,
 .charsheet .repcontainer[data-groupname="repeating_sr6riggingfahrzeuge"] > .repitem {
   margin: 0;
@@ -186,7 +191,6 @@ fieldset.repeating_sr6riggingmanoever .repcontrol {
 .charsheet .repcontainer[data-groupname="repeating_sr6riggingzubehoer"] > .repitem,
 .charsheet .repcontainer[data-groupname="repeating_sr6riggingagenten"] > .repitem,
 .charsheet .repcontainer[data-groupname="repeating_sr6riggingmanoever"] > .repitem,
-.charsheet .repcontainer[data-groupname="repeating_sr6ausruestung"] > .repitem,
 .charsheet .repcontainer[data-groupname="repeating_sr6cyberware"] > .repitem,
 .charsheet .repcontainer[data-groupname="repeating_sr6bioware"] > .repitem,
 .charsheet .repcontainer[data-groupname="repeating_sr6sin"] > .repitem,
@@ -215,4 +219,3 @@ fieldset.repeating_sr6riggingmanoever .repcontrol {
   border-color: var(--sr6-line);
   color: var(--sr6-line);
 }
-

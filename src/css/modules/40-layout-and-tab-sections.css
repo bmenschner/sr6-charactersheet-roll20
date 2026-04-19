@@ -2,6 +2,7 @@
   fieldset.repeating_sr6fernkampfwaffen,
   fieldset.repeating_sr6nahkampfwaffen,
   fieldset.repeating_sr6panzerung,
+  fieldset.repeating_sr6ausruestung,
   fieldset.repeating_sr6matrixgeraete,
   fieldset.repeating_sr6riggingfahrzeuge {
     grid-template-columns: minmax(0, 1fr);
@@ -10,6 +11,7 @@
   .charsheet .repcontainer[data-groupname="repeating_sr6fernkampfwaffen"],
   .charsheet .repcontainer[data-groupname="repeating_sr6nahkampfwaffen"],
   .charsheet .repcontainer[data-groupname="repeating_sr6panzerung"],
+  .charsheet .repcontainer[data-groupname="repeating_sr6ausruestung"],
   .charsheet .repcontainer[data-groupname="repeating_sr6matrixgeraete"],
   .charsheet .repcontainer[data-groupname="repeating_sr6riggingfahrzeuge"] {
     grid-template-columns: minmax(0, 1fr);
