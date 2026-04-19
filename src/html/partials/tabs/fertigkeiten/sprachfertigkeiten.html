@@ -1,0 +1,61 @@
+<!-- BEGIN BLOCK: Sprachfertigkeiten -->
+<section
+  class="sr6-charactersheet-box sr6-fertigkeiten-extra-section sr6-sprachfertigkeiten-section sr6-editable-section"
+  aria-labelledby="fertigkeiten-sprachfertigkeiten-titel">
+  <div class="sr6-editable-section-title-row">
+    <h2
+      id="fertigkeiten-sprachfertigkeiten-titel"
+      class="sr6-charactersheet-box-title"
+      data-i18n="section.sprachfertigkeiten">
+      Sprachfertigkeiten
+    </h2>
+    <label class="sr6-editable-section-toggle">
+      <input
+        type="checkbox"
+        name="attr_sr6_sprachfertigkeiten_edit_mode"
+        class="sr6-editable-section-mode"
+                      />
+                    <span data-i18n="field.editieren">Editieren</span>
+    </label>
+  </div>
+  <div class="sr6-charactersheet-box-content">
+    <div class="sr6-generic-list-header sr6-generic-list-header--4">
+      <span data-i18n="field.name">Name</span>
+      <span data-i18n="field.grundwert">Grundwert</span>
+      <span data-i18n="field.modifikator">Modifikator</span>
+      <span data-i18n="field.gesamtwert">Gesamtwert</span>
+    </div>
+    <fieldset class="repeating_sr6sprachfertigkeiten">
+      <div class="sr6-foundry-item">
+        <div class="sr6-editable-item-fields">
+          <div class="sr6-foundry-item-head sr6-charactersheet-row sr6-charactersheet-row-4">
+            <div class="sr6-charactersheet-field">
+              <span data-i18n="field.name">Name</span>
+              <input type="text" name="attr_sr6_sprachfertigkeit_name" />
+            </div>
+            <div class="sr6-charactersheet-field">
+              <span data-i18n="field.grundwert">Grundwert</span>
+              <input type="text" name="attr_sr6_sprachfertigkeit_grundwert" />
+            </div>
+            <div class="sr6-charactersheet-field">
+              <span data-i18n="field.modifikator">Modifikator</span>
+              <input type="text" name="attr_sr6_sprachfertigkeit_modifikator" />
+            </div>
+            <div class="sr6-charactersheet-field">
+              <span data-i18n="field.gesamtwert">Gesamtwert</span>
+              <div class="sr6-charactersheet-field-input-with-dice">
+                <input type="text" name="attr_sr6_sprachfertigkeit_gesamtwert" /><button
+                  type="action"
+                  class="sr6-charactersheet-field-dice-button"
+                  name="act_probe"
+                  value="&{template:default} {{name=Fertigkeits-Test}} {{Fertigkeit=@{sr6_sprachfertigkeit_name} (Gesamtwert)}} {{Pool=[[@{sr6_sprachfertigkeit_gesamtwert}]]}} {{Erfolge=[[@{sr6_sprachfertigkeit_gesamtwert}d6>5]]}}"
+                  aria-label="Wuerfeln"></button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </fieldset>
+  </div>
+</section>
+<!-- END BLOCK: Sprachfertigkeiten -->
