@@ -81,3 +81,5 @@ Hinweis: Dieses Repository aktualisiert Roll20 nicht über Git-Sync, sondern nur
 - https://wiki.roll20.net/Character_Sheet_Enhancement
 - https://wiki.roll20.net/Custom_Sheet_Sandbox
 - https://wiki.roll20.net/Character_Sheet/API
+- https://wiki.roll20.net/Roll_Templates
+- https://help.roll20.net/hc/en-us/articles/360037257334-How-to-Make-Roll-Templates

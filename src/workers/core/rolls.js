@@ -1,10 +1,54 @@
 // BEGIN MODULE: workers/core/rolls
 function parseTemplateFields(template) {
   const fields = {};
-  const fieldRegex = /\{\{([^=]+)=([\s\S]*?)\}\}/g;
-  let match;
-  while ((match = fieldRegex.exec(template)) !== null) {
-    fields[(match[1] || "").trim()] = (match[2] || "").trim();
+  let index = 0;
+  while (index < template.length) {
+    const start = template.indexOf("{{", index);
+    if (start === -1) break;
+
+    let cursor = start + 2;
+    let key = "";
+    while (cursor < template.length && template[cursor] !== "=") {
+      key += template[cursor];
+      cursor += 1;
+    }
+    if (cursor >= template.length) break;
+    cursor += 1;
+
+    let value = "";
+    let attrDepth = 0;
+    while (cursor < template.length) {
+      const current = template[cursor];
+      const next = template[cursor + 1];
+
+      if (current === "@" && next === "{") {
+        attrDepth += 1;
+        value += "@{";
+        cursor += 2;
+        continue;
+      }
+
+      if (current === "}" && attrDepth > 0) {
+        attrDepth -= 1;
+        value += current;
+        cursor += 1;
+        continue;
+      }
+
+      if (current === "}" && next === "}" && attrDepth === 0) {
+        cursor += 2;
+        break;
+      }
+
+      value += current;
+      cursor += 1;
+    }
+
+    if (key.trim()) {
+      fields[key.trim()] = value.trim();
+    }
+
+    index = cursor;
   }
   return fields;
 }
@@ -25,13 +69,44 @@ function parsePoolAttributeFromFields(fields) {
   return match ? match[1] : "";
 }
 
-function resolveFieldText(templateValue, values) {
+function extractRepeatingRowPrefix(eventInfo) {
+  const sourceAttribute = (eventInfo && eventInfo.sourceAttribute) || "";
+  const match = sourceAttribute.match(/^(repeating_[^_]+_[^_]+)_/);
+  return match ? match[1] : "";
+}
+
+function buildAttrLookup(values, repeatingRowPrefix) {
+  return function lookupAttr(key) {
+    if (!key) return "";
+    if (Object.prototype.hasOwnProperty.call(values, key)) {
+      return values[key];
+    }
+    if (repeatingRowPrefix) {
+      const repeatingKey = `${repeatingRowPrefix}_${key}`;
+      if (Object.prototype.hasOwnProperty.call(values, repeatingKey)) {
+        return values[repeatingKey];
+      }
+    }
+    return "";
+  };
+}
+
+function resolveFieldText(templateValue, lookupAttr) {
   if (!templateValue) return "";
-  return templateValue.replace(/@\{([^}]+)\}/g, (_, key) => values[key] || "");
+  return templateValue.replace(/@\{([^}]+)\}/g, (_, key) => lookupAttr(key));
 }
 
 function buildDiceDetails(diceResults) {
   return diceResults.join(" + ");
+}
+
+function buildDetailsDice(diceResults, maxDice = 20) {
+  return diceResults.slice(0, maxDice).map((die) => {
+    let tone = "neutral";
+    if (die === 1) tone = "fail";
+    if (die >= 5) tone = "success";
+    return { value: `${die}`, tone: tone };
+  });
 }
 
 function rollD6() {
@@ -45,10 +120,10 @@ function evaluateGlitch(diceResults, successCount) {
   return { isGlitch, isCriticalGlitch };
 }
 
-function buildResolvedFields(fields, values) {
+function buildResolvedFields(fields, lookupAttr) {
   const resolved = {};
   Object.keys(fields).forEach((key) => {
-    resolved[key] = resolveFieldText(fields[key], values);
+    resolved[key] = resolveFieldText(fields[key], lookupAttr);
   });
   return resolved;
 }
@@ -60,6 +135,7 @@ function buildProbeRows(resolvedFields) {
     "Fertigkeit",
     "Wert",
     "Waffe",
+    "Schadenswert",
     "Handlung",
     "Reichweite",
     "Munition",
@@ -86,6 +162,53 @@ function buildProbeRows(resolvedFields) {
   return rows.slice(0, 4);
 }
 
+function deriveTitleFromPoolAttribute(poolAttribute) {
+  if (!poolAttribute) return "";
+
+  if (poolAttribute.startsWith("sr6_combat_")) return "Kampf";
+  if (poolAttribute.startsWith("sr6_fernkampf_")) return "Fernkampfwaffen";
+  if (poolAttribute.startsWith("sr6_nahkampf_")) return "Nahkampfwaffen";
+
+  if (poolAttribute.startsWith("sr6_matrix_handlung_")) return "Matrix-Handlungen";
+  if (poolAttribute.startsWith("sr6_matrix_")) return "Matrix: Kernwerte";
+
+  if (poolAttribute.startsWith("sr6_rigging_manoever_")) return "Manöver";
+  if (poolAttribute.startsWith("sr6_rigging_")) return "Rigging: Kernwerte";
+
+  if (poolAttribute.startsWith("sr6_magic_")) return "Magie: Kernwerte";
+  if (poolAttribute.startsWith("sr6_zauber_")) return "Zauber";
+  if (poolAttribute.startsWith("sr6_ritual_")) return "Rituale";
+
+  if (poolAttribute.startsWith("sr6_verteidigung_")) return "Verteidigung";
+  if (poolAttribute.startsWith("sr6_schadenswiderstand_")) return "Schadenswiderstand";
+  if (poolAttribute.startsWith("sr6_skill_")) return "Fertigkeiten";
+
+  return "";
+}
+
+function deriveProbeTitle(resolvedFields, poolAttribute) {
+  const explicitName = resolvedFields.name;
+  const attributeValue = resolvedFields.Attribut;
+  const skillValue = resolvedFields.Fertigkeit;
+
+  if (attributeValue) {
+    const shortAttribute = attributeValue.replace(/\s*\([^)]*\)\s*$/, "").trim();
+    if (shortAttribute) return shortAttribute;
+  }
+
+  const titleFromPoolAttribute = deriveTitleFromPoolAttribute(poolAttribute);
+  if (titleFromPoolAttribute) {
+    return titleFromPoolAttribute;
+  }
+
+  if (skillValue) {
+    return "Fertigkeiten";
+  }
+
+  if (explicitName) return explicitName;
+  return "Probe";
+}
+
 function buildSr6ProbeMessage(payload) {
   const parts = ["&{template:sr6probe}"];
   const name = payload.name || "Probe";
@@ -110,6 +233,16 @@ function buildSr6ProbeMessage(payload) {
     parts.push(`{{details=${payload.details}}}`);
   }
 
+  const detailsDice = Array.isArray(payload.detailsDice) ? payload.detailsDice : [];
+  if (detailsDice.length > 0) {
+    parts.push("{{details_dice=1}}");
+    detailsDice.forEach((die, index) => {
+      const dieIndex = index + 1;
+      parts.push(`{{d${dieIndex}_v=${die.value}}}`);
+      parts.push(`{{d${dieIndex}_t=${die.tone}}}`);
+    });
+  }
+
   if (payload.isGlitch) {
     parts.push("{{is_glitch=1}}");
   }
@@ -120,18 +253,27 @@ function buildSr6ProbeMessage(payload) {
 function runSuccessProbeRoll(eventInfo) {
   const rawTemplate = (eventInfo && eventInfo.htmlAttributes && eventInfo.htmlAttributes.value) || "";
   if (!rawTemplate) return;
+  const repeatingRowPrefix = extractRepeatingRowPrefix(eventInfo);
 
   const fields = parseTemplateFields(rawTemplate);
   const poolAttribute = parsePoolAttributeFromFields(fields);
-  const resolvedAttributes = collectAttributeReferences(rawTemplate);
-  if (poolAttribute && !resolvedAttributes.includes(poolAttribute)) {
-    resolvedAttributes.push(poolAttribute);
+  const attributeRefs = collectAttributeReferences(rawTemplate);
+  if (poolAttribute && !attributeRefs.includes(poolAttribute)) {
+    attributeRefs.push(poolAttribute);
   }
+  const resolvedAttributes = [];
+  attributeRefs.forEach((attributeRef) => {
+    resolvedAttributes.push(attributeRef);
+    if (repeatingRowPrefix) {
+      resolvedAttributes.push(`${repeatingRowPrefix}_${attributeRef}`);
+    }
+  });
 
   getAttrs(resolvedAttributes, (values) => {
-    const resolvedFields = buildResolvedFields(fields, values);
+    const lookupAttr = buildAttrLookup(values, repeatingRowPrefix);
+    const resolvedFields = buildResolvedFields(fields, lookupAttr);
     const rows = buildProbeRows(resolvedFields);
-    const name = resolvedFields.name || "Probe";
+    const name = deriveProbeTitle(resolvedFields, poolAttribute);
 
     if (!poolAttribute) {
       const chatMessage = buildSr6ProbeMessage({
@@ -148,7 +290,7 @@ function runSuccessProbeRoll(eventInfo) {
       return;
     }
 
-    const pool = Math.max(0, parseNumber(values[poolAttribute]));
+    const pool = Math.max(0, parseNumber(lookupAttr(poolAttribute)));
     const diceResults = [];
     for (let index = 0; index < pool; index += 1) {
       diceResults.push(rollD6());
@@ -159,6 +301,7 @@ function runSuccessProbeRoll(eventInfo) {
     const glitchText = isCriticalGlitch ? "!! Kritischer Patzer !!" : "!! Patzer !!";
     const erfolgeValue = isGlitch ? glitchText : `${successCount}`;
     const details = buildDiceDetails(diceResults);
+    const detailsDice = buildDetailsDice(diceResults);
     const poolValue = resolvedFields.Pool || pool;
 
     const chatMessage = buildSr6ProbeMessage({
@@ -167,6 +310,7 @@ function runSuccessProbeRoll(eventInfo) {
       pool: poolValue,
       erfolge: erfolgeValue,
       details: details,
+      detailsDice: detailsDice,
       isGlitch: isGlitch
     });
     startRoll(chatMessage, (rollResult) => {
@@ -177,5 +321,7 @@ function runSuccessProbeRoll(eventInfo) {
 
 function registerSuccessProbeRollEvents() {
   on("clicked:probe", runSuccessProbeRoll);
+  on("clicked:repeating_sr6fernkampfwaffen:probe", runSuccessProbeRoll);
+  on("clicked:repeating_sr6nahkampfwaffen:probe", runSuccessProbeRoll);
 }
 // END MODULE: workers/core/rolls

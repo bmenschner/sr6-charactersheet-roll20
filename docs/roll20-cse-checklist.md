@@ -7,6 +7,8 @@ Stand: 2026-04-15
 - https://wiki.roll20.net/Building_Character_Sheets
 - https://wiki.roll20.net/Character_Sheet_Enhancement
 - https://wiki.roll20.net/Character_Sheet/API
+- https://wiki.roll20.net/Roll_Templates
+- https://help.roll20.net/hc/en-us/articles/360037257334-How-to-Make-Roll-Templates
 - https://help.roll20.net/hc/en-us/articles/360037773393-Building-Character-Sheets
 - https://help.roll20.net/hc/en-us/articles/360037773413-Intro-to-Sheet-Development
 
