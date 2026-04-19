@@ -13,16 +13,15 @@
       </label>
     </div>
     <div class="sr6-charactersheet-box-content">
-      <div class="sr6-generic-list-header sr6-generic-list-header--4" aria-hidden="true">
+      <div class="sr6-generic-list-header sr6-generic-list-header--3" aria-hidden="true">
         <span data-i18n="field.name">Name</span>
         <span data-i18n="field.stufe">Stufe</span>
         <span data-i18n="field.notiz">Notiz</span>
-        <span data-i18n="field.wurf">Wurf</span>
       </div>
       <fieldset class="repeating_sr6riggingmanoever">
         <div class="sr6-foundry-item">
           <div class="sr6-editable-item-fields">
-            <div class="sr6-foundry-item-head sr6-charactersheet-row sr6-charactersheet-row-4">
+            <div class="sr6-foundry-item-head sr6-charactersheet-row sr6-charactersheet-row-3">
               <div class="sr6-charactersheet-field">
                 <span data-i18n="field.name">Name</span>
                 <input type="text" name="attr_sr6_rigging_manoever_name" />
@@ -34,15 +33,6 @@
               <div class="sr6-charactersheet-field">
                 <span data-i18n="field.notiz">Notiz</span>
                 <input type="text" name="attr_sr6_rigging_manoever_notiz" />
-              </div>
-              <div class="sr6-charactersheet-field">
-                <span data-i18n="field.wurf">Wurf</span>
-                <button
-                  type="action"
-                  class="sr6-charactersheet-field-dice-button"
-                  name="act_probe"
-                  value="&{template:default} {{name=Manoever-Test}} {{Manoever=@{sr6_rigging_manoever_name}}} {{Stufe=@{sr6_rigging_manoever_stufe}}} {{Erfolge=[[@{sr6_rigging_manoever_stufe}d6>5]]}}"
-                  aria-label="Wuerfeln"></button>
               </div>
             </div>
           </div>
