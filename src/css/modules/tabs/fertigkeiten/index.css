@@ -1,5 +1,64 @@
-/* Tab fertigkeiten
- * Platz fuer tab-spezifische Regeln.
- * Shared Regeln verbleiben in den bestehenden shared Modulen,
- * bis wir sie schrittweise pro Tab herausziehen.
- */
+/* Fertigkeiten Tab: Zusatzboxen unterhalb der Haupt-Fertigkeiten */
+.sr6-fertigkeiten-extra-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0.75rem 1rem;
+  margin-top: 0.75rem;
+}
+
+.sr6-fertigkeiten-extra-section .sr6-generic-list-header {
+  display: none;
+}
+
+.sr6-fertigkeiten-extra-section .sr6-foundry-item {
+  margin-bottom: 0.375rem;
+}
+
+.sr6-fertigkeiten-extra-section:has(.sr6-editable-section-mode:not(:checked)) .sr6-generic-list-header {
+  display: grid;
+  gap: 0.375rem;
+  margin-bottom: 0.25rem;
+}
+
+.sr6-fertigkeiten-extra-section:has(.sr6-editable-section-mode:not(:checked)) .sr6-editable-item-fields {
+  display: flex;
+  align-items: center;
+  flex-wrap: nowrap;
+  gap: 0.375rem;
+}
+
+.sr6-fertigkeiten-extra-section:has(.sr6-editable-section-mode:not(:checked)) .sr6-editable-item-fields .sr6-foundry-item-head {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 0.375rem;
+  flex: 1 1 0;
+}
+
+.sr6-fertigkeiten-extra-section:has(.sr6-editable-section-mode:not(:checked)) .sr6-editable-item-fields .sr6-charactersheet-field {
+  min-height: var(--sr6-list-single-line-height);
+  display: flex;
+  flex-direction: row;
+  gap: 0;
+  align-items: center;
+}
+
+.sr6-fertigkeiten-extra-section:has(.sr6-editable-section-mode:not(:checked)) .sr6-editable-item-fields .sr6-charactersheet-field > span {
+  display: none;
+}
+
+.sr6-fertigkeiten-extra-section:has(.sr6-editable-section-mode:not(:checked)) .sr6-editable-item-fields input:not([type="checkbox"]),
+.sr6-fertigkeiten-extra-section:has(.sr6-editable-section-mode:not(:checked)) .sr6-editable-item-fields select {
+  pointer-events: none;
+  user-select: none;
+  border-bottom: none;
+  padding: 0;
+  font-size: 0.82rem;
+  min-height: var(--sr6-list-single-line-height);
+  line-height: var(--sr6-list-single-line-height);
+}
+
+@media (max-width: 800px) {
+  .sr6-fertigkeiten-extra-grid {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}

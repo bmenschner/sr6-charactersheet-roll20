@@ -2112,7 +2112,7 @@
             role="tabpanel">
             <!-- BEGIN BLOCK: Fertigkeiten -->
             <!-- BEGIN BLOCK: Tab Fertigkeiten Entry -->
-<!-- BEGIN BLOCK: Fertigkeiten -->
+<!-- BEGIN BLOCK: Fertigkeiten Modul -->
 <!-- BEGIN BLOCK: Fertigkeiten (Allgemein) -->
 <section
   class="sr6-charactersheet-box sr6-charactersheet-box-fertigkeiten-allgemein sr6-editable-section sr6-editable-overview-section"
@@ -2804,7 +2804,260 @@
 </section>
 <!-- END BLOCK: Fertigkeiten (Allgemein) -->
 
-<!-- END BLOCK: Fertigkeiten -->
+<!-- END BLOCK: Fertigkeiten Modul -->
+
+<!-- BEGIN BLOCK: Fertigkeiten Zusatzboxen Layout -->
+<div class="sr6-fertigkeiten-extra-grid">
+  <!-- BEGIN BLOCK: Wissensfertigkeiten -->
+<section
+  class="sr6-charactersheet-box sr6-fertigkeiten-extra-section sr6-wissensfertigkeiten-section sr6-editable-section"
+  aria-labelledby="fertigkeiten-wissensfertigkeiten-titel">
+  <div class="sr6-editable-section-title-row">
+    <h2
+      id="fertigkeiten-wissensfertigkeiten-titel"
+      class="sr6-charactersheet-box-title"
+      data-i18n="section.wissensfertigkeiten">
+      Wissensfertigkeiten
+    </h2>
+    <label class="sr6-editable-section-toggle">
+      <input
+        type="checkbox"
+        name="attr_sr6_wissensfertigkeiten_edit_mode"
+        class="sr6-editable-section-mode"
+                      />
+                    <span data-i18n="field.editieren">Editieren</span>
+    </label>
+  </div>
+  <div class="sr6-charactersheet-box-content">
+    <div class="sr6-generic-list-header sr6-generic-list-header--4">
+      <span data-i18n="field.name">Name</span>
+      <span data-i18n="field.grundwert">Grundwert</span>
+      <span data-i18n="field.modifikator">Modifikator</span>
+      <span data-i18n="field.gesamtwert">Gesamtwert</span>
+    </div>
+    <fieldset class="repeating_sr6wissensfertigkeiten">
+      <div class="sr6-foundry-item">
+        <div class="sr6-editable-item-fields">
+          <div class="sr6-foundry-item-head sr6-charactersheet-row sr6-charactersheet-row-4">
+            <div class="sr6-charactersheet-field">
+              <span data-i18n="field.name">Name</span>
+              <input type="text" name="attr_sr6_wissensfertigkeit_name" />
+            </div>
+            <div class="sr6-charactersheet-field">
+              <span data-i18n="field.grundwert">Grundwert</span>
+              <input type="text" name="attr_sr6_wissensfertigkeit_grundwert" />
+            </div>
+            <div class="sr6-charactersheet-field">
+              <span data-i18n="field.modifikator">Modifikator</span>
+              <input type="text" name="attr_sr6_wissensfertigkeit_modifikator" />
+            </div>
+            <div class="sr6-charactersheet-field">
+              <span data-i18n="field.gesamtwert">Gesamtwert</span>
+              <div class="sr6-charactersheet-field-input-with-dice">
+                <input type="text" name="attr_sr6_wissensfertigkeit_gesamtwert" /><button
+                  type="action"
+                  class="sr6-charactersheet-field-dice-button"
+                  name="act_probe"
+                  value="&{template:default} {{name=Fertigkeits-Test}} {{Fertigkeit=@{sr6_wissensfertigkeit_name} (Gesamtwert)}} {{Pool=[[@{sr6_wissensfertigkeit_gesamtwert}]]}} {{Erfolge=[[@{sr6_wissensfertigkeit_gesamtwert}d6>5]]}}"
+                  aria-label="Wuerfeln"></button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </fieldset>
+  </div>
+</section>
+<!-- END BLOCK: Wissensfertigkeiten -->
+
+  <!-- BEGIN BLOCK: Sprachfertigkeiten -->
+<section
+  class="sr6-charactersheet-box sr6-fertigkeiten-extra-section sr6-sprachfertigkeiten-section sr6-editable-section"
+  aria-labelledby="fertigkeiten-sprachfertigkeiten-titel">
+  <div class="sr6-editable-section-title-row">
+    <h2
+      id="fertigkeiten-sprachfertigkeiten-titel"
+      class="sr6-charactersheet-box-title"
+      data-i18n="section.sprachfertigkeiten">
+      Sprachfertigkeiten
+    </h2>
+    <label class="sr6-editable-section-toggle">
+      <input
+        type="checkbox"
+        name="attr_sr6_sprachfertigkeiten_edit_mode"
+        class="sr6-editable-section-mode"
+                      />
+                    <span data-i18n="field.editieren">Editieren</span>
+    </label>
+  </div>
+  <div class="sr6-charactersheet-box-content">
+    <div class="sr6-generic-list-header sr6-generic-list-header--4">
+      <span data-i18n="field.name">Name</span>
+      <span data-i18n="field.grundwert">Grundwert</span>
+      <span data-i18n="field.modifikator">Modifikator</span>
+      <span data-i18n="field.gesamtwert">Gesamtwert</span>
+    </div>
+    <fieldset class="repeating_sr6sprachfertigkeiten">
+      <div class="sr6-foundry-item">
+        <div class="sr6-editable-item-fields">
+          <div class="sr6-foundry-item-head sr6-charactersheet-row sr6-charactersheet-row-4">
+            <div class="sr6-charactersheet-field">
+              <span data-i18n="field.name">Name</span>
+              <input type="text" name="attr_sr6_sprachfertigkeit_name" />
+            </div>
+            <div class="sr6-charactersheet-field">
+              <span data-i18n="field.grundwert">Grundwert</span>
+              <input type="text" name="attr_sr6_sprachfertigkeit_grundwert" />
+            </div>
+            <div class="sr6-charactersheet-field">
+              <span data-i18n="field.modifikator">Modifikator</span>
+              <input type="text" name="attr_sr6_sprachfertigkeit_modifikator" />
+            </div>
+            <div class="sr6-charactersheet-field">
+              <span data-i18n="field.gesamtwert">Gesamtwert</span>
+              <div class="sr6-charactersheet-field-input-with-dice">
+                <input type="text" name="attr_sr6_sprachfertigkeit_gesamtwert" /><button
+                  type="action"
+                  class="sr6-charactersheet-field-dice-button"
+                  name="act_probe"
+                  value="&{template:default} {{name=Fertigkeits-Test}} {{Fertigkeit=@{sr6_sprachfertigkeit_name} (Gesamtwert)}} {{Pool=[[@{sr6_sprachfertigkeit_gesamtwert}]]}} {{Erfolge=[[@{sr6_sprachfertigkeit_gesamtwert}d6>5]]}}"
+                  aria-label="Wuerfeln"></button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </fieldset>
+  </div>
+</section>
+<!-- END BLOCK: Sprachfertigkeiten -->
+
+  <!-- BEGIN BLOCK: Talentsofts -->
+<section
+  class="sr6-charactersheet-box sr6-fertigkeiten-extra-section sr6-talentsofts-section sr6-editable-section"
+  aria-labelledby="fertigkeiten-talentsofts-titel">
+  <div class="sr6-editable-section-title-row">
+    <h2
+      id="fertigkeiten-talentsofts-titel"
+      class="sr6-charactersheet-box-title"
+      data-i18n="section.talentsofts">
+      Talentsofts
+    </h2>
+    <label class="sr6-editable-section-toggle">
+      <input
+        type="checkbox"
+        name="attr_sr6_talentsofts_edit_mode"
+        class="sr6-editable-section-mode"
+                      />
+                    <span data-i18n="field.editieren">Editieren</span>
+    </label>
+  </div>
+  <div class="sr6-charactersheet-box-content">
+    <div class="sr6-generic-list-header sr6-generic-list-header--4">
+      <span data-i18n="field.name">Name</span>
+      <span data-i18n="field.grundwert">Grundwert</span>
+      <span data-i18n="field.modifikator">Modifikator</span>
+      <span data-i18n="field.gesamtwert">Gesamtwert</span>
+    </div>
+    <fieldset class="repeating_sr6talentsofts">
+      <div class="sr6-foundry-item">
+        <div class="sr6-editable-item-fields">
+          <div class="sr6-foundry-item-head sr6-charactersheet-row sr6-charactersheet-row-4">
+            <div class="sr6-charactersheet-field">
+              <span data-i18n="field.name">Name</span>
+              <input type="text" name="attr_sr6_talentsoft_name" />
+            </div>
+            <div class="sr6-charactersheet-field">
+              <span data-i18n="field.grundwert">Grundwert</span>
+              <input type="text" name="attr_sr6_talentsoft_grundwert" />
+            </div>
+            <div class="sr6-charactersheet-field">
+              <span data-i18n="field.modifikator">Modifikator</span>
+              <input type="text" name="attr_sr6_talentsoft_modifikator" />
+            </div>
+            <div class="sr6-charactersheet-field">
+              <span data-i18n="field.gesamtwert">Gesamtwert</span>
+              <div class="sr6-charactersheet-field-input-with-dice">
+                <input type="text" name="attr_sr6_talentsoft_gesamtwert" /><button
+                  type="action"
+                  class="sr6-charactersheet-field-dice-button"
+                  name="act_probe"
+                  value="&{template:default} {{name=Fertigkeits-Test}} {{Fertigkeit=@{sr6_talentsoft_name} (Gesamtwert)}} {{Pool=[[@{sr6_talentsoft_gesamtwert}]]}} {{Erfolge=[[@{sr6_talentsoft_gesamtwert}d6>5]]}}"
+                  aria-label="Wuerfeln"></button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </fieldset>
+  </div>
+</section>
+<!-- END BLOCK: Talentsofts -->
+
+  <!-- BEGIN BLOCK: Wissens- / Sprachsofts -->
+<section
+  class="sr6-charactersheet-box sr6-fertigkeiten-extra-section sr6-wissenssprachsofts-section sr6-editable-section"
+  aria-labelledby="fertigkeiten-wissenssprachsofts-titel">
+  <div class="sr6-editable-section-title-row">
+    <h2
+      id="fertigkeiten-wissenssprachsofts-titel"
+      class="sr6-charactersheet-box-title"
+      data-i18n="section.wissens_sprachsofts">
+      Wissens- / Sprachsofts
+    </h2>
+    <label class="sr6-editable-section-toggle">
+      <input
+        type="checkbox"
+        name="attr_sr6_wissenssprachsofts_edit_mode"
+        class="sr6-editable-section-mode"
+                      />
+                    <span data-i18n="field.editieren">Editieren</span>
+    </label>
+  </div>
+  <div class="sr6-charactersheet-box-content">
+    <div class="sr6-generic-list-header sr6-generic-list-header--4">
+      <span data-i18n="field.name">Name</span>
+      <span data-i18n="field.grundwert">Grundwert</span>
+      <span data-i18n="field.modifikator">Modifikator</span>
+      <span data-i18n="field.gesamtwert">Gesamtwert</span>
+    </div>
+    <fieldset class="repeating_sr6wissenssprachsofts">
+      <div class="sr6-foundry-item">
+        <div class="sr6-editable-item-fields">
+          <div class="sr6-foundry-item-head sr6-charactersheet-row sr6-charactersheet-row-4">
+            <div class="sr6-charactersheet-field">
+              <span data-i18n="field.name">Name</span>
+              <input type="text" name="attr_sr6_wissenssprachsoft_name" />
+            </div>
+            <div class="sr6-charactersheet-field">
+              <span data-i18n="field.grundwert">Grundwert</span>
+              <input type="text" name="attr_sr6_wissenssprachsoft_grundwert" />
+            </div>
+            <div class="sr6-charactersheet-field">
+              <span data-i18n="field.modifikator">Modifikator</span>
+              <input type="text" name="attr_sr6_wissenssprachsoft_modifikator" />
+            </div>
+            <div class="sr6-charactersheet-field">
+              <span data-i18n="field.gesamtwert">Gesamtwert</span>
+              <div class="sr6-charactersheet-field-input-with-dice">
+                <input type="text" name="attr_sr6_wissenssprachsoft_gesamtwert" /><button
+                  type="action"
+                  class="sr6-charactersheet-field-dice-button"
+                  name="act_probe"
+                  value="&{template:default} {{name=Fertigkeits-Test}} {{Fertigkeit=@{sr6_wissenssprachsoft_name} (Gesamtwert)}} {{Pool=[[@{sr6_wissenssprachsoft_gesamtwert}]]}} {{Erfolge=[[@{sr6_wissenssprachsoft_gesamtwert}d6>5]]}}"
+                  aria-label="Wuerfeln"></button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </fieldset>
+  </div>
+</section>
+<!-- END BLOCK: Wissens- / Sprachsofts -->
+
+</div>
+<!-- END BLOCK: Fertigkeiten Zusatzboxen Layout -->
 
 <!-- END BLOCK: Tab Fertigkeiten Entry -->
 
@@ -7542,6 +7795,10 @@ registerWorkerEvents();
   "section.kampf_panzerung": "Panzerung",
   "section.kampf_kernwerte": "Kampf: Kernwerte",
   "section.fertigkeiten_basis": "Fertigkeiten",
+  "section.wissensfertigkeiten": "Wissensfertigkeiten",
+  "section.sprachfertigkeiten": "Sprachfertigkeiten",
+  "section.talentsofts": "Talentsofts",
+  "section.wissens_sprachsofts": "Wissens- / Sprachsofts",
   "section.magie_kern": "Magie: Kernwerte",
   "section.magie_zauber": "Zauber",
   "section.magie_adeptenkraefte": "Adeptenkräfte",
