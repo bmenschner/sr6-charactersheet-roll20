@@ -24,7 +24,7 @@
     <!-- END BLOCK: Zeile 1 -->
 
     <!-- BEGIN BLOCK: Zeile 2 -->
-    <div class="sr6-charactersheet-row sr6-charactersheet-row-3">
+    <div class="sr6-charactersheet-row sr6-charactersheet-row-4">
       <div class="sr6-charactersheet-field">
         <span data-i18n="field.fernkampfangriff">Fernkampfangriff</span>
         <div class="sr6-charactersheet-field-input-with-dice">
@@ -33,6 +33,17 @@
             class="sr6-charactersheet-field-dice-button"
             name="act_probe"
             value="&{template:default} {{name=Kampf: Kernwerte}} {{Wert=Fernkampfangriff}} {{Pool=[[@{sr6_combat_fernkampfangriff}]]}} {{Erfolge=[[@{sr6_combat_fernkampfangriff}d6>5]]}}"
+            aria-label="Wuerfeln"></button>
+        </div>
+      </div>
+      <div class="sr6-charactersheet-field">
+        <span data-i18n="field.nahkampfangriff">Nahkampfangriff</span>
+        <div class="sr6-charactersheet-field-input-with-dice">
+          <input type="text" name="attr_sr6_combat_nahkampfangriff" /><button
+            type="action"
+            class="sr6-charactersheet-field-dice-button"
+            name="act_probe"
+            value="&{template:default} {{name=Kampf: Kernwerte}} {{Wert=Nahkampfangriff}} {{Pool=[[@{sr6_combat_nahkampfangriff}]]}} {{Erfolge=[[@{sr6_combat_nahkampfangriff}d6>5]]}}"
             aria-label="Wuerfeln"></button>
         </div>
       </div>
