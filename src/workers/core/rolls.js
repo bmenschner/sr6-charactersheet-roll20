@@ -34,6 +34,15 @@ function buildDiceDetails(diceResults) {
   return diceResults.join(" + ");
 }
 
+function buildDetailsDice(diceResults, maxDice = 20) {
+  return diceResults.slice(0, maxDice).map((die) => {
+    let tone = "neutral";
+    if (die === 1) tone = "fail";
+    if (die >= 5) tone = "success";
+    return { value: `${die}`, tone: tone };
+  });
+}
+
 function rollD6() {
   return Math.floor(Math.random() * 6) + 1;
 }
@@ -86,6 +95,19 @@ function buildProbeRows(resolvedFields) {
   return rows.slice(0, 4);
 }
 
+function deriveProbeTitle(resolvedFields) {
+  const explicitName = resolvedFields.name;
+  const attributeValue = resolvedFields.Attribut;
+
+  if (attributeValue) {
+    const shortAttribute = attributeValue.replace(/\s*\([^)]*\)\s*$/, "").trim();
+    if (shortAttribute) return shortAttribute;
+  }
+
+  if (explicitName) return explicitName;
+  return "Probe";
+}
+
 function buildSr6ProbeMessage(payload) {
   const parts = ["&{template:sr6probe}"];
   const name = payload.name || "Probe";
@@ -110,6 +132,16 @@ function buildSr6ProbeMessage(payload) {
     parts.push(`{{details=${payload.details}}}`);
   }
 
+  const detailsDice = Array.isArray(payload.detailsDice) ? payload.detailsDice : [];
+  if (detailsDice.length > 0) {
+    parts.push("{{details_dice=1}}");
+    detailsDice.forEach((die, index) => {
+      const dieIndex = index + 1;
+      parts.push(`{{d${dieIndex}_v=${die.value}}}`);
+      parts.push(`{{d${dieIndex}_t=${die.tone}}}`);
+    });
+  }
+
   if (payload.isGlitch) {
     parts.push("{{is_glitch=1}}");
   }
@@ -131,7 +163,7 @@ function runSuccessProbeRoll(eventInfo) {
   getAttrs(resolvedAttributes, (values) => {
     const resolvedFields = buildResolvedFields(fields, values);
     const rows = buildProbeRows(resolvedFields);
-    const name = resolvedFields.name || "Probe";
+    const name = deriveProbeTitle(resolvedFields);
 
     if (!poolAttribute) {
       const chatMessage = buildSr6ProbeMessage({
@@ -159,6 +191,7 @@ function runSuccessProbeRoll(eventInfo) {
     const glitchText = isCriticalGlitch ? "!! Kritischer Patzer !!" : "!! Patzer !!";
     const erfolgeValue = isGlitch ? glitchText : `${successCount}`;
     const details = buildDiceDetails(diceResults);
+    const detailsDice = buildDetailsDice(diceResults);
     const poolValue = resolvedFields.Pool || pool;
 
     const chatMessage = buildSr6ProbeMessage({
@@ -167,6 +200,7 @@ function runSuccessProbeRoll(eventInfo) {
       pool: poolValue,
       erfolge: erfolgeValue,
       details: details,
+      detailsDice: detailsDice,
       isGlitch: isGlitch
     });
     startRoll(chatMessage, (rollResult) => {

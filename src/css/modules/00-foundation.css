@@ -29,8 +29,8 @@ body,
   font-family: "Segoe UI", "Helvetica Neue", Arial, sans-serif;
 }
 
-#dialog-window.ui-dialog .sheetform,
-#dialog-window.ui-dialog .sheetform .charsheet {
+.ui-dialog .sheetform,
+.ui-dialog .sheetform .charsheet {
   background: transparent !important;
 }
 

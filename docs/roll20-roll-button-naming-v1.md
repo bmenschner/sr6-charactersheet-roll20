@@ -31,3 +31,7 @@ Bei neuen Rollbuttons immer pruefen:
 - `name` folgt Schema.
 - `value` referenziert dasselbe Attribut im Pool und Erfolge-Block.
 - Kontextfelder (falls vorhanden) nutzen `@{...}`-Referenzen auf bestehende Attribute.
+
+## Referenzen (Rolltemplates)
+- https://wiki.roll20.net/Roll_Templates
+- https://help.roll20.net/hc/en-us/articles/360037257334-How-to-Make-Roll-Templates

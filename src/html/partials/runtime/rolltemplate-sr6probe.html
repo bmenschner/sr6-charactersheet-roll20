@@ -1,61 +1,87 @@
 <!-- BEGIN BLOCK: Rolltemplate SR6 Probe -->
 <rolltemplate class="sheet-rolltemplate-sr6probe">
-  <div class="sheet-sr6probe">
+  <div class="sheet-sr6probe" style="border:1px solid #840763;background:#ffffff;color:#840763;">
     {{#name}}
-    <div class="sheet-sr6probe__header">{{name}}</div>
+    <div class="sheet-sr6probe__header" style="background:#ffffff;color:#840763;font-weight:700;font-size:1rem;padding:0.375rem 0.5rem;">{{name}}</div>
     {{/name}}
 
     {{#label1}}
-    <div class="sheet-sr6probe__row">
-      <span class="sheet-sr6probe__label">{{label1}}</span>
-      <span class="sheet-sr6probe__value">{{value1}}</span>
+    <div class="sheet-sr6probe__row" style="display:grid;grid-template-columns:minmax(7.5rem,auto) 1fr;gap:0.5rem;align-items:center;padding:0.375rem 0.5rem;background:#ffffff;">
+      <span class="sheet-sr6probe__label" style="font-weight:700;color:#840763;">{{label1}}</span>
+      <span class="sheet-sr6probe__value" style="color:#840763;">{{value1}}</span>
     </div>
     {{/label1}}
     {{#label2}}
-    <div class="sheet-sr6probe__row">
-      <span class="sheet-sr6probe__label">{{label2}}</span>
-      <span class="sheet-sr6probe__value">{{value2}}</span>
+    <div class="sheet-sr6probe__row" style="display:grid;grid-template-columns:minmax(7.5rem,auto) 1fr;gap:0.5rem;align-items:center;padding:0.375rem 0.5rem;background:#ffffff;">
+      <span class="sheet-sr6probe__label" style="font-weight:700;color:#840763;">{{label2}}</span>
+      <span class="sheet-sr6probe__value" style="color:#840763;">{{value2}}</span>
     </div>
     {{/label2}}
     {{#label3}}
-    <div class="sheet-sr6probe__row">
-      <span class="sheet-sr6probe__label">{{label3}}</span>
-      <span class="sheet-sr6probe__value">{{value3}}</span>
+    <div class="sheet-sr6probe__row" style="display:grid;grid-template-columns:minmax(7.5rem,auto) 1fr;gap:0.5rem;align-items:center;padding:0.375rem 0.5rem;background:#ffffff;">
+      <span class="sheet-sr6probe__label" style="font-weight:700;color:#840763;">{{label3}}</span>
+      <span class="sheet-sr6probe__value" style="color:#840763;">{{value3}}</span>
     </div>
     {{/label3}}
     {{#label4}}
-    <div class="sheet-sr6probe__row">
-      <span class="sheet-sr6probe__label">{{label4}}</span>
-      <span class="sheet-sr6probe__value">{{value4}}</span>
+    <div class="sheet-sr6probe__row" style="display:grid;grid-template-columns:minmax(7.5rem,auto) 1fr;gap:0.5rem;align-items:center;padding:0.375rem 0.5rem;background:#ffffff;">
+      <span class="sheet-sr6probe__label" style="font-weight:700;color:#840763;">{{label4}}</span>
+      <span class="sheet-sr6probe__value" style="color:#840763;">{{value4}}</span>
     </div>
     {{/label4}}
 
     {{#pool}}
-    <div class="sheet-sr6probe__row">
-      <span class="sheet-sr6probe__label">Pool</span>
-      <span class="sheet-sr6probe__value">{{pool}}</span>
+    <div class="sheet-sr6probe__row" style="display:grid;grid-template-columns:minmax(7.5rem,auto) 1fr;gap:0.5rem;align-items:center;padding:0.375rem 0.5rem;background:#ffffff;">
+      <span class="sheet-sr6probe__label" style="font-weight:700;color:#840763;">Pool</span>
+      <span class="sheet-sr6probe__value" style="color:#840763;">{{pool}}</span>
     </div>
     {{/pool}}
 
     {{#is_glitch}}
-    <div class="sheet-sr6probe__row sheet-sr6probe__row--danger">
-      <span class="sheet-sr6probe__label">Erfolge</span>
-      <span class="sheet-sr6probe__value">{{erfolge}}</span>
+    <div class="sheet-sr6probe__row sheet-sr6probe__row--danger" style="display:grid;grid-template-columns:minmax(7.5rem,auto) 1fr;gap:0.5rem;align-items:center;padding:0.375rem 0.5rem;background:#ffffff;">
+      <span class="sheet-sr6probe__label" style="font-weight:700;color:#c62828;">Erfolge</span>
+      <span class="sheet-sr6probe__value" style="color:#c62828;font-weight:700;">{{erfolge}}</span>
     </div>
     {{/is_glitch}}
     {{^is_glitch}}
     {{#erfolge}}
-    <div class="sheet-sr6probe__row">
-      <span class="sheet-sr6probe__label">Erfolge</span>
-      <span class="sheet-sr6probe__value">{{erfolge}}</span>
+    <div class="sheet-sr6probe__row" style="display:grid;grid-template-columns:minmax(7.5rem,auto) 1fr;gap:0.5rem;align-items:center;padding:0.375rem 0.5rem;background:#ffffff;">
+      <span class="sheet-sr6probe__label" style="font-weight:700;color:#840763;">Erfolge</span>
+      <span class="sheet-sr6probe__value" style="color:#840763;justify-self:start;width:max-content;">
+        <span class="inlinerollresult" style="background-color:#dff3df;border:2px solid #dff3df;padding:0 3px;font-weight:700;cursor:help;font-size:1.1em;">{{erfolge}}</span>
+      </span>
     </div>
     {{/erfolge}}
     {{/is_glitch}}
 
     {{#details}}
-    <div class="sheet-sr6probe__row">
-      <span class="sheet-sr6probe__label">Details</span>
-      <span class="sheet-sr6probe__value">{{details}}</span>
+    <div class="sheet-sr6probe__row" style="display:grid;grid-template-columns:minmax(7.5rem,auto) 1fr;gap:0.5rem;align-items:center;padding:0.375rem 0.5rem;background:#ffffff;">
+      <span class="sheet-sr6probe__label" style="font-weight:700;color:#840763;">Details</span>
+      <span class="sheet-sr6probe__value" style="color:#840763;">
+        {{#details_dice}}
+          {{#d1_v}}<span class="sheet-sr6probe__die sheet-sr6probe__die--{{d1_t}}">{{d1_v}}</span>{{#d2_v}} <span class="sheet-sr6probe__die-plus">+</span> {{/d2_v}}{{/d1_v}}
+          {{#d2_v}}<span class="sheet-sr6probe__die sheet-sr6probe__die--{{d2_t}}">{{d2_v}}</span>{{#d3_v}} <span class="sheet-sr6probe__die-plus">+</span> {{/d3_v}}{{/d2_v}}
+          {{#d3_v}}<span class="sheet-sr6probe__die sheet-sr6probe__die--{{d3_t}}">{{d3_v}}</span>{{#d4_v}} <span class="sheet-sr6probe__die-plus">+</span> {{/d4_v}}{{/d3_v}}
+          {{#d4_v}}<span class="sheet-sr6probe__die sheet-sr6probe__die--{{d4_t}}">{{d4_v}}</span>{{#d5_v}} <span class="sheet-sr6probe__die-plus">+</span> {{/d5_v}}{{/d4_v}}
+          {{#d5_v}}<span class="sheet-sr6probe__die sheet-sr6probe__die--{{d5_t}}">{{d5_v}}</span>{{#d6_v}} <span class="sheet-sr6probe__die-plus">+</span> {{/d6_v}}{{/d5_v}}
+          {{#d6_v}}<span class="sheet-sr6probe__die sheet-sr6probe__die--{{d6_t}}">{{d6_v}}</span>{{#d7_v}} <span class="sheet-sr6probe__die-plus">+</span> {{/d7_v}}{{/d6_v}}
+          {{#d7_v}}<span class="sheet-sr6probe__die sheet-sr6probe__die--{{d7_t}}">{{d7_v}}</span>{{#d8_v}} <span class="sheet-sr6probe__die-plus">+</span> {{/d8_v}}{{/d7_v}}
+          {{#d8_v}}<span class="sheet-sr6probe__die sheet-sr6probe__die--{{d8_t}}">{{d8_v}}</span>{{#d9_v}} <span class="sheet-sr6probe__die-plus">+</span> {{/d9_v}}{{/d8_v}}
+          {{#d9_v}}<span class="sheet-sr6probe__die sheet-sr6probe__die--{{d9_t}}">{{d9_v}}</span>{{#d10_v}} <span class="sheet-sr6probe__die-plus">+</span> {{/d10_v}}{{/d9_v}}
+          {{#d10_v}}<span class="sheet-sr6probe__die sheet-sr6probe__die--{{d10_t}}">{{d10_v}}</span>{{#d11_v}} <span class="sheet-sr6probe__die-plus">+</span> {{/d11_v}}{{/d10_v}}
+          {{#d11_v}}<span class="sheet-sr6probe__die sheet-sr6probe__die--{{d11_t}}">{{d11_v}}</span>{{#d12_v}} <span class="sheet-sr6probe__die-plus">+</span> {{/d12_v}}{{/d11_v}}
+          {{#d12_v}}<span class="sheet-sr6probe__die sheet-sr6probe__die--{{d12_t}}">{{d12_v}}</span>{{#d13_v}} <span class="sheet-sr6probe__die-plus">+</span> {{/d13_v}}{{/d12_v}}
+          {{#d13_v}}<span class="sheet-sr6probe__die sheet-sr6probe__die--{{d13_t}}">{{d13_v}}</span>{{#d14_v}} <span class="sheet-sr6probe__die-plus">+</span> {{/d14_v}}{{/d13_v}}
+          {{#d14_v}}<span class="sheet-sr6probe__die sheet-sr6probe__die--{{d14_t}}">{{d14_v}}</span>{{#d15_v}} <span class="sheet-sr6probe__die-plus">+</span> {{/d15_v}}{{/d14_v}}
+          {{#d15_v}}<span class="sheet-sr6probe__die sheet-sr6probe__die--{{d15_t}}">{{d15_v}}</span>{{#d16_v}} <span class="sheet-sr6probe__die-plus">+</span> {{/d16_v}}{{/d15_v}}
+          {{#d16_v}}<span class="sheet-sr6probe__die sheet-sr6probe__die--{{d16_t}}">{{d16_v}}</span>{{#d17_v}} <span class="sheet-sr6probe__die-plus">+</span> {{/d17_v}}{{/d16_v}}
+          {{#d17_v}}<span class="sheet-sr6probe__die sheet-sr6probe__die--{{d17_t}}">{{d17_v}}</span>{{#d18_v}} <span class="sheet-sr6probe__die-plus">+</span> {{/d18_v}}{{/d17_v}}
+          {{#d18_v}}<span class="sheet-sr6probe__die sheet-sr6probe__die--{{d18_t}}">{{d18_v}}</span>{{#d19_v}} <span class="sheet-sr6probe__die-plus">+</span> {{/d19_v}}{{/d18_v}}
+          {{#d19_v}}<span class="sheet-sr6probe__die sheet-sr6probe__die--{{d19_t}}">{{d19_v}}</span>{{#d20_v}} <span class="sheet-sr6probe__die-plus">+</span> {{/d20_v}}{{/d19_v}}
+          {{#d20_v}}<span class="sheet-sr6probe__die sheet-sr6probe__die--{{d20_t}}">{{d20_v}}</span>{{/d20_v}}
+        {{/details_dice}}
+        {{^details_dice}}{{details}}{{/details_dice}}
+      </span>
     </div>
     {{/details}}
   </div>
