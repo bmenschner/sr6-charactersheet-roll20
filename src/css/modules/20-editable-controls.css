@@ -134,7 +134,6 @@
   user-select: none;
   border-bottom: none;
   padding: 0;
-  height: 1.25rem;
   font-size: 0.82rem;
 }
 
@@ -148,4 +147,3 @@
 .sr6-editable-section:has(.sr6-editable-section-mode:not(:checked)) .repcontrol {
   display: none;
 }
-
