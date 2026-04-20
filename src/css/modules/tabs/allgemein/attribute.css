@@ -15,6 +15,8 @@
   display: flex;
   align-items: center;
   gap: 0.25rem;
+  position: relative;
+  padding-left: 2rem;
 }
 
 #sr6_daten_panel_1 .sr6-charactersheet-box-attribute.sr6-editable-overview-section:has(.sr6-editable-section-mode:not(:checked)) .sr6-charactersheet-attr-value,
@@ -92,6 +94,10 @@
 #sr6_daten_panel_1 .sr6-charactersheet-box-attribute.sr6-editable-overview-section:has(.sr6-editable-section-mode:not(:checked)) .sr6-charactersheet-attr-value:last-child .sr6-charactersheet-field-dice-button,
 #sr6_daten_panel_1 .sr6-charactersheet-box-fertigkeiten-allgemein.sr6-editable-overview-section:has(.sr6-editable-section-mode:not(:checked)) .sr6-charactersheet-attr-value:last-child .sr6-charactersheet-field-dice-button {
   display: flex;
+  position: absolute;
+  left: -2rem;
+  top: 50%;
+  transform: translateY(-50%);
 }
 
 /* Allgemein (Panel 1): Fertigkeiten Switcher */
