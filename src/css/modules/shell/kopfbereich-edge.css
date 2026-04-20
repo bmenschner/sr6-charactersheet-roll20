@@ -54,3 +54,24 @@
   pointer-events: none;
   z-index: 3;
 }
+
+.sr6-edge-coin-sign {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  color: #ffffff;
+  font-size: 1.35rem;
+  font-weight: 700;
+  line-height: 1;
+  text-shadow: 0 0.0625rem 0.1875rem rgba(0, 0, 0, 0.55);
+  pointer-events: none;
+  z-index: 3;
+}
+
+.sr6-edge-coin-sign--minus {
+  left: 1.45rem;
+}
+
+.sr6-edge-coin-sign--plus {
+  right: 1.45rem;
+}
