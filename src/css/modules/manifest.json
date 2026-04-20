@@ -1,6 +1,9 @@
 {
   "order": [
     "00-foundation.css",
+    "shell/kopfbereich-layout.css",
+    "shell/kopfbereich-monitor.css",
+    "shell/kopfbereich-edge.css",
     "10-shell-repeating.css",
     "20-editable-controls.css",
     "30-list-overview.css",

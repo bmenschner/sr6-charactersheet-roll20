@@ -21,133 +21,152 @@
       <!-- BEGIN BLOCK: Kopfbereich -->
       <!-- BEGIN BLOCK: Kopfbereich -->
 <section class="sr6-charactersheet-kopfbereich" aria-label="Kopfbereich">
-  <!-- BEGIN BLOCK: Spalte 1 - Platzhalter für Charakterbild -->
+  <!-- BEGIN BLOCK: Kopfbereich Spalte Bild -->
+  <!-- BEGIN BLOCK: Spalte 1 - Charakterbild -->
+<div
+  class="sr6-charactersheet-kopfbereich-spalte sr6-charactersheet-kopfbereich-spalte--bild">
+  <h2
+    class="sr6-charactersheet-kopfbereich-title"
+    data-i18n="section.charakterbild">
+    Charakterbild
+  </h2>
   <div
-    class="sr6-charactersheet-kopfbereich-spalte sr6-charactersheet-kopfbereich-spalte--bild">
-    <h2
-      class="sr6-charactersheet-kopfbereich-title"
-      data-i18n="section.charakterbild">
-      Charakterbild
-    </h2>
-    <div
-      class="sr6-charactersheet-placeholder sr6-charactersheet-placeholder--bild"
-      aria-hidden="true">
-      Platzhalter
-    </div>
+    class="sr6-charactersheet-placeholder sr6-charactersheet-placeholder--bild"
+    aria-hidden="true">
+    Platzhalter
   </div>
-  <!-- END BLOCK: Spalte 1 - Platzhalter für Charakterbild -->
+</div>
+<!-- END BLOCK: Spalte 1 - Charakterbild -->
 
-  <!-- BEGIN BLOCK: Spalte 2 - Körperlicher und geistiger Zustandsmonitor -->
-  <div
-    class="sr6-charactersheet-kopfbereich-spalte sr6-charactersheet-kopfbereich-spalte--zustand">
-    <h2
-      class="sr6-charactersheet-kopfbereich-title"
-      data-i18n="section.zustandsmonitor">
-      Zustandsmonitor
-    </h2>
-    <input type="hidden" name="attr_sr6_monitor_koerperlich_count" value="0" />
-    <input type="hidden" name="attr_sr6_monitor_geistig_count" value="0" />
-    <input type="hidden" name="attr_sr6_monitor_pool_mod" value="0" />
+  <!-- END BLOCK: Kopfbereich Spalte Bild -->
 
-    <div class="sr6-charactersheet-zustandsmonitor-zeilen">
-      <div class="sr6-charactersheet-monitor-row">
-        <span
-          class="sr6-charactersheet-monitor-label"
-          data-i18n="field.monitor_koerperlich"
-          >Körperlicher Zustand</span
-        >
-        <div class="sr6-charactersheet-monitor-track-wrap">
-          <input type="text" name="attr_sr6_monitor_koerperlich" readonly />
-          <div class="sr6-charactersheet-monitor-track-shell sr6-charactersheet-monitor-track-shell--koerperlich">
-            <input type="hidden" name="attr_sr6_monitor_koerperlich_max" value="0" />
-            <div class="sr6-charactersheet-monitor-track sr6-charactersheet-monitor-track--koerperlich">
-              <label class="sr6-charactersheet-monitor-box"><input type="checkbox" name="attr_sr6_monitor_koerperlich_1" value="1" /><span></span></label>
-              <label class="sr6-charactersheet-monitor-box"><input type="checkbox" name="attr_sr6_monitor_koerperlich_2" value="1" /><span></span></label>
-              <label class="sr6-charactersheet-monitor-box sr6-charactersheet-monitor-box--mod" data-mod="-1"><input type="checkbox" name="attr_sr6_monitor_koerperlich_3" value="1" /><span>-1</span></label>
-              <label class="sr6-charactersheet-monitor-box"><input type="checkbox" name="attr_sr6_monitor_koerperlich_4" value="1" /><span></span></label>
-              <label class="sr6-charactersheet-monitor-box"><input type="checkbox" name="attr_sr6_monitor_koerperlich_5" value="1" /><span></span></label>
-              <label class="sr6-charactersheet-monitor-box sr6-charactersheet-monitor-box--mod" data-mod="-2"><input type="checkbox" name="attr_sr6_monitor_koerperlich_6" value="1" /><span>-2</span></label>
-              <label class="sr6-charactersheet-monitor-box"><input type="checkbox" name="attr_sr6_monitor_koerperlich_7" value="1" /><span></span></label>
-              <label class="sr6-charactersheet-monitor-box"><input type="checkbox" name="attr_sr6_monitor_koerperlich_8" value="1" /><span></span></label>
-              <label class="sr6-charactersheet-monitor-box sr6-charactersheet-monitor-box--mod" data-mod="-3"><input type="checkbox" name="attr_sr6_monitor_koerperlich_9" value="1" /><span>-3</span></label>
-              <label class="sr6-charactersheet-monitor-box"><input type="checkbox" name="attr_sr6_monitor_koerperlich_10" value="1" /><span></span></label>
-              <label class="sr6-charactersheet-monitor-box"><input type="checkbox" name="attr_sr6_monitor_koerperlich_11" value="1" /><span></span></label>
-              <label class="sr6-charactersheet-monitor-box sr6-charactersheet-monitor-box--mod" data-mod="-4"><input type="checkbox" name="attr_sr6_monitor_koerperlich_12" value="1" /><span>-4</span></label>
-              <label class="sr6-charactersheet-monitor-box"><input type="checkbox" name="attr_sr6_monitor_koerperlich_13" value="1" /><span></span></label>
-              <label class="sr6-charactersheet-monitor-box"><input type="checkbox" name="attr_sr6_monitor_koerperlich_14" value="1" /><span></span></label>
-              <label class="sr6-charactersheet-monitor-box sr6-charactersheet-monitor-box--mod" data-mod="-5"><input type="checkbox" name="attr_sr6_monitor_koerperlich_15" value="1" /><span>-5</span></label>
-              <label class="sr6-charactersheet-monitor-box"><input type="checkbox" name="attr_sr6_monitor_koerperlich_16" value="1" /><span></span></label>
-              <label class="sr6-charactersheet-monitor-box"><input type="checkbox" name="attr_sr6_monitor_koerperlich_17" value="1" /><span></span></label>
-              <label class="sr6-charactersheet-monitor-box sr6-charactersheet-monitor-box--mod" data-mod="-6"><input type="checkbox" name="attr_sr6_monitor_koerperlich_18" value="1" /><span>-6</span></label>
-            </div>
-            
-          </div>
-        </div>
-      </div>
+  <!-- BEGIN BLOCK: Kopfbereich Spalte Zustandsmonitor -->
+  <!-- BEGIN BLOCK: Spalte 2 - Zustandsmonitor -->
+<div
+  class="sr6-charactersheet-kopfbereich-spalte sr6-charactersheet-kopfbereich-spalte--zustand">
+  <h2
+    class="sr6-charactersheet-kopfbereich-title"
+    data-i18n="section.zustandsmonitor">
+    Zustandsmonitor
+  </h2>
+  <input type="hidden" name="attr_sr6_monitor_koerperlich_count" value="0" />
+  <input type="hidden" name="attr_sr6_monitor_geistig_count" value="0" />
+  <input type="hidden" name="attr_sr6_monitor_pool_mod" value="0" />
 
-      <div class="sr6-charactersheet-monitor-row">
-        <span
-          class="sr6-charactersheet-monitor-label"
-          data-i18n="field.monitor_geistig"
-          >Geistiger Zustand</span
-        >
-        <div class="sr6-charactersheet-monitor-track-wrap">
-          <input type="text" name="attr_sr6_monitor_geistig" readonly />
-          <div class="sr6-charactersheet-monitor-track-shell sr6-charactersheet-monitor-track-shell--geistig">
-            <input type="hidden" name="attr_sr6_monitor_geistig_max" value="0" />
-            <div class="sr6-charactersheet-monitor-track sr6-charactersheet-monitor-track--geistig">
-              <label class="sr6-charactersheet-monitor-box"><input type="checkbox" name="attr_sr6_monitor_geistig_1" value="1" /><span></span></label>
-              <label class="sr6-charactersheet-monitor-box"><input type="checkbox" name="attr_sr6_monitor_geistig_2" value="1" /><span></span></label>
-              <label class="sr6-charactersheet-monitor-box sr6-charactersheet-monitor-box--mod" data-mod="-1"><input type="checkbox" name="attr_sr6_monitor_geistig_3" value="1" /><span>-1</span></label>
-              <label class="sr6-charactersheet-monitor-box"><input type="checkbox" name="attr_sr6_monitor_geistig_4" value="1" /><span></span></label>
-              <label class="sr6-charactersheet-monitor-box"><input type="checkbox" name="attr_sr6_monitor_geistig_5" value="1" /><span></span></label>
-              <label class="sr6-charactersheet-monitor-box sr6-charactersheet-monitor-box--mod" data-mod="-2"><input type="checkbox" name="attr_sr6_monitor_geistig_6" value="1" /><span>-2</span></label>
-              <label class="sr6-charactersheet-monitor-box"><input type="checkbox" name="attr_sr6_monitor_geistig_7" value="1" /><span></span></label>
-              <label class="sr6-charactersheet-monitor-box"><input type="checkbox" name="attr_sr6_monitor_geistig_8" value="1" /><span></span></label>
-              <label class="sr6-charactersheet-monitor-box sr6-charactersheet-monitor-box--mod" data-mod="-3"><input type="checkbox" name="attr_sr6_monitor_geistig_9" value="1" /><span>-3</span></label>
-              <label class="sr6-charactersheet-monitor-box"><input type="checkbox" name="attr_sr6_monitor_geistig_10" value="1" /><span></span></label>
-              <label class="sr6-charactersheet-monitor-box"><input type="checkbox" name="attr_sr6_monitor_geistig_11" value="1" /><span></span></label>
-              <label class="sr6-charactersheet-monitor-box sr6-charactersheet-monitor-box--mod" data-mod="-4"><input type="checkbox" name="attr_sr6_monitor_geistig_12" value="1" /><span>-4</span></label>
-              <label class="sr6-charactersheet-monitor-box"><input type="checkbox" name="attr_sr6_monitor_geistig_13" value="1" /><span></span></label>
-              <label class="sr6-charactersheet-monitor-box"><input type="checkbox" name="attr_sr6_monitor_geistig_14" value="1" /><span></span></label>
-              <label class="sr6-charactersheet-monitor-box sr6-charactersheet-monitor-box--mod" data-mod="-5"><input type="checkbox" name="attr_sr6_monitor_geistig_15" value="1" /><span>-5</span></label>
-              <label class="sr6-charactersheet-monitor-box"><input type="checkbox" name="attr_sr6_monitor_geistig_16" value="1" /><span></span></label>
-              <label class="sr6-charactersheet-monitor-box"><input type="checkbox" name="attr_sr6_monitor_geistig_17" value="1" /><span></span></label>
-              <label class="sr6-charactersheet-monitor-box sr6-charactersheet-monitor-box--mod" data-mod="-6"><input type="checkbox" name="attr_sr6_monitor_geistig_18" value="1" /><span>-6</span></label>
-            </div>
-            
-          </div>
-        </div>
+  <div class="sr6-charactersheet-zustandsmonitor-zeilen">
+    <!-- BEGIN BLOCK: Monitor Körperlich -->
+    <!-- BEGIN BLOCK: Monitor Reihe - Körperlich -->
+<div class="sr6-charactersheet-monitor-row">
+  <span
+    class="sr6-charactersheet-monitor-label"
+    data-i18n="field.monitor_koerperlich"
+    >Körperlicher Zustand</span
+  >
+  <div class="sr6-charactersheet-monitor-track-wrap">
+    <input type="text" name="attr_sr6_monitor_koerperlich" readonly />
+    <div
+      class="sr6-charactersheet-monitor-track-shell sr6-charactersheet-monitor-track-shell--koerperlich">
+      <input type="hidden" name="attr_sr6_monitor_koerperlich_max" value="0" />
+      <div
+        class="sr6-charactersheet-monitor-track sr6-charactersheet-monitor-track--koerperlich">
+        <label class="sr6-charactersheet-monitor-box"><input type="checkbox" name="attr_sr6_monitor_koerperlich_1" value="1" /><span></span></label>
+        <label class="sr6-charactersheet-monitor-box"><input type="checkbox" name="attr_sr6_monitor_koerperlich_2" value="1" /><span></span></label>
+        <label class="sr6-charactersheet-monitor-box sr6-charactersheet-monitor-box--mod" data-mod="-1"><input type="checkbox" name="attr_sr6_monitor_koerperlich_3" value="1" /><span>-1</span></label>
+        <label class="sr6-charactersheet-monitor-box"><input type="checkbox" name="attr_sr6_monitor_koerperlich_4" value="1" /><span></span></label>
+        <label class="sr6-charactersheet-monitor-box"><input type="checkbox" name="attr_sr6_monitor_koerperlich_5" value="1" /><span></span></label>
+        <label class="sr6-charactersheet-monitor-box sr6-charactersheet-monitor-box--mod" data-mod="-2"><input type="checkbox" name="attr_sr6_monitor_koerperlich_6" value="1" /><span>-2</span></label>
+        <label class="sr6-charactersheet-monitor-box"><input type="checkbox" name="attr_sr6_monitor_koerperlich_7" value="1" /><span></span></label>
+        <label class="sr6-charactersheet-monitor-box"><input type="checkbox" name="attr_sr6_monitor_koerperlich_8" value="1" /><span></span></label>
+        <label class="sr6-charactersheet-monitor-box sr6-charactersheet-monitor-box--mod" data-mod="-3"><input type="checkbox" name="attr_sr6_monitor_koerperlich_9" value="1" /><span>-3</span></label>
+        <label class="sr6-charactersheet-monitor-box"><input type="checkbox" name="attr_sr6_monitor_koerperlich_10" value="1" /><span></span></label>
+        <label class="sr6-charactersheet-monitor-box"><input type="checkbox" name="attr_sr6_monitor_koerperlich_11" value="1" /><span></span></label>
+        <label class="sr6-charactersheet-monitor-box sr6-charactersheet-monitor-box--mod" data-mod="-4"><input type="checkbox" name="attr_sr6_monitor_koerperlich_12" value="1" /><span>-4</span></label>
+        <label class="sr6-charactersheet-monitor-box"><input type="checkbox" name="attr_sr6_monitor_koerperlich_13" value="1" /><span></span></label>
+        <label class="sr6-charactersheet-monitor-box"><input type="checkbox" name="attr_sr6_monitor_koerperlich_14" value="1" /><span></span></label>
+        <label class="sr6-charactersheet-monitor-box sr6-charactersheet-monitor-box--mod" data-mod="-5"><input type="checkbox" name="attr_sr6_monitor_koerperlich_15" value="1" /><span>-5</span></label>
+        <label class="sr6-charactersheet-monitor-box"><input type="checkbox" name="attr_sr6_monitor_koerperlich_16" value="1" /><span></span></label>
+        <label class="sr6-charactersheet-monitor-box"><input type="checkbox" name="attr_sr6_monitor_koerperlich_17" value="1" /><span></span></label>
+        <label class="sr6-charactersheet-monitor-box sr6-charactersheet-monitor-box--mod" data-mod="-6"><input type="checkbox" name="attr_sr6_monitor_koerperlich_18" value="1" /><span>-6</span></label>
       </div>
     </div>
   </div>
-  <!-- END BLOCK: Spalte 2 - Körperlicher und geistiger Zustandsmonitor -->
+</div>
+<!-- END BLOCK: Monitor Reihe - Körperlich -->
 
-  <!-- BEGIN BLOCK: Spalte 3 - Platzhalter für Edge-Token -->
-  <div
-    class="sr6-charactersheet-kopfbereich-spalte sr6-charactersheet-kopfbereich-spalte--edge">
-    <h2
-      class="sr6-charactersheet-kopfbereich-title"
-      data-i18n="section.edge_token">
-      Edge Token
-    </h2>
+    <!-- END BLOCK: Monitor Körperlich -->
+
+    <!-- BEGIN BLOCK: Monitor Geistig -->
+    <!-- BEGIN BLOCK: Monitor Reihe - Geistig -->
+<div class="sr6-charactersheet-monitor-row">
+  <span
+    class="sr6-charactersheet-monitor-label"
+    data-i18n="field.monitor_geistig"
+    >Geistiger Zustand</span
+  >
+  <div class="sr6-charactersheet-monitor-track-wrap">
+    <input type="text" name="attr_sr6_monitor_geistig" readonly />
     <div
-      class="sr6-charactersheet-edge-token"
-      aria-label="Edge Token">
-      <button
-        type="button"
-        class="sr6-edge-coin"
-        aria-label="Edge Coin">
-        <input
-          type="text"
-          class="sr6-edge-coin-value"
-          name="attr_sr6_edge_aktuell"
-          value="0"
-          inputmode="numeric" />
-      </button>
+      class="sr6-charactersheet-monitor-track-shell sr6-charactersheet-monitor-track-shell--geistig">
+      <input type="hidden" name="attr_sr6_monitor_geistig_max" value="0" />
+      <div
+        class="sr6-charactersheet-monitor-track sr6-charactersheet-monitor-track--geistig">
+        <label class="sr6-charactersheet-monitor-box"><input type="checkbox" name="attr_sr6_monitor_geistig_1" value="1" /><span></span></label>
+        <label class="sr6-charactersheet-monitor-box"><input type="checkbox" name="attr_sr6_monitor_geistig_2" value="1" /><span></span></label>
+        <label class="sr6-charactersheet-monitor-box sr6-charactersheet-monitor-box--mod" data-mod="-1"><input type="checkbox" name="attr_sr6_monitor_geistig_3" value="1" /><span>-1</span></label>
+        <label class="sr6-charactersheet-monitor-box"><input type="checkbox" name="attr_sr6_monitor_geistig_4" value="1" /><span></span></label>
+        <label class="sr6-charactersheet-monitor-box"><input type="checkbox" name="attr_sr6_monitor_geistig_5" value="1" /><span></span></label>
+        <label class="sr6-charactersheet-monitor-box sr6-charactersheet-monitor-box--mod" data-mod="-2"><input type="checkbox" name="attr_sr6_monitor_geistig_6" value="1" /><span>-2</span></label>
+        <label class="sr6-charactersheet-monitor-box"><input type="checkbox" name="attr_sr6_monitor_geistig_7" value="1" /><span></span></label>
+        <label class="sr6-charactersheet-monitor-box"><input type="checkbox" name="attr_sr6_monitor_geistig_8" value="1" /><span></span></label>
+        <label class="sr6-charactersheet-monitor-box sr6-charactersheet-monitor-box--mod" data-mod="-3"><input type="checkbox" name="attr_sr6_monitor_geistig_9" value="1" /><span>-3</span></label>
+        <label class="sr6-charactersheet-monitor-box"><input type="checkbox" name="attr_sr6_monitor_geistig_10" value="1" /><span></span></label>
+        <label class="sr6-charactersheet-monitor-box"><input type="checkbox" name="attr_sr6_monitor_geistig_11" value="1" /><span></span></label>
+        <label class="sr6-charactersheet-monitor-box sr6-charactersheet-monitor-box--mod" data-mod="-4"><input type="checkbox" name="attr_sr6_monitor_geistig_12" value="1" /><span>-4</span></label>
+        <label class="sr6-charactersheet-monitor-box"><input type="checkbox" name="attr_sr6_monitor_geistig_13" value="1" /><span></span></label>
+        <label class="sr6-charactersheet-monitor-box"><input type="checkbox" name="attr_sr6_monitor_geistig_14" value="1" /><span></span></label>
+        <label class="sr6-charactersheet-monitor-box sr6-charactersheet-monitor-box--mod" data-mod="-5"><input type="checkbox" name="attr_sr6_monitor_geistig_15" value="1" /><span>-5</span></label>
+        <label class="sr6-charactersheet-monitor-box"><input type="checkbox" name="attr_sr6_monitor_geistig_16" value="1" /><span></span></label>
+        <label class="sr6-charactersheet-monitor-box"><input type="checkbox" name="attr_sr6_monitor_geistig_17" value="1" /><span></span></label>
+        <label class="sr6-charactersheet-monitor-box sr6-charactersheet-monitor-box--mod" data-mod="-6"><input type="checkbox" name="attr_sr6_monitor_geistig_18" value="1" /><span>-6</span></label>
+      </div>
     </div>
   </div>
-  <!-- END BLOCK: Spalte 3 - Platzhalter für Edge-Token -->
+</div>
+<!-- END BLOCK: Monitor Reihe - Geistig -->
+
+    <!-- END BLOCK: Monitor Geistig -->
+  </div>
+</div>
+<!-- END BLOCK: Spalte 2 - Zustandsmonitor -->
+
+  <!-- END BLOCK: Kopfbereich Spalte Zustandsmonitor -->
+
+  <!-- BEGIN BLOCK: Kopfbereich Spalte Edge -->
+  <!-- BEGIN BLOCK: Spalte 3 - Edge Token -->
+<div
+  class="sr6-charactersheet-kopfbereich-spalte sr6-charactersheet-kopfbereich-spalte--edge">
+  <h2
+    class="sr6-charactersheet-kopfbereich-title"
+    data-i18n="section.edge_token">
+    Edge Token
+  </h2>
+  <div class="sr6-charactersheet-edge-token" aria-label="Edge Token">
+    <button
+      type="button"
+      class="sr6-edge-coin"
+      aria-label="Edge Coin">
+      <input
+        type="text"
+        class="sr6-edge-coin-value"
+        name="attr_sr6_edge_aktuell"
+        value="0"
+        inputmode="numeric" />
+    </button>
+  </div>
+</div>
+<!-- END BLOCK: Spalte 3 - Edge Token -->
+
+  <!-- END BLOCK: Kopfbereich Spalte Edge -->
 </section>
 <!-- END BLOCK: Kopfbereich -->
 
@@ -7815,15 +7834,15 @@ function computeSkillTotals(values, updates, skillTotals) {
 }
 // END MODULE: workers/compute/skills
 
-// BEGIN MODULE: workers/compute/combat
-function appendCombatRequestKeys(requestKeys) {
+// BEGIN MODULE: workers/compute/header-monitor
+function appendHeaderMonitorRequestKeys(requestKeys) {
   for (let index = 1; index <= 18; index += 1) {
     requestKeys.push(`sr6_monitor_koerperlich_${index}`);
     requestKeys.push(`sr6_monitor_geistig_${index}`);
   }
 }
 
-function sanitizeAndCountMonitor(values, updates, monitorPrefix, maxBoxes) {
+function sanitizeAndCountHeaderMonitor(values, updates, monitorPrefix, maxBoxes) {
   let count = 0;
   for (let index = 1; index <= 18; index += 1) {
     const key = `sr6_monitor_${monitorPrefix}_${index}`;
@@ -7843,19 +7862,16 @@ function sanitizeAndCountMonitor(values, updates, monitorPrefix, maxBoxes) {
   return count;
 }
 
-function computeCombatDerivedFromAttributes(totals, values, updates) {
-  const reaktion = totals.reaktion || 0;
-  const intuition = totals.intuition || 0;
+function computeHeaderMonitorDerivedFromAttributes(totals, values, updates) {
   const konstitution = totals.konstitution || 0;
   const willenskraft = totals.willenskraft || 0;
 
   const koerperlichMax = clampNumber(8 + Math.ceil(konstitution / 2), 0, 18);
   const geistigMax = clampNumber(8 + Math.ceil(willenskraft / 2), 0, 18);
-  const koerperlichCount = sanitizeAndCountMonitor(values, updates, "koerperlich", koerperlichMax);
-  const geistigCount = sanitizeAndCountMonitor(values, updates, "geistig", geistigMax);
+  const koerperlichCount = sanitizeAndCountHeaderMonitor(values, updates, "koerperlich", koerperlichMax);
+  const geistigCount = sanitizeAndCountHeaderMonitor(values, updates, "geistig", geistigMax);
   const poolMod = -1 * (Math.floor(koerperlichCount / 3) + Math.floor(geistigCount / 3));
 
-  updates.sr6_derived_initiative_basis = String(reaktion + intuition);
   updates.sr6_derived_koerperlicher_monitor_max = String(koerperlichMax);
   updates.sr6_derived_geistiger_monitor_max = String(geistigMax);
   updates.sr6_monitor_koerperlich_max = String(koerperlichMax);
@@ -7865,6 +7881,15 @@ function computeCombatDerivedFromAttributes(totals, values, updates) {
   updates.sr6_monitor_koerperlich = String(koerperlichCount);
   updates.sr6_monitor_geistig = String(geistigCount);
   updates.sr6_monitor_pool_mod = String(poolMod);
+}
+// END MODULE: workers/compute/header-monitor
+
+// BEGIN MODULE: workers/compute/combat
+function computeCombatDerivedFromAttributes(totals, values, updates) {
+  const reaktion = totals.reaktion || 0;
+  const intuition = totals.intuition || 0;
+
+  updates.sr6_derived_initiative_basis = String(reaktion + intuition);
 }
 // END MODULE: workers/compute/combat
 
@@ -8050,13 +8075,14 @@ function recomputeAll() {
   appendSkillRequestKeys(requestKeys);
   appendMatrixRequestKeys(requestKeys);
   appendMagicRequestKeys(requestKeys);
-  appendCombatRequestKeys(requestKeys);
+  appendHeaderMonitorRequestKeys(requestKeys);
 
   getAttrs(requestKeys, (values) => {
     computeAttributeTotals(values, updates, totals);
     computeSkillTotals(values, updates, skillTotals);
     computeMatrixTotals(values, updates);
     computeCombatDerivedFromAttributes(totals, values, updates);
+    computeHeaderMonitorDerivedFromAttributes(totals, values, updates);
     computeMagicDerived(values, totals, skillTotals, updates);
     computeRiggingDerived(values, totals, skillTotals, updates);
 

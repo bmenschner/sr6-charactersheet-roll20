@@ -9,13 +9,14 @@ function recomputeAll() {
   appendSkillRequestKeys(requestKeys);
   appendMatrixRequestKeys(requestKeys);
   appendMagicRequestKeys(requestKeys);
-  appendCombatRequestKeys(requestKeys);
+  appendHeaderMonitorRequestKeys(requestKeys);
 
   getAttrs(requestKeys, (values) => {
     computeAttributeTotals(values, updates, totals);
     computeSkillTotals(values, updates, skillTotals);
     computeMatrixTotals(values, updates);
     computeCombatDerivedFromAttributes(totals, values, updates);
+    computeHeaderMonitorDerivedFromAttributes(totals, values, updates);
     computeMagicDerived(values, totals, skillTotals, updates);
     computeRiggingDerived(values, totals, skillTotals, updates);
 
