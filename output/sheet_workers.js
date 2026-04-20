@@ -679,6 +679,7 @@ function getEditModeResetPayload() {
   return {
     sr6_allgemein_attribute_edit_mode: "0",
     sr6_allgemein_initiative_edit_mode: "0",
+    sr6_allgemein_fertigkeiten_view: "fertigkeiten",
     sr6_fertigkeiten_edit_mode: "0",
     sr6_allgemein_kampf_edit_mode: "0",
     sr6_allgemein_verteidigung_edit_mode: "0",
