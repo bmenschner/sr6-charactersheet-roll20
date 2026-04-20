@@ -100,12 +100,22 @@ function buildDiceDetails(diceResults) {
   return diceResults.join(" + ");
 }
 
+function getDieToneStyle(tone) {
+  if (tone === "success") {
+    return "display:inline-flex;align-items:center;justify-content:center;min-width:1.35rem;height:1.35rem;padding:0 0.25rem;border-radius:0.22rem;border:0.125rem solid #9fcb9f;background:#dff3df;color:#1f5f1f;font-weight:700;line-height:1;";
+  }
+  if (tone === "fail") {
+    return "display:inline-flex;align-items:center;justify-content:center;min-width:1.35rem;height:1.35rem;padding:0 0.25rem;border-radius:0.22rem;border:0.125rem solid #e3a8af;background:#f8d7da;color:#7a0f1b;font-weight:700;line-height:1;";
+  }
+  return "display:inline-flex;align-items:center;justify-content:center;min-width:1.35rem;height:1.35rem;padding:0 0.25rem;border-radius:0.22rem;border:0.125rem solid #d0d0d0;background:#ececec;color:#111111;font-weight:700;line-height:1;";
+}
+
 function buildDetailsDice(diceResults, maxDice = 20) {
   return diceResults.slice(0, maxDice).map((die) => {
     let tone = "neutral";
     if (die === 1) tone = "fail";
     if (die >= 5) tone = "success";
-    return { value: `${die}`, tone: tone };
+    return { value: `${die}`, tone: tone, style: getDieToneStyle(tone) };
   });
 }
 
@@ -240,6 +250,7 @@ function buildSr6ProbeMessage(payload) {
       const dieIndex = index + 1;
       parts.push(`{{d${dieIndex}_v=${die.value}}}`);
       parts.push(`{{d${dieIndex}_t=${die.tone}}}`);
+      parts.push(`{{d${dieIndex}_s=${die.style}}}`);
     });
   }
 
