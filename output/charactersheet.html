@@ -45,6 +45,10 @@
       data-i18n="section.zustandsmonitor">
       Zustandsmonitor
     </h2>
+    <input type="hidden" name="attr_sr6_monitor_koerperlich_count" value="0" />
+    <input type="hidden" name="attr_sr6_monitor_geistig_count" value="0" />
+    <input type="hidden" name="attr_sr6_monitor_pool_mod" value="0" />
+
     <div class="sr6-charactersheet-zustandsmonitor-zeilen">
       <div class="sr6-charactersheet-monitor-row">
         <span
@@ -53,21 +57,30 @@
           >Körperlicher Zustand</span
         >
         <div class="sr6-charactersheet-monitor-track-wrap">
-          <input type="text" name="attr_sr6_monitor_koerperlich" />
-          <div
-            class="sr6-charactersheet-monitor-track sr6-charactersheet-monitor-track--koerperlich">
-            <span
-              class="sr6-charactersheet-monitor-mod sr6-charactersheet-monitor-mod--1"
-              >-3</span
-            >
-            <span
-              class="sr6-charactersheet-monitor-mod sr6-charactersheet-monitor-mod--2"
-              >-2</span
-            >
-            <span
-              class="sr6-charactersheet-monitor-mod sr6-charactersheet-monitor-mod--3"
-              >-1</span
-            >
+          <input type="text" name="attr_sr6_monitor_koerperlich" readonly />
+          <div class="sr6-charactersheet-monitor-track-shell sr6-charactersheet-monitor-track-shell--koerperlich">
+            <input type="hidden" name="attr_sr6_monitor_koerperlich_max" value="0" />
+            <div class="sr6-charactersheet-monitor-track sr6-charactersheet-monitor-track--koerperlich">
+              <label class="sr6-charactersheet-monitor-box"><input type="checkbox" name="attr_sr6_monitor_koerperlich_1" value="1" /><span></span></label>
+              <label class="sr6-charactersheet-monitor-box"><input type="checkbox" name="attr_sr6_monitor_koerperlich_2" value="1" /><span></span></label>
+              <label class="sr6-charactersheet-monitor-box sr6-charactersheet-monitor-box--mod" data-mod="-1"><input type="checkbox" name="attr_sr6_monitor_koerperlich_3" value="1" /><span>-1</span></label>
+              <label class="sr6-charactersheet-monitor-box"><input type="checkbox" name="attr_sr6_monitor_koerperlich_4" value="1" /><span></span></label>
+              <label class="sr6-charactersheet-monitor-box"><input type="checkbox" name="attr_sr6_monitor_koerperlich_5" value="1" /><span></span></label>
+              <label class="sr6-charactersheet-monitor-box sr6-charactersheet-monitor-box--mod" data-mod="-2"><input type="checkbox" name="attr_sr6_monitor_koerperlich_6" value="1" /><span>-2</span></label>
+              <label class="sr6-charactersheet-monitor-box"><input type="checkbox" name="attr_sr6_monitor_koerperlich_7" value="1" /><span></span></label>
+              <label class="sr6-charactersheet-monitor-box"><input type="checkbox" name="attr_sr6_monitor_koerperlich_8" value="1" /><span></span></label>
+              <label class="sr6-charactersheet-monitor-box sr6-charactersheet-monitor-box--mod" data-mod="-3"><input type="checkbox" name="attr_sr6_monitor_koerperlich_9" value="1" /><span>-3</span></label>
+              <label class="sr6-charactersheet-monitor-box"><input type="checkbox" name="attr_sr6_monitor_koerperlich_10" value="1" /><span></span></label>
+              <label class="sr6-charactersheet-monitor-box"><input type="checkbox" name="attr_sr6_monitor_koerperlich_11" value="1" /><span></span></label>
+              <label class="sr6-charactersheet-monitor-box sr6-charactersheet-monitor-box--mod" data-mod="-4"><input type="checkbox" name="attr_sr6_monitor_koerperlich_12" value="1" /><span>-4</span></label>
+              <label class="sr6-charactersheet-monitor-box"><input type="checkbox" name="attr_sr6_monitor_koerperlich_13" value="1" /><span></span></label>
+              <label class="sr6-charactersheet-monitor-box"><input type="checkbox" name="attr_sr6_monitor_koerperlich_14" value="1" /><span></span></label>
+              <label class="sr6-charactersheet-monitor-box sr6-charactersheet-monitor-box--mod" data-mod="-5"><input type="checkbox" name="attr_sr6_monitor_koerperlich_15" value="1" /><span>-5</span></label>
+              <label class="sr6-charactersheet-monitor-box"><input type="checkbox" name="attr_sr6_monitor_koerperlich_16" value="1" /><span></span></label>
+              <label class="sr6-charactersheet-monitor-box"><input type="checkbox" name="attr_sr6_monitor_koerperlich_17" value="1" /><span></span></label>
+              <label class="sr6-charactersheet-monitor-box sr6-charactersheet-monitor-box--mod" data-mod="-6"><input type="checkbox" name="attr_sr6_monitor_koerperlich_18" value="1" /><span>-6</span></label>
+            </div>
+            
           </div>
         </div>
       </div>
@@ -79,25 +92,30 @@
           >Geistiger Zustand</span
         >
         <div class="sr6-charactersheet-monitor-track-wrap">
-          <input type="text" name="attr_sr6_monitor_geistig" />
-          <div
-            class="sr6-charactersheet-monitor-track sr6-charactersheet-monitor-track--geistig">
-            <span
-              class="sr6-charactersheet-monitor-mod sr6-charactersheet-monitor-mod--1"
-              >-4</span
-            >
-            <span
-              class="sr6-charactersheet-monitor-mod sr6-charactersheet-monitor-mod--2"
-              >-3</span
-            >
-            <span
-              class="sr6-charactersheet-monitor-mod sr6-charactersheet-monitor-mod--3"
-              >-2</span
-            >
-            <span
-              class="sr6-charactersheet-monitor-mod sr6-charactersheet-monitor-mod--4"
-              >-1</span
-            >
+          <input type="text" name="attr_sr6_monitor_geistig" readonly />
+          <div class="sr6-charactersheet-monitor-track-shell sr6-charactersheet-monitor-track-shell--geistig">
+            <input type="hidden" name="attr_sr6_monitor_geistig_max" value="0" />
+            <div class="sr6-charactersheet-monitor-track sr6-charactersheet-monitor-track--geistig">
+              <label class="sr6-charactersheet-monitor-box"><input type="checkbox" name="attr_sr6_monitor_geistig_1" value="1" /><span></span></label>
+              <label class="sr6-charactersheet-monitor-box"><input type="checkbox" name="attr_sr6_monitor_geistig_2" value="1" /><span></span></label>
+              <label class="sr6-charactersheet-monitor-box sr6-charactersheet-monitor-box--mod" data-mod="-1"><input type="checkbox" name="attr_sr6_monitor_geistig_3" value="1" /><span>-1</span></label>
+              <label class="sr6-charactersheet-monitor-box"><input type="checkbox" name="attr_sr6_monitor_geistig_4" value="1" /><span></span></label>
+              <label class="sr6-charactersheet-monitor-box"><input type="checkbox" name="attr_sr6_monitor_geistig_5" value="1" /><span></span></label>
+              <label class="sr6-charactersheet-monitor-box sr6-charactersheet-monitor-box--mod" data-mod="-2"><input type="checkbox" name="attr_sr6_monitor_geistig_6" value="1" /><span>-2</span></label>
+              <label class="sr6-charactersheet-monitor-box"><input type="checkbox" name="attr_sr6_monitor_geistig_7" value="1" /><span></span></label>
+              <label class="sr6-charactersheet-monitor-box"><input type="checkbox" name="attr_sr6_monitor_geistig_8" value="1" /><span></span></label>
+              <label class="sr6-charactersheet-monitor-box sr6-charactersheet-monitor-box--mod" data-mod="-3"><input type="checkbox" name="attr_sr6_monitor_geistig_9" value="1" /><span>-3</span></label>
+              <label class="sr6-charactersheet-monitor-box"><input type="checkbox" name="attr_sr6_monitor_geistig_10" value="1" /><span></span></label>
+              <label class="sr6-charactersheet-monitor-box"><input type="checkbox" name="attr_sr6_monitor_geistig_11" value="1" /><span></span></label>
+              <label class="sr6-charactersheet-monitor-box sr6-charactersheet-monitor-box--mod" data-mod="-4"><input type="checkbox" name="attr_sr6_monitor_geistig_12" value="1" /><span>-4</span></label>
+              <label class="sr6-charactersheet-monitor-box"><input type="checkbox" name="attr_sr6_monitor_geistig_13" value="1" /><span></span></label>
+              <label class="sr6-charactersheet-monitor-box"><input type="checkbox" name="attr_sr6_monitor_geistig_14" value="1" /><span></span></label>
+              <label class="sr6-charactersheet-monitor-box sr6-charactersheet-monitor-box--mod" data-mod="-5"><input type="checkbox" name="attr_sr6_monitor_geistig_15" value="1" /><span>-5</span></label>
+              <label class="sr6-charactersheet-monitor-box"><input type="checkbox" name="attr_sr6_monitor_geistig_16" value="1" /><span></span></label>
+              <label class="sr6-charactersheet-monitor-box"><input type="checkbox" name="attr_sr6_monitor_geistig_17" value="1" /><span></span></label>
+              <label class="sr6-charactersheet-monitor-box sr6-charactersheet-monitor-box--mod" data-mod="-6"><input type="checkbox" name="attr_sr6_monitor_geistig_18" value="1" /><span>-6</span></label>
+            </div>
+            
           </div>
         </div>
       </div>
@@ -7358,6 +7376,15 @@ function parseNumber(value) {
   return Number.isNaN(parsed) ? 0 : parsed;
 }
 
+function clampNumber(value, min, max) {
+  return Math.max(min, Math.min(max, value));
+}
+
+function isCheckedValue(value) {
+  const normalized = `${value || ""}`.trim().toLowerCase();
+  return normalized === "1" || normalized === "on" || normalized === "true" || normalized === "yes";
+}
+
 function mapTraditionsattributToKey(value) {
   const normalized = (value || "").trim().toLowerCase();
   if (normalized === "charisma") return "charisma";
@@ -7370,11 +7397,15 @@ function mapTraditionsattributToKey(value) {
 // END MODULE: workers/core/helpers
 
 // BEGIN MODULE: workers/core/guards
-function setAttrsSilent(payload) {
+function setAttrsSilent(payload, callback) {
   if (!payload || typeof payload !== "object") {
     return;
   }
   if (Object.keys(payload).length === 0) {
+    return;
+  }
+  if (typeof callback === "function") {
+    setAttrs(payload, { silent: true }, callback);
     return;
   }
   setAttrs(payload, { silent: true });
@@ -7644,6 +7675,9 @@ function runSuccessProbeRoll(eventInfo) {
   if (poolAttribute && !attributeRefs.includes(poolAttribute)) {
     attributeRefs.push(poolAttribute);
   }
+  if (poolAttribute) {
+    attributeRefs.push("sr6_monitor_pool_mod");
+  }
   const resolvedAttributes = [];
   attributeRefs.forEach((attributeRef) => {
     resolvedAttributes.push(attributeRef);
@@ -7673,7 +7707,9 @@ function runSuccessProbeRoll(eventInfo) {
       return;
     }
 
-    const pool = Math.max(0, parseNumber(lookupAttr(poolAttribute)));
+    const poolBasis = parseNumber(lookupAttr(poolAttribute));
+    const monitorPoolMod = parseNumber(lookupAttr("sr6_monitor_pool_mod"));
+    const pool = Math.max(0, poolBasis + monitorPoolMod);
     const diceResults = [];
     for (let index = 0; index < pool; index += 1) {
       diceResults.push(rollD6());
@@ -7685,7 +7721,11 @@ function runSuccessProbeRoll(eventInfo) {
     const erfolgeValue = isGlitch ? glitchText : `${successCount}`;
     const details = buildDiceDetails(diceResults);
     const detailsDice = buildDetailsDice(diceResults);
-    const poolValue = resolvedFields.Pool || pool;
+    const poolValue = `${pool}`;
+    if (monitorPoolMod !== 0) {
+      rows.push({ label: "Pool-Basis", value: `${poolBasis}` });
+      rows.push({ label: "Zustandsmodifikator", value: `${monitorPoolMod}` });
+    }
 
     const chatMessage = buildSr6ProbeMessage({
       name: name,
@@ -7755,15 +7795,55 @@ function computeSkillTotals(values, updates, skillTotals) {
 // END MODULE: workers/compute/skills
 
 // BEGIN MODULE: workers/compute/combat
-function computeCombatDerivedFromAttributes(totals, updates) {
+function appendCombatRequestKeys(requestKeys) {
+  for (let index = 1; index <= 18; index += 1) {
+    requestKeys.push(`sr6_monitor_koerperlich_${index}`);
+    requestKeys.push(`sr6_monitor_geistig_${index}`);
+  }
+}
+
+function sanitizeAndCountMonitor(values, updates, monitorPrefix, maxBoxes) {
+  let count = 0;
+  for (let index = 1; index <= 18; index += 1) {
+    const key = `sr6_monitor_${monitorPrefix}_${index}`;
+    const checked = isCheckedValue(values[key]);
+
+    if (index > maxBoxes) {
+      if (checked) {
+        updates[key] = "0";
+      }
+      continue;
+    }
+
+    if (checked) {
+      count += 1;
+    }
+  }
+  return count;
+}
+
+function computeCombatDerivedFromAttributes(totals, values, updates) {
   const reaktion = totals.reaktion || 0;
   const intuition = totals.intuition || 0;
   const konstitution = totals.konstitution || 0;
   const willenskraft = totals.willenskraft || 0;
 
+  const koerperlichMax = clampNumber(8 + Math.ceil(konstitution / 2), 0, 18);
+  const geistigMax = clampNumber(8 + Math.ceil(willenskraft / 2), 0, 18);
+  const koerperlichCount = sanitizeAndCountMonitor(values, updates, "koerperlich", koerperlichMax);
+  const geistigCount = sanitizeAndCountMonitor(values, updates, "geistig", geistigMax);
+  const poolMod = -1 * (Math.floor(koerperlichCount / 3) + Math.floor(geistigCount / 3));
+
   updates.sr6_derived_initiative_basis = String(reaktion + intuition);
-  updates.sr6_derived_koerperlicher_monitor_max = String(8 + Math.ceil(konstitution / 2));
-  updates.sr6_derived_geistiger_monitor_max = String(8 + Math.ceil(willenskraft / 2));
+  updates.sr6_derived_koerperlicher_monitor_max = String(koerperlichMax);
+  updates.sr6_derived_geistiger_monitor_max = String(geistigMax);
+  updates.sr6_monitor_koerperlich_max = String(koerperlichMax);
+  updates.sr6_monitor_geistig_max = String(geistigMax);
+  updates.sr6_monitor_koerperlich_count = String(koerperlichCount);
+  updates.sr6_monitor_geistig_count = String(geistigCount);
+  updates.sr6_monitor_koerperlich = String(koerperlichCount);
+  updates.sr6_monitor_geistig = String(geistigCount);
+  updates.sr6_monitor_pool_mod = String(poolMod);
 }
 // END MODULE: workers/compute/combat
 
@@ -7868,6 +7948,73 @@ function resetEditModesOnOpen() {
 }
 // END MODULE: workers/ui/defaults
 
+// BEGIN MODULE: workers/ui/monitor-cascade
+function buildMonitorKeys(prefix) {
+  const keys = [];
+  for (let index = 1; index <= 18; index += 1) {
+    keys.push(`sr6_monitor_${prefix}_${index}`);
+  }
+  keys.push(`sr6_monitor_${prefix}_max`);
+  return keys;
+}
+
+function parseMonitorEventSource(sourceAttribute) {
+  const match = /^sr6_monitor_(koerperlich|geistig)_(\d+)$/.exec(sourceAttribute || "");
+  if (!match) return null;
+  return {
+    prefix: match[1],
+    index: clampNumber(parseNumber(match[2]), 1, 18),
+  };
+}
+
+function applyMonitorCascade(prefix, index) {
+  const monitorKeys = buildMonitorKeys(prefix);
+  const monitorMaxKey = `sr6_monitor_${prefix}_max`;
+  const sourceKey = `sr6_monitor_${prefix}_${index}`;
+
+  getAttrs(monitorKeys, (values) => {
+    const updates = {};
+    const maxBoxes = clampNumber(parseNumber(values[monitorMaxKey]) || 18, 0, 18);
+    const sourceChecked = isCheckedValue(values[sourceKey]);
+
+    if (sourceChecked) {
+      const fillTo = Math.min(index, maxBoxes);
+      for (let currentIndex = 1; currentIndex <= fillTo; currentIndex += 1) {
+        const key = `sr6_monitor_${prefix}_${currentIndex}`;
+        if (!isCheckedValue(values[key])) {
+          updates[key] = "1";
+        }
+      }
+    } else {
+      for (let currentIndex = index; currentIndex <= 18; currentIndex += 1) {
+        const key = `sr6_monitor_${prefix}_${currentIndex}`;
+        if (isCheckedValue(values[key])) {
+          updates[key] = "0";
+        }
+      }
+    }
+
+    if (Object.keys(updates).length > 0) {
+      setAttrsSilent(updates, recomputeAll);
+    }
+  });
+}
+
+function registerMonitorCascadeEvents() {
+  const events = [];
+  for (let index = 1; index <= 18; index += 1) {
+    events.push(`change:sr6_monitor_koerperlich_${index}`);
+    events.push(`change:sr6_monitor_geistig_${index}`);
+  }
+
+  on(events.join(" "), (eventInfo) => {
+    const source = parseMonitorEventSource(eventInfo && eventInfo.sourceAttribute);
+    if (!source) return;
+    applyMonitorCascade(source.prefix, source.index);
+  });
+}
+// END MODULE: workers/ui/monitor-cascade
+
 // END BLOCK: Worker Includes (ui)
 
 // BEGIN BLOCK: Worker Includes (register)
@@ -7882,12 +8029,13 @@ function recomputeAll() {
   appendSkillRequestKeys(requestKeys);
   appendMatrixRequestKeys(requestKeys);
   appendMagicRequestKeys(requestKeys);
+  appendCombatRequestKeys(requestKeys);
 
   getAttrs(requestKeys, (values) => {
     computeAttributeTotals(values, updates, totals);
     computeSkillTotals(values, updates, skillTotals);
     computeMatrixTotals(values, updates);
-    computeCombatDerivedFromAttributes(totals, updates);
+    computeCombatDerivedFromAttributes(totals, values, updates);
     computeMagicDerived(values, totals, skillTotals, updates);
     computeRiggingDerived(values, totals, skillTotals, updates);
 
@@ -7916,6 +8064,11 @@ function buildRecalcEvents() {
   events.push("change:sr6_magic_traditionsattribut_1");
   events.push("change:sr6_magic_traditionsattribut_2");
 
+  for (let index = 1; index <= 18; index += 1) {
+    events.push(`change:sr6_monitor_koerperlich_${index}`);
+    events.push(`change:sr6_monitor_geistig_${index}`);
+  }
+
   return events;
 }
 
@@ -7923,6 +8076,7 @@ function registerWorkerEvents() {
   const recalcEvents = buildRecalcEvents();
   on(recalcEvents.join(" "), recomputeAll);
   registerSuccessProbeRollEvents();
+  registerMonitorCascadeEvents();
 
   on("sheet:opened", () => {
     resetTabToAllgemeinOnOpen();

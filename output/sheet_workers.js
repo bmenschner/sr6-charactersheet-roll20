@@ -91,6 +91,15 @@ function parseNumber(value) {
   return Number.isNaN(parsed) ? 0 : parsed;
 }
 
+function clampNumber(value, min, max) {
+  return Math.max(min, Math.min(max, value));
+}
+
+function isCheckedValue(value) {
+  const normalized = `${value || ""}`.trim().toLowerCase();
+  return normalized === "1" || normalized === "on" || normalized === "true" || normalized === "yes";
+}
+
 function mapTraditionsattributToKey(value) {
   const normalized = (value || "").trim().toLowerCase();
   if (normalized === "charisma") return "charisma";
@@ -103,11 +112,15 @@ function mapTraditionsattributToKey(value) {
 // END MODULE: workers/core/helpers
 
 // BEGIN MODULE: workers/core/guards
-function setAttrsSilent(payload) {
+function setAttrsSilent(payload, callback) {
   if (!payload || typeof payload !== "object") {
     return;
   }
   if (Object.keys(payload).length === 0) {
+    return;
+  }
+  if (typeof callback === "function") {
+    setAttrs(payload, { silent: true }, callback);
     return;
   }
   setAttrs(payload, { silent: true });
@@ -377,6 +390,9 @@ function runSuccessProbeRoll(eventInfo) {
   if (poolAttribute && !attributeRefs.includes(poolAttribute)) {
     attributeRefs.push(poolAttribute);
   }
+  if (poolAttribute) {
+    attributeRefs.push("sr6_monitor_pool_mod");
+  }
   const resolvedAttributes = [];
   attributeRefs.forEach((attributeRef) => {
     resolvedAttributes.push(attributeRef);
@@ -406,7 +422,9 @@ function runSuccessProbeRoll(eventInfo) {
       return;
     }
 
-    const pool = Math.max(0, parseNumber(lookupAttr(poolAttribute)));
+    const poolBasis = parseNumber(lookupAttr(poolAttribute));
+    const monitorPoolMod = parseNumber(lookupAttr("sr6_monitor_pool_mod"));
+    const pool = Math.max(0, poolBasis + monitorPoolMod);
     const diceResults = [];
     for (let index = 0; index < pool; index += 1) {
       diceResults.push(rollD6());
@@ -418,7 +436,11 @@ function runSuccessProbeRoll(eventInfo) {
     const erfolgeValue = isGlitch ? glitchText : `${successCount}`;
     const details = buildDiceDetails(diceResults);
     const detailsDice = buildDetailsDice(diceResults);
-    const poolValue = resolvedFields.Pool || pool;
+    const poolValue = `${pool}`;
+    if (monitorPoolMod !== 0) {
+      rows.push({ label: "Pool-Basis", value: `${poolBasis}` });
+      rows.push({ label: "Zustandsmodifikator", value: `${monitorPoolMod}` });
+    }
 
     const chatMessage = buildSr6ProbeMessage({
       name: name,
@@ -488,15 +510,55 @@ function computeSkillTotals(values, updates, skillTotals) {
 // END MODULE: workers/compute/skills
 
 // BEGIN MODULE: workers/compute/combat
-function computeCombatDerivedFromAttributes(totals, updates) {
+function appendCombatRequestKeys(requestKeys) {
+  for (let index = 1; index <= 18; index += 1) {
+    requestKeys.push(`sr6_monitor_koerperlich_${index}`);
+    requestKeys.push(`sr6_monitor_geistig_${index}`);
+  }
+}
+
+function sanitizeAndCountMonitor(values, updates, monitorPrefix, maxBoxes) {
+  let count = 0;
+  for (let index = 1; index <= 18; index += 1) {
+    const key = `sr6_monitor_${monitorPrefix}_${index}`;
+    const checked = isCheckedValue(values[key]);
+
+    if (index > maxBoxes) {
+      if (checked) {
+        updates[key] = "0";
+      }
+      continue;
+    }
+
+    if (checked) {
+      count += 1;
+    }
+  }
+  return count;
+}
+
+function computeCombatDerivedFromAttributes(totals, values, updates) {
   const reaktion = totals.reaktion || 0;
   const intuition = totals.intuition || 0;
   const konstitution = totals.konstitution || 0;
   const willenskraft = totals.willenskraft || 0;
 
+  const koerperlichMax = clampNumber(8 + Math.ceil(konstitution / 2), 0, 18);
+  const geistigMax = clampNumber(8 + Math.ceil(willenskraft / 2), 0, 18);
+  const koerperlichCount = sanitizeAndCountMonitor(values, updates, "koerperlich", koerperlichMax);
+  const geistigCount = sanitizeAndCountMonitor(values, updates, "geistig", geistigMax);
+  const poolMod = -1 * (Math.floor(koerperlichCount / 3) + Math.floor(geistigCount / 3));
+
   updates.sr6_derived_initiative_basis = String(reaktion + intuition);
-  updates.sr6_derived_koerperlicher_monitor_max = String(8 + Math.ceil(konstitution / 2));
-  updates.sr6_derived_geistiger_monitor_max = String(8 + Math.ceil(willenskraft / 2));
+  updates.sr6_derived_koerperlicher_monitor_max = String(koerperlichMax);
+  updates.sr6_derived_geistiger_monitor_max = String(geistigMax);
+  updates.sr6_monitor_koerperlich_max = String(koerperlichMax);
+  updates.sr6_monitor_geistig_max = String(geistigMax);
+  updates.sr6_monitor_koerperlich_count = String(koerperlichCount);
+  updates.sr6_monitor_geistig_count = String(geistigCount);
+  updates.sr6_monitor_koerperlich = String(koerperlichCount);
+  updates.sr6_monitor_geistig = String(geistigCount);
+  updates.sr6_monitor_pool_mod = String(poolMod);
 }
 // END MODULE: workers/compute/combat
 
@@ -601,6 +663,73 @@ function resetEditModesOnOpen() {
 }
 // END MODULE: workers/ui/defaults
 
+// BEGIN MODULE: workers/ui/monitor-cascade
+function buildMonitorKeys(prefix) {
+  const keys = [];
+  for (let index = 1; index <= 18; index += 1) {
+    keys.push(`sr6_monitor_${prefix}_${index}`);
+  }
+  keys.push(`sr6_monitor_${prefix}_max`);
+  return keys;
+}
+
+function parseMonitorEventSource(sourceAttribute) {
+  const match = /^sr6_monitor_(koerperlich|geistig)_(\d+)$/.exec(sourceAttribute || "");
+  if (!match) return null;
+  return {
+    prefix: match[1],
+    index: clampNumber(parseNumber(match[2]), 1, 18),
+  };
+}
+
+function applyMonitorCascade(prefix, index) {
+  const monitorKeys = buildMonitorKeys(prefix);
+  const monitorMaxKey = `sr6_monitor_${prefix}_max`;
+  const sourceKey = `sr6_monitor_${prefix}_${index}`;
+
+  getAttrs(monitorKeys, (values) => {
+    const updates = {};
+    const maxBoxes = clampNumber(parseNumber(values[monitorMaxKey]) || 18, 0, 18);
+    const sourceChecked = isCheckedValue(values[sourceKey]);
+
+    if (sourceChecked) {
+      const fillTo = Math.min(index, maxBoxes);
+      for (let currentIndex = 1; currentIndex <= fillTo; currentIndex += 1) {
+        const key = `sr6_monitor_${prefix}_${currentIndex}`;
+        if (!isCheckedValue(values[key])) {
+          updates[key] = "1";
+        }
+      }
+    } else {
+      for (let currentIndex = index; currentIndex <= 18; currentIndex += 1) {
+        const key = `sr6_monitor_${prefix}_${currentIndex}`;
+        if (isCheckedValue(values[key])) {
+          updates[key] = "0";
+        }
+      }
+    }
+
+    if (Object.keys(updates).length > 0) {
+      setAttrsSilent(updates, recomputeAll);
+    }
+  });
+}
+
+function registerMonitorCascadeEvents() {
+  const events = [];
+  for (let index = 1; index <= 18; index += 1) {
+    events.push(`change:sr6_monitor_koerperlich_${index}`);
+    events.push(`change:sr6_monitor_geistig_${index}`);
+  }
+
+  on(events.join(" "), (eventInfo) => {
+    const source = parseMonitorEventSource(eventInfo && eventInfo.sourceAttribute);
+    if (!source) return;
+    applyMonitorCascade(source.prefix, source.index);
+  });
+}
+// END MODULE: workers/ui/monitor-cascade
+
 // END BLOCK: Worker Includes (ui)
 
 // BEGIN BLOCK: Worker Includes (register)
@@ -615,12 +744,13 @@ function recomputeAll() {
   appendSkillRequestKeys(requestKeys);
   appendMatrixRequestKeys(requestKeys);
   appendMagicRequestKeys(requestKeys);
+  appendCombatRequestKeys(requestKeys);
 
   getAttrs(requestKeys, (values) => {
     computeAttributeTotals(values, updates, totals);
     computeSkillTotals(values, updates, skillTotals);
     computeMatrixTotals(values, updates);
-    computeCombatDerivedFromAttributes(totals, updates);
+    computeCombatDerivedFromAttributes(totals, values, updates);
     computeMagicDerived(values, totals, skillTotals, updates);
     computeRiggingDerived(values, totals, skillTotals, updates);
 
@@ -649,6 +779,11 @@ function buildRecalcEvents() {
   events.push("change:sr6_magic_traditionsattribut_1");
   events.push("change:sr6_magic_traditionsattribut_2");
 
+  for (let index = 1; index <= 18; index += 1) {
+    events.push(`change:sr6_monitor_koerperlich_${index}`);
+    events.push(`change:sr6_monitor_geistig_${index}`);
+  }
+
   return events;
 }
 
@@ -656,6 +791,7 @@ function registerWorkerEvents() {
   const recalcEvents = buildRecalcEvents();
   on(recalcEvents.join(" "), recomputeAll);
   registerSuccessProbeRollEvents();
+  registerMonitorCascadeEvents();
 
   on("sheet:opened", () => {
     resetTabToAllgemeinOnOpen();
