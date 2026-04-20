@@ -21,133 +21,159 @@
       <!-- BEGIN BLOCK: Kopfbereich -->
       <!-- BEGIN BLOCK: Kopfbereich -->
 <section class="sr6-charactersheet-kopfbereich" aria-label="Kopfbereich">
-  <!-- BEGIN BLOCK: Spalte 1 - Platzhalter für Charakterbild -->
+  <!-- BEGIN BLOCK: Kopfbereich Spalte Bild -->
+  <!-- BEGIN BLOCK: Spalte 1 - Charakterbild -->
+<div
+  class="sr6-charactersheet-kopfbereich-spalte sr6-charactersheet-kopfbereich-spalte--bild">
+  <h2
+    class="sr6-charactersheet-kopfbereich-title"
+    data-i18n="section.charakterbild">
+    Charakterbild
+  </h2>
   <div
-    class="sr6-charactersheet-kopfbereich-spalte sr6-charactersheet-kopfbereich-spalte--bild">
-    <h2
-      class="sr6-charactersheet-kopfbereich-title"
-      data-i18n="section.charakterbild">
-      Charakterbild
-    </h2>
-    <div
-      class="sr6-charactersheet-placeholder sr6-charactersheet-placeholder--bild"
-      aria-hidden="true">
-      Platzhalter
-    </div>
+    class="sr6-charactersheet-placeholder sr6-charactersheet-placeholder--bild"
+    aria-hidden="true">
+    Platzhalter
   </div>
-  <!-- END BLOCK: Spalte 1 - Platzhalter für Charakterbild -->
+</div>
+<!-- END BLOCK: Spalte 1 - Charakterbild -->
 
-  <!-- BEGIN BLOCK: Spalte 2 - Körperlicher und geistiger Zustandsmonitor -->
-  <div
-    class="sr6-charactersheet-kopfbereich-spalte sr6-charactersheet-kopfbereich-spalte--zustand">
-    <h2
-      class="sr6-charactersheet-kopfbereich-title"
-      data-i18n="section.zustandsmonitor">
-      Zustandsmonitor
-    </h2>
-    <input type="hidden" name="attr_sr6_monitor_koerperlich_count" value="0" />
-    <input type="hidden" name="attr_sr6_monitor_geistig_count" value="0" />
-    <input type="hidden" name="attr_sr6_monitor_pool_mod" value="0" />
+  <!-- END BLOCK: Kopfbereich Spalte Bild -->
 
-    <div class="sr6-charactersheet-zustandsmonitor-zeilen">
-      <div class="sr6-charactersheet-monitor-row">
-        <span
-          class="sr6-charactersheet-monitor-label"
-          data-i18n="field.monitor_koerperlich"
-          >Körperlicher Zustand</span
-        >
-        <div class="sr6-charactersheet-monitor-track-wrap">
-          <input type="text" name="attr_sr6_monitor_koerperlich" readonly />
-          <div class="sr6-charactersheet-monitor-track-shell sr6-charactersheet-monitor-track-shell--koerperlich">
-            <input type="hidden" name="attr_sr6_monitor_koerperlich_max" value="0" />
-            <div class="sr6-charactersheet-monitor-track sr6-charactersheet-monitor-track--koerperlich">
-              <label class="sr6-charactersheet-monitor-box"><input type="checkbox" name="attr_sr6_monitor_koerperlich_1" value="1" /><span></span></label>
-              <label class="sr6-charactersheet-monitor-box"><input type="checkbox" name="attr_sr6_monitor_koerperlich_2" value="1" /><span></span></label>
-              <label class="sr6-charactersheet-monitor-box sr6-charactersheet-monitor-box--mod" data-mod="-1"><input type="checkbox" name="attr_sr6_monitor_koerperlich_3" value="1" /><span>-1</span></label>
-              <label class="sr6-charactersheet-monitor-box"><input type="checkbox" name="attr_sr6_monitor_koerperlich_4" value="1" /><span></span></label>
-              <label class="sr6-charactersheet-monitor-box"><input type="checkbox" name="attr_sr6_monitor_koerperlich_5" value="1" /><span></span></label>
-              <label class="sr6-charactersheet-monitor-box sr6-charactersheet-monitor-box--mod" data-mod="-2"><input type="checkbox" name="attr_sr6_monitor_koerperlich_6" value="1" /><span>-2</span></label>
-              <label class="sr6-charactersheet-monitor-box"><input type="checkbox" name="attr_sr6_monitor_koerperlich_7" value="1" /><span></span></label>
-              <label class="sr6-charactersheet-monitor-box"><input type="checkbox" name="attr_sr6_monitor_koerperlich_8" value="1" /><span></span></label>
-              <label class="sr6-charactersheet-monitor-box sr6-charactersheet-monitor-box--mod" data-mod="-3"><input type="checkbox" name="attr_sr6_monitor_koerperlich_9" value="1" /><span>-3</span></label>
-              <label class="sr6-charactersheet-monitor-box"><input type="checkbox" name="attr_sr6_monitor_koerperlich_10" value="1" /><span></span></label>
-              <label class="sr6-charactersheet-monitor-box"><input type="checkbox" name="attr_sr6_monitor_koerperlich_11" value="1" /><span></span></label>
-              <label class="sr6-charactersheet-monitor-box sr6-charactersheet-monitor-box--mod" data-mod="-4"><input type="checkbox" name="attr_sr6_monitor_koerperlich_12" value="1" /><span>-4</span></label>
-              <label class="sr6-charactersheet-monitor-box"><input type="checkbox" name="attr_sr6_monitor_koerperlich_13" value="1" /><span></span></label>
-              <label class="sr6-charactersheet-monitor-box"><input type="checkbox" name="attr_sr6_monitor_koerperlich_14" value="1" /><span></span></label>
-              <label class="sr6-charactersheet-monitor-box sr6-charactersheet-monitor-box--mod" data-mod="-5"><input type="checkbox" name="attr_sr6_monitor_koerperlich_15" value="1" /><span>-5</span></label>
-              <label class="sr6-charactersheet-monitor-box"><input type="checkbox" name="attr_sr6_monitor_koerperlich_16" value="1" /><span></span></label>
-              <label class="sr6-charactersheet-monitor-box"><input type="checkbox" name="attr_sr6_monitor_koerperlich_17" value="1" /><span></span></label>
-              <label class="sr6-charactersheet-monitor-box sr6-charactersheet-monitor-box--mod" data-mod="-6"><input type="checkbox" name="attr_sr6_monitor_koerperlich_18" value="1" /><span>-6</span></label>
-            </div>
-            
-          </div>
-        </div>
-      </div>
+  <!-- BEGIN BLOCK: Kopfbereich Spalte Zustandsmonitor -->
+  <!-- BEGIN BLOCK: Spalte 2 - Zustandsmonitor -->
+<div
+  class="sr6-charactersheet-kopfbereich-spalte sr6-charactersheet-kopfbereich-spalte--zustand">
+  <h2
+    class="sr6-charactersheet-kopfbereich-title"
+    data-i18n="section.zustandsmonitor">
+    Zustandsmonitor
+  </h2>
+  <input type="hidden" name="attr_sr6_monitor_koerperlich_count" value="0" />
+  <input type="hidden" name="attr_sr6_monitor_geistig_count" value="0" />
+  <input type="hidden" name="attr_sr6_monitor_pool_mod" value="0" />
 
-      <div class="sr6-charactersheet-monitor-row">
-        <span
-          class="sr6-charactersheet-monitor-label"
-          data-i18n="field.monitor_geistig"
-          >Geistiger Zustand</span
-        >
-        <div class="sr6-charactersheet-monitor-track-wrap">
-          <input type="text" name="attr_sr6_monitor_geistig" readonly />
-          <div class="sr6-charactersheet-monitor-track-shell sr6-charactersheet-monitor-track-shell--geistig">
-            <input type="hidden" name="attr_sr6_monitor_geistig_max" value="0" />
-            <div class="sr6-charactersheet-monitor-track sr6-charactersheet-monitor-track--geistig">
-              <label class="sr6-charactersheet-monitor-box"><input type="checkbox" name="attr_sr6_monitor_geistig_1" value="1" /><span></span></label>
-              <label class="sr6-charactersheet-monitor-box"><input type="checkbox" name="attr_sr6_monitor_geistig_2" value="1" /><span></span></label>
-              <label class="sr6-charactersheet-monitor-box sr6-charactersheet-monitor-box--mod" data-mod="-1"><input type="checkbox" name="attr_sr6_monitor_geistig_3" value="1" /><span>-1</span></label>
-              <label class="sr6-charactersheet-monitor-box"><input type="checkbox" name="attr_sr6_monitor_geistig_4" value="1" /><span></span></label>
-              <label class="sr6-charactersheet-monitor-box"><input type="checkbox" name="attr_sr6_monitor_geistig_5" value="1" /><span></span></label>
-              <label class="sr6-charactersheet-monitor-box sr6-charactersheet-monitor-box--mod" data-mod="-2"><input type="checkbox" name="attr_sr6_monitor_geistig_6" value="1" /><span>-2</span></label>
-              <label class="sr6-charactersheet-monitor-box"><input type="checkbox" name="attr_sr6_monitor_geistig_7" value="1" /><span></span></label>
-              <label class="sr6-charactersheet-monitor-box"><input type="checkbox" name="attr_sr6_monitor_geistig_8" value="1" /><span></span></label>
-              <label class="sr6-charactersheet-monitor-box sr6-charactersheet-monitor-box--mod" data-mod="-3"><input type="checkbox" name="attr_sr6_monitor_geistig_9" value="1" /><span>-3</span></label>
-              <label class="sr6-charactersheet-monitor-box"><input type="checkbox" name="attr_sr6_monitor_geistig_10" value="1" /><span></span></label>
-              <label class="sr6-charactersheet-monitor-box"><input type="checkbox" name="attr_sr6_monitor_geistig_11" value="1" /><span></span></label>
-              <label class="sr6-charactersheet-monitor-box sr6-charactersheet-monitor-box--mod" data-mod="-4"><input type="checkbox" name="attr_sr6_monitor_geistig_12" value="1" /><span>-4</span></label>
-              <label class="sr6-charactersheet-monitor-box"><input type="checkbox" name="attr_sr6_monitor_geistig_13" value="1" /><span></span></label>
-              <label class="sr6-charactersheet-monitor-box"><input type="checkbox" name="attr_sr6_monitor_geistig_14" value="1" /><span></span></label>
-              <label class="sr6-charactersheet-monitor-box sr6-charactersheet-monitor-box--mod" data-mod="-5"><input type="checkbox" name="attr_sr6_monitor_geistig_15" value="1" /><span>-5</span></label>
-              <label class="sr6-charactersheet-monitor-box"><input type="checkbox" name="attr_sr6_monitor_geistig_16" value="1" /><span></span></label>
-              <label class="sr6-charactersheet-monitor-box"><input type="checkbox" name="attr_sr6_monitor_geistig_17" value="1" /><span></span></label>
-              <label class="sr6-charactersheet-monitor-box sr6-charactersheet-monitor-box--mod" data-mod="-6"><input type="checkbox" name="attr_sr6_monitor_geistig_18" value="1" /><span>-6</span></label>
-            </div>
-            
-          </div>
-        </div>
+  <div class="sr6-charactersheet-zustandsmonitor-zeilen">
+    <!-- BEGIN BLOCK: Monitor Körperlich -->
+    <!-- BEGIN BLOCK: Monitor Reihe - Körperlich -->
+<div class="sr6-charactersheet-monitor-row">
+  <span
+    class="sr6-charactersheet-monitor-label"
+    data-i18n="field.monitor_koerperlich"
+    >Körperlicher Zustand</span
+  >
+  <div class="sr6-charactersheet-monitor-track-wrap">
+    <input type="text" name="attr_sr6_monitor_koerperlich" readonly />
+    <div
+      class="sr6-charactersheet-monitor-track-shell sr6-charactersheet-monitor-track-shell--koerperlich">
+      <input type="hidden" name="attr_sr6_monitor_koerperlich_max" value="0" />
+      <div
+        class="sr6-charactersheet-monitor-track sr6-charactersheet-monitor-track--koerperlich">
+        <label class="sr6-charactersheet-monitor-box"><input type="checkbox" name="attr_sr6_monitor_koerperlich_1" value="1" /><span></span></label>
+        <label class="sr6-charactersheet-monitor-box"><input type="checkbox" name="attr_sr6_monitor_koerperlich_2" value="1" /><span></span></label>
+        <label class="sr6-charactersheet-monitor-box sr6-charactersheet-monitor-box--mod" data-mod="-1"><input type="checkbox" name="attr_sr6_monitor_koerperlich_3" value="1" /><span>-1</span></label>
+        <label class="sr6-charactersheet-monitor-box"><input type="checkbox" name="attr_sr6_monitor_koerperlich_4" value="1" /><span></span></label>
+        <label class="sr6-charactersheet-monitor-box"><input type="checkbox" name="attr_sr6_monitor_koerperlich_5" value="1" /><span></span></label>
+        <label class="sr6-charactersheet-monitor-box sr6-charactersheet-monitor-box--mod" data-mod="-2"><input type="checkbox" name="attr_sr6_monitor_koerperlich_6" value="1" /><span>-2</span></label>
+        <label class="sr6-charactersheet-monitor-box"><input type="checkbox" name="attr_sr6_monitor_koerperlich_7" value="1" /><span></span></label>
+        <label class="sr6-charactersheet-monitor-box"><input type="checkbox" name="attr_sr6_monitor_koerperlich_8" value="1" /><span></span></label>
+        <label class="sr6-charactersheet-monitor-box sr6-charactersheet-monitor-box--mod" data-mod="-3"><input type="checkbox" name="attr_sr6_monitor_koerperlich_9" value="1" /><span>-3</span></label>
+        <label class="sr6-charactersheet-monitor-box"><input type="checkbox" name="attr_sr6_monitor_koerperlich_10" value="1" /><span></span></label>
+        <label class="sr6-charactersheet-monitor-box"><input type="checkbox" name="attr_sr6_monitor_koerperlich_11" value="1" /><span></span></label>
+        <label class="sr6-charactersheet-monitor-box sr6-charactersheet-monitor-box--mod" data-mod="-4"><input type="checkbox" name="attr_sr6_monitor_koerperlich_12" value="1" /><span>-4</span></label>
+        <label class="sr6-charactersheet-monitor-box"><input type="checkbox" name="attr_sr6_monitor_koerperlich_13" value="1" /><span></span></label>
+        <label class="sr6-charactersheet-monitor-box"><input type="checkbox" name="attr_sr6_monitor_koerperlich_14" value="1" /><span></span></label>
+        <label class="sr6-charactersheet-monitor-box sr6-charactersheet-monitor-box--mod" data-mod="-5"><input type="checkbox" name="attr_sr6_monitor_koerperlich_15" value="1" /><span>-5</span></label>
+        <label class="sr6-charactersheet-monitor-box"><input type="checkbox" name="attr_sr6_monitor_koerperlich_16" value="1" /><span></span></label>
+        <label class="sr6-charactersheet-monitor-box"><input type="checkbox" name="attr_sr6_monitor_koerperlich_17" value="1" /><span></span></label>
+        <label class="sr6-charactersheet-monitor-box sr6-charactersheet-monitor-box--mod" data-mod="-6"><input type="checkbox" name="attr_sr6_monitor_koerperlich_18" value="1" /><span>-6</span></label>
       </div>
     </div>
   </div>
-  <!-- END BLOCK: Spalte 2 - Körperlicher und geistiger Zustandsmonitor -->
+</div>
+<!-- END BLOCK: Monitor Reihe - Körperlich -->
 
-  <!-- BEGIN BLOCK: Spalte 3 - Platzhalter für Edge-Token -->
-  <div
-    class="sr6-charactersheet-kopfbereich-spalte sr6-charactersheet-kopfbereich-spalte--edge">
-    <h2
-      class="sr6-charactersheet-kopfbereich-title"
-      data-i18n="section.edge_token">
-      Edge Token
-    </h2>
+    <!-- END BLOCK: Monitor Körperlich -->
+
+    <!-- BEGIN BLOCK: Monitor Geistig -->
+    <!-- BEGIN BLOCK: Monitor Reihe - Geistig -->
+<div class="sr6-charactersheet-monitor-row">
+  <span
+    class="sr6-charactersheet-monitor-label"
+    data-i18n="field.monitor_geistig"
+    >Geistiger Zustand</span
+  >
+  <div class="sr6-charactersheet-monitor-track-wrap">
+    <input type="text" name="attr_sr6_monitor_geistig" readonly />
     <div
-      class="sr6-charactersheet-placeholder sr6-charactersheet-placeholder--edge"
-      aria-label="Edge Token">
+      class="sr6-charactersheet-monitor-track-shell sr6-charactersheet-monitor-track-shell--geistig">
+      <input type="hidden" name="attr_sr6_monitor_geistig_max" value="0" />
+      <div
+        class="sr6-charactersheet-monitor-track sr6-charactersheet-monitor-track--geistig">
+        <label class="sr6-charactersheet-monitor-box"><input type="checkbox" name="attr_sr6_monitor_geistig_1" value="1" /><span></span></label>
+        <label class="sr6-charactersheet-monitor-box"><input type="checkbox" name="attr_sr6_monitor_geistig_2" value="1" /><span></span></label>
+        <label class="sr6-charactersheet-monitor-box sr6-charactersheet-monitor-box--mod" data-mod="-1"><input type="checkbox" name="attr_sr6_monitor_geistig_3" value="1" /><span>-1</span></label>
+        <label class="sr6-charactersheet-monitor-box"><input type="checkbox" name="attr_sr6_monitor_geistig_4" value="1" /><span></span></label>
+        <label class="sr6-charactersheet-monitor-box"><input type="checkbox" name="attr_sr6_monitor_geistig_5" value="1" /><span></span></label>
+        <label class="sr6-charactersheet-monitor-box sr6-charactersheet-monitor-box--mod" data-mod="-2"><input type="checkbox" name="attr_sr6_monitor_geistig_6" value="1" /><span>-2</span></label>
+        <label class="sr6-charactersheet-monitor-box"><input type="checkbox" name="attr_sr6_monitor_geistig_7" value="1" /><span></span></label>
+        <label class="sr6-charactersheet-monitor-box"><input type="checkbox" name="attr_sr6_monitor_geistig_8" value="1" /><span></span></label>
+        <label class="sr6-charactersheet-monitor-box sr6-charactersheet-monitor-box--mod" data-mod="-3"><input type="checkbox" name="attr_sr6_monitor_geistig_9" value="1" /><span>-3</span></label>
+        <label class="sr6-charactersheet-monitor-box"><input type="checkbox" name="attr_sr6_monitor_geistig_10" value="1" /><span></span></label>
+        <label class="sr6-charactersheet-monitor-box"><input type="checkbox" name="attr_sr6_monitor_geistig_11" value="1" /><span></span></label>
+        <label class="sr6-charactersheet-monitor-box sr6-charactersheet-monitor-box--mod" data-mod="-4"><input type="checkbox" name="attr_sr6_monitor_geistig_12" value="1" /><span>-4</span></label>
+        <label class="sr6-charactersheet-monitor-box"><input type="checkbox" name="attr_sr6_monitor_geistig_13" value="1" /><span></span></label>
+        <label class="sr6-charactersheet-monitor-box"><input type="checkbox" name="attr_sr6_monitor_geistig_14" value="1" /><span></span></label>
+        <label class="sr6-charactersheet-monitor-box sr6-charactersheet-monitor-box--mod" data-mod="-5"><input type="checkbox" name="attr_sr6_monitor_geistig_15" value="1" /><span>-5</span></label>
+        <label class="sr6-charactersheet-monitor-box"><input type="checkbox" name="attr_sr6_monitor_geistig_16" value="1" /><span></span></label>
+        <label class="sr6-charactersheet-monitor-box"><input type="checkbox" name="attr_sr6_monitor_geistig_17" value="1" /><span></span></label>
+        <label class="sr6-charactersheet-monitor-box sr6-charactersheet-monitor-box--mod" data-mod="-6"><input type="checkbox" name="attr_sr6_monitor_geistig_18" value="1" /><span>-6</span></label>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- END BLOCK: Monitor Reihe - Geistig -->
+
+    <!-- END BLOCK: Monitor Geistig -->
+  </div>
+</div>
+<!-- END BLOCK: Spalte 2 - Zustandsmonitor -->
+
+  <!-- END BLOCK: Kopfbereich Spalte Zustandsmonitor -->
+
+  <!-- BEGIN BLOCK: Kopfbereich Spalte Edge -->
+  <!-- BEGIN BLOCK: Spalte 3 - Edge Token -->
+<div
+  class="sr6-charactersheet-kopfbereich-spalte sr6-charactersheet-kopfbereich-spalte--edge">
+  <h2
+    class="sr6-charactersheet-kopfbereich-title"
+    data-i18n="section.edge_token">
+    Edge Token
+  </h2>
+  <div class="sr6-charactersheet-edge-token" aria-label="Edge Token">
+    <div class="sr6-edge-coin" aria-label="Edge Coin">
       <button
-        type="button"
-        class="sr6-edge-coin"
-        aria-label="Edge Coin">
-        <input
-          type="text"
-          class="sr6-edge-coin-value"
-          name="attr_sr6_edge_aktuell"
-          value="0"
-          inputmode="numeric" />
-      </button>
+        type="action"
+        name="act_sr6_edge_token_minus"
+        class="sr6-edge-coin-hit sr6-edge-coin-hit--minus"
+        aria-label="Edge verringern"></button>
+      <button
+        type="action"
+        name="act_sr6_edge_token_plus"
+        class="sr6-edge-coin-hit sr6-edge-coin-hit--plus"
+        aria-label="Edge erhoehen"></button>
+      <input
+        type="text"
+        class="sr6-edge-coin-value"
+        name="attr_sr6_edge_aktuell"
+        value="0"
+        inputmode="numeric" />
     </div>
   </div>
-  <!-- END BLOCK: Spalte 3 - Platzhalter für Edge-Token -->
+</div>
+<!-- END BLOCK: Spalte 3 - Edge Token -->
+
+  <!-- END BLOCK: Kopfbereich Spalte Edge -->
 </section>
 <!-- END BLOCK: Kopfbereich -->
 
@@ -7524,12 +7550,22 @@ function buildDiceDetails(diceResults) {
   return diceResults.join(" + ");
 }
 
+function getDieToneStyle(tone) {
+  if (tone === "success") {
+    return "display:inline-flex;align-items:center;justify-content:center;min-width:1.35rem;height:1.35rem;padding:0 0.25rem;border-radius:0.22rem;border:0.125rem solid #9fcb9f;background:#dff3df;color:#1f5f1f;font-weight:700;line-height:1;";
+  }
+  if (tone === "fail") {
+    return "display:inline-flex;align-items:center;justify-content:center;min-width:1.35rem;height:1.35rem;padding:0 0.25rem;border-radius:0.22rem;border:0.125rem solid #e3a8af;background:#f8d7da;color:#7a0f1b;font-weight:700;line-height:1;";
+  }
+  return "display:inline-flex;align-items:center;justify-content:center;min-width:1.35rem;height:1.35rem;padding:0 0.25rem;border-radius:0.22rem;border:0.125rem solid #d0d0d0;background:#ececec;color:#111111;font-weight:700;line-height:1;";
+}
+
 function buildDetailsDice(diceResults, maxDice = 20) {
   return diceResults.slice(0, maxDice).map((die) => {
     let tone = "neutral";
     if (die === 1) tone = "fail";
     if (die >= 5) tone = "success";
-    return { value: `${die}`, tone: tone };
+    return { value: `${die}`, tone: tone, style: getDieToneStyle(tone) };
   });
 }
 
@@ -7664,6 +7700,7 @@ function buildSr6ProbeMessage(payload) {
       const dieIndex = index + 1;
       parts.push(`{{d${dieIndex}_v=${die.value}}}`);
       parts.push(`{{d${dieIndex}_t=${die.tone}}}`);
+      parts.push(`{{d${dieIndex}_s=${die.style}}}`);
     });
   }
 
@@ -7752,10 +7789,40 @@ function runSuccessProbeRoll(eventInfo) {
   });
 }
 
+function buildEdgeTokenMessage(actionText, edgeCurrent) {
+  return `&{template:default} {{name=Edge Token}} {{Details=Hat 1 Edge ${actionText}. <br /> Aktuelles Edge: ${edgeCurrent}.}}`;
+}
+
+function runEdgeTokenChange(delta) {
+  getAttrs(["sr6_edge_aktuell"], (values) => {
+    const edgeCurrent = clampNumber(parseNumber(values.sr6_edge_aktuell) + delta, 0, 7);
+    setAttrsSilent({ sr6_edge_aktuell: String(edgeCurrent) });
+
+    const actionText = delta > 0 ? "hinzugefügt" : "verloren";
+    const chatMessage = buildEdgeTokenMessage(actionText, edgeCurrent);
+    startRoll(chatMessage, (rollResult) => {
+      finishRoll(rollResult.rollId);
+    });
+  });
+}
+
+function runEdgeTokenPlus() {
+  runEdgeTokenChange(1);
+}
+
+function runEdgeTokenMinus() {
+  runEdgeTokenChange(-1);
+}
+
 function registerSuccessProbeRollEvents() {
   on("clicked:probe", runSuccessProbeRoll);
   on("clicked:repeating_sr6fernkampfwaffen:probe", runSuccessProbeRoll);
   on("clicked:repeating_sr6nahkampfwaffen:probe", runSuccessProbeRoll);
+}
+
+function registerEdgeTokenEvents() {
+  on("clicked:sr6_edge_token_plus", runEdgeTokenPlus);
+  on("clicked:sr6_edge_token_minus", runEdgeTokenMinus);
 }
 // END MODULE: workers/core/rolls
 
@@ -7804,15 +7871,15 @@ function computeSkillTotals(values, updates, skillTotals) {
 }
 // END MODULE: workers/compute/skills
 
-// BEGIN MODULE: workers/compute/combat
-function appendCombatRequestKeys(requestKeys) {
+// BEGIN MODULE: workers/compute/header-monitor
+function appendHeaderMonitorRequestKeys(requestKeys) {
   for (let index = 1; index <= 18; index += 1) {
     requestKeys.push(`sr6_monitor_koerperlich_${index}`);
     requestKeys.push(`sr6_monitor_geistig_${index}`);
   }
 }
 
-function sanitizeAndCountMonitor(values, updates, monitorPrefix, maxBoxes) {
+function sanitizeAndCountHeaderMonitor(values, updates, monitorPrefix, maxBoxes) {
   let count = 0;
   for (let index = 1; index <= 18; index += 1) {
     const key = `sr6_monitor_${monitorPrefix}_${index}`;
@@ -7832,19 +7899,16 @@ function sanitizeAndCountMonitor(values, updates, monitorPrefix, maxBoxes) {
   return count;
 }
 
-function computeCombatDerivedFromAttributes(totals, values, updates) {
-  const reaktion = totals.reaktion || 0;
-  const intuition = totals.intuition || 0;
+function computeHeaderMonitorDerivedFromAttributes(totals, values, updates) {
   const konstitution = totals.konstitution || 0;
   const willenskraft = totals.willenskraft || 0;
 
   const koerperlichMax = clampNumber(8 + Math.ceil(konstitution / 2), 0, 18);
   const geistigMax = clampNumber(8 + Math.ceil(willenskraft / 2), 0, 18);
-  const koerperlichCount = sanitizeAndCountMonitor(values, updates, "koerperlich", koerperlichMax);
-  const geistigCount = sanitizeAndCountMonitor(values, updates, "geistig", geistigMax);
+  const koerperlichCount = sanitizeAndCountHeaderMonitor(values, updates, "koerperlich", koerperlichMax);
+  const geistigCount = sanitizeAndCountHeaderMonitor(values, updates, "geistig", geistigMax);
   const poolMod = -1 * (Math.floor(koerperlichCount / 3) + Math.floor(geistigCount / 3));
 
-  updates.sr6_derived_initiative_basis = String(reaktion + intuition);
   updates.sr6_derived_koerperlicher_monitor_max = String(koerperlichMax);
   updates.sr6_derived_geistiger_monitor_max = String(geistigMax);
   updates.sr6_monitor_koerperlich_max = String(koerperlichMax);
@@ -7854,6 +7918,15 @@ function computeCombatDerivedFromAttributes(totals, values, updates) {
   updates.sr6_monitor_koerperlich = String(koerperlichCount);
   updates.sr6_monitor_geistig = String(geistigCount);
   updates.sr6_monitor_pool_mod = String(poolMod);
+}
+// END MODULE: workers/compute/header-monitor
+
+// BEGIN MODULE: workers/compute/combat
+function computeCombatDerivedFromAttributes(totals, values, updates) {
+  const reaktion = totals.reaktion || 0;
+  const intuition = totals.intuition || 0;
+
+  updates.sr6_derived_initiative_basis = String(reaktion + intuition);
 }
 // END MODULE: workers/compute/combat
 
@@ -8039,13 +8112,14 @@ function recomputeAll() {
   appendSkillRequestKeys(requestKeys);
   appendMatrixRequestKeys(requestKeys);
   appendMagicRequestKeys(requestKeys);
-  appendCombatRequestKeys(requestKeys);
+  appendHeaderMonitorRequestKeys(requestKeys);
 
   getAttrs(requestKeys, (values) => {
     computeAttributeTotals(values, updates, totals);
     computeSkillTotals(values, updates, skillTotals);
     computeMatrixTotals(values, updates);
     computeCombatDerivedFromAttributes(totals, values, updates);
+    computeHeaderMonitorDerivedFromAttributes(totals, values, updates);
     computeMagicDerived(values, totals, skillTotals, updates);
     computeRiggingDerived(values, totals, skillTotals, updates);
 
@@ -8086,6 +8160,7 @@ function registerWorkerEvents() {
   const recalcEvents = buildRecalcEvents();
   on(recalcEvents.join(" "), recomputeAll);
   registerSuccessProbeRollEvents();
+  registerEdgeTokenEvents();
   registerMonitorCascadeEvents();
 
   on("sheet:opened", () => {
@@ -8536,8 +8611,8 @@ registerWorkerEvents();
     {{#pool}}
     <div class="sheet-sr6probe__row" style="display:grid;grid-template-columns:minmax(7.5rem,auto) 1fr;gap:0.5rem;align-items:center;padding:0.375rem 0.5rem;background:#ffffff;">
       <span class="sheet-sr6probe__label" style="font-weight:700;color:#840763;">Pool</span>
-      <span class="sheet-sr6probe__value" style="color:#840763;justify-self:start;width:max-content;">
-        <span class="sheet-sr6probe__die sheet-sr6probe__die--pool">{{pool}}</span>
+      <span class="sheet-sr6probe__value" style="color:#111111;justify-self:start;width:max-content;">
+        <span class="sheet-sr6probe__die sheet-sr6probe__die--pool" style="display:inline-flex;align-items:center;justify-content:center;min-width:1.35rem;height:1.35rem;padding:0 0.25rem;border-radius:0.22rem;border:0.125rem solid #d9cf6a;background:#fef68e;color:#111111;font-weight:700;line-height:1;">{{pool}}</span>
       </span>
     </div>
     {{/pool}}
@@ -8546,7 +8621,7 @@ registerWorkerEvents();
     <div class="sheet-sr6probe__row sheet-sr6probe__row--danger" style="display:grid;grid-template-columns:minmax(7.5rem,auto) 1fr;gap:0.5rem;align-items:center;padding:0.375rem 0.5rem;background:#ffffff;">
       <span class="sheet-sr6probe__label" style="font-weight:700;color:#c62828;">Erfolge</span>
       <span class="sheet-sr6probe__value" style="color:#c62828;justify-self:start;width:max-content;">
-        <span class="sheet-sr6probe__die sheet-sr6probe__die--fail" style="min-width:auto;padding:0 0.5rem;">{{erfolge}}</span>
+        <span class="sheet-sr6probe__die sheet-sr6probe__die--fail" style="display:inline-flex;align-items:center;justify-content:center;min-width:auto;height:1.35rem;padding:0 0.5rem;border-radius:0.22rem;border:0.125rem solid #e3a8af;background:#f8d7da;color:#7a0f1b;font-weight:700;line-height:1;">{{erfolge}}</span>
       </span>
     </div>
     {{/is_glitch}}
@@ -8554,8 +8629,8 @@ registerWorkerEvents();
     {{#erfolge}}
     <div class="sheet-sr6probe__row" style="display:grid;grid-template-columns:minmax(7.5rem,auto) 1fr;gap:0.5rem;align-items:center;padding:0.375rem 0.5rem;background:#ffffff;">
       <span class="sheet-sr6probe__label" style="font-weight:700;color:#840763;">Erfolge</span>
-      <span class="sheet-sr6probe__value" style="color:#840763;justify-self:start;width:max-content;">
-        <span class="sheet-sr6probe__die sheet-sr6probe__die--success">{{erfolge}}</span>
+      <span class="sheet-sr6probe__value" style="color:#111111;justify-self:start;width:max-content;">
+        <span class="sheet-sr6probe__die sheet-sr6probe__die--success" style="display:inline-flex;align-items:center;justify-content:center;min-width:1.35rem;height:1.35rem;padding:0 0.25rem;border-radius:0.22rem;border:0.125rem solid #9fcb9f;background:#dff3df;color:#1f5f1f;font-weight:700;line-height:1;">{{erfolge}}</span>
       </span>
     </div>
     {{/erfolge}}
@@ -8564,28 +8639,28 @@ registerWorkerEvents();
     {{#details}}
     <div class="sheet-sr6probe__row" style="display:grid;grid-template-columns:minmax(7.5rem,auto) 1fr;gap:0.5rem;align-items:center;padding:0.375rem 0.5rem;background:#ffffff;">
       <span class="sheet-sr6probe__label" style="font-weight:700;color:#840763;">Details</span>
-      <span class="sheet-sr6probe__value" style="color:#840763;">
+      <span class="sheet-sr6probe__value" style="color:#111111;">
         {{#details_dice}}
-          {{#d1_v}}<span class="sheet-sr6probe__die sheet-sr6probe__die--{{d1_t}}">{{d1_v}}</span>{{#d2_v}} <span class="sheet-sr6probe__die-plus">+</span> {{/d2_v}}{{/d1_v}}
-          {{#d2_v}}<span class="sheet-sr6probe__die sheet-sr6probe__die--{{d2_t}}">{{d2_v}}</span>{{#d3_v}} <span class="sheet-sr6probe__die-plus">+</span> {{/d3_v}}{{/d2_v}}
-          {{#d3_v}}<span class="sheet-sr6probe__die sheet-sr6probe__die--{{d3_t}}">{{d3_v}}</span>{{#d4_v}} <span class="sheet-sr6probe__die-plus">+</span> {{/d4_v}}{{/d3_v}}
-          {{#d4_v}}<span class="sheet-sr6probe__die sheet-sr6probe__die--{{d4_t}}">{{d4_v}}</span>{{#d5_v}} <span class="sheet-sr6probe__die-plus">+</span> {{/d5_v}}{{/d4_v}}
-          {{#d5_v}}<span class="sheet-sr6probe__die sheet-sr6probe__die--{{d5_t}}">{{d5_v}}</span>{{#d6_v}} <span class="sheet-sr6probe__die-plus">+</span> {{/d6_v}}{{/d5_v}}
-          {{#d6_v}}<span class="sheet-sr6probe__die sheet-sr6probe__die--{{d6_t}}">{{d6_v}}</span>{{#d7_v}} <span class="sheet-sr6probe__die-plus">+</span> {{/d7_v}}{{/d6_v}}
-          {{#d7_v}}<span class="sheet-sr6probe__die sheet-sr6probe__die--{{d7_t}}">{{d7_v}}</span>{{#d8_v}} <span class="sheet-sr6probe__die-plus">+</span> {{/d8_v}}{{/d7_v}}
-          {{#d8_v}}<span class="sheet-sr6probe__die sheet-sr6probe__die--{{d8_t}}">{{d8_v}}</span>{{#d9_v}} <span class="sheet-sr6probe__die-plus">+</span> {{/d9_v}}{{/d8_v}}
-          {{#d9_v}}<span class="sheet-sr6probe__die sheet-sr6probe__die--{{d9_t}}">{{d9_v}}</span>{{#d10_v}} <span class="sheet-sr6probe__die-plus">+</span> {{/d10_v}}{{/d9_v}}
-          {{#d10_v}}<span class="sheet-sr6probe__die sheet-sr6probe__die--{{d10_t}}">{{d10_v}}</span>{{#d11_v}} <span class="sheet-sr6probe__die-plus">+</span> {{/d11_v}}{{/d10_v}}
-          {{#d11_v}}<span class="sheet-sr6probe__die sheet-sr6probe__die--{{d11_t}}">{{d11_v}}</span>{{#d12_v}} <span class="sheet-sr6probe__die-plus">+</span> {{/d12_v}}{{/d11_v}}
-          {{#d12_v}}<span class="sheet-sr6probe__die sheet-sr6probe__die--{{d12_t}}">{{d12_v}}</span>{{#d13_v}} <span class="sheet-sr6probe__die-plus">+</span> {{/d13_v}}{{/d12_v}}
-          {{#d13_v}}<span class="sheet-sr6probe__die sheet-sr6probe__die--{{d13_t}}">{{d13_v}}</span>{{#d14_v}} <span class="sheet-sr6probe__die-plus">+</span> {{/d14_v}}{{/d13_v}}
-          {{#d14_v}}<span class="sheet-sr6probe__die sheet-sr6probe__die--{{d14_t}}">{{d14_v}}</span>{{#d15_v}} <span class="sheet-sr6probe__die-plus">+</span> {{/d15_v}}{{/d14_v}}
-          {{#d15_v}}<span class="sheet-sr6probe__die sheet-sr6probe__die--{{d15_t}}">{{d15_v}}</span>{{#d16_v}} <span class="sheet-sr6probe__die-plus">+</span> {{/d16_v}}{{/d15_v}}
-          {{#d16_v}}<span class="sheet-sr6probe__die sheet-sr6probe__die--{{d16_t}}">{{d16_v}}</span>{{#d17_v}} <span class="sheet-sr6probe__die-plus">+</span> {{/d17_v}}{{/d16_v}}
-          {{#d17_v}}<span class="sheet-sr6probe__die sheet-sr6probe__die--{{d17_t}}">{{d17_v}}</span>{{#d18_v}} <span class="sheet-sr6probe__die-plus">+</span> {{/d18_v}}{{/d17_v}}
-          {{#d18_v}}<span class="sheet-sr6probe__die sheet-sr6probe__die--{{d18_t}}">{{d18_v}}</span>{{#d19_v}} <span class="sheet-sr6probe__die-plus">+</span> {{/d19_v}}{{/d18_v}}
-          {{#d19_v}}<span class="sheet-sr6probe__die sheet-sr6probe__die--{{d19_t}}">{{d19_v}}</span>{{#d20_v}} <span class="sheet-sr6probe__die-plus">+</span> {{/d20_v}}{{/d19_v}}
-          {{#d20_v}}<span class="sheet-sr6probe__die sheet-sr6probe__die--{{d20_t}}">{{d20_v}}</span>{{/d20_v}}
+          {{#d1_v}}<span class="sheet-sr6probe__die sheet-sr6probe__die--{{d1_t}}" style="{{d1_s}}">{{d1_v}}</span>{{#d2_v}} <span class="sheet-sr6probe__die-plus">+</span> {{/d2_v}}{{/d1_v}}
+          {{#d2_v}}<span class="sheet-sr6probe__die sheet-sr6probe__die--{{d2_t}}" style="{{d2_s}}">{{d2_v}}</span>{{#d3_v}} <span class="sheet-sr6probe__die-plus">+</span> {{/d3_v}}{{/d2_v}}
+          {{#d3_v}}<span class="sheet-sr6probe__die sheet-sr6probe__die--{{d3_t}}" style="{{d3_s}}">{{d3_v}}</span>{{#d4_v}} <span class="sheet-sr6probe__die-plus">+</span> {{/d4_v}}{{/d3_v}}
+          {{#d4_v}}<span class="sheet-sr6probe__die sheet-sr6probe__die--{{d4_t}}" style="{{d4_s}}">{{d4_v}}</span>{{#d5_v}} <span class="sheet-sr6probe__die-plus">+</span> {{/d5_v}}{{/d4_v}}
+          {{#d5_v}}<span class="sheet-sr6probe__die sheet-sr6probe__die--{{d5_t}}" style="{{d5_s}}">{{d5_v}}</span>{{#d6_v}} <span class="sheet-sr6probe__die-plus">+</span> {{/d6_v}}{{/d5_v}}
+          {{#d6_v}}<span class="sheet-sr6probe__die sheet-sr6probe__die--{{d6_t}}" style="{{d6_s}}">{{d6_v}}</span>{{#d7_v}} <span class="sheet-sr6probe__die-plus">+</span> {{/d7_v}}{{/d6_v}}
+          {{#d7_v}}<span class="sheet-sr6probe__die sheet-sr6probe__die--{{d7_t}}" style="{{d7_s}}">{{d7_v}}</span>{{#d8_v}} <span class="sheet-sr6probe__die-plus">+</span> {{/d8_v}}{{/d7_v}}
+          {{#d8_v}}<span class="sheet-sr6probe__die sheet-sr6probe__die--{{d8_t}}" style="{{d8_s}}">{{d8_v}}</span>{{#d9_v}} <span class="sheet-sr6probe__die-plus">+</span> {{/d9_v}}{{/d8_v}}
+          {{#d9_v}}<span class="sheet-sr6probe__die sheet-sr6probe__die--{{d9_t}}" style="{{d9_s}}">{{d9_v}}</span>{{#d10_v}} <span class="sheet-sr6probe__die-plus">+</span> {{/d10_v}}{{/d9_v}}
+          {{#d10_v}}<span class="sheet-sr6probe__die sheet-sr6probe__die--{{d10_t}}" style="{{d10_s}}">{{d10_v}}</span>{{#d11_v}} <span class="sheet-sr6probe__die-plus">+</span> {{/d11_v}}{{/d10_v}}
+          {{#d11_v}}<span class="sheet-sr6probe__die sheet-sr6probe__die--{{d11_t}}" style="{{d11_s}}">{{d11_v}}</span>{{#d12_v}} <span class="sheet-sr6probe__die-plus">+</span> {{/d12_v}}{{/d11_v}}
+          {{#d12_v}}<span class="sheet-sr6probe__die sheet-sr6probe__die--{{d12_t}}" style="{{d12_s}}">{{d12_v}}</span>{{#d13_v}} <span class="sheet-sr6probe__die-plus">+</span> {{/d13_v}}{{/d12_v}}
+          {{#d13_v}}<span class="sheet-sr6probe__die sheet-sr6probe__die--{{d13_t}}" style="{{d13_s}}">{{d13_v}}</span>{{#d14_v}} <span class="sheet-sr6probe__die-plus">+</span> {{/d14_v}}{{/d13_v}}
+          {{#d14_v}}<span class="sheet-sr6probe__die sheet-sr6probe__die--{{d14_t}}" style="{{d14_s}}">{{d14_v}}</span>{{#d15_v}} <span class="sheet-sr6probe__die-plus">+</span> {{/d15_v}}{{/d14_v}}
+          {{#d15_v}}<span class="sheet-sr6probe__die sheet-sr6probe__die--{{d15_t}}" style="{{d15_s}}">{{d15_v}}</span>{{#d16_v}} <span class="sheet-sr6probe__die-plus">+</span> {{/d16_v}}{{/d15_v}}
+          {{#d16_v}}<span class="sheet-sr6probe__die sheet-sr6probe__die--{{d16_t}}" style="{{d16_s}}">{{d16_v}}</span>{{#d17_v}} <span class="sheet-sr6probe__die-plus">+</span> {{/d17_v}}{{/d16_v}}
+          {{#d17_v}}<span class="sheet-sr6probe__die sheet-sr6probe__die--{{d17_t}}" style="{{d17_s}}">{{d17_v}}</span>{{#d18_v}} <span class="sheet-sr6probe__die-plus">+</span> {{/d18_v}}{{/d17_v}}
+          {{#d18_v}}<span class="sheet-sr6probe__die sheet-sr6probe__die--{{d18_t}}" style="{{d18_s}}">{{d18_v}}</span>{{#d19_v}} <span class="sheet-sr6probe__die-plus">+</span> {{/d19_v}}{{/d18_v}}
+          {{#d19_v}}<span class="sheet-sr6probe__die sheet-sr6probe__die--{{d19_t}}" style="{{d19_s}}">{{d19_v}}</span>{{#d20_v}} <span class="sheet-sr6probe__die-plus">+</span> {{/d20_v}}{{/d19_v}}
+          {{#d20_v}}<span class="sheet-sr6probe__die sheet-sr6probe__die--{{d20_t}}" style="{{d20_s}}">{{d20_v}}</span>{{/d20_v}}
         {{/details_dice}}
         {{^details_dice}}{{details}}{{/details_dice}}
       </span>

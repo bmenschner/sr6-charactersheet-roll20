@@ -4,8 +4,11 @@
 - Source of Truth:
   - `src/html/charactersheet.html`
   - `src/html/partials/**/*` (modulare HTML-Blöcke, per Include eingebunden)
+    - Kopfbereich bewusst flat unter `src/html/partials/shell/kopfbereich*.html`
   - `src/css/modules/**/*` (modulare Styles, gebündelt via `manifest.json`)
+    - Kopfbereich-CSS unter `src/css/modules/shell/kopfbereich-*.css`
   - `src/workers/core/**/*, src/workers/compute/**/*, src/workers/ui/**/*` (modulare Worker-Logik)
+    - Monitor-Header-Logik in `src/workers/compute/header-monitor.js`
   - `src/i18n/translation.json`
   - `src/assets/images/*`
 - Generierter Output:

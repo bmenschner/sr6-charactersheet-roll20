@@ -229,12 +229,22 @@ function buildDiceDetails(diceResults) {
   return diceResults.join(" + ");
 }
 
+function getDieToneStyle(tone) {
+  if (tone === "success") {
+    return "display:inline-flex;align-items:center;justify-content:center;min-width:1.35rem;height:1.35rem;padding:0 0.25rem;border-radius:0.22rem;border:0.125rem solid #9fcb9f;background:#dff3df;color:#1f5f1f;font-weight:700;line-height:1;";
+  }
+  if (tone === "fail") {
+    return "display:inline-flex;align-items:center;justify-content:center;min-width:1.35rem;height:1.35rem;padding:0 0.25rem;border-radius:0.22rem;border:0.125rem solid #e3a8af;background:#f8d7da;color:#7a0f1b;font-weight:700;line-height:1;";
+  }
+  return "display:inline-flex;align-items:center;justify-content:center;min-width:1.35rem;height:1.35rem;padding:0 0.25rem;border-radius:0.22rem;border:0.125rem solid #d0d0d0;background:#ececec;color:#111111;font-weight:700;line-height:1;";
+}
+
 function buildDetailsDice(diceResults, maxDice = 20) {
   return diceResults.slice(0, maxDice).map((die) => {
     let tone = "neutral";
     if (die === 1) tone = "fail";
     if (die >= 5) tone = "success";
-    return { value: `${die}`, tone: tone };
+    return { value: `${die}`, tone: tone, style: getDieToneStyle(tone) };
   });
 }
 
@@ -369,6 +379,7 @@ function buildSr6ProbeMessage(payload) {
       const dieIndex = index + 1;
       parts.push(`{{d${dieIndex}_v=${die.value}}}`);
       parts.push(`{{d${dieIndex}_t=${die.tone}}}`);
+      parts.push(`{{d${dieIndex}_s=${die.style}}}`);
     });
   }
 
@@ -457,10 +468,40 @@ function runSuccessProbeRoll(eventInfo) {
   });
 }
 
+function buildEdgeTokenMessage(actionText, edgeCurrent) {
+  return `&{template:default} {{name=Edge Token}} {{Details=Hat 1 Edge ${actionText}. <br /> Aktuelles Edge: ${edgeCurrent}.}}`;
+}
+
+function runEdgeTokenChange(delta) {
+  getAttrs(["sr6_edge_aktuell"], (values) => {
+    const edgeCurrent = clampNumber(parseNumber(values.sr6_edge_aktuell) + delta, 0, 7);
+    setAttrsSilent({ sr6_edge_aktuell: String(edgeCurrent) });
+
+    const actionText = delta > 0 ? "hinzugefügt" : "verloren";
+    const chatMessage = buildEdgeTokenMessage(actionText, edgeCurrent);
+    startRoll(chatMessage, (rollResult) => {
+      finishRoll(rollResult.rollId);
+    });
+  });
+}
+
+function runEdgeTokenPlus() {
+  runEdgeTokenChange(1);
+}
+
+function runEdgeTokenMinus() {
+  runEdgeTokenChange(-1);
+}
+
 function registerSuccessProbeRollEvents() {
   on("clicked:probe", runSuccessProbeRoll);
   on("clicked:repeating_sr6fernkampfwaffen:probe", runSuccessProbeRoll);
   on("clicked:repeating_sr6nahkampfwaffen:probe", runSuccessProbeRoll);
+}
+
+function registerEdgeTokenEvents() {
+  on("clicked:sr6_edge_token_plus", runEdgeTokenPlus);
+  on("clicked:sr6_edge_token_minus", runEdgeTokenMinus);
 }
 // END MODULE: workers/core/rolls
 
@@ -509,15 +550,15 @@ function computeSkillTotals(values, updates, skillTotals) {
 }
 // END MODULE: workers/compute/skills
 
-// BEGIN MODULE: workers/compute/combat
-function appendCombatRequestKeys(requestKeys) {
+// BEGIN MODULE: workers/compute/header-monitor
+function appendHeaderMonitorRequestKeys(requestKeys) {
   for (let index = 1; index <= 18; index += 1) {
     requestKeys.push(`sr6_monitor_koerperlich_${index}`);
     requestKeys.push(`sr6_monitor_geistig_${index}`);
   }
 }
 
-function sanitizeAndCountMonitor(values, updates, monitorPrefix, maxBoxes) {
+function sanitizeAndCountHeaderMonitor(values, updates, monitorPrefix, maxBoxes) {
   let count = 0;
   for (let index = 1; index <= 18; index += 1) {
     const key = `sr6_monitor_${monitorPrefix}_${index}`;
@@ -537,19 +578,16 @@ function sanitizeAndCountMonitor(values, updates, monitorPrefix, maxBoxes) {
   return count;
 }
 
-function computeCombatDerivedFromAttributes(totals, values, updates) {
-  const reaktion = totals.reaktion || 0;
-  const intuition = totals.intuition || 0;
+function computeHeaderMonitorDerivedFromAttributes(totals, values, updates) {
   const konstitution = totals.konstitution || 0;
   const willenskraft = totals.willenskraft || 0;
 
   const koerperlichMax = clampNumber(8 + Math.ceil(konstitution / 2), 0, 18);
   const geistigMax = clampNumber(8 + Math.ceil(willenskraft / 2), 0, 18);
-  const koerperlichCount = sanitizeAndCountMonitor(values, updates, "koerperlich", koerperlichMax);
-  const geistigCount = sanitizeAndCountMonitor(values, updates, "geistig", geistigMax);
+  const koerperlichCount = sanitizeAndCountHeaderMonitor(values, updates, "koerperlich", koerperlichMax);
+  const geistigCount = sanitizeAndCountHeaderMonitor(values, updates, "geistig", geistigMax);
   const poolMod = -1 * (Math.floor(koerperlichCount / 3) + Math.floor(geistigCount / 3));
 
-  updates.sr6_derived_initiative_basis = String(reaktion + intuition);
   updates.sr6_derived_koerperlicher_monitor_max = String(koerperlichMax);
   updates.sr6_derived_geistiger_monitor_max = String(geistigMax);
   updates.sr6_monitor_koerperlich_max = String(koerperlichMax);
@@ -559,6 +597,15 @@ function computeCombatDerivedFromAttributes(totals, values, updates) {
   updates.sr6_monitor_koerperlich = String(koerperlichCount);
   updates.sr6_monitor_geistig = String(geistigCount);
   updates.sr6_monitor_pool_mod = String(poolMod);
+}
+// END MODULE: workers/compute/header-monitor
+
+// BEGIN MODULE: workers/compute/combat
+function computeCombatDerivedFromAttributes(totals, values, updates) {
+  const reaktion = totals.reaktion || 0;
+  const intuition = totals.intuition || 0;
+
+  updates.sr6_derived_initiative_basis = String(reaktion + intuition);
 }
 // END MODULE: workers/compute/combat
 
@@ -744,13 +791,14 @@ function recomputeAll() {
   appendSkillRequestKeys(requestKeys);
   appendMatrixRequestKeys(requestKeys);
   appendMagicRequestKeys(requestKeys);
-  appendCombatRequestKeys(requestKeys);
+  appendHeaderMonitorRequestKeys(requestKeys);
 
   getAttrs(requestKeys, (values) => {
     computeAttributeTotals(values, updates, totals);
     computeSkillTotals(values, updates, skillTotals);
     computeMatrixTotals(values, updates);
     computeCombatDerivedFromAttributes(totals, values, updates);
+    computeHeaderMonitorDerivedFromAttributes(totals, values, updates);
     computeMagicDerived(values, totals, skillTotals, updates);
     computeRiggingDerived(values, totals, skillTotals, updates);
 
@@ -791,6 +839,7 @@ function registerWorkerEvents() {
   const recalcEvents = buildRecalcEvents();
   on(recalcEvents.join(" "), recomputeAll);
   registerSuccessProbeRollEvents();
+  registerEdgeTokenEvents();
   registerMonitorCascadeEvents();
 
   on("sheet:opened", () => {

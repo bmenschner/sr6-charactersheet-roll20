@@ -8,6 +8,7 @@
 // BEGIN BLOCK: Worker Includes (compute)
 <!-- @include ./compute/attributes.js -->
 <!-- @include ./compute/skills.js -->
+<!-- @include ./compute/header-monitor.js -->
 <!-- @include ./compute/combat.js -->
 <!-- @include ./compute/magic.js -->
 <!-- @include ./compute/matrix.js -->

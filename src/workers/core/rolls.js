@@ -100,12 +100,22 @@ function buildDiceDetails(diceResults) {
   return diceResults.join(" + ");
 }
 
+function getDieToneStyle(tone) {
+  if (tone === "success") {
+    return "display:inline-flex;align-items:center;justify-content:center;min-width:1.35rem;height:1.35rem;padding:0 0.25rem;border-radius:0.22rem;border:0.125rem solid #9fcb9f;background:#dff3df;color:#1f5f1f;font-weight:700;line-height:1;";
+  }
+  if (tone === "fail") {
+    return "display:inline-flex;align-items:center;justify-content:center;min-width:1.35rem;height:1.35rem;padding:0 0.25rem;border-radius:0.22rem;border:0.125rem solid #e3a8af;background:#f8d7da;color:#7a0f1b;font-weight:700;line-height:1;";
+  }
+  return "display:inline-flex;align-items:center;justify-content:center;min-width:1.35rem;height:1.35rem;padding:0 0.25rem;border-radius:0.22rem;border:0.125rem solid #d0d0d0;background:#ececec;color:#111111;font-weight:700;line-height:1;";
+}
+
 function buildDetailsDice(diceResults, maxDice = 20) {
   return diceResults.slice(0, maxDice).map((die) => {
     let tone = "neutral";
     if (die === 1) tone = "fail";
     if (die >= 5) tone = "success";
-    return { value: `${die}`, tone: tone };
+    return { value: `${die}`, tone: tone, style: getDieToneStyle(tone) };
   });
 }
 
@@ -240,6 +250,7 @@ function buildSr6ProbeMessage(payload) {
       const dieIndex = index + 1;
       parts.push(`{{d${dieIndex}_v=${die.value}}}`);
       parts.push(`{{d${dieIndex}_t=${die.tone}}}`);
+      parts.push(`{{d${dieIndex}_s=${die.style}}}`);
     });
   }
 
@@ -328,9 +339,39 @@ function runSuccessProbeRoll(eventInfo) {
   });
 }
 
+function buildEdgeTokenMessage(actionText, edgeCurrent) {
+  return `&{template:default} {{name=Edge Token}} {{Details=Hat 1 Edge ${actionText}. <br /> Aktuelles Edge: ${edgeCurrent}.}}`;
+}
+
+function runEdgeTokenChange(delta) {
+  getAttrs(["sr6_edge_aktuell"], (values) => {
+    const edgeCurrent = clampNumber(parseNumber(values.sr6_edge_aktuell) + delta, 0, 7);
+    setAttrsSilent({ sr6_edge_aktuell: String(edgeCurrent) });
+
+    const actionText = delta > 0 ? "hinzugefügt" : "verloren";
+    const chatMessage = buildEdgeTokenMessage(actionText, edgeCurrent);
+    startRoll(chatMessage, (rollResult) => {
+      finishRoll(rollResult.rollId);
+    });
+  });
+}
+
+function runEdgeTokenPlus() {
+  runEdgeTokenChange(1);
+}
+
+function runEdgeTokenMinus() {
+  runEdgeTokenChange(-1);
+}
+
 function registerSuccessProbeRollEvents() {
   on("clicked:probe", runSuccessProbeRoll);
   on("clicked:repeating_sr6fernkampfwaffen:probe", runSuccessProbeRoll);
   on("clicked:repeating_sr6nahkampfwaffen:probe", runSuccessProbeRoll);
+}
+
+function registerEdgeTokenEvents() {
+  on("clicked:sr6_edge_token_plus", runEdgeTokenPlus);
+  on("clicked:sr6_edge_token_minus", runEdgeTokenMinus);
 }
 // END MODULE: workers/core/rolls
