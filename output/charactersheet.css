@@ -718,6 +718,7 @@ fieldset.repeating_sr6riggingmanoever .repcontrol {
 .charsheet .repcontainer[data-groupname="repeating_sr6cyberware"],
 .charsheet .repcontainer[data-groupname="repeating_sr6bioware"],
 .charsheet .repcontainer[data-groupname="repeating_sr6sin"],
+.charsheet .repcontainer[data-groupname="repeating_sr6connections"],
 .charsheet .repcontainer[data-groupname="repeating_sr6lebensstil"] {
   display: grid !important;
   grid-template-columns: minmax(0, 1fr);
@@ -752,6 +753,7 @@ fieldset.repeating_sr6riggingmanoever .repcontrol {
 .charsheet .repcontainer[data-groupname="repeating_sr6cyberware"] > .repitem,
 .charsheet .repcontainer[data-groupname="repeating_sr6bioware"] > .repitem,
 .charsheet .repcontainer[data-groupname="repeating_sr6sin"] > .repitem,
+.charsheet .repcontainer[data-groupname="repeating_sr6connections"] > .repitem,
 .charsheet .repcontainer[data-groupname="repeating_sr6lebensstil"] > .repitem {
   margin: 0;
 }
