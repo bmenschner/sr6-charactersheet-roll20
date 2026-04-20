@@ -1,6 +1,6 @@
 /* BEGIN MODULE: src/css/modules/00-foundation.css */
 :root {
-  font-size: 12px;
+  font-size: 11px;
   --sr6-bg: #d2d2d2;
   --sr6-line: #840763;
   --sr6-line-soft: rgba(212, 0, 166, 0.5);
@@ -2410,6 +2410,20 @@ fieldset.repeating_sr6riggingfahrzeuge {
 
 #sr6_daten_panel_1 .sr6-charactersheet-box-fertigkeiten-allgemein .sr6-charactersheet-fertigkeiten-view-grid--single {
   grid-template-columns: minmax(0, 1fr);
+}
+
+/* Allgemein > Kampf: Editieren-Toggle immer sichtbar/rechts ausgerichtet */
+#sr6_daten_panel_1 .sr6-charactersheet-box-kampf .sr6-editable-section-title-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.5rem;
+}
+
+#sr6_daten_panel_1 .sr6-charactersheet-box-kampf .sr6-editable-section-title-row .sr6-editable-section-toggle {
+  display: inline-flex;
+  margin-left: auto;
+  flex: 0 0 auto;
 }
 /* END MODULE: src/css/modules/tabs/allgemein/attribute.css */
 

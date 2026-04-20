@@ -163,3 +163,17 @@
 #sr6_daten_panel_1 .sr6-charactersheet-box-fertigkeiten-allgemein .sr6-charactersheet-fertigkeiten-view-grid--single {
   grid-template-columns: minmax(0, 1fr);
 }
+
+/* Allgemein > Kampf: Editieren-Toggle immer sichtbar/rechts ausgerichtet */
+#sr6_daten_panel_1 .sr6-charactersheet-box-kampf .sr6-editable-section-title-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.5rem;
+}
+
+#sr6_daten_panel_1 .sr6-charactersheet-box-kampf .sr6-editable-section-title-row .sr6-editable-section-toggle {
+  display: inline-flex;
+  margin-left: auto;
+  flex: 0 0 auto;
+}
