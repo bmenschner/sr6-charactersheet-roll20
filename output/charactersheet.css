@@ -95,6 +95,44 @@ body,
   font-size: 0.75rem;
 }
 
+.sr6-charactersheet-placeholder--edge {
+  place-items: center;
+}
+
+.sr6-edge-coin {
+  width: 4.8rem;
+  height: 4.8rem;
+  border: none;
+  border-radius: 50%;
+  background: url("assets/images/EdgeToken.webp") center / contain no-repeat;
+  position: relative;
+  display: grid;
+  place-items: center;
+  cursor: pointer;
+  filter: drop-shadow(0 0 0.25rem #000000);
+  padding: 0;
+}
+
+.sr6-edge-coin:active {
+  transform: scale(0.97);
+}
+
+.sr6-edge-coin-value {
+  width: 2.2rem;
+  height: 1.8rem;
+  border: none;
+  background: transparent;
+  color: #ffffff;
+  -webkit-text-fill-color: #ffffff;
+  font-size: 1.35rem;
+  font-weight: 700;
+  text-align: center;
+  line-height: 1.8rem;
+  text-shadow: 0 0.0625rem 0.1875rem rgba(0, 0, 0, 0.55);
+  padding: 0;
+  margin: 0;
+}
+
 .sr6-charactersheet-zustandsmonitor-zeilen {
   display: grid;
   grid-template-rows: repeat(2, auto);
