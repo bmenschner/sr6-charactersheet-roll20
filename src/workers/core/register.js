@@ -9,12 +9,13 @@ function recomputeAll() {
   appendSkillRequestKeys(requestKeys);
   appendMatrixRequestKeys(requestKeys);
   appendMagicRequestKeys(requestKeys);
+  appendCombatRequestKeys(requestKeys);
 
   getAttrs(requestKeys, (values) => {
     computeAttributeTotals(values, updates, totals);
     computeSkillTotals(values, updates, skillTotals);
     computeMatrixTotals(values, updates);
-    computeCombatDerivedFromAttributes(totals, updates);
+    computeCombatDerivedFromAttributes(totals, values, updates);
     computeMagicDerived(values, totals, skillTotals, updates);
     computeRiggingDerived(values, totals, skillTotals, updates);
 
@@ -43,6 +44,11 @@ function buildRecalcEvents() {
   events.push("change:sr6_magic_traditionsattribut_1");
   events.push("change:sr6_magic_traditionsattribut_2");
 
+  for (let index = 1; index <= 18; index += 1) {
+    events.push(`change:sr6_monitor_koerperlich_${index}`);
+    events.push(`change:sr6_monitor_geistig_${index}`);
+  }
+
   return events;
 }
 
@@ -50,6 +56,7 @@ function registerWorkerEvents() {
   const recalcEvents = buildRecalcEvents();
   on(recalcEvents.join(" "), recomputeAll);
   registerSuccessProbeRollEvents();
+  registerMonitorCascadeEvents();
 
   on("sheet:opened", () => {
     resetTabToAllgemeinOnOpen();

@@ -16,6 +16,7 @@
 
 // BEGIN BLOCK: Worker Includes (ui)
 <!-- @include ./ui/defaults.js -->
+<!-- @include ./ui/monitor-cascade.js -->
 // END BLOCK: Worker Includes (ui)
 
 // BEGIN BLOCK: Worker Includes (register)

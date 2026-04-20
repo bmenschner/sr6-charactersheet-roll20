@@ -261,6 +261,9 @@ function runSuccessProbeRoll(eventInfo) {
   if (poolAttribute && !attributeRefs.includes(poolAttribute)) {
     attributeRefs.push(poolAttribute);
   }
+  if (poolAttribute) {
+    attributeRefs.push("sr6_monitor_pool_mod");
+  }
   const resolvedAttributes = [];
   attributeRefs.forEach((attributeRef) => {
     resolvedAttributes.push(attributeRef);
@@ -290,7 +293,9 @@ function runSuccessProbeRoll(eventInfo) {
       return;
     }
 
-    const pool = Math.max(0, parseNumber(lookupAttr(poolAttribute)));
+    const poolBasis = parseNumber(lookupAttr(poolAttribute));
+    const monitorPoolMod = parseNumber(lookupAttr("sr6_monitor_pool_mod"));
+    const pool = Math.max(0, poolBasis + monitorPoolMod);
     const diceResults = [];
     for (let index = 0; index < pool; index += 1) {
       diceResults.push(rollD6());
@@ -302,7 +307,11 @@ function runSuccessProbeRoll(eventInfo) {
     const erfolgeValue = isGlitch ? glitchText : `${successCount}`;
     const details = buildDiceDetails(diceResults);
     const detailsDice = buildDetailsDice(diceResults);
-    const poolValue = resolvedFields.Pool || pool;
+    const poolValue = `${pool}`;
+    if (monitorPoolMod !== 0) {
+      rows.push({ label: "Pool-Basis", value: `${poolBasis}` });
+      rows.push({ label: "Zustandsmodifikator", value: `${monitorPoolMod}` });
+    }
 
     const chatMessage = buildSr6ProbeMessage({
       name: name,

@@ -4,6 +4,15 @@ function parseNumber(value) {
   return Number.isNaN(parsed) ? 0 : parsed;
 }
 
+function clampNumber(value, min, max) {
+  return Math.max(min, Math.min(max, value));
+}
+
+function isCheckedValue(value) {
+  const normalized = `${value || ""}`.trim().toLowerCase();
+  return normalized === "1" || normalized === "on" || normalized === "true" || normalized === "yes";
+}
+
 function mapTraditionsattributToKey(value) {
   const normalized = (value || "").trim().toLowerCase();
   if (normalized === "charisma") return "charisma";
