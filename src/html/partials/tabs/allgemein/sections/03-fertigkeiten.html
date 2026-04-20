@@ -3,22 +3,55 @@
   class="sr6-charactersheet-box sr6-charactersheet-box-fertigkeiten-allgemein sr6-editable-section sr6-editable-overview-section"
   aria-label="Fertigkeiten">
   <div class="sr6-editable-section-title-row">
-    <h1
-      class="sr6-charactersheet-box-title"
-      data-i18n="section.fertigkeiten_basis">
-      Fertigkeiten
-    </h1>
+    <div class="sr6-charactersheet-fertigkeiten-switch sr6-charactersheet-box-title" aria-label="Fertigkeiten Umschalter">
+      <input
+        type="radio"
+        id="sr6_allgemein_fertigkeiten_view_fertigkeiten"
+        name="attr_sr6_allgemein_fertigkeiten_view"
+        value="fertigkeiten"
+        checked>
+      <label
+        for="sr6_allgemein_fertigkeiten_view_fertigkeiten"
+        data-i18n="section.fertigkeiten_basis">Fertigkeiten</label>
+
+      <input
+        type="radio"
+        id="sr6_allgemein_fertigkeiten_view_magie"
+        name="attr_sr6_allgemein_fertigkeiten_view"
+        value="magie">
+      <label
+        for="sr6_allgemein_fertigkeiten_view_magie"
+        data-i18n="tab.magie">Magie</label>
+
+      <input
+        type="radio"
+        id="sr6_allgemein_fertigkeiten_view_matrix"
+        name="attr_sr6_allgemein_fertigkeiten_view"
+        value="matrix">
+      <label
+        for="sr6_allgemein_fertigkeiten_view_matrix"
+        data-i18n="tab.matrix">Matrix</label>
+
+      <input
+        type="radio"
+        id="sr6_allgemein_fertigkeiten_view_eigene"
+        name="attr_sr6_allgemein_fertigkeiten_view"
+        value="eigene">
+      <label
+        for="sr6_allgemein_fertigkeiten_view_eigene"
+        data-i18n="section.eigene">Eigene</label>
+    </div>
     <label class="sr6-editable-section-toggle">
       <input
         type="checkbox"
         name="attr_sr6_fertigkeiten_edit_mode"
-        class="sr6-editable-section-mode"
-                      />
-                    <span data-i18n="field.editieren">Editieren</span>
+        class="sr6-editable-section-mode" />
+      <span data-i18n="field.editieren">Editieren</span>
     </label>
   </div>
 
   <div class="sr6-charactersheet-box-content">
+    <div class="sr6-charactersheet-fertigkeiten-view sr6-charactersheet-fertigkeiten-view--fertigkeiten">
     <div class="sr6-charactersheet-skills-overview-grid">
       <!-- BEGIN BLOCK: Fertigkeit - Astral -->
       <div class="sr6-charactersheet-field sr6-charactersheet-attr-field">
@@ -684,6 +717,55 @@
         </div>
       </div>
       <!-- END BLOCK: Fertigkeit - Wahrnehmung -->
+    </div>
+
+    </div>
+
+    <div class="sr6-charactersheet-fertigkeiten-view sr6-charactersheet-fertigkeiten-view--magie">
+      <div class="sr6-charactersheet-fertigkeiten-view-grid">
+        <div class="sr6-charactersheet-subsection">
+          <h3 class="sr6-charactersheet-subsection-title" data-i18n="section.magie_zauber">Zauber</h3>
+          <div class="sr6-charactersheet-field">
+            <span data-i18n="field.zaubersprueche">Zaubersprüche</span>
+            <input type="text" name="attr_sr6_allgemein_magie_zaubersprueche_1" />
+          </div>
+        </div>
+        <div class="sr6-charactersheet-subsection">
+          <h3 class="sr6-charactersheet-subsection-title" data-i18n="section.magie_zauber">Zauber</h3>
+          <div class="sr6-charactersheet-field">
+            <span data-i18n="field.zaubersprueche">Zaubersprüche</span>
+            <input type="text" name="attr_sr6_allgemein_magie_zaubersprueche_2" />
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="sr6-charactersheet-fertigkeiten-view sr6-charactersheet-fertigkeiten-view--matrix">
+      <div class="sr6-charactersheet-fertigkeiten-view-grid">
+        <div class="sr6-charactersheet-subsection">
+          <h3 class="sr6-charactersheet-subsection-title" data-i18n="section.matrix_handlungen">Matrix-Handlungen</h3>
+          <div class="sr6-charactersheet-field">
+            <span data-i18n="section.matrix_handlungen">Matrix-Handlungen</span>
+            <input type="text" name="attr_sr6_allgemein_matrix_handlungen_1" />
+          </div>
+        </div>
+        <div class="sr6-charactersheet-subsection">
+          <h3 class="sr6-charactersheet-subsection-title" data-i18n="section.matrix_handlungen">Matrix-Handlungen</h3>
+          <div class="sr6-charactersheet-field">
+            <span data-i18n="section.matrix_handlungen">Matrix-Handlungen</span>
+            <input type="text" name="attr_sr6_allgemein_matrix_handlungen_2" />
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="sr6-charactersheet-fertigkeiten-view sr6-charactersheet-fertigkeiten-view--eigene">
+      <div class="sr6-charactersheet-fertigkeiten-view-grid sr6-charactersheet-fertigkeiten-view-grid--single">
+        <div class="sr6-charactersheet-field">
+          <span data-i18n="field.eigene">Eigene</span>
+          <textarea name="attr_sr6_allgemein_fertigkeiten_eigene"></textarea>
+        </div>
+      </div>
     </div>
   </div>
 </section>

@@ -93,3 +93,67 @@
 #sr6_daten_panel_1 .sr6-charactersheet-box-fertigkeiten-allgemein.sr6-editable-overview-section:has(.sr6-editable-section-mode:not(:checked)) .sr6-charactersheet-attr-value:last-child .sr6-charactersheet-field-dice-button {
   display: flex;
 }
+
+/* Allgemein (Panel 1): Fertigkeiten Switcher */
+#sr6_daten_panel_1 .sr6-charactersheet-box-fertigkeiten-allgemein .sr6-charactersheet-fertigkeiten-switch {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.25rem;
+  flex-wrap: nowrap;
+  white-space: nowrap;
+}
+
+#sr6_daten_panel_1 .sr6-charactersheet-box-fertigkeiten-allgemein .sr6-charactersheet-fertigkeiten-switch > input {
+  position: absolute;
+  opacity: 0;
+  pointer-events: none;
+}
+
+#sr6_daten_panel_1 .sr6-charactersheet-box-fertigkeiten-allgemein .sr6-charactersheet-fertigkeiten-switch > label {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 2.25rem;
+  padding: 0.5rem 0.625rem 0.4375rem;
+  border: none;
+  border-bottom: 0.125rem solid transparent;
+  border-radius: 0;
+  background: transparent;
+  color: var(--sr6-title);
+  font-size: 1.5rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.03rem;
+  line-height: 1;
+  cursor: pointer;
+  opacity: 0.8;
+}
+
+#sr6_daten_panel_1 .sr6-charactersheet-box-fertigkeiten-allgemein #sr6_allgemein_fertigkeiten_view_fertigkeiten:checked + label,
+#sr6_daten_panel_1 .sr6-charactersheet-box-fertigkeiten-allgemein #sr6_allgemein_fertigkeiten_view_magie:checked + label,
+#sr6_daten_panel_1 .sr6-charactersheet-box-fertigkeiten-allgemein #sr6_allgemein_fertigkeiten_view_matrix:checked + label,
+#sr6_daten_panel_1 .sr6-charactersheet-box-fertigkeiten-allgemein #sr6_allgemein_fertigkeiten_view_eigene:checked + label {
+  border-bottom-color: var(--sr6-line);
+  opacity: 1;
+}
+
+#sr6_daten_panel_1 .sr6-charactersheet-box-fertigkeiten-allgemein .sr6-charactersheet-fertigkeiten-view {
+  display: none;
+}
+
+#sr6_daten_panel_1 .sr6-charactersheet-box-fertigkeiten-allgemein:has(#sr6_allgemein_fertigkeiten_view_fertigkeiten:checked) .sr6-charactersheet-fertigkeiten-view--fertigkeiten,
+#sr6_daten_panel_1 .sr6-charactersheet-box-fertigkeiten-allgemein:has(#sr6_allgemein_fertigkeiten_view_magie:checked) .sr6-charactersheet-fertigkeiten-view--magie,
+#sr6_daten_panel_1 .sr6-charactersheet-box-fertigkeiten-allgemein:has(#sr6_allgemein_fertigkeiten_view_matrix:checked) .sr6-charactersheet-fertigkeiten-view--matrix,
+#sr6_daten_panel_1 .sr6-charactersheet-box-fertigkeiten-allgemein:has(#sr6_allgemein_fertigkeiten_view_eigene:checked) .sr6-charactersheet-fertigkeiten-view--eigene {
+  display: block;
+}
+
+#sr6_daten_panel_1 .sr6-charactersheet-box-fertigkeiten-allgemein .sr6-charactersheet-fertigkeiten-view-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0.75rem;
+}
+
+#sr6_daten_panel_1 .sr6-charactersheet-box-fertigkeiten-allgemein .sr6-charactersheet-fertigkeiten-view-grid--single {
+  grid-template-columns: minmax(0, 1fr);
+}
