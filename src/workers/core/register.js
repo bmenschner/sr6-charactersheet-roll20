@@ -57,6 +57,7 @@ function registerWorkerEvents() {
   const recalcEvents = buildRecalcEvents();
   on(recalcEvents.join(" "), recomputeAll);
   registerSuccessProbeRollEvents();
+  registerEdgeTokenEvents();
   registerMonitorCascadeEvents();
 
   on("sheet:opened", () => {
