@@ -177,3 +177,87 @@
   margin-left: auto;
   flex: 0 0 auto;
 }
+
+/* Allgemein: Test Roll Popup */
+.sr6-test-roll-open {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 2rem;
+  padding: 0.375rem 0.75rem;
+  border: 0.0625rem solid var(--sr6-line-soft);
+  border-radius: 0.25rem;
+  background: #ffffff;
+  color: var(--sr6-title);
+  font-size: 0.86rem;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.sr6-test-roll-popup-toggle {
+  position: absolute;
+  opacity: 0;
+  pointer-events: none;
+}
+
+.sr6-test-roll-popup {
+  display: none;
+}
+
+.sr6-test-roll-popup-toggle:checked ~ .sr6-test-roll-popup {
+  display: block;
+}
+
+.sr6-test-roll-popup {
+  position: fixed;
+  inset: 0;
+  z-index: 2100;
+}
+
+.sr6-test-roll-popup__backdrop {
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.35);
+  cursor: pointer;
+}
+
+.sr6-test-roll-popup__dialog {
+  position: relative;
+  margin: 8rem auto 0;
+  width: min(30rem, calc(100vw - 2rem));
+  border: 0.0625rem solid var(--sr6-line-soft);
+  border-radius: 0.375rem;
+  background: #ffffff;
+  box-shadow: 0 0.5rem 1.5rem rgba(0, 0, 0, 0.25);
+}
+
+.sr6-test-roll-popup__header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.5rem;
+  padding: 0.625rem 0.75rem;
+  border-bottom: 0.0625rem solid var(--sr6-line-soft);
+}
+
+.sr6-test-roll-popup__header h3 {
+  margin: 0;
+  color: var(--sr6-title);
+  font-size: 1rem;
+  font-weight: 700;
+}
+
+.sr6-test-roll-popup__close {
+  border: none;
+  background: transparent;
+  color: var(--sr6-title);
+  font-size: 1.25rem;
+  line-height: 1;
+  cursor: pointer;
+}
+
+.sr6-test-roll-popup__content {
+  display: grid;
+  gap: 0.75rem;
+  padding: 0.75rem;
+}

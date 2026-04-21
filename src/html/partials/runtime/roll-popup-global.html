@@ -1,0 +1,36 @@
+<!-- Runtime Global Roll Popup -->
+<input type="checkbox" name="attr_sr6_roll_popup_open" value="1" class="sr6-roll-popup-open-toggle" />
+<input type="hidden" name="attr_sr6_roll_popup_template" value="" />
+<input type="hidden" name="attr_sr6_roll_popup_row_prefix" value="" />
+
+<div class="sr6-roll-popup-overlay" aria-hidden="true">
+  <div class="sr6-roll-popup-dialog" role="dialog" aria-modal="true" aria-labelledby="sr6-roll-popup-title">
+    <div class="sr6-roll-popup-header">
+      <h3 id="sr6-roll-popup-title" data-i18n="ui.roll_popup_title">Wurf-Modifikator</h3>
+    </div>
+
+    <div class="sr6-roll-popup-content">
+      <label class="sr6-charactersheet-field">
+        <span data-i18n="ui.roll_popup_mod">Modifikator</span>
+        <input type="number" name="attr_sr6_roll_popup_mod" value="0" />
+      </label>
+    </div>
+
+    <div class="sr6-roll-popup-actions">
+      <button
+        type="action"
+        name="act_probe_popup_cancel"
+        class="sr6-roll-popup-button sr6-roll-popup-button--secondary"
+        data-i18n="ui.roll_popup_cancel">
+        Abbrechen
+      </button>
+      <button
+        type="action"
+        name="act_probe_popup_confirm"
+        class="sr6-roll-popup-button sr6-roll-popup-button--primary"
+        data-i18n="ui.roll_popup_roll">
+        Würfeln
+      </button>
+    </div>
+  </div>
+</div>

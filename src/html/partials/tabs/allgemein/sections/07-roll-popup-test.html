@@ -1,0 +1,39 @@
+<!-- BEGIN BLOCK: Test Roll Popup Box -->
+<section class="sr6-charactersheet-box sr6-charactersheet-box-test-roll-popup" aria-label="Test Roll Popup">
+  <h2 class="sr6-charactersheet-box-title" data-i18n="section.test_roll_popup">Test Roll Popup</h2>
+  <div class="sr6-charactersheet-box-content">
+    <input type="checkbox" id="sr6_test_roll_popup_toggle" class="sr6-test-roll-popup-toggle" />
+    <label
+      for="sr6_test_roll_popup_toggle"
+      class="sr6-test-roll-open"
+      data-i18n="field.test_roll_oeffnen">
+      Test Roll öffnen
+    </label>
+
+    <div class="sr6-test-roll-popup" aria-hidden="true">
+      <label for="sr6_test_roll_popup_toggle" class="sr6-test-roll-popup__backdrop" aria-hidden="true"></label>
+      <div class="sr6-test-roll-popup__dialog" role="dialog" aria-modal="true" aria-labelledby="sr6-test-roll-popup-title">
+        <div class="sr6-test-roll-popup__header">
+          <h3 id="sr6-test-roll-popup-title" data-i18n="section.test_roll_popup">Test Roll Popup</h3>
+          <label for="sr6_test_roll_popup_toggle" class="sr6-test-roll-popup__close" aria-label="Schliessen">×</label>
+        </div>
+
+        <div class="sr6-test-roll-popup__content">
+          <label class="sr6-charactersheet-field">
+            <span data-i18n="field.modifikator">Modifikator</span>
+            <input type="number" name="attr_sr6_test_roll_popup_mod" value="0" />
+          </label>
+          <button
+            type="action"
+            name="act_probe_popup_test"
+            class="sr6-charactersheet-field-dice-button"
+            value="&{template:default} {{name=Test Roll Popup}} {{Attribut=Konstitution (Gesamtwert)}} {{Pool=[[@{sr6_attr_konstitution_gesamtwert}]]}} {{Erfolge=[[@{sr6_attr_konstitution_gesamtwert}d6cs>5]]}}"
+            data-i18n="field.wurf">
+            Wurf
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<!-- END BLOCK: Test Roll Popup Box -->
