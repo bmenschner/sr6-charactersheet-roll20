@@ -127,10 +127,412 @@ function setAttrsSilent(payload, callback) {
 }
 // END MODULE: workers/core/guards
 
-// BEGIN MODULE: workers/core/rolls
+// END BLOCK: Worker Includes (core)
+
+// BEGIN BLOCK: Worker Includes (rolls)
+// BEGIN MODULE: workers/rolls/definitions
+const SR6_ROLL_TITLE_PREFIXES = [
+  { prefix: "sr6_combat_", title: "Kampf" },
+  { prefix: "sr6_fernkampf_", title: "Fernkampfwaffen" },
+  { prefix: "sr6_nahkampf_", title: "Nahkampfwaffen" },
+  { prefix: "sr6_matrix_handlung_", title: "Matrix-Handlungen" },
+  { prefix: "sr6_matrix_", title: "Matrix: Kernwerte" },
+  { prefix: "sr6_rigging_manoever_", title: "Manöver" },
+  { prefix: "sr6_rigging_", title: "Rigging: Kernwerte" },
+  { prefix: "sr6_magic_", title: "Magie: Kernwerte" },
+  { prefix: "sr6_zauber_", title: "Zauber" },
+  { prefix: "sr6_ritual_", title: "Rituale" },
+  { prefix: "sr6_verteidigung_", title: "Verteidigung" },
+  { prefix: "sr6_schadenswiderstand_", title: "Schadenswiderstand" },
+  { prefix: "sr6_skill_", title: "Fertigkeiten" },
+  { prefix: "sr6_wissensfertigkeit_", title: "Wissensfertigkeiten" },
+  { prefix: "sr6_sprachfertigkeit_", title: "Sprachfertigkeiten" },
+  { prefix: "sr6_talentsoft_", title: "Talentsofts" },
+  { prefix: "sr6_wissenssprachsoft_", title: "Wissens-/Sprachsofts" },
+];
+
+const SR6_DEFAULT_ROLL_ROW_ORDER = [
+  "Attribut",
+  "Fertigkeit",
+  "Wert",
+  "Waffe",
+  "Schadenswert",
+  "Handlung",
+  "Reichweite",
+  "Munition",
+  "Modus",
+  "Basis",
+  "Gesamt",
+];
+
+const SR6_POPUP_FIELD_SLOT_COUNT = 3;
+
+const SR6_POPUP_SELECT_OPTION_SETS = {
+  visibility: [
+    { value: "clear", label: "Klare Sicht", poolMod: 0, rowValue: "Klare Sicht" },
+    { value: "partial", label: "Leicht verdeckt", poolMod: -1, rowValue: "Leicht verdeckt" },
+    { value: "heavy", label: "Stark verdeckt", poolMod: -2, rowValue: "Stark verdeckt" },
+    { value: "blind", label: "Blindes Feuer", poolMod: -3, rowValue: "Blindes Feuer" },
+  ],
+  movement: [
+    { value: "steady", label: "Ruhiges Ziel", poolMod: 0, rowValue: "Ruhiges Ziel" },
+    { value: "walking", label: "Leichte Bewegung", poolMod: -1, rowValue: "Leichte Bewegung" },
+    { value: "running", label: "Schnelle Bewegung", poolMod: -2, rowValue: "Schnelle Bewegung" },
+  ],
+  spell_range: [
+    { value: "Selbst", label: "Selbst", rowValue: "Selbst" },
+    { value: "Beruehrung", label: "Berührung", rowValue: "Berührung" },
+    { value: "Sicht", label: "Sicht", rowValue: "Sicht" },
+    { value: "Spezial", label: "Spezial", rowValue: "Spezial" },
+  ],
+  matrix_access: [
+    { value: "Benutzer", label: "Benutzer", rowValue: "Benutzer" },
+    { value: "Admin", label: "Admin", rowValue: "Admin" },
+    { value: "Root", label: "Root", rowValue: "Root" },
+  ],
+};
+
+const SR6_DEFAULT_POPUP_FIELDS = [
+  {
+    id: "pool_mod",
+    slot: 1,
+    label: "Popup-Modifikator",
+    type: "number",
+    affects: "pool",
+    defaultValue: "0",
+    includeInTemplate: true,
+  },
+];
+
+const SR6_ROLL_DEFINITIONS = [
+  {
+    id: "attribute",
+    matchField: "Attribut",
+    titleMode: "field-short",
+    titleField: "Attribut",
+    primaryFields: ["Attribut"],
+    extraFields: [],
+    popupFields: SR6_DEFAULT_POPUP_FIELDS,
+    titleFallback: "Probe",
+  },
+  {
+    id: "skill",
+    matchField: "Fertigkeit",
+    titleMode: "pool-prefix",
+    primaryFields: ["Fertigkeit"],
+    extraFields: [],
+    popupFields: SR6_DEFAULT_POPUP_FIELDS,
+    titleFallback: "Fertigkeiten",
+  },
+  {
+    id: "spell",
+    matchField: "Zauber",
+    titleMode: "pool-prefix",
+    primaryFields: ["Zauber"],
+    extraFields: ["Entzug"],
+    popupFields: [
+      SR6_DEFAULT_POPUP_FIELDS[0],
+      {
+        id: "spell_range",
+        slot: 2,
+        label: "Reichweite",
+        type: "select",
+        optionSet: "spell_range",
+        affects: "display",
+        includeInTemplate: true,
+        defaultValue: "Sicht",
+      },
+      {
+        id: "drain_mod",
+        slot: 3,
+        label: "Entzug-Modifikator",
+        type: "number",
+        affects: "display",
+        includeInTemplate: true,
+        defaultValue: "0",
+      },
+    ],
+    titleFallback: "Zauber",
+  },
+  {
+    id: "matrix_action",
+    matchField: "Handlung",
+    matchPoolPrefix: "sr6_matrix_handlung_",
+    titleMode: "pool-prefix",
+    primaryFields: ["Handlung"],
+    extraFields: [],
+    popupFields: [
+      SR6_DEFAULT_POPUP_FIELDS[0],
+      {
+        id: "matrix_access",
+        slot: 2,
+        label: "Zugriff",
+        type: "select",
+        optionSet: "matrix_access",
+        affects: "display",
+        includeInTemplate: true,
+        defaultValue: "Benutzer",
+      },
+      {
+        id: "matrix_overwatch",
+        slot: 3,
+        label: "Overwatch-Modifikator",
+        type: "number",
+        affects: "display",
+        includeInTemplate: true,
+        defaultValue: "0",
+      },
+    ],
+    titleFallback: "Matrix-Handlungen",
+  },
+  {
+    id: "matrix_value",
+    matchField: "Wert",
+    matchPoolPrefix: "sr6_matrix_",
+    titleMode: "pool-prefix",
+    primaryFields: ["Wert"],
+    extraFields: [],
+    popupFields: [
+      SR6_DEFAULT_POPUP_FIELDS[0],
+      {
+        id: "matrix_access",
+        slot: 2,
+        label: "Zugriff",
+        type: "select",
+        optionSet: "matrix_access",
+        affects: "display",
+        includeInTemplate: true,
+        defaultValue: "Benutzer",
+      },
+      {
+        id: "matrix_overwatch",
+        slot: 3,
+        label: "Overwatch-Modifikator",
+        type: "number",
+        affects: "display",
+        includeInTemplate: true,
+        defaultValue: "0",
+      },
+    ],
+    titleFallback: "Matrix: Kernwerte",
+  },
+  {
+    id: "value",
+    matchField: "Wert",
+    titleMode: "pool-prefix",
+    primaryFields: ["Wert"],
+    extraFields: [],
+    popupFields: SR6_DEFAULT_POPUP_FIELDS,
+    titleFallback: "Probe",
+  },
+  {
+    id: "weapon",
+    matchField: "Waffe",
+    titleMode: "pool-prefix",
+    primaryFields: ["Waffe"],
+    extraFields: ["Schadenswert", "Munition", "Reichweite", "Modus"],
+    popupFields: [
+      SR6_DEFAULT_POPUP_FIELDS[0],
+      {
+        id: "visibility",
+        slot: 2,
+        label: "Sichtverhältnisse",
+        type: "select",
+        optionSet: "visibility",
+        affects: "pool",
+        includeInTemplate: true,
+        defaultValue: "clear",
+      },
+      {
+        id: "movement",
+        slot: 3,
+        label: "Bewegung",
+        type: "select",
+        optionSet: "movement",
+        affects: "pool",
+        includeInTemplate: true,
+        defaultValue: "steady",
+      },
+    ],
+    titleFallback: "Kampf",
+  },
+  {
+    id: "fallback",
+    titleMode: "pool-prefix-or-explicit",
+    primaryFields: [],
+    extraFields: ["Basis", "Gesamt"],
+    popupFields: SR6_DEFAULT_POPUP_FIELDS,
+    titleFallback: "Probe",
+  },
+];
+
+function findRollTitleByPoolAttribute(poolAttribute) {
+  if (!poolAttribute) return "";
+
+  for (let index = 0; index < SR6_ROLL_TITLE_PREFIXES.length; index += 1) {
+    const entry = SR6_ROLL_TITLE_PREFIXES[index];
+    if (poolAttribute.startsWith(entry.prefix)) {
+      return entry.title;
+    }
+  }
+
+  return "";
+}
+
+function resolveRollDefinition(fields, poolAttribute = "") {
+  for (let index = 0; index < SR6_ROLL_DEFINITIONS.length; index += 1) {
+    const definition = SR6_ROLL_DEFINITIONS[index];
+    const fieldMatches = !definition.matchField || fields[definition.matchField];
+    const poolMatches = !definition.matchPoolPrefix || poolAttribute.startsWith(definition.matchPoolPrefix);
+    if (fieldMatches && poolMatches) {
+      return definition;
+    }
+  }
+
+  return SR6_ROLL_DEFINITIONS[SR6_ROLL_DEFINITIONS.length - 1];
+}
+
+function getRollDefinitionById(definitionId) {
+  if (!definitionId) {
+    return resolveRollDefinition({});
+  }
+
+  for (let index = 0; index < SR6_ROLL_DEFINITIONS.length; index += 1) {
+    if (SR6_ROLL_DEFINITIONS[index].id === definitionId) {
+      return SR6_ROLL_DEFINITIONS[index];
+    }
+  }
+
+  return resolveRollDefinition({});
+}
+
+function buildRollRowOrder(definition) {
+  const resolvedDefinition = definition || resolveRollDefinition({});
+  const primaryFields = Array.isArray(resolvedDefinition.primaryFields) ? resolvedDefinition.primaryFields : [];
+  const extraFields = Array.isArray(resolvedDefinition.extraFields) ? resolvedDefinition.extraFields : [];
+  const combined = [...primaryFields, ...extraFields];
+
+  SR6_DEFAULT_ROLL_ROW_ORDER.forEach((field) => {
+    if (!combined.includes(field)) {
+      combined.push(field);
+    }
+  });
+
+  return combined;
+}
+
+function getRollPopupFields(definition) {
+  const resolvedDefinition = definition || resolveRollDefinition({});
+  if (Array.isArray(resolvedDefinition.popupFields) && resolvedDefinition.popupFields.length > 0) {
+    return resolvedDefinition.popupFields;
+  }
+  return SR6_DEFAULT_POPUP_FIELDS;
+}
+
+function getPopupFieldValueAttr(field, index) {
+  const slot = (field && field.slot) || (index + 1);
+  if (field && field.type === "select") {
+    return `sr6_roll_popup_value_${slot}_select_${field.optionSet || "default"}`;
+  }
+  return `sr6_roll_popup_value_${slot}_number`;
+}
+
+function getPopupFieldTypeToggleAttr(field, index, type) {
+  const slot = (field && field.slot) || (index + 1);
+  return `sr6_roll_popup_slot_${slot}_is_${type}`;
+}
+
+function getPopupFieldOptionToggleAttr(field, index) {
+  const slot = (field && field.slot) || (index + 1);
+  return `sr6_roll_popup_slot_${slot}_option_${field.optionSet || "none"}`;
+}
+
+function getPopupSelectOptions(field) {
+  if (!field || field.type !== "select" || !field.optionSet) return [];
+  return SR6_POPUP_SELECT_OPTION_SETS[field.optionSet] || [];
+}
+
+function buildPopupStateFromValues(values, definition) {
+  const popupFields = getRollPopupFields(definition);
+  const popupRows = [];
+  let poolMod = 0;
+
+  popupFields.forEach((field, index) => {
+    const rawValue = values[getPopupFieldValueAttr(field, index)];
+    const isNumberField = field.type === "number";
+    const normalizedValue = isNumberField ? parseNumber(rawValue) : `${rawValue || ""}`.trim();
+    const selectedOption = isNumberField
+      ? null
+      : getPopupSelectOptions(field).find((option) => option.value === normalizedValue);
+    const displayValue = isNumberField
+      ? `${normalizedValue}`
+      : `${(selectedOption && (selectedOption.rowValue || selectedOption.label)) || normalizedValue}`;
+
+    if (field.affects === "pool") {
+      poolMod += isNumberField
+        ? parseNumber(normalizedValue)
+        : parseNumber(selectedOption && selectedOption.poolMod);
+    }
+
+    const shouldInclude =
+      field.includeInTemplate &&
+      (
+        (isNumberField && parseNumber(normalizedValue) !== 0) ||
+        (!isNumberField && normalizedValue !== "" && normalizedValue !== `${field.defaultValue || ""}`)
+      );
+
+    if (shouldInclude) {
+      popupRows.push({
+        label: field.label,
+        value: displayValue,
+      });
+    }
+  });
+
+  return {
+    poolMod: poolMod,
+    rows: popupRows,
+  };
+}
+
+function buildPopupFormPayload(definition) {
+  const popupFields = getRollPopupFields(definition);
+  const payload = {};
+
+  for (let slot = 1; slot <= SR6_POPUP_FIELD_SLOT_COUNT; slot += 1) {
+    payload[`sr6_roll_popup_slot_${slot}_visible`] = "0";
+    payload[`sr6_roll_popup_slot_${slot}_label`] = "";
+    payload[`sr6_roll_popup_slot_${slot}_is_number`] = "0";
+    payload[`sr6_roll_popup_slot_${slot}_is_select`] = "0";
+    payload[`sr6_roll_popup_value_${slot}_number`] = "0";
+    Object.keys(SR6_POPUP_SELECT_OPTION_SETS).forEach((optionSet) => {
+      payload[`sr6_roll_popup_slot_${slot}_option_${optionSet}`] = "0";
+      payload[`sr6_roll_popup_value_${slot}_select_${optionSet}`] = "";
+    });
+  }
+
+  popupFields.forEach((field, index) => {
+    const slot = field.slot || (index + 1);
+    if (slot > SR6_POPUP_FIELD_SLOT_COUNT) return;
+
+    payload[`sr6_roll_popup_slot_${slot}_visible`] = "1";
+    payload[`sr6_roll_popup_slot_${slot}_label`] = field.label || "";
+    payload[getPopupFieldTypeToggleAttr(field, index, field.type === "select" ? "select" : "number")] = "1";
+    if (field.type === "select" && field.optionSet) {
+      payload[getPopupFieldOptionToggleAttr(field, index)] = "1";
+    }
+    payload[getPopupFieldValueAttr(field, index)] = field.defaultValue !== undefined ? `${field.defaultValue}` : "0";
+  });
+
+  return payload;
+}
+// END MODULE: workers/rolls/definitions
+
+// BEGIN MODULE: workers/rolls/context
 function parseTemplateFields(template) {
   const fields = {};
   let index = 0;
+
   while (index < template.length) {
     const start = template.indexOf("{{", index);
     if (start === -1) break;
@@ -179,6 +581,7 @@ function parseTemplateFields(template) {
 
     index = cursor;
   }
+
   return fields;
 }
 
@@ -186,9 +589,11 @@ function collectAttributeReferences(template) {
   const refs = [];
   const attributeRefRegex = /@\{([^}]+)\}/g;
   let match;
+
   while ((match = attributeRefRegex.exec(template)) !== null) {
     refs.push(match[1]);
   }
+
   return [...new Set(refs)];
 }
 
@@ -225,6 +630,46 @@ function resolveFieldText(templateValue, lookupAttr) {
   return templateValue.replace(/@\{([^}]+)\}/g, (_, key) => lookupAttr(key));
 }
 
+function buildResolvedFields(fields, lookupAttr) {
+  const resolved = {};
+  Object.keys(fields).forEach((key) => {
+    resolved[key] = resolveFieldText(fields[key], lookupAttr);
+  });
+  return resolved;
+}
+
+function buildRequestedAttributes(rawTemplate, repeatingRowPrefix) {
+  const fields = parseTemplateFields(rawTemplate);
+  const poolAttribute = parsePoolAttributeFromFields(fields);
+  const definition = resolveRollDefinition(fields, poolAttribute);
+  const attributeRefs = collectAttributeReferences(rawTemplate);
+
+  if (poolAttribute && !attributeRefs.includes(poolAttribute)) {
+    attributeRefs.push(poolAttribute);
+  }
+
+  if (poolAttribute) {
+    attributeRefs.push("sr6_monitor_pool_mod");
+  }
+
+  const requestedAttributes = [];
+  attributeRefs.forEach((attributeRef) => {
+    requestedAttributes.push(attributeRef);
+    if (repeatingRowPrefix) {
+      requestedAttributes.push(`${repeatingRowPrefix}_${attributeRef}`);
+    }
+  });
+
+  return {
+    definition: definition,
+    fields: fields,
+    poolAttribute: poolAttribute,
+    requestedAttributes: requestedAttributes,
+  };
+}
+// END MODULE: workers/rolls/context
+
+// BEGIN MODULE: workers/rolls/display
 function buildDiceDetails(diceResults) {
   return diceResults.join(" + ");
 }
@@ -248,40 +693,9 @@ function buildDetailsDice(diceResults, maxDice = 20) {
   });
 }
 
-function rollD6() {
-  return Math.floor(Math.random() * 6) + 1;
-}
-
-function evaluateGlitch(diceResults, successCount) {
-  const ones = diceResults.filter((die) => die === 1).length;
-  const isGlitch = ones > diceResults.length / 2;
-  const isCriticalGlitch = isGlitch && successCount === 0;
-  return { isGlitch, isCriticalGlitch };
-}
-
-function buildResolvedFields(fields, lookupAttr) {
-  const resolved = {};
-  Object.keys(fields).forEach((key) => {
-    resolved[key] = resolveFieldText(fields[key], lookupAttr);
-  });
-  return resolved;
-}
-
-function buildProbeRows(resolvedFields) {
+function buildProbeRows(resolvedFields, definition) {
   const ignoredKeys = new Set(["name", "Pool", "Erfolge", "Details"]);
-  const preferredOrder = [
-    "Attribut",
-    "Fertigkeit",
-    "Wert",
-    "Waffe",
-    "Schadenswert",
-    "Handlung",
-    "Reichweite",
-    "Munition",
-    "Modus",
-    "Basis",
-    "Gesamt"
-  ];
+  const preferredOrder = buildRollRowOrder(definition);
 
   const rows = [];
   const usedKeys = new Set();
@@ -301,50 +715,33 @@ function buildProbeRows(resolvedFields) {
   return rows.slice(0, 4);
 }
 
-function deriveTitleFromPoolAttribute(poolAttribute) {
-  if (!poolAttribute) return "";
-
-  if (poolAttribute.startsWith("sr6_combat_")) return "Kampf";
-  if (poolAttribute.startsWith("sr6_fernkampf_")) return "Fernkampfwaffen";
-  if (poolAttribute.startsWith("sr6_nahkampf_")) return "Nahkampfwaffen";
-
-  if (poolAttribute.startsWith("sr6_matrix_handlung_")) return "Matrix-Handlungen";
-  if (poolAttribute.startsWith("sr6_matrix_")) return "Matrix: Kernwerte";
-
-  if (poolAttribute.startsWith("sr6_rigging_manoever_")) return "Manöver";
-  if (poolAttribute.startsWith("sr6_rigging_")) return "Rigging: Kernwerte";
-
-  if (poolAttribute.startsWith("sr6_magic_")) return "Magie: Kernwerte";
-  if (poolAttribute.startsWith("sr6_zauber_")) return "Zauber";
-  if (poolAttribute.startsWith("sr6_ritual_")) return "Rituale";
-
-  if (poolAttribute.startsWith("sr6_verteidigung_")) return "Verteidigung";
-  if (poolAttribute.startsWith("sr6_schadenswiderstand_")) return "Schadenswiderstand";
-  if (poolAttribute.startsWith("sr6_skill_")) return "Fertigkeiten";
-
-  return "";
+function getShortLabelValue(value) {
+  if (!value) return "";
+  return value.replace(/\s*\([^)]*\)\s*$/, "").trim();
 }
 
-function deriveProbeTitle(resolvedFields, poolAttribute) {
+function deriveProbeTitle(resolvedFields, poolAttribute, definition) {
   const explicitName = resolvedFields.name;
-  const attributeValue = resolvedFields.Attribut;
-  const skillValue = resolvedFields.Fertigkeit;
+  const resolvedDefinition = definition || resolveRollDefinition(resolvedFields, poolAttribute);
 
-  if (attributeValue) {
-    const shortAttribute = attributeValue.replace(/\s*\([^)]*\)\s*$/, "").trim();
-    if (shortAttribute) return shortAttribute;
+  if (resolvedDefinition && resolvedDefinition.titleMode === "field-short" && resolvedDefinition.titleField) {
+    const shortFieldValue = getShortLabelValue(resolvedFields[resolvedDefinition.titleField]);
+    if (shortFieldValue) {
+      return shortFieldValue;
+    }
   }
 
-  const titleFromPoolAttribute = deriveTitleFromPoolAttribute(poolAttribute);
+  const titleFromPoolAttribute = findRollTitleByPoolAttribute(poolAttribute);
   if (titleFromPoolAttribute) {
     return titleFromPoolAttribute;
   }
 
-  if (skillValue) {
-    return "Fertigkeiten";
+  if (explicitName && resolvedDefinition && resolvedDefinition.titleMode === "explicit-name") {
+    return explicitName;
   }
 
   if (explicitName) return explicitName;
+  if (resolvedDefinition && resolvedDefinition.titleFallback) return resolvedDefinition.titleFallback;
   return "Probe";
 }
 
@@ -390,40 +787,86 @@ function buildSr6ProbeMessage(payload) {
   return parts.join(" ");
 }
 
-function runSuccessProbeFromContext(rawTemplate, repeatingRowPrefix, popupPoolMod = 0) {
+function buildEdgeTokenMessage(actionText, edgeCurrent) {
+  return `&{template:default} {{name=Edge Token}} {{Details=Hat 1 Edge ${actionText}. <br /> Aktuelles Edge: ${edgeCurrent}.}}`;
+}
+// END MODULE: workers/rolls/display
+
+// BEGIN MODULE: workers/rolls/compute
+function rollD6() {
+  return Math.floor(Math.random() * 6) + 1;
+}
+
+function evaluateGlitch(diceResults, successCount) {
+  const ones = diceResults.filter((die) => die === 1).length;
+  const isGlitch = ones > diceResults.length / 2;
+  const isCriticalGlitch = isGlitch && successCount === 0;
+  return { isGlitch, isCriticalGlitch };
+}
+
+function buildProbeComputation(lookupAttr, poolAttribute, popupPoolMod) {
+  const poolBasis = parseNumber(lookupAttr(poolAttribute));
+  const monitorPoolMod = parseNumber(lookupAttr("sr6_monitor_pool_mod"));
+  const poolPopupMod = parseNumber(popupPoolMod);
+  const pool = Math.max(0, poolBasis + monitorPoolMod + poolPopupMod);
+  const diceResults = [];
+
+  for (let index = 0; index < pool; index += 1) {
+    diceResults.push(rollD6());
+  }
+
+  const successCount = diceResults.filter((die) => die >= 5).length;
+  const glitchState = evaluateGlitch(diceResults, successCount);
+
+  return {
+    poolBasis: poolBasis,
+    monitorPoolMod: monitorPoolMod,
+    poolPopupMod: poolPopupMod,
+    pool: pool,
+    diceResults: diceResults,
+    successCount: successCount,
+    isGlitch: glitchState.isGlitch,
+    isCriticalGlitch: glitchState.isCriticalGlitch,
+  };
+}
+// END MODULE: workers/rolls/compute
+
+// BEGIN MODULE: workers/rolls/probe
+function normalizePopupState(popupState) {
+  if (typeof popupState === "number") {
+    return { poolMod: popupState, rows: [] };
+  }
+
+  if (!popupState || typeof popupState !== "object") {
+    return { poolMod: 0, rows: [] };
+  }
+
+  return {
+    poolMod: parseNumber(popupState.poolMod),
+    rows: Array.isArray(popupState.rows) ? popupState.rows : [],
+  };
+}
+
+function runSuccessProbeFromContext(rawTemplate, repeatingRowPrefix, popupState = 0) {
   if (!rawTemplate) return;
 
-  const fields = parseTemplateFields(rawTemplate);
-  const poolAttribute = parsePoolAttributeFromFields(fields);
-  const attributeRefs = collectAttributeReferences(rawTemplate);
-  if (poolAttribute && !attributeRefs.includes(poolAttribute)) {
-    attributeRefs.push(poolAttribute);
-  }
-  if (poolAttribute) {
-    attributeRefs.push("sr6_monitor_pool_mod");
-  }
-  const resolvedAttributes = [];
-  attributeRefs.forEach((attributeRef) => {
-    resolvedAttributes.push(attributeRef);
-    if (repeatingRowPrefix) {
-      resolvedAttributes.push(`${repeatingRowPrefix}_${attributeRef}`);
-    }
-  });
+  const context = buildRequestedAttributes(rawTemplate, repeatingRowPrefix);
+  const normalizedPopupState = normalizePopupState(popupState);
 
-  getAttrs(resolvedAttributes, (values) => {
+  getAttrs(context.requestedAttributes, (values) => {
     const lookupAttr = buildAttrLookup(values, repeatingRowPrefix);
-    const resolvedFields = buildResolvedFields(fields, lookupAttr);
-    const rows = buildProbeRows(resolvedFields);
-    const name = deriveProbeTitle(resolvedFields, poolAttribute);
+    const resolvedFields = buildResolvedFields(context.fields, lookupAttr);
+    const rows = buildProbeRows(resolvedFields, context.definition);
+    const name = deriveProbeTitle(resolvedFields, context.poolAttribute, context.definition);
 
-    if (!poolAttribute) {
+    if (!context.poolAttribute) {
       const chatMessage = buildSr6ProbeMessage({
         name: name,
         rows: rows,
         pool: resolvedFields.Pool || "",
         erfolge: resolvedFields.Erfolge || "",
         details: resolvedFields.Details || "",
-        isGlitch: false
+        isGlitch: false,
       });
       startRoll(chatMessage, (rollResult) => {
         finishRoll(rollResult.rollId);
@@ -431,57 +874,51 @@ function runSuccessProbeFromContext(rawTemplate, repeatingRowPrefix, popupPoolMo
       return;
     }
 
-    const poolBasis = parseNumber(lookupAttr(poolAttribute));
-    const monitorPoolMod = parseNumber(lookupAttr("sr6_monitor_pool_mod"));
-    const poolPopupMod = parseNumber(popupPoolMod);
-    const pool = Math.max(0, poolBasis + monitorPoolMod + poolPopupMod);
-    const diceResults = [];
-    for (let index = 0; index < pool; index += 1) {
-      diceResults.push(rollD6());
-    }
+    const computation = buildProbeComputation(lookupAttr, context.poolAttribute, normalizedPopupState.poolMod);
+    const glitchText = computation.isCriticalGlitch ? "!! Kritischer Patzer !!" : "!! Patzer !!";
+    const erfolgeValue = computation.isGlitch ? glitchText : `${computation.successCount}`;
 
-    const successCount = diceResults.filter((die) => die >= 5).length;
-    const { isGlitch, isCriticalGlitch } = evaluateGlitch(diceResults, successCount);
-    const glitchText = isCriticalGlitch ? "!! Kritischer Patzer !!" : "!! Patzer !!";
-    const erfolgeValue = isGlitch ? glitchText : `${successCount}`;
-    const details = buildDiceDetails(diceResults);
-    const detailsDice = buildDetailsDice(diceResults);
-    const poolValue = `${pool}`;
-    if (monitorPoolMod !== 0) {
-      rows.push({ label: "Pool-Basis", value: `${poolBasis}` });
-      rows.push({ label: "Zustandsmodifikator", value: `${monitorPoolMod}` });
+    if (computation.monitorPoolMod !== 0) {
+      rows.push({ label: "Pool-Basis", value: `${computation.poolBasis}` });
+      rows.push({ label: "Zustandsmodifikator", value: `${computation.monitorPoolMod}` });
     }
-    if (poolPopupMod !== 0) {
-      rows.push({ label: "Popup-Modifikator", value: `${poolPopupMod}` });
-    }
+    normalizedPopupState.rows.forEach((popupRow) => rows.push(popupRow));
 
     const chatMessage = buildSr6ProbeMessage({
       name: name,
       rows: rows,
-      pool: poolValue,
+      pool: `${computation.pool}`,
       erfolge: erfolgeValue,
-      details: details,
-      detailsDice: detailsDice,
-      isGlitch: isGlitch
+      details: buildDiceDetails(computation.diceResults),
+      detailsDice: buildDetailsDice(computation.diceResults),
+      isGlitch: computation.isGlitch,
     });
     startRoll(chatMessage, (rollResult) => {
       finishRoll(rollResult.rollId);
     });
   });
 }
+// END MODULE: workers/rolls/probe
 
+// BEGIN MODULE: workers/rolls/popup
 function runSuccessProbeRoll(eventInfo) {
   const rawTemplate = (eventInfo && eventInfo.htmlAttributes && eventInfo.htmlAttributes.value) || "";
   const repeatingRowPrefix = extractRepeatingRowPrefix(eventInfo);
+  const parsedFields = parseTemplateFields(rawTemplate);
+  const definition = resolveRollDefinition(parsedFields, parsePoolAttributeFromFields(parsedFields));
+
   getAttrs(["sr6_setting_popup_mods"], (values) => {
     const popupSetting = (values.sr6_setting_popup_mods || "eigen").toLowerCase();
     const useRoll20Fallback = popupSetting === "roll20";
 
     if (!useRoll20Fallback) {
+      const popupFormPayload = buildPopupFormPayload(definition);
       setAttrsSilent({
+        ...popupFormPayload,
+        sr6_roll_popup_definition: definition.id,
         sr6_roll_popup_template: rawTemplate,
         sr6_roll_popup_row_prefix: repeatingRowPrefix || "",
-        sr6_roll_popup_open: "1"
+        sr6_roll_popup_open: "1",
       });
       return;
     }
@@ -490,11 +927,16 @@ function runSuccessProbeRoll(eventInfo) {
       "&{template:default} {{name=Probenmodifikator}} {{Wert=[[?{Modifikator|0}]]}}",
       (queryResult) => {
         const queryRoll = queryResult && queryResult.results && queryResult.results.Wert;
-        const popupPoolMod = parseNumber(queryRoll && queryRoll.result);
+        const popupState = {
+          poolMod: parseNumber(queryRoll && queryRoll.result),
+          rows: parseNumber(queryRoll && queryRoll.result) !== 0
+            ? [{ label: "Popup-Modifikator", value: `${parseNumber(queryRoll && queryRoll.result)}` }]
+            : [],
+        };
         if (queryResult && queryResult.rollId) {
           finishRoll(queryResult.rollId);
         }
-        runSuccessProbeFromContext(rawTemplate, repeatingRowPrefix, popupPoolMod);
+        runSuccessProbeFromContext(rawTemplate, repeatingRowPrefix, popupState);
       }
     );
   });
@@ -505,28 +947,51 @@ function runTestPopupProbeRoll(eventInfo) {
   const repeatingRowPrefix = extractRepeatingRowPrefix(eventInfo);
   getAttrs(["sr6_test_roll_popup_mod"], (values) => {
     const popupPoolMod = parseNumber(values.sr6_test_roll_popup_mod);
-    runSuccessProbeFromContext(rawTemplate, repeatingRowPrefix, popupPoolMod);
+    const popupState = {
+      poolMod: popupPoolMod,
+      rows: popupPoolMod !== 0 ? [{ label: "Popup-Modifikator", value: `${popupPoolMod}` }] : [],
+    };
+    runSuccessProbeFromContext(rawTemplate, repeatingRowPrefix, popupState);
   });
 }
 
 function runGlobalPopupProbeConfirm() {
-  getAttrs(["sr6_roll_popup_template", "sr6_roll_popup_row_prefix", "sr6_roll_popup_mod"], (values) => {
+  getAttrs([
+    "sr6_roll_popup_definition",
+    "sr6_roll_popup_template",
+    "sr6_roll_popup_row_prefix",
+    "sr6_roll_popup_value_1_number",
+    "sr6_roll_popup_value_2_number",
+    "sr6_roll_popup_value_3_number",
+    "sr6_roll_popup_value_1_select_visibility",
+    "sr6_roll_popup_value_2_select_visibility",
+    "sr6_roll_popup_value_3_select_visibility",
+    "sr6_roll_popup_value_1_select_movement",
+    "sr6_roll_popup_value_2_select_movement",
+    "sr6_roll_popup_value_3_select_movement",
+    "sr6_roll_popup_value_1_select_spell_range",
+    "sr6_roll_popup_value_2_select_spell_range",
+    "sr6_roll_popup_value_3_select_spell_range",
+    "sr6_roll_popup_value_1_select_matrix_access",
+    "sr6_roll_popup_value_2_select_matrix_access",
+    "sr6_roll_popup_value_3_select_matrix_access",
+  ], (values) => {
+    const definition = getRollDefinitionById(values.sr6_roll_popup_definition || "");
     const rawTemplate = values.sr6_roll_popup_template || "";
     const repeatingRowPrefix = values.sr6_roll_popup_row_prefix || "";
-    const popupPoolMod = parseNumber(values.sr6_roll_popup_mod);
+    const popupState = buildPopupStateFromValues(values, definition);
+
     setAttrsSilent({ sr6_roll_popup_open: "0" });
-    runSuccessProbeFromContext(rawTemplate, repeatingRowPrefix, popupPoolMod);
+    runSuccessProbeFromContext(rawTemplate, repeatingRowPrefix, popupState);
   });
 }
 
 function runGlobalPopupProbeCancel() {
   setAttrsSilent({ sr6_roll_popup_open: "0" });
 }
+// END MODULE: workers/rolls/popup
 
-function buildEdgeTokenMessage(actionText, edgeCurrent) {
-  return `&{template:default} {{name=Edge Token}} {{Details=Hat 1 Edge ${actionText}. <br /> Aktuelles Edge: ${edgeCurrent}.}}`;
-}
-
+// BEGIN MODULE: workers/rolls/edge
 function runEdgeTokenChange(delta) {
   getAttrs(["sr6_edge_aktuell"], (values) => {
     const edgeCurrent = clampNumber(parseNumber(values.sr6_edge_aktuell) + delta, 0, 7);
@@ -547,7 +1012,9 @@ function runEdgeTokenPlus() {
 function runEdgeTokenMinus() {
   runEdgeTokenChange(-1);
 }
+// END MODULE: workers/rolls/edge
 
+// BEGIN MODULE: workers/rolls/index
 function registerSuccessProbeRollEvents() {
   on("clicked:probe", runSuccessProbeRoll);
   on("clicked:repeating_sr6fernkampfwaffen:probe", runSuccessProbeRoll);
@@ -561,9 +1028,9 @@ function registerEdgeTokenEvents() {
   on("clicked:sr6_edge_token_plus", runEdgeTokenPlus);
   on("clicked:sr6_edge_token_minus", runEdgeTokenMinus);
 }
-// END MODULE: workers/core/rolls
+// END MODULE: workers/rolls/index
 
-// END BLOCK: Worker Includes (core)
+// END BLOCK: Worker Includes (rolls)
 
 // BEGIN BLOCK: Worker Includes (compute)
 // BEGIN MODULE: workers/compute/attributes
@@ -763,7 +1230,46 @@ function getEditModeResetPayload() {
     sr6_lebensstil_edit_mode: "0",
     sr6_setting_popup_mods: "eigen",
     sr6_roll_popup_open: "0",
-    sr6_roll_popup_mod: "0",
+    sr6_roll_popup_definition: "",
+    sr6_roll_popup_slot_1_visible: "0",
+    sr6_roll_popup_slot_2_visible: "0",
+    sr6_roll_popup_slot_3_visible: "0",
+    sr6_roll_popup_slot_1_is_number: "0",
+    sr6_roll_popup_slot_2_is_number: "0",
+    sr6_roll_popup_slot_3_is_number: "0",
+    sr6_roll_popup_slot_1_is_select: "0",
+    sr6_roll_popup_slot_2_is_select: "0",
+    sr6_roll_popup_slot_3_is_select: "0",
+    sr6_roll_popup_slot_1_label: "",
+    sr6_roll_popup_slot_2_label: "",
+    sr6_roll_popup_slot_3_label: "",
+    sr6_roll_popup_slot_1_option_visibility: "0",
+    sr6_roll_popup_slot_2_option_visibility: "0",
+    sr6_roll_popup_slot_3_option_visibility: "0",
+    sr6_roll_popup_slot_1_option_movement: "0",
+    sr6_roll_popup_slot_2_option_movement: "0",
+    sr6_roll_popup_slot_3_option_movement: "0",
+    sr6_roll_popup_slot_1_option_spell_range: "0",
+    sr6_roll_popup_slot_2_option_spell_range: "0",
+    sr6_roll_popup_slot_3_option_spell_range: "0",
+    sr6_roll_popup_slot_1_option_matrix_access: "0",
+    sr6_roll_popup_slot_2_option_matrix_access: "0",
+    sr6_roll_popup_slot_3_option_matrix_access: "0",
+    sr6_roll_popup_value_1_number: "0",
+    sr6_roll_popup_value_2_number: "0",
+    sr6_roll_popup_value_3_number: "0",
+    sr6_roll_popup_value_1_select_visibility: "",
+    sr6_roll_popup_value_2_select_visibility: "",
+    sr6_roll_popup_value_3_select_visibility: "",
+    sr6_roll_popup_value_1_select_movement: "",
+    sr6_roll_popup_value_2_select_movement: "",
+    sr6_roll_popup_value_3_select_movement: "",
+    sr6_roll_popup_value_1_select_spell_range: "",
+    sr6_roll_popup_value_2_select_spell_range: "",
+    sr6_roll_popup_value_3_select_spell_range: "",
+    sr6_roll_popup_value_1_select_matrix_access: "",
+    sr6_roll_popup_value_2_select_matrix_access: "",
+    sr6_roll_popup_value_3_select_matrix_access: "",
   };
 }
 
