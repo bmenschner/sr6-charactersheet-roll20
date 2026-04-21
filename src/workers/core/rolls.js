@@ -65,7 +65,7 @@ function collectAttributeReferences(template) {
 
 function parsePoolAttributeFromFields(fields) {
   const erfolgeField = fields.Erfolge || "";
-  const match = erfolgeField.match(/\[\[@\{([^}]+)\}d6>5\]\]/);
+  const match = erfolgeField.match(/\[\[@\{([^}]+)\}d6(?:cs>|>)5\]\]/);
   return match ? match[1] : "";
 }
 
@@ -261,10 +261,8 @@ function buildSr6ProbeMessage(payload) {
   return parts.join(" ");
 }
 
-function runSuccessProbeRoll(eventInfo) {
-  const rawTemplate = (eventInfo && eventInfo.htmlAttributes && eventInfo.htmlAttributes.value) || "";
+function runSuccessProbeFromContext(rawTemplate, repeatingRowPrefix, popupPoolMod = 0) {
   if (!rawTemplate) return;
-  const repeatingRowPrefix = extractRepeatingRowPrefix(eventInfo);
 
   const fields = parseTemplateFields(rawTemplate);
   const poolAttribute = parsePoolAttributeFromFields(fields);
@@ -306,7 +304,8 @@ function runSuccessProbeRoll(eventInfo) {
 
     const poolBasis = parseNumber(lookupAttr(poolAttribute));
     const monitorPoolMod = parseNumber(lookupAttr("sr6_monitor_pool_mod"));
-    const pool = Math.max(0, poolBasis + monitorPoolMod);
+    const poolPopupMod = parseNumber(popupPoolMod);
+    const pool = Math.max(0, poolBasis + monitorPoolMod + poolPopupMod);
     const diceResults = [];
     for (let index = 0; index < pool; index += 1) {
       diceResults.push(rollD6());
@@ -323,6 +322,9 @@ function runSuccessProbeRoll(eventInfo) {
       rows.push({ label: "Pool-Basis", value: `${poolBasis}` });
       rows.push({ label: "Zustandsmodifikator", value: `${monitorPoolMod}` });
     }
+    if (poolPopupMod !== 0) {
+      rows.push({ label: "Popup-Modifikator", value: `${poolPopupMod}` });
+    }
 
     const chatMessage = buildSr6ProbeMessage({
       name: name,
@@ -337,6 +339,59 @@ function runSuccessProbeRoll(eventInfo) {
       finishRoll(rollResult.rollId);
     });
   });
+}
+
+function runSuccessProbeRoll(eventInfo) {
+  const rawTemplate = (eventInfo && eventInfo.htmlAttributes && eventInfo.htmlAttributes.value) || "";
+  const repeatingRowPrefix = extractRepeatingRowPrefix(eventInfo);
+  getAttrs(["sr6_setting_popup_mods"], (values) => {
+    const popupSetting = (values.sr6_setting_popup_mods || "eigen").toLowerCase();
+    const useRoll20Fallback = popupSetting === "roll20";
+
+    if (!useRoll20Fallback) {
+      setAttrsSilent({
+        sr6_roll_popup_template: rawTemplate,
+        sr6_roll_popup_row_prefix: repeatingRowPrefix || "",
+        sr6_roll_popup_open: "1"
+      });
+      return;
+    }
+
+    startRoll(
+      "&{template:default} {{name=Probenmodifikator}} {{Wert=[[?{Modifikator|0}]]}}",
+      (queryResult) => {
+        const queryRoll = queryResult && queryResult.results && queryResult.results.Wert;
+        const popupPoolMod = parseNumber(queryRoll && queryRoll.result);
+        if (queryResult && queryResult.rollId) {
+          finishRoll(queryResult.rollId);
+        }
+        runSuccessProbeFromContext(rawTemplate, repeatingRowPrefix, popupPoolMod);
+      }
+    );
+  });
+}
+
+function runTestPopupProbeRoll(eventInfo) {
+  const rawTemplate = (eventInfo && eventInfo.htmlAttributes && eventInfo.htmlAttributes.value) || "";
+  const repeatingRowPrefix = extractRepeatingRowPrefix(eventInfo);
+  getAttrs(["sr6_test_roll_popup_mod"], (values) => {
+    const popupPoolMod = parseNumber(values.sr6_test_roll_popup_mod);
+    runSuccessProbeFromContext(rawTemplate, repeatingRowPrefix, popupPoolMod);
+  });
+}
+
+function runGlobalPopupProbeConfirm() {
+  getAttrs(["sr6_roll_popup_template", "sr6_roll_popup_row_prefix", "sr6_roll_popup_mod"], (values) => {
+    const rawTemplate = values.sr6_roll_popup_template || "";
+    const repeatingRowPrefix = values.sr6_roll_popup_row_prefix || "";
+    const popupPoolMod = parseNumber(values.sr6_roll_popup_mod);
+    setAttrsSilent({ sr6_roll_popup_open: "0" });
+    runSuccessProbeFromContext(rawTemplate, repeatingRowPrefix, popupPoolMod);
+  });
+}
+
+function runGlobalPopupProbeCancel() {
+  setAttrsSilent({ sr6_roll_popup_open: "0" });
 }
 
 function buildEdgeTokenMessage(actionText, edgeCurrent) {
@@ -368,6 +423,9 @@ function registerSuccessProbeRollEvents() {
   on("clicked:probe", runSuccessProbeRoll);
   on("clicked:repeating_sr6fernkampfwaffen:probe", runSuccessProbeRoll);
   on("clicked:repeating_sr6nahkampfwaffen:probe", runSuccessProbeRoll);
+  on("clicked:probe_popup_test", runTestPopupProbeRoll);
+  on("clicked:probe_popup_confirm", runGlobalPopupProbeConfirm);
+  on("clicked:probe_popup_cancel", runGlobalPopupProbeCancel);
 }
 
 function registerEdgeTokenEvents() {

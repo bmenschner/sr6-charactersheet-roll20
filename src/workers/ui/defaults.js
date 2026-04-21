@@ -31,6 +31,9 @@ function getEditModeResetPayload() {
     sr6_bioware_edit_mode: "0",
     sr6_sin_edit_mode: "0",
     sr6_lebensstil_edit_mode: "0",
+    sr6_setting_popup_mods: "eigen",
+    sr6_roll_popup_open: "0",
+    sr6_roll_popup_mod: "0",
   };
 }
 
