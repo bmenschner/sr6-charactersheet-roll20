@@ -4,6 +4,12 @@
 
 Fuer jeden fachlichen Wert existiert genau **eine gemeinsame Datenquelle**.
 
+Fuer Popup- und Rolltemplate-Logik gilt zusaetzlich:
+
+- Wir modellieren **einheitliche Probenmodelle**
+- Diese Modelle werden **pro Tab mit unterschiedlichen Feldquellen und Kontexten** gefuettert
+- Tabs sind damit **Kontext und Feldmapping**, aber nicht mehr die eigentliche Logikschicht
+
 Jeder Fachwert wird zuerst einem Wertetyp zugeordnet:
 
 - **Attribut**
@@ -21,6 +27,35 @@ Wird derselbe fachliche Wert in mehreren Tabs angezeigt, dann lesen und schreibe
 
 Tabs sind dabei **keine Quelle**, sondern nur unterschiedliche Ansichten derselben Datenfelder.
 
+## Zielarchitektur fuer Popup und Rolltemplate
+
+Die Popup- und Rolltemplate-Logik soll kuenftig entlang weniger **Probenmodelle** organisiert werden.
+
+Dabei gilt:
+
+- `Allgemein` ist **kein eigenes Popup-/Rolltemplate-Ziel**
+- `Allgemein` bleibt nur Uebersicht/Spiegel fuer Datenfelder
+- die eigentliche Logik sitzt in wiederverwendbaren Modellen
+
+### Geplante Probenmodelle
+
+| Probenmodell | Fachliche Grundlogik | Typische Popup-Felder | Typische Output-Felder | Tab-spezifische Feldquellen |
+| --- | --- | --- | --- | --- |
+| `attribute_probe` | `Attribut` oder `Attribut x2` `+- Modifikator` | `Modifikator`, spaeter optional `x2`/Variante | `Attribut`, `Wert`, `Pool`, `Erfolge`, `Details` | Attributsname und Poolquelle je nach Probe |
+| `skill_probe` | `Attribut + Fertigkeitsgrundwert + Modifikator + Spezialisierung/Expertise` | `Skill-Modifikator`, `Spezialisierung`, `Expertise` | `Attribut`, `Fertigkeit`, `Wert/Gesamt`, `Pool`, `Erfolge`, `Details` | Attribut-, Fertigkeits- und Poolquelle je Tab/Fall |
+| `defense_probe` | `Attribut + Fertigkeit +- Modifikator` nach SR6-Grundlogik | `Modifikator`, kontextabhaengige Vergleichswerte wie `Verteidigungswert` | `Wert`, Vergleichswert, `Pool`, `Erfolge`, `Details` | pro Tab andere Attribut-/Fertigkeitsquellen, z. B. `Kampf`, `Matrix`, spaeter weitere |
+| `combat_attack_probe` | Angriffsprobe mit getrennten Ebenen fuer `Pool`, `Angriffswert`, `Schaden` | `Skill-Modifikator`, `Angriffswert-Modifikator`, `Schadens-Modifikator`, `Munition`, `Spezialisierung`, `Expertise` | `Waffe`, `Angriffswert`, `Pool`, `Erfolge`, `Schaden`, `Reichweite`, `Munition`, `Munitionshinweis`, `Berechnung` | Nah-/Fernkampfwerte, Waffenkontext, Munitionsquelle, Reichweite |
+
+### Aktuelles Mapping auf diese Zielmodelle
+
+| Aktuelle Definition / Gruppe | Zielmodell | Aktueller Status | Bemerkung |
+| --- | --- | --- | --- |
+| `attribute` | `attribute_probe` | Teilweise modelliert | Eigenes Modell und Pool-Multiplikator sind vorbereitet; konkrete `Attribut x2`-Faelle im Sheet fehlen noch |
+| `skill` | `skill_probe` | Gut modelliert | Spezialisierung/Expertise bereits sauber im Popup |
+| `physical_defense`, `physical_damage_resistance`, `astral_defense`, `astral_damage_resistance`, `matrix_defense`, `matrix_damage_resistance`, `matrix_biofeedback_damage_resistance`, `rigging_matrix_defense`, `rigging_matrix_damage_resistance`, `rigging_biofeedback_damage_resistance` | `defense_probe` | Modell aktiv in Nutzung | Gemeinsamer Builder existiert und wird bereits tabuebergreifend fuer Kampf, Magie, Matrix und Rigging verwendet |
+| `combat_ranged_core_attack`, `combat_melee_core_attack`, `combat_ranged_weapon`, `combat_melee_weapon`, `ranged_weapon`, `melee_weapon` | `combat_attack_probe` | Am besten modelliert | Gemeinsames Kampf-Popup und gemeinsamer Weapon-Outputpfad bereits vorhanden |
+| `value`, `weapon`, `fallback` | Kein Zielmodell | Technischer Alt-/Fallbackpfad | Langfristig nur noch als Sicherheitsnetz, nicht als eigentliche Architektur |
+
 ## Arbeitsregel fuer diesen Refactor
 
 1. Zuerst Fachwerte inventarisieren und typisieren.
@@ -29,6 +64,9 @@ Tabs sind dabei **keine Quelle**, sondern nur unterschiedliche Ansichten derselb
 4. Offene Formel- und Popup-Fragen separat als TODO fuehren, damit sie den Strukturumbau nicht blockieren.
 
 ## Projektweite Matrix nach Tabs
+
+Diese Matrix beschreibt weiterhin die **fachlichen Datenbereiche** je Tab.
+Sie ist **nicht** mehr die Zielstruktur fuer Popup- und Rolltemplate-Logik.
 
 | Tab | Fachbereich | Haupt-Wertetypen | Gemeinsame Datenquellen / Muster | Refactor-Status |
 | --- | --- | --- | --- | --- |
@@ -220,12 +258,14 @@ Das betrifft besonders:
 1. **Todos dokumentieren und Matrix vervollstaendigen**
 2. **Bestehende numerische Dreiklang-Felder auf `input type="number"` umstellen**
 3. **Attribute und Fertigkeiten als Referenzmodell stabilisieren**
-4. **Kalkulationsfelder fachlich finalisieren und danach Worker-/Popup-Logik angleichen**
-5. **Repeating- und Kontextwerte selektiv nachziehen**
+4. **Probenmodelle fuer Popup und Rolltemplate explizit machen**
+5. **Kalkulationsfelder fachlich finalisieren und danach Worker-/Popup-Logik ueber die Probenmodelle angleichen**
+6. **Repeating- und Kontextwerte selektiv nachziehen**
 
 ## Naechste konkreten Umbauten
 
 1. Attribute projektweit als numerische Eingaben fuehren
 2. Fertigkeiten projektweit als numerische Eingaben fuehren
-3. Bestehende Dreiklaenge in `Verteidigung`, `Schadenswiderstand` und `Matrix-Handlungen` ebenfalls numerisch fuehren
-4. Offene Kampf- und Popup-Fragen ueber die TODO-Liste separat nachhalten
+3. `attribute_probe`, `skill_probe`, `defense_probe`, `combat_attack_probe` als Zielmodelle fuer Popup und Rolltemplate festziehen
+4. Bestehende Dreiklaenge in `Verteidigung`, `Schadenswiderstand` und `Matrix-Handlungen` ebenfalls numerisch fuehren
+5. Offene Kampf- und Popup-Fragen ueber die TODO-Liste separat nachhalten

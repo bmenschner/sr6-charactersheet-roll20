@@ -7804,6 +7804,34 @@ function createSpecializationPopupFields(startSlot = 2) {
   ];
 }
 
+function createAttributeProbePopupFields() {
+  return [
+    {
+      id: "attribute_mod",
+      slot: 1,
+      label: "Popup-Modifikator",
+      type: "number",
+      affects: "pool",
+      defaultValue: "0",
+      includeInTemplate: true,
+    },
+  ];
+}
+
+function createAttributeProbeDefinition(config = {}) {
+  return {
+    probeModel: "attribute_probe",
+    matchField: config.matchField || "Attribut",
+    matchPoolPrefix: config.matchPoolPrefix || "",
+    titleMode: config.titleMode || "field-short",
+    titleField: config.titleField || "Attribut",
+    primaryFields: config.primaryFields || ["Attribut"],
+    extraFields: config.extraFields || [],
+    popupFields: config.popupFields || SR6_ATTRIBUTE_PROBE_POPUP_FIELDS,
+    poolMultiplier: parseNumber(config.poolMultiplier) || 1,
+    titleFallback: config.titleFallback || "Probe",
+  };
+}
 
 function createAttackValueSourceByRange(prefix) {
   return {
@@ -7861,23 +7889,29 @@ function createCombatTabPopupFields() {
 
 const SR6_COMBAT_TAB_POPUP_FIELDS = createCombatTabPopupFields();
 
-function createDefenseContextPopupFields(config) {
+function createDefenseProbePopupFields(config) {
+  const primaryContextLabel = config.primaryContextLabel || config.primaryLabel || "Wert";
+  const primaryContextSource = config.primaryContextSource || "pool";
+  const comparisonContextLabel = config.comparisonContextLabel || "Verteidigungswert";
+  const comparisonContextSourceAttr = config.comparisonContextSourceAttr || "sr6_combat_verteidigungswert_gesamtwert";
+  const edgeContextSourceAttr = config.edgeContextSourceAttr || "sr6_edge_aktuell";
+
   return [
     SR6_DEFAULT_POPUP_FIELDS[0],
     createPopupField({
       id: "primary_context",
       slot: 2,
-      label: config.primaryLabel,
+      label: primaryContextLabel,
       type: "number",
-      source: "pool",
+      source: primaryContextSource,
       defaultValue: "0",
     }),
     createPopupField({
-      id: "defense_value_context",
+      id: "comparison_context",
       slot: 3,
-      label: "Verteidigungswert",
+      label: comparisonContextLabel,
       type: "number",
-      sourceAttr: "sr6_combat_verteidigungswert_gesamtwert",
+      sourceAttr: comparisonContextSourceAttr,
       defaultValue: "0",
     }),
     createPopupField({
@@ -7885,25 +7919,49 @@ function createDefenseContextPopupFields(config) {
       slot: 4,
       label: "Edge",
       type: "number",
-      sourceAttr: "sr6_edge_aktuell",
+      sourceAttr: edgeContextSourceAttr,
       defaultValue: "0",
     }),
   ];
 }
 
+const SR6_ATTRIBUTE_PROBE_POPUP_FIELDS = createAttributeProbePopupFields();
+
+function createDefenseProbeDefinition(config) {
+  return {
+    probeModel: "defense_probe",
+    matchField: config.matchField === undefined ? "Wert" : config.matchField,
+    matchPoolPrefix: config.matchPoolPrefix,
+    titleMode: config.titleMode || "pool-prefix",
+    titleField: config.titleField || "",
+    primaryFields: ["Wert"],
+    extraFields: [],
+    popupFields: createDefenseProbePopupFields({
+      primaryContextLabel: config.primaryContextLabel,
+      primaryContextSource: config.primaryContextSource,
+      comparisonContextLabel: config.comparisonContextLabel,
+      comparisonContextSourceAttr: config.comparisonContextSourceAttr,
+      edgeContextSourceAttr: config.edgeContextSourceAttr,
+    }),
+    fixedTitle: config.fixedTitle || "",
+    titleFallback: config.titleFallback || "Probe",
+  };
+}
+
 const SR6_ROLL_DEFINITIONS = [
   {
     id: "attribute",
-    matchField: "Attribut",
-    titleMode: "field-short",
-    titleField: "Attribut",
-    primaryFields: ["Attribut"],
-    extraFields: [],
-    popupFields: SR6_DEFAULT_POPUP_FIELDS,
-    titleFallback: "Probe",
+    ...createAttributeProbeDefinition({
+      matchField: "Attribut",
+      titleField: "Attribut",
+      primaryFields: ["Attribut"],
+      poolMultiplier: 1,
+      titleFallback: "Probe",
+    }),
   },
   {
     id: "skill",
+    probeModel: "skill_probe",
     matchField: "Fertigkeit",
     titleMode: "pool-prefix",
     primaryFields: ["Fertigkeit"],
@@ -7945,6 +8003,30 @@ const SR6_ROLL_DEFINITIONS = [
     titleFallback: "Zauber",
   },
   {
+    id: "astral_defense",
+    ...createDefenseProbeDefinition({
+      matchField: "",
+      matchPoolPrefix: "sr6_magic_astrale_verteidigung",
+      primaryContextLabel: "Astrale Verteidigung",
+      comparisonContextLabel: "Astralkampf Verteidigungswert",
+      comparisonContextSourceAttr: "sr6_magic_astralkampf_verteidigungswert",
+      fixedTitle: "Astrale Verteidigung",
+      titleFallback: "Magie: Kernwerte",
+    }),
+  },
+  {
+    id: "astral_damage_resistance",
+    ...createDefenseProbeDefinition({
+      matchField: "",
+      matchPoolPrefix: "sr6_magic_astraler_schadenswiderstand",
+      primaryContextLabel: "Astraler Schadenswiderstand",
+      comparisonContextLabel: "Astralkampf Verteidigungswert",
+      comparisonContextSourceAttr: "sr6_magic_astralkampf_verteidigungswert",
+      fixedTitle: "Astraler Schadenswiderstand",
+      titleFallback: "Magie: Kernwerte",
+    }),
+  },
+  {
     id: "matrix_action",
     matchField: "Handlung",
     matchPoolPrefix: "sr6_matrix_handlung_",
@@ -7974,6 +8056,39 @@ const SR6_ROLL_DEFINITIONS = [
       },
     ],
     titleFallback: "Matrix-Handlungen",
+  },
+  {
+    id: "matrix_defense",
+    ...createDefenseProbeDefinition({
+      matchPoolPrefix: "sr6_matrix_verteidigung",
+      primaryContextLabel: "Matrix Verteidigung",
+      comparisonContextLabel: "Verteidigungswert",
+      comparisonContextSourceAttr: "sr6_matrix_verteidigungswert",
+      fixedTitle: "Matrix Verteidigung",
+      titleFallback: "Matrix: Kernwerte",
+    }),
+  },
+  {
+    id: "matrix_damage_resistance",
+    ...createDefenseProbeDefinition({
+      matchPoolPrefix: "sr6_matrix_schadenswiderstand",
+      primaryContextLabel: "Matrix Schadenswiderstand",
+      comparisonContextLabel: "Verteidigungswert",
+      comparisonContextSourceAttr: "sr6_matrix_verteidigungswert",
+      fixedTitle: "Matrix Schadenswiderstand",
+      titleFallback: "Matrix: Kernwerte",
+    }),
+  },
+  {
+    id: "matrix_biofeedback_damage_resistance",
+    ...createDefenseProbeDefinition({
+      matchPoolPrefix: "sr6_matrix_biofeedback_schadenswiderstand",
+      primaryContextLabel: "Biofeedback Schadenswiderstand",
+      comparisonContextLabel: "Verteidigungswert",
+      comparisonContextSourceAttr: "sr6_matrix_verteidigungswert",
+      fixedTitle: "Biofeedback Schadenswiderstand",
+      titleFallback: "Matrix: Kernwerte",
+    }),
   },
   {
     id: "matrix_value",
@@ -8007,7 +8122,41 @@ const SR6_ROLL_DEFINITIONS = [
     titleFallback: "Matrix: Kernwerte",
   },
   {
+    id: "rigging_matrix_defense",
+    ...createDefenseProbeDefinition({
+      matchPoolPrefix: "sr6_rigging_matrix_verteidigung",
+      primaryContextLabel: "Matrix Verteidigung",
+      comparisonContextLabel: "Verteidigungswert",
+      comparisonContextSourceAttr: "sr6_rigging_verteidigungswert",
+      fixedTitle: "Matrix Verteidigung",
+      titleFallback: "Rigging: Kernwerte",
+    }),
+  },
+  {
+    id: "rigging_matrix_damage_resistance",
+    ...createDefenseProbeDefinition({
+      matchPoolPrefix: "sr6_rigging_matrix_schadenswiderstand",
+      primaryContextLabel: "Matrix Schadenswiderstand",
+      comparisonContextLabel: "Verteidigungswert",
+      comparisonContextSourceAttr: "sr6_rigging_verteidigungswert",
+      fixedTitle: "Matrix Schadenswiderstand",
+      titleFallback: "Rigging: Kernwerte",
+    }),
+  },
+  {
+    id: "rigging_biofeedback_damage_resistance",
+    ...createDefenseProbeDefinition({
+      matchPoolPrefix: "sr6_rigging_biofeedback_schadenswiderstand",
+      primaryContextLabel: "Biofeedback Schadenswiderstand",
+      comparisonContextLabel: "Verteidigungswert",
+      comparisonContextSourceAttr: "sr6_rigging_verteidigungswert",
+      fixedTitle: "Biofeedback Schadenswiderstand",
+      titleFallback: "Rigging: Kernwerte",
+    }),
+  },
+  {
     id: "combat_ranged_core_attack",
+    probeModel: "combat_attack_probe",
     matchField: "Wert",
     matchPoolPrefix: "sr6_combat_fernkampfangriff",
     titleMode: "field-short",
@@ -8031,6 +8180,7 @@ const SR6_ROLL_DEFINITIONS = [
   },
   {
     id: "combat_melee_core_attack",
+    probeModel: "combat_attack_probe",
     matchField: "Wert",
     matchPoolPrefix: "sr6_combat_nahkampfangriff",
     titleMode: "field-short",
@@ -8054,27 +8204,23 @@ const SR6_ROLL_DEFINITIONS = [
   },
   {
     id: "physical_defense",
-    matchField: "Wert",
-    matchPoolPrefix: "sr6_verteidigung_physisch_",
-    titleMode: "pool-prefix",
-    primaryFields: ["Wert"],
-    extraFields: [],
-    popupFields: createDefenseContextPopupFields({
-      primaryLabel: "Verteidigung (Physisch)",
+    ...createDefenseProbeDefinition({
+      matchPoolPrefix: "sr6_verteidigung_physisch_",
+      primaryContextLabel: "Verteidigung (Physisch)",
+      comparisonContextLabel: "Verteidigungswert",
+      comparisonContextSourceAttr: "sr6_combat_verteidigungswert_gesamtwert",
+      titleFallback: "Verteidigung",
     }),
-    titleFallback: "Verteidigung",
   },
   {
     id: "physical_damage_resistance",
-    matchField: "Wert",
-    matchPoolPrefix: "sr6_schadenswiderstand_physisch_",
-    titleMode: "pool-prefix",
-    primaryFields: ["Wert"],
-    extraFields: [],
-    popupFields: createDefenseContextPopupFields({
-      primaryLabel: "Schadenswiderstand (Physisch)",
+    ...createDefenseProbeDefinition({
+      matchPoolPrefix: "sr6_schadenswiderstand_physisch_",
+      primaryContextLabel: "Schadenswiderstand (Physisch)",
+      comparisonContextLabel: "Verteidigungswert",
+      comparisonContextSourceAttr: "sr6_combat_verteidigungswert_gesamtwert",
+      titleFallback: "Schadenswiderstand",
     }),
-    titleFallback: "Schadenswiderstand",
   },
   {
     id: "value",
@@ -8087,6 +8233,7 @@ const SR6_ROLL_DEFINITIONS = [
   },
   {
     id: "combat_ranged_weapon",
+    probeModel: "combat_attack_probe",
     matchField: "Waffe",
     matchPoolPrefix: "sr6_combat_fernkampf_",
     titleMode: "pool-prefix",
@@ -8107,6 +8254,7 @@ const SR6_ROLL_DEFINITIONS = [
   },
   {
     id: "combat_melee_weapon",
+    probeModel: "combat_attack_probe",
     matchField: "Waffe",
     matchPoolPrefix: "sr6_combat_nahkampf_",
     titleMode: "pool-prefix",
@@ -8127,6 +8275,7 @@ const SR6_ROLL_DEFINITIONS = [
   },
   {
     id: "ranged_weapon",
+    probeModel: "combat_attack_probe",
     matchField: "Waffe",
     matchPoolPrefix: "sr6_fernkampf_",
     titleMode: "field-short",
@@ -8148,6 +8297,7 @@ const SR6_ROLL_DEFINITIONS = [
   },
   {
     id: "melee_weapon",
+    probeModel: "combat_attack_probe",
     matchField: "Waffe",
     matchPoolPrefix: "sr6_nahkampf_",
     titleMode: "field-short",
@@ -8284,6 +8434,12 @@ function getRollPopupFields(definition) {
 function getRollContextFields(definition) {
   const resolvedDefinition = definition || resolveRollDefinition({});
   return Array.isArray(resolvedDefinition.contextFields) ? resolvedDefinition.contextFields : [];
+}
+
+function getRollPoolMultiplier(definition, resolvedFields) {
+  const resolvedDefinition = definition || resolveRollDefinition(resolvedFields || {});
+  const configuredMultiplier = parseNumber(resolvedDefinition.poolMultiplier);
+  return configuredMultiplier > 0 ? configuredMultiplier : 1;
 }
 
 function getPopupFieldValueAttr(field, index) {
@@ -8957,8 +9113,10 @@ function evaluateGlitch(diceResults, successCount) {
   return { isGlitch, isCriticalGlitch };
 }
 
-function buildProbeComputation(lookupAttr, poolAttribute, popupPoolMod) {
-  const poolBasis = parseNumber(lookupAttr(poolAttribute));
+function buildProbeComputation(lookupAttr, poolAttribute, popupPoolMod, poolMultiplier = 1) {
+  const poolBasisRaw = parseNumber(lookupAttr(poolAttribute));
+  const normalizedPoolMultiplier = Math.max(1, parseNumber(poolMultiplier) || 1);
+  const poolBasis = poolBasisRaw * normalizedPoolMultiplier;
   const monitorPoolMod = parseNumber(lookupAttr("sr6_monitor_pool_mod"));
   const poolPopupMod = parseNumber(popupPoolMod);
   const pool = Math.max(0, poolBasis + monitorPoolMod + poolPopupMod);
@@ -8972,6 +9130,8 @@ function buildProbeComputation(lookupAttr, poolAttribute, popupPoolMod) {
   const glitchState = evaluateGlitch(diceResults, successCount);
 
   return {
+    poolBasisRaw: poolBasisRaw,
+    poolMultiplier: normalizedPoolMultiplier,
     poolBasis: poolBasis,
     monitorPoolMod: monitorPoolMod,
     poolPopupMod: poolPopupMod,
@@ -9080,12 +9240,25 @@ function runSuccessProbeFromContext(rawTemplate, repeatingRowPrefix, popupState 
       return;
     }
 
-    const computation = buildProbeComputation(lookupAttr, context.poolAttribute, normalizedPopupState.poolMod);
+    const poolMultiplier = getRollPoolMultiplier(context.definition, resolvedFields);
+    const computation = buildProbeComputation(
+      lookupAttr,
+      context.poolAttribute,
+      normalizedPopupState.poolMod,
+      poolMultiplier
+    );
     const glitchText = computation.isCriticalGlitch ? "!! Kritischer Patzer !!" : "!! Patzer !!";
     const erfolgeValue = computation.isGlitch ? glitchText : `${computation.successCount}`;
 
+    if (computation.poolMultiplier !== 1) {
+      rows.push({ label: "Pool-Basis", value: `${computation.poolBasisRaw}` });
+      rows.push({ label: "Multiplikator", value: `x${computation.poolMultiplier}` });
+    }
     if (computation.monitorPoolMod !== 0) {
-      rows.push({ label: "Pool-Basis", value: `${computation.poolBasis}` });
+      rows.push({
+        label: computation.poolMultiplier !== 1 ? "Pool nach Multiplikator" : "Pool-Basis",
+        value: `${computation.poolBasis}`,
+      });
       rows.push({ label: "Zustandsmodifikator", value: `${computation.monitorPoolMod}` });
     }
     normalizedPopupState.rows.forEach((popupRow) => rows.push(popupRow));

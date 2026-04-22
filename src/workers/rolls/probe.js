@@ -94,12 +94,25 @@ function runSuccessProbeFromContext(rawTemplate, repeatingRowPrefix, popupState 
       return;
     }
 
-    const computation = buildProbeComputation(lookupAttr, context.poolAttribute, normalizedPopupState.poolMod);
+    const poolMultiplier = getRollPoolMultiplier(context.definition, resolvedFields);
+    const computation = buildProbeComputation(
+      lookupAttr,
+      context.poolAttribute,
+      normalizedPopupState.poolMod,
+      poolMultiplier
+    );
     const glitchText = computation.isCriticalGlitch ? "!! Kritischer Patzer !!" : "!! Patzer !!";
     const erfolgeValue = computation.isGlitch ? glitchText : `${computation.successCount}`;
 
+    if (computation.poolMultiplier !== 1) {
+      rows.push({ label: "Pool-Basis", value: `${computation.poolBasisRaw}` });
+      rows.push({ label: "Multiplikator", value: `x${computation.poolMultiplier}` });
+    }
     if (computation.monitorPoolMod !== 0) {
-      rows.push({ label: "Pool-Basis", value: `${computation.poolBasis}` });
+      rows.push({
+        label: computation.poolMultiplier !== 1 ? "Pool nach Multiplikator" : "Pool-Basis",
+        value: `${computation.poolBasis}`,
+      });
       rows.push({ label: "Zustandsmodifikator", value: `${computation.monitorPoolMod}` });
     }
     normalizedPopupState.rows.forEach((popupRow) => rows.push(popupRow));
