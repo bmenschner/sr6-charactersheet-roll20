@@ -8,7 +8,7 @@
 - `src/css/modules/`
   - modulare Styles (Reihenfolge via `manifest.json`)
   - Shell-Header-Module: `shell/kopfbereich-layout.css`, `shell/kopfbereich-monitor.css`, `shell/kopfbereich-edge.css`
-- `src/workers/core/, src/workers/compute/, src/workers/ui/`
+- `src/workers/core/, src/workers/compute/, src/workers/rolls/, src/workers/ui/`
   - modularer Sheet-Worker-Code
   - Monitor-Header-Compute: `workers/compute/header-monitor.js`
 - `src/i18n/translation.json`

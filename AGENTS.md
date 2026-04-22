@@ -23,7 +23,7 @@ Dieses Projekt ist **kein klassisches Frontend**.
 - `src/html/partials/tabs/**`
 - `src/html/partials/workers/sheet-worker.html`
 - `src/css/modules/**` (Reihenfolge via `src/css/modules/manifest.json`)
-- `src/workers/**` (modular: `core/`, `compute/`, `ui/`)
+- `src/workers/**` (modular: `core/`, `compute/`, `rolls/`, `ui/`)
 - `src/i18n/translation.json`
 - `src/assets/images/*`
 
@@ -40,7 +40,7 @@ Dieses Projekt ist **kein klassisches Frontend**.
 
 - `docs/*`
 - `readme.md`
-- `roll20-checklist.md`
+- `roll20-cse-checklist.md`
 
 ---
 

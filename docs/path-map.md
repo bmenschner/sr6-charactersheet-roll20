@@ -14,11 +14,12 @@
   - Einstellungen: `src/html/partials/tabs/einstellungen/index.html`
 
 ## Unterbereiche (Beispiele)
-- Allgemein / Attribute: `src/html/partials/tabs/allgemein/attribute.html`
-- Allgemein / Fertigkeiten: `src/html/partials/tabs/allgemein/fertigkeiten.html`
-- Kampf / Fernkampf: `src/html/partials/tabs/kampf/fernkampf.html`
-- Kampf / Nahkampf: `src/html/partials/tabs/kampf/nahkampf.html`
-- Kampf / Panzerung: `src/html/partials/tabs/kampf/panzerung.html`
+- Allgemein / Attribute: `src/html/partials/tabs/allgemein/sections/01-attribute.html`
+- Allgemein / Fertigkeiten: `src/html/partials/tabs/allgemein/sections/03-fertigkeiten.html`
+- Kampf / Kernwerte: `src/html/partials/tabs/kampf/sections/01-kernwerte.html`
+- Kampf / Fernkampf: `src/html/partials/tabs/kampf/sections/02-fernkampf.html`
+- Kampf / Nahkampf: `src/html/partials/tabs/kampf/sections/03-nahkampf.html`
+- Kampf / Panzerung: `src/html/partials/tabs/kampf/sections/04-panzerung.html`
 
 ## Grosse Tabs in Sections (Punkt 2)
 - Magie: `src/html/partials/tabs/magie/kernwerte.html` -> `src/html/partials/tabs/magie/sections/*`
