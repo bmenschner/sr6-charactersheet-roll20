@@ -314,137 +314,6 @@ function createSpecializationPopupFields(startSlot = 2) {
 }
 
 
-function createCombatContextPopupFields(config) {
-  return [
-    SR6_DEFAULT_POPUP_FIELDS[0],
-    createPopupField({
-      id: "attack_context",
-      slot: 2,
-      label: config.attackLabel,
-      type: "number",
-      source: config.attackSource,
-      sourceAttr: config.attackSourceAttr,
-      defaultValue: "0",
-    }),
-    createPopupField({
-      id: "damage_context",
-      slot: 3,
-      label: "Schaden",
-      type: "text",
-      source: config.damageSource,
-      sourceAttr: config.damageSourceAttr,
-      defaultValue: "",
-    }),
-    createPopupField({
-      id: "attack_value_context",
-      slot: 4,
-      label: "Angriffswert",
-      type: "number",
-      source: config.attackValueSource || "pool",
-      sourceAttr: config.attackValueSourceAttr,
-      defaultValue: "0",
-    }),
-    createPopupField({
-      id: "edge_context",
-      slot: 5,
-      label: "Edge",
-      type: "number",
-      sourceAttr: "sr6_edge_aktuell",
-      defaultValue: "0",
-    }),
-  ];
-}
-
-function createRangedCombatPopupFields(config, options = {}) {
-  const includeSpecialization = options.includeSpecialization !== false;
-  const specializationFields = includeSpecialization ? createSpecializationPopupFields(2) : [];
-  const ammoSlot = includeSpecialization ? 4 : 2;
-  const attackValueSlot = includeSpecialization ? 5 : 3;
-  const damageSlot = includeSpecialization ? 6 : 4;
-  const edgeSlot = includeSpecialization ? 7 : 5;
-
-  return [
-    SR6_DEFAULT_POPUP_FIELDS[0],
-    ...specializationFields,
-    {
-      id: "ammo_context",
-      slot: ammoSlot,
-      label: "Munition",
-      type: "select",
-      optionSet: "ammo",
-      sourceAttr: config.ammoSourceAttr,
-      affects: ["attack_value", "damage"],
-      includeInTemplate: true,
-      defaultValue: "Standard",
-    },
-    {
-      id: "attack_value_mod",
-      slot: attackValueSlot,
-      label: "Angriffswert-Modifikator",
-      type: "number",
-      affects: "attack_value",
-      includeInTemplate: true,
-      defaultValue: "0",
-    },
-    {
-      id: "damage_mod",
-      slot: damageSlot,
-      label: "Schadens-Modifikator",
-      type: "number",
-      affects: "damage",
-      includeInTemplate: true,
-      defaultValue: "0",
-    },
-    createPopupField({
-      id: "edge_context",
-      slot: edgeSlot,
-      label: "Edge",
-      type: "number",
-      sourceAttr: "sr6_edge_aktuell",
-      defaultValue: "0",
-    }),
-  ];
-}
-
-function createMeleeCombatPopupFields(options = {}) {
-  const includeSpecialization = options.includeSpecialization !== false;
-  const specializationFields = includeSpecialization ? createSpecializationPopupFields(2) : [];
-  const attackValueSlot = includeSpecialization ? 4 : 2;
-  const damageSlot = includeSpecialization ? 5 : 3;
-  const edgeSlot = includeSpecialization ? 6 : 4;
-
-  return [
-    SR6_DEFAULT_POPUP_FIELDS[0],
-    ...specializationFields,
-    {
-      id: "attack_value_mod",
-      slot: attackValueSlot,
-      label: "Angriffswert-Modifikator",
-      type: "number",
-      affects: "attack_value",
-      includeInTemplate: true,
-      defaultValue: "0",
-    },
-    {
-      id: "damage_mod",
-      slot: damageSlot,
-      label: "Schadens-Modifikator",
-      type: "number",
-      affects: "damage",
-      includeInTemplate: true,
-      defaultValue: "0",
-    },
-    createPopupField({
-      id: "edge_context",
-      slot: edgeSlot,
-      label: "Edge",
-      type: "number",
-      sourceAttr: "sr6_edge_aktuell",
-      defaultValue: "0",
-    }),
-  ];
-}
-
 function createAttackValueSourceByRange(prefix) {
   return {
     "S. Nah": `${prefix}_s_nah`,
@@ -455,7 +324,7 @@ function createAttackValueSourceByRange(prefix) {
   };
 }
 
-function createStandardRangedWeaponPopupFields(ammoSourceAttr) {
+function createCombatTabPopupFields() {
   return [
     {
       id: "skill_mod",
@@ -490,7 +359,7 @@ function createStandardRangedWeaponPopupFields(ammoSourceAttr) {
       label: "Munition",
       type: "select",
       optionSet: "ammo",
-      sourceAttr: ammoSourceAttr,
+      sourceAttr: "sr6_combat_munition",
       affects: ["attack_value", "damage"],
       includeInTemplate: true,
       defaultValue: "Standard",
@@ -499,9 +368,7 @@ function createStandardRangedWeaponPopupFields(ammoSourceAttr) {
   ];
 }
 
-function createStandardMeleeWeaponPopupFields() {
-  return createStandardRangedWeaponPopupFields("");
-}
+const SR6_COMBAT_TAB_POPUP_FIELDS = createCombatTabPopupFields();
 
 function createDefenseContextPopupFields(config) {
   return [
@@ -652,10 +519,18 @@ const SR6_ROLL_DEFINITIONS = [
     id: "combat_ranged_core_attack",
     matchField: "Wert",
     matchPoolPrefix: "sr6_combat_fernkampfangriff",
-    titleMode: "pool-prefix",
+    titleMode: "field-short",
+    titleField: "Fertigkeit",
     primaryFields: ["Wert"],
     extraFields: [],
-    popupFields: createStandardRangedWeaponPopupFields("sr6_combat_munition"),
+    templateVariant: "weapon",
+    contextFields: [
+      { label: "Waffe", attr: "sr6_combat_primaere_fernkampfwaffe" },
+      { label: "Fertigkeit", attr: "sr6_combat_fernkampf_fertigkeit" },
+      { label: "Munition", attr: "sr6_combat_munition" },
+      { label: "Schadenswert", attr: "sr6_combat_fernkampf_schaden" },
+    ],
+    popupFields: SR6_COMBAT_TAB_POPUP_FIELDS,
     popupDerivedResults: [
       { kind: "attack_value", label: "Angriffswert", source: "pool" },
       { kind: "damage", label: "Schaden", sourceAttr: "sr6_combat_fernkampf_schaden" },
@@ -666,12 +541,18 @@ const SR6_ROLL_DEFINITIONS = [
     id: "combat_melee_core_attack",
     matchField: "Wert",
     matchPoolPrefix: "sr6_combat_nahkampfangriff",
-    titleMode: "pool-prefix",
+    titleMode: "field-short",
+    titleField: "Fertigkeit",
     primaryFields: ["Wert"],
     extraFields: [],
-    popupFields: createMeleeCombatPopupFields({
-      includeSpecialization: false,
-    }),
+    templateVariant: "weapon",
+    contextFields: [
+      { label: "Waffe", attr: "sr6_combat_primaere_nahkampfwaffe" },
+      { label: "Fertigkeit", attr: "sr6_combat_nahkampf_fertigkeit" },
+      { label: "Munition", attr: "sr6_combat_munition" },
+      { label: "Schadenswert", attr: "sr6_combat_nahkampf_schaden" },
+    ],
+    popupFields: SR6_COMBAT_TAB_POPUP_FIELDS,
     popupDerivedResults: [
       { kind: "attack_value", label: "Angriffswert", source: "pool" },
       { kind: "damage", label: "Schaden", sourceAttr: "sr6_combat_nahkampf_schaden" },
@@ -718,7 +599,8 @@ const SR6_ROLL_DEFINITIONS = [
     titleMode: "pool-prefix",
     primaryFields: ["Waffe"],
     extraFields: ["Schadenswert", "Munition", "Reichweite", "Modus"],
-    popupFields: createStandardRangedWeaponPopupFields("sr6_combat_munition"),
+    templateVariant: "weapon",
+    popupFields: SR6_COMBAT_TAB_POPUP_FIELDS,
     popupDerivedResults: [
       {
         kind: "attack_value",
@@ -736,7 +618,8 @@ const SR6_ROLL_DEFINITIONS = [
     titleMode: "pool-prefix",
     primaryFields: ["Waffe"],
     extraFields: ["Schadenswert", "Reichweite"],
-    popupFields: createStandardMeleeWeaponPopupFields(),
+    templateVariant: "weapon",
+    popupFields: SR6_COMBAT_TAB_POPUP_FIELDS,
     popupDerivedResults: [
       {
         kind: "attack_value",
@@ -755,7 +638,8 @@ const SR6_ROLL_DEFINITIONS = [
     titleField: "Fertigkeit",
     primaryFields: ["Waffe"],
     extraFields: ["Fertigkeit", "Schadenswert", "Munition", "Reichweite"],
-    popupFields: createStandardRangedWeaponPopupFields("sr6_fernkampf_munition"),
+    templateVariant: "weapon",
+    popupFields: SR6_COMBAT_TAB_POPUP_FIELDS,
     popupDerivedResults: [
       {
         kind: "attack_value",
@@ -774,7 +658,8 @@ const SR6_ROLL_DEFINITIONS = [
     titleField: "Fertigkeit",
     primaryFields: ["Waffe"],
     extraFields: ["Fertigkeit", "Schadenswert", "Reichweite"],
-    popupFields: createStandardMeleeWeaponPopupFields(),
+    templateVariant: "weapon",
+    popupFields: SR6_COMBAT_TAB_POPUP_FIELDS,
     popupDerivedResults: [
       {
         kind: "attack_value",
@@ -840,16 +725,26 @@ function findRollTitleByPoolAttribute(poolAttribute) {
 }
 
 function resolveRollDefinition(fields, poolAttribute = "") {
+  let bestDefinition = null;
+  let bestScore = -1;
+
   for (let index = 0; index < SR6_ROLL_DEFINITIONS.length; index += 1) {
     const definition = SR6_ROLL_DEFINITIONS[index];
     const fieldMatches = !definition.matchField || fields[definition.matchField];
     const poolMatches = !definition.matchPoolPrefix || poolAttribute.startsWith(definition.matchPoolPrefix);
     if (fieldMatches && poolMatches) {
-      return definition;
+      let score = 0;
+      if (definition.matchPoolPrefix) score += 2;
+      if (definition.matchField) score += 1;
+
+      if (score > bestScore) {
+        bestDefinition = definition;
+        bestScore = score;
+      }
     }
   }
 
-  return SR6_ROLL_DEFINITIONS[SR6_ROLL_DEFINITIONS.length - 1];
+  return bestDefinition || SR6_ROLL_DEFINITIONS[SR6_ROLL_DEFINITIONS.length - 1];
 }
 
 function getRollDefinitionById(definitionId) {
@@ -887,6 +782,11 @@ function getRollPopupFields(definition) {
     return resolvedDefinition.popupFields;
   }
   return SR6_DEFAULT_POPUP_FIELDS;
+}
+
+function getRollContextFields(definition) {
+  const resolvedDefinition = definition || resolveRollDefinition({});
+  return Array.isArray(resolvedDefinition.contextFields) ? resolvedDefinition.contextFields : [];
 }
 
 function getPopupFieldValueAttr(field, index) {
@@ -1240,6 +1140,14 @@ function buildRequestedAttributes(rawTemplate, repeatingRowPrefix) {
     }
   });
 
+  getRollContextFields(definition).forEach((field) => {
+    if (!field || !field.attr) return;
+    requestedAttributes.push(field.attr);
+    if (repeatingRowPrefix) {
+      requestedAttributes.push(`${repeatingRowPrefix}_${field.attr}`);
+    }
+  });
+
   return {
     definition: definition,
     fields: fields,
@@ -1325,13 +1233,8 @@ function deriveProbeTitle(resolvedFields, poolAttribute, definition) {
   return "Probe";
 }
 
-function isWeaponRollDefinition(definitionId) {
-  return [
-    "combat_ranged_weapon",
-    "combat_melee_weapon",
-    "ranged_weapon",
-    "melee_weapon",
-  ].includes(definitionId || "");
+function hasWeaponTemplateVariant(definition) {
+  return !!(definition && definition.templateVariant === "weapon");
 }
 
 function findLastRowValue(rows, label) {
@@ -1414,7 +1317,7 @@ function buildSr6ProbeMessage(payload) {
   const name = payload.name || "Probe";
   parts.push(`{{name=${name}}}`);
 
-  if (isWeaponRollDefinition(payload.definitionId)) {
+  if (hasWeaponTemplateVariant(payload.definition)) {
     const presentation = buildWeaponProbePresentation(payload);
 
     parts.push("{{weapon_layout=1}}");
@@ -1650,6 +1553,11 @@ function runSuccessProbeFromContext(rawTemplate, repeatingRowPrefix, popupState 
   getAttrs(context.requestedAttributes, (values) => {
     const lookupAttr = buildAttrLookup(values, repeatingRowPrefix);
     const resolvedFields = buildResolvedFields(context.fields, lookupAttr);
+    getRollContextFields(context.definition).forEach((field) => {
+      if (!field || !field.label || !field.attr) return;
+      if (resolvedFields[field.label]) return;
+      resolvedFields[field.label] = lookupAttr(field.attr);
+    });
     const rows = buildProbeRows(resolvedFields, context.definition);
     const name = deriveProbeTitle(resolvedFields, context.poolAttribute, context.definition);
 
@@ -1658,6 +1566,7 @@ function runSuccessProbeFromContext(rawTemplate, repeatingRowPrefix, popupState 
         name: name,
         rows: rows,
         resolvedFields: resolvedFields,
+        definition: context.definition,
         definitionId: context.definition && context.definition.id,
         pool: resolvedFields.Pool || "",
         erfolge: resolvedFields.Erfolge || "",
@@ -1686,6 +1595,7 @@ function runSuccessProbeFromContext(rawTemplate, repeatingRowPrefix, popupState 
       name: name,
       rows: rows,
       resolvedFields: resolvedFields,
+      definition: context.definition,
       definitionId: context.definition && context.definition.id,
       pool: `${computation.pool}`,
       erfolge: erfolgeValue,
@@ -1984,6 +1894,7 @@ const SR6_COMBAT_PRIMARY_WEAPON_SELECTIONS = [
     rowNameAttr: "sr6_fernkampfwaffe",
     targetMap: {
       sr6_combat_primaere_fernkampfwaffe: "sr6_fernkampfwaffe",
+      sr6_combat_fernkampf_fertigkeit: "sr6_fernkampf_fertigkeit",
       sr6_combat_fernkampf_schaden: "sr6_fernkampf_schaden",
       sr6_combat_munition: "sr6_fernkampf_munition",
       sr6_combat_fernkampf_modus: "sr6_fernkampf_modus",
@@ -1995,6 +1906,7 @@ const SR6_COMBAT_PRIMARY_WEAPON_SELECTIONS = [
     },
     defaults: {
       sr6_combat_primaere_fernkampfwaffe: "",
+      sr6_combat_fernkampf_fertigkeit: "Feuerwaffen",
       sr6_combat_fernkampf_schaden: "0",
       sr6_combat_munition: "Standard",
       sr6_combat_fernkampf_modus: "",
@@ -2011,6 +1923,7 @@ const SR6_COMBAT_PRIMARY_WEAPON_SELECTIONS = [
     rowNameAttr: "sr6_nahkampfwaffe",
     targetMap: {
       sr6_combat_primaere_nahkampfwaffe: "sr6_nahkampfwaffe",
+      sr6_combat_nahkampf_fertigkeit: "sr6_nahkampf_fertigkeit",
       sr6_combat_nahkampf_schaden: "sr6_nahkampf_schaden",
       sr6_combat_nahkampf_sehr_nah: "sr6_nahkampf_s_nah",
       sr6_combat_nahkampf_nah: "sr6_nahkampf_nah",
@@ -2020,6 +1933,7 @@ const SR6_COMBAT_PRIMARY_WEAPON_SELECTIONS = [
     },
     defaults: {
       sr6_combat_primaere_nahkampfwaffe: "",
+      sr6_combat_nahkampf_fertigkeit: "Nahkampf",
       sr6_combat_nahkampf_schaden: "0",
       sr6_combat_nahkampf_sehr_nah: "0",
       sr6_combat_nahkampf_nah: "0",

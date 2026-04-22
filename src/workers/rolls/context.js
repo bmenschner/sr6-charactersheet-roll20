@@ -130,6 +130,14 @@ function buildRequestedAttributes(rawTemplate, repeatingRowPrefix) {
     }
   });
 
+  getRollContextFields(definition).forEach((field) => {
+    if (!field || !field.attr) return;
+    requestedAttributes.push(field.attr);
+    if (repeatingRowPrefix) {
+      requestedAttributes.push(`${repeatingRowPrefix}_${field.attr}`);
+    }
+  });
+
   return {
     definition: definition,
     fields: fields,

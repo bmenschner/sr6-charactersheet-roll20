@@ -68,6 +68,11 @@ function runSuccessProbeFromContext(rawTemplate, repeatingRowPrefix, popupState 
   getAttrs(context.requestedAttributes, (values) => {
     const lookupAttr = buildAttrLookup(values, repeatingRowPrefix);
     const resolvedFields = buildResolvedFields(context.fields, lookupAttr);
+    getRollContextFields(context.definition).forEach((field) => {
+      if (!field || !field.label || !field.attr) return;
+      if (resolvedFields[field.label]) return;
+      resolvedFields[field.label] = lookupAttr(field.attr);
+    });
     const rows = buildProbeRows(resolvedFields, context.definition);
     const name = deriveProbeTitle(resolvedFields, context.poolAttribute, context.definition);
 
@@ -76,6 +81,7 @@ function runSuccessProbeFromContext(rawTemplate, repeatingRowPrefix, popupState 
         name: name,
         rows: rows,
         resolvedFields: resolvedFields,
+        definition: context.definition,
         definitionId: context.definition && context.definition.id,
         pool: resolvedFields.Pool || "",
         erfolge: resolvedFields.Erfolge || "",
@@ -104,6 +110,7 @@ function runSuccessProbeFromContext(rawTemplate, repeatingRowPrefix, popupState 
       name: name,
       rows: rows,
       resolvedFields: resolvedFields,
+      definition: context.definition,
       definitionId: context.definition && context.definition.id,
       pool: `${computation.pool}`,
       erfolge: erfolgeValue,

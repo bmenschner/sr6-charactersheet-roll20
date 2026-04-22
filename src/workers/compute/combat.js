@@ -57,6 +57,7 @@ const SR6_COMBAT_PRIMARY_WEAPON_SELECTIONS = [
     rowNameAttr: "sr6_fernkampfwaffe",
     targetMap: {
       sr6_combat_primaere_fernkampfwaffe: "sr6_fernkampfwaffe",
+      sr6_combat_fernkampf_fertigkeit: "sr6_fernkampf_fertigkeit",
       sr6_combat_fernkampf_schaden: "sr6_fernkampf_schaden",
       sr6_combat_munition: "sr6_fernkampf_munition",
       sr6_combat_fernkampf_modus: "sr6_fernkampf_modus",
@@ -68,6 +69,7 @@ const SR6_COMBAT_PRIMARY_WEAPON_SELECTIONS = [
     },
     defaults: {
       sr6_combat_primaere_fernkampfwaffe: "",
+      sr6_combat_fernkampf_fertigkeit: "Feuerwaffen",
       sr6_combat_fernkampf_schaden: "0",
       sr6_combat_munition: "Standard",
       sr6_combat_fernkampf_modus: "",
@@ -84,6 +86,7 @@ const SR6_COMBAT_PRIMARY_WEAPON_SELECTIONS = [
     rowNameAttr: "sr6_nahkampfwaffe",
     targetMap: {
       sr6_combat_primaere_nahkampfwaffe: "sr6_nahkampfwaffe",
+      sr6_combat_nahkampf_fertigkeit: "sr6_nahkampf_fertigkeit",
       sr6_combat_nahkampf_schaden: "sr6_nahkampf_schaden",
       sr6_combat_nahkampf_sehr_nah: "sr6_nahkampf_s_nah",
       sr6_combat_nahkampf_nah: "sr6_nahkampf_nah",
@@ -93,6 +96,7 @@ const SR6_COMBAT_PRIMARY_WEAPON_SELECTIONS = [
     },
     defaults: {
       sr6_combat_primaere_nahkampfwaffe: "",
+      sr6_combat_nahkampf_fertigkeit: "Nahkampf",
       sr6_combat_nahkampf_schaden: "0",
       sr6_combat_nahkampf_sehr_nah: "0",
       sr6_combat_nahkampf_nah: "0",

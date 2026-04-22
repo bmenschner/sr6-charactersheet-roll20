@@ -74,13 +74,8 @@ function deriveProbeTitle(resolvedFields, poolAttribute, definition) {
   return "Probe";
 }
 
-function isWeaponRollDefinition(definitionId) {
-  return [
-    "combat_ranged_weapon",
-    "combat_melee_weapon",
-    "ranged_weapon",
-    "melee_weapon",
-  ].includes(definitionId || "");
+function hasWeaponTemplateVariant(definition) {
+  return !!(definition && definition.templateVariant === "weapon");
 }
 
 function findLastRowValue(rows, label) {
@@ -163,7 +158,7 @@ function buildSr6ProbeMessage(payload) {
   const name = payload.name || "Probe";
   parts.push(`{{name=${name}}}`);
 
-  if (isWeaponRollDefinition(payload.definitionId)) {
+  if (hasWeaponTemplateVariant(payload.definition)) {
     const presentation = buildWeaponProbePresentation(payload);
 
     parts.push("{{weapon_layout=1}}");
