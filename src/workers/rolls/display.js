@@ -53,6 +53,10 @@ function deriveProbeTitle(resolvedFields, poolAttribute, definition) {
   const explicitName = resolvedFields.name;
   const resolvedDefinition = definition || resolveRollDefinition(resolvedFields, poolAttribute);
 
+  if (resolvedDefinition && resolvedDefinition.fixedTitle) {
+    return resolvedDefinition.fixedTitle;
+  }
+
   if (resolvedDefinition && resolvedDefinition.titleMode === "field-short" && resolvedDefinition.titleField) {
     const shortFieldValue = getShortLabelValue(resolvedFields[resolvedDefinition.titleField]);
     if (shortFieldValue) {

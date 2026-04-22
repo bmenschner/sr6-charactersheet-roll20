@@ -398,6 +398,7 @@ const SR6_ROLL_DEFINITIONS = [
       { label: "Munition", attr: "sr6_combat_munition" },
       { label: "Schadenswert", attr: "sr6_combat_fernkampf_schaden" },
     ],
+    fixedTitle: "Fernkampfangriff",
     popupFields: SR6_COMBAT_TAB_POPUP_FIELDS,
     popupDerivedResults: [
       { kind: "attack_value", label: "Angriffswert", source: "pool" },
@@ -420,6 +421,7 @@ const SR6_ROLL_DEFINITIONS = [
       { label: "Munition", attr: "sr6_combat_munition" },
       { label: "Schadenswert", attr: "sr6_combat_nahkampf_schaden" },
     ],
+    fixedTitle: "Nahkampfangriff",
     popupFields: SR6_COMBAT_TAB_POPUP_FIELDS,
     popupDerivedResults: [
       { kind: "attack_value", label: "Angriffswert", source: "pool" },
@@ -468,6 +470,7 @@ const SR6_ROLL_DEFINITIONS = [
     primaryFields: ["Waffe"],
     extraFields: ["Schadenswert", "Munition", "Reichweite", "Modus"],
     templateVariant: "weapon",
+    fixedTitle: "Fernkampfangriff",
     popupFields: SR6_COMBAT_TAB_POPUP_FIELDS,
     popupDerivedResults: [
       {
@@ -487,6 +490,7 @@ const SR6_ROLL_DEFINITIONS = [
     primaryFields: ["Waffe"],
     extraFields: ["Schadenswert", "Reichweite"],
     templateVariant: "weapon",
+    fixedTitle: "Nahkampfangriff",
     popupFields: SR6_COMBAT_TAB_POPUP_FIELDS,
     popupDerivedResults: [
       {
@@ -507,6 +511,7 @@ const SR6_ROLL_DEFINITIONS = [
     primaryFields: ["Waffe"],
     extraFields: ["Fertigkeit", "Schadenswert", "Munition", "Reichweite"],
     templateVariant: "weapon",
+    fixedTitle: "Fernkampfangriff",
     popupFields: SR6_COMBAT_TAB_POPUP_FIELDS,
     popupDerivedResults: [
       {
@@ -527,6 +532,7 @@ const SR6_ROLL_DEFINITIONS = [
     primaryFields: ["Waffe"],
     extraFields: ["Fertigkeit", "Schadenswert", "Reichweite"],
     templateVariant: "weapon",
+    fixedTitle: "Nahkampfangriff",
     popupFields: SR6_COMBAT_TAB_POPUP_FIELDS,
     popupDerivedResults: [
       {

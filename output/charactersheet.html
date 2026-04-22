@@ -8021,6 +8021,7 @@ const SR6_ROLL_DEFINITIONS = [
       { label: "Munition", attr: "sr6_combat_munition" },
       { label: "Schadenswert", attr: "sr6_combat_fernkampf_schaden" },
     ],
+    fixedTitle: "Fernkampfangriff",
     popupFields: SR6_COMBAT_TAB_POPUP_FIELDS,
     popupDerivedResults: [
       { kind: "attack_value", label: "Angriffswert", source: "pool" },
@@ -8043,6 +8044,7 @@ const SR6_ROLL_DEFINITIONS = [
       { label: "Munition", attr: "sr6_combat_munition" },
       { label: "Schadenswert", attr: "sr6_combat_nahkampf_schaden" },
     ],
+    fixedTitle: "Nahkampfangriff",
     popupFields: SR6_COMBAT_TAB_POPUP_FIELDS,
     popupDerivedResults: [
       { kind: "attack_value", label: "Angriffswert", source: "pool" },
@@ -8091,6 +8093,7 @@ const SR6_ROLL_DEFINITIONS = [
     primaryFields: ["Waffe"],
     extraFields: ["Schadenswert", "Munition", "Reichweite", "Modus"],
     templateVariant: "weapon",
+    fixedTitle: "Fernkampfangriff",
     popupFields: SR6_COMBAT_TAB_POPUP_FIELDS,
     popupDerivedResults: [
       {
@@ -8110,6 +8113,7 @@ const SR6_ROLL_DEFINITIONS = [
     primaryFields: ["Waffe"],
     extraFields: ["Schadenswert", "Reichweite"],
     templateVariant: "weapon",
+    fixedTitle: "Nahkampfangriff",
     popupFields: SR6_COMBAT_TAB_POPUP_FIELDS,
     popupDerivedResults: [
       {
@@ -8130,6 +8134,7 @@ const SR6_ROLL_DEFINITIONS = [
     primaryFields: ["Waffe"],
     extraFields: ["Fertigkeit", "Schadenswert", "Munition", "Reichweite"],
     templateVariant: "weapon",
+    fixedTitle: "Fernkampfangriff",
     popupFields: SR6_COMBAT_TAB_POPUP_FIELDS,
     popupDerivedResults: [
       {
@@ -8150,6 +8155,7 @@ const SR6_ROLL_DEFINITIONS = [
     primaryFields: ["Waffe"],
     extraFields: ["Fertigkeit", "Schadenswert", "Reichweite"],
     templateVariant: "weapon",
+    fixedTitle: "Nahkampfangriff",
     popupFields: SR6_COMBAT_TAB_POPUP_FIELDS,
     popupDerivedResults: [
       {
@@ -8702,6 +8708,10 @@ function getShortLabelValue(value) {
 function deriveProbeTitle(resolvedFields, poolAttribute, definition) {
   const explicitName = resolvedFields.name;
   const resolvedDefinition = definition || resolveRollDefinition(resolvedFields, poolAttribute);
+
+  if (resolvedDefinition && resolvedDefinition.fixedTitle) {
+    return resolvedDefinition.fixedTitle;
+  }
 
   if (resolvedDefinition && resolvedDefinition.titleMode === "field-short" && resolvedDefinition.titleField) {
     const shortFieldValue = getShortLabelValue(resolvedFields[resolvedDefinition.titleField]);
@@ -10874,10 +10884,19 @@ registerWorkerEvents();
     {{/weapon_layout}}
 
     {{#weapon_layout}}
+    {{#ammo}}
+    <div class="sheet-sr6probe__row" style="padding:0 0.5rem;background:#ffffff;">
+      <div style="height:1px;background:#d7d7d7;margin:0.25rem 0 0.5rem;"></div>
+    </div>
+    {{/ammo}}
+    {{^ammo}}
     {{#range}}
     <div class="sheet-sr6probe__row" style="padding:0 0.5rem;background:#ffffff;">
       <div style="height:1px;background:#d7d7d7;margin:0.25rem 0 0.5rem;"></div>
     </div>
+    {{/range}}
+    {{/ammo}}
+    {{#range}}
     <div class="sheet-sr6probe__row" style="display:grid;grid-template-columns:minmax(7.5rem,auto) 1fr;gap:0.5rem;align-items:center;padding:0.375rem 0.5rem;background:#ffffff;">
       <span class="sheet-sr6probe__label" style="font-weight:700;color:#840763;">Reichweite</span>
       <span class="sheet-sr6probe__value" style="color:#111111;">{{range}}</span>
