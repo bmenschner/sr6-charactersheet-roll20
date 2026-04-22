@@ -7,6 +7,7 @@ function recomputeAll() {
 
   appendAttributeRequestKeys(requestKeys);
   appendSkillRequestKeys(requestKeys);
+  appendCombatRequestKeys(requestKeys);
   appendMatrixRequestKeys(requestKeys);
   appendMagicRequestKeys(requestKeys);
   appendHeaderMonitorRequestKeys(requestKeys);
@@ -15,7 +16,7 @@ function recomputeAll() {
     computeAttributeTotals(values, updates, totals);
     computeSkillTotals(values, updates, skillTotals);
     computeMatrixTotals(values, updates);
-    computeCombatDerivedFromAttributes(totals, values, updates);
+    computeCombatDerivedFromAttributes(totals, values, updates, skillTotals);
     computeHeaderMonitorDerivedFromAttributes(totals, values, updates);
     computeMagicDerived(values, totals, skillTotals, updates);
     computeRiggingDerived(values, totals, skillTotals, updates);
@@ -42,6 +43,20 @@ function buildRecalcEvents() {
     events.push(`change:sr6_matrix_handlung_${actionName}_modifikator`);
   });
 
+  events.push("change:sr6_combat_verteidigungswert_modifikator");
+  events.push("change:sr6_combat_primaere_panzerung");
+  events.push("change:sr6_combat_sekundaere_panzerung");
+  events.push("change:sr6_combat_helm");
+  events.push("change:sr6_combat_schild");
+  events.push("change:sr6_combat_fernkampfangriff_modifikator");
+  events.push("change:sr6_combat_nahkampfangriff_modifikator");
+  events.push("change:sr6_verteidigung_physisch_modifikator");
+  events.push("change:sr6_schadenswiderstand_physisch_modifikator");
+  events.push("change:sr6_combat_fernkampfangriff");
+  events.push("change:sr6_combat_nahkampfangriff");
+  events.push("change:sr6_verteidigung_physisch_gesamtwert");
+  events.push("change:sr6_schadenswiderstand_physisch_gesamtwert");
+
   events.push("change:sr6_magic_traditionsattribut_1");
   events.push("change:sr6_magic_traditionsattribut_2");
 
@@ -56,6 +71,47 @@ function buildRecalcEvents() {
 function registerWorkerEvents() {
   const recalcEvents = buildRecalcEvents();
   on(recalcEvents.join(" "), recomputeAll);
+  on(
+    [
+      "change:repeating_sr6panzerung:sr6_panzerung_ist_primaer",
+      "change:repeating_sr6panzerung:sr6_panzerung_ist_sekundaer",
+      "change:repeating_sr6panzerung:sr6_panzerung_ist_helm",
+      "change:repeating_sr6panzerung:sr6_panzerung_ist_schild",
+      "change:repeating_sr6panzerung:sr6_panzerung_name",
+      "change:repeating_sr6panzerung:sr6_panzerung_verteidigungswert",
+      "remove:repeating_sr6panzerung",
+    ].join(" "),
+    (eventInfo) => {
+      syncCombatArmorSelections(recomputeAll, eventInfo);
+    }
+  );
+  on(
+    [
+      "change:repeating_sr6fernkampfwaffen:sr6_fernkampf_ist_primaer",
+      "change:repeating_sr6fernkampfwaffen:sr6_fernkampfwaffe",
+      "change:repeating_sr6fernkampfwaffen:sr6_fernkampf_schaden",
+      "change:repeating_sr6fernkampfwaffen:sr6_fernkampf_munition",
+      "change:repeating_sr6fernkampfwaffen:sr6_fernkampf_modus",
+      "change:repeating_sr6fernkampfwaffen:sr6_fernkampf_s_nah",
+      "change:repeating_sr6fernkampfwaffen:sr6_fernkampf_nah",
+      "change:repeating_sr6fernkampfwaffen:sr6_fernkampf_mittel",
+      "change:repeating_sr6fernkampfwaffen:sr6_fernkampf_weit",
+      "change:repeating_sr6fernkampfwaffen:sr6_fernkampf_s_weit",
+      "remove:repeating_sr6fernkampfwaffen",
+      "change:repeating_sr6nahkampfwaffen:sr6_nahkampf_ist_primaer",
+      "change:repeating_sr6nahkampfwaffen:sr6_nahkampfwaffe",
+      "change:repeating_sr6nahkampfwaffen:sr6_nahkampf_schaden",
+      "change:repeating_sr6nahkampfwaffen:sr6_nahkampf_s_nah",
+      "change:repeating_sr6nahkampfwaffen:sr6_nahkampf_nah",
+      "change:repeating_sr6nahkampfwaffen:sr6_nahkampf_mittel",
+      "change:repeating_sr6nahkampfwaffen:sr6_nahkampf_weit",
+      "change:repeating_sr6nahkampfwaffen:sr6_nahkampf_s_weit",
+      "remove:repeating_sr6nahkampfwaffen",
+    ].join(" "),
+    (eventInfo) => {
+      syncCombatPrimaryWeapons(recomputeAll, eventInfo);
+    }
+  );
   registerSuccessProbeRollEvents();
   registerEdgeTokenEvents();
   registerMonitorCascadeEvents();
@@ -63,7 +119,9 @@ function registerWorkerEvents() {
   on("sheet:opened", () => {
     resetTabToAllgemeinOnOpen();
     resetEditModesOnOpen();
-    recomputeAll();
+    syncCombatArmorSelections(() => {
+      syncCombatPrimaryWeapons(recomputeAll);
+    });
   });
 }
 

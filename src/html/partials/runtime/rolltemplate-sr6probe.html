@@ -2,9 +2,25 @@
 <rolltemplate class="sheet-rolltemplate-sr6probe">
   <div class="sheet-sr6probe" style="border:1px solid #840763;background:#ffffff;color:#840763;">
     {{#name}}
-    <div class="sheet-sr6probe__header" style="background:#ffffff;color:#840763;font-weight:700;font-size:1rem;padding:0.375rem 0.5rem;">{{name}}</div>
+    <div class="sheet-sr6probe__header" style="background:#840763;color:#ffffff;font-weight:700;font-size:1rem;padding:0.375rem 0.5rem;">{{name}}</div>
     {{/name}}
 
+    {{#weapon_layout}}
+    {{#weapon}}
+    <div class="sheet-sr6probe__row" style="display:grid;grid-template-columns:minmax(7.5rem,auto) 1fr;gap:0.5rem;align-items:center;padding:0.375rem 0.5rem;background:#ffffff;">
+      <span class="sheet-sr6probe__label" style="font-weight:700;color:#840763;">Waffe</span>
+      <span class="sheet-sr6probe__value" style="color:#111111;">{{weapon}}</span>
+    </div>
+    {{/weapon}}
+    {{#attack_value}}
+    <div class="sheet-sr6probe__row" style="display:grid;grid-template-columns:minmax(7.5rem,auto) 1fr;gap:0.5rem;align-items:center;padding:0.375rem 0.5rem;background:#ffffff;">
+      <span class="sheet-sr6probe__label" style="font-weight:700;color:#840763;">Angriffswert</span>
+      <span class="sheet-sr6probe__value" style="color:#111111;">{{attack_value}}</span>
+    </div>
+    {{/attack_value}}
+    {{/weapon_layout}}
+
+    {{^weapon_layout}}
     {{#label1}}
     <div class="sheet-sr6probe__row" style="display:grid;grid-template-columns:minmax(7.5rem,auto) 1fr;gap:0.5rem;align-items:center;padding:0.375rem 0.5rem;background:#ffffff;">
       <span class="sheet-sr6probe__label" style="font-weight:700;color:#840763;">{{label1}}</span>
@@ -29,6 +45,7 @@
       <span class="sheet-sr6probe__value" style="color:#840763;">{{value4}}</span>
     </div>
     {{/label4}}
+    {{/weapon_layout}}
 
     {{#pool}}
     <div class="sheet-sr6probe__row" style="display:grid;grid-template-columns:minmax(7.5rem,auto) 1fr;gap:0.5rem;align-items:center;padding:0.375rem 0.5rem;background:#ffffff;">
@@ -38,7 +55,6 @@
       </span>
     </div>
     {{/pool}}
-
     {{#is_glitch}}
     <div class="sheet-sr6probe__row sheet-sr6probe__row--danger" style="display:grid;grid-template-columns:minmax(7.5rem,auto) 1fr;gap:0.5rem;align-items:center;padding:0.375rem 0.5rem;background:#ffffff;">
       <span class="sheet-sr6probe__label" style="font-weight:700;color:#c62828;">Erfolge</span>
@@ -57,6 +73,14 @@
     </div>
     {{/erfolge}}
     {{/is_glitch}}
+    {{#weapon_layout}}
+    {{#damage_summary}}
+    <div class="sheet-sr6probe__row" style="display:grid;grid-template-columns:minmax(7.5rem,auto) 1fr;gap:0.5rem;align-items:center;padding:0.375rem 0.5rem;background:#ffffff;">
+      <span class="sheet-sr6probe__label" style="font-weight:700;color:#840763;">Schaden</span>
+      <span class="sheet-sr6probe__value" style="color:#111111;">{{{damage_summary}}}</span>
+    </div>
+    {{/damage_summary}}
+    {{/weapon_layout}}
 
     {{#details}}
     <div class="sheet-sr6probe__row" style="display:grid;grid-template-columns:minmax(7.5rem,auto) 1fr;gap:0.5rem;align-items:center;padding:0.375rem 0.5rem;background:#ffffff;">
@@ -88,6 +112,51 @@
       </span>
     </div>
     {{/details}}
+
+    {{^weapon_layout}}
+    {{#ammo_hints}}
+    <div class="sheet-sr6probe__row" style="display:grid;grid-template-columns:minmax(7.5rem,auto) 1fr;gap:0.5rem;align-items:start;padding:0.375rem 0.5rem;background:#ffffff;">
+      <span class="sheet-sr6probe__label" style="font-weight:700;color:#840763;">Munitionshinweis</span>
+      <span class="sheet-sr6probe__value" style="color:#840763;">{{{ammo_hints}}}</span>
+    </div>
+    {{/ammo_hints}}
+    {{#extra_rows}}
+    <div class="sheet-sr6probe__row" style="display:grid;grid-template-columns:minmax(7.5rem,auto) 1fr;gap:0.5rem;align-items:start;padding:0.375rem 0.5rem;background:#ffffff;">
+      <span class="sheet-sr6probe__label" style="font-weight:700;color:#840763;">Weitere Werte</span>
+      <span class="sheet-sr6probe__value" style="color:#840763;">{{{extra_rows}}}</span>
+    </div>
+    {{/extra_rows}}
+    {{/weapon_layout}}
+
+    {{#weapon_layout}}
+    {{#range}}
+    <div class="sheet-sr6probe__row" style="padding:0 0.5rem;background:#ffffff;">
+      <div style="height:1px;background:#d7d7d7;margin:0.25rem 0 0.5rem;"></div>
+    </div>
+    <div class="sheet-sr6probe__row" style="display:grid;grid-template-columns:minmax(7.5rem,auto) 1fr;gap:0.5rem;align-items:center;padding:0.375rem 0.5rem;background:#ffffff;">
+      <span class="sheet-sr6probe__label" style="font-weight:700;color:#840763;">Reichweite</span>
+      <span class="sheet-sr6probe__value" style="color:#111111;">{{range}}</span>
+    </div>
+    {{/range}}
+    {{#ammo}}
+    <div class="sheet-sr6probe__row" style="display:grid;grid-template-columns:minmax(7.5rem,auto) 1fr;gap:0.5rem;align-items:center;padding:0.375rem 0.5rem;background:#ffffff;">
+      <span class="sheet-sr6probe__label" style="font-weight:700;color:#840763;">Munition</span>
+      <span class="sheet-sr6probe__value" style="color:#111111;">{{ammo}}</span>
+    </div>
+    {{/ammo}}
+    {{#extra_rows}}
+    <div class="sheet-sr6probe__row" style="display:grid;grid-template-columns:minmax(7.5rem,auto) 1fr;gap:0.5rem;align-items:start;padding:0.375rem 0.5rem;background:#ffffff;">
+      <span class="sheet-sr6probe__label" style="font-weight:700;color:#840763;">Munitionshinweis</span>
+      <span class="sheet-sr6probe__value" style="color:#111111;">{{{extra_rows}}}</span>
+    </div>
+    {{/extra_rows}}
+    {{#calc_rows}}
+    <div class="sheet-sr6probe__row" style="display:grid;grid-template-columns:minmax(7.5rem,auto) 1fr;gap:0.5rem;align-items:start;padding:0.375rem 0.5rem;background:#ffffff;">
+      <span class="sheet-sr6probe__label" style="font-weight:700;color:#840763;">Berechnung</span>
+      <span class="sheet-sr6probe__value" style="color:#111111;">{{calc_rows}}</span>
+    </div>
+    {{/calc_rows}}
+    {{/weapon_layout}}
   </div>
 </rolltemplate>
 <!-- END BLOCK: Rolltemplate SR6 Probe -->

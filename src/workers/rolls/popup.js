@@ -3,20 +3,24 @@ function runSuccessProbeRoll(eventInfo) {
   const rawTemplate = (eventInfo && eventInfo.htmlAttributes && eventInfo.htmlAttributes.value) || "";
   const repeatingRowPrefix = extractRepeatingRowPrefix(eventInfo);
   const parsedFields = parseTemplateFields(rawTemplate);
-  const definition = resolveRollDefinition(parsedFields, parsePoolAttributeFromFields(parsedFields));
+  const poolAttribute = parsePoolAttributeFromFields(parsedFields);
+  const definition = resolveRollDefinition(parsedFields, poolAttribute);
 
   getAttrs(["sr6_setting_popup_mods"], (values) => {
     const popupSetting = (values.sr6_setting_popup_mods || "eigen").toLowerCase();
     const useRoll20Fallback = popupSetting === "roll20";
 
     if (!useRoll20Fallback) {
-      const popupFormPayload = buildPopupFormPayload(definition);
-      setAttrsSilent({
-        ...popupFormPayload,
-        sr6_roll_popup_definition: definition.id,
-        sr6_roll_popup_template: rawTemplate,
-        sr6_roll_popup_row_prefix: repeatingRowPrefix || "",
-        sr6_roll_popup_open: "1",
+      const popupRequestedAttributes = buildPopupRequestedAttributes(definition, poolAttribute, repeatingRowPrefix);
+      getAttrs(popupRequestedAttributes, (popupValues) => {
+        const popupFormPayload = buildPopupPrefillPayload(definition, poolAttribute, repeatingRowPrefix, popupValues);
+        setAttrsSilent({
+          ...popupFormPayload,
+          sr6_roll_popup_definition: definition.id,
+          sr6_roll_popup_template: rawTemplate,
+          sr6_roll_popup_row_prefix: repeatingRowPrefix || "",
+          sr6_roll_popup_open: "1",
+        });
       });
       return;
     }
@@ -54,26 +58,22 @@ function runTestPopupProbeRoll(eventInfo) {
 }
 
 function runGlobalPopupProbeConfirm() {
-  getAttrs([
+  const requestAttrs = [
     "sr6_roll_popup_definition",
     "sr6_roll_popup_template",
     "sr6_roll_popup_row_prefix",
-    "sr6_roll_popup_value_1_number",
-    "sr6_roll_popup_value_2_number",
-    "sr6_roll_popup_value_3_number",
-    "sr6_roll_popup_value_1_select_visibility",
-    "sr6_roll_popup_value_2_select_visibility",
-    "sr6_roll_popup_value_3_select_visibility",
-    "sr6_roll_popup_value_1_select_movement",
-    "sr6_roll_popup_value_2_select_movement",
-    "sr6_roll_popup_value_3_select_movement",
-    "sr6_roll_popup_value_1_select_spell_range",
-    "sr6_roll_popup_value_2_select_spell_range",
-    "sr6_roll_popup_value_3_select_spell_range",
-    "sr6_roll_popup_value_1_select_matrix_access",
-    "sr6_roll_popup_value_2_select_matrix_access",
-    "sr6_roll_popup_value_3_select_matrix_access",
-  ], (values) => {
+  ];
+
+  for (let slot = 1; slot <= SR6_POPUP_FIELD_SLOT_COUNT; slot += 1) {
+    requestAttrs.push(`sr6_roll_popup_value_${slot}_number`);
+    requestAttrs.push(`sr6_roll_popup_value_${slot}_text`);
+    requestAttrs.push(`sr6_roll_popup_value_${slot}_checkbox`);
+    Object.keys(SR6_POPUP_SELECT_OPTION_SETS).forEach((optionSet) => {
+      requestAttrs.push(`sr6_roll_popup_value_${slot}_select_${optionSet}`);
+    });
+  }
+
+  getAttrs(requestAttrs, (values) => {
     const definition = getRollDefinitionById(values.sr6_roll_popup_definition || "");
     const rawTemplate = values.sr6_roll_popup_template || "";
     const repeatingRowPrefix = values.sr6_roll_popup_row_prefix || "";
