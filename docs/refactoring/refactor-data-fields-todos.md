@@ -1,50 +1,52 @@
 # Refactor Data Fields Todos
 
-## Offene Fachpunkte
+## Abschlussphase fuer diesen Refactor
 
-- [ ] Exakte Formeln aller Kampf-Kalkulationsfelder festlegen und gegen das Grundregelwerk pruefen
-- [ ] Entscheiden, welche Werte wirklich den Dreiklang `Grundwert / Modifikator / Gesamtwert` brauchen
-- [ ] Definieren, wie Spezialisierung und Expertise je Rollart im Popup abgebildet werden
-- [ ] Festlegen, welche heutigen Einzelwerte spaeter zu berechneten Werten werden sollen
+- [x] `combat_attack_probe` als klares Referenzmodell kurz final dokumentieren
+  Ergebnis: Das Modell ist in der Refactor-Matrix als Referenz fuer globale und Repeating-Fern-/Nahkampfpfade festgehalten; die Trennung von `Pool`, `Angriffswert`, `Schaden` sowie `Munition`/`Attribut`/`Schadenstyp` ist dort explizit beschrieben.
+- [x] `Allgemein` in der Doku final als Spiegel/Ansicht festschreiben
+  Ergebnis: `Allgemein` ist fuer diesen Refactor auf Attribute, Initiative und die Uebersichtsbox fuer `Fertigkeiten`, `Magie`, `Matrix` und `Eigene` reduziert. Kampf, Verteidigung, Schadenswiderstand und das Test-Popup sind dort entfernt.
+- [x] Verbleibende generische Fallback-Proben einmal final inventarisieren und als bewusste Rest-Sicherheitsnetze markieren
+  Ergebnis: Die Live-Buttons des Sheets haengen ueberwiegend an expliziten Modellen; `value`, `weapon` und `fallback` sind in Matrix und Code ausdruecklich als Rest-Sicherheitsnetze eingeordnet. Zusaetzliche Matrix-/Rigging-Vergleichswerte sind vor den breiteren Sammelpfaden explizit gefasst.
+- [ ] Letzten Sammeltest fuer die zentralen Rollarten durchziehen und den Refactor danach als abgeschlossen markieren
+  Abschluss-Checkliste:
+  1. `attribute_probe x2`
+  2. Basis- und Repeating-`skill_probe`
+  3. Initiative: physisch, astral, matrix, rigging
+  4. Kampf: Fernkampf, Nahkampf, Verteidigung (Physisch), Schadenswiderstand (Physisch)
+  5. Magie-Kernwerte
+  6. Matrix- und Rigging-Kernwerte
+  7. Rituale ohne Wuerfel
 
-## Offene Architekturpunkte fuer Popup und Rolltemplate
+## Fuer diesen Refactor erreicht
 
-- [ ] `attribute_probe` als explizites Modell weiter ausbauen
-  Aktueller Stand: eigenes Modell und eigener Pool-Multiplikator sind im Code verankert; ein erster `Attribut x2`-Pilot ist in `Allgemein > Attribute > Gesamtwert` umgesetzt und in Roll20 bestaetigt.
-  Offen bleibt: weitere echte `x2`-Anwendungsfaelle gezielt auf dasselbe Modell mappen.
-- [ ] `initiative_probe` als explizites Modell weiter schaerfen
-  Aktueller Stand: Initiativwuerfe mit `Basis / W6 / Gesamt` laufen jetzt ueber ein eigenes Modell statt ueber den generischen Fallback; physische, astrale, Matrix- und Rigging-Initiative nutzen getrennte Basisfelder. Matrix- und Rigging-Initiative werden aus dem Modus abgeleitet.
-  Offen bleibt: die verbleibenden Detailfaelle fuer Rigging wie hineingesprungen per Kabel/WiFi oder weitere spezialisierte Modi spaeter gezielt gegen das Grundregelwerk schaerfen.
-- [ ] `skill_probe` weiter von generischen Altpfaden entkoppeln
-  Aktueller Stand: gemeinsamer `skill_probe`-Builder traegt jetzt Basisfertigkeiten, Wissens-/Sprachfertigkeiten sowie Soft-Faelle.
-  Offen bleibt: pruefen, welche heutigen Spezialfaelle spaeter noch einen echten eigenen Modellpfad brauchen und welche beim `skill_probe` bleiben koennen.
-- [ ] `defense_probe` als wiederverwendbares Modell formulieren, das je Tab andere Feldquellen lesen kann
-  Aktueller Stand: gemeinsamer Builder fuer physische Kampf-Faelle ist vorhanden; allgemeine Verteidigungs-/Widerstandsfaelle sowie Matrix-/Rigging-Defensivfaelle und astrale Magie-Faelle sind im Code angelegt.
-- [ ] `combat_attack_probe` weiter von Altdefinitionen entkoppeln und als klares Referenzmodell dokumentieren
-- [ ] Generische Altpfade wie `value`, `weapon` und `fallback` nur noch als technisches Sicherheitsnetz behandeln
-  Aktueller Stand: `magic_value`, `matrix_value` und `rigging_value` greifen jetzt als explizite `value_probe`-Pfade fuer ihre Kernwertwuerfe; der verbleibende generische `value`-Pfad ist damit kleiner geworden. Die Live-Buttons des Sheets haengen ueberwiegend bereits an expliziten Modellen; `weapon` und `fallback` bleiben aktuell vor allem als Sicherheitsnetz im Resolver.
-  Offen bleibt: gezielt inventarisieren, welche echten Restfaelle noch ueber diese generischen Definitionen laufen, bevor wir sie weiter zurueckdruecken oder ganz entbehrlich machen.
-- [ ] `Allgemein` nicht mehr als eigenes Popup-/Rolltemplate-Ziel behandeln, sondern nur als Spiegel/Ansicht
+- [x] `attribute_probe` als explizites Modell verankert
+  Stand: eigener Modellpfad vorhanden; `Attribut x2` ist als erster echter Pilot in `Allgemein > Attribute > Gesamtwert` umgesetzt und in Roll20 bestaetigt.
+- [x] `initiative_probe` als explizites Modell verankert
+  Stand: Initiativwuerfe mit `Basis / W6 / Gesamt` laufen ueber ein eigenes Modell; physische, astrale, Matrix- und Rigging-Initiative nutzen getrennte Basisfelder; Matrix und Rigging werden aus dem Modus abgeleitet.
+- [x] `skill_probe` fuer Basis- und Repeating-Skill-Faelle stabilisiert
+  Stand: gemeinsamer `skill_probe`-Builder deckt Basisfertigkeiten, Wissens-/Sprachfertigkeiten sowie Soft-Faelle ab; die Repeating-Handler funktionieren in Roll20.
+- [x] `defense_probe` als wiederverwendbares Modell formuliert
+  Stand: physische Kampf-Faelle, allgemeine Verteidigungs-/Widerstandsfaelle sowie Matrix-/Rigging-Defensivfaelle und astrale Magie-Faelle laufen ueber denselben Modellgedanken.
+- [x] Kampf-UI und Popup auf die Trennung `Wuerfelpool` vs. `Angriffswert` vs. `Verteidigungswert` vs. `Schaden` gezogen
+  Stand: Kampf ist funktional auf diese Trennung gebracht; die fachliche Grundstruktur ist bestaetigt.
+- [x] Nahkampf-Angriffswerte als bewusst manuelle Endwerte festgelegt
+  Ergebnis: reichweitenabhaengige Nahkampfwerte bleiben Endwerte; die primaere Nahkampfprobe liest `Fertigkeit` und `Attribut` der primaeren Waffe; Nahkampfwaffen fuehren zusaetzlich `Schadenstyp`.
+- [x] Numerische Kernwert-Inputs in `Magie`, `Matrix`, `Rigging` und den offensichtlichen Teilen von `Ausruestung` auf `number` umgestellt
+  Stand: die klaren numerischen Primaerwerte sind aus dem alten `text`-Muster herausgezogen.
+- [x] Generische Altpfade deutlich reduziert
+  Stand: `magic_value`, `matrix_value` und `rigging_value` greifen als explizite `value_probe`-Pfade; zusaetzliche Matrix-/Rigging-Vergleichswerte sind vor den breiteren Sammelpfaden explizit gefasst.
+- [x] Rituale fuer diesen Refactor bewusst auf reine Datenfelder ohne Wuerfel zurueckgefuehrt
 
-## Folgearbeiten nach dem aktuellen Refactor
+## Bewusst spaeter, nicht Blocker fuer den Abschluss
 
-- [ ] Kampf-Kalkulationsfelder (`Fernkampfangriff`, `Nahkampfangriff`, `Verteidigung (Physisch)`, `Schadenswiderstand (Physisch)`, `Verteidigungswert`) auf final bestaetigte Formeln umstellen
-  Aktueller Stand: `Fernkampfangriff`, `Nahkampfangriff`, `Verteidigung (Physisch)`, `Schadenswiderstand (Physisch)` und `Verteidigungswert` sind im Sheet technisch berechnet; beim `Verteidigungswert` bleibt der bestaetigte Sheet-Stand `Konstitution + Primaer + Sekundaer + Helm + Schild` erhalten.
-  Offen bleibt: explizite Sonderfaelle und Ausnahmen aus Ausruestung/Bodytech/Magie spaeter gezielt gegen die gewollte Sheet-Logik statt gegen eine pauschale Regelannahme modellieren.
-- [ ] Allgemeine Verteidigungs-/Widerstandsfelder fuer Drohnen-/Sonderfaelle weiter schaerfen
-  Aktueller Stand: `Verteidigung (Zauber - Direkt)`, `Verteidigung (Zauber - Indirekt)`, `Verteidigung (Astralkampf)`, `Schadenswiderstand (Astral)`, `Schadenswiderstand (Matrix)` und `Schadenswiderstand (Biofeedback)` sind jetzt auf die belegten Standardformeln aus dem Grundregelwerk gezogen.
-  Offen bleibt: Sonderfaelle wie Drohnen/Pilot oder spezifische Matrixprogramme ohne kuenstliche Uebermodellierung sauber einhaengen.
-- [ ] Kampf-UI und Popup systematisch auf die Trennung `Wuerfelpool` vs. `Angriffswert` vs. `Verteidigungswert` vs. `Schaden` ausrichten
-  Aktueller Stand: Kampf ist funktional auf diese Trennung gezogen. `Fernkampfangriff`, `Nahkampfangriff`, `Verteidigung (Physisch)` und `Schadenswiderstand (Physisch)` laufen als Pools; `Verteidigungswert` bleibt Vergleichswert; reichweitenabhaengige Waffenwerte bleiben Angriffswert-Kontext; `Schaden` bleibt Einzelwert. Die Kampf-UI fuehrt diese Ebenen inzwischen sichtbar getrennt.
-  Offen bleibt: Popup-Feinschliff und spaetere Layout-/UX-Politur, nicht mehr die fachliche Grundtrennung.
-- [ ] Pruefen, ob die Angriffswert-Felder von Nahkampfwaffen im Sheet bereits Endwerte sind oder ob `Staerke` kuenftig noch eingerechnet werden muss
-  Aktueller Stand: Die reichweitenabhaengigen Nahkampfwerte bleiben bewusst manuell gepflegte Endwerte; die primaere Nahkampfprobe liest jetzt aber `Fertigkeit` und `Attribut` der primaeren Waffe. Nahkampfwaffen fuehren zusaetzlich `Schadenstyp`.
-- [ ] Rollenwahl fuer `Primäre Panzerung`, `Sekundäre Panzerung`, `Helm` und `Schild` gegen die finale UX pruefen und bei Bedarf noch weiter verfeinern
-- [ ] Repeating-Waffenwerte darauf pruefen, welche Felder eigene Dreiklaenge benoetigen; `Schaden` ist gesetzt, `Angriffswert` bleibt aktuell reichweitenabhaengig
-- [ ] Popup-Profile nach finaler Wertetyp-Klassifikation und Probenmodell je Rollart nachziehen
-  Aktueller Stand: Kampf nutzt fuer Fern- und Nahkampf bereits getrennte Popup-Profile; Nahkampf fuehrt `Attribut` und `Schadenstyp`, Fernkampf weiterhin `Munition`. Der Nahkampf-Popup kann das Attribut als Fallback vor dem Wurf umschalten.
-  Offen bleibt: die restlichen Rollarten projektweit auf denselben Explizitheitsgrad ziehen.
-- [ ] Pruefen, welche Einzelwerte in `Magie`, `Matrix`, `Rigging`, `Ausruestung` und `Leben` wirklich numerische Primarwerte sind
-  Aktueller Stand: numerische Kernwert-Inputs in `Magie`, `Matrix` und `Rigging` werden schrittweise vom alten `text`-Format auf `number` umgestellt. In `Ausruestung` sind die offensichtlichen Zahlenfelder `Stufe`, `Anzahl` und `Kosten` jetzt ebenfalls auf `number` gezogen.
-- [ ] Verbleibende generische Fallback-Proben weiter auf explizite Fachmodelle ziehen
-  Aktueller Stand: die generischen Restfaelle werden schrittweise fachlich geprueft; Rituale bleiben vorerst reine Datenfelder ohne Wuerfel.
+- Rigging-Sonderfaelle wie hineingesprungen per Kabel/WiFi oder weitere spezialisierte Modi gegen das Grundregelwerk nachschaerfen
+- Exakte Formeln aller Kampf-Kalkulationsfelder inkl. spaeterer Sonderfaelle aus Ausruestung, Bodytech oder Magie weiter verfeinern
+- Pruefen, welche Werte projektweit wirklich einen Dreiklang `Grundwert / Modifikator / Gesamtwert` brauchen
+- Spezialisierung und Expertise je Rollart im Popup weiter vereinheitlichen
+- Weitere theoretische `attribute_probe x2`-Anwendungsfaelle mappen
+- Weitere Spezialfaelle vom `skill_probe` abspalten, falls spaeter wirklich noetig
+- Rollenwahl fuer `Primaere Panzerung`, `Sekundaere Panzerung`, `Helm` und `Schild` UX-seitig weiter verfeinern
+- Repeating-Waffenwerte spaeter noch feiner darauf pruefen, welche Felder eigene Dreiklaenge brauchen
+- Popup-Profile der restlichen Rollarten auf denselben Explizitheitsgrad ziehen
+- Weitere numerische Primaerwerte in anderen Randbereichen projektweit bereinigen

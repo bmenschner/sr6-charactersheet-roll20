@@ -535,6 +535,7 @@ function createValueProbeDefinition(config = {}) {
   return {
     probeModel: "value_probe",
     matchField: config.matchField === undefined ? "Wert" : config.matchField,
+    matchFieldValue: config.matchFieldValue || "",
     matchPoolPrefix: config.matchPoolPrefix || "",
     titleMode: config.titleMode || "pool-prefix",
     titleField: config.titleField || "",
@@ -749,6 +750,24 @@ const SR6_ROLL_DEFINITIONS = [
     }),
   },
   {
+    id: "matrix_comparison_value",
+    ...createValueProbeDefinition({
+      matchPoolPrefix: "sr6_matrix_",
+      matchFieldValue: "Angriffswert",
+      fixedTitle: "Matrix: Kernwerte",
+      titleFallback: "Matrix: Kernwerte",
+    }),
+  },
+  {
+    id: "matrix_defense_value",
+    ...createValueProbeDefinition({
+      matchPoolPrefix: "sr6_matrix_",
+      matchFieldValue: "Verteidigungswert",
+      fixedTitle: "Matrix: Kernwerte",
+      titleFallback: "Matrix: Kernwerte",
+    }),
+  },
+  {
     id: "matrix_value",
     ...createValueProbeDefinition({
       matchPoolPrefix: "sr6_matrix_",
@@ -775,6 +794,24 @@ const SR6_ROLL_DEFINITIONS = [
         },
       ],
       titleFallback: "Matrix: Kernwerte",
+    }),
+  },
+  {
+    id: "rigging_comparison_value",
+    ...createValueProbeDefinition({
+      matchPoolPrefix: "sr6_rigging_",
+      matchFieldValue: "Angriffswert",
+      fixedTitle: "Rigging: Kernwerte",
+      titleFallback: "Rigging: Kernwerte",
+    }),
+  },
+  {
+    id: "rigging_defense_value",
+    ...createValueProbeDefinition({
+      matchPoolPrefix: "sr6_rigging_",
+      matchFieldValue: "Verteidigungswert",
+      fixedTitle: "Rigging: Kernwerte",
+      titleFallback: "Rigging: Kernwerte",
     }),
   },
   {
@@ -1024,6 +1061,7 @@ const SR6_ROLL_DEFINITIONS = [
   },
   {
     id: "weapon",
+    // Legacy safety net for weapon-shaped rolls that are not yet mapped to an explicit domain model.
     matchField: "Waffe",
     titleMode: "pool-prefix",
     primaryFields: ["Waffe"],
@@ -1055,6 +1093,7 @@ const SR6_ROLL_DEFINITIONS = [
   },
   {
     id: "fallback",
+    // Final generic fallback for rolls that do not match any explicit probe model yet.
     titleMode: "pool-prefix-or-explicit",
     primaryFields: [],
     extraFields: ["Basis", "Gesamt"],
@@ -1083,11 +1122,15 @@ function resolveRollDefinition(fields, poolAttribute = "") {
   for (let index = 0; index < SR6_ROLL_DEFINITIONS.length; index += 1) {
     const definition = SR6_ROLL_DEFINITIONS[index];
     const fieldMatches = !definition.matchField || fields[definition.matchField];
+    const fieldValueMatches =
+      !definition.matchFieldValue ||
+      `${fields[definition.matchField] || ""}`.trim() === `${definition.matchFieldValue}`.trim();
     const poolMatches = !definition.matchPoolPrefix || poolAttribute.startsWith(definition.matchPoolPrefix);
-    if (fieldMatches && poolMatches) {
+    if (fieldMatches && fieldValueMatches && poolMatches) {
       let score = 0;
       if (definition.matchPoolPrefix) score += 2;
       if (definition.matchField) score += 1;
+      if (definition.matchFieldValue) score += 1;
 
       if (score > bestScore) {
         bestDefinition = definition;
@@ -2240,6 +2283,80 @@ function computeSkillTotals(values, updates, skillTotals) {
     updates[totalKey] = String(total);
   });
 }
+
+const SR6_REPEATING_SKILL_TOTAL_SECTIONS = [
+  {
+    section: "repeating_sr6wissensfertigkeiten",
+    prefix: "sr6_wissensfertigkeit_",
+  },
+  {
+    section: "repeating_sr6sprachfertigkeiten",
+    prefix: "sr6_sprachfertigkeit_",
+  },
+  {
+    section: "repeating_sr6talentsofts",
+    prefix: "sr6_talentsoft_",
+  },
+  {
+    section: "repeating_sr6wissenssprachsofts",
+    prefix: "sr6_wissenssprachsoft_",
+  },
+];
+
+function syncRepeatingSkillTotals(callback) {
+  const pendingSections = SR6_REPEATING_SKILL_TOTAL_SECTIONS.length;
+  const sectionIdsByName = {};
+  let resolvedSections = 0;
+
+  if (pendingSections === 0) {
+    if (typeof callback === "function") callback();
+    return;
+  }
+
+  SR6_REPEATING_SKILL_TOTAL_SECTIONS.forEach((config) => {
+    getSectionIDs(config.section, (sectionIds) => {
+      sectionIdsByName[config.section] = sectionIds || [];
+      resolvedSections += 1;
+
+      if (resolvedSections < pendingSections) {
+        return;
+      }
+
+      const requestKeys = [];
+
+      SR6_REPEATING_SKILL_TOTAL_SECTIONS.forEach((sectionConfig) => {
+        const sectionIds = sectionIdsByName[sectionConfig.section] || [];
+        sectionIds.forEach((rowId) => {
+          requestKeys.push(`${sectionConfig.section}_${rowId}_${sectionConfig.prefix}grundwert`);
+          requestKeys.push(`${sectionConfig.section}_${rowId}_${sectionConfig.prefix}modifikator`);
+        });
+      });
+
+      if (requestKeys.length === 0) {
+        if (typeof callback === "function") callback();
+        return;
+      }
+
+      getAttrs(requestKeys, (values) => {
+        const updates = {};
+
+        SR6_REPEATING_SKILL_TOTAL_SECTIONS.forEach((sectionConfig) => {
+          const sectionIds = sectionIdsByName[sectionConfig.section] || [];
+          sectionIds.forEach((rowId) => {
+            const rowPrefix = `${sectionConfig.section}_${rowId}_${sectionConfig.prefix}`;
+            const total =
+              parseNumber(values[`${rowPrefix}grundwert`]) +
+              parseNumber(values[`${rowPrefix}modifikator`]);
+
+            updates[`${rowPrefix}gesamtwert`] = String(total);
+          });
+        });
+
+        setAttrsSilent(updates, callback);
+      });
+    });
+  });
+}
 // END MODULE: workers/compute/skills
 
 // BEGIN MODULE: workers/compute/header-monitor
@@ -2860,7 +2977,7 @@ function registerMonitorCascadeEvents() {
 
 // BEGIN BLOCK: Worker Includes (register)
 // BEGIN MODULE: workers/core/register
-function recomputeAll() {
+function recomputeAll(callback) {
   const requestKeys = [];
   const updates = {};
   const totals = {};
@@ -2883,7 +3000,7 @@ function recomputeAll() {
     computeMagicDerived(values, totals, skillTotals, updates);
     computeRiggingDerived(values, totals, skillTotals, updates);
 
-    setAttrsSilent(updates);
+    setAttrsSilent(updates, callback);
   });
 }
 
@@ -2939,6 +3056,25 @@ function registerWorkerEvents() {
   on(recalcEvents.join(" "), recomputeAll);
   on(
     [
+      "change:repeating_sr6wissensfertigkeiten:sr6_wissensfertigkeit_grundwert",
+      "change:repeating_sr6wissensfertigkeiten:sr6_wissensfertigkeit_modifikator",
+      "remove:repeating_sr6wissensfertigkeiten",
+      "change:repeating_sr6sprachfertigkeiten:sr6_sprachfertigkeit_grundwert",
+      "change:repeating_sr6sprachfertigkeiten:sr6_sprachfertigkeit_modifikator",
+      "remove:repeating_sr6sprachfertigkeiten",
+      "change:repeating_sr6talentsofts:sr6_talentsoft_grundwert",
+      "change:repeating_sr6talentsofts:sr6_talentsoft_modifikator",
+      "remove:repeating_sr6talentsofts",
+      "change:repeating_sr6wissenssprachsofts:sr6_wissenssprachsoft_grundwert",
+      "change:repeating_sr6wissenssprachsofts:sr6_wissenssprachsoft_modifikator",
+      "remove:repeating_sr6wissenssprachsofts",
+    ].join(" "),
+    () => {
+      syncRepeatingSkillTotals();
+    }
+  );
+  on(
+    [
       "change:repeating_sr6panzerung:sr6_panzerung_ist_primaer",
       "change:repeating_sr6panzerung:sr6_panzerung_ist_sekundaer",
       "change:repeating_sr6panzerung:sr6_panzerung_ist_helm",
@@ -2989,7 +3125,11 @@ function registerWorkerEvents() {
     resetTabToAllgemeinOnOpen();
     resetEditModesOnOpen();
     syncCombatArmorSelections(() => {
-      syncCombatPrimaryWeapons(recomputeAll);
+      syncCombatPrimaryWeapons(() => {
+        recomputeAll(() => {
+          syncRepeatingSkillTotals();
+        });
+      });
     });
   });
 }

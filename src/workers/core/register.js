@@ -1,5 +1,5 @@
 // BEGIN MODULE: workers/core/register
-function recomputeAll() {
+function recomputeAll(callback) {
   const requestKeys = [];
   const updates = {};
   const totals = {};
@@ -22,7 +22,7 @@ function recomputeAll() {
     computeMagicDerived(values, totals, skillTotals, updates);
     computeRiggingDerived(values, totals, skillTotals, updates);
 
-    setAttrsSilent(updates);
+    setAttrsSilent(updates, callback);
   });
 }
 
@@ -78,6 +78,25 @@ function registerWorkerEvents() {
   on(recalcEvents.join(" "), recomputeAll);
   on(
     [
+      "change:repeating_sr6wissensfertigkeiten:sr6_wissensfertigkeit_grundwert",
+      "change:repeating_sr6wissensfertigkeiten:sr6_wissensfertigkeit_modifikator",
+      "remove:repeating_sr6wissensfertigkeiten",
+      "change:repeating_sr6sprachfertigkeiten:sr6_sprachfertigkeit_grundwert",
+      "change:repeating_sr6sprachfertigkeiten:sr6_sprachfertigkeit_modifikator",
+      "remove:repeating_sr6sprachfertigkeiten",
+      "change:repeating_sr6talentsofts:sr6_talentsoft_grundwert",
+      "change:repeating_sr6talentsofts:sr6_talentsoft_modifikator",
+      "remove:repeating_sr6talentsofts",
+      "change:repeating_sr6wissenssprachsofts:sr6_wissenssprachsoft_grundwert",
+      "change:repeating_sr6wissenssprachsofts:sr6_wissenssprachsoft_modifikator",
+      "remove:repeating_sr6wissenssprachsofts",
+    ].join(" "),
+    () => {
+      syncRepeatingSkillTotals();
+    }
+  );
+  on(
+    [
       "change:repeating_sr6panzerung:sr6_panzerung_ist_primaer",
       "change:repeating_sr6panzerung:sr6_panzerung_ist_sekundaer",
       "change:repeating_sr6panzerung:sr6_panzerung_ist_helm",
@@ -128,7 +147,11 @@ function registerWorkerEvents() {
     resetTabToAllgemeinOnOpen();
     resetEditModesOnOpen();
     syncCombatArmorSelections(() => {
-      syncCombatPrimaryWeapons(recomputeAll);
+      syncCombatPrimaryWeapons(() => {
+        recomputeAll(() => {
+          syncRepeatingSkillTotals();
+        });
+      });
     });
   });
 }

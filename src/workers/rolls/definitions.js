@@ -403,6 +403,7 @@ function createValueProbeDefinition(config = {}) {
   return {
     probeModel: "value_probe",
     matchField: config.matchField === undefined ? "Wert" : config.matchField,
+    matchFieldValue: config.matchFieldValue || "",
     matchPoolPrefix: config.matchPoolPrefix || "",
     titleMode: config.titleMode || "pool-prefix",
     titleField: config.titleField || "",
@@ -617,6 +618,24 @@ const SR6_ROLL_DEFINITIONS = [
     }),
   },
   {
+    id: "matrix_comparison_value",
+    ...createValueProbeDefinition({
+      matchPoolPrefix: "sr6_matrix_",
+      matchFieldValue: "Angriffswert",
+      fixedTitle: "Matrix: Kernwerte",
+      titleFallback: "Matrix: Kernwerte",
+    }),
+  },
+  {
+    id: "matrix_defense_value",
+    ...createValueProbeDefinition({
+      matchPoolPrefix: "sr6_matrix_",
+      matchFieldValue: "Verteidigungswert",
+      fixedTitle: "Matrix: Kernwerte",
+      titleFallback: "Matrix: Kernwerte",
+    }),
+  },
+  {
     id: "matrix_value",
     ...createValueProbeDefinition({
       matchPoolPrefix: "sr6_matrix_",
@@ -643,6 +662,24 @@ const SR6_ROLL_DEFINITIONS = [
         },
       ],
       titleFallback: "Matrix: Kernwerte",
+    }),
+  },
+  {
+    id: "rigging_comparison_value",
+    ...createValueProbeDefinition({
+      matchPoolPrefix: "sr6_rigging_",
+      matchFieldValue: "Angriffswert",
+      fixedTitle: "Rigging: Kernwerte",
+      titleFallback: "Rigging: Kernwerte",
+    }),
+  },
+  {
+    id: "rigging_defense_value",
+    ...createValueProbeDefinition({
+      matchPoolPrefix: "sr6_rigging_",
+      matchFieldValue: "Verteidigungswert",
+      fixedTitle: "Rigging: Kernwerte",
+      titleFallback: "Rigging: Kernwerte",
     }),
   },
   {
@@ -953,11 +990,15 @@ function resolveRollDefinition(fields, poolAttribute = "") {
   for (let index = 0; index < SR6_ROLL_DEFINITIONS.length; index += 1) {
     const definition = SR6_ROLL_DEFINITIONS[index];
     const fieldMatches = !definition.matchField || fields[definition.matchField];
+    const fieldValueMatches =
+      !definition.matchFieldValue ||
+      `${fields[definition.matchField] || ""}`.trim() === `${definition.matchFieldValue}`.trim();
     const poolMatches = !definition.matchPoolPrefix || poolAttribute.startsWith(definition.matchPoolPrefix);
-    if (fieldMatches && poolMatches) {
+    if (fieldMatches && fieldValueMatches && poolMatches) {
       let score = 0;
       if (definition.matchPoolPrefix) score += 2;
       if (definition.matchField) score += 1;
+      if (definition.matchFieldValue) score += 1;
 
       if (score > bestScore) {
         bestDefinition = definition;

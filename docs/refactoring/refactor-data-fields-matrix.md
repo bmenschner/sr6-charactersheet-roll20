@@ -232,6 +232,42 @@ Die heutigen Live-Buttons des Sheets laufen mittlerweile ueberwiegend ueber expl
 Die generischen Definitionen `value`, `weapon` und `fallback` bleiben damit vor allem als technisches Sicherheitsnetz erhalten.
 Sie werden aktuell nicht mehr als eigentliche Zielarchitektur behandelt.
 
+Einzelne Restfaelle werden dabei schrittweise aus den breiteren Sammelpfaden herausgezogen.
+Aktueller Stand:
+
+- `Matrix`- und `Rigging`-`Angriffswert` sowie `Verteidigungswert` haben jetzt eigene explizite Resolver-Faelle vor dem allgemeineren `matrix_value` / `rigging_value`
+
+### Referenzmodell `combat_attack_probe`
+
+`combat_attack_probe` ist fuer diesen Refactor das Referenzmodell fuer kampforientierte Waffen- und Angriffswuerfe.
+
+Es deckt aktuell diese vier Formen ab:
+
+- globale Fernkampfprobe
+- globale Nahkampfprobe
+- Fernkampfwaffen als Repeating-/Kontextfaelle
+- Nahkampfwaffen als Repeating-/Kontextfaelle
+
+Gemeinsame Eigenschaften:
+
+- verwendet das Waffen-Layout im Rolltemplate
+- trennt bewusst `Pool`, `Angriffswert` und `Schaden`
+- fuehrt Waffenkontext wie `Waffe`, `Reichweite` und je nach Fall `Munition`, `Attribut`, `Schadenstyp`
+- kann abgeleitete Anzeigezeilen fuer `Angriffswert` und `Schaden` ausgeben
+
+Fernkampf-Auspraegung:
+
+- Popup mit Sicht, Bewegung, Modifikator und Munition
+- `Munition` bleibt kontextrelevant
+
+Nahkampf-Auspraegung:
+
+- Popup mit Sicht, Bewegung, Modifikator und `Attribut`
+- `Attribut` kann im Popup als Fallback den Attributanteil des Pools umschalten
+- `Schadenstyp` wird getrennt mitgefuehrt
+
+Damit ist `combat_attack_probe` fuer diesen Refactor funktional gesetzt; spaetere Arbeiten betreffen eher UX-Feinschliff als den Modellkern.
+
 ### Bestaetigter Ist-Stand fuer Kampf
 
 Der Kampfbereich ist funktional weitgehend auf diesen Zielzustand gezogen:
