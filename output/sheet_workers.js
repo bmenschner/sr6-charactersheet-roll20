@@ -1984,6 +1984,10 @@ function registerSuccessProbeRollEvents() {
   on("clicked:probe", runSuccessProbeRoll);
   on("clicked:repeating_sr6fernkampfwaffen:probe", runSuccessProbeRoll);
   on("clicked:repeating_sr6nahkampfwaffen:probe", runSuccessProbeRoll);
+  on("clicked:repeating_sr6wissensfertigkeiten:probe", runSuccessProbeRoll);
+  on("clicked:repeating_sr6sprachfertigkeiten:probe", runSuccessProbeRoll);
+  on("clicked:repeating_sr6talentsofts:probe", runSuccessProbeRoll);
+  on("clicked:repeating_sr6wissenssprachsofts:probe", runSuccessProbeRoll);
   on("clicked:probe_popup_test", runTestPopupProbeRoll);
   on("clicked:probe_popup_confirm", runGlobalPopupProbeConfirm);
   on("clicked:probe_popup_cancel", runGlobalPopupProbeCancel);
