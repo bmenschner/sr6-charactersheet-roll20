@@ -387,6 +387,10 @@ body,
   height: var(--sr6-field-height);
 }
 
+.sr6-charactersheet-field-input-with-dice.sr6-charactersheet-field-input-with-2dice {
+  grid-template-columns: minmax(0, 1fr) 1.75rem 1.75rem;
+}
+
 .sr6-charactersheet-field-input-with-dice > input {
   width: 100%;
   min-width: 0;
@@ -417,6 +421,12 @@ body,
   cursor: pointer;
 }
 
+.sr6-charactersheet-field-input-with-dice > .sr6-charactersheet-field-dice-button.sr6-charactersheet-field-dice-button--secondary {
+  color: var(--sr6-line);
+  font-size: 0.72rem;
+  font-weight: 700;
+}
+
 .sr6-charactersheet .sr6-charactersheet-field-dice-button[type="roll"]::before,
 .sr6-charactersheet .sr6-charactersheet-field-dice-button[type="action"]::before {
   content: "⚅" !important;
@@ -424,6 +434,11 @@ body,
   color: var(--sr6-line);
   font-size: 2rem;
   line-height: 1;
+}
+
+.sr6-charactersheet .sr6-charactersheet-field-dice-button--secondary[type="roll"]::before,
+.sr6-charactersheet .sr6-charactersheet-field-dice-button--secondary[type="action"]::before {
+  content: none !important;
 }
 
 .sr6-charactersheet-field-input-with-dice > .sr6-charactersheet-field-dice-button:focus-visible {

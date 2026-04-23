@@ -24,6 +24,7 @@ function buildDetailsDice(diceResults, maxDice = 20) {
 
 function buildProbeRows(resolvedFields, definition) {
   const ignoredKeys = new Set(["name", "Pool", "Erfolge", "Details"]);
+  getInternalRollFields(definition).forEach((key) => ignoredKeys.add(key));
   const preferredOrder = buildRollRowOrder(definition);
 
   const rows = [];

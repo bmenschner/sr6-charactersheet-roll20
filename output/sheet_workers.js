@@ -338,6 +338,9 @@ function createAttributeProbeDefinition(config = {}) {
     extraFields: config.extraFields || [],
     popupFields: config.popupFields || SR6_ATTRIBUTE_PROBE_POPUP_FIELDS,
     poolMultiplier: parseNumber(config.poolMultiplier) || 1,
+    poolMultiplierField: config.poolMultiplierField || "",
+    poolMultiplierFieldValue: config.poolMultiplierFieldValue || "1",
+    internalFields: config.internalFields || [],
     titleFallback: config.titleFallback || "Probe",
   };
 }
@@ -464,7 +467,10 @@ const SR6_ROLL_DEFINITIONS = [
       matchField: "Attribut",
       titleField: "Attribut",
       primaryFields: ["Attribut"],
-      poolMultiplier: 1,
+      poolMultiplier: 2,
+      poolMultiplierField: "Attribut x2",
+      poolMultiplierFieldValue: "1",
+      internalFields: ["Attribut x2"],
       titleFallback: "Probe",
     }),
   },
@@ -932,6 +938,11 @@ function buildRollRowOrder(definition) {
   return combined;
 }
 
+function getInternalRollFields(definition) {
+  const resolvedDefinition = definition || resolveRollDefinition({});
+  return Array.isArray(resolvedDefinition.internalFields) ? resolvedDefinition.internalFields : [];
+}
+
 function getRollPopupFields(definition) {
   const resolvedDefinition = definition || resolveRollDefinition({});
   if (Array.isArray(resolvedDefinition.popupFields) && resolvedDefinition.popupFields.length > 0) {
@@ -947,6 +958,15 @@ function getRollContextFields(definition) {
 
 function getRollPoolMultiplier(definition, resolvedFields) {
   const resolvedDefinition = definition || resolveRollDefinition(resolvedFields || {});
+  const multiplierField = resolvedDefinition.poolMultiplierField || "";
+  if (multiplierField) {
+    const fieldValue = `${(resolvedFields && resolvedFields[multiplierField]) || ""}`.trim();
+    if (fieldValue && fieldValue === `${resolvedDefinition.poolMultiplierFieldValue || "1"}`) {
+      const configuredMultiplier = parseNumber(resolvedDefinition.poolMultiplier);
+      return configuredMultiplier > 0 ? configuredMultiplier : 1;
+    }
+    return 1;
+  }
   const configuredMultiplier = parseNumber(resolvedDefinition.poolMultiplier);
   return configuredMultiplier > 0 ? configuredMultiplier : 1;
 }
@@ -1345,6 +1365,7 @@ function buildDetailsDice(diceResults, maxDice = 20) {
 
 function buildProbeRows(resolvedFields, definition) {
   const ignoredKeys = new Set(["name", "Pool", "Erfolge", "Details"]);
+  getInternalRollFields(definition).forEach((key) => ignoredKeys.add(key));
   const preferredOrder = buildRollRowOrder(definition);
 
   const rows = [];

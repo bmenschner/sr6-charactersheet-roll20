@@ -375,7 +375,7 @@
           <div
             class="sr6-charactersheet-attr-value sr6-charactersheet-attr-value--with-dice">
             <span data-i18n="field.gesamtwert">Gesamtwert</span>
-            <div class="sr6-charactersheet-field-input-with-dice">
+            <div class="sr6-charactersheet-field-input-with-dice sr6-charactersheet-field-input-with-2dice">
               <input
                 type="number"
                 name="attr_sr6_attr_konstitution_gesamtwert" /><button
@@ -383,7 +383,12 @@
                 class="sr6-charactersheet-field-dice-button"
                 name="act_probe"
                 value="&{template:default} {{name=Attribut-Test}} {{Attribut=Konstitution (Gesamtwert)}} {{Pool=[[@{sr6_attr_konstitution_gesamtwert}]]}} {{Erfolge=[[@{sr6_attr_konstitution_gesamtwert}d6>5]]}}"
-                aria-label="Wuerfeln"></button>
+                aria-label="Wuerfeln"></button><button
+                type="action"
+                class="sr6-charactersheet-field-dice-button sr6-charactersheet-field-dice-button--secondary"
+                name="act_probe"
+                value="&{template:default} {{name=Attribut-Test}} {{Attribut=Konstitution (Gesamtwert)}} {{Attribut x2=1}} {{Pool=[[@{sr6_attr_konstitution_gesamtwert}]]}} {{Erfolge=[[@{sr6_attr_konstitution_gesamtwert}d6>5]]}}"
+                aria-label="Wuerfeln x2">x2</button>
             </div>
           </div>
         </div>
@@ -417,7 +422,7 @@
           <div
             class="sr6-charactersheet-attr-value sr6-charactersheet-attr-value--with-dice">
             <span data-i18n="field.gesamtwert">Gesamtwert</span>
-            <div class="sr6-charactersheet-field-input-with-dice">
+            <div class="sr6-charactersheet-field-input-with-dice sr6-charactersheet-field-input-with-2dice">
               <input
                 type="number"
                 name="attr_sr6_attr_geschicklichkeit_gesamtwert" /><button
@@ -425,7 +430,12 @@
                 class="sr6-charactersheet-field-dice-button"
                 name="act_probe"
                 value="&{template:default} {{name=Attribut-Test}} {{Attribut=Geschicklichkeit (Gesamtwert)}} {{Pool=[[@{sr6_attr_geschicklichkeit_gesamtwert}]]}} {{Erfolge=[[@{sr6_attr_geschicklichkeit_gesamtwert}d6>5]]}}"
-                aria-label="Wuerfeln"></button>
+                aria-label="Wuerfeln"></button><button
+                type="action"
+                class="sr6-charactersheet-field-dice-button sr6-charactersheet-field-dice-button--secondary"
+                name="act_probe"
+                value="&{template:default} {{name=Attribut-Test}} {{Attribut=Geschicklichkeit (Gesamtwert)}} {{Attribut x2=1}} {{Pool=[[@{sr6_attr_geschicklichkeit_gesamtwert}]]}} {{Erfolge=[[@{sr6_attr_geschicklichkeit_gesamtwert}d6>5]]}}"
+                aria-label="Wuerfeln x2">x2</button>
             </div>
           </div>
         </div>
@@ -459,7 +469,7 @@
           <div
             class="sr6-charactersheet-attr-value sr6-charactersheet-attr-value--with-dice">
             <span data-i18n="field.gesamtwert">Gesamtwert</span>
-            <div class="sr6-charactersheet-field-input-with-dice">
+            <div class="sr6-charactersheet-field-input-with-dice sr6-charactersheet-field-input-with-2dice">
               <input
                 type="number"
                 name="attr_sr6_attr_reaktion_gesamtwert" /><button
@@ -467,7 +477,12 @@
                 class="sr6-charactersheet-field-dice-button"
                 name="act_probe"
                 value="&{template:default} {{name=Attribut-Test}} {{Attribut=Reaktion (Gesamtwert)}} {{Pool=[[@{sr6_attr_reaktion_gesamtwert}]]}} {{Erfolge=[[@{sr6_attr_reaktion_gesamtwert}d6>5]]}}"
-                aria-label="Wuerfeln"></button>
+                aria-label="Wuerfeln"></button><button
+                type="action"
+                class="sr6-charactersheet-field-dice-button sr6-charactersheet-field-dice-button--secondary"
+                name="act_probe"
+                value="&{template:default} {{name=Attribut-Test}} {{Attribut=Reaktion (Gesamtwert)}} {{Attribut x2=1}} {{Pool=[[@{sr6_attr_reaktion_gesamtwert}]]}} {{Erfolge=[[@{sr6_attr_reaktion_gesamtwert}d6>5]]}}"
+                aria-label="Wuerfeln x2">x2</button>
             </div>
           </div>
         </div>
@@ -499,7 +514,7 @@
           <div
             class="sr6-charactersheet-attr-value sr6-charactersheet-attr-value--with-dice">
             <span data-i18n="field.gesamtwert">Gesamtwert</span>
-            <div class="sr6-charactersheet-field-input-with-dice">
+            <div class="sr6-charactersheet-field-input-with-dice sr6-charactersheet-field-input-with-2dice">
               <input
                 type="number"
                 name="attr_sr6_attr_staerke_gesamtwert" /><button
@@ -507,7 +522,12 @@
                 class="sr6-charactersheet-field-dice-button"
                 name="act_probe"
                 value="&{template:default} {{name=Attribut-Test}} {{Attribut=Staerke (Gesamtwert)}} {{Pool=[[@{sr6_attr_staerke_gesamtwert}]]}} {{Erfolge=[[@{sr6_attr_staerke_gesamtwert}d6>5]]}}"
-                aria-label="Wuerfeln"></button>
+                aria-label="Wuerfeln"></button><button
+                type="action"
+                class="sr6-charactersheet-field-dice-button sr6-charactersheet-field-dice-button--secondary"
+                name="act_probe"
+                value="&{template:default} {{name=Attribut-Test}} {{Attribut=Staerke (Gesamtwert)}} {{Attribut x2=1}} {{Pool=[[@{sr6_attr_staerke_gesamtwert}]]}} {{Erfolge=[[@{sr6_attr_staerke_gesamtwert}d6>5]]}}"
+                aria-label="Wuerfeln x2">x2</button>
             </div>
           </div>
         </div>
@@ -541,7 +561,7 @@
           <div
             class="sr6-charactersheet-attr-value sr6-charactersheet-attr-value--with-dice">
             <span data-i18n="field.gesamtwert">Gesamtwert</span>
-            <div class="sr6-charactersheet-field-input-with-dice">
+            <div class="sr6-charactersheet-field-input-with-dice sr6-charactersheet-field-input-with-2dice">
               <input
                 type="number"
                 name="attr_sr6_attr_willenskraft_gesamtwert" /><button
@@ -549,7 +569,12 @@
                 class="sr6-charactersheet-field-dice-button"
                 name="act_probe"
                 value="&{template:default} {{name=Attribut-Test}} {{Attribut=Willenskraft (Gesamtwert)}} {{Pool=[[@{sr6_attr_willenskraft_gesamtwert}]]}} {{Erfolge=[[@{sr6_attr_willenskraft_gesamtwert}d6>5]]}}"
-                aria-label="Wuerfeln"></button>
+                aria-label="Wuerfeln"></button><button
+                type="action"
+                class="sr6-charactersheet-field-dice-button sr6-charactersheet-field-dice-button--secondary"
+                name="act_probe"
+                value="&{template:default} {{name=Attribut-Test}} {{Attribut=Willenskraft (Gesamtwert)}} {{Attribut x2=1}} {{Pool=[[@{sr6_attr_willenskraft_gesamtwert}]]}} {{Erfolge=[[@{sr6_attr_willenskraft_gesamtwert}d6>5]]}}"
+                aria-label="Wuerfeln x2">x2</button>
             </div>
           </div>
         </div>
@@ -585,7 +610,12 @@
                 class="sr6-charactersheet-field-dice-button"
                 name="act_probe"
                 value="&{template:default} {{name=Attribut-Test}} {{Attribut=Logik (Gesamtwert)}} {{Pool=[[@{sr6_attr_logik_gesamtwert}]]}} {{Erfolge=[[@{sr6_attr_logik_gesamtwert}d6>5]]}}"
-                aria-label="Wuerfeln"></button>
+                aria-label="Wuerfeln"></button><button
+                type="action"
+                class="sr6-charactersheet-field-dice-button sr6-charactersheet-field-dice-button--secondary"
+                name="act_probe"
+                value="&{template:default} {{name=Attribut-Test}} {{Attribut=Logik (Gesamtwert)}} {{Attribut x2=1}} {{Pool=[[@{sr6_attr_logik_gesamtwert}]]}} {{Erfolge=[[@{sr6_attr_logik_gesamtwert}d6>5]]}}"
+                aria-label="Wuerfeln x2">x2</button>
             </div>
           </div>
         </div>
@@ -619,7 +649,7 @@
           <div
             class="sr6-charactersheet-attr-value sr6-charactersheet-attr-value--with-dice">
             <span data-i18n="field.gesamtwert">Gesamtwert</span>
-            <div class="sr6-charactersheet-field-input-with-dice">
+            <div class="sr6-charactersheet-field-input-with-dice sr6-charactersheet-field-input-with-2dice">
               <input
                 type="number"
                 name="attr_sr6_attr_intuition_gesamtwert" /><button
@@ -627,7 +657,12 @@
                 class="sr6-charactersheet-field-dice-button"
                 name="act_probe"
                 value="&{template:default} {{name=Attribut-Test}} {{Attribut=Intuition (Gesamtwert)}} {{Pool=[[@{sr6_attr_intuition_gesamtwert}]]}} {{Erfolge=[[@{sr6_attr_intuition_gesamtwert}d6>5]]}}"
-                aria-label="Wuerfeln"></button>
+                aria-label="Wuerfeln"></button><button
+                type="action"
+                class="sr6-charactersheet-field-dice-button sr6-charactersheet-field-dice-button--secondary"
+                name="act_probe"
+                value="&{template:default} {{name=Attribut-Test}} {{Attribut=Intuition (Gesamtwert)}} {{Attribut x2=1}} {{Pool=[[@{sr6_attr_intuition_gesamtwert}]]}} {{Erfolge=[[@{sr6_attr_intuition_gesamtwert}d6>5]]}}"
+                aria-label="Wuerfeln x2">x2</button>
             </div>
           </div>
         </div>
@@ -659,7 +694,7 @@
           <div
             class="sr6-charactersheet-attr-value sr6-charactersheet-attr-value--with-dice">
             <span data-i18n="field.gesamtwert">Gesamtwert</span>
-            <div class="sr6-charactersheet-field-input-with-dice">
+            <div class="sr6-charactersheet-field-input-with-dice sr6-charactersheet-field-input-with-2dice">
               <input
                 type="number"
                 name="attr_sr6_attr_charisma_gesamtwert" /><button
@@ -667,7 +702,12 @@
                 class="sr6-charactersheet-field-dice-button"
                 name="act_probe"
                 value="&{template:default} {{name=Attribut-Test}} {{Attribut=Charisma (Gesamtwert)}} {{Pool=[[@{sr6_attr_charisma_gesamtwert}]]}} {{Erfolge=[[@{sr6_attr_charisma_gesamtwert}d6>5]]}}"
-                aria-label="Wuerfeln"></button>
+                aria-label="Wuerfeln"></button><button
+                type="action"
+                class="sr6-charactersheet-field-dice-button sr6-charactersheet-field-dice-button--secondary"
+                name="act_probe"
+                value="&{template:default} {{name=Attribut-Test}} {{Attribut=Charisma (Gesamtwert)}} {{Attribut x2=1}} {{Pool=[[@{sr6_attr_charisma_gesamtwert}]]}} {{Erfolge=[[@{sr6_attr_charisma_gesamtwert}d6>5]]}}"
+                aria-label="Wuerfeln x2">x2</button>
             </div>
           </div>
         </div>
@@ -705,7 +745,12 @@
                 class="sr6-charactersheet-field-dice-button"
                 name="act_probe"
                 value="&{template:default} {{name=Attribut-Test}} {{Attribut=Edge (Gesamtwert)}} {{Pool=[[@{sr6_attr_edge_gesamtwert}]]}} {{Erfolge=[[@{sr6_attr_edge_gesamtwert}d6>5]]}}"
-                aria-label="Wuerfeln"></button>
+                aria-label="Wuerfeln"></button><button
+                type="action"
+                class="sr6-charactersheet-field-dice-button sr6-charactersheet-field-dice-button--secondary"
+                name="act_probe"
+                value="&{template:default} {{name=Attribut-Test}} {{Attribut=Edge (Gesamtwert)}} {{Attribut x2=1}} {{Pool=[[@{sr6_attr_edge_gesamtwert}]]}} {{Erfolge=[[@{sr6_attr_edge_gesamtwert}d6>5]]}}"
+                aria-label="Wuerfeln x2">x2</button>
             </div>
           </div>
         </div>
@@ -739,7 +784,7 @@
           <div
             class="sr6-charactersheet-attr-value sr6-charactersheet-attr-value--with-dice">
             <span data-i18n="field.gesamtwert">Gesamtwert</span>
-            <div class="sr6-charactersheet-field-input-with-dice">
+            <div class="sr6-charactersheet-field-input-with-dice sr6-charactersheet-field-input-with-2dice">
               <input
                 type="number"
                 name="attr_sr6_attr_magie_resonanz_gesamtwert" /><button
@@ -747,7 +792,12 @@
                 class="sr6-charactersheet-field-dice-button"
                 name="act_probe"
                 value="&{template:default} {{name=Attribut-Test}} {{Attribut=Magie/Resonanz (Gesamtwert)}} {{Pool=[[@{sr6_attr_magie_resonanz_gesamtwert}]]}} {{Erfolge=[[@{sr6_attr_magie_resonanz_gesamtwert}d6>5]]}}"
-                aria-label="Wuerfeln"></button>
+                aria-label="Wuerfeln"></button><button
+                type="action"
+                class="sr6-charactersheet-field-dice-button sr6-charactersheet-field-dice-button--secondary"
+                name="act_probe"
+                value="&{template:default} {{name=Attribut-Test}} {{Attribut=Magie/Resonanz (Gesamtwert)}} {{Attribut x2=1}} {{Pool=[[@{sr6_attr_magie_resonanz_gesamtwert}]]}} {{Erfolge=[[@{sr6_attr_magie_resonanz_gesamtwert}d6>5]]}}"
+                aria-label="Wuerfeln x2">x2</button>
             </div>
           </div>
         </div>
@@ -7829,6 +7879,9 @@ function createAttributeProbeDefinition(config = {}) {
     extraFields: config.extraFields || [],
     popupFields: config.popupFields || SR6_ATTRIBUTE_PROBE_POPUP_FIELDS,
     poolMultiplier: parseNumber(config.poolMultiplier) || 1,
+    poolMultiplierField: config.poolMultiplierField || "",
+    poolMultiplierFieldValue: config.poolMultiplierFieldValue || "1",
+    internalFields: config.internalFields || [],
     titleFallback: config.titleFallback || "Probe",
   };
 }
@@ -7955,7 +8008,10 @@ const SR6_ROLL_DEFINITIONS = [
       matchField: "Attribut",
       titleField: "Attribut",
       primaryFields: ["Attribut"],
-      poolMultiplier: 1,
+      poolMultiplier: 2,
+      poolMultiplierField: "Attribut x2",
+      poolMultiplierFieldValue: "1",
+      internalFields: ["Attribut x2"],
       titleFallback: "Probe",
     }),
   },
@@ -8423,6 +8479,11 @@ function buildRollRowOrder(definition) {
   return combined;
 }
 
+function getInternalRollFields(definition) {
+  const resolvedDefinition = definition || resolveRollDefinition({});
+  return Array.isArray(resolvedDefinition.internalFields) ? resolvedDefinition.internalFields : [];
+}
+
 function getRollPopupFields(definition) {
   const resolvedDefinition = definition || resolveRollDefinition({});
   if (Array.isArray(resolvedDefinition.popupFields) && resolvedDefinition.popupFields.length > 0) {
@@ -8438,6 +8499,15 @@ function getRollContextFields(definition) {
 
 function getRollPoolMultiplier(definition, resolvedFields) {
   const resolvedDefinition = definition || resolveRollDefinition(resolvedFields || {});
+  const multiplierField = resolvedDefinition.poolMultiplierField || "";
+  if (multiplierField) {
+    const fieldValue = `${(resolvedFields && resolvedFields[multiplierField]) || ""}`.trim();
+    if (fieldValue && fieldValue === `${resolvedDefinition.poolMultiplierFieldValue || "1"}`) {
+      const configuredMultiplier = parseNumber(resolvedDefinition.poolMultiplier);
+      return configuredMultiplier > 0 ? configuredMultiplier : 1;
+    }
+    return 1;
+  }
   const configuredMultiplier = parseNumber(resolvedDefinition.poolMultiplier);
   return configuredMultiplier > 0 ? configuredMultiplier : 1;
 }
@@ -8836,6 +8906,7 @@ function buildDetailsDice(diceResults, maxDice = 20) {
 
 function buildProbeRows(resolvedFields, definition) {
   const ignoredKeys = new Set(["name", "Pool", "Erfolge", "Details"]);
+  getInternalRollFields(definition).forEach((key) => ignoredKeys.add(key));
   const preferredOrder = buildRollRowOrder(definition);
 
   const rows = [];
