@@ -7,7 +7,7 @@
     - Kopfbereich bewusst flat unter `src/html/partials/shell/kopfbereich*.html`
   - `src/css/modules/**/*` (modulare Styles, gebündelt via `manifest.json`)
     - Kopfbereich-CSS unter `src/css/modules/shell/kopfbereich-*.css`
-  - `src/workers/core/**/*, src/workers/compute/**/*, src/workers/ui/**/*` (modulare Worker-Logik)
+  - `src/workers/core/**/*, src/workers/compute/**/*, src/workers/rolls/**/*, src/workers/ui/**/*` (modulare Worker-Logik)
     - Monitor-Header-Logik in `src/workers/compute/header-monitor.js`
   - `src/i18n/translation.json`
   - `src/assets/images/*`
@@ -60,10 +60,10 @@ Für die Roll20-Sandbox verwende bevorzugt:
 - `output/translation.json` (flaches Key-Value-Format)
 
 ## Neue Box hinzufügen (Kurzablauf)
-1. Neue Partial-Datei im passenden Tab-Unterordner anlegen, z. B. `src/html/partials/tabs/allgemein/neue-box.html`.
+1. Neue Partial-Datei im passenden Tab-Unterordner anlegen, z. B. `src/html/partials/tabs/allgemein/sections/08-neue-box.html`.
 2. Block in `src/html/charactersheet.html` einhängen:
    - `<!-- BEGIN BLOCK: Neue Box -->`
-   - `<!-- @include partials/tabs/allgemein/neue-box.html -->`
+   - `<!-- @include partials/tabs/allgemein/sections/08-neue-box.html -->`
    - `<!-- END BLOCK: Neue Box -->`
 3. Prüfen: `npm run lint:includes`
 4. Bauen: `npm run build`

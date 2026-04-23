@@ -2,8 +2,18 @@
 <!-- @include ./core/constants.js -->
 <!-- @include ./core/helpers.js -->
 <!-- @include ./core/guards.js -->
-<!-- @include ./core/rolls.js -->
 // END BLOCK: Worker Includes (core)
+
+// BEGIN BLOCK: Worker Includes (rolls)
+<!-- @include ./rolls/definitions.js -->
+<!-- @include ./rolls/context.js -->
+<!-- @include ./rolls/display.js -->
+<!-- @include ./rolls/compute.js -->
+<!-- @include ./rolls/probe.js -->
+<!-- @include ./rolls/popup.js -->
+<!-- @include ./rolls/edge.js -->
+<!-- @include ./rolls/index.js -->
+// END BLOCK: Worker Includes (rolls)
 
 // BEGIN BLOCK: Worker Includes (compute)
 <!-- @include ./compute/attributes.js -->

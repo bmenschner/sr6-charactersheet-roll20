@@ -12,16 +12,16 @@
 }
 
 .sheet-rolltemplate-sr6probe .sheet-sr6probe__header {
-  background: #ffffff;
-  color: #840763;
+  background: #840763;
+  color: #ffffff;
   font-weight: 700;
   font-size: 1rem;
   padding: 0.375rem 0.5rem;
 }
 
 .sheet-sr6probe__header {
-  background: #ffffff;
-  color: #840763;
+  background: #840763;
+  color: #ffffff;
   font-weight: 700;
   font-size: 1rem;
   padding: 0.375rem 0.5rem;
@@ -89,8 +89,8 @@
 }
 
 .sheet-darkmode .sheet-rolltemplate-sr6probe .sheet-sr6probe__header {
-  background: #ffffff;
-  color: #840763;
+  background: #840763;
+  color: #ffffff;
 }
 
 .sheet-darkmode .sheet-rolltemplate-sr6probe .sheet-sr6probe__row,
@@ -112,8 +112,12 @@ body.sheet-darkmode .sheet-rolltemplate-sr6probe .sheet-sr6probe {
 body.sheet-darkmode .sheet-rolltemplate-sr6probe .sheet-sr6probe__header,
 body.sheet-darkmode .sheet-rolltemplate-sr6probe .sheet-sr6probe__row,
 body.sheet-darkmode .sheet-rolltemplate-sr6probe .sheet-sr6probe__row:nth-child(odd) {
-  background: #ffffff;
   color: #840763;
+}
+
+body.sheet-darkmode .sheet-rolltemplate-sr6probe .sheet-sr6probe__header {
+  background: #840763;
+  color: #ffffff;
 }
 
 body.sheet-darkmode .sheet-rolltemplate-sr6probe .sheet-sr6probe__label,
@@ -175,5 +179,18 @@ body.sheet-darkmode .sheet-rolltemplate-sr6probe .sheet-sr6probe__value {
 .sheet-sr6probe .inlinerollresult.showtip.tipsy-n-right {
   background-color: transparent;
   border: none;
+}
+
+.sheet-rolltemplate-sr6probe .sheet-sr6probe__details-toggle summary,
+.sheet-sr6probe__details-toggle summary {
+  cursor: pointer;
+  font-weight: 700;
+  color: #840763;
+}
+
+.sheet-rolltemplate-sr6probe .sheet-sr6probe__calc,
+.sheet-sr6probe__calc {
+  margin-top: 0.25rem;
+  color: #111111;
 }
 /* END MODULE: SR6 Probe Rolltemplate */

@@ -3,3 +3,36 @@
  * Shared Regeln verbleiben in den bestehenden shared Modulen,
  * bis wir sie schrittweise pro Tab herausziehen.
  */
+
+.sr6-kampf-panzerung-rollen {
+  margin-top: 0.5rem;
+}
+
+.sr6-kampf-panzerung-rollen .sr6-charactersheet-field--checkbox {
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.5rem;
+}
+
+.sr6-kampf-panzerung-rollen .sr6-charactersheet-field--checkbox > span {
+  margin-bottom: 0;
+}
+
+.sr6-kampf-panzerung-rollen .sr6-charactersheet-field--checkbox input[type="checkbox"] {
+  width: auto;
+  margin: 0;
+  flex: 0 0 auto;
+}
+
+
+.sr6-kampf-selection-toggle {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.875rem;
+}
+
+.sr6-kampf-selection-toggle input {
+  width: 1rem;
+  height: 1rem;
+}

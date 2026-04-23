@@ -56,6 +56,21 @@
   border-top: 0.0625rem solid rgba(0, 0, 0, 0.08);
 }
 
+.sr6-foundry-item-section-label,
+.sr6-kampf-section-label {
+  display: block;
+  color: var(--sr6-title);
+  font-size: 0.72rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.02rem;
+}
+
+.sr6-kampf-section-label {
+  padding-top: 0.25rem;
+  border-top: 0.0625rem solid rgba(0, 0, 0, 0.08);
+}
+
 .sr6-foundry-item--armor .sr6-foundry-item-head {
   margin-top: 0;
 }

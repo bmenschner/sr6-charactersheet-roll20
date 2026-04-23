@@ -28,25 +28,31 @@
         <div class="sr6-charactersheet-row sr6-charactersheet-row-1">
           <div class="sr6-charactersheet-field">
             <span data-i18n="field.primaere_fernkampfwaffe">Primäre Fernkampfwaffe</span>
-            <input type="text" name="attr_sr6_combat_primaere_fernkampfwaffe" />
+            <input type="text" name="attr_sr6_combat_primaere_fernkampfwaffe" readonly />
           </div>
         </div>
         <!-- END BLOCK: Primäre Fernkampfwaffe -->
+
+        <div class="sr6-charactersheet-row sr6-charactersheet-row-1">
+          <div class="sr6-charactersheet-field">
+            <span class="sr6-kampf-section-label" data-i18n="field.angriffswerte_reichweite">Angriffswerte (Reichweite)</span>
+          </div>
+        </div>
 
         <!-- BEGIN BLOCK: Fernkampf Schaden/Modus/Reichweiten -->
         <div class="sr6-charactersheet-row sr6-charactersheet-row-7">
           <div class="sr6-charactersheet-field">
             <span data-i18n="field.schaden">Schaden</span>
-            <input type="text" name="attr_sr6_combat_fernkampf_schaden" />
+            <input type="number" name="attr_sr6_combat_fernkampf_schaden" readonly />
           </div>
           <div class="sr6-charactersheet-field">
             <span data-i18n="field.modus">Modus</span>
-            <input type="text" name="attr_sr6_combat_fernkampf_modus" />
+            <input type="text" name="attr_sr6_combat_fernkampf_modus" readonly />
           </div>
           <div class="sr6-charactersheet-field">
             <span data-i18n="field.s_nah">S. Nah</span>
             <div class="sr6-charactersheet-field-input-with-dice">
-              <input type="text" name="attr_sr6_combat_fernkampf_sehr_nah" /><button
+              <input type="number" name="attr_sr6_combat_fernkampf_sehr_nah" readonly /><button
                 type="action"
                 class="sr6-charactersheet-field-dice-button"
                 name="act_probe"
@@ -57,7 +63,7 @@
           <div class="sr6-charactersheet-field">
             <span data-i18n="field.nah">Nah</span>
             <div class="sr6-charactersheet-field-input-with-dice">
-              <input type="text" name="attr_sr6_combat_fernkampf_nah" /><button
+              <input type="number" name="attr_sr6_combat_fernkampf_nah" readonly /><button
                 type="action"
                 class="sr6-charactersheet-field-dice-button"
                 name="act_probe"
@@ -68,7 +74,7 @@
           <div class="sr6-charactersheet-field">
             <span data-i18n="field.mittel">Mittel</span>
             <div class="sr6-charactersheet-field-input-with-dice">
-              <input type="text" name="attr_sr6_combat_fernkampf_mittel" /><button
+              <input type="number" name="attr_sr6_combat_fernkampf_mittel" readonly /><button
                 type="action"
                 class="sr6-charactersheet-field-dice-button"
                 name="act_probe"
@@ -79,7 +85,7 @@
           <div class="sr6-charactersheet-field">
             <span data-i18n="field.weit">Weit</span>
             <div class="sr6-charactersheet-field-input-with-dice">
-              <input type="text" name="attr_sr6_combat_fernkampf_weit" /><button
+              <input type="number" name="attr_sr6_combat_fernkampf_weit" readonly /><button
                 type="action"
                 class="sr6-charactersheet-field-dice-button"
                 name="act_probe"
@@ -90,7 +96,7 @@
           <div class="sr6-charactersheet-field">
             <span data-i18n="field.s_weit">S. Weit</span>
             <div class="sr6-charactersheet-field-input-with-dice">
-              <input type="text" name="attr_sr6_combat_fernkampf_sehr_weit" /><button
+              <input type="number" name="attr_sr6_combat_fernkampf_sehr_weit" readonly /><button
                 type="action"
                 class="sr6-charactersheet-field-dice-button"
                 name="act_probe"
@@ -105,7 +111,7 @@
         <div class="sr6-charactersheet-row sr6-charactersheet-row-1">
           <div class="sr6-charactersheet-field">
             <span data-i18n="field.munition">Munition</span>
-            <select name="attr_sr6_combat_munition">
+            <select name="attr_sr6_combat_munition" disabled>
               <option value="Standard" data-i18n="field.munition_standard">Standard</option>
               <option value="Huelsenlos" data-i18n="field.munition_huelsenlos">Hülsenlos</option>
               <option value="APDS" data-i18n="field.munition_apds">APDS</option>
@@ -128,69 +134,85 @@
         <div class="sr6-charactersheet-row sr6-charactersheet-row-1">
           <div class="sr6-charactersheet-field">
             <span data-i18n="field.primaere_nahkampfwaffe">Primäre Nahkampfwaffe</span>
-            <input type="text" name="attr_sr6_combat_primaere_nahkampfwaffe" />
+            <input type="text" name="attr_sr6_combat_primaere_nahkampfwaffe" readonly />
           </div>
         </div>
         <!-- END BLOCK: Primäre Nahkampfwaffe -->
 
+        <div class="sr6-charactersheet-row sr6-charactersheet-row-1">
+          <div class="sr6-charactersheet-field">
+            <span class="sr6-kampf-section-label" data-i18n="field.angriffswerte_reichweite">Angriffswerte (Reichweite)</span>
+          </div>
+        </div>
+
         <!-- BEGIN BLOCK: Nahkampf Schaden/Reichweiten -->
-        <div class="sr6-charactersheet-row sr6-charactersheet-row-6">
+        <div class="sr6-charactersheet-row sr6-charactersheet-row-3">
           <div class="sr6-charactersheet-field">
             <span data-i18n="field.schaden">Schaden</span>
-            <input type="text" name="attr_sr6_combat_nahkampf_schaden" />
+            <input type="number" name="attr_sr6_combat_nahkampf_schaden" readonly />
           </div>
+          <div class="sr6-charactersheet-field">
+            <span data-i18n="field.schadentyp">Schadenstyp</span>
+            <input type="text" name="attr_sr6_combat_nahkampf_schadentyp" readonly />
+          </div>
+          <div class="sr6-charactersheet-field">
+            <span data-i18n="field.attribut">Attribut</span>
+            <input type="text" name="attr_sr6_combat_nahkampf_attribut" readonly />
+          </div>
+        </div>
+        <div class="sr6-charactersheet-row sr6-charactersheet-row-5">
           <div class="sr6-charactersheet-field">
             <span data-i18n="field.s_nah">S. Nah</span>
             <div class="sr6-charactersheet-field-input-with-dice">
-              <input type="text" name="attr_sr6_combat_nahkampf_sehr_nah" /><button
+              <input type="number" name="attr_sr6_combat_nahkampf_sehr_nah" readonly /><button
                 type="action"
                 class="sr6-charactersheet-field-dice-button"
                 name="act_probe"
-                value="&{template:default} {{name=Nahkampf-Test}} {{Waffe=@{sr6_combat_primaere_nahkampfwaffe}}} {{Schadenswert=@{sr6_combat_nahkampf_schaden}}} {{Reichweite=S. Nah}} {{Pool=[[@{sr6_combat_nahkampf_sehr_nah}]]}} {{Erfolge=[[@{sr6_combat_nahkampf_sehr_nah}d6>5]]}}"
+                value="&{template:default} {{name=Nahkampf-Test}} {{Waffe=@{sr6_combat_primaere_nahkampfwaffe}}} {{Fertigkeit=@{sr6_combat_nahkampf_fertigkeit}}} {{Attribut=@{sr6_combat_nahkampf_attribut}}} {{Schadenswert=@{sr6_combat_nahkampf_schaden}}} {{Schadenstyp=@{sr6_combat_nahkampf_schadentyp}}} {{Reichweite=S. Nah}} {{Pool=[[@{sr6_combat_nahkampf_sehr_nah}]]}} {{Erfolge=[[@{sr6_combat_nahkampf_sehr_nah}d6>5]]}}"
                 aria-label="Wuerfeln"></button>
             </div>
           </div>
           <div class="sr6-charactersheet-field">
             <span data-i18n="field.nah">Nah</span>
             <div class="sr6-charactersheet-field-input-with-dice">
-              <input type="text" name="attr_sr6_combat_nahkampf_nah" /><button
+              <input type="number" name="attr_sr6_combat_nahkampf_nah" readonly /><button
                 type="action"
                 class="sr6-charactersheet-field-dice-button"
                 name="act_probe"
-                value="&{template:default} {{name=Nahkampf-Test}} {{Waffe=@{sr6_combat_primaere_nahkampfwaffe}}} {{Schadenswert=@{sr6_combat_nahkampf_schaden}}} {{Reichweite=Nah}} {{Pool=[[@{sr6_combat_nahkampf_nah}]]}} {{Erfolge=[[@{sr6_combat_nahkampf_nah}d6>5]]}}"
+                value="&{template:default} {{name=Nahkampf-Test}} {{Waffe=@{sr6_combat_primaere_nahkampfwaffe}}} {{Fertigkeit=@{sr6_combat_nahkampf_fertigkeit}}} {{Attribut=@{sr6_combat_nahkampf_attribut}}} {{Schadenswert=@{sr6_combat_nahkampf_schaden}}} {{Schadenstyp=@{sr6_combat_nahkampf_schadentyp}}} {{Reichweite=Nah}} {{Pool=[[@{sr6_combat_nahkampf_nah}]]}} {{Erfolge=[[@{sr6_combat_nahkampf_nah}d6>5]]}}"
                 aria-label="Wuerfeln"></button>
             </div>
           </div>
           <div class="sr6-charactersheet-field">
             <span data-i18n="field.mittel">Mittel</span>
             <div class="sr6-charactersheet-field-input-with-dice">
-              <input type="text" name="attr_sr6_combat_nahkampf_mittel" /><button
+              <input type="number" name="attr_sr6_combat_nahkampf_mittel" readonly /><button
                 type="action"
                 class="sr6-charactersheet-field-dice-button"
                 name="act_probe"
-                value="&{template:default} {{name=Nahkampf-Test}} {{Waffe=@{sr6_combat_primaere_nahkampfwaffe}}} {{Schadenswert=@{sr6_combat_nahkampf_schaden}}} {{Reichweite=Mittel}} {{Pool=[[@{sr6_combat_nahkampf_mittel}]]}} {{Erfolge=[[@{sr6_combat_nahkampf_mittel}d6>5]]}}"
+                value="&{template:default} {{name=Nahkampf-Test}} {{Waffe=@{sr6_combat_primaere_nahkampfwaffe}}} {{Fertigkeit=@{sr6_combat_nahkampf_fertigkeit}}} {{Attribut=@{sr6_combat_nahkampf_attribut}}} {{Schadenswert=@{sr6_combat_nahkampf_schaden}}} {{Schadenstyp=@{sr6_combat_nahkampf_schadentyp}}} {{Reichweite=Mittel}} {{Pool=[[@{sr6_combat_nahkampf_mittel}]]}} {{Erfolge=[[@{sr6_combat_nahkampf_mittel}d6>5]]}}"
                 aria-label="Wuerfeln"></button>
             </div>
           </div>
           <div class="sr6-charactersheet-field">
             <span data-i18n="field.weit">Weit</span>
             <div class="sr6-charactersheet-field-input-with-dice">
-              <input type="text" name="attr_sr6_combat_nahkampf_weit" /><button
+              <input type="number" name="attr_sr6_combat_nahkampf_weit" readonly /><button
                 type="action"
                 class="sr6-charactersheet-field-dice-button"
                 name="act_probe"
-                value="&{template:default} {{name=Nahkampf-Test}} {{Waffe=@{sr6_combat_primaere_nahkampfwaffe}}} {{Schadenswert=@{sr6_combat_nahkampf_schaden}}} {{Reichweite=Weit}} {{Pool=[[@{sr6_combat_nahkampf_weit}]]}} {{Erfolge=[[@{sr6_combat_nahkampf_weit}d6>5]]}}"
+                value="&{template:default} {{name=Nahkampf-Test}} {{Waffe=@{sr6_combat_primaere_nahkampfwaffe}}} {{Fertigkeit=@{sr6_combat_nahkampf_fertigkeit}}} {{Attribut=@{sr6_combat_nahkampf_attribut}}} {{Schadenswert=@{sr6_combat_nahkampf_schaden}}} {{Schadenstyp=@{sr6_combat_nahkampf_schadentyp}}} {{Reichweite=Weit}} {{Pool=[[@{sr6_combat_nahkampf_weit}]]}} {{Erfolge=[[@{sr6_combat_nahkampf_weit}d6>5]]}}"
                 aria-label="Wuerfeln"></button>
             </div>
           </div>
           <div class="sr6-charactersheet-field">
             <span data-i18n="field.s_weit">S. Weit</span>
             <div class="sr6-charactersheet-field-input-with-dice">
-              <input type="text" name="attr_sr6_combat_nahkampf_sehr_weit" /><button
+              <input type="number" name="attr_sr6_combat_nahkampf_sehr_weit" readonly /><button
                 type="action"
                 class="sr6-charactersheet-field-dice-button"
                 name="act_probe"
-                value="&{template:default} {{name=Nahkampf-Test}} {{Waffe=@{sr6_combat_primaere_nahkampfwaffe}}} {{Schadenswert=@{sr6_combat_nahkampf_schaden}}} {{Reichweite=S. Weit}} {{Pool=[[@{sr6_combat_nahkampf_sehr_weit}]]}} {{Erfolge=[[@{sr6_combat_nahkampf_sehr_weit}d6>5]]}}"
+                value="&{template:default} {{name=Nahkampf-Test}} {{Waffe=@{sr6_combat_primaere_nahkampfwaffe}}} {{Fertigkeit=@{sr6_combat_nahkampf_fertigkeit}}} {{Attribut=@{sr6_combat_nahkampf_attribut}}} {{Schadenswert=@{sr6_combat_nahkampf_schaden}}} {{Schadenstyp=@{sr6_combat_nahkampf_schadentyp}}} {{Reichweite=S. Weit}} {{Pool=[[@{sr6_combat_nahkampf_sehr_weit}]]}} {{Erfolge=[[@{sr6_combat_nahkampf_sehr_weit}d6>5]]}}"
                 aria-label="Wuerfeln"></button>
             </div>
           </div>
@@ -203,22 +225,26 @@
     <!-- END BLOCK: Kampf Spalten -->
 
     <!-- BEGIN BLOCK: Primäre, Sekundäre Panzerung und Helm -->
-    <div class="sr6-charactersheet-row sr6-charactersheet-row-4 sr6-charactersheet-kampf-panzerung-row">
+    <div class="sr6-charactersheet-row sr6-charactersheet-row-5 sr6-charactersheet-kampf-panzerung-row">
       <div class="sr6-charactersheet-field">
         <span data-i18n="field.verteidigungswert">Verteidigungswert</span>
-        <input type="text" name="attr_sr6_combat_verteidigungswert" />
+        <input type="number" name="attr_sr6_combat_verteidigungswert_gesamtwert" readonly />
       </div>
       <div class="sr6-charactersheet-field">
         <span data-i18n="field.primaere_panzerung">Primäre Panzerung</span>
-        <input type="text" name="attr_sr6_combat_primaere_panzerung" />
+        <input type="text" name="attr_sr6_combat_primaere_panzerung_name" readonly />
       </div>
       <div class="sr6-charactersheet-field">
         <span data-i18n="field.sekundaere_panzerung">Sekundäre Panzerung</span>
-        <input type="text" name="attr_sr6_combat_sekundaere_panzerung" />
+        <input type="text" name="attr_sr6_combat_sekundaere_panzerung_name" readonly />
       </div>
       <div class="sr6-charactersheet-field">
         <span data-i18n="field.helm">Helm</span>
-        <input type="text" name="attr_sr6_combat_helm" />
+        <input type="text" name="attr_sr6_combat_helm_name" readonly />
+      </div>
+      <div class="sr6-charactersheet-field">
+        <span data-i18n="field.schild">Schild</span>
+        <input type="text" name="attr_sr6_combat_schild_name" readonly />
       </div>
     </div>
     <!-- END BLOCK: Primäre, Sekundäre Panzerung und Helm -->

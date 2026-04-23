@@ -4,7 +4,7 @@ function resetTabToAllgemeinOnOpen() {
 }
 
 function getEditModeResetPayload() {
-  return {
+  const payload = {
     sr6_allgemein_attribute_edit_mode: "0",
     sr6_allgemein_initiative_edit_mode: "0",
     sr6_allgemein_fertigkeiten_view: "fertigkeiten",
@@ -33,8 +33,30 @@ function getEditModeResetPayload() {
     sr6_lebensstil_edit_mode: "0",
     sr6_setting_popup_mods: "eigen",
     sr6_roll_popup_open: "0",
-    sr6_roll_popup_mod: "0",
+    sr6_roll_popup_definition: "",
   };
+
+  Object.keys(SR6_POPUP_SELECT_OPTION_SETS).forEach((optionSet) => {
+    for (let slot = 1; slot <= SR6_POPUP_FIELD_SLOT_COUNT; slot += 1) {
+      payload[`sr6_roll_popup_slot_${slot}_option_${optionSet}`] = "0";
+      payload[`sr6_roll_popup_value_${slot}_select_${optionSet}`] = "";
+    }
+  });
+
+  for (let slot = 1; slot <= SR6_POPUP_FIELD_SLOT_COUNT; slot += 1) {
+    payload[`sr6_roll_popup_slot_${slot}_visible`] = "0";
+    payload[`sr6_roll_popup_slot_${slot}_is_number`] = "0";
+    payload[`sr6_roll_popup_slot_${slot}_is_text`] = "0";
+    payload[`sr6_roll_popup_slot_${slot}_is_select`] = "0";
+    payload[`sr6_roll_popup_slot_${slot}_is_checkbox`] = "0";
+    payload[`sr6_roll_popup_slot_${slot}_requires_previous_checkbox`] = "0";
+    payload[`sr6_roll_popup_slot_${slot}_label`] = "";
+    payload[`sr6_roll_popup_value_${slot}_number`] = "0";
+    payload[`sr6_roll_popup_value_${slot}_text`] = "";
+    payload[`sr6_roll_popup_value_${slot}_checkbox`] = "0";
+  }
+
+  return payload;
 }
 
 function resetEditModesOnOpen() {

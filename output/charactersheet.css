@@ -233,6 +233,31 @@ body,
   font-weight: 600;
 }
 
+.sr6-charactersheet-initiative-input {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto 1.75rem;
+  gap: 0.375rem;
+  align-items: end;
+}
+
+.sr6-charactersheet-initiative-dice-field {
+  display: grid;
+  grid-template-columns: auto 3rem;
+  gap: 0.25rem;
+  align-items: end;
+  min-width: 0;
+}
+
+.sr6-charactersheet-initiative-dice-field > span {
+  font-size: 0.68rem;
+  line-height: 1.5rem;
+  white-space: nowrap;
+}
+
+.sr6-charactersheet-initiative-dice-field > input {
+  width: 100%;
+}
+
 .sr6-charactersheet-kampf-panzerung-row {
   margin-top: 0.5rem;
 }
@@ -388,6 +413,10 @@ body,
   height: var(--sr6-field-height);
 }
 
+.sr6-charactersheet-field-input-with-dice.sr6-charactersheet-field-input-with-2dice {
+  grid-template-columns: minmax(0, 1fr) 1.75rem 1.75rem;
+}
+
 .sr6-charactersheet-field-input-with-dice > input {
   width: 100%;
   min-width: 0;
@@ -418,6 +447,12 @@ body,
   cursor: pointer;
 }
 
+.sr6-charactersheet-field-input-with-dice > .sr6-charactersheet-field-dice-button.sr6-charactersheet-field-dice-button--secondary {
+  color: var(--sr6-line);
+  font-size: 0.72rem;
+  font-weight: 700;
+}
+
 .sr6-charactersheet .sr6-charactersheet-field-dice-button[type="roll"]::before,
 .sr6-charactersheet .sr6-charactersheet-field-dice-button[type="action"]::before {
   content: "⚅" !important;
@@ -425,6 +460,11 @@ body,
   color: var(--sr6-line);
   font-size: 2rem;
   line-height: 1;
+}
+
+.sr6-charactersheet .sr6-charactersheet-field-dice-button--secondary[type="roll"]::before,
+.sr6-charactersheet .sr6-charactersheet-field-dice-button--secondary[type="action"]::before {
+  content: none !important;
 }
 
 .sr6-charactersheet-field-input-with-dice > .sr6-charactersheet-field-dice-button:focus-visible {
@@ -996,6 +1036,21 @@ fieldset.repeating_sr6riggingmanoever .repcontrol {
 }
 
 .sr6-foundry-item-footer {
+  padding-top: 0.25rem;
+  border-top: 0.0625rem solid rgba(0, 0, 0, 0.08);
+}
+
+.sr6-foundry-item-section-label,
+.sr6-kampf-section-label {
+  display: block;
+  color: var(--sr6-title);
+  font-size: 0.72rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.02rem;
+}
+
+.sr6-kampf-section-label {
   padding-top: 0.25rem;
   border-top: 0.0625rem solid rgba(0, 0, 0, 0.08);
 }
@@ -2310,6 +2365,11 @@ fieldset.repeating_sr6riggingfahrzeuge {
   grid-template-columns: auto 1.75rem;
 }
 
+#sr6_daten_panel_1 .sr6-charactersheet-box-attribute.sr6-editable-overview-section:has(.sr6-editable-section-mode:not(:checked)) .sr6-charactersheet-attr-value:last-child .sr6-charactersheet-field-input-with-dice.sr6-charactersheet-field-input-with-2dice,
+#sr6_daten_panel_1 .sr6-charactersheet-box-fertigkeiten-allgemein.sr6-editable-overview-section:has(.sr6-editable-section-mode:not(:checked)) .sr6-charactersheet-attr-value:last-child .sr6-charactersheet-field-input-with-dice.sr6-charactersheet-field-input-with-2dice {
+  grid-template-columns: auto 1.75rem;
+}
+
 #sr6_daten_panel_1 .sr6-charactersheet-box-attribute.sr6-editable-overview-section:has(.sr6-editable-section-mode:not(:checked)) .sr6-charactersheet-attr-value:last-child .sr6-charactersheet-field-input-with-dice > input,
 #sr6_daten_panel_1 .sr6-charactersheet-box-fertigkeiten-allgemein.sr6-editable-overview-section:has(.sr6-editable-section-mode:not(:checked)) .sr6-charactersheet-attr-value:last-child .sr6-charactersheet-field-input-with-dice > input {
   width: 2.25rem;
@@ -2346,6 +2406,11 @@ fieldset.repeating_sr6riggingfahrzeuge {
   left: -2rem;
   top: 50%;
   transform: translateY(-50%);
+}
+
+#sr6_daten_panel_1 .sr6-charactersheet-box-attribute.sr6-editable-overview-section:has(.sr6-editable-section-mode:not(:checked)) .sr6-charactersheet-attr-value:last-child .sr6-charactersheet-field-dice-button--secondary,
+#sr6_daten_panel_1 .sr6-charactersheet-box-fertigkeiten-allgemein.sr6-editable-overview-section:has(.sr6-editable-section-mode:not(:checked)) .sr6-charactersheet-attr-value:last-child .sr6-charactersheet-field-dice-button--secondary {
+  display: none;
 }
 
 /* Allgemein (Panel 1): Fertigkeiten Switcher */
@@ -2584,6 +2649,39 @@ fieldset.repeating_sr6riggingfahrzeuge {
  * Shared Regeln verbleiben in den bestehenden shared Modulen,
  * bis wir sie schrittweise pro Tab herausziehen.
  */
+
+.sr6-kampf-panzerung-rollen {
+  margin-top: 0.5rem;
+}
+
+.sr6-kampf-panzerung-rollen .sr6-charactersheet-field--checkbox {
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.5rem;
+}
+
+.sr6-kampf-panzerung-rollen .sr6-charactersheet-field--checkbox > span {
+  margin-bottom: 0;
+}
+
+.sr6-kampf-panzerung-rollen .sr6-charactersheet-field--checkbox input[type="checkbox"] {
+  width: auto;
+  margin: 0;
+  flex: 0 0 auto;
+}
+
+
+.sr6-kampf-selection-toggle {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.875rem;
+}
+
+.sr6-kampf-selection-toggle input {
+  width: 1rem;
+  height: 1rem;
+}
 /* END MODULE: src/css/modules/tabs/kampf/index.css */
 
 /* BEGIN MODULE: src/css/modules/tabs/magie/index.css */
@@ -2865,6 +2963,20 @@ body:has(.sr6-tabs-toggle-input:checked) #tab-content.tab-content,
   pointer-events: none;
 }
 
+.sr6-roll-popup-slot-toggle {
+  position: absolute;
+  opacity: 0;
+  pointer-events: none;
+}
+
+.sr6-roll-popup-slot-kind-toggle,
+.sr6-roll-popup-slot-option-toggle,
+.sr6-roll-popup-slot-dependency-toggle {
+  position: absolute;
+  opacity: 0;
+  pointer-events: none;
+}
+
 .sr6-roll-popup-overlay {
   display: none;
   position: fixed;
@@ -2900,6 +3012,158 @@ body:has(.sr6-tabs-toggle-input:checked) #tab-content.tab-content,
 
 .sr6-roll-popup-content {
   padding: 0.75rem;
+  display: grid;
+  gap: 0.5rem;
+}
+
+.sr6-roll-popup-field {
+  display: none;
+  grid-template-columns: minmax(10rem, 1fr) minmax(0, 8rem);
+  gap: 0.75rem;
+  align-items: center;
+}
+
+.sr6-roll-popup-slot-toggle--1:checked ~ .sr6-roll-popup-slot-kind-toggle--1-number:checked ~ .sr6-roll-popup-overlay .sr6-roll-popup-field--1,
+.sr6-roll-popup-slot-toggle--2:checked ~ .sr6-roll-popup-slot-kind-toggle--2-number:checked ~ .sr6-roll-popup-overlay .sr6-roll-popup-field--2,
+.sr6-roll-popup-slot-toggle--3:checked ~ .sr6-roll-popup-slot-kind-toggle--3-number:checked ~ .sr6-roll-popup-overlay .sr6-roll-popup-field--3,
+.sr6-roll-popup-slot-toggle--4:checked ~ .sr6-roll-popup-slot-kind-toggle--4-number:checked ~ .sr6-roll-popup-overlay .sr6-roll-popup-field--4,
+.sr6-roll-popup-slot-toggle--5:checked ~ .sr6-roll-popup-slot-kind-toggle--5-number:checked ~ .sr6-roll-popup-overlay .sr6-roll-popup-field--5,
+.sr6-roll-popup-slot-toggle--6:checked ~ .sr6-roll-popup-slot-kind-toggle--6-number:checked ~ .sr6-roll-popup-overlay .sr6-roll-popup-field--6,
+.sr6-roll-popup-slot-toggle--7:checked ~ .sr6-roll-popup-slot-kind-toggle--7-number:checked ~ .sr6-roll-popup-overlay .sr6-roll-popup-field--7,
+.sr6-roll-popup-slot-toggle--1:checked ~ .sr6-roll-popup-slot-kind-toggle--1-text:checked ~ .sr6-roll-popup-overlay .sr6-roll-popup-field--1,
+.sr6-roll-popup-slot-toggle--2:checked ~ .sr6-roll-popup-slot-kind-toggle--2-text:checked ~ .sr6-roll-popup-overlay .sr6-roll-popup-field--2,
+.sr6-roll-popup-slot-toggle--3:checked ~ .sr6-roll-popup-slot-kind-toggle--3-text:checked ~ .sr6-roll-popup-overlay .sr6-roll-popup-field--3,
+.sr6-roll-popup-slot-toggle--4:checked ~ .sr6-roll-popup-slot-kind-toggle--4-text:checked ~ .sr6-roll-popup-overlay .sr6-roll-popup-field--4,
+.sr6-roll-popup-slot-toggle--5:checked ~ .sr6-roll-popup-slot-kind-toggle--5-text:checked ~ .sr6-roll-popup-overlay .sr6-roll-popup-field--5,
+.sr6-roll-popup-slot-toggle--6:checked ~ .sr6-roll-popup-slot-kind-toggle--6-text:checked ~ .sr6-roll-popup-overlay .sr6-roll-popup-field--6,
+.sr6-roll-popup-slot-toggle--7:checked ~ .sr6-roll-popup-slot-kind-toggle--7-text:checked ~ .sr6-roll-popup-overlay .sr6-roll-popup-field--7,
+.sr6-roll-popup-slot-toggle--1:checked ~ .sr6-roll-popup-slot-kind-toggle--1-select:checked ~ .sr6-roll-popup-overlay .sr6-roll-popup-field--1,
+.sr6-roll-popup-slot-toggle--2:checked ~ .sr6-roll-popup-slot-kind-toggle--2-select:checked ~ .sr6-roll-popup-overlay .sr6-roll-popup-field--2,
+.sr6-roll-popup-slot-toggle--3:checked ~ .sr6-roll-popup-slot-kind-toggle--3-select:checked ~ .sr6-roll-popup-overlay .sr6-roll-popup-field--3,
+.sr6-roll-popup-slot-toggle--4:checked ~ .sr6-roll-popup-slot-kind-toggle--4-select:checked ~ .sr6-roll-popup-overlay .sr6-roll-popup-field--4,
+.sr6-roll-popup-slot-toggle--5:checked ~ .sr6-roll-popup-slot-kind-toggle--5-select:checked ~ .sr6-roll-popup-overlay .sr6-roll-popup-field--5,
+.sr6-roll-popup-slot-toggle--6:checked ~ .sr6-roll-popup-slot-kind-toggle--6-select:checked ~ .sr6-roll-popup-overlay .sr6-roll-popup-field--6,
+.sr6-roll-popup-slot-toggle--7:checked ~ .sr6-roll-popup-slot-kind-toggle--7-select:checked ~ .sr6-roll-popup-overlay .sr6-roll-popup-field--7,
+.sr6-roll-popup-slot-toggle--1:checked ~ .sr6-roll-popup-slot-kind-toggle--1-checkbox:checked ~ .sr6-roll-popup-overlay .sr6-roll-popup-field--1,
+.sr6-roll-popup-slot-toggle--2:checked ~ .sr6-roll-popup-slot-kind-toggle--2-checkbox:checked ~ .sr6-roll-popup-overlay .sr6-roll-popup-field--2,
+.sr6-roll-popup-slot-toggle--3:checked ~ .sr6-roll-popup-slot-kind-toggle--3-checkbox:checked ~ .sr6-roll-popup-overlay .sr6-roll-popup-field--3,
+.sr6-roll-popup-slot-toggle--4:checked ~ .sr6-roll-popup-slot-kind-toggle--4-checkbox:checked ~ .sr6-roll-popup-overlay .sr6-roll-popup-field--4,
+.sr6-roll-popup-slot-toggle--5:checked ~ .sr6-roll-popup-slot-kind-toggle--5-checkbox:checked ~ .sr6-roll-popup-overlay .sr6-roll-popup-field--5,
+.sr6-roll-popup-slot-toggle--6:checked ~ .sr6-roll-popup-slot-kind-toggle--6-checkbox:checked ~ .sr6-roll-popup-overlay .sr6-roll-popup-field--6,
+.sr6-roll-popup-slot-toggle--7:checked ~ .sr6-roll-popup-slot-kind-toggle--7-checkbox:checked ~ .sr6-roll-popup-overlay .sr6-roll-popup-field--7 {
+  display: grid;
+}
+
+.sr6-roll-popup-slot-toggle--1:checked ~ .sr6-roll-popup-slot-kind-toggle--1-select:checked ~ .sr6-roll-popup-overlay .sr6-roll-popup-field--1,
+.sr6-roll-popup-slot-toggle--2:checked ~ .sr6-roll-popup-slot-kind-toggle--2-select:checked ~ .sr6-roll-popup-overlay .sr6-roll-popup-field--2,
+.sr6-roll-popup-slot-toggle--3:checked ~ .sr6-roll-popup-slot-kind-toggle--3-select:checked ~ .sr6-roll-popup-overlay .sr6-roll-popup-field--3,
+.sr6-roll-popup-slot-toggle--4:checked ~ .sr6-roll-popup-slot-kind-toggle--4-select:checked ~ .sr6-roll-popup-overlay .sr6-roll-popup-field--4,
+.sr6-roll-popup-slot-toggle--5:checked ~ .sr6-roll-popup-slot-kind-toggle--5-select:checked ~ .sr6-roll-popup-overlay .sr6-roll-popup-field--5,
+.sr6-roll-popup-slot-toggle--6:checked ~ .sr6-roll-popup-slot-kind-toggle--6-select:checked ~ .sr6-roll-popup-overlay .sr6-roll-popup-field--6,
+.sr6-roll-popup-slot-toggle--7:checked ~ .sr6-roll-popup-slot-kind-toggle--7-select:checked ~ .sr6-roll-popup-overlay .sr6-roll-popup-field--7 {
+  grid-template-columns: 1fr;
+}
+
+.sr6-roll-popup-field-label,
+.sr6-roll-popup-field-input {
+  min-height: 2rem;
+  border: 0.0625rem solid var(--sr6-line-soft);
+  border-radius: 0.25rem;
+  background: #ffffff;
+  color: var(--sr6-title);
+  font-size: 0.86rem;
+  line-height: 1.2;
+}
+
+.sr6-roll-popup-field-label {
+  padding: 0.375rem 0.5rem;
+  font-weight: 700;
+}
+
+.sr6-roll-popup-field-input {
+  padding: 0.375rem 0.5rem;
+}
+
+.sr6-roll-popup-field-input--number,
+.sr6-roll-popup-field-input--text,
+.sr6-roll-popup-field-input--select,
+.sr6-roll-popup-field-input--checkbox {
+  display: none !important;
+}
+
+.sr6-roll-popup-slot-kind-toggle--1-number:checked ~ .sr6-roll-popup-overlay .sr6-roll-popup-field--1 .sr6-roll-popup-field-input--number,
+.sr6-roll-popup-slot-kind-toggle--2-number:checked ~ .sr6-roll-popup-overlay .sr6-roll-popup-field--2 .sr6-roll-popup-field-input--number,
+.sr6-roll-popup-slot-kind-toggle--3-number:checked ~ .sr6-roll-popup-overlay .sr6-roll-popup-field--3 .sr6-roll-popup-field-input--number,
+.sr6-roll-popup-slot-kind-toggle--4-number:checked ~ .sr6-roll-popup-overlay .sr6-roll-popup-field--4 .sr6-roll-popup-field-input--number,
+.sr6-roll-popup-slot-kind-toggle--5-number:checked ~ .sr6-roll-popup-overlay .sr6-roll-popup-field--5 .sr6-roll-popup-field-input--number,
+.sr6-roll-popup-slot-kind-toggle--6-number:checked ~ .sr6-roll-popup-overlay .sr6-roll-popup-field--6 .sr6-roll-popup-field-input--number,
+.sr6-roll-popup-slot-kind-toggle--7-number:checked ~ .sr6-roll-popup-overlay .sr6-roll-popup-field--7 .sr6-roll-popup-field-input--number {
+  display: block !important;
+}
+
+.sr6-roll-popup-slot-kind-toggle--1-text:checked ~ .sr6-roll-popup-overlay .sr6-roll-popup-field--1 .sr6-roll-popup-field-input--text,
+.sr6-roll-popup-slot-kind-toggle--2-text:checked ~ .sr6-roll-popup-overlay .sr6-roll-popup-field--2 .sr6-roll-popup-field-input--text,
+.sr6-roll-popup-slot-kind-toggle--3-text:checked ~ .sr6-roll-popup-overlay .sr6-roll-popup-field--3 .sr6-roll-popup-field-input--text,
+.sr6-roll-popup-slot-kind-toggle--4-text:checked ~ .sr6-roll-popup-overlay .sr6-roll-popup-field--4 .sr6-roll-popup-field-input--text,
+.sr6-roll-popup-slot-kind-toggle--5-text:checked ~ .sr6-roll-popup-overlay .sr6-roll-popup-field--5 .sr6-roll-popup-field-input--text,
+.sr6-roll-popup-slot-kind-toggle--6-text:checked ~ .sr6-roll-popup-overlay .sr6-roll-popup-field--6 .sr6-roll-popup-field-input--text,
+.sr6-roll-popup-slot-kind-toggle--7-text:checked ~ .sr6-roll-popup-overlay .sr6-roll-popup-field--7 .sr6-roll-popup-field-input--text {
+  display: block !important;
+}
+
+.sr6-roll-popup-slot-kind-toggle--1-select:checked ~ .sr6-roll-popup-overlay .sr6-roll-popup-field--1 .sr6-roll-popup-field-input--select,
+.sr6-roll-popup-slot-kind-toggle--2-select:checked ~ .sr6-roll-popup-overlay .sr6-roll-popup-field--2 .sr6-roll-popup-field-input--select,
+.sr6-roll-popup-slot-kind-toggle--3-select:checked ~ .sr6-roll-popup-overlay .sr6-roll-popup-field--3 .sr6-roll-popup-field-input--select,
+.sr6-roll-popup-slot-kind-toggle--4-select:checked ~ .sr6-roll-popup-overlay .sr6-roll-popup-field--4 .sr6-roll-popup-field-input--select,
+.sr6-roll-popup-slot-kind-toggle--5-select:checked ~ .sr6-roll-popup-overlay .sr6-roll-popup-field--5 .sr6-roll-popup-field-input--select,
+.sr6-roll-popup-slot-kind-toggle--6-select:checked ~ .sr6-roll-popup-overlay .sr6-roll-popup-field--6 .sr6-roll-popup-field-input--select,
+.sr6-roll-popup-slot-kind-toggle--7-select:checked ~ .sr6-roll-popup-overlay .sr6-roll-popup-field--7 .sr6-roll-popup-field-input--select {
+  display: none;
+}
+
+.sr6-roll-popup-slot-kind-toggle--1-select:checked ~ .sr6-roll-popup-slot-option-toggle--1-visibility:checked ~ .sr6-roll-popup-overlay .sr6-roll-popup-field--1 .sr6-roll-popup-field-input--select-visibility,
+.sr6-roll-popup-slot-kind-toggle--2-select:checked ~ .sr6-roll-popup-slot-option-toggle--2-visibility:checked ~ .sr6-roll-popup-overlay .sr6-roll-popup-field--2 .sr6-roll-popup-field-input--select-visibility,
+.sr6-roll-popup-slot-kind-toggle--3-select:checked ~ .sr6-roll-popup-slot-option-toggle--3-visibility:checked ~ .sr6-roll-popup-overlay .sr6-roll-popup-field--3 .sr6-roll-popup-field-input--select-visibility,
+.sr6-roll-popup-slot-kind-toggle--4-select:checked ~ .sr6-roll-popup-slot-option-toggle--4-visibility:checked ~ .sr6-roll-popup-overlay .sr6-roll-popup-field--4 .sr6-roll-popup-field-input--select-visibility,
+.sr6-roll-popup-slot-kind-toggle--5-select:checked ~ .sr6-roll-popup-slot-option-toggle--5-visibility:checked ~ .sr6-roll-popup-overlay .sr6-roll-popup-field--5 .sr6-roll-popup-field-input--select-visibility,
+.sr6-roll-popup-slot-kind-toggle--6-select:checked ~ .sr6-roll-popup-slot-option-toggle--6-visibility:checked ~ .sr6-roll-popup-overlay .sr6-roll-popup-field--6 .sr6-roll-popup-field-input--select-visibility,
+.sr6-roll-popup-slot-kind-toggle--7-select:checked ~ .sr6-roll-popup-slot-option-toggle--7-visibility:checked ~ .sr6-roll-popup-overlay .sr6-roll-popup-field--7 .sr6-roll-popup-field-input--select-visibility,
+.sr6-roll-popup-slot-kind-toggle--1-select:checked ~ .sr6-roll-popup-slot-option-toggle--1-movement:checked ~ .sr6-roll-popup-overlay .sr6-roll-popup-field--1 .sr6-roll-popup-field-input--select-movement,
+.sr6-roll-popup-slot-kind-toggle--2-select:checked ~ .sr6-roll-popup-slot-option-toggle--2-movement:checked ~ .sr6-roll-popup-overlay .sr6-roll-popup-field--2 .sr6-roll-popup-field-input--select-movement,
+.sr6-roll-popup-slot-kind-toggle--3-select:checked ~ .sr6-roll-popup-slot-option-toggle--3-movement:checked ~ .sr6-roll-popup-overlay .sr6-roll-popup-field--3 .sr6-roll-popup-field-input--select-movement,
+.sr6-roll-popup-slot-kind-toggle--4-select:checked ~ .sr6-roll-popup-slot-option-toggle--4-movement:checked ~ .sr6-roll-popup-overlay .sr6-roll-popup-field--4 .sr6-roll-popup-field-input--select-movement,
+.sr6-roll-popup-slot-kind-toggle--5-select:checked ~ .sr6-roll-popup-slot-option-toggle--5-movement:checked ~ .sr6-roll-popup-overlay .sr6-roll-popup-field--5 .sr6-roll-popup-field-input--select-movement,
+.sr6-roll-popup-slot-kind-toggle--6-select:checked ~ .sr6-roll-popup-slot-option-toggle--6-movement:checked ~ .sr6-roll-popup-overlay .sr6-roll-popup-field--6 .sr6-roll-popup-field-input--select-movement,
+.sr6-roll-popup-slot-kind-toggle--7-select:checked ~ .sr6-roll-popup-slot-option-toggle--7-movement:checked ~ .sr6-roll-popup-overlay .sr6-roll-popup-field--7 .sr6-roll-popup-field-input--select-movement,
+.sr6-roll-popup-slot-kind-toggle--1-select:checked ~ .sr6-roll-popup-slot-option-toggle--1-spell-range:checked ~ .sr6-roll-popup-overlay .sr6-roll-popup-field--1 .sr6-roll-popup-field-input--select-spell-range,
+.sr6-roll-popup-slot-kind-toggle--2-select:checked ~ .sr6-roll-popup-slot-option-toggle--2-spell-range:checked ~ .sr6-roll-popup-overlay .sr6-roll-popup-field--2 .sr6-roll-popup-field-input--select-spell-range,
+.sr6-roll-popup-slot-kind-toggle--3-select:checked ~ .sr6-roll-popup-slot-option-toggle--3-spell-range:checked ~ .sr6-roll-popup-overlay .sr6-roll-popup-field--3 .sr6-roll-popup-field-input--select-spell-range,
+.sr6-roll-popup-slot-kind-toggle--4-select:checked ~ .sr6-roll-popup-slot-option-toggle--4-spell-range:checked ~ .sr6-roll-popup-overlay .sr6-roll-popup-field--4 .sr6-roll-popup-field-input--select-spell-range,
+.sr6-roll-popup-slot-kind-toggle--5-select:checked ~ .sr6-roll-popup-slot-option-toggle--5-spell-range:checked ~ .sr6-roll-popup-overlay .sr6-roll-popup-field--5 .sr6-roll-popup-field-input--select-spell-range,
+.sr6-roll-popup-slot-kind-toggle--6-select:checked ~ .sr6-roll-popup-slot-option-toggle--6-spell-range:checked ~ .sr6-roll-popup-overlay .sr6-roll-popup-field--6 .sr6-roll-popup-field-input--select-spell-range,
+.sr6-roll-popup-slot-kind-toggle--7-select:checked ~ .sr6-roll-popup-slot-option-toggle--7-spell-range:checked ~ .sr6-roll-popup-overlay .sr6-roll-popup-field--7 .sr6-roll-popup-field-input--select-spell-range,
+.sr6-roll-popup-slot-kind-toggle--1-select:checked ~ .sr6-roll-popup-slot-option-toggle--1-matrix-access:checked ~ .sr6-roll-popup-overlay .sr6-roll-popup-field--1 .sr6-roll-popup-field-input--select-matrix-access,
+.sr6-roll-popup-slot-kind-toggle--2-select:checked ~ .sr6-roll-popup-slot-option-toggle--2-matrix-access:checked ~ .sr6-roll-popup-overlay .sr6-roll-popup-field--2 .sr6-roll-popup-field-input--select-matrix-access,
+.sr6-roll-popup-slot-kind-toggle--3-select:checked ~ .sr6-roll-popup-slot-option-toggle--3-matrix-access:checked ~ .sr6-roll-popup-overlay .sr6-roll-popup-field--3 .sr6-roll-popup-field-input--select-matrix-access,
+.sr6-roll-popup-slot-kind-toggle--4-select:checked ~ .sr6-roll-popup-slot-option-toggle--4-matrix-access:checked ~ .sr6-roll-popup-overlay .sr6-roll-popup-field--4 .sr6-roll-popup-field-input--select-matrix-access,
+.sr6-roll-popup-slot-kind-toggle--5-select:checked ~ .sr6-roll-popup-slot-option-toggle--5-matrix-access:checked ~ .sr6-roll-popup-overlay .sr6-roll-popup-field--5 .sr6-roll-popup-field-input--select-matrix-access,
+.sr6-roll-popup-slot-kind-toggle--6-select:checked ~ .sr6-roll-popup-slot-option-toggle--6-matrix-access:checked ~ .sr6-roll-popup-overlay .sr6-roll-popup-field--6 .sr6-roll-popup-field-input--select-matrix-access,
+.sr6-roll-popup-slot-kind-toggle--7-select:checked ~ .sr6-roll-popup-slot-option-toggle--7-matrix-access:checked ~ .sr6-roll-popup-overlay .sr6-roll-popup-field--7 .sr6-roll-popup-field-input--select-matrix-access,
+.sr6-roll-popup-slot-kind-toggle--1-select:checked ~ .sr6-roll-popup-slot-option-toggle--1-ammo:checked ~ .sr6-roll-popup-overlay .sr6-roll-popup-field--1 .sr6-roll-popup-field-input--select-ammo,
+.sr6-roll-popup-slot-kind-toggle--2-select:checked ~ .sr6-roll-popup-slot-option-toggle--2-ammo:checked ~ .sr6-roll-popup-overlay .sr6-roll-popup-field--2 .sr6-roll-popup-field-input--select-ammo,
+.sr6-roll-popup-slot-kind-toggle--3-select:checked ~ .sr6-roll-popup-slot-option-toggle--3-ammo:checked ~ .sr6-roll-popup-overlay .sr6-roll-popup-field--3 .sr6-roll-popup-field-input--select-ammo,
+.sr6-roll-popup-slot-kind-toggle--4-select:checked ~ .sr6-roll-popup-slot-option-toggle--4-ammo:checked ~ .sr6-roll-popup-overlay .sr6-roll-popup-field--4 .sr6-roll-popup-field-input--select-ammo,
+.sr6-roll-popup-slot-kind-toggle--5-select:checked ~ .sr6-roll-popup-slot-option-toggle--5-ammo:checked ~ .sr6-roll-popup-overlay .sr6-roll-popup-field--5 .sr6-roll-popup-field-input--select-ammo,
+.sr6-roll-popup-slot-kind-toggle--6-select:checked ~ .sr6-roll-popup-slot-option-toggle--6-ammo:checked ~ .sr6-roll-popup-overlay .sr6-roll-popup-field--6 .sr6-roll-popup-field-input--select-ammo,
+.sr6-roll-popup-slot-kind-toggle--7-select:checked ~ .sr6-roll-popup-slot-option-toggle--7-ammo:checked ~ .sr6-roll-popup-overlay .sr6-roll-popup-field--7 .sr6-roll-popup-field-input--select-ammo,
+.sr6-roll-popup-slot-kind-toggle--1-select:checked ~ .sr6-roll-popup-slot-option-toggle--1-melee-attribute:checked ~ .sr6-roll-popup-overlay .sr6-roll-popup-field--1 .sr6-roll-popup-field-input--select-melee-attribute,
+.sr6-roll-popup-slot-kind-toggle--2-select:checked ~ .sr6-roll-popup-slot-option-toggle--2-melee-attribute:checked ~ .sr6-roll-popup-overlay .sr6-roll-popup-field--2 .sr6-roll-popup-field-input--select-melee-attribute,
+.sr6-roll-popup-slot-kind-toggle--3-select:checked ~ .sr6-roll-popup-slot-option-toggle--3-melee-attribute:checked ~ .sr6-roll-popup-overlay .sr6-roll-popup-field--3 .sr6-roll-popup-field-input--select-melee-attribute,
+.sr6-roll-popup-slot-kind-toggle--4-select:checked ~ .sr6-roll-popup-slot-option-toggle--4-melee-attribute:checked ~ .sr6-roll-popup-overlay .sr6-roll-popup-field--4 .sr6-roll-popup-field-input--select-melee-attribute,
+.sr6-roll-popup-slot-kind-toggle--5-select:checked ~ .sr6-roll-popup-slot-option-toggle--5-melee-attribute:checked ~ .sr6-roll-popup-overlay .sr6-roll-popup-field--5 .sr6-roll-popup-field-input--select-melee-attribute,
+.sr6-roll-popup-slot-kind-toggle--6-select:checked ~ .sr6-roll-popup-slot-option-toggle--6-melee-attribute:checked ~ .sr6-roll-popup-overlay .sr6-roll-popup-field--6 .sr6-roll-popup-field-input--select-melee-attribute,
+.sr6-roll-popup-slot-kind-toggle--7-select:checked ~ .sr6-roll-popup-slot-option-toggle--7-melee-attribute:checked ~ .sr6-roll-popup-overlay .sr6-roll-popup-field--7 .sr6-roll-popup-field-input--select-melee-attribute {
+  display: block !important;
 }
 
 .sr6-roll-popup-actions {
@@ -2927,6 +3191,24 @@ body:has(.sr6-tabs-toggle-input:checked) #tab-content.tab-content,
   background: var(--sr6-line);
   color: #ffffff;
 }
+
+.sr6-roll-popup-slot-kind-toggle--1-checkbox:checked ~ .sr6-roll-popup-overlay .sr6-roll-popup-field--1 .sr6-roll-popup-field-input--checkbox,
+.sr6-roll-popup-slot-kind-toggle--2-checkbox:checked ~ .sr6-roll-popup-overlay .sr6-roll-popup-field--2 .sr6-roll-popup-field-input--checkbox,
+.sr6-roll-popup-slot-kind-toggle--3-checkbox:checked ~ .sr6-roll-popup-overlay .sr6-roll-popup-field--3 .sr6-roll-popup-field-input--checkbox,
+.sr6-roll-popup-slot-kind-toggle--4-checkbox:checked ~ .sr6-roll-popup-overlay .sr6-roll-popup-field--4 .sr6-roll-popup-field-input--checkbox,
+.sr6-roll-popup-slot-kind-toggle--5-checkbox:checked ~ .sr6-roll-popup-overlay .sr6-roll-popup-field--5 .sr6-roll-popup-field-input--checkbox,
+.sr6-roll-popup-slot-kind-toggle--6-checkbox:checked ~ .sr6-roll-popup-overlay .sr6-roll-popup-field--6 .sr6-roll-popup-field-input--checkbox,
+.sr6-roll-popup-slot-kind-toggle--7-checkbox:checked ~ .sr6-roll-popup-overlay .sr6-roll-popup-field--7 .sr6-roll-popup-field-input--checkbox {
+  display: block !important;
+}
+
+.sr6-roll-popup-field-input--checkbox {
+  width: 1.1rem;
+  height: 1.1rem;
+  justify-self: start;
+  align-self: center;
+  min-height: 0;
+}
 /* END MODULE: src/css/modules/50-overlays-and-roll20-tabs.css */
 
 /* BEGIN MODULE: src/css/modules/60-rolltemplate-sr6probe.css */
@@ -2944,16 +3226,16 @@ body:has(.sr6-tabs-toggle-input:checked) #tab-content.tab-content,
 }
 
 .sheet-rolltemplate-sr6probe .sheet-sr6probe__header {
-  background: #ffffff;
-  color: #840763;
+  background: #840763;
+  color: #ffffff;
   font-weight: 700;
   font-size: 1rem;
   padding: 0.375rem 0.5rem;
 }
 
 .sheet-sr6probe__header {
-  background: #ffffff;
-  color: #840763;
+  background: #840763;
+  color: #ffffff;
   font-weight: 700;
   font-size: 1rem;
   padding: 0.375rem 0.5rem;
@@ -3021,8 +3303,8 @@ body:has(.sr6-tabs-toggle-input:checked) #tab-content.tab-content,
 }
 
 .sheet-darkmode .sheet-rolltemplate-sr6probe .sheet-sr6probe__header {
-  background: #ffffff;
-  color: #840763;
+  background: #840763;
+  color: #ffffff;
 }
 
 .sheet-darkmode .sheet-rolltemplate-sr6probe .sheet-sr6probe__row,
@@ -3044,8 +3326,12 @@ body.sheet-darkmode .sheet-rolltemplate-sr6probe .sheet-sr6probe {
 body.sheet-darkmode .sheet-rolltemplate-sr6probe .sheet-sr6probe__header,
 body.sheet-darkmode .sheet-rolltemplate-sr6probe .sheet-sr6probe__row,
 body.sheet-darkmode .sheet-rolltemplate-sr6probe .sheet-sr6probe__row:nth-child(odd) {
-  background: #ffffff;
   color: #840763;
+}
+
+body.sheet-darkmode .sheet-rolltemplate-sr6probe .sheet-sr6probe__header {
+  background: #840763;
+  color: #ffffff;
 }
 
 body.sheet-darkmode .sheet-rolltemplate-sr6probe .sheet-sr6probe__label,
@@ -3107,6 +3393,19 @@ body.sheet-darkmode .sheet-rolltemplate-sr6probe .sheet-sr6probe__value {
 .sheet-sr6probe .inlinerollresult.showtip.tipsy-n-right {
   background-color: transparent;
   border: none;
+}
+
+.sheet-rolltemplate-sr6probe .sheet-sr6probe__details-toggle summary,
+.sheet-sr6probe__details-toggle summary {
+  cursor: pointer;
+  font-weight: 700;
+  color: #840763;
+}
+
+.sheet-rolltemplate-sr6probe .sheet-sr6probe__calc,
+.sheet-sr6probe__calc {
+  margin-top: 0.25rem;
+  color: #111111;
 }
 /* END MODULE: SR6 Probe Rolltemplate */
 /* END MODULE: src/css/modules/60-rolltemplate-sr6probe.css */

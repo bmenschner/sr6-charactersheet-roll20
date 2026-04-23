@@ -23,34 +23,40 @@
     </div>
     <!-- END BLOCK: Zeile 1 -->
 
+    <div class="sr6-charactersheet-row sr6-charactersheet-row-1">
+      <div class="sr6-charactersheet-field">
+        <span class="sr6-kampf-section-label" data-i18n="field.wuerfelpool">Würfelpool</span>
+      </div>
+    </div>
+
     <!-- BEGIN BLOCK: Zeile 2 -->
     <div class="sr6-charactersheet-row sr6-charactersheet-row-4">
       <div class="sr6-charactersheet-field">
         <span data-i18n="field.fernkampfangriff">Fernkampfangriff</span>
         <div class="sr6-charactersheet-field-input-with-dice">
-          <input type="text" name="attr_sr6_combat_fernkampfangriff" /><button
+          <input type="number" name="attr_sr6_combat_fernkampfangriff_gesamtwert" readonly /><button
             type="action"
             class="sr6-charactersheet-field-dice-button"
             name="act_probe"
-            value="&{template:default} {{name=Kampf: Kernwerte}} {{Wert=Fernkampfangriff}} {{Pool=[[@{sr6_combat_fernkampfangriff}]]}} {{Erfolge=[[@{sr6_combat_fernkampfangriff}d6>5]]}}"
+            value="&{template:default} {{name=Kampf: Kernwerte}} {{Wert=Fernkampfangriff}} {{Pool=[[@{sr6_combat_fernkampfangriff_gesamtwert}]]}} {{Erfolge=[[@{sr6_combat_fernkampfangriff_gesamtwert}d6>5]]}}"
             aria-label="Wuerfeln"></button>
         </div>
       </div>
       <div class="sr6-charactersheet-field">
         <span data-i18n="field.nahkampfangriff">Nahkampfangriff</span>
         <div class="sr6-charactersheet-field-input-with-dice">
-          <input type="text" name="attr_sr6_combat_nahkampfangriff" /><button
+          <input type="number" name="attr_sr6_combat_nahkampfangriff_gesamtwert" readonly /><button
             type="action"
             class="sr6-charactersheet-field-dice-button"
             name="act_probe"
-            value="&{template:default} {{name=Kampf: Kernwerte}} {{Wert=Nahkampfangriff}} {{Pool=[[@{sr6_combat_nahkampfangriff}]]}} {{Erfolge=[[@{sr6_combat_nahkampfangriff}d6>5]]}}"
+            value="&{template:default} {{name=Kampf: Kernwerte}} {{Wert=Nahkampfangriff}} {{Pool=[[@{sr6_combat_nahkampfangriff_gesamtwert}]]}} {{Erfolge=[[@{sr6_combat_nahkampfangriff_gesamtwert}d6>5]]}}"
             aria-label="Wuerfeln"></button>
         </div>
       </div>
       <div class="sr6-charactersheet-field">
         <span data-i18n="field.verteidigung_physisch">Verteidigung (Physisch)</span>
         <div class="sr6-charactersheet-field-input-with-dice">
-          <input type="text" name="attr_sr6_verteidigung_physisch_gesamtwert" /><button
+          <input type="number" name="attr_sr6_verteidigung_physisch_gesamtwert" readonly /><button
             type="action"
             class="sr6-charactersheet-field-dice-button"
             name="act_probe"
@@ -61,7 +67,7 @@
       <div class="sr6-charactersheet-field">
         <span data-i18n="field.schadenswiderstand_physisch">Schadenswiderstand (Physisch)</span>
         <div class="sr6-charactersheet-field-input-with-dice">
-          <input type="text" name="attr_sr6_schadenswiderstand_physisch_gesamtwert" /><button
+          <input type="number" name="attr_sr6_schadenswiderstand_physisch_gesamtwert" readonly /><button
             type="action"
             class="sr6-charactersheet-field-dice-button"
             name="act_probe"
@@ -72,27 +78,33 @@
     </div>
     <!-- END BLOCK: Zeile 2 -->
 
+    <div class="sr6-charactersheet-row sr6-charactersheet-row-1">
+      <div class="sr6-charactersheet-field">
+        <span class="sr6-kampf-section-label" data-i18n="field.vergleichswert">Vergleichswert</span>
+      </div>
+    </div>
+
     <!-- BEGIN BLOCK: Zeile 3 -->
     <div class="sr6-charactersheet-row sr6-charactersheet-row-5">
       <div class="sr6-charactersheet-field">
         <span data-i18n="field.verteidigungswert">Verteidigungswert</span>
-        <input type="text" name="attr_sr6_combat_verteidigungswert" />
+        <input type="number" name="attr_sr6_combat_verteidigungswert_gesamtwert" readonly />
       </div>
       <div class="sr6-charactersheet-field">
         <span data-i18n="field.primaere_panzerung">Primäre Panzerung</span>
-        <input type="text" name="attr_sr6_combat_primaere_panzerung" />
+        <input type="text" name="attr_sr6_combat_primaere_panzerung_name" readonly />
       </div>
       <div class="sr6-charactersheet-field">
         <span data-i18n="field.sekundaere_panzerung">Sekundäre Panzerung</span>
-        <input type="text" name="attr_sr6_combat_sekundaere_panzerung" />
+        <input type="text" name="attr_sr6_combat_sekundaere_panzerung_name" readonly />
       </div>
       <div class="sr6-charactersheet-field">
         <span data-i18n="field.helm">Helm</span>
-        <input type="text" name="attr_sr6_combat_helm" />
+        <input type="text" name="attr_sr6_combat_helm_name" readonly />
       </div>
       <div class="sr6-charactersheet-field">
         <span data-i18n="field.schild">Schild</span>
-        <input type="text" name="attr_sr6_combat_schild" />
+        <input type="text" name="attr_sr6_combat_schild_name" readonly />
       </div>
     </div>
     <!-- END BLOCK: Zeile 3 -->

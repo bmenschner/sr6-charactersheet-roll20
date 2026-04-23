@@ -56,7 +56,7 @@
         <div class="sr6-foundry-item-row sr6-charactersheet-row sr6-charactersheet-row-5">
           <div class="sr6-charactersheet-field">
             <span data-i18n="field.schaden">Schaden</span>
-            <input type="text" name="attr_sr6_fernkampf_schaden" />
+            <input type="number" name="attr_sr6_fernkampf_schaden" />
           </div>
 
           <div class="sr6-charactersheet-field">
@@ -87,12 +87,18 @@
 
           <div class="sr6-charactersheet-field">
             <span data-i18n="field.magazin">Magazin</span>
-            <input type="text" name="attr_sr6_fernkampf_magazin" />
+            <input type="number" name="attr_sr6_fernkampf_magazin" />
           </div>
 
           <div class="sr6-charactersheet-field">
             <span data-i18n="field.ersatzmagazine">Ersatzmagazine</span>
-            <input type="text" name="attr_sr6_fernkampf_ersatzmagazine" />
+            <input type="number" name="attr_sr6_fernkampf_ersatzmagazine" />
+          </div>
+        </div>
+
+        <div class="sr6-foundry-item-row sr6-charactersheet-row sr6-charactersheet-row-1">
+          <div class="sr6-charactersheet-field">
+            <span class="sr6-foundry-item-section-label" data-i18n="field.angriffswerte_reichweite">Angriffswerte (Reichweite)</span>
           </div>
         </div>
 
@@ -100,11 +106,11 @@
           <div class="sr6-charactersheet-field">
             <span data-i18n="field.s_nah">S. Nah</span>
             <div class="sr6-charactersheet-field-input-with-dice">
-              <input type="text" name="attr_sr6_fernkampf_s_nah" /><button
+              <input type="number" name="attr_sr6_fernkampf_s_nah" /><button
                 type="action"
                 class="sr6-charactersheet-field-dice-button"
                 name="act_probe"
-                value="&{template:default} {{name=Fernkampf-Test}} {{Waffe=@{sr6_fernkampfwaffe}}} {{Schadenswert=@{sr6_fernkampf_schaden}}} {{Munition=@{sr6_fernkampf_munition}}} {{Reichweite=S. Nah}} {{Pool=[[@{sr6_fernkampf_s_nah}]]}} {{Erfolge=[[@{sr6_fernkampf_s_nah}d6>5]]}}"
+                value="&{template:default} {{name=Fernkampf-Test}} {{Waffe=@{sr6_fernkampfwaffe}}} {{Fertigkeit=@{sr6_fernkampf_fertigkeit}}} {{Schadenswert=@{sr6_fernkampf_schaden}}} {{Munition=@{sr6_fernkampf_munition}}} {{Reichweite=S. Nah}} {{Pool=[[@{sr6_fernkampf_s_nah}]]}} {{Erfolge=[[@{sr6_fernkampf_s_nah}d6>5]]}}"
                 aria-label="Wuerfeln"></button>
             </div>
           </div>
@@ -112,11 +118,11 @@
           <div class="sr6-charactersheet-field">
             <span data-i18n="field.nah">Nah</span>
             <div class="sr6-charactersheet-field-input-with-dice">
-              <input type="text" name="attr_sr6_fernkampf_nah" /><button
+              <input type="number" name="attr_sr6_fernkampf_nah" /><button
                 type="action"
                 class="sr6-charactersheet-field-dice-button"
                 name="act_probe"
-                value="&{template:default} {{name=Fernkampf-Test}} {{Waffe=@{sr6_fernkampfwaffe}}} {{Schadenswert=@{sr6_fernkampf_schaden}}} {{Munition=@{sr6_fernkampf_munition}}} {{Reichweite=Nah}} {{Pool=[[@{sr6_fernkampf_nah}]]}} {{Erfolge=[[@{sr6_fernkampf_nah}d6>5]]}}"
+                value="&{template:default} {{name=Fernkampf-Test}} {{Waffe=@{sr6_fernkampfwaffe}}} {{Fertigkeit=@{sr6_fernkampf_fertigkeit}}} {{Schadenswert=@{sr6_fernkampf_schaden}}} {{Munition=@{sr6_fernkampf_munition}}} {{Reichweite=Nah}} {{Pool=[[@{sr6_fernkampf_nah}]]}} {{Erfolge=[[@{sr6_fernkampf_nah}d6>5]]}}"
                 aria-label="Wuerfeln"></button>
             </div>
           </div>
@@ -124,11 +130,11 @@
           <div class="sr6-charactersheet-field">
             <span data-i18n="field.mittel">Mittel</span>
             <div class="sr6-charactersheet-field-input-with-dice">
-              <input type="text" name="attr_sr6_fernkampf_mittel" /><button
+              <input type="number" name="attr_sr6_fernkampf_mittel" /><button
                 type="action"
                 class="sr6-charactersheet-field-dice-button"
                 name="act_probe"
-                value="&{template:default} {{name=Fernkampf-Test}} {{Waffe=@{sr6_fernkampfwaffe}}} {{Schadenswert=@{sr6_fernkampf_schaden}}} {{Munition=@{sr6_fernkampf_munition}}} {{Reichweite=Mittel}} {{Pool=[[@{sr6_fernkampf_mittel}]]}} {{Erfolge=[[@{sr6_fernkampf_mittel}d6>5]]}}"
+                value="&{template:default} {{name=Fernkampf-Test}} {{Waffe=@{sr6_fernkampfwaffe}}} {{Fertigkeit=@{sr6_fernkampf_fertigkeit}}} {{Schadenswert=@{sr6_fernkampf_schaden}}} {{Munition=@{sr6_fernkampf_munition}}} {{Reichweite=Mittel}} {{Pool=[[@{sr6_fernkampf_mittel}]]}} {{Erfolge=[[@{sr6_fernkampf_mittel}d6>5]]}}"
                 aria-label="Wuerfeln"></button>
             </div>
           </div>
@@ -136,11 +142,11 @@
           <div class="sr6-charactersheet-field">
             <span data-i18n="field.weit">Weit</span>
             <div class="sr6-charactersheet-field-input-with-dice">
-              <input type="text" name="attr_sr6_fernkampf_weit" /><button
+              <input type="number" name="attr_sr6_fernkampf_weit" /><button
                 type="action"
                 class="sr6-charactersheet-field-dice-button"
                 name="act_probe"
-                value="&{template:default} {{name=Fernkampf-Test}} {{Waffe=@{sr6_fernkampfwaffe}}} {{Schadenswert=@{sr6_fernkampf_schaden}}} {{Munition=@{sr6_fernkampf_munition}}} {{Reichweite=Weit}} {{Pool=[[@{sr6_fernkampf_weit}]]}} {{Erfolge=[[@{sr6_fernkampf_weit}d6>5]]}}"
+                value="&{template:default} {{name=Fernkampf-Test}} {{Waffe=@{sr6_fernkampfwaffe}}} {{Fertigkeit=@{sr6_fernkampf_fertigkeit}}} {{Schadenswert=@{sr6_fernkampf_schaden}}} {{Munition=@{sr6_fernkampf_munition}}} {{Reichweite=Weit}} {{Pool=[[@{sr6_fernkampf_weit}]]}} {{Erfolge=[[@{sr6_fernkampf_weit}d6>5]]}}"
                 aria-label="Wuerfeln"></button>
             </div>
           </div>
@@ -148,14 +154,21 @@
           <div class="sr6-charactersheet-field">
             <span data-i18n="field.s_weit">S. Weit</span>
             <div class="sr6-charactersheet-field-input-with-dice">
-              <input type="text" name="attr_sr6_fernkampf_s_weit" /><button
+              <input type="number" name="attr_sr6_fernkampf_s_weit" /><button
                 type="action"
                 class="sr6-charactersheet-field-dice-button"
                 name="act_probe"
-                value="&{template:default} {{name=Fernkampf-Test}} {{Waffe=@{sr6_fernkampfwaffe}}} {{Schadenswert=@{sr6_fernkampf_schaden}}} {{Munition=@{sr6_fernkampf_munition}}} {{Reichweite=S. Weit}} {{Pool=[[@{sr6_fernkampf_s_weit}]]}} {{Erfolge=[[@{sr6_fernkampf_s_weit}d6>5]]}}"
+                value="&{template:default} {{name=Fernkampf-Test}} {{Waffe=@{sr6_fernkampfwaffe}}} {{Fertigkeit=@{sr6_fernkampf_fertigkeit}}} {{Schadenswert=@{sr6_fernkampf_schaden}}} {{Munition=@{sr6_fernkampf_munition}}} {{Reichweite=S. Weit}} {{Pool=[[@{sr6_fernkampf_s_weit}]]}} {{Erfolge=[[@{sr6_fernkampf_s_weit}d6>5]]}}"
                 aria-label="Wuerfeln"></button>
             </div>
           </div>
+        </div>
+
+        <div class="sr6-foundry-item-footer sr6-charactersheet-row sr6-charactersheet-row-2">
+          <label class="sr6-kampf-selection-toggle">
+            <input type="checkbox" name="attr_sr6_fernkampf_ist_primaer" value="1" />
+            <span data-i18n="field.primaere_fernkampfwaffe">Primäre Fernkampfwaffe</span>
+          </label>
         </div>
 
         <div class="sr6-foundry-item-footer sr6-charactersheet-row sr6-charactersheet-row-1">
