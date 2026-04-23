@@ -16,9 +16,10 @@
   Aktueller Stand: gemeinsamer `skill_probe`-Builder traegt jetzt Basisfertigkeiten, Wissens-/Sprachfertigkeiten sowie Soft-Faelle.
   Offen bleibt: pruefen, welche heutigen Spezialfaelle spaeter noch einen echten eigenen Modellpfad brauchen und welche beim `skill_probe` bleiben koennen.
 - [ ] `defense_probe` als wiederverwendbares Modell formulieren, das je Tab andere Feldquellen lesen kann
-  Aktueller Stand: gemeinsamer Builder fuer physische Kampf-Faelle ist vorhanden; erste Mappings fuer Matrix-/Rigging-Defensivfaelle und astrale Magie-Faelle sind im Code angelegt.
+  Aktueller Stand: gemeinsamer Builder fuer physische Kampf-Faelle ist vorhanden; allgemeine Verteidigungs-/Widerstandsfaelle sowie Matrix-/Rigging-Defensivfaelle und astrale Magie-Faelle sind im Code angelegt.
 - [ ] `combat_attack_probe` weiter von Altdefinitionen entkoppeln und als klares Referenzmodell dokumentieren
 - [ ] Generische Altpfade wie `value`, `weapon` und `fallback` nur noch als technisches Sicherheitsnetz behandeln
+  Aktueller Stand: `magic_value`, `matrix_value` und `rigging_value` greifen jetzt als explizite `value_probe`-Pfade fuer ihre Kernwertwuerfe; der verbleibende generische `value`-Pfad ist damit kleiner geworden.
 - [ ] `Allgemein` nicht mehr als eigenes Popup-/Rolltemplate-Ziel behandeln, sondern nur als Spiegel/Ansicht
 
 ## Folgearbeiten nach dem aktuellen Refactor
@@ -30,3 +31,6 @@
 - [ ] Repeating-Waffenwerte darauf pruefen, welche Felder eigene Dreiklaenge benoetigen; `Schaden` ist gesetzt, `Angriffswert` bleibt aktuell reichweitenabhaengig
 - [ ] Popup-Profile nach finaler Wertetyp-Klassifikation und Probenmodell je Rollart nachziehen
 - [ ] Pruefen, welche Einzelwerte in `Magie`, `Matrix`, `Rigging`, `Ausruestung` und `Leben` wirklich numerische Primarwerte sind
+  Aktueller Stand: numerische Kernwert-Inputs in `Magie`, `Matrix` und `Rigging` werden schrittweise vom alten `text`-Format auf `number` umgestellt.
+- [ ] Verbleibende generische Fallback-Proben weiter auf explizite Fachmodelle ziehen
+  Aktueller Stand: die generischen Restfaelle werden schrittweise fachlich geprueft; Rituale bleiben vorerst reine Datenfelder ohne Wuerfel.

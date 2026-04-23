@@ -351,6 +351,21 @@ function createDefenseProbeDefinition(config) {
   };
 }
 
+function createValueProbeDefinition(config = {}) {
+  return {
+    probeModel: "value_probe",
+    matchField: config.matchField === undefined ? "Wert" : config.matchField,
+    matchPoolPrefix: config.matchPoolPrefix || "",
+    titleMode: config.titleMode || "pool-prefix",
+    titleField: config.titleField || "",
+    primaryFields: config.primaryFields || ["Wert"],
+    extraFields: config.extraFields || [],
+    popupFields: config.popupFields || SR6_DEFAULT_POPUP_FIELDS,
+    fixedTitle: config.fixedTitle || "",
+    titleFallback: config.titleFallback || "Probe",
+  };
+}
+
 const SR6_ROLL_DEFINITIONS = [
   {
     id: "attribute",
@@ -461,6 +476,14 @@ const SR6_ROLL_DEFINITIONS = [
     }),
   },
   {
+    id: "magic_value",
+    ...createValueProbeDefinition({
+      matchField: "",
+      matchPoolPrefix: "sr6_magic_",
+      titleFallback: "Magie: Kernwerte",
+    }),
+  },
+  {
     id: "matrix_action",
     matchField: "Handlung",
     matchPoolPrefix: "sr6_matrix_handlung_",
@@ -526,34 +549,45 @@ const SR6_ROLL_DEFINITIONS = [
   },
   {
     id: "matrix_value",
-    matchField: "Wert",
-    matchPoolPrefix: "sr6_matrix_",
-    titleMode: "pool-prefix",
-    primaryFields: ["Wert"],
-    extraFields: [],
-    popupFields: [
-      SR6_DEFAULT_POPUP_FIELDS[0],
-      {
-        id: "matrix_access",
-        slot: 2,
-        label: "Zugriff",
-        type: "select",
-        optionSet: "matrix_access",
-        affects: "display",
-        includeInTemplate: true,
-        defaultValue: "Benutzer",
-      },
-      {
-        id: "matrix_overwatch",
-        slot: 3,
-        label: "Overwatch-Modifikator",
-        type: "number",
-        affects: "display",
-        includeInTemplate: true,
-        defaultValue: "0",
-      },
-    ],
-    titleFallback: "Matrix: Kernwerte",
+    ...createValueProbeDefinition({
+      matchPoolPrefix: "sr6_matrix_",
+      popupFields: [
+        SR6_DEFAULT_POPUP_FIELDS[0],
+        {
+          id: "matrix_access",
+          slot: 2,
+          label: "Zugriff",
+          type: "select",
+          optionSet: "matrix_access",
+          affects: "display",
+          includeInTemplate: true,
+          defaultValue: "Benutzer",
+        },
+        {
+          id: "matrix_overwatch",
+          slot: 3,
+          label: "Overwatch-Modifikator",
+          type: "number",
+          affects: "display",
+          includeInTemplate: true,
+          defaultValue: "0",
+        },
+      ],
+      titleFallback: "Matrix: Kernwerte",
+    }),
+  },
+  {
+    id: "rigging_value",
+    ...createValueProbeDefinition({
+      matchPoolPrefix: "sr6_rigging_",
+      titleFallback: "Rigging: Kernwerte",
+    }),
+  },
+  {
+    id: "value",
+    ...createValueProbeDefinition({
+      titleFallback: "Probe",
+    }),
   },
   {
     id: "rigging_matrix_defense",
@@ -657,13 +691,24 @@ const SR6_ROLL_DEFINITIONS = [
     }),
   },
   {
-    id: "value",
-    matchField: "Wert",
-    titleMode: "pool-prefix",
-    primaryFields: ["Wert"],
-    extraFields: [],
-    popupFields: SR6_DEFAULT_POPUP_FIELDS,
-    titleFallback: "Probe",
+    id: "general_defense",
+    ...createDefenseProbeDefinition({
+      matchPoolPrefix: "sr6_verteidigung_",
+      primaryContextLabel: "Verteidigung",
+      comparisonContextLabel: "Verteidigungswert",
+      comparisonContextSourceAttr: "sr6_combat_verteidigungswert_gesamtwert",
+      titleFallback: "Verteidigung",
+    }),
+  },
+  {
+    id: "general_damage_resistance",
+    ...createDefenseProbeDefinition({
+      matchPoolPrefix: "sr6_schadenswiderstand_",
+      primaryContextLabel: "Schadenswiderstand",
+      comparisonContextLabel: "Verteidigungswert",
+      comparisonContextSourceAttr: "sr6_combat_verteidigungswert_gesamtwert",
+      titleFallback: "Schadenswiderstand",
+    }),
   },
   {
     id: "combat_ranged_weapon",
