@@ -58,6 +58,10 @@ const SR6_POPUP_SELECT_OPTION_SETS = {
     { value: "Admin", label: "Admin", rowValue: "Admin" },
     { value: "Root", label: "Root", rowValue: "Root" },
   ],
+  melee_attribute: [
+    { value: "Geschicklichkeit", label: "Geschicklichkeit", rowValue: "Geschicklichkeit" },
+    { value: "Stärke", label: "Stärke", rowValue: "Stärke" },
+  ],
   ammo: [
     { value: "Standard", label: "Standard", rowValue: "Standard" },
     { value: "Huelsenlos", label: "Hülsenlos", rowValue: "Hülsenlos" },
@@ -290,6 +294,50 @@ function createCombatTabPopupFields() {
 }
 
 const SR6_COMBAT_TAB_POPUP_FIELDS = createCombatTabPopupFields();
+
+function createCombatMeleePopupFields(attributeSourceAttr) {
+  return [
+    {
+      id: "skill_mod",
+      slot: 1,
+      label: "Skill-Modifikator",
+      type: "number",
+      affects: "pool",
+      includeInTemplate: true,
+      defaultValue: "0",
+    },
+    {
+      id: "attribute_context",
+      slot: 2,
+      label: "Attribut",
+      type: "select",
+      optionSet: "melee_attribute",
+      sourceAttr: attributeSourceAttr,
+      affects: "display",
+      includeInTemplate: true,
+      defaultValue: "Geschicklichkeit",
+    },
+    {
+      id: "attack_value_mod",
+      slot: 3,
+      label: "Angriffswert-Modifikator",
+      type: "number",
+      affects: "attack_value",
+      includeInTemplate: true,
+      defaultValue: "0",
+    },
+    {
+      id: "damage_mod",
+      slot: 4,
+      label: "Schadens-Modifikator",
+      type: "number",
+      affects: "damage",
+      includeInTemplate: true,
+      defaultValue: "0",
+    },
+    ...createSpecializationPopupFields(5),
+  ];
+}
 
 function createDefenseProbePopupFields(config) {
   const primaryContextLabel = config.primaryContextLabel || config.primaryLabel || "Wert";
@@ -680,11 +728,16 @@ const SR6_ROLL_DEFINITIONS = [
     contextFields: [
       { label: "Waffe", attr: "sr6_combat_primaere_nahkampfwaffe" },
       { label: "Fertigkeit", attr: "sr6_combat_nahkampf_fertigkeit" },
-      { label: "Munition", attr: "sr6_combat_munition" },
+      { label: "Attribut", attr: "sr6_combat_nahkampf_attribut" },
+      { label: "Geschicklichkeit-Wert", attr: "sr6_attr_geschicklichkeit_gesamtwert" },
+      { label: "Stärke-Wert", attr: "sr6_attr_staerke_gesamtwert" },
       { label: "Schadenswert", attr: "sr6_combat_nahkampf_schaden" },
+      { label: "Schadenstyp", attr: "sr6_combat_nahkampf_schadentyp" },
     ],
     fixedTitle: "Nahkampfangriff",
-    popupFields: SR6_COMBAT_TAB_POPUP_FIELDS,
+    popupFields: createCombatMeleePopupFields("sr6_combat_nahkampf_attribut"),
+    popupPoolAttributeOverride: "melee_attribute",
+    internalFields: ["Geschicklichkeit-Wert", "Stärke-Wert"],
     popupDerivedResults: [
       { kind: "attack_value", label: "Angriffswert", source: "pool" },
       { kind: "damage", label: "Schaden", sourceAttr: "sr6_combat_nahkampf_schaden" },
@@ -759,10 +812,20 @@ const SR6_ROLL_DEFINITIONS = [
     matchPoolPrefix: "sr6_combat_nahkampf_",
     titleMode: "pool-prefix",
     primaryFields: ["Waffe"],
-    extraFields: ["Schadenswert", "Reichweite"],
+    extraFields: ["Fertigkeit", "Attribut", "Schadenswert", "Schadenstyp", "Reichweite"],
     templateVariant: "weapon",
+    contextFields: [
+      { label: "Fertigkeit", attr: "sr6_combat_nahkampf_fertigkeit" },
+      { label: "Attribut", attr: "sr6_combat_nahkampf_attribut" },
+      { label: "Geschicklichkeit-Wert", attr: "sr6_attr_geschicklichkeit_gesamtwert" },
+      { label: "Stärke-Wert", attr: "sr6_attr_staerke_gesamtwert" },
+      { label: "Schadenswert", attr: "sr6_combat_nahkampf_schaden" },
+      { label: "Schadenstyp", attr: "sr6_combat_nahkampf_schadentyp" },
+    ],
     fixedTitle: "Nahkampfangriff",
-    popupFields: SR6_COMBAT_TAB_POPUP_FIELDS,
+    popupFields: createCombatMeleePopupFields("sr6_combat_nahkampf_attribut"),
+    popupPoolAttributeOverride: "melee_attribute",
+    internalFields: ["Geschicklichkeit-Wert", "Stärke-Wert"],
     popupDerivedResults: [
       {
         kind: "attack_value",
@@ -803,10 +866,20 @@ const SR6_ROLL_DEFINITIONS = [
     titleMode: "field-short",
     titleField: "Fertigkeit",
     primaryFields: ["Waffe"],
-    extraFields: ["Fertigkeit", "Schadenswert", "Reichweite"],
+    extraFields: ["Fertigkeit", "Attribut", "Schadenswert", "Schadenstyp", "Reichweite"],
     templateVariant: "weapon",
+    contextFields: [
+      { label: "Fertigkeit", attr: "sr6_nahkampf_fertigkeit" },
+      { label: "Attribut", attr: "sr6_nahkampf_attribut" },
+      { label: "Geschicklichkeit-Wert", attr: "sr6_attr_geschicklichkeit_gesamtwert" },
+      { label: "Stärke-Wert", attr: "sr6_attr_staerke_gesamtwert" },
+      { label: "Schadenswert", attr: "sr6_nahkampf_schaden" },
+      { label: "Schadenstyp", attr: "sr6_nahkampf_schadentyp" },
+    ],
     fixedTitle: "Nahkampfangriff",
-    popupFields: SR6_COMBAT_TAB_POPUP_FIELDS,
+    popupFields: createCombatMeleePopupFields("sr6_nahkampf_attribut"),
+    popupPoolAttributeOverride: "melee_attribute",
+    internalFields: ["Geschicklichkeit-Wert", "Stärke-Wert"],
     popupDerivedResults: [
       {
         kind: "attack_value",
@@ -994,6 +1067,7 @@ function getPopupSelectOptions(field) {
 function buildPopupStateFromValues(values, definition) {
   const popupFields = getRollPopupFields(definition);
   const popupRows = [];
+  const selectedValues = {};
   let poolMod = 0;
   let attackValueMod = 0;
   let damageMod = 0;
@@ -1025,6 +1099,10 @@ function buildPopupStateFromValues(values, definition) {
       : field.affects
         ? [field.affects]
         : [];
+
+    if (field.id) {
+      selectedValues[field.id] = normalizedValue;
+    }
 
     if (affects.includes("pool")) {
       poolMod += isNumberField
@@ -1081,6 +1159,7 @@ function buildPopupStateFromValues(values, definition) {
     poolMod: poolMod,
     attackValueMod: attackValueMod,
     damageMod: damageMod,
+    selectedValues: selectedValues,
     rows: popupRows,
   };
 }

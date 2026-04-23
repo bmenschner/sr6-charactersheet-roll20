@@ -190,6 +190,10 @@ const SR6_POPUP_SELECT_OPTION_SETS = {
     { value: "Admin", label: "Admin", rowValue: "Admin" },
     { value: "Root", label: "Root", rowValue: "Root" },
   ],
+  melee_attribute: [
+    { value: "Geschicklichkeit", label: "Geschicklichkeit", rowValue: "Geschicklichkeit" },
+    { value: "Stärke", label: "Stärke", rowValue: "Stärke" },
+  ],
   ammo: [
     { value: "Standard", label: "Standard", rowValue: "Standard" },
     { value: "Huelsenlos", label: "Hülsenlos", rowValue: "Hülsenlos" },
@@ -422,6 +426,50 @@ function createCombatTabPopupFields() {
 }
 
 const SR6_COMBAT_TAB_POPUP_FIELDS = createCombatTabPopupFields();
+
+function createCombatMeleePopupFields(attributeSourceAttr) {
+  return [
+    {
+      id: "skill_mod",
+      slot: 1,
+      label: "Skill-Modifikator",
+      type: "number",
+      affects: "pool",
+      includeInTemplate: true,
+      defaultValue: "0",
+    },
+    {
+      id: "attribute_context",
+      slot: 2,
+      label: "Attribut",
+      type: "select",
+      optionSet: "melee_attribute",
+      sourceAttr: attributeSourceAttr,
+      affects: "display",
+      includeInTemplate: true,
+      defaultValue: "Geschicklichkeit",
+    },
+    {
+      id: "attack_value_mod",
+      slot: 3,
+      label: "Angriffswert-Modifikator",
+      type: "number",
+      affects: "attack_value",
+      includeInTemplate: true,
+      defaultValue: "0",
+    },
+    {
+      id: "damage_mod",
+      slot: 4,
+      label: "Schadens-Modifikator",
+      type: "number",
+      affects: "damage",
+      includeInTemplate: true,
+      defaultValue: "0",
+    },
+    ...createSpecializationPopupFields(5),
+  ];
+}
 
 function createDefenseProbePopupFields(config) {
   const primaryContextLabel = config.primaryContextLabel || config.primaryLabel || "Wert";
@@ -812,11 +860,16 @@ const SR6_ROLL_DEFINITIONS = [
     contextFields: [
       { label: "Waffe", attr: "sr6_combat_primaere_nahkampfwaffe" },
       { label: "Fertigkeit", attr: "sr6_combat_nahkampf_fertigkeit" },
-      { label: "Munition", attr: "sr6_combat_munition" },
+      { label: "Attribut", attr: "sr6_combat_nahkampf_attribut" },
+      { label: "Geschicklichkeit-Wert", attr: "sr6_attr_geschicklichkeit_gesamtwert" },
+      { label: "Stärke-Wert", attr: "sr6_attr_staerke_gesamtwert" },
       { label: "Schadenswert", attr: "sr6_combat_nahkampf_schaden" },
+      { label: "Schadenstyp", attr: "sr6_combat_nahkampf_schadentyp" },
     ],
     fixedTitle: "Nahkampfangriff",
-    popupFields: SR6_COMBAT_TAB_POPUP_FIELDS,
+    popupFields: createCombatMeleePopupFields("sr6_combat_nahkampf_attribut"),
+    popupPoolAttributeOverride: "melee_attribute",
+    internalFields: ["Geschicklichkeit-Wert", "Stärke-Wert"],
     popupDerivedResults: [
       { kind: "attack_value", label: "Angriffswert", source: "pool" },
       { kind: "damage", label: "Schaden", sourceAttr: "sr6_combat_nahkampf_schaden" },
@@ -891,10 +944,20 @@ const SR6_ROLL_DEFINITIONS = [
     matchPoolPrefix: "sr6_combat_nahkampf_",
     titleMode: "pool-prefix",
     primaryFields: ["Waffe"],
-    extraFields: ["Schadenswert", "Reichweite"],
+    extraFields: ["Fertigkeit", "Attribut", "Schadenswert", "Schadenstyp", "Reichweite"],
     templateVariant: "weapon",
+    contextFields: [
+      { label: "Fertigkeit", attr: "sr6_combat_nahkampf_fertigkeit" },
+      { label: "Attribut", attr: "sr6_combat_nahkampf_attribut" },
+      { label: "Geschicklichkeit-Wert", attr: "sr6_attr_geschicklichkeit_gesamtwert" },
+      { label: "Stärke-Wert", attr: "sr6_attr_staerke_gesamtwert" },
+      { label: "Schadenswert", attr: "sr6_combat_nahkampf_schaden" },
+      { label: "Schadenstyp", attr: "sr6_combat_nahkampf_schadentyp" },
+    ],
     fixedTitle: "Nahkampfangriff",
-    popupFields: SR6_COMBAT_TAB_POPUP_FIELDS,
+    popupFields: createCombatMeleePopupFields("sr6_combat_nahkampf_attribut"),
+    popupPoolAttributeOverride: "melee_attribute",
+    internalFields: ["Geschicklichkeit-Wert", "Stärke-Wert"],
     popupDerivedResults: [
       {
         kind: "attack_value",
@@ -935,10 +998,20 @@ const SR6_ROLL_DEFINITIONS = [
     titleMode: "field-short",
     titleField: "Fertigkeit",
     primaryFields: ["Waffe"],
-    extraFields: ["Fertigkeit", "Schadenswert", "Reichweite"],
+    extraFields: ["Fertigkeit", "Attribut", "Schadenswert", "Schadenstyp", "Reichweite"],
     templateVariant: "weapon",
+    contextFields: [
+      { label: "Fertigkeit", attr: "sr6_nahkampf_fertigkeit" },
+      { label: "Attribut", attr: "sr6_nahkampf_attribut" },
+      { label: "Geschicklichkeit-Wert", attr: "sr6_attr_geschicklichkeit_gesamtwert" },
+      { label: "Stärke-Wert", attr: "sr6_attr_staerke_gesamtwert" },
+      { label: "Schadenswert", attr: "sr6_nahkampf_schaden" },
+      { label: "Schadenstyp", attr: "sr6_nahkampf_schadentyp" },
+    ],
     fixedTitle: "Nahkampfangriff",
-    popupFields: SR6_COMBAT_TAB_POPUP_FIELDS,
+    popupFields: createCombatMeleePopupFields("sr6_nahkampf_attribut"),
+    popupPoolAttributeOverride: "melee_attribute",
+    internalFields: ["Geschicklichkeit-Wert", "Stärke-Wert"],
     popupDerivedResults: [
       {
         kind: "attack_value",
@@ -1126,6 +1199,7 @@ function getPopupSelectOptions(field) {
 function buildPopupStateFromValues(values, definition) {
   const popupFields = getRollPopupFields(definition);
   const popupRows = [];
+  const selectedValues = {};
   let poolMod = 0;
   let attackValueMod = 0;
   let damageMod = 0;
@@ -1157,6 +1231,10 @@ function buildPopupStateFromValues(values, definition) {
       : field.affects
         ? [field.affects]
         : [];
+
+    if (field.id) {
+      selectedValues[field.id] = normalizedValue;
+    }
 
     if (affects.includes("pool")) {
       poolMod += isNumberField
@@ -1213,6 +1291,7 @@ function buildPopupStateFromValues(values, definition) {
     poolMod: poolMod,
     attackValueMod: attackValueMod,
     damageMod: damageMod,
+    selectedValues: selectedValues,
     rows: popupRows,
   };
 }
@@ -1500,6 +1579,10 @@ function buildProbeRows(resolvedFields, definition) {
     rows.push({ label: key, value: resolvedFields[key] });
   });
 
+  if (hasWeaponTemplateVariant(definition)) {
+    return rows;
+  }
+
   return rows.slice(0, 4);
 }
 
@@ -1561,7 +1644,8 @@ function buildWeaponProbePresentation(payload) {
   const resolvedFields = payload.resolvedFields || {};
   const baseAmmo = `${resolvedFields.Munition || ""}`;
   const popupAmmo = findAllRowValues(rows, "Munition").find((value) => value && value !== baseAmmo) || "";
-  const damageType = findLastRowValue(rows, "Schadenstyp");
+  const attribute = findLastRowValue(rows, "Attribut") || `${resolvedFields.Attribut || ""}`;
+  const damageType = findLastRowValue(rows, "Schadenstyp") || `${resolvedFields.Schadenstyp || ""}`;
   const attackValue = findLastRowValue(rows, "Angriffswert");
   const finalDamage = findLastRowValue(rows, "Schaden") || `${resolvedFields.Schadenswert || ""}`;
   const baseDamage = `${resolvedFields.Schadenswert || ""}`;
@@ -1569,6 +1653,7 @@ function buildWeaponProbePresentation(payload) {
   const damageMod = findLastRowValue(rows, "Schadens-Modifikator");
   const attackValueBase = findLastRowValue(rows, "Angriffswert-Basis");
   const damageBase = findLastRowValue(rows, "Schaden-Basis") || baseDamage;
+  const attributeFallback = findLastRowValue(rows, "Attribut-Fallback");
   const extraNotes = [];
   const calcParts = [];
   const specialization = findLastRowValue(rows, "Spezialisierung");
@@ -1587,6 +1672,9 @@ function buildWeaponProbePresentation(payload) {
   if (expertise) {
     calcParts.push(`Expertise: ${expertise}`);
   }
+  if (attributeFallback) {
+    calcParts.push(`Attribut-Fallback: ${attributeFallback}`);
+  }
   if (attackValueMod) {
     calcParts.push(`Angriffswert-Modifikator: ${attackValueMod}`);
   }
@@ -1603,6 +1691,7 @@ function buildWeaponProbePresentation(payload) {
   return {
     weaponLayout: true,
     weapon: `${resolvedFields.Waffe || ""}`,
+    attribute: attribute,
     attackValue: `${attackValue || ""}`,
     ammo: popupAmmo || baseAmmo,
     range: `${resolvedFields.Reichweite || ""}`,
@@ -1760,8 +1849,10 @@ function evaluateGlitch(diceResults, successCount) {
   return { isGlitch, isCriticalGlitch };
 }
 
-function buildProbeComputation(lookupAttr, poolAttribute, popupPoolMod, poolMultiplier = 1) {
-  const poolBasisRaw = parseNumber(lookupAttr(poolAttribute));
+function buildProbeComputation(lookupAttr, poolAttribute, popupPoolMod, poolMultiplier = 1, poolBasisOverride = null) {
+  const poolBasisRaw = poolBasisOverride === null
+    ? parseNumber(lookupAttr(poolAttribute))
+    : parseNumber(poolBasisOverride);
   const normalizedPoolMultiplier = Math.max(1, parseNumber(poolMultiplier) || 1);
   const poolBasis = poolBasisRaw * normalizedPoolMultiplier;
   const monitorPoolMod = parseNumber(lookupAttr("sr6_monitor_pool_mod"));
@@ -1794,18 +1885,44 @@ function buildProbeComputation(lookupAttr, poolAttribute, popupPoolMod, poolMult
 // BEGIN MODULE: workers/rolls/probe
 function normalizePopupState(popupState) {
   if (typeof popupState === "number") {
-    return { poolMod: popupState, attackValueMod: 0, damageMod: 0, rows: [] };
+    return { poolMod: popupState, attackValueMod: 0, damageMod: 0, selectedValues: {}, rows: [] };
   }
 
   if (!popupState || typeof popupState !== "object") {
-    return { poolMod: 0, attackValueMod: 0, damageMod: 0, rows: [] };
+    return { poolMod: 0, attackValueMod: 0, damageMod: 0, selectedValues: {}, rows: [] };
   }
 
   return {
     poolMod: parseNumber(popupState.poolMod),
     attackValueMod: parseNumber(popupState.attackValueMod),
     damageMod: parseNumber(popupState.damageMod),
+    selectedValues: popupState.selectedValues && typeof popupState.selectedValues === "object" ? popupState.selectedValues : {},
     rows: Array.isArray(popupState.rows) ? popupState.rows : [],
+  };
+}
+
+function resolveMeleePopupAttributePoolOverride(definition, resolvedFields, popupState, lookupAttr, poolAttribute) {
+  if (!definition || definition.popupPoolAttributeOverride !== "melee_attribute") {
+    return null;
+  }
+
+  const selectedAttribute = `${(((popupState || {}).selectedValues || {}).attribute_context) || ""}`.trim();
+  const currentAttribute = `${(resolvedFields && resolvedFields.Attribut) || ""}`.trim();
+
+  if (!selectedAttribute || !currentAttribute || selectedAttribute === currentAttribute) {
+    return null;
+  }
+
+  const geschicklichkeit = parseNumber((resolvedFields && resolvedFields["Geschicklichkeit-Wert"]) || 0);
+  const staerke = parseNumber((resolvedFields && resolvedFields["Stärke-Wert"]) || 0);
+  const currentAttributeValue = currentAttribute === "Stärke" ? staerke : geschicklichkeit;
+  const selectedAttributeValue = selectedAttribute === "Stärke" ? staerke : geschicklichkeit;
+  const currentPoolBasis = parseNumber(lookupAttr(poolAttribute));
+
+  return {
+    selectedAttribute: selectedAttribute,
+    currentAttribute: currentAttribute,
+    poolBasisOverride: currentPoolBasis - currentAttributeValue + selectedAttributeValue,
   };
 }
 
@@ -1888,12 +2005,27 @@ function runSuccessProbeFromContext(rawTemplate, repeatingRowPrefix, popupState 
     }
 
     const poolMultiplier = getRollPoolMultiplier(context.definition, resolvedFields);
+    const meleeAttributeOverride = resolveMeleePopupAttributePoolOverride(
+      context.definition,
+      resolvedFields,
+      normalizedPopupState,
+      lookupAttr,
+      context.poolAttribute
+    );
     const computation = buildProbeComputation(
       lookupAttr,
       context.poolAttribute,
       normalizedPopupState.poolMod,
-      poolMultiplier
+      poolMultiplier,
+      meleeAttributeOverride ? meleeAttributeOverride.poolBasisOverride : null
     );
+
+    if (meleeAttributeOverride) {
+      rows.push({
+        label: "Attribut-Fallback",
+        value: `${meleeAttributeOverride.currentAttribute} -> ${meleeAttributeOverride.selectedAttribute}`,
+      });
+    }
     const glitchText = computation.isCriticalGlitch ? "!! Kritischer Patzer !!" : "!! Patzer !!";
     const erfolgeValue = computation.isGlitch ? glitchText : `${computation.successCount}`;
 
@@ -2184,6 +2316,22 @@ const SR6_COMBAT_ARMOR_SELECTION_FIELDS = [
   },
 ];
 
+function getCombatMeleeSkillTotal(skillTotals, values) {
+  const selectedSkill = `${(values && values.sr6_combat_nahkampf_fertigkeit) || "Nahkampf"}`.trim();
+  if (selectedSkill === "Exotische Waffen") {
+    return (skillTotals && skillTotals.exotische_waffen) || 0;
+  }
+  return (skillTotals && skillTotals.nahkampf) || 0;
+}
+
+function getCombatMeleeAttributeTotal(totals, values) {
+  const selectedAttribute = `${(values && values.sr6_combat_nahkampf_attribut) || "Geschicklichkeit"}`.trim();
+  if (selectedAttribute === "Stärke") {
+    return (totals && totals.staerke) || 0;
+  }
+  return (totals && totals.geschicklichkeit) || 0;
+}
+
 const SR6_COMBAT_CALCULATED_FIELDS = [
   {
     key: "sr6_combat_fernkampfangriff",
@@ -2191,7 +2339,8 @@ const SR6_COMBAT_CALCULATED_FIELDS = [
   },
   {
     key: "sr6_combat_nahkampfangriff",
-    base: (totals, skillTotals) => (skillTotals.nahkampf || 0) + (totals.geschicklichkeit || 0),
+    base: (totals, skillTotals, values) =>
+      getCombatMeleeSkillTotal(skillTotals, values) + getCombatMeleeAttributeTotal(totals, values),
   },
   {
     key: "sr6_combat_verteidigungswert",
@@ -2273,7 +2422,9 @@ const SR6_COMBAT_PRIMARY_WEAPON_SELECTIONS = [
     targetMap: {
       sr6_combat_primaere_nahkampfwaffe: "sr6_nahkampfwaffe",
       sr6_combat_nahkampf_fertigkeit: "sr6_nahkampf_fertigkeit",
+      sr6_combat_nahkampf_attribut: "sr6_nahkampf_attribut",
       sr6_combat_nahkampf_schaden: "sr6_nahkampf_schaden",
+      sr6_combat_nahkampf_schadentyp: "sr6_nahkampf_schadentyp",
       sr6_combat_nahkampf_sehr_nah: "sr6_nahkampf_s_nah",
       sr6_combat_nahkampf_nah: "sr6_nahkampf_nah",
       sr6_combat_nahkampf_mittel: "sr6_nahkampf_mittel",
@@ -2283,7 +2434,9 @@ const SR6_COMBAT_PRIMARY_WEAPON_SELECTIONS = [
     defaults: {
       sr6_combat_primaere_nahkampfwaffe: "",
       sr6_combat_nahkampf_fertigkeit: "Nahkampf",
+      sr6_combat_nahkampf_attribut: "Geschicklichkeit",
       sr6_combat_nahkampf_schaden: "0",
+      sr6_combat_nahkampf_schadentyp: "Körperlich",
       sr6_combat_nahkampf_sehr_nah: "0",
       sr6_combat_nahkampf_nah: "0",
       sr6_combat_nahkampf_mittel: "0",
@@ -2297,6 +2450,8 @@ function appendCombatRequestKeys(requestKeys) {
   SR6_COMBAT_CALCULATED_FIELDS.forEach((field) => {
     requestKeys.push(`${field.key}_modifikator`);
   });
+  requestKeys.push("sr6_combat_nahkampf_fertigkeit");
+  requestKeys.push("sr6_combat_nahkampf_attribut");
   SR6_COMBAT_ARMOR_SELECTION_FIELDS.forEach((field) => {
     requestKeys.push(field.key);
   });
@@ -2811,7 +2966,10 @@ function registerWorkerEvents() {
       "remove:repeating_sr6fernkampfwaffen",
       "change:repeating_sr6nahkampfwaffen:sr6_nahkampf_ist_primaer",
       "change:repeating_sr6nahkampfwaffen:sr6_nahkampfwaffe",
+      "change:repeating_sr6nahkampfwaffen:sr6_nahkampf_fertigkeit",
+      "change:repeating_sr6nahkampfwaffen:sr6_nahkampf_attribut",
       "change:repeating_sr6nahkampfwaffen:sr6_nahkampf_schaden",
+      "change:repeating_sr6nahkampfwaffen:sr6_nahkampf_schadentyp",
       "change:repeating_sr6nahkampfwaffen:sr6_nahkampf_s_nah",
       "change:repeating_sr6nahkampfwaffen:sr6_nahkampf_nah",
       "change:repeating_sr6nahkampfwaffen:sr6_nahkampf_mittel",

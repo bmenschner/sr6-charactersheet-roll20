@@ -182,14 +182,14 @@ Das ist fuer den weiteren Refactor wichtig, weil diese Begriffe im Sheet aktuell
 | Fachwert | Wertetyp | Ziel-Formel / Regel | Quelle im Sheet | Status |
 | --- | --- | --- | --- | --- |
 | `Fernkampfangriff` | Kalkulationsfeld | `Feuerwaffen (Gesamtwert) + Geschicklichkeit (Gesamtwert)` | `sr6_combat_fernkampfangriff_grundwert/modifikator/gesamtwert` | Regel und Code sind konsistent |
-| `Nahkampfangriff` | Kalkulationsfeld | `Nahkampf (Gesamtwert) + Geschicklichkeit (Gesamtwert)` | `sr6_combat_nahkampfangriff_grundwert/modifikator/gesamtwert` | Regel und Code sind konsistent |
+| `Nahkampfangriff` | Kalkulationsfeld | `gewaehlte Nahkampf-Fertigkeit (Gesamtwert) + gewaehltes Attribut der primaeren Nahkampfwaffe` | `sr6_combat_nahkampfangriff_grundwert/modifikator/gesamtwert` | Im Sheet jetzt an `Fertigkeit` und `Attribut` der primaeren Nahkampfwaffe gekoppelt |
 | `Verteidigung (Physisch)` | Kalkulationsfeld | `Reaktion (Gesamtwert) + Intuition (Gesamtwert)` | `sr6_verteidigung_physisch_grundwert/modifikator/gesamtwert` | Regel und Code sind konsistent |
 | `Schadenswiderstand (Physisch)` | Kalkulationsfeld | `Konstitution (Gesamtwert)` | `sr6_schadenswiderstand_physisch_grundwert/modifikator/gesamtwert` | Regel und Code sind konsistent |
-| `Verteidigungswert` | Kalkulationsfeld | `Konstitution (Gesamtwert) + Verteidigungswertbonus durch Panzerung und Ausruestung` | `sr6_combat_verteidigungswert_grundwert/modifikator/gesamtwert` | Im Sheet aktuell umgesetzt als `Konstitution + Primaer + Sekundaer + Helm + Schild`; fachlich als erster Zielzustand brauchbar |
+| `Verteidigungswert` | Kalkulationsfeld | `Konstitution (Gesamtwert) + Verteidigungswertbonus durch Panzerung und Ausruestung` | `sr6_combat_verteidigungswert_grundwert/modifikator/gesamtwert` | Im Sheet aktuell umgesetzt als `Konstitution + Primaer + Sekundaer + Helm + Schild`; dieser Sheet-Stand bleibt bewusst erhalten |
 | `Fernkampfwaffen: Angriffswert` | Kontextwert / Waffenwert | reichweitenabhaengige Waffenwerte `S. Nah / Nah / Mittel / Weit / S. Weit`; kein eigener Wuerfelpool | `repeating_sr6fernkampfwaffen_*` | Bewusst kein Dreiklang; Werte werden pro Waffe gepflegt |
-| `Nahkampfwaffen: Angriffswert` | Kontextwert / Waffenwert | Waffen-Angriffswert pro Reichweite; Nahkampfwaffen addieren regeltechnisch `Staerke`, sofern der eingetragene Wert nicht bereits final ist | `repeating_sr6nahkampfwaffen_*` | Fachlich noch markieren: Das Sheet behandelt die Felder aktuell als eingegebene Endwerte |
+| `Nahkampfwaffen: Angriffswert` | Kontextwert / Waffenwert | Waffen-Angriffswert pro Reichweite; das Sheet behandelt die eingetragenen Werte weiterhin als Endwerte | `repeating_sr6nahkampfwaffen_*` | Die Waffe fuehrt jetzt zusaetzlich `Schadenstyp` und das verwendete `Attribut`; die Reichweitenwerte bleiben vorerst manuell gepflegte Endwerte |
 | `Fernkampfwaffen: Schaden` | Einzelwert | numerischer Einzelwert; kann durch Munition oder Popup modifiziert werden | `repeating_sr6fernkampfwaffen_*` | Festgelegt |
-| `Nahkampfwaffen: Schaden` | Einzelwert | numerischer Einzelwert; kann durch Popup modifiziert werden | `repeating_sr6nahkampfwaffen_*` | Festgelegt |
+| `Nahkampfwaffen: Schaden` | Einzelwert | numerischer Einzelwert mit zusaetzlichem `Schadenstyp`-Kontext | `repeating_sr6nahkampfwaffen_*` | Festgelegt; `Schadenstyp` wird getrennt gefuehrt |
 | `Munition` | Kontextwert | modifiziert je nach Munitionsart `Angriffswert` und/oder `Schaden`, nicht pauschal den Wuerfelpool | Popup + Waffenfeld | Festgelegt, aber je Munitionsart weiter verfeinerbar |
 
 ### Fachliche Klarstellung fuer Kampf
@@ -215,6 +215,24 @@ Aus dieser Zielmatrix folgen fuer die Kampfdomäne die naechsten technischen Reg
   - Angriffswert
   - Verteidigungswert
   - Schaden
+
+### Bestaetigter Ist-Stand fuer Kampf
+
+Der Kampfbereich ist funktional weitgehend auf diesen Zielzustand gezogen:
+
+- `Fernkampfangriff`, `Nahkampfangriff`, `Verteidigung (Physisch)` und `Schadenswiderstand (Physisch)` laufen als Wuerfelpool-Proben
+- `Verteidigungswert` bleibt ein Vergleichswert und wird nicht als Probe behandelt
+- reichweitenabhaengige Waffenwerte in Fern- und Nahkampf bleiben Angriffswert-Kontextwerte
+- `Schaden` bleibt ein numerischer Einzelwert
+- Nahkampf fuehrt zusaetzlich `Schadenstyp` und `Attribut`
+- der globale `Nahkampfangriff` liest `Fertigkeit` und `Attribut` der primaeren Nahkampfwaffe
+- die Nahkampf-Popups fuehren `Attribut` als Fallback und koennen den Attributanteil des Pools vor dem Wurf umschalten
+
+Offen sind damit im Kampfbereich vor allem:
+
+- spaetere UX-Feinarbeit
+- moegliche weitere Regelwerks-Sonderfaelle
+- allgemeine Popup-Konsolidierung im Gesamtprojekt
 
 ## Aktuelle Konfliktmuster
 

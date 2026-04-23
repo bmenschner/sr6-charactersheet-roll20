@@ -22,6 +22,22 @@ const SR6_COMBAT_ARMOR_SELECTION_FIELDS = [
   },
 ];
 
+function getCombatMeleeSkillTotal(skillTotals, values) {
+  const selectedSkill = `${(values && values.sr6_combat_nahkampf_fertigkeit) || "Nahkampf"}`.trim();
+  if (selectedSkill === "Exotische Waffen") {
+    return (skillTotals && skillTotals.exotische_waffen) || 0;
+  }
+  return (skillTotals && skillTotals.nahkampf) || 0;
+}
+
+function getCombatMeleeAttributeTotal(totals, values) {
+  const selectedAttribute = `${(values && values.sr6_combat_nahkampf_attribut) || "Geschicklichkeit"}`.trim();
+  if (selectedAttribute === "Stärke") {
+    return (totals && totals.staerke) || 0;
+  }
+  return (totals && totals.geschicklichkeit) || 0;
+}
+
 const SR6_COMBAT_CALCULATED_FIELDS = [
   {
     key: "sr6_combat_fernkampfangriff",
@@ -29,7 +45,8 @@ const SR6_COMBAT_CALCULATED_FIELDS = [
   },
   {
     key: "sr6_combat_nahkampfangriff",
-    base: (totals, skillTotals) => (skillTotals.nahkampf || 0) + (totals.geschicklichkeit || 0),
+    base: (totals, skillTotals, values) =>
+      getCombatMeleeSkillTotal(skillTotals, values) + getCombatMeleeAttributeTotal(totals, values),
   },
   {
     key: "sr6_combat_verteidigungswert",
@@ -111,7 +128,9 @@ const SR6_COMBAT_PRIMARY_WEAPON_SELECTIONS = [
     targetMap: {
       sr6_combat_primaere_nahkampfwaffe: "sr6_nahkampfwaffe",
       sr6_combat_nahkampf_fertigkeit: "sr6_nahkampf_fertigkeit",
+      sr6_combat_nahkampf_attribut: "sr6_nahkampf_attribut",
       sr6_combat_nahkampf_schaden: "sr6_nahkampf_schaden",
+      sr6_combat_nahkampf_schadentyp: "sr6_nahkampf_schadentyp",
       sr6_combat_nahkampf_sehr_nah: "sr6_nahkampf_s_nah",
       sr6_combat_nahkampf_nah: "sr6_nahkampf_nah",
       sr6_combat_nahkampf_mittel: "sr6_nahkampf_mittel",
@@ -121,7 +140,9 @@ const SR6_COMBAT_PRIMARY_WEAPON_SELECTIONS = [
     defaults: {
       sr6_combat_primaere_nahkampfwaffe: "",
       sr6_combat_nahkampf_fertigkeit: "Nahkampf",
+      sr6_combat_nahkampf_attribut: "Geschicklichkeit",
       sr6_combat_nahkampf_schaden: "0",
+      sr6_combat_nahkampf_schadentyp: "Körperlich",
       sr6_combat_nahkampf_sehr_nah: "0",
       sr6_combat_nahkampf_nah: "0",
       sr6_combat_nahkampf_mittel: "0",
@@ -135,6 +156,8 @@ function appendCombatRequestKeys(requestKeys) {
   SR6_COMBAT_CALCULATED_FIELDS.forEach((field) => {
     requestKeys.push(`${field.key}_modifikator`);
   });
+  requestKeys.push("sr6_combat_nahkampf_fertigkeit");
+  requestKeys.push("sr6_combat_nahkampf_attribut");
   SR6_COMBAT_ARMOR_SELECTION_FIELDS.forEach((field) => {
     requestKeys.push(field.key);
   });

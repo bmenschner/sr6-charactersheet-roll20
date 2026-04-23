@@ -1750,6 +1750,12 @@
         </div>
         <!-- END BLOCK: Primäre Fernkampfwaffe -->
 
+        <div class="sr6-charactersheet-row sr6-charactersheet-row-1">
+          <div class="sr6-charactersheet-field">
+            <span class="sr6-kampf-section-label" data-i18n="field.angriffswerte_reichweite">Angriffswerte (Reichweite)</span>
+          </div>
+        </div>
+
         <!-- BEGIN BLOCK: Fernkampf Schaden/Modus/Reichweiten -->
         <div class="sr6-charactersheet-row sr6-charactersheet-row-7">
           <div class="sr6-charactersheet-field">
@@ -1850,12 +1856,28 @@
         </div>
         <!-- END BLOCK: Primäre Nahkampfwaffe -->
 
+        <div class="sr6-charactersheet-row sr6-charactersheet-row-1">
+          <div class="sr6-charactersheet-field">
+            <span class="sr6-kampf-section-label" data-i18n="field.angriffswerte_reichweite">Angriffswerte (Reichweite)</span>
+          </div>
+        </div>
+
         <!-- BEGIN BLOCK: Nahkampf Schaden/Reichweiten -->
-        <div class="sr6-charactersheet-row sr6-charactersheet-row-6">
+        <div class="sr6-charactersheet-row sr6-charactersheet-row-3">
           <div class="sr6-charactersheet-field">
             <span data-i18n="field.schaden">Schaden</span>
             <input type="number" name="attr_sr6_combat_nahkampf_schaden" readonly />
           </div>
+          <div class="sr6-charactersheet-field">
+            <span data-i18n="field.schadentyp">Schadenstyp</span>
+            <input type="text" name="attr_sr6_combat_nahkampf_schadentyp" readonly />
+          </div>
+          <div class="sr6-charactersheet-field">
+            <span data-i18n="field.attribut">Attribut</span>
+            <input type="text" name="attr_sr6_combat_nahkampf_attribut" readonly />
+          </div>
+        </div>
+        <div class="sr6-charactersheet-row sr6-charactersheet-row-5">
           <div class="sr6-charactersheet-field">
             <span data-i18n="field.s_nah">S. Nah</span>
             <div class="sr6-charactersheet-field-input-with-dice">
@@ -1863,7 +1885,7 @@
                 type="action"
                 class="sr6-charactersheet-field-dice-button"
                 name="act_probe"
-                value="&{template:default} {{name=Nahkampf-Test}} {{Waffe=@{sr6_combat_primaere_nahkampfwaffe}}} {{Schadenswert=@{sr6_combat_nahkampf_schaden}}} {{Reichweite=S. Nah}} {{Pool=[[@{sr6_combat_nahkampf_sehr_nah}]]}} {{Erfolge=[[@{sr6_combat_nahkampf_sehr_nah}d6>5]]}}"
+                value="&{template:default} {{name=Nahkampf-Test}} {{Waffe=@{sr6_combat_primaere_nahkampfwaffe}}} {{Fertigkeit=@{sr6_combat_nahkampf_fertigkeit}}} {{Attribut=@{sr6_combat_nahkampf_attribut}}} {{Schadenswert=@{sr6_combat_nahkampf_schaden}}} {{Schadenstyp=@{sr6_combat_nahkampf_schadentyp}}} {{Reichweite=S. Nah}} {{Pool=[[@{sr6_combat_nahkampf_sehr_nah}]]}} {{Erfolge=[[@{sr6_combat_nahkampf_sehr_nah}d6>5]]}}"
                 aria-label="Wuerfeln"></button>
             </div>
           </div>
@@ -1874,7 +1896,7 @@
                 type="action"
                 class="sr6-charactersheet-field-dice-button"
                 name="act_probe"
-                value="&{template:default} {{name=Nahkampf-Test}} {{Waffe=@{sr6_combat_primaere_nahkampfwaffe}}} {{Schadenswert=@{sr6_combat_nahkampf_schaden}}} {{Reichweite=Nah}} {{Pool=[[@{sr6_combat_nahkampf_nah}]]}} {{Erfolge=[[@{sr6_combat_nahkampf_nah}d6>5]]}}"
+                value="&{template:default} {{name=Nahkampf-Test}} {{Waffe=@{sr6_combat_primaere_nahkampfwaffe}}} {{Fertigkeit=@{sr6_combat_nahkampf_fertigkeit}}} {{Attribut=@{sr6_combat_nahkampf_attribut}}} {{Schadenswert=@{sr6_combat_nahkampf_schaden}}} {{Schadenstyp=@{sr6_combat_nahkampf_schadentyp}}} {{Reichweite=Nah}} {{Pool=[[@{sr6_combat_nahkampf_nah}]]}} {{Erfolge=[[@{sr6_combat_nahkampf_nah}d6>5]]}}"
                 aria-label="Wuerfeln"></button>
             </div>
           </div>
@@ -1885,7 +1907,7 @@
                 type="action"
                 class="sr6-charactersheet-field-dice-button"
                 name="act_probe"
-                value="&{template:default} {{name=Nahkampf-Test}} {{Waffe=@{sr6_combat_primaere_nahkampfwaffe}}} {{Schadenswert=@{sr6_combat_nahkampf_schaden}}} {{Reichweite=Mittel}} {{Pool=[[@{sr6_combat_nahkampf_mittel}]]}} {{Erfolge=[[@{sr6_combat_nahkampf_mittel}d6>5]]}}"
+                value="&{template:default} {{name=Nahkampf-Test}} {{Waffe=@{sr6_combat_primaere_nahkampfwaffe}}} {{Fertigkeit=@{sr6_combat_nahkampf_fertigkeit}}} {{Attribut=@{sr6_combat_nahkampf_attribut}}} {{Schadenswert=@{sr6_combat_nahkampf_schaden}}} {{Schadenstyp=@{sr6_combat_nahkampf_schadentyp}}} {{Reichweite=Mittel}} {{Pool=[[@{sr6_combat_nahkampf_mittel}]]}} {{Erfolge=[[@{sr6_combat_nahkampf_mittel}d6>5]]}}"
                 aria-label="Wuerfeln"></button>
             </div>
           </div>
@@ -1896,7 +1918,7 @@
                 type="action"
                 class="sr6-charactersheet-field-dice-button"
                 name="act_probe"
-                value="&{template:default} {{name=Nahkampf-Test}} {{Waffe=@{sr6_combat_primaere_nahkampfwaffe}}} {{Schadenswert=@{sr6_combat_nahkampf_schaden}}} {{Reichweite=Weit}} {{Pool=[[@{sr6_combat_nahkampf_weit}]]}} {{Erfolge=[[@{sr6_combat_nahkampf_weit}d6>5]]}}"
+                value="&{template:default} {{name=Nahkampf-Test}} {{Waffe=@{sr6_combat_primaere_nahkampfwaffe}}} {{Fertigkeit=@{sr6_combat_nahkampf_fertigkeit}}} {{Attribut=@{sr6_combat_nahkampf_attribut}}} {{Schadenswert=@{sr6_combat_nahkampf_schaden}}} {{Schadenstyp=@{sr6_combat_nahkampf_schadentyp}}} {{Reichweite=Weit}} {{Pool=[[@{sr6_combat_nahkampf_weit}]]}} {{Erfolge=[[@{sr6_combat_nahkampf_weit}d6>5]]}}"
                 aria-label="Wuerfeln"></button>
             </div>
           </div>
@@ -1907,7 +1929,7 @@
                 type="action"
                 class="sr6-charactersheet-field-dice-button"
                 name="act_probe"
-                value="&{template:default} {{name=Nahkampf-Test}} {{Waffe=@{sr6_combat_primaere_nahkampfwaffe}}} {{Schadenswert=@{sr6_combat_nahkampf_schaden}}} {{Reichweite=S. Weit}} {{Pool=[[@{sr6_combat_nahkampf_sehr_weit}]]}} {{Erfolge=[[@{sr6_combat_nahkampf_sehr_weit}d6>5]]}}"
+                value="&{template:default} {{name=Nahkampf-Test}} {{Waffe=@{sr6_combat_primaere_nahkampfwaffe}}} {{Fertigkeit=@{sr6_combat_nahkampf_fertigkeit}}} {{Attribut=@{sr6_combat_nahkampf_attribut}}} {{Schadenswert=@{sr6_combat_nahkampf_schaden}}} {{Schadenstyp=@{sr6_combat_nahkampf_schadentyp}}} {{Reichweite=S. Weit}} {{Pool=[[@{sr6_combat_nahkampf_sehr_weit}]]}} {{Erfolge=[[@{sr6_combat_nahkampf_sehr_weit}d6>5]]}}"
                 aria-label="Wuerfeln"></button>
             </div>
           </div>
@@ -3339,6 +3361,12 @@
     </div>
     <!-- END BLOCK: Zeile 1 -->
 
+    <div class="sr6-charactersheet-row sr6-charactersheet-row-1">
+      <div class="sr6-charactersheet-field">
+        <span class="sr6-kampf-section-label" data-i18n="field.wuerfelpool">Würfelpool</span>
+      </div>
+    </div>
+
     <!-- BEGIN BLOCK: Zeile 2 -->
     <div class="sr6-charactersheet-row sr6-charactersheet-row-4">
       <div class="sr6-charactersheet-field">
@@ -3387,6 +3415,12 @@
       </div>
     </div>
     <!-- END BLOCK: Zeile 2 -->
+
+    <div class="sr6-charactersheet-row sr6-charactersheet-row-1">
+      <div class="sr6-charactersheet-field">
+        <span class="sr6-kampf-section-label" data-i18n="field.vergleichswert">Vergleichswert</span>
+      </div>
+    </div>
 
     <!-- BEGIN BLOCK: Zeile 3 -->
     <div class="sr6-charactersheet-row sr6-charactersheet-row-5">
@@ -3513,6 +3547,12 @@
           <div class="sr6-charactersheet-field">
             <span data-i18n="field.ersatzmagazine">Ersatzmagazine</span>
             <input type="number" name="attr_sr6_fernkampf_ersatzmagazine" />
+          </div>
+        </div>
+
+        <div class="sr6-foundry-item-row sr6-charactersheet-row sr6-charactersheet-row-1">
+          <div class="sr6-charactersheet-field">
+            <span class="sr6-foundry-item-section-label" data-i18n="field.angriffswerte_reichweite">Angriffswerte (Reichweite)</span>
           </div>
         </div>
 
@@ -3660,10 +3700,30 @@
           </div>
         </div>
 
-        <div class="sr6-foundry-item-row sr6-charactersheet-row sr6-charactersheet-row-1">
+        <div class="sr6-foundry-item-row sr6-charactersheet-row sr6-charactersheet-row-3">
           <div class="sr6-charactersheet-field">
             <span data-i18n="field.schaden">Schaden</span>
             <input type="number" name="attr_sr6_nahkampf_schaden" />
+          </div>
+          <div class="sr6-charactersheet-field">
+            <span data-i18n="field.schadentyp">Schadenstyp</span>
+            <select name="attr_sr6_nahkampf_schadentyp">
+              <option value="Körperlich" data-i18n="field.schadentyp_koerperlich">Körperlich</option>
+              <option value="Betäubung" data-i18n="field.schadentyp_betaeubung">Betäubung</option>
+            </select>
+          </div>
+          <div class="sr6-charactersheet-field">
+            <span data-i18n="field.attribut">Attribut</span>
+            <select name="attr_sr6_nahkampf_attribut">
+              <option value="Geschicklichkeit" data-i18n="field.geschicklichkeit">Geschicklichkeit</option>
+              <option value="Stärke" data-i18n="field.staerke">Stärke</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="sr6-foundry-item-row sr6-charactersheet-row sr6-charactersheet-row-1">
+          <div class="sr6-charactersheet-field">
+            <span class="sr6-foundry-item-section-label" data-i18n="field.angriffswerte_reichweite">Angriffswerte (Reichweite)</span>
           </div>
         </div>
 
@@ -3675,7 +3735,7 @@
                 type="action"
                 class="sr6-charactersheet-field-dice-button"
                 name="act_probe"
-                value="&{template:default} {{name=Nahkampf-Test}} {{Waffe=@{sr6_nahkampfwaffe}}} {{Fertigkeit=@{sr6_nahkampf_fertigkeit}}} {{Schadenswert=@{sr6_nahkampf_schaden}}} {{Reichweite=S. Nah}} {{Pool=[[@{sr6_nahkampf_s_nah}]]}} {{Erfolge=[[@{sr6_nahkampf_s_nah}d6>5]]}}"
+                value="&{template:default} {{name=Nahkampf-Test}} {{Waffe=@{sr6_nahkampfwaffe}}} {{Fertigkeit=@{sr6_nahkampf_fertigkeit}}} {{Attribut=@{sr6_nahkampf_attribut}}} {{Schadenswert=@{sr6_nahkampf_schaden}}} {{Schadenstyp=@{sr6_nahkampf_schadentyp}}} {{Reichweite=S. Nah}} {{Pool=[[@{sr6_nahkampf_s_nah}]]}} {{Erfolge=[[@{sr6_nahkampf_s_nah}d6>5]]}}"
                 aria-label="Wuerfeln"></button>
             </div>
           </div>
@@ -3687,7 +3747,7 @@
                 type="action"
                 class="sr6-charactersheet-field-dice-button"
                 name="act_probe"
-                value="&{template:default} {{name=Nahkampf-Test}} {{Waffe=@{sr6_nahkampfwaffe}}} {{Fertigkeit=@{sr6_nahkampf_fertigkeit}}} {{Schadenswert=@{sr6_nahkampf_schaden}}} {{Reichweite=Nah}} {{Pool=[[@{sr6_nahkampf_nah}]]}} {{Erfolge=[[@{sr6_nahkampf_nah}d6>5]]}}"
+                value="&{template:default} {{name=Nahkampf-Test}} {{Waffe=@{sr6_nahkampfwaffe}}} {{Fertigkeit=@{sr6_nahkampf_fertigkeit}}} {{Attribut=@{sr6_nahkampf_attribut}}} {{Schadenswert=@{sr6_nahkampf_schaden}}} {{Schadenstyp=@{sr6_nahkampf_schadentyp}}} {{Reichweite=Nah}} {{Pool=[[@{sr6_nahkampf_nah}]]}} {{Erfolge=[[@{sr6_nahkampf_nah}d6>5]]}}"
                 aria-label="Wuerfeln"></button>
             </div>
           </div>
@@ -3699,7 +3759,7 @@
                 type="action"
                 class="sr6-charactersheet-field-dice-button"
                 name="act_probe"
-                value="&{template:default} {{name=Nahkampf-Test}} {{Waffe=@{sr6_nahkampfwaffe}}} {{Fertigkeit=@{sr6_nahkampf_fertigkeit}}} {{Schadenswert=@{sr6_nahkampf_schaden}}} {{Reichweite=Mittel}} {{Pool=[[@{sr6_nahkampf_mittel}]]}} {{Erfolge=[[@{sr6_nahkampf_mittel}d6>5]]}}"
+                value="&{template:default} {{name=Nahkampf-Test}} {{Waffe=@{sr6_nahkampfwaffe}}} {{Fertigkeit=@{sr6_nahkampf_fertigkeit}}} {{Attribut=@{sr6_nahkampf_attribut}}} {{Schadenswert=@{sr6_nahkampf_schaden}}} {{Schadenstyp=@{sr6_nahkampf_schadentyp}}} {{Reichweite=Mittel}} {{Pool=[[@{sr6_nahkampf_mittel}]]}} {{Erfolge=[[@{sr6_nahkampf_mittel}d6>5]]}}"
                 aria-label="Wuerfeln"></button>
             </div>
           </div>
@@ -3711,7 +3771,7 @@
                 type="action"
                 class="sr6-charactersheet-field-dice-button"
                 name="act_probe"
-                value="&{template:default} {{name=Nahkampf-Test}} {{Waffe=@{sr6_nahkampfwaffe}}} {{Fertigkeit=@{sr6_nahkampf_fertigkeit}}} {{Schadenswert=@{sr6_nahkampf_schaden}}} {{Reichweite=Weit}} {{Pool=[[@{sr6_nahkampf_weit}]]}} {{Erfolge=[[@{sr6_nahkampf_weit}d6>5]]}}"
+                value="&{template:default} {{name=Nahkampf-Test}} {{Waffe=@{sr6_nahkampfwaffe}}} {{Fertigkeit=@{sr6_nahkampf_fertigkeit}}} {{Attribut=@{sr6_nahkampf_attribut}}} {{Schadenswert=@{sr6_nahkampf_schaden}}} {{Schadenstyp=@{sr6_nahkampf_schadentyp}}} {{Reichweite=Weit}} {{Pool=[[@{sr6_nahkampf_weit}]]}} {{Erfolge=[[@{sr6_nahkampf_weit}d6>5]]}}"
                 aria-label="Wuerfeln"></button>
             </div>
           </div>
@@ -3723,7 +3783,7 @@
                 type="action"
                 class="sr6-charactersheet-field-dice-button"
                 name="act_probe"
-                value="&{template:default} {{name=Nahkampf-Test}} {{Waffe=@{sr6_nahkampfwaffe}}} {{Fertigkeit=@{sr6_nahkampf_fertigkeit}}} {{Schadenswert=@{sr6_nahkampf_schaden}}} {{Reichweite=S. Weit}} {{Pool=[[@{sr6_nahkampf_s_weit}]]}} {{Erfolge=[[@{sr6_nahkampf_s_weit}d6>5]]}}"
+                value="&{template:default} {{name=Nahkampf-Test}} {{Waffe=@{sr6_nahkampfwaffe}}} {{Fertigkeit=@{sr6_nahkampf_fertigkeit}}} {{Attribut=@{sr6_nahkampf_attribut}}} {{Schadenswert=@{sr6_nahkampf_schaden}}} {{Schadenstyp=@{sr6_nahkampf_schadentyp}}} {{Reichweite=S. Weit}} {{Pool=[[@{sr6_nahkampf_s_weit}]]}} {{Erfolge=[[@{sr6_nahkampf_s_weit}d6>5]]}}"
                 aria-label="Wuerfeln"></button>
             </div>
           </div>
@@ -7730,6 +7790,10 @@ const SR6_POPUP_SELECT_OPTION_SETS = {
     { value: "Admin", label: "Admin", rowValue: "Admin" },
     { value: "Root", label: "Root", rowValue: "Root" },
   ],
+  melee_attribute: [
+    { value: "Geschicklichkeit", label: "Geschicklichkeit", rowValue: "Geschicklichkeit" },
+    { value: "Stärke", label: "Stärke", rowValue: "Stärke" },
+  ],
   ammo: [
     { value: "Standard", label: "Standard", rowValue: "Standard" },
     { value: "Huelsenlos", label: "Hülsenlos", rowValue: "Hülsenlos" },
@@ -7962,6 +8026,50 @@ function createCombatTabPopupFields() {
 }
 
 const SR6_COMBAT_TAB_POPUP_FIELDS = createCombatTabPopupFields();
+
+function createCombatMeleePopupFields(attributeSourceAttr) {
+  return [
+    {
+      id: "skill_mod",
+      slot: 1,
+      label: "Skill-Modifikator",
+      type: "number",
+      affects: "pool",
+      includeInTemplate: true,
+      defaultValue: "0",
+    },
+    {
+      id: "attribute_context",
+      slot: 2,
+      label: "Attribut",
+      type: "select",
+      optionSet: "melee_attribute",
+      sourceAttr: attributeSourceAttr,
+      affects: "display",
+      includeInTemplate: true,
+      defaultValue: "Geschicklichkeit",
+    },
+    {
+      id: "attack_value_mod",
+      slot: 3,
+      label: "Angriffswert-Modifikator",
+      type: "number",
+      affects: "attack_value",
+      includeInTemplate: true,
+      defaultValue: "0",
+    },
+    {
+      id: "damage_mod",
+      slot: 4,
+      label: "Schadens-Modifikator",
+      type: "number",
+      affects: "damage",
+      includeInTemplate: true,
+      defaultValue: "0",
+    },
+    ...createSpecializationPopupFields(5),
+  ];
+}
 
 function createDefenseProbePopupFields(config) {
   const primaryContextLabel = config.primaryContextLabel || config.primaryLabel || "Wert";
@@ -8352,11 +8460,16 @@ const SR6_ROLL_DEFINITIONS = [
     contextFields: [
       { label: "Waffe", attr: "sr6_combat_primaere_nahkampfwaffe" },
       { label: "Fertigkeit", attr: "sr6_combat_nahkampf_fertigkeit" },
-      { label: "Munition", attr: "sr6_combat_munition" },
+      { label: "Attribut", attr: "sr6_combat_nahkampf_attribut" },
+      { label: "Geschicklichkeit-Wert", attr: "sr6_attr_geschicklichkeit_gesamtwert" },
+      { label: "Stärke-Wert", attr: "sr6_attr_staerke_gesamtwert" },
       { label: "Schadenswert", attr: "sr6_combat_nahkampf_schaden" },
+      { label: "Schadenstyp", attr: "sr6_combat_nahkampf_schadentyp" },
     ],
     fixedTitle: "Nahkampfangriff",
-    popupFields: SR6_COMBAT_TAB_POPUP_FIELDS,
+    popupFields: createCombatMeleePopupFields("sr6_combat_nahkampf_attribut"),
+    popupPoolAttributeOverride: "melee_attribute",
+    internalFields: ["Geschicklichkeit-Wert", "Stärke-Wert"],
     popupDerivedResults: [
       { kind: "attack_value", label: "Angriffswert", source: "pool" },
       { kind: "damage", label: "Schaden", sourceAttr: "sr6_combat_nahkampf_schaden" },
@@ -8431,10 +8544,20 @@ const SR6_ROLL_DEFINITIONS = [
     matchPoolPrefix: "sr6_combat_nahkampf_",
     titleMode: "pool-prefix",
     primaryFields: ["Waffe"],
-    extraFields: ["Schadenswert", "Reichweite"],
+    extraFields: ["Fertigkeit", "Attribut", "Schadenswert", "Schadenstyp", "Reichweite"],
     templateVariant: "weapon",
+    contextFields: [
+      { label: "Fertigkeit", attr: "sr6_combat_nahkampf_fertigkeit" },
+      { label: "Attribut", attr: "sr6_combat_nahkampf_attribut" },
+      { label: "Geschicklichkeit-Wert", attr: "sr6_attr_geschicklichkeit_gesamtwert" },
+      { label: "Stärke-Wert", attr: "sr6_attr_staerke_gesamtwert" },
+      { label: "Schadenswert", attr: "sr6_combat_nahkampf_schaden" },
+      { label: "Schadenstyp", attr: "sr6_combat_nahkampf_schadentyp" },
+    ],
     fixedTitle: "Nahkampfangriff",
-    popupFields: SR6_COMBAT_TAB_POPUP_FIELDS,
+    popupFields: createCombatMeleePopupFields("sr6_combat_nahkampf_attribut"),
+    popupPoolAttributeOverride: "melee_attribute",
+    internalFields: ["Geschicklichkeit-Wert", "Stärke-Wert"],
     popupDerivedResults: [
       {
         kind: "attack_value",
@@ -8475,10 +8598,20 @@ const SR6_ROLL_DEFINITIONS = [
     titleMode: "field-short",
     titleField: "Fertigkeit",
     primaryFields: ["Waffe"],
-    extraFields: ["Fertigkeit", "Schadenswert", "Reichweite"],
+    extraFields: ["Fertigkeit", "Attribut", "Schadenswert", "Schadenstyp", "Reichweite"],
     templateVariant: "weapon",
+    contextFields: [
+      { label: "Fertigkeit", attr: "sr6_nahkampf_fertigkeit" },
+      { label: "Attribut", attr: "sr6_nahkampf_attribut" },
+      { label: "Geschicklichkeit-Wert", attr: "sr6_attr_geschicklichkeit_gesamtwert" },
+      { label: "Stärke-Wert", attr: "sr6_attr_staerke_gesamtwert" },
+      { label: "Schadenswert", attr: "sr6_nahkampf_schaden" },
+      { label: "Schadenstyp", attr: "sr6_nahkampf_schadentyp" },
+    ],
     fixedTitle: "Nahkampfangriff",
-    popupFields: SR6_COMBAT_TAB_POPUP_FIELDS,
+    popupFields: createCombatMeleePopupFields("sr6_nahkampf_attribut"),
+    popupPoolAttributeOverride: "melee_attribute",
+    internalFields: ["Geschicklichkeit-Wert", "Stärke-Wert"],
     popupDerivedResults: [
       {
         kind: "attack_value",
@@ -8666,6 +8799,7 @@ function getPopupSelectOptions(field) {
 function buildPopupStateFromValues(values, definition) {
   const popupFields = getRollPopupFields(definition);
   const popupRows = [];
+  const selectedValues = {};
   let poolMod = 0;
   let attackValueMod = 0;
   let damageMod = 0;
@@ -8697,6 +8831,10 @@ function buildPopupStateFromValues(values, definition) {
       : field.affects
         ? [field.affects]
         : [];
+
+    if (field.id) {
+      selectedValues[field.id] = normalizedValue;
+    }
 
     if (affects.includes("pool")) {
       poolMod += isNumberField
@@ -8753,6 +8891,7 @@ function buildPopupStateFromValues(values, definition) {
     poolMod: poolMod,
     attackValueMod: attackValueMod,
     damageMod: damageMod,
+    selectedValues: selectedValues,
     rows: popupRows,
   };
 }
@@ -9040,6 +9179,10 @@ function buildProbeRows(resolvedFields, definition) {
     rows.push({ label: key, value: resolvedFields[key] });
   });
 
+  if (hasWeaponTemplateVariant(definition)) {
+    return rows;
+  }
+
   return rows.slice(0, 4);
 }
 
@@ -9101,7 +9244,8 @@ function buildWeaponProbePresentation(payload) {
   const resolvedFields = payload.resolvedFields || {};
   const baseAmmo = `${resolvedFields.Munition || ""}`;
   const popupAmmo = findAllRowValues(rows, "Munition").find((value) => value && value !== baseAmmo) || "";
-  const damageType = findLastRowValue(rows, "Schadenstyp");
+  const attribute = findLastRowValue(rows, "Attribut") || `${resolvedFields.Attribut || ""}`;
+  const damageType = findLastRowValue(rows, "Schadenstyp") || `${resolvedFields.Schadenstyp || ""}`;
   const attackValue = findLastRowValue(rows, "Angriffswert");
   const finalDamage = findLastRowValue(rows, "Schaden") || `${resolvedFields.Schadenswert || ""}`;
   const baseDamage = `${resolvedFields.Schadenswert || ""}`;
@@ -9109,6 +9253,7 @@ function buildWeaponProbePresentation(payload) {
   const damageMod = findLastRowValue(rows, "Schadens-Modifikator");
   const attackValueBase = findLastRowValue(rows, "Angriffswert-Basis");
   const damageBase = findLastRowValue(rows, "Schaden-Basis") || baseDamage;
+  const attributeFallback = findLastRowValue(rows, "Attribut-Fallback");
   const extraNotes = [];
   const calcParts = [];
   const specialization = findLastRowValue(rows, "Spezialisierung");
@@ -9127,6 +9272,9 @@ function buildWeaponProbePresentation(payload) {
   if (expertise) {
     calcParts.push(`Expertise: ${expertise}`);
   }
+  if (attributeFallback) {
+    calcParts.push(`Attribut-Fallback: ${attributeFallback}`);
+  }
   if (attackValueMod) {
     calcParts.push(`Angriffswert-Modifikator: ${attackValueMod}`);
   }
@@ -9143,6 +9291,7 @@ function buildWeaponProbePresentation(payload) {
   return {
     weaponLayout: true,
     weapon: `${resolvedFields.Waffe || ""}`,
+    attribute: attribute,
     attackValue: `${attackValue || ""}`,
     ammo: popupAmmo || baseAmmo,
     range: `${resolvedFields.Reichweite || ""}`,
@@ -9300,8 +9449,10 @@ function evaluateGlitch(diceResults, successCount) {
   return { isGlitch, isCriticalGlitch };
 }
 
-function buildProbeComputation(lookupAttr, poolAttribute, popupPoolMod, poolMultiplier = 1) {
-  const poolBasisRaw = parseNumber(lookupAttr(poolAttribute));
+function buildProbeComputation(lookupAttr, poolAttribute, popupPoolMod, poolMultiplier = 1, poolBasisOverride = null) {
+  const poolBasisRaw = poolBasisOverride === null
+    ? parseNumber(lookupAttr(poolAttribute))
+    : parseNumber(poolBasisOverride);
   const normalizedPoolMultiplier = Math.max(1, parseNumber(poolMultiplier) || 1);
   const poolBasis = poolBasisRaw * normalizedPoolMultiplier;
   const monitorPoolMod = parseNumber(lookupAttr("sr6_monitor_pool_mod"));
@@ -9334,18 +9485,44 @@ function buildProbeComputation(lookupAttr, poolAttribute, popupPoolMod, poolMult
 // BEGIN MODULE: workers/rolls/probe
 function normalizePopupState(popupState) {
   if (typeof popupState === "number") {
-    return { poolMod: popupState, attackValueMod: 0, damageMod: 0, rows: [] };
+    return { poolMod: popupState, attackValueMod: 0, damageMod: 0, selectedValues: {}, rows: [] };
   }
 
   if (!popupState || typeof popupState !== "object") {
-    return { poolMod: 0, attackValueMod: 0, damageMod: 0, rows: [] };
+    return { poolMod: 0, attackValueMod: 0, damageMod: 0, selectedValues: {}, rows: [] };
   }
 
   return {
     poolMod: parseNumber(popupState.poolMod),
     attackValueMod: parseNumber(popupState.attackValueMod),
     damageMod: parseNumber(popupState.damageMod),
+    selectedValues: popupState.selectedValues && typeof popupState.selectedValues === "object" ? popupState.selectedValues : {},
     rows: Array.isArray(popupState.rows) ? popupState.rows : [],
+  };
+}
+
+function resolveMeleePopupAttributePoolOverride(definition, resolvedFields, popupState, lookupAttr, poolAttribute) {
+  if (!definition || definition.popupPoolAttributeOverride !== "melee_attribute") {
+    return null;
+  }
+
+  const selectedAttribute = `${(((popupState || {}).selectedValues || {}).attribute_context) || ""}`.trim();
+  const currentAttribute = `${(resolvedFields && resolvedFields.Attribut) || ""}`.trim();
+
+  if (!selectedAttribute || !currentAttribute || selectedAttribute === currentAttribute) {
+    return null;
+  }
+
+  const geschicklichkeit = parseNumber((resolvedFields && resolvedFields["Geschicklichkeit-Wert"]) || 0);
+  const staerke = parseNumber((resolvedFields && resolvedFields["Stärke-Wert"]) || 0);
+  const currentAttributeValue = currentAttribute === "Stärke" ? staerke : geschicklichkeit;
+  const selectedAttributeValue = selectedAttribute === "Stärke" ? staerke : geschicklichkeit;
+  const currentPoolBasis = parseNumber(lookupAttr(poolAttribute));
+
+  return {
+    selectedAttribute: selectedAttribute,
+    currentAttribute: currentAttribute,
+    poolBasisOverride: currentPoolBasis - currentAttributeValue + selectedAttributeValue,
   };
 }
 
@@ -9428,12 +9605,27 @@ function runSuccessProbeFromContext(rawTemplate, repeatingRowPrefix, popupState 
     }
 
     const poolMultiplier = getRollPoolMultiplier(context.definition, resolvedFields);
+    const meleeAttributeOverride = resolveMeleePopupAttributePoolOverride(
+      context.definition,
+      resolvedFields,
+      normalizedPopupState,
+      lookupAttr,
+      context.poolAttribute
+    );
     const computation = buildProbeComputation(
       lookupAttr,
       context.poolAttribute,
       normalizedPopupState.poolMod,
-      poolMultiplier
+      poolMultiplier,
+      meleeAttributeOverride ? meleeAttributeOverride.poolBasisOverride : null
     );
+
+    if (meleeAttributeOverride) {
+      rows.push({
+        label: "Attribut-Fallback",
+        value: `${meleeAttributeOverride.currentAttribute} -> ${meleeAttributeOverride.selectedAttribute}`,
+      });
+    }
     const glitchText = computation.isCriticalGlitch ? "!! Kritischer Patzer !!" : "!! Patzer !!";
     const erfolgeValue = computation.isGlitch ? glitchText : `${computation.successCount}`;
 
@@ -9724,6 +9916,22 @@ const SR6_COMBAT_ARMOR_SELECTION_FIELDS = [
   },
 ];
 
+function getCombatMeleeSkillTotal(skillTotals, values) {
+  const selectedSkill = `${(values && values.sr6_combat_nahkampf_fertigkeit) || "Nahkampf"}`.trim();
+  if (selectedSkill === "Exotische Waffen") {
+    return (skillTotals && skillTotals.exotische_waffen) || 0;
+  }
+  return (skillTotals && skillTotals.nahkampf) || 0;
+}
+
+function getCombatMeleeAttributeTotal(totals, values) {
+  const selectedAttribute = `${(values && values.sr6_combat_nahkampf_attribut) || "Geschicklichkeit"}`.trim();
+  if (selectedAttribute === "Stärke") {
+    return (totals && totals.staerke) || 0;
+  }
+  return (totals && totals.geschicklichkeit) || 0;
+}
+
 const SR6_COMBAT_CALCULATED_FIELDS = [
   {
     key: "sr6_combat_fernkampfangriff",
@@ -9731,7 +9939,8 @@ const SR6_COMBAT_CALCULATED_FIELDS = [
   },
   {
     key: "sr6_combat_nahkampfangriff",
-    base: (totals, skillTotals) => (skillTotals.nahkampf || 0) + (totals.geschicklichkeit || 0),
+    base: (totals, skillTotals, values) =>
+      getCombatMeleeSkillTotal(skillTotals, values) + getCombatMeleeAttributeTotal(totals, values),
   },
   {
     key: "sr6_combat_verteidigungswert",
@@ -9813,7 +10022,9 @@ const SR6_COMBAT_PRIMARY_WEAPON_SELECTIONS = [
     targetMap: {
       sr6_combat_primaere_nahkampfwaffe: "sr6_nahkampfwaffe",
       sr6_combat_nahkampf_fertigkeit: "sr6_nahkampf_fertigkeit",
+      sr6_combat_nahkampf_attribut: "sr6_nahkampf_attribut",
       sr6_combat_nahkampf_schaden: "sr6_nahkampf_schaden",
+      sr6_combat_nahkampf_schadentyp: "sr6_nahkampf_schadentyp",
       sr6_combat_nahkampf_sehr_nah: "sr6_nahkampf_s_nah",
       sr6_combat_nahkampf_nah: "sr6_nahkampf_nah",
       sr6_combat_nahkampf_mittel: "sr6_nahkampf_mittel",
@@ -9823,7 +10034,9 @@ const SR6_COMBAT_PRIMARY_WEAPON_SELECTIONS = [
     defaults: {
       sr6_combat_primaere_nahkampfwaffe: "",
       sr6_combat_nahkampf_fertigkeit: "Nahkampf",
+      sr6_combat_nahkampf_attribut: "Geschicklichkeit",
       sr6_combat_nahkampf_schaden: "0",
+      sr6_combat_nahkampf_schadentyp: "Körperlich",
       sr6_combat_nahkampf_sehr_nah: "0",
       sr6_combat_nahkampf_nah: "0",
       sr6_combat_nahkampf_mittel: "0",
@@ -9837,6 +10050,8 @@ function appendCombatRequestKeys(requestKeys) {
   SR6_COMBAT_CALCULATED_FIELDS.forEach((field) => {
     requestKeys.push(`${field.key}_modifikator`);
   });
+  requestKeys.push("sr6_combat_nahkampf_fertigkeit");
+  requestKeys.push("sr6_combat_nahkampf_attribut");
   SR6_COMBAT_ARMOR_SELECTION_FIELDS.forEach((field) => {
     requestKeys.push(field.key);
   });
@@ -10351,7 +10566,10 @@ function registerWorkerEvents() {
       "remove:repeating_sr6fernkampfwaffen",
       "change:repeating_sr6nahkampfwaffen:sr6_nahkampf_ist_primaer",
       "change:repeating_sr6nahkampfwaffen:sr6_nahkampfwaffe",
+      "change:repeating_sr6nahkampfwaffen:sr6_nahkampf_fertigkeit",
+      "change:repeating_sr6nahkampfwaffen:sr6_nahkampf_attribut",
       "change:repeating_sr6nahkampfwaffen:sr6_nahkampf_schaden",
+      "change:repeating_sr6nahkampfwaffen:sr6_nahkampf_schadentyp",
       "change:repeating_sr6nahkampfwaffen:sr6_nahkampf_s_nah",
       "change:repeating_sr6nahkampfwaffen:sr6_nahkampf_nah",
       "change:repeating_sr6nahkampfwaffen:sr6_nahkampf_mittel",
@@ -10493,6 +10711,13 @@ registerWorkerEvents();
   "field.fernkampfangriff": "Fernkampfangriff",
   "field.nahkampfangriff": "Nahkampfangriff",
   "field.schaden": "Schaden",
+  "field.schadentyp": "Schadenstyp",
+  "field.schadentyp_koerperlich": "Körperlich",
+  "field.schadentyp_betaeubung": "Betäubung",
+  "field.attribut": "Attribut",
+  "field.wuerfelpool": "Würfelpool",
+  "field.vergleichswert": "Vergleichswert",
+  "field.angriffswerte_reichweite": "Angriffswerte (Reichweite)",
   "field.modus": "Modus",
   "field.s_nah": "S. Nah",
   "field.nah": "Nah",
@@ -10887,6 +11112,13 @@ registerWorkerEvents();
 <input type="checkbox" name="attr_sr6_roll_popup_slot_5_option_ammo" value="1" class="sr6-roll-popup-slot-option-toggle sr6-roll-popup-slot-option-toggle--5-ammo" />
 <input type="checkbox" name="attr_sr6_roll_popup_slot_6_option_ammo" value="1" class="sr6-roll-popup-slot-option-toggle sr6-roll-popup-slot-option-toggle--6-ammo" />
 <input type="checkbox" name="attr_sr6_roll_popup_slot_7_option_ammo" value="1" class="sr6-roll-popup-slot-option-toggle sr6-roll-popup-slot-option-toggle--7-ammo" />
+<input type="checkbox" name="attr_sr6_roll_popup_slot_1_option_melee_attribute" value="1" class="sr6-roll-popup-slot-option-toggle sr6-roll-popup-slot-option-toggle--1-melee-attribute" />
+<input type="checkbox" name="attr_sr6_roll_popup_slot_2_option_melee_attribute" value="1" class="sr6-roll-popup-slot-option-toggle sr6-roll-popup-slot-option-toggle--2-melee-attribute" />
+<input type="checkbox" name="attr_sr6_roll_popup_slot_3_option_melee_attribute" value="1" class="sr6-roll-popup-slot-option-toggle sr6-roll-popup-slot-option-toggle--3-melee-attribute" />
+<input type="checkbox" name="attr_sr6_roll_popup_slot_4_option_melee_attribute" value="1" class="sr6-roll-popup-slot-option-toggle sr6-roll-popup-slot-option-toggle--4-melee-attribute" />
+<input type="checkbox" name="attr_sr6_roll_popup_slot_5_option_melee_attribute" value="1" class="sr6-roll-popup-slot-option-toggle sr6-roll-popup-slot-option-toggle--5-melee-attribute" />
+<input type="checkbox" name="attr_sr6_roll_popup_slot_6_option_melee_attribute" value="1" class="sr6-roll-popup-slot-option-toggle sr6-roll-popup-slot-option-toggle--6-melee-attribute" />
+<input type="checkbox" name="attr_sr6_roll_popup_slot_7_option_melee_attribute" value="1" class="sr6-roll-popup-slot-option-toggle sr6-roll-popup-slot-option-toggle--7-melee-attribute" />
 <input type="hidden" name="attr_sr6_roll_popup_definition" value="" />
 <input type="hidden" name="attr_sr6_roll_popup_template" value="" />
 <input type="hidden" name="attr_sr6_roll_popup_row_prefix" value="" />
@@ -10936,6 +11168,10 @@ registerWorkerEvents();
           <option value="Schocker" data-i18n="field.munition_schocker">Schocker</option>
           <option value="DMSO-Gelpack" data-i18n="field.munition_dmso_gelpack">DMSO-Gelpack</option>
         </select>
+        <select name="attr_sr6_roll_popup_value_1_select_melee_attribute" class="sr6-roll-popup-field-input sr6-roll-popup-field-input--select sr6-roll-popup-field-input--select-melee-attribute">
+          <option value="Geschicklichkeit" data-i18n="field.geschicklichkeit">Geschicklichkeit</option>
+          <option value="Stärke" data-i18n="field.staerke">Stärke</option>
+        </select>
       </label>
       <label class="sr6-roll-popup-field sr6-roll-popup-field--2">
         <input type="text" name="attr_sr6_roll_popup_slot_2_label" value="" readonly class="sr6-roll-popup-field-label" />
@@ -10974,6 +11210,10 @@ registerWorkerEvents();
           <option value="Injektionspfeil" data-i18n="field.munition_injektionspfeil">Injektionspfeil</option>
           <option value="Schocker" data-i18n="field.munition_schocker">Schocker</option>
           <option value="DMSO-Gelpack" data-i18n="field.munition_dmso_gelpack">DMSO-Gelpack</option>
+        </select>
+        <select name="attr_sr6_roll_popup_value_2_select_melee_attribute" class="sr6-roll-popup-field-input sr6-roll-popup-field-input--select sr6-roll-popup-field-input--select-melee-attribute">
+          <option value="Geschicklichkeit" data-i18n="field.geschicklichkeit">Geschicklichkeit</option>
+          <option value="Stärke" data-i18n="field.staerke">Stärke</option>
         </select>
       </label>
       <label class="sr6-roll-popup-field sr6-roll-popup-field--3">
@@ -11014,6 +11254,10 @@ registerWorkerEvents();
           <option value="Schocker" data-i18n="field.munition_schocker">Schocker</option>
           <option value="DMSO-Gelpack" data-i18n="field.munition_dmso_gelpack">DMSO-Gelpack</option>
         </select>
+        <select name="attr_sr6_roll_popup_value_3_select_melee_attribute" class="sr6-roll-popup-field-input sr6-roll-popup-field-input--select sr6-roll-popup-field-input--select-melee-attribute">
+          <option value="Geschicklichkeit" data-i18n="field.geschicklichkeit">Geschicklichkeit</option>
+          <option value="Stärke" data-i18n="field.staerke">Stärke</option>
+        </select>
       </label>
       <label class="sr6-roll-popup-field sr6-roll-popup-field--4">
         <input type="text" name="attr_sr6_roll_popup_slot_4_label" value="" readonly class="sr6-roll-popup-field-label" />
@@ -11052,6 +11296,10 @@ registerWorkerEvents();
           <option value="Injektionspfeil" data-i18n="field.munition_injektionspfeil">Injektionspfeil</option>
           <option value="Schocker" data-i18n="field.munition_schocker">Schocker</option>
           <option value="DMSO-Gelpack" data-i18n="field.munition_dmso_gelpack">DMSO-Gelpack</option>
+        </select>
+        <select name="attr_sr6_roll_popup_value_4_select_melee_attribute" class="sr6-roll-popup-field-input sr6-roll-popup-field-input--select sr6-roll-popup-field-input--select-melee-attribute">
+          <option value="Geschicklichkeit" data-i18n="field.geschicklichkeit">Geschicklichkeit</option>
+          <option value="Stärke" data-i18n="field.staerke">Stärke</option>
         </select>
       </label>
       <label class="sr6-roll-popup-field sr6-roll-popup-field--5">
@@ -11092,6 +11340,10 @@ registerWorkerEvents();
           <option value="Schocker" data-i18n="field.munition_schocker">Schocker</option>
           <option value="DMSO-Gelpack" data-i18n="field.munition_dmso_gelpack">DMSO-Gelpack</option>
         </select>
+        <select name="attr_sr6_roll_popup_value_5_select_melee_attribute" class="sr6-roll-popup-field-input sr6-roll-popup-field-input--select sr6-roll-popup-field-input--select-melee-attribute">
+          <option value="Geschicklichkeit" data-i18n="field.geschicklichkeit">Geschicklichkeit</option>
+          <option value="Stärke" data-i18n="field.staerke">Stärke</option>
+        </select>
       </label>
       <label class="sr6-roll-popup-field sr6-roll-popup-field--6">
         <input type="text" name="attr_sr6_roll_popup_slot_6_label" value="" readonly class="sr6-roll-popup-field-label" />
@@ -11130,6 +11382,10 @@ registerWorkerEvents();
           <option value="Injektionspfeil" data-i18n="field.munition_injektionspfeil">Injektionspfeil</option>
           <option value="Schocker" data-i18n="field.munition_schocker">Schocker</option>
           <option value="DMSO-Gelpack" data-i18n="field.munition_dmso_gelpack">DMSO-Gelpack</option>
+        </select>
+        <select name="attr_sr6_roll_popup_value_6_select_melee_attribute" class="sr6-roll-popup-field-input sr6-roll-popup-field-input--select sr6-roll-popup-field-input--select-melee-attribute">
+          <option value="Geschicklichkeit" data-i18n="field.geschicklichkeit">Geschicklichkeit</option>
+          <option value="Stärke" data-i18n="field.staerke">Stärke</option>
         </select>
       </label>
       <label class="sr6-roll-popup-field sr6-roll-popup-field--7">
@@ -11170,6 +11426,10 @@ registerWorkerEvents();
           <option value="Schocker" data-i18n="field.munition_schocker">Schocker</option>
           <option value="DMSO-Gelpack" data-i18n="field.munition_dmso_gelpack">DMSO-Gelpack</option>
         </select>
+        <select name="attr_sr6_roll_popup_value_7_select_melee_attribute" class="sr6-roll-popup-field-input sr6-roll-popup-field-input--select sr6-roll-popup-field-input--select-melee-attribute">
+          <option value="Geschicklichkeit" data-i18n="field.geschicklichkeit">Geschicklichkeit</option>
+          <option value="Stärke" data-i18n="field.staerke">Stärke</option>
+        </select>
       </label>
     </div>
     <div class="sr6-roll-popup-actions">
@@ -11208,6 +11468,12 @@ registerWorkerEvents();
       <span class="sheet-sr6probe__value" style="color:#111111;">{{weapon}}</span>
     </div>
     {{/weapon}}
+    {{#attribute}}
+    <div class="sheet-sr6probe__row" style="display:grid;grid-template-columns:minmax(7.5rem,auto) 1fr;gap:0.5rem;align-items:center;padding:0.375rem 0.5rem;background:#ffffff;">
+      <span class="sheet-sr6probe__label" style="font-weight:700;color:#840763;">Attribut</span>
+      <span class="sheet-sr6probe__value" style="color:#111111;">{{attribute}}</span>
+    </div>
+    {{/attribute}}
     {{#attack_value}}
     <div class="sheet-sr6probe__row" style="display:grid;grid-template-columns:minmax(7.5rem,auto) 1fr;gap:0.5rem;align-items:center;padding:0.375rem 0.5rem;background:#ffffff;">
       <span class="sheet-sr6probe__label" style="font-weight:700;color:#840763;">Angriffswert</span>

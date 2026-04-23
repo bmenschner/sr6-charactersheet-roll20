@@ -1,18 +1,44 @@
 // BEGIN MODULE: workers/rolls/probe
 function normalizePopupState(popupState) {
   if (typeof popupState === "number") {
-    return { poolMod: popupState, attackValueMod: 0, damageMod: 0, rows: [] };
+    return { poolMod: popupState, attackValueMod: 0, damageMod: 0, selectedValues: {}, rows: [] };
   }
 
   if (!popupState || typeof popupState !== "object") {
-    return { poolMod: 0, attackValueMod: 0, damageMod: 0, rows: [] };
+    return { poolMod: 0, attackValueMod: 0, damageMod: 0, selectedValues: {}, rows: [] };
   }
 
   return {
     poolMod: parseNumber(popupState.poolMod),
     attackValueMod: parseNumber(popupState.attackValueMod),
     damageMod: parseNumber(popupState.damageMod),
+    selectedValues: popupState.selectedValues && typeof popupState.selectedValues === "object" ? popupState.selectedValues : {},
     rows: Array.isArray(popupState.rows) ? popupState.rows : [],
+  };
+}
+
+function resolveMeleePopupAttributePoolOverride(definition, resolvedFields, popupState, lookupAttr, poolAttribute) {
+  if (!definition || definition.popupPoolAttributeOverride !== "melee_attribute") {
+    return null;
+  }
+
+  const selectedAttribute = `${(((popupState || {}).selectedValues || {}).attribute_context) || ""}`.trim();
+  const currentAttribute = `${(resolvedFields && resolvedFields.Attribut) || ""}`.trim();
+
+  if (!selectedAttribute || !currentAttribute || selectedAttribute === currentAttribute) {
+    return null;
+  }
+
+  const geschicklichkeit = parseNumber((resolvedFields && resolvedFields["Geschicklichkeit-Wert"]) || 0);
+  const staerke = parseNumber((resolvedFields && resolvedFields["Stärke-Wert"]) || 0);
+  const currentAttributeValue = currentAttribute === "Stärke" ? staerke : geschicklichkeit;
+  const selectedAttributeValue = selectedAttribute === "Stärke" ? staerke : geschicklichkeit;
+  const currentPoolBasis = parseNumber(lookupAttr(poolAttribute));
+
+  return {
+    selectedAttribute: selectedAttribute,
+    currentAttribute: currentAttribute,
+    poolBasisOverride: currentPoolBasis - currentAttributeValue + selectedAttributeValue,
   };
 }
 
@@ -95,12 +121,27 @@ function runSuccessProbeFromContext(rawTemplate, repeatingRowPrefix, popupState 
     }
 
     const poolMultiplier = getRollPoolMultiplier(context.definition, resolvedFields);
+    const meleeAttributeOverride = resolveMeleePopupAttributePoolOverride(
+      context.definition,
+      resolvedFields,
+      normalizedPopupState,
+      lookupAttr,
+      context.poolAttribute
+    );
     const computation = buildProbeComputation(
       lookupAttr,
       context.poolAttribute,
       normalizedPopupState.poolMod,
-      poolMultiplier
+      poolMultiplier,
+      meleeAttributeOverride ? meleeAttributeOverride.poolBasisOverride : null
     );
+
+    if (meleeAttributeOverride) {
+      rows.push({
+        label: "Attribut-Fallback",
+        value: `${meleeAttributeOverride.currentAttribute} -> ${meleeAttributeOverride.selectedAttribute}`,
+      });
+    }
     const glitchText = computation.isCriticalGlitch ? "!! Kritischer Patzer !!" : "!! Patzer !!";
     const erfolgeValue = computation.isGlitch ? glitchText : `${computation.successCount}`;
 

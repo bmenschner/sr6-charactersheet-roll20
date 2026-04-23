@@ -1040,6 +1040,21 @@ fieldset.repeating_sr6riggingmanoever .repcontrol {
   border-top: 0.0625rem solid rgba(0, 0, 0, 0.08);
 }
 
+.sr6-foundry-item-section-label,
+.sr6-kampf-section-label {
+  display: block;
+  color: var(--sr6-title);
+  font-size: 0.72rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.02rem;
+}
+
+.sr6-kampf-section-label {
+  padding-top: 0.25rem;
+  border-top: 0.0625rem solid rgba(0, 0, 0, 0.08);
+}
+
 .sr6-foundry-item--armor .sr6-foundry-item-head {
   margin-top: 0;
 }
@@ -3140,7 +3155,14 @@ body:has(.sr6-tabs-toggle-input:checked) #tab-content.tab-content,
 .sr6-roll-popup-slot-kind-toggle--4-select:checked ~ .sr6-roll-popup-slot-option-toggle--4-ammo:checked ~ .sr6-roll-popup-overlay .sr6-roll-popup-field--4 .sr6-roll-popup-field-input--select-ammo,
 .sr6-roll-popup-slot-kind-toggle--5-select:checked ~ .sr6-roll-popup-slot-option-toggle--5-ammo:checked ~ .sr6-roll-popup-overlay .sr6-roll-popup-field--5 .sr6-roll-popup-field-input--select-ammo,
 .sr6-roll-popup-slot-kind-toggle--6-select:checked ~ .sr6-roll-popup-slot-option-toggle--6-ammo:checked ~ .sr6-roll-popup-overlay .sr6-roll-popup-field--6 .sr6-roll-popup-field-input--select-ammo,
-.sr6-roll-popup-slot-kind-toggle--7-select:checked ~ .sr6-roll-popup-slot-option-toggle--7-ammo:checked ~ .sr6-roll-popup-overlay .sr6-roll-popup-field--7 .sr6-roll-popup-field-input--select-ammo {
+.sr6-roll-popup-slot-kind-toggle--7-select:checked ~ .sr6-roll-popup-slot-option-toggle--7-ammo:checked ~ .sr6-roll-popup-overlay .sr6-roll-popup-field--7 .sr6-roll-popup-field-input--select-ammo,
+.sr6-roll-popup-slot-kind-toggle--1-select:checked ~ .sr6-roll-popup-slot-option-toggle--1-melee-attribute:checked ~ .sr6-roll-popup-overlay .sr6-roll-popup-field--1 .sr6-roll-popup-field-input--select-melee-attribute,
+.sr6-roll-popup-slot-kind-toggle--2-select:checked ~ .sr6-roll-popup-slot-option-toggle--2-melee-attribute:checked ~ .sr6-roll-popup-overlay .sr6-roll-popup-field--2 .sr6-roll-popup-field-input--select-melee-attribute,
+.sr6-roll-popup-slot-kind-toggle--3-select:checked ~ .sr6-roll-popup-slot-option-toggle--3-melee-attribute:checked ~ .sr6-roll-popup-overlay .sr6-roll-popup-field--3 .sr6-roll-popup-field-input--select-melee-attribute,
+.sr6-roll-popup-slot-kind-toggle--4-select:checked ~ .sr6-roll-popup-slot-option-toggle--4-melee-attribute:checked ~ .sr6-roll-popup-overlay .sr6-roll-popup-field--4 .sr6-roll-popup-field-input--select-melee-attribute,
+.sr6-roll-popup-slot-kind-toggle--5-select:checked ~ .sr6-roll-popup-slot-option-toggle--5-melee-attribute:checked ~ .sr6-roll-popup-overlay .sr6-roll-popup-field--5 .sr6-roll-popup-field-input--select-melee-attribute,
+.sr6-roll-popup-slot-kind-toggle--6-select:checked ~ .sr6-roll-popup-slot-option-toggle--6-melee-attribute:checked ~ .sr6-roll-popup-overlay .sr6-roll-popup-field--6 .sr6-roll-popup-field-input--select-melee-attribute,
+.sr6-roll-popup-slot-kind-toggle--7-select:checked ~ .sr6-roll-popup-slot-option-toggle--7-melee-attribute:checked ~ .sr6-roll-popup-overlay .sr6-roll-popup-field--7 .sr6-roll-popup-field-input--select-melee-attribute {
   display: block !important;
 }
 

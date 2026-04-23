@@ -49,10 +49,30 @@
           </div>
         </div>
 
-        <div class="sr6-foundry-item-row sr6-charactersheet-row sr6-charactersheet-row-1">
+        <div class="sr6-foundry-item-row sr6-charactersheet-row sr6-charactersheet-row-3">
           <div class="sr6-charactersheet-field">
             <span data-i18n="field.schaden">Schaden</span>
             <input type="number" name="attr_sr6_nahkampf_schaden" />
+          </div>
+          <div class="sr6-charactersheet-field">
+            <span data-i18n="field.schadentyp">Schadenstyp</span>
+            <select name="attr_sr6_nahkampf_schadentyp">
+              <option value="Körperlich" data-i18n="field.schadentyp_koerperlich">Körperlich</option>
+              <option value="Betäubung" data-i18n="field.schadentyp_betaeubung">Betäubung</option>
+            </select>
+          </div>
+          <div class="sr6-charactersheet-field">
+            <span data-i18n="field.attribut">Attribut</span>
+            <select name="attr_sr6_nahkampf_attribut">
+              <option value="Geschicklichkeit" data-i18n="field.geschicklichkeit">Geschicklichkeit</option>
+              <option value="Stärke" data-i18n="field.staerke">Stärke</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="sr6-foundry-item-row sr6-charactersheet-row sr6-charactersheet-row-1">
+          <div class="sr6-charactersheet-field">
+            <span class="sr6-foundry-item-section-label" data-i18n="field.angriffswerte_reichweite">Angriffswerte (Reichweite)</span>
           </div>
         </div>
 
@@ -64,7 +84,7 @@
                 type="action"
                 class="sr6-charactersheet-field-dice-button"
                 name="act_probe"
-                value="&{template:default} {{name=Nahkampf-Test}} {{Waffe=@{sr6_nahkampfwaffe}}} {{Fertigkeit=@{sr6_nahkampf_fertigkeit}}} {{Schadenswert=@{sr6_nahkampf_schaden}}} {{Reichweite=S. Nah}} {{Pool=[[@{sr6_nahkampf_s_nah}]]}} {{Erfolge=[[@{sr6_nahkampf_s_nah}d6>5]]}}"
+                value="&{template:default} {{name=Nahkampf-Test}} {{Waffe=@{sr6_nahkampfwaffe}}} {{Fertigkeit=@{sr6_nahkampf_fertigkeit}}} {{Attribut=@{sr6_nahkampf_attribut}}} {{Schadenswert=@{sr6_nahkampf_schaden}}} {{Schadenstyp=@{sr6_nahkampf_schadentyp}}} {{Reichweite=S. Nah}} {{Pool=[[@{sr6_nahkampf_s_nah}]]}} {{Erfolge=[[@{sr6_nahkampf_s_nah}d6>5]]}}"
                 aria-label="Wuerfeln"></button>
             </div>
           </div>
@@ -76,7 +96,7 @@
                 type="action"
                 class="sr6-charactersheet-field-dice-button"
                 name="act_probe"
-                value="&{template:default} {{name=Nahkampf-Test}} {{Waffe=@{sr6_nahkampfwaffe}}} {{Fertigkeit=@{sr6_nahkampf_fertigkeit}}} {{Schadenswert=@{sr6_nahkampf_schaden}}} {{Reichweite=Nah}} {{Pool=[[@{sr6_nahkampf_nah}]]}} {{Erfolge=[[@{sr6_nahkampf_nah}d6>5]]}}"
+                value="&{template:default} {{name=Nahkampf-Test}} {{Waffe=@{sr6_nahkampfwaffe}}} {{Fertigkeit=@{sr6_nahkampf_fertigkeit}}} {{Attribut=@{sr6_nahkampf_attribut}}} {{Schadenswert=@{sr6_nahkampf_schaden}}} {{Schadenstyp=@{sr6_nahkampf_schadentyp}}} {{Reichweite=Nah}} {{Pool=[[@{sr6_nahkampf_nah}]]}} {{Erfolge=[[@{sr6_nahkampf_nah}d6>5]]}}"
                 aria-label="Wuerfeln"></button>
             </div>
           </div>
@@ -88,7 +108,7 @@
                 type="action"
                 class="sr6-charactersheet-field-dice-button"
                 name="act_probe"
-                value="&{template:default} {{name=Nahkampf-Test}} {{Waffe=@{sr6_nahkampfwaffe}}} {{Fertigkeit=@{sr6_nahkampf_fertigkeit}}} {{Schadenswert=@{sr6_nahkampf_schaden}}} {{Reichweite=Mittel}} {{Pool=[[@{sr6_nahkampf_mittel}]]}} {{Erfolge=[[@{sr6_nahkampf_mittel}d6>5]]}}"
+                value="&{template:default} {{name=Nahkampf-Test}} {{Waffe=@{sr6_nahkampfwaffe}}} {{Fertigkeit=@{sr6_nahkampf_fertigkeit}}} {{Attribut=@{sr6_nahkampf_attribut}}} {{Schadenswert=@{sr6_nahkampf_schaden}}} {{Schadenstyp=@{sr6_nahkampf_schadentyp}}} {{Reichweite=Mittel}} {{Pool=[[@{sr6_nahkampf_mittel}]]}} {{Erfolge=[[@{sr6_nahkampf_mittel}d6>5]]}}"
                 aria-label="Wuerfeln"></button>
             </div>
           </div>
@@ -100,7 +120,7 @@
                 type="action"
                 class="sr6-charactersheet-field-dice-button"
                 name="act_probe"
-                value="&{template:default} {{name=Nahkampf-Test}} {{Waffe=@{sr6_nahkampfwaffe}}} {{Fertigkeit=@{sr6_nahkampf_fertigkeit}}} {{Schadenswert=@{sr6_nahkampf_schaden}}} {{Reichweite=Weit}} {{Pool=[[@{sr6_nahkampf_weit}]]}} {{Erfolge=[[@{sr6_nahkampf_weit}d6>5]]}}"
+                value="&{template:default} {{name=Nahkampf-Test}} {{Waffe=@{sr6_nahkampfwaffe}}} {{Fertigkeit=@{sr6_nahkampf_fertigkeit}}} {{Attribut=@{sr6_nahkampf_attribut}}} {{Schadenswert=@{sr6_nahkampf_schaden}}} {{Schadenstyp=@{sr6_nahkampf_schadentyp}}} {{Reichweite=Weit}} {{Pool=[[@{sr6_nahkampf_weit}]]}} {{Erfolge=[[@{sr6_nahkampf_weit}d6>5]]}}"
                 aria-label="Wuerfeln"></button>
             </div>
           </div>
@@ -112,7 +132,7 @@
                 type="action"
                 class="sr6-charactersheet-field-dice-button"
                 name="act_probe"
-                value="&{template:default} {{name=Nahkampf-Test}} {{Waffe=@{sr6_nahkampfwaffe}}} {{Fertigkeit=@{sr6_nahkampf_fertigkeit}}} {{Schadenswert=@{sr6_nahkampf_schaden}}} {{Reichweite=S. Weit}} {{Pool=[[@{sr6_nahkampf_s_weit}]]}} {{Erfolge=[[@{sr6_nahkampf_s_weit}d6>5]]}}"
+                value="&{template:default} {{name=Nahkampf-Test}} {{Waffe=@{sr6_nahkampfwaffe}}} {{Fertigkeit=@{sr6_nahkampf_fertigkeit}}} {{Attribut=@{sr6_nahkampf_attribut}}} {{Schadenswert=@{sr6_nahkampf_schaden}}} {{Schadenstyp=@{sr6_nahkampf_schadentyp}}} {{Reichweite=S. Weit}} {{Pool=[[@{sr6_nahkampf_s_weit}]]}} {{Erfolge=[[@{sr6_nahkampf_s_weit}d6>5]]}}"
                 aria-label="Wuerfeln"></button>
             </div>
           </div>

@@ -10,8 +10,10 @@ function evaluateGlitch(diceResults, successCount) {
   return { isGlitch, isCriticalGlitch };
 }
 
-function buildProbeComputation(lookupAttr, poolAttribute, popupPoolMod, poolMultiplier = 1) {
-  const poolBasisRaw = parseNumber(lookupAttr(poolAttribute));
+function buildProbeComputation(lookupAttr, poolAttribute, popupPoolMod, poolMultiplier = 1, poolBasisOverride = null) {
+  const poolBasisRaw = poolBasisOverride === null
+    ? parseNumber(lookupAttr(poolAttribute))
+    : parseNumber(poolBasisOverride);
   const normalizedPoolMultiplier = Math.max(1, parseNumber(poolMultiplier) || 1);
   const poolBasis = poolBasisRaw * normalizedPoolMultiplier;
   const monitorPoolMod = parseNumber(lookupAttr("sr6_monitor_pool_mod"));

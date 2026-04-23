@@ -42,6 +42,10 @@ function buildProbeRows(resolvedFields, definition) {
     rows.push({ label: key, value: resolvedFields[key] });
   });
 
+  if (hasWeaponTemplateVariant(definition)) {
+    return rows;
+  }
+
   return rows.slice(0, 4);
 }
 
@@ -103,7 +107,8 @@ function buildWeaponProbePresentation(payload) {
   const resolvedFields = payload.resolvedFields || {};
   const baseAmmo = `${resolvedFields.Munition || ""}`;
   const popupAmmo = findAllRowValues(rows, "Munition").find((value) => value && value !== baseAmmo) || "";
-  const damageType = findLastRowValue(rows, "Schadenstyp");
+  const attribute = findLastRowValue(rows, "Attribut") || `${resolvedFields.Attribut || ""}`;
+  const damageType = findLastRowValue(rows, "Schadenstyp") || `${resolvedFields.Schadenstyp || ""}`;
   const attackValue = findLastRowValue(rows, "Angriffswert");
   const finalDamage = findLastRowValue(rows, "Schaden") || `${resolvedFields.Schadenswert || ""}`;
   const baseDamage = `${resolvedFields.Schadenswert || ""}`;
@@ -111,6 +116,7 @@ function buildWeaponProbePresentation(payload) {
   const damageMod = findLastRowValue(rows, "Schadens-Modifikator");
   const attackValueBase = findLastRowValue(rows, "Angriffswert-Basis");
   const damageBase = findLastRowValue(rows, "Schaden-Basis") || baseDamage;
+  const attributeFallback = findLastRowValue(rows, "Attribut-Fallback");
   const extraNotes = [];
   const calcParts = [];
   const specialization = findLastRowValue(rows, "Spezialisierung");
@@ -129,6 +135,9 @@ function buildWeaponProbePresentation(payload) {
   if (expertise) {
     calcParts.push(`Expertise: ${expertise}`);
   }
+  if (attributeFallback) {
+    calcParts.push(`Attribut-Fallback: ${attributeFallback}`);
+  }
   if (attackValueMod) {
     calcParts.push(`Angriffswert-Modifikator: ${attackValueMod}`);
   }
@@ -145,6 +154,7 @@ function buildWeaponProbePresentation(payload) {
   return {
     weaponLayout: true,
     weapon: `${resolvedFields.Waffe || ""}`,
+    attribute: attribute,
     attackValue: `${attackValue || ""}`,
     ammo: popupAmmo || baseAmmo,
     range: `${resolvedFields.Reichweite || ""}`,

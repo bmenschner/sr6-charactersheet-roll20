@@ -27,15 +27,22 @@
 
 ## Folgearbeiten nach dem aktuellen Refactor
 
-- [ ] Kampf-Kalkulationsfelder (`Fernkampfangriff`, `Nahkampfangriff`, `Verteidigung (Physisch)`, `Schadenswiderstand (Physisch)`) auf final bestaetigte Formeln umstellen
+- [ ] Kampf-Kalkulationsfelder (`Fernkampfangriff`, `Nahkampfangriff`, `Verteidigung (Physisch)`, `Schadenswiderstand (Physisch)`, `Verteidigungswert`) auf final bestaetigte Formeln umstellen
+  Aktueller Stand: `Fernkampfangriff`, `Nahkampfangriff`, `Verteidigung (Physisch)`, `Schadenswiderstand (Physisch)` und `Verteidigungswert` sind im Sheet technisch berechnet; beim `Verteidigungswert` bleibt der bestaetigte Sheet-Stand `Konstitution + Primaer + Sekundaer + Helm + Schild` erhalten.
+  Offen bleibt: explizite Sonderfaelle und Ausnahmen aus Ausruestung/Bodytech/Magie spaeter gezielt gegen die gewollte Sheet-Logik statt gegen eine pauschale Regelannahme modellieren.
 - [ ] Allgemeine Verteidigungs-/Widerstandsfelder fuer Drohnen-/Sonderfaelle weiter schaerfen
   Aktueller Stand: `Verteidigung (Zauber - Direkt)`, `Verteidigung (Zauber - Indirekt)`, `Verteidigung (Astralkampf)`, `Schadenswiderstand (Astral)`, `Schadenswiderstand (Matrix)` und `Schadenswiderstand (Biofeedback)` sind jetzt auf die belegten Standardformeln aus dem Grundregelwerk gezogen.
   Offen bleibt: Sonderfaelle wie Drohnen/Pilot oder spezifische Matrixprogramme ohne kuenstliche Uebermodellierung sauber einhaengen.
 - [ ] Kampf-UI und Popup systematisch auf die Trennung `Wuerfelpool` vs. `Angriffswert` vs. `Verteidigungswert` vs. `Schaden` ausrichten
+  Aktueller Stand: Kampf ist funktional auf diese Trennung gezogen. `Fernkampfangriff`, `Nahkampfangriff`, `Verteidigung (Physisch)` und `Schadenswiderstand (Physisch)` laufen als Pools; `Verteidigungswert` bleibt Vergleichswert; reichweitenabhaengige Waffenwerte bleiben Angriffswert-Kontext; `Schaden` bleibt Einzelwert. Die Kampf-UI fuehrt diese Ebenen inzwischen sichtbar getrennt.
+  Offen bleibt: Popup-Feinschliff und spaetere Layout-/UX-Politur, nicht mehr die fachliche Grundtrennung.
 - [ ] Pruefen, ob die Angriffswert-Felder von Nahkampfwaffen im Sheet bereits Endwerte sind oder ob `Staerke` kuenftig noch eingerechnet werden muss
+  Aktueller Stand: Die reichweitenabhaengigen Nahkampfwerte bleiben bewusst manuell gepflegte Endwerte; die primaere Nahkampfprobe liest jetzt aber `Fertigkeit` und `Attribut` der primaeren Waffe. Nahkampfwaffen fuehren zusaetzlich `Schadenstyp`.
 - [ ] Rollenwahl fuer `Primäre Panzerung`, `Sekundäre Panzerung`, `Helm` und `Schild` gegen die finale UX pruefen und bei Bedarf noch weiter verfeinern
 - [ ] Repeating-Waffenwerte darauf pruefen, welche Felder eigene Dreiklaenge benoetigen; `Schaden` ist gesetzt, `Angriffswert` bleibt aktuell reichweitenabhaengig
 - [ ] Popup-Profile nach finaler Wertetyp-Klassifikation und Probenmodell je Rollart nachziehen
+  Aktueller Stand: Kampf nutzt fuer Fern- und Nahkampf bereits getrennte Popup-Profile; Nahkampf fuehrt `Attribut` und `Schadenstyp`, Fernkampf weiterhin `Munition`. Der Nahkampf-Popup kann das Attribut als Fallback vor dem Wurf umschalten.
+  Offen bleibt: die restlichen Rollarten projektweit auf denselben Explizitheitsgrad ziehen.
 - [ ] Pruefen, welche Einzelwerte in `Magie`, `Matrix`, `Rigging`, `Ausruestung` und `Leben` wirklich numerische Primarwerte sind
   Aktueller Stand: numerische Kernwert-Inputs in `Magie`, `Matrix` und `Rigging` werden schrittweise vom alten `text`-Format auf `number` umgestellt.
 - [ ] Verbleibende generische Fallback-Proben weiter auf explizite Fachmodelle ziehen
