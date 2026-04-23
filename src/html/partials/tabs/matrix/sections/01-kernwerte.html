@@ -29,15 +29,16 @@
           <span data-i18n="field.matrix_initiative">Matrix-Initiative</span>
           <div class="sr6-charactersheet-initiative-input">
             <input type="number" name="attr_sr6_matrix_initiative" readonly />
-            <label class="sr6-charactersheet-initiative-dice-field">
-              <span data-i18n="field.w6">W6</span>
-              <input type="number" name="attr_sr6_matrix_initiative_w6" readonly />
-            </label><button
+            <span class="sr6-charactersheet-initiative-plus" aria-hidden="true">+</span>
+            <span class="sr6-charactersheet-initiative-dice-label" data-i18n="field.w6">W6</span>
+            <div class="sr6-charactersheet-field-input-with-dice">
+              <input type="number" name="attr_sr6_matrix_initiative_w6" readonly /><button
               type="action"
               class="sr6-charactersheet-field-dice-button"
               name="act_probe"
               value="&{template:default} {{name=Matrix-Initiative}} {{Basis=[[@{sr6_matrix_initiative}]]}} {{W6=[[@{sr6_matrix_initiative_w6}d6]]}} {{Gesamt=[[@{sr6_matrix_initiative}+(@{sr6_matrix_initiative_w6}d6)]]}}"
               aria-label="Wuerfeln"></button>
+            </div>
           </div>
         </div>
 
