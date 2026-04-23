@@ -12,6 +12,9 @@
 - [ ] `attribute_probe` als explizites Modell weiter ausbauen
   Aktueller Stand: eigenes Modell und eigener Pool-Multiplikator sind im Code verankert; ein erster `Attribut x2`-Pilot ist in `Allgemein > Attribute > Gesamtwert` umgesetzt und in Roll20 bestaetigt.
   Offen bleibt: weitere echte `x2`-Anwendungsfaelle gezielt auf dasselbe Modell mappen.
+- [ ] `initiative_probe` als explizites Modell weiter schaerfen
+  Aktueller Stand: Initiativwuerfe mit `Basis / W6 / Gesamt` laufen jetzt ueber ein eigenes Modell statt ueber den generischen Fallback; physische, astrale, Matrix- und Rigging-Initiative nutzen getrennte Basisfelder. Matrix- und Rigging-Initiative werden aus dem Modus abgeleitet.
+  Offen bleibt: die verbleibenden Detailfaelle fuer Rigging wie hineingesprungen per Kabel/WiFi oder weitere spezialisierte Modi spaeter gezielt gegen das Grundregelwerk schaerfen.
 - [ ] `skill_probe` weiter von generischen Altpfaden entkoppeln
   Aktueller Stand: gemeinsamer `skill_probe`-Builder traegt jetzt Basisfertigkeiten, Wissens-/Sprachfertigkeiten sowie Soft-Faelle.
   Offen bleibt: pruefen, welche heutigen Spezialfaelle spaeter noch einen echten eigenen Modellpfad brauchen und welche beim `skill_probe` bleiben koennen.

@@ -10,12 +10,13 @@ function recomputeAll() {
   appendCombatRequestKeys(requestKeys);
   appendMatrixRequestKeys(requestKeys);
   appendMagicRequestKeys(requestKeys);
+  appendRiggingRequestKeys(requestKeys);
   appendHeaderMonitorRequestKeys(requestKeys);
 
   getAttrs(requestKeys, (values) => {
     computeAttributeTotals(values, updates, totals);
     computeSkillTotals(values, updates, skillTotals);
-    computeMatrixTotals(values, updates);
+    computeMatrixTotals(values, totals, updates);
     computeCombatDerivedFromAttributes(totals, values, updates, skillTotals);
     computeHeaderMonitorDerivedFromAttributes(totals, values, updates);
     computeMagicDerived(values, totals, skillTotals, updates);
@@ -59,6 +60,10 @@ function buildRecalcEvents() {
 
   events.push("change:sr6_magic_traditionsattribut_1");
   events.push("change:sr6_magic_traditionsattribut_2");
+  events.push("change:sr6_matrix_modus");
+  events.push("change:sr6_matrix_datenverarbeitung");
+  events.push("change:sr6_rigging_modus");
+  events.push("change:sr6_rigging_datenverarbeitung");
 
   for (let index = 1; index <= 18; index += 1) {
     events.push(`change:sr6_monitor_koerperlich_${index}`);

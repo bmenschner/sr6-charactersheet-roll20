@@ -498,7 +498,28 @@ function createValueProbeDefinition(config = {}) {
   };
 }
 
+function createInitiativeProbeDefinition(config = {}) {
+  return {
+    probeModel: "initiative_probe",
+    matchField: config.matchField || "Basis",
+    matchPoolPrefix: config.matchPoolPrefix || "",
+    titleMode: config.titleMode || "explicit-name",
+    titleField: config.titleField || "",
+    primaryFields: config.primaryFields || ["Basis"],
+    extraFields: config.extraFields || ["W6", "Gesamt"],
+    popupFields: config.popupFields || SR6_DEFAULT_POPUP_FIELDS,
+    fixedTitle: config.fixedTitle || "",
+    titleFallback: config.titleFallback || "Initiative",
+  };
+}
+
 const SR6_ROLL_DEFINITIONS = [
+  {
+    id: "initiative",
+    ...createInitiativeProbeDefinition({
+      titleFallback: "Initiative",
+    }),
+  },
   {
     id: "attribute",
     ...createAttributeProbeDefinition({
@@ -2448,13 +2469,36 @@ function computeMagicDerived(values, totals, skillTotals, updates) {
 
 // BEGIN MODULE: workers/compute/matrix
 function appendMatrixRequestKeys(requestKeys) {
+  requestKeys.push("sr6_matrix_modus");
+  requestKeys.push("sr6_matrix_datenverarbeitung");
   SR6_MATRIX_ACTIONS.forEach((actionName) => {
     requestKeys.push(`sr6_matrix_handlung_${actionName}_grundwert`);
     requestKeys.push(`sr6_matrix_handlung_${actionName}_modifikator`);
   });
 }
 
-function computeMatrixTotals(values, updates) {
+function resolveMatrixInitiativeMode(mode) {
+  if (mode === "VR Heiss") {
+    return { basisSource: "matrix", w6: 3 };
+  }
+
+  if (mode === "VR Kalt") {
+    return { basisSource: "matrix", w6: 2 };
+  }
+
+  return { basisSource: "physical", w6: 1 };
+}
+
+function computeMatrixTotals(values, totals, updates) {
+  const matrixInitiativeMode = resolveMatrixInitiativeMode(values.sr6_matrix_modus);
+  const matrixBasis =
+    matrixInitiativeMode.basisSource === "matrix"
+      ? (totals.intuition || 0) + parseNumber(values.sr6_matrix_datenverarbeitung)
+      : (totals.reaktion || 0) + (totals.intuition || 0);
+
+  updates.sr6_matrix_initiative = String(matrixBasis);
+  updates.sr6_matrix_initiative_w6 = String(matrixInitiativeMode.w6);
+
   SR6_MATRIX_ACTIONS.forEach((actionName) => {
     const baseKey = `sr6_matrix_handlung_${actionName}_grundwert`;
     const modifierKey = `sr6_matrix_handlung_${actionName}_modifikator`;
@@ -2467,11 +2511,32 @@ function computeMatrixTotals(values, updates) {
 // END MODULE: workers/compute/matrix
 
 // BEGIN MODULE: workers/compute/rigging
-// Rigging-Compute-Slot.
-// Aktuell werden im Rigging-Tab keine automatischen Derived-Werte gesetzt,
-// da die angezeigten Kernwerte als direkte Eingaben gefuehrt werden.
-function computeRiggingDerived(_values, _totals, _skillTotals, _updates) {
-  // bewusst leer
+function appendRiggingRequestKeys(requestKeys) {
+  requestKeys.push("sr6_rigging_modus");
+  requestKeys.push("sr6_rigging_datenverarbeitung");
+}
+
+function resolveRiggingInitiativeMode(mode) {
+  if (mode === "VR Heiss") {
+    return { basisSource: "matrix", w6: 3 };
+  }
+
+  if (mode === "VR Kalt") {
+    return { basisSource: "matrix", w6: 2 };
+  }
+
+  return { basisSource: "physical", w6: 1 };
+}
+
+function computeRiggingDerived(values, totals, _skillTotals, updates) {
+  const riggingInitiativeMode = resolveRiggingInitiativeMode(values.sr6_rigging_modus);
+  const riggingBasis =
+    riggingInitiativeMode.basisSource === "matrix"
+      ? (totals.intuition || 0) + parseNumber(values.sr6_rigging_datenverarbeitung)
+      : (totals.reaktion || 0) + (totals.intuition || 0);
+
+  updates.sr6_rigging_initiative = String(riggingBasis);
+  updates.sr6_rigging_initiative_w6 = String(riggingInitiativeMode.w6);
 }
 // END MODULE: workers/compute/rigging
 
@@ -2626,12 +2691,13 @@ function recomputeAll() {
   appendCombatRequestKeys(requestKeys);
   appendMatrixRequestKeys(requestKeys);
   appendMagicRequestKeys(requestKeys);
+  appendRiggingRequestKeys(requestKeys);
   appendHeaderMonitorRequestKeys(requestKeys);
 
   getAttrs(requestKeys, (values) => {
     computeAttributeTotals(values, updates, totals);
     computeSkillTotals(values, updates, skillTotals);
-    computeMatrixTotals(values, updates);
+    computeMatrixTotals(values, totals, updates);
     computeCombatDerivedFromAttributes(totals, values, updates, skillTotals);
     computeHeaderMonitorDerivedFromAttributes(totals, values, updates);
     computeMagicDerived(values, totals, skillTotals, updates);
@@ -2675,6 +2741,10 @@ function buildRecalcEvents() {
 
   events.push("change:sr6_magic_traditionsattribut_1");
   events.push("change:sr6_magic_traditionsattribut_2");
+  events.push("change:sr6_matrix_modus");
+  events.push("change:sr6_matrix_datenverarbeitung");
+  events.push("change:sr6_rigging_modus");
+  events.push("change:sr6_rigging_datenverarbeitung");
 
   for (let index = 1; index <= 18; index += 1) {
     events.push(`change:sr6_monitor_koerperlich_${index}`);

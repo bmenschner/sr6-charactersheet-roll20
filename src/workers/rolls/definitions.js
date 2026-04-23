@@ -366,7 +366,28 @@ function createValueProbeDefinition(config = {}) {
   };
 }
 
+function createInitiativeProbeDefinition(config = {}) {
+  return {
+    probeModel: "initiative_probe",
+    matchField: config.matchField || "Basis",
+    matchPoolPrefix: config.matchPoolPrefix || "",
+    titleMode: config.titleMode || "explicit-name",
+    titleField: config.titleField || "",
+    primaryFields: config.primaryFields || ["Basis"],
+    extraFields: config.extraFields || ["W6", "Gesamt"],
+    popupFields: config.popupFields || SR6_DEFAULT_POPUP_FIELDS,
+    fixedTitle: config.fixedTitle || "",
+    titleFallback: config.titleFallback || "Initiative",
+  };
+}
+
 const SR6_ROLL_DEFINITIONS = [
+  {
+    id: "initiative",
+    ...createInitiativeProbeDefinition({
+      titleFallback: "Initiative",
+    }),
+  },
   {
     id: "attribute",
     ...createAttributeProbeDefinition({

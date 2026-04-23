@@ -841,21 +841,23 @@
         >Physisch</span
       >
       <div class="sr6-charactersheet-init-formula">
-        <span data-i18n="field.basis_plus">Basis +</span>
+        <span data-i18n="field.basis">Basis</span>
         <input
-          type="text"
-          name="attr_sr6_initiative_physisch_modifikator_basis" />
+          type="number"
+          name="attr_sr6_derived_initiative_basis"
+          readonly />
       </div>
       <div class="sr6-charactersheet-init-formula-with-dice">
-        <span data-i18n="field.eins_plus">1 +</span>
+        <span data-i18n="field.w6">W6</span>
         <div class="sr6-charactersheet-field-input-with-dice">
           <input
-            type="text"
-            name="attr_sr6_initiative_physisch_modifikator_w6" /><button
+            type="number"
+            name="attr_sr6_initiative_physisch_w6"
+            value="1" /><button
             type="action"
             class="sr6-charactersheet-field-dice-button"
             name="act_probe"
-            value="&{template:default} {{name=Initiative: Physisch}} {{Basis=[[@{sr6_derived_initiative_basis}+@{sr6_initiative_physisch_modifikator_basis}]]}} {{W6=[[(1+@{sr6_initiative_physisch_modifikator_w6})d6]]}} {{Gesamt=[[@{sr6_derived_initiative_basis}+@{sr6_initiative_physisch_modifikator_basis}+((1+@{sr6_initiative_physisch_modifikator_w6})d6)]]}}"
+            value="&{template:default} {{name=Initiative: Physisch}} {{Basis=[[@{sr6_derived_initiative_basis}]]}} {{W6=[[@{sr6_initiative_physisch_w6}d6]]}} {{Gesamt=[[@{sr6_derived_initiative_basis}+(@{sr6_initiative_physisch_w6}d6)]]}}"
             aria-label="Wuerfeln"></button>
         </div>
       </div>
@@ -870,21 +872,23 @@
         >Astral</span
       >
       <div class="sr6-charactersheet-init-formula">
-        <span data-i18n="field.basis_plus">Basis +</span>
+        <span data-i18n="field.basis">Basis</span>
         <input
-          type="text"
-          name="attr_sr6_initiative_astral_modifikator_basis" />
+          type="number"
+          name="attr_sr6_magic_astrale_initiative"
+          readonly />
       </div>
       <div class="sr6-charactersheet-init-formula-with-dice">
-        <span data-i18n="field.eins_plus">1 +</span>
+        <span data-i18n="field.w6">W6</span>
         <div class="sr6-charactersheet-field-input-with-dice">
           <input
-            type="text"
-            name="attr_sr6_initiative_astral_modifikator_w6" /><button
+            type="number"
+            name="attr_sr6_magic_astrale_initiative_w6"
+            value="3" /><button
             type="action"
             class="sr6-charactersheet-field-dice-button"
             name="act_probe"
-            value="&{template:default} {{name=Initiative: Astral}} {{Basis=[[@{sr6_derived_initiative_basis}+@{sr6_initiative_astral_modifikator_basis}]]}} {{W6=[[(1+@{sr6_initiative_astral_modifikator_w6})d6]]}} {{Gesamt=[[@{sr6_derived_initiative_basis}+@{sr6_initiative_astral_modifikator_basis}+((1+@{sr6_initiative_astral_modifikator_w6})d6)]]}}"
+            value="&{template:default} {{name=Initiative: Astral}} {{Basis=[[@{sr6_magic_astrale_initiative}]]}} {{W6=[[@{sr6_magic_astrale_initiative_w6}d6]]}} {{Gesamt=[[@{sr6_magic_astrale_initiative}+(@{sr6_magic_astrale_initiative_w6}d6)]]}}"
             aria-label="Wuerfeln"></button>
         </div>
       </div>
@@ -899,21 +903,23 @@
         >Matrix</span
       >
       <div class="sr6-charactersheet-init-formula">
-        <span data-i18n="field.basis_plus">Basis +</span>
+        <span data-i18n="field.basis">Basis</span>
         <input
-          type="text"
-          name="attr_sr6_initiative_matrix_modifikator_basis" />
+          type="number"
+          name="attr_sr6_matrix_initiative"
+          readonly />
       </div>
       <div class="sr6-charactersheet-init-formula-with-dice">
-        <span data-i18n="field.eins_plus">1 +</span>
+        <span data-i18n="field.w6">W6</span>
         <div class="sr6-charactersheet-field-input-with-dice">
           <input
-            type="text"
-            name="attr_sr6_initiative_matrix_modifikator_w6" /><button
+            type="number"
+            name="attr_sr6_matrix_initiative_w6"
+            value="4" /><button
             type="action"
             class="sr6-charactersheet-field-dice-button"
             name="act_probe"
-            value="&{template:default} {{name=Initiative: Matrix}} {{Basis=[[@{sr6_derived_initiative_basis}+@{sr6_initiative_matrix_modifikator_basis}]]}} {{W6=[[(1+@{sr6_initiative_matrix_modifikator_w6})d6]]}} {{Gesamt=[[@{sr6_derived_initiative_basis}+@{sr6_initiative_matrix_modifikator_basis}+((1+@{sr6_initiative_matrix_modifikator_w6})d6)]]}}"
+            value="&{template:default} {{name=Initiative: Matrix}} {{Basis=[[@{sr6_matrix_initiative}]]}} {{W6=[[@{sr6_matrix_initiative_w6}d6]]}} {{Gesamt=[[@{sr6_matrix_initiative}+(@{sr6_matrix_initiative_w6}d6)]]}}"
             aria-label="Wuerfeln"></button>
         </div>
       </div>
@@ -3957,12 +3963,16 @@
 
           <div class="sr6-charactersheet-field">
             <div class="sr6-field-label-with-info"><span data-i18n="field.astrale_initiative">Astrale Initiative</span><span class="sr6-info-icon" title="Astrale Initiative (Basis) = sr6_attr_logik_gesamtwert + sr6_attr_intuition_gesamtwert">i</span></div>
-            <div class="sr6-charactersheet-field-input-with-dice">
-              <input type="number" name="attr_sr6_magic_astrale_initiative" /><button
+            <div class="sr6-charactersheet-initiative-input">
+              <input type="number" name="attr_sr6_magic_astrale_initiative" />
+              <label class="sr6-charactersheet-initiative-dice-field">
+                <span data-i18n="field.w6">W6</span>
+                <input type="number" name="attr_sr6_magic_astrale_initiative_w6" value="3" />
+              </label><button
                 type="action"
                 class="sr6-charactersheet-field-dice-button"
                 name="act_probe"
-                value="&{template:default} {{name=Astrale Initiative}} {{Basis=[[@{sr6_magic_astrale_initiative}]]}} {{Gesamt=[[@{sr6_magic_astrale_initiative}+3d6]]}}"
+                value="&{template:default} {{name=Astrale Initiative}} {{Basis=[[@{sr6_magic_astrale_initiative}]]}} {{W6=[[@{sr6_magic_astrale_initiative_w6}d6]]}} {{Gesamt=[[@{sr6_magic_astrale_initiative}+(@{sr6_magic_astrale_initiative_w6}d6)]]}}"
                 aria-label="Wuerfeln"></button>
             </div>
           </div>
@@ -4429,12 +4439,16 @@
 
         <div class="sr6-charactersheet-field">
           <span data-i18n="field.matrix_initiative">Matrix-Initiative</span>
-          <div class="sr6-charactersheet-field-input-with-dice">
-            <input type="number" name="attr_sr6_matrix_initiative" /><button
+          <div class="sr6-charactersheet-initiative-input">
+            <input type="number" name="attr_sr6_matrix_initiative" readonly />
+            <label class="sr6-charactersheet-initiative-dice-field">
+              <span data-i18n="field.w6">W6</span>
+              <input type="number" name="attr_sr6_matrix_initiative_w6" readonly />
+            </label><button
               type="action"
               class="sr6-charactersheet-field-dice-button"
               name="act_probe"
-              value="&{template:default} {{name=Matrix-Initiative}} {{Basis=[[@{sr6_matrix_initiative}]]}} {{Gesamt=[[@{sr6_matrix_initiative}+3d6]]}}"
+              value="&{template:default} {{name=Matrix-Initiative}} {{Basis=[[@{sr6_matrix_initiative}]]}} {{W6=[[@{sr6_matrix_initiative_w6}d6]]}} {{Gesamt=[[@{sr6_matrix_initiative}+(@{sr6_matrix_initiative_w6}d6)]]}}"
               aria-label="Wuerfeln"></button>
           </div>
         </div>
@@ -6525,12 +6539,16 @@
 
         <div class="sr6-charactersheet-field">
           <span data-i18n="field.rigging_initiative">Rigging-Initiative</span>
-          <div class="sr6-charactersheet-field-input-with-dice">
-            <input type="number" name="attr_sr6_rigging_initiative" /><button
+          <div class="sr6-charactersheet-initiative-input">
+            <input type="number" name="attr_sr6_rigging_initiative" readonly />
+            <label class="sr6-charactersheet-initiative-dice-field">
+              <span data-i18n="field.w6">W6</span>
+              <input type="number" name="attr_sr6_rigging_initiative_w6" readonly />
+            </label><button
               type="action"
               class="sr6-charactersheet-field-dice-button"
               name="act_probe"
-              value="&{template:default} {{name=Rigging-Initiative}} {{Basis=[[@{sr6_rigging_initiative}]]}} {{Gesamt=[[@{sr6_rigging_initiative}+3d6]]}}"
+              value="&{template:default} {{name=Rigging-Initiative}} {{Basis=[[@{sr6_rigging_initiative}]]}} {{W6=[[@{sr6_rigging_initiative_w6}d6]]}} {{Gesamt=[[@{sr6_rigging_initiative}+(@{sr6_rigging_initiative_w6}d6)]]}}"
               aria-label="Wuerfeln"></button>
           </div>
         </div>
@@ -8020,7 +8038,28 @@ function createValueProbeDefinition(config = {}) {
   };
 }
 
+function createInitiativeProbeDefinition(config = {}) {
+  return {
+    probeModel: "initiative_probe",
+    matchField: config.matchField || "Basis",
+    matchPoolPrefix: config.matchPoolPrefix || "",
+    titleMode: config.titleMode || "explicit-name",
+    titleField: config.titleField || "",
+    primaryFields: config.primaryFields || ["Basis"],
+    extraFields: config.extraFields || ["W6", "Gesamt"],
+    popupFields: config.popupFields || SR6_DEFAULT_POPUP_FIELDS,
+    fixedTitle: config.fixedTitle || "",
+    titleFallback: config.titleFallback || "Initiative",
+  };
+}
+
 const SR6_ROLL_DEFINITIONS = [
+  {
+    id: "initiative",
+    ...createInitiativeProbeDefinition({
+      titleFallback: "Initiative",
+    }),
+  },
   {
     id: "attribute",
     ...createAttributeProbeDefinition({
@@ -9970,13 +10009,36 @@ function computeMagicDerived(values, totals, skillTotals, updates) {
 
 // BEGIN MODULE: workers/compute/matrix
 function appendMatrixRequestKeys(requestKeys) {
+  requestKeys.push("sr6_matrix_modus");
+  requestKeys.push("sr6_matrix_datenverarbeitung");
   SR6_MATRIX_ACTIONS.forEach((actionName) => {
     requestKeys.push(`sr6_matrix_handlung_${actionName}_grundwert`);
     requestKeys.push(`sr6_matrix_handlung_${actionName}_modifikator`);
   });
 }
 
-function computeMatrixTotals(values, updates) {
+function resolveMatrixInitiativeMode(mode) {
+  if (mode === "VR Heiss") {
+    return { basisSource: "matrix", w6: 3 };
+  }
+
+  if (mode === "VR Kalt") {
+    return { basisSource: "matrix", w6: 2 };
+  }
+
+  return { basisSource: "physical", w6: 1 };
+}
+
+function computeMatrixTotals(values, totals, updates) {
+  const matrixInitiativeMode = resolveMatrixInitiativeMode(values.sr6_matrix_modus);
+  const matrixBasis =
+    matrixInitiativeMode.basisSource === "matrix"
+      ? (totals.intuition || 0) + parseNumber(values.sr6_matrix_datenverarbeitung)
+      : (totals.reaktion || 0) + (totals.intuition || 0);
+
+  updates.sr6_matrix_initiative = String(matrixBasis);
+  updates.sr6_matrix_initiative_w6 = String(matrixInitiativeMode.w6);
+
   SR6_MATRIX_ACTIONS.forEach((actionName) => {
     const baseKey = `sr6_matrix_handlung_${actionName}_grundwert`;
     const modifierKey = `sr6_matrix_handlung_${actionName}_modifikator`;
@@ -9989,11 +10051,32 @@ function computeMatrixTotals(values, updates) {
 // END MODULE: workers/compute/matrix
 
 // BEGIN MODULE: workers/compute/rigging
-// Rigging-Compute-Slot.
-// Aktuell werden im Rigging-Tab keine automatischen Derived-Werte gesetzt,
-// da die angezeigten Kernwerte als direkte Eingaben gefuehrt werden.
-function computeRiggingDerived(_values, _totals, _skillTotals, _updates) {
-  // bewusst leer
+function appendRiggingRequestKeys(requestKeys) {
+  requestKeys.push("sr6_rigging_modus");
+  requestKeys.push("sr6_rigging_datenverarbeitung");
+}
+
+function resolveRiggingInitiativeMode(mode) {
+  if (mode === "VR Heiss") {
+    return { basisSource: "matrix", w6: 3 };
+  }
+
+  if (mode === "VR Kalt") {
+    return { basisSource: "matrix", w6: 2 };
+  }
+
+  return { basisSource: "physical", w6: 1 };
+}
+
+function computeRiggingDerived(values, totals, _skillTotals, updates) {
+  const riggingInitiativeMode = resolveRiggingInitiativeMode(values.sr6_rigging_modus);
+  const riggingBasis =
+    riggingInitiativeMode.basisSource === "matrix"
+      ? (totals.intuition || 0) + parseNumber(values.sr6_rigging_datenverarbeitung)
+      : (totals.reaktion || 0) + (totals.intuition || 0);
+
+  updates.sr6_rigging_initiative = String(riggingBasis);
+  updates.sr6_rigging_initiative_w6 = String(riggingInitiativeMode.w6);
 }
 // END MODULE: workers/compute/rigging
 
@@ -10148,12 +10231,13 @@ function recomputeAll() {
   appendCombatRequestKeys(requestKeys);
   appendMatrixRequestKeys(requestKeys);
   appendMagicRequestKeys(requestKeys);
+  appendRiggingRequestKeys(requestKeys);
   appendHeaderMonitorRequestKeys(requestKeys);
 
   getAttrs(requestKeys, (values) => {
     computeAttributeTotals(values, updates, totals);
     computeSkillTotals(values, updates, skillTotals);
-    computeMatrixTotals(values, updates);
+    computeMatrixTotals(values, totals, updates);
     computeCombatDerivedFromAttributes(totals, values, updates, skillTotals);
     computeHeaderMonitorDerivedFromAttributes(totals, values, updates);
     computeMagicDerived(values, totals, skillTotals, updates);
@@ -10197,6 +10281,10 @@ function buildRecalcEvents() {
 
   events.push("change:sr6_magic_traditionsattribut_1");
   events.push("change:sr6_magic_traditionsattribut_2");
+  events.push("change:sr6_matrix_modus");
+  events.push("change:sr6_matrix_datenverarbeitung");
+  events.push("change:sr6_rigging_modus");
+  events.push("change:sr6_rigging_datenverarbeitung");
 
   for (let index = 1; index <= 18; index += 1) {
     events.push(`change:sr6_monitor_koerperlich_${index}`);
@@ -10369,6 +10457,8 @@ registerWorkerEvents();
   "field.physisch": "Physisch",
   "field.astral": "Astral",
   "field.matrix": "Matrix",
+  "field.basis": "Basis",
+  "field.w6": "W6",
   "field.basis_plus": "Basis +",
   "field.eins_plus": "1 +",
   "field.fernkampfwaffe": "Fernkampfwaffe",

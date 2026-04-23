@@ -118,12 +118,16 @@
 
           <div class="sr6-charactersheet-field">
             <div class="sr6-field-label-with-info"><span data-i18n="field.astrale_initiative">Astrale Initiative</span><span class="sr6-info-icon" title="Astrale Initiative (Basis) = sr6_attr_logik_gesamtwert + sr6_attr_intuition_gesamtwert">i</span></div>
-            <div class="sr6-charactersheet-field-input-with-dice">
-              <input type="number" name="attr_sr6_magic_astrale_initiative" /><button
+            <div class="sr6-charactersheet-initiative-input">
+              <input type="number" name="attr_sr6_magic_astrale_initiative" />
+              <label class="sr6-charactersheet-initiative-dice-field">
+                <span data-i18n="field.w6">W6</span>
+                <input type="number" name="attr_sr6_magic_astrale_initiative_w6" value="3" />
+              </label><button
                 type="action"
                 class="sr6-charactersheet-field-dice-button"
                 name="act_probe"
-                value="&{template:default} {{name=Astrale Initiative}} {{Basis=[[@{sr6_magic_astrale_initiative}]]}} {{Gesamt=[[@{sr6_magic_astrale_initiative}+3d6]]}}"
+                value="&{template:default} {{name=Astrale Initiative}} {{Basis=[[@{sr6_magic_astrale_initiative}]]}} {{W6=[[@{sr6_magic_astrale_initiative_w6}d6]]}} {{Gesamt=[[@{sr6_magic_astrale_initiative}+(@{sr6_magic_astrale_initiative_w6}d6)]]}}"
                 aria-label="Wuerfeln"></button>
             </div>
           </div>
