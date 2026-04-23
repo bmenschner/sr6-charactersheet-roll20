@@ -1,17 +1,18 @@
 // BEGIN MODULE: workers/rolls/probe
 function normalizePopupState(popupState) {
   if (typeof popupState === "number") {
-    return { poolMod: popupState, attackValueMod: 0, damageMod: 0, selectedValues: {}, rows: [] };
+    return { poolMod: popupState, attackValueMod: 0, damageMod: 0, drainMod: 0, selectedValues: {}, rows: [] };
   }
 
   if (!popupState || typeof popupState !== "object") {
-    return { poolMod: 0, attackValueMod: 0, damageMod: 0, selectedValues: {}, rows: [] };
+    return { poolMod: 0, attackValueMod: 0, damageMod: 0, drainMod: 0, selectedValues: {}, rows: [] };
   }
 
   return {
     poolMod: parseNumber(popupState.poolMod),
     attackValueMod: parseNumber(popupState.attackValueMod),
     damageMod: parseNumber(popupState.damageMod),
+    drainMod: parseNumber(popupState.drainMod),
     selectedValues: popupState.selectedValues && typeof popupState.selectedValues === "object" ? popupState.selectedValues : {},
     rows: Array.isArray(popupState.rows) ? popupState.rows : [],
   };
@@ -85,6 +86,53 @@ function buildPopupDerivedResultRows(definition, lookupAttr, poolAttribute, reso
   return rows;
 }
 
+function isCombatSpell(resolvedFields) {
+  return `${(resolvedFields && resolvedFields.Art) || ""}`.trim() === "Kampf";
+}
+
+function runSpellProbeFromContext(context, lookupAttr, resolvedFields, popupState) {
+  const rows = buildProbeRows(resolvedFields, context.definition);
+  const name = deriveProbeTitle(resolvedFields, context.poolAttribute, context.definition);
+  const spellComputation = buildProbeComputation(
+    lookupAttr,
+    context.poolAttribute,
+    popupState.poolMod
+  );
+  const drainComputation = buildProbeComputation(
+    lookupAttr,
+    "sr6_magic_entzug_widerstand",
+    0
+  );
+  const baseDamage = parseNumber(resolvedFields.Schaden);
+  const finalDamage = isCombatSpell(resolvedFields) || baseDamage || popupState.damageMod
+    ? `${baseDamage + popupState.damageMod}`
+    : "";
+  const modifiedDrain = Math.max(0, parseNumber(resolvedFields.Entzug) + popupState.drainMod);
+  const drainDamage = Math.max(0, modifiedDrain - drainComputation.successCount);
+
+  const chatMessage = buildSr6ProbeMessage({
+    name: name,
+    rows: rows,
+    resolvedFields: resolvedFields,
+    definition: context.definition,
+    definitionId: context.definition && context.definition.id,
+    pool: `${spellComputation.pool}`,
+    erfolge: `${spellComputation.successCount}`,
+    details: buildDiceDetails(spellComputation.diceResults),
+    detailsDice: buildDetailsDice(spellComputation.diceResults),
+    isGlitch: spellComputation.isGlitch,
+    spellDamage: finalDamage,
+    drainValue: `${modifiedDrain}`,
+    drainDamage: `${drainDamage}`,
+    drainDetails: buildDiceDetails(drainComputation.diceResults),
+    drainDetailsDice: buildDetailsDice(drainComputation.diceResults),
+  });
+
+  startRoll(chatMessage, (rollResult) => {
+    finishRoll(rollResult.rollId);
+  });
+}
+
 function runSuccessProbeFromContext(rawTemplate, repeatingRowPrefix, popupState = 0) {
   if (!rawTemplate) return;
 
@@ -99,6 +147,12 @@ function runSuccessProbeFromContext(rawTemplate, repeatingRowPrefix, popupState 
       if (resolvedFields[field.label]) return;
       resolvedFields[field.label] = lookupAttr(field.attr);
     });
+
+    if (context.definition && context.definition.probeModel === "spell_probe") {
+      runSpellProbeFromContext(context, lookupAttr, resolvedFields, normalizedPopupState);
+      return;
+    }
+
     const rows = buildProbeRows(resolvedFields, context.definition);
     const name = deriveProbeTitle(resolvedFields, context.poolAttribute, context.definition);
 

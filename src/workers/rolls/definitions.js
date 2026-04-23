@@ -33,7 +33,7 @@ const SR6_DEFAULT_ROLL_ROW_ORDER = [
   "Gesamt",
 ];
 
-const SR6_POPUP_FIELD_SLOT_COUNT = 7;
+const SR6_POPUP_FIELD_SLOT_COUNT = 8;
 
 const SR6_POPUP_SELECT_OPTION_SETS = {
   visibility: [
@@ -339,6 +339,74 @@ function createCombatMeleePopupFields(attributeSourceAttr) {
   ];
 }
 
+function createSpellPopupFields() {
+  return [
+    {
+      id: "skill_mod",
+      slot: 1,
+      label: "Skill-Modifikator",
+      type: "number",
+      affects: "pool",
+      includeInTemplate: true,
+      defaultValue: "0",
+    },
+    {
+      id: "attack_value_mod",
+      slot: 2,
+      label: "Angriffswert-Modifikator",
+      type: "number",
+      affects: "attack_value",
+      includeInTemplate: true,
+      defaultValue: "0",
+    },
+    {
+      id: "damage_mod",
+      slot: 3,
+      label: "Schadens-Modifikator",
+      type: "number",
+      affects: "damage",
+      includeInTemplate: true,
+      defaultValue: "0",
+      visibleWhenField: "Art",
+      visibleWhenValue: "Kampf",
+    },
+    {
+      id: "area_increase",
+      slot: 4,
+      label: "Fläche Vergrößern",
+      type: "number",
+      affects: "drain",
+      includeInTemplate: true,
+      defaultValue: "0",
+    },
+    {
+      id: "overcast",
+      slot: 5,
+      label: "Hochdrehen",
+      type: "number",
+      affects: ["damage", "drain"],
+      affectMultipliers: {
+        damage: 1,
+        drain: 2,
+      },
+      includeInTemplate: true,
+      defaultValue: "0",
+      visibleWhenField: "Art",
+      visibleWhenValue: "Kampf",
+    },
+    ...createSpecializationPopupFields(6),
+    {
+      id: "drain_mod",
+      slot: 8,
+      label: "Entzug-Modifikator",
+      type: "number",
+      affects: "drain",
+      includeInTemplate: true,
+      defaultValue: "0",
+    },
+  ];
+}
+
 function createDefenseProbePopupFields(config) {
   const primaryContextLabel = config.primaryContextLabel || config.primaryLabel || "Wert";
   const primaryContextSource = config.primaryContextSource || "pool";
@@ -493,32 +561,18 @@ const SR6_ROLL_DEFINITIONS = [
   },
   {
     id: "spell",
+    probeModel: "spell_probe",
     matchField: "Zauber",
-    titleMode: "pool-prefix",
+    matchPoolPrefix: "sr6_magic_spruchzauberei",
+    titleMode: "fixed",
     primaryFields: ["Zauber"],
-    extraFields: ["Entzug"],
-    popupFields: [
-      SR6_DEFAULT_POPUP_FIELDS[0],
-      {
-        id: "spell_range",
-        slot: 2,
-        label: "Reichweite",
-        type: "select",
-        optionSet: "spell_range",
-        affects: "display",
-        includeInTemplate: true,
-        defaultValue: "Sicht",
-      },
-      {
-        id: "drain_mod",
-        slot: 3,
-        label: "Entzug-Modifikator",
-        type: "number",
-        affects: "display",
-        includeInTemplate: true,
-        defaultValue: "0",
-      },
+    extraFields: ["Art", "Reichweite", "Dauer", "Entzug", "Schaden", "Notiz"],
+    templateVariant: "spell",
+    contextFields: [
+      { label: "Entzugwiderstand", attr: "sr6_magic_entzug_widerstand" },
     ],
+    fixedTitle: "Spruchzauberei",
+    popupFields: createSpellPopupFields(),
     titleFallback: "Zauber",
   },
   {
@@ -1114,6 +1168,7 @@ function buildPopupStateFromValues(values, definition) {
   let poolMod = 0;
   let attackValueMod = 0;
   let damageMod = 0;
+  let drainMod = 0;
 
   popupFields.forEach((field, index) => {
     const rawValue = values[getPopupFieldValueAttr(field, index)];
@@ -1142,6 +1197,14 @@ function buildPopupStateFromValues(values, definition) {
       : field.affects
         ? [field.affects]
         : [];
+    const affectMultipliers = field && field.affectMultipliers && typeof field.affectMultipliers === "object"
+      ? field.affectMultipliers
+      : {};
+    const numericBaseValue = isNumberField
+      ? parseNumber(normalizedValue)
+      : isCheckboxField
+        ? (checkboxChecked ? parseNumber(field.checkedValue) : 0)
+        : 0;
 
     if (field.id) {
       selectedValues[field.id] = normalizedValue;
@@ -1149,24 +1212,31 @@ function buildPopupStateFromValues(values, definition) {
 
     if (affects.includes("pool")) {
       poolMod += isNumberField
-        ? parseNumber(normalizedValue)
+        ? numericBaseValue * (parseNumber(affectMultipliers.pool) || 1)
         : isCheckboxField
-          ? (checkboxChecked ? parseNumber(field.checkedValue) : 0)
+          ? numericBaseValue * (parseNumber(affectMultipliers.pool) || 1)
           : parseNumber(selectedOption && selectedOption.poolMod);
     }
     if (affects.includes("attack_value")) {
       attackValueMod += isNumberField
-        ? parseNumber(normalizedValue)
+        ? numericBaseValue * (parseNumber(affectMultipliers.attack_value) || 1)
         : isCheckboxField
-          ? (checkboxChecked ? parseNumber(field.checkedValue) : 0)
+          ? numericBaseValue * (parseNumber(affectMultipliers.attack_value) || 1)
           : parseNumber(selectedOption && selectedOption.attackValueMod);
     }
     if (affects.includes("damage")) {
       damageMod += isNumberField
-        ? parseNumber(normalizedValue)
+        ? numericBaseValue * (parseNumber(affectMultipliers.damage) || 1)
         : isCheckboxField
-          ? (checkboxChecked ? parseNumber(field.checkedValue) : 0)
+          ? numericBaseValue * (parseNumber(affectMultipliers.damage) || 1)
           : parseNumber(selectedOption && selectedOption.damageMod);
+    }
+    if (affects.includes("drain")) {
+      drainMod += isNumberField
+        ? numericBaseValue * (parseNumber(affectMultipliers.drain) || 1)
+        : isCheckboxField
+          ? numericBaseValue * (parseNumber(affectMultipliers.drain) || 1)
+          : parseNumber(selectedOption && selectedOption.drainMod);
     }
 
     const shouldInclude =
@@ -1202,12 +1272,18 @@ function buildPopupStateFromValues(values, definition) {
     poolMod: poolMod,
     attackValueMod: attackValueMod,
     damageMod: damageMod,
+    drainMod: drainMod,
     selectedValues: selectedValues,
     rows: popupRows,
   };
 }
 
-function buildPopupFormPayload(definition) {
+function fieldMatchesPopupVisibility(field, templateFields) {
+  if (!field || !field.visibleWhenField) return true;
+  return `${(templateFields && templateFields[field.visibleWhenField]) || ""}`.trim() === `${field.visibleWhenValue || ""}`.trim();
+}
+
+function buildPopupFormPayload(definition, templateFields = {}) {
   const popupFields = getRollPopupFields(definition);
   const payload = {};
 
@@ -1231,6 +1307,7 @@ function buildPopupFormPayload(definition) {
   popupFields.forEach((field, index) => {
     const slot = field.slot || (index + 1);
     if (slot > SR6_POPUP_FIELD_SLOT_COUNT) return;
+    if (!fieldMatchesPopupVisibility(field, templateFields)) return;
 
     payload[`sr6_roll_popup_slot_${slot}_visible`] = "1";
     payload[`sr6_roll_popup_slot_${slot}_label`] = field.label || "";
@@ -1276,12 +1353,14 @@ function buildPopupRequestedAttributes(definition, poolAttribute, repeatingRowPr
   return [...new Set(requestedAttributes)];
 }
 
-function buildPopupPrefillPayload(definition, poolAttribute, repeatingRowPrefix, values) {
+function buildPopupPrefillPayload(definition, poolAttribute, repeatingRowPrefix, values, templateFields = {}) {
   const popupFields = getRollPopupFields(definition);
   const lookupAttr = buildAttrLookup(values || {}, repeatingRowPrefix);
-  const payload = buildPopupFormPayload(definition);
+  const resolvedTemplateFields = buildResolvedFields(templateFields || {}, lookupAttr);
+  const payload = buildPopupFormPayload(definition, resolvedTemplateFields);
 
   popupFields.forEach((field, index) => {
+    if (!fieldMatchesPopupVisibility(field, resolvedTemplateFields)) return;
     const sourceAttr = getPopupSourceAttrName(field, poolAttribute);
     const resolvedValue = sourceAttr ? lookupAttr(sourceAttr) : "";
     if (resolvedValue === undefined || resolvedValue === null || `${resolvedValue}` === "") return;

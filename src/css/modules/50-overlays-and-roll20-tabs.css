@@ -295,6 +295,7 @@ body:has(.sr6-tabs-toggle-input:checked) #tab-content.tab-content,
 .sr6-roll-popup-slot-toggle--5:checked ~ .sr6-roll-popup-slot-kind-toggle--5-number:checked ~ .sr6-roll-popup-overlay .sr6-roll-popup-field--5,
 .sr6-roll-popup-slot-toggle--6:checked ~ .sr6-roll-popup-slot-kind-toggle--6-number:checked ~ .sr6-roll-popup-overlay .sr6-roll-popup-field--6,
 .sr6-roll-popup-slot-toggle--7:checked ~ .sr6-roll-popup-slot-kind-toggle--7-number:checked ~ .sr6-roll-popup-overlay .sr6-roll-popup-field--7,
+.sr6-roll-popup-slot-toggle--8:checked ~ .sr6-roll-popup-slot-kind-toggle--8-number:checked ~ .sr6-roll-popup-overlay .sr6-roll-popup-field--8,
 .sr6-roll-popup-slot-toggle--1:checked ~ .sr6-roll-popup-slot-kind-toggle--1-text:checked ~ .sr6-roll-popup-overlay .sr6-roll-popup-field--1,
 .sr6-roll-popup-slot-toggle--2:checked ~ .sr6-roll-popup-slot-kind-toggle--2-text:checked ~ .sr6-roll-popup-overlay .sr6-roll-popup-field--2,
 .sr6-roll-popup-slot-toggle--3:checked ~ .sr6-roll-popup-slot-kind-toggle--3-text:checked ~ .sr6-roll-popup-overlay .sr6-roll-popup-field--3,
@@ -302,6 +303,7 @@ body:has(.sr6-tabs-toggle-input:checked) #tab-content.tab-content,
 .sr6-roll-popup-slot-toggle--5:checked ~ .sr6-roll-popup-slot-kind-toggle--5-text:checked ~ .sr6-roll-popup-overlay .sr6-roll-popup-field--5,
 .sr6-roll-popup-slot-toggle--6:checked ~ .sr6-roll-popup-slot-kind-toggle--6-text:checked ~ .sr6-roll-popup-overlay .sr6-roll-popup-field--6,
 .sr6-roll-popup-slot-toggle--7:checked ~ .sr6-roll-popup-slot-kind-toggle--7-text:checked ~ .sr6-roll-popup-overlay .sr6-roll-popup-field--7,
+.sr6-roll-popup-slot-toggle--8:checked ~ .sr6-roll-popup-slot-kind-toggle--8-text:checked ~ .sr6-roll-popup-overlay .sr6-roll-popup-field--8,
 .sr6-roll-popup-slot-toggle--1:checked ~ .sr6-roll-popup-slot-kind-toggle--1-select:checked ~ .sr6-roll-popup-overlay .sr6-roll-popup-field--1,
 .sr6-roll-popup-slot-toggle--2:checked ~ .sr6-roll-popup-slot-kind-toggle--2-select:checked ~ .sr6-roll-popup-overlay .sr6-roll-popup-field--2,
 .sr6-roll-popup-slot-toggle--3:checked ~ .sr6-roll-popup-slot-kind-toggle--3-select:checked ~ .sr6-roll-popup-overlay .sr6-roll-popup-field--3,
@@ -309,13 +311,15 @@ body:has(.sr6-tabs-toggle-input:checked) #tab-content.tab-content,
 .sr6-roll-popup-slot-toggle--5:checked ~ .sr6-roll-popup-slot-kind-toggle--5-select:checked ~ .sr6-roll-popup-overlay .sr6-roll-popup-field--5,
 .sr6-roll-popup-slot-toggle--6:checked ~ .sr6-roll-popup-slot-kind-toggle--6-select:checked ~ .sr6-roll-popup-overlay .sr6-roll-popup-field--6,
 .sr6-roll-popup-slot-toggle--7:checked ~ .sr6-roll-popup-slot-kind-toggle--7-select:checked ~ .sr6-roll-popup-overlay .sr6-roll-popup-field--7,
+.sr6-roll-popup-slot-toggle--8:checked ~ .sr6-roll-popup-slot-kind-toggle--8-select:checked ~ .sr6-roll-popup-overlay .sr6-roll-popup-field--8,
 .sr6-roll-popup-slot-toggle--1:checked ~ .sr6-roll-popup-slot-kind-toggle--1-checkbox:checked ~ .sr6-roll-popup-overlay .sr6-roll-popup-field--1,
 .sr6-roll-popup-slot-toggle--2:checked ~ .sr6-roll-popup-slot-kind-toggle--2-checkbox:checked ~ .sr6-roll-popup-overlay .sr6-roll-popup-field--2,
 .sr6-roll-popup-slot-toggle--3:checked ~ .sr6-roll-popup-slot-kind-toggle--3-checkbox:checked ~ .sr6-roll-popup-overlay .sr6-roll-popup-field--3,
 .sr6-roll-popup-slot-toggle--4:checked ~ .sr6-roll-popup-slot-kind-toggle--4-checkbox:checked ~ .sr6-roll-popup-overlay .sr6-roll-popup-field--4,
 .sr6-roll-popup-slot-toggle--5:checked ~ .sr6-roll-popup-slot-kind-toggle--5-checkbox:checked ~ .sr6-roll-popup-overlay .sr6-roll-popup-field--5,
 .sr6-roll-popup-slot-toggle--6:checked ~ .sr6-roll-popup-slot-kind-toggle--6-checkbox:checked ~ .sr6-roll-popup-overlay .sr6-roll-popup-field--6,
-.sr6-roll-popup-slot-toggle--7:checked ~ .sr6-roll-popup-slot-kind-toggle--7-checkbox:checked ~ .sr6-roll-popup-overlay .sr6-roll-popup-field--7 {
+.sr6-roll-popup-slot-toggle--7:checked ~ .sr6-roll-popup-slot-kind-toggle--7-checkbox:checked ~ .sr6-roll-popup-overlay .sr6-roll-popup-field--7,
+.sr6-roll-popup-slot-toggle--8:checked ~ .sr6-roll-popup-slot-kind-toggle--8-checkbox:checked ~ .sr6-roll-popup-overlay .sr6-roll-popup-field--8 {
   display: grid;
 }
 
@@ -325,7 +329,8 @@ body:has(.sr6-tabs-toggle-input:checked) #tab-content.tab-content,
 .sr6-roll-popup-slot-toggle--4:checked ~ .sr6-roll-popup-slot-kind-toggle--4-select:checked ~ .sr6-roll-popup-overlay .sr6-roll-popup-field--4,
 .sr6-roll-popup-slot-toggle--5:checked ~ .sr6-roll-popup-slot-kind-toggle--5-select:checked ~ .sr6-roll-popup-overlay .sr6-roll-popup-field--5,
 .sr6-roll-popup-slot-toggle--6:checked ~ .sr6-roll-popup-slot-kind-toggle--6-select:checked ~ .sr6-roll-popup-overlay .sr6-roll-popup-field--6,
-.sr6-roll-popup-slot-toggle--7:checked ~ .sr6-roll-popup-slot-kind-toggle--7-select:checked ~ .sr6-roll-popup-overlay .sr6-roll-popup-field--7 {
+.sr6-roll-popup-slot-toggle--7:checked ~ .sr6-roll-popup-slot-kind-toggle--7-select:checked ~ .sr6-roll-popup-overlay .sr6-roll-popup-field--7,
+.sr6-roll-popup-slot-toggle--8:checked ~ .sr6-roll-popup-slot-kind-toggle--8-select:checked ~ .sr6-roll-popup-overlay .sr6-roll-popup-field--8 {
   grid-template-columns: 1fr;
 }
 
@@ -362,7 +367,8 @@ body:has(.sr6-tabs-toggle-input:checked) #tab-content.tab-content,
 .sr6-roll-popup-slot-kind-toggle--4-number:checked ~ .sr6-roll-popup-overlay .sr6-roll-popup-field--4 .sr6-roll-popup-field-input--number,
 .sr6-roll-popup-slot-kind-toggle--5-number:checked ~ .sr6-roll-popup-overlay .sr6-roll-popup-field--5 .sr6-roll-popup-field-input--number,
 .sr6-roll-popup-slot-kind-toggle--6-number:checked ~ .sr6-roll-popup-overlay .sr6-roll-popup-field--6 .sr6-roll-popup-field-input--number,
-.sr6-roll-popup-slot-kind-toggle--7-number:checked ~ .sr6-roll-popup-overlay .sr6-roll-popup-field--7 .sr6-roll-popup-field-input--number {
+.sr6-roll-popup-slot-kind-toggle--7-number:checked ~ .sr6-roll-popup-overlay .sr6-roll-popup-field--7 .sr6-roll-popup-field-input--number,
+.sr6-roll-popup-slot-kind-toggle--8-number:checked ~ .sr6-roll-popup-overlay .sr6-roll-popup-field--8 .sr6-roll-popup-field-input--number {
   display: block !important;
 }
 
@@ -372,7 +378,8 @@ body:has(.sr6-tabs-toggle-input:checked) #tab-content.tab-content,
 .sr6-roll-popup-slot-kind-toggle--4-text:checked ~ .sr6-roll-popup-overlay .sr6-roll-popup-field--4 .sr6-roll-popup-field-input--text,
 .sr6-roll-popup-slot-kind-toggle--5-text:checked ~ .sr6-roll-popup-overlay .sr6-roll-popup-field--5 .sr6-roll-popup-field-input--text,
 .sr6-roll-popup-slot-kind-toggle--6-text:checked ~ .sr6-roll-popup-overlay .sr6-roll-popup-field--6 .sr6-roll-popup-field-input--text,
-.sr6-roll-popup-slot-kind-toggle--7-text:checked ~ .sr6-roll-popup-overlay .sr6-roll-popup-field--7 .sr6-roll-popup-field-input--text {
+.sr6-roll-popup-slot-kind-toggle--7-text:checked ~ .sr6-roll-popup-overlay .sr6-roll-popup-field--7 .sr6-roll-popup-field-input--text,
+.sr6-roll-popup-slot-kind-toggle--8-text:checked ~ .sr6-roll-popup-overlay .sr6-roll-popup-field--8 .sr6-roll-popup-field-input--text {
   display: block !important;
 }
 
@@ -393,6 +400,7 @@ body:has(.sr6-tabs-toggle-input:checked) #tab-content.tab-content,
 .sr6-roll-popup-slot-kind-toggle--5-select:checked ~ .sr6-roll-popup-slot-option-toggle--5-visibility:checked ~ .sr6-roll-popup-overlay .sr6-roll-popup-field--5 .sr6-roll-popup-field-input--select-visibility,
 .sr6-roll-popup-slot-kind-toggle--6-select:checked ~ .sr6-roll-popup-slot-option-toggle--6-visibility:checked ~ .sr6-roll-popup-overlay .sr6-roll-popup-field--6 .sr6-roll-popup-field-input--select-visibility,
 .sr6-roll-popup-slot-kind-toggle--7-select:checked ~ .sr6-roll-popup-slot-option-toggle--7-visibility:checked ~ .sr6-roll-popup-overlay .sr6-roll-popup-field--7 .sr6-roll-popup-field-input--select-visibility,
+.sr6-roll-popup-slot-kind-toggle--8-select:checked ~ .sr6-roll-popup-slot-option-toggle--8-visibility:checked ~ .sr6-roll-popup-overlay .sr6-roll-popup-field--8 .sr6-roll-popup-field-input--select-visibility,
 .sr6-roll-popup-slot-kind-toggle--1-select:checked ~ .sr6-roll-popup-slot-option-toggle--1-movement:checked ~ .sr6-roll-popup-overlay .sr6-roll-popup-field--1 .sr6-roll-popup-field-input--select-movement,
 .sr6-roll-popup-slot-kind-toggle--2-select:checked ~ .sr6-roll-popup-slot-option-toggle--2-movement:checked ~ .sr6-roll-popup-overlay .sr6-roll-popup-field--2 .sr6-roll-popup-field-input--select-movement,
 .sr6-roll-popup-slot-kind-toggle--3-select:checked ~ .sr6-roll-popup-slot-option-toggle--3-movement:checked ~ .sr6-roll-popup-overlay .sr6-roll-popup-field--3 .sr6-roll-popup-field-input--select-movement,
@@ -400,6 +408,7 @@ body:has(.sr6-tabs-toggle-input:checked) #tab-content.tab-content,
 .sr6-roll-popup-slot-kind-toggle--5-select:checked ~ .sr6-roll-popup-slot-option-toggle--5-movement:checked ~ .sr6-roll-popup-overlay .sr6-roll-popup-field--5 .sr6-roll-popup-field-input--select-movement,
 .sr6-roll-popup-slot-kind-toggle--6-select:checked ~ .sr6-roll-popup-slot-option-toggle--6-movement:checked ~ .sr6-roll-popup-overlay .sr6-roll-popup-field--6 .sr6-roll-popup-field-input--select-movement,
 .sr6-roll-popup-slot-kind-toggle--7-select:checked ~ .sr6-roll-popup-slot-option-toggle--7-movement:checked ~ .sr6-roll-popup-overlay .sr6-roll-popup-field--7 .sr6-roll-popup-field-input--select-movement,
+.sr6-roll-popup-slot-kind-toggle--8-select:checked ~ .sr6-roll-popup-slot-option-toggle--8-movement:checked ~ .sr6-roll-popup-overlay .sr6-roll-popup-field--8 .sr6-roll-popup-field-input--select-movement,
 .sr6-roll-popup-slot-kind-toggle--1-select:checked ~ .sr6-roll-popup-slot-option-toggle--1-spell-range:checked ~ .sr6-roll-popup-overlay .sr6-roll-popup-field--1 .sr6-roll-popup-field-input--select-spell-range,
 .sr6-roll-popup-slot-kind-toggle--2-select:checked ~ .sr6-roll-popup-slot-option-toggle--2-spell-range:checked ~ .sr6-roll-popup-overlay .sr6-roll-popup-field--2 .sr6-roll-popup-field-input--select-spell-range,
 .sr6-roll-popup-slot-kind-toggle--3-select:checked ~ .sr6-roll-popup-slot-option-toggle--3-spell-range:checked ~ .sr6-roll-popup-overlay .sr6-roll-popup-field--3 .sr6-roll-popup-field-input--select-spell-range,
@@ -407,6 +416,7 @@ body:has(.sr6-tabs-toggle-input:checked) #tab-content.tab-content,
 .sr6-roll-popup-slot-kind-toggle--5-select:checked ~ .sr6-roll-popup-slot-option-toggle--5-spell-range:checked ~ .sr6-roll-popup-overlay .sr6-roll-popup-field--5 .sr6-roll-popup-field-input--select-spell-range,
 .sr6-roll-popup-slot-kind-toggle--6-select:checked ~ .sr6-roll-popup-slot-option-toggle--6-spell-range:checked ~ .sr6-roll-popup-overlay .sr6-roll-popup-field--6 .sr6-roll-popup-field-input--select-spell-range,
 .sr6-roll-popup-slot-kind-toggle--7-select:checked ~ .sr6-roll-popup-slot-option-toggle--7-spell-range:checked ~ .sr6-roll-popup-overlay .sr6-roll-popup-field--7 .sr6-roll-popup-field-input--select-spell-range,
+.sr6-roll-popup-slot-kind-toggle--8-select:checked ~ .sr6-roll-popup-slot-option-toggle--8-spell-range:checked ~ .sr6-roll-popup-overlay .sr6-roll-popup-field--8 .sr6-roll-popup-field-input--select-spell-range,
 .sr6-roll-popup-slot-kind-toggle--1-select:checked ~ .sr6-roll-popup-slot-option-toggle--1-matrix-access:checked ~ .sr6-roll-popup-overlay .sr6-roll-popup-field--1 .sr6-roll-popup-field-input--select-matrix-access,
 .sr6-roll-popup-slot-kind-toggle--2-select:checked ~ .sr6-roll-popup-slot-option-toggle--2-matrix-access:checked ~ .sr6-roll-popup-overlay .sr6-roll-popup-field--2 .sr6-roll-popup-field-input--select-matrix-access,
 .sr6-roll-popup-slot-kind-toggle--3-select:checked ~ .sr6-roll-popup-slot-option-toggle--3-matrix-access:checked ~ .sr6-roll-popup-overlay .sr6-roll-popup-field--3 .sr6-roll-popup-field-input--select-matrix-access,
@@ -414,6 +424,7 @@ body:has(.sr6-tabs-toggle-input:checked) #tab-content.tab-content,
 .sr6-roll-popup-slot-kind-toggle--5-select:checked ~ .sr6-roll-popup-slot-option-toggle--5-matrix-access:checked ~ .sr6-roll-popup-overlay .sr6-roll-popup-field--5 .sr6-roll-popup-field-input--select-matrix-access,
 .sr6-roll-popup-slot-kind-toggle--6-select:checked ~ .sr6-roll-popup-slot-option-toggle--6-matrix-access:checked ~ .sr6-roll-popup-overlay .sr6-roll-popup-field--6 .sr6-roll-popup-field-input--select-matrix-access,
 .sr6-roll-popup-slot-kind-toggle--7-select:checked ~ .sr6-roll-popup-slot-option-toggle--7-matrix-access:checked ~ .sr6-roll-popup-overlay .sr6-roll-popup-field--7 .sr6-roll-popup-field-input--select-matrix-access,
+.sr6-roll-popup-slot-kind-toggle--8-select:checked ~ .sr6-roll-popup-slot-option-toggle--8-matrix-access:checked ~ .sr6-roll-popup-overlay .sr6-roll-popup-field--8 .sr6-roll-popup-field-input--select-matrix-access,
 .sr6-roll-popup-slot-kind-toggle--1-select:checked ~ .sr6-roll-popup-slot-option-toggle--1-ammo:checked ~ .sr6-roll-popup-overlay .sr6-roll-popup-field--1 .sr6-roll-popup-field-input--select-ammo,
 .sr6-roll-popup-slot-kind-toggle--2-select:checked ~ .sr6-roll-popup-slot-option-toggle--2-ammo:checked ~ .sr6-roll-popup-overlay .sr6-roll-popup-field--2 .sr6-roll-popup-field-input--select-ammo,
 .sr6-roll-popup-slot-kind-toggle--3-select:checked ~ .sr6-roll-popup-slot-option-toggle--3-ammo:checked ~ .sr6-roll-popup-overlay .sr6-roll-popup-field--3 .sr6-roll-popup-field-input--select-ammo,
@@ -421,13 +432,15 @@ body:has(.sr6-tabs-toggle-input:checked) #tab-content.tab-content,
 .sr6-roll-popup-slot-kind-toggle--5-select:checked ~ .sr6-roll-popup-slot-option-toggle--5-ammo:checked ~ .sr6-roll-popup-overlay .sr6-roll-popup-field--5 .sr6-roll-popup-field-input--select-ammo,
 .sr6-roll-popup-slot-kind-toggle--6-select:checked ~ .sr6-roll-popup-slot-option-toggle--6-ammo:checked ~ .sr6-roll-popup-overlay .sr6-roll-popup-field--6 .sr6-roll-popup-field-input--select-ammo,
 .sr6-roll-popup-slot-kind-toggle--7-select:checked ~ .sr6-roll-popup-slot-option-toggle--7-ammo:checked ~ .sr6-roll-popup-overlay .sr6-roll-popup-field--7 .sr6-roll-popup-field-input--select-ammo,
+.sr6-roll-popup-slot-kind-toggle--8-select:checked ~ .sr6-roll-popup-slot-option-toggle--8-ammo:checked ~ .sr6-roll-popup-overlay .sr6-roll-popup-field--8 .sr6-roll-popup-field-input--select-ammo,
 .sr6-roll-popup-slot-kind-toggle--1-select:checked ~ .sr6-roll-popup-slot-option-toggle--1-melee-attribute:checked ~ .sr6-roll-popup-overlay .sr6-roll-popup-field--1 .sr6-roll-popup-field-input--select-melee-attribute,
 .sr6-roll-popup-slot-kind-toggle--2-select:checked ~ .sr6-roll-popup-slot-option-toggle--2-melee-attribute:checked ~ .sr6-roll-popup-overlay .sr6-roll-popup-field--2 .sr6-roll-popup-field-input--select-melee-attribute,
 .sr6-roll-popup-slot-kind-toggle--3-select:checked ~ .sr6-roll-popup-slot-option-toggle--3-melee-attribute:checked ~ .sr6-roll-popup-overlay .sr6-roll-popup-field--3 .sr6-roll-popup-field-input--select-melee-attribute,
 .sr6-roll-popup-slot-kind-toggle--4-select:checked ~ .sr6-roll-popup-slot-option-toggle--4-melee-attribute:checked ~ .sr6-roll-popup-overlay .sr6-roll-popup-field--4 .sr6-roll-popup-field-input--select-melee-attribute,
 .sr6-roll-popup-slot-kind-toggle--5-select:checked ~ .sr6-roll-popup-slot-option-toggle--5-melee-attribute:checked ~ .sr6-roll-popup-overlay .sr6-roll-popup-field--5 .sr6-roll-popup-field-input--select-melee-attribute,
 .sr6-roll-popup-slot-kind-toggle--6-select:checked ~ .sr6-roll-popup-slot-option-toggle--6-melee-attribute:checked ~ .sr6-roll-popup-overlay .sr6-roll-popup-field--6 .sr6-roll-popup-field-input--select-melee-attribute,
-.sr6-roll-popup-slot-kind-toggle--7-select:checked ~ .sr6-roll-popup-slot-option-toggle--7-melee-attribute:checked ~ .sr6-roll-popup-overlay .sr6-roll-popup-field--7 .sr6-roll-popup-field-input--select-melee-attribute {
+.sr6-roll-popup-slot-kind-toggle--7-select:checked ~ .sr6-roll-popup-slot-option-toggle--7-melee-attribute:checked ~ .sr6-roll-popup-overlay .sr6-roll-popup-field--7 .sr6-roll-popup-field-input--select-melee-attribute,
+.sr6-roll-popup-slot-kind-toggle--8-select:checked ~ .sr6-roll-popup-slot-option-toggle--8-melee-attribute:checked ~ .sr6-roll-popup-overlay .sr6-roll-popup-field--8 .sr6-roll-popup-field-input--select-melee-attribute {
   display: block !important;
 }
 
@@ -463,7 +476,8 @@ body:has(.sr6-tabs-toggle-input:checked) #tab-content.tab-content,
 .sr6-roll-popup-slot-kind-toggle--4-checkbox:checked ~ .sr6-roll-popup-overlay .sr6-roll-popup-field--4 .sr6-roll-popup-field-input--checkbox,
 .sr6-roll-popup-slot-kind-toggle--5-checkbox:checked ~ .sr6-roll-popup-overlay .sr6-roll-popup-field--5 .sr6-roll-popup-field-input--checkbox,
 .sr6-roll-popup-slot-kind-toggle--6-checkbox:checked ~ .sr6-roll-popup-overlay .sr6-roll-popup-field--6 .sr6-roll-popup-field-input--checkbox,
-.sr6-roll-popup-slot-kind-toggle--7-checkbox:checked ~ .sr6-roll-popup-overlay .sr6-roll-popup-field--7 .sr6-roll-popup-field-input--checkbox {
+.sr6-roll-popup-slot-kind-toggle--7-checkbox:checked ~ .sr6-roll-popup-overlay .sr6-roll-popup-field--7 .sr6-roll-popup-field-input--checkbox,
+.sr6-roll-popup-slot-kind-toggle--8-checkbox:checked ~ .sr6-roll-popup-overlay .sr6-roll-popup-field--8 .sr6-roll-popup-field-input--checkbox {
   display: block !important;
 }
 

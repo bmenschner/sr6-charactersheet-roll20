@@ -26,6 +26,8 @@
   Stand: Initiativwuerfe mit `Basis / W6 / Gesamt` laufen ueber ein eigenes Modell; physische, astrale, Matrix- und Rigging-Initiative nutzen getrennte Basisfelder; Matrix und Rigging werden aus dem Modus abgeleitet.
 - [x] `skill_probe` fuer Basis- und Repeating-Skill-Faelle stabilisiert
   Stand: gemeinsamer `skill_probe`-Builder deckt Basisfertigkeiten, Wissens-/Sprachfertigkeiten sowie Soft-Faelle ab; die Repeating-Handler funktionieren in Roll20.
+- [x] `spell_probe` als eigener Magiepfad formuliert
+  Stand: Zauber nutzen jetzt ein eigenes Popup- und Outputmodell mit `Spruchzauberei`-Probe, modifiziertem Entzug und separatem Entzugswiderstand.
 - [x] `defense_probe` als wiederverwendbares Modell formuliert
   Stand: physische Kampf-Faelle, allgemeine Verteidigungs-/Widerstandsfaelle sowie Matrix-/Rigging-Defensivfaelle und astrale Magie-Faelle laufen ueber denselben Modellgedanken.
 - [x] Kampf-UI und Popup auf die Trennung `Wuerfelpool` vs. `Angriffswert` vs. `Verteidigungswert` vs. `Schaden` gezogen
