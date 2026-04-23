@@ -213,6 +213,28 @@ function createAttributeProbeDefinition(config = {}) {
   };
 }
 
+function createSkillProbePopupFields() {
+  return [
+    SR6_DEFAULT_POPUP_FIELDS[0],
+    ...createSpecializationPopupFields(2),
+  ];
+}
+
+function createSkillProbeDefinition(config = {}) {
+  return {
+    probeModel: "skill_probe",
+    matchField: config.matchField || "Fertigkeit",
+    matchPoolPrefix: config.matchPoolPrefix || "",
+    titleMode: config.titleMode || "pool-prefix",
+    titleField: config.titleField || "",
+    primaryFields: config.primaryFields || ["Fertigkeit"],
+    extraFields: config.extraFields || [],
+    popupFields: config.popupFields || SR6_SKILL_PROBE_POPUP_FIELDS,
+    fixedTitle: config.fixedTitle || "",
+    titleFallback: config.titleFallback || "Fertigkeiten",
+  };
+}
+
 function createAttackValueSourceByRange(prefix) {
   return {
     "S. Nah": `${prefix}_s_nah`,
@@ -306,6 +328,7 @@ function createDefenseProbePopupFields(config) {
 }
 
 const SR6_ATTRIBUTE_PROBE_POPUP_FIELDS = createAttributeProbePopupFields();
+const SR6_SKILL_PROBE_POPUP_FIELDS = createSkillProbePopupFields();
 
 function createDefenseProbeDefinition(config) {
   return {
@@ -343,17 +366,45 @@ const SR6_ROLL_DEFINITIONS = [
     }),
   },
   {
+    id: "knowledge_skill",
+    ...createSkillProbeDefinition({
+      matchPoolPrefix: "sr6_wissensfertigkeit_",
+      titleFallback: "Wissensfertigkeiten",
+    }),
+  },
+  {
+    id: "language_skill",
+    ...createSkillProbeDefinition({
+      matchPoolPrefix: "sr6_sprachfertigkeit_",
+      titleFallback: "Sprachfertigkeiten",
+    }),
+  },
+  {
+    id: "talentsoft_skill",
+    ...createSkillProbeDefinition({
+      matchPoolPrefix: "sr6_talentsoft_",
+      titleFallback: "Talentsofts",
+    }),
+  },
+  {
+    id: "knowledge_language_soft_skill",
+    ...createSkillProbeDefinition({
+      matchPoolPrefix: "sr6_wissenssprachsoft_",
+      titleFallback: "Wissens-/Sprachsofts",
+    }),
+  },
+  {
     id: "skill",
-    probeModel: "skill_probe",
-    matchField: "Fertigkeit",
-    titleMode: "pool-prefix",
-    primaryFields: ["Fertigkeit"],
-    extraFields: [],
-    popupFields: [
-      SR6_DEFAULT_POPUP_FIELDS[0],
-      ...createSpecializationPopupFields(2),
-    ],
-    titleFallback: "Fertigkeiten",
+    ...createSkillProbeDefinition({
+      matchPoolPrefix: "sr6_skill_",
+      titleFallback: "Fertigkeiten",
+    }),
+  },
+  {
+    id: "generic_skill",
+    ...createSkillProbeDefinition({
+      titleFallback: "Fertigkeiten",
+    }),
   },
   {
     id: "spell",

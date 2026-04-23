@@ -9,9 +9,12 @@
 
 ## Offene Architekturpunkte fuer Popup und Rolltemplate
 
-- [ ] `attribute_probe` als explizites Modell formulieren, inklusive Fall `Attribut x2`
-  Aktueller Stand: eigenes Modell und eigener Pool-Multiplikator sind im Code vorbereitet; konkrete `x2`-Definitionen im Sheet fehlen noch.
-- [ ] `skill_probe` als Basismodell formal von generischen Skill-/Fallback-Definitionen trennen
+- [ ] `attribute_probe` als explizites Modell weiter ausbauen
+  Aktueller Stand: eigenes Modell und eigener Pool-Multiplikator sind im Code verankert; ein erster `Attribut x2`-Pilot ist in `Allgemein > Attribute > Gesamtwert` umgesetzt und in Roll20 bestaetigt.
+  Offen bleibt: weitere echte `x2`-Anwendungsfaelle gezielt auf dasselbe Modell mappen.
+- [ ] `skill_probe` weiter von generischen Altpfaden entkoppeln
+  Aktueller Stand: gemeinsamer `skill_probe`-Builder traegt jetzt Basisfertigkeiten, Wissens-/Sprachfertigkeiten sowie Soft-Faelle.
+  Offen bleibt: pruefen, welche heutigen Spezialfaelle spaeter noch einen echten eigenen Modellpfad brauchen und welche beim `skill_probe` bleiben koennen.
 - [ ] `defense_probe` als wiederverwendbares Modell formulieren, das je Tab andere Feldquellen lesen kann
   Aktueller Stand: gemeinsamer Builder fuer physische Kampf-Faelle ist vorhanden; erste Mappings fuer Matrix-/Rigging-Defensivfaelle und astrale Magie-Faelle sind im Code angelegt.
 - [ ] `combat_attack_probe` weiter von Altdefinitionen entkoppeln und als klares Referenzmodell dokumentieren
