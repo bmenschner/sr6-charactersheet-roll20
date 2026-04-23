@@ -44,6 +44,6 @@
   Aktueller Stand: Kampf nutzt fuer Fern- und Nahkampf bereits getrennte Popup-Profile; Nahkampf fuehrt `Attribut` und `Schadenstyp`, Fernkampf weiterhin `Munition`. Der Nahkampf-Popup kann das Attribut als Fallback vor dem Wurf umschalten.
   Offen bleibt: die restlichen Rollarten projektweit auf denselben Explizitheitsgrad ziehen.
 - [ ] Pruefen, welche Einzelwerte in `Magie`, `Matrix`, `Rigging`, `Ausruestung` und `Leben` wirklich numerische Primarwerte sind
-  Aktueller Stand: numerische Kernwert-Inputs in `Magie`, `Matrix` und `Rigging` werden schrittweise vom alten `text`-Format auf `number` umgestellt.
+  Aktueller Stand: numerische Kernwert-Inputs in `Magie`, `Matrix` und `Rigging` werden schrittweise vom alten `text`-Format auf `number` umgestellt. In `Ausruestung` sind die offensichtlichen Zahlenfelder `Stufe`, `Anzahl` und `Kosten` jetzt ebenfalls auf `number` gezogen.
 - [ ] Verbleibende generische Fallback-Proben weiter auf explizite Fachmodelle ziehen
   Aktueller Stand: die generischen Restfaelle werden schrittweise fachlich geprueft; Rituale bleiben vorerst reine Datenfelder ohne Wuerfel.
