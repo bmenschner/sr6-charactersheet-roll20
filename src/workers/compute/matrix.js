@@ -2,6 +2,7 @@
 function appendMatrixRequestKeys(requestKeys) {
   requestKeys.push("sr6_matrix_modus");
   requestKeys.push("sr6_matrix_datenverarbeitung");
+  requestKeys.push("sr6_matrix_firewall");
   SR6_MATRIX_ACTIONS.forEach((actionName) => {
     requestKeys.push(`sr6_matrix_handlung_${actionName}_grundwert`);
     requestKeys.push(`sr6_matrix_handlung_${actionName}_modifikator`);

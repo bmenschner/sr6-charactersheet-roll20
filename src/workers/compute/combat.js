@@ -48,6 +48,30 @@ const SR6_COMBAT_CALCULATED_FIELDS = [
     key: "sr6_schadenswiderstand_physisch",
     base: (totals) => totals.konstitution || 0,
   },
+  {
+    key: "sr6_verteidigung_zauber_direkt",
+    base: (totals) => (totals.willenskraft || 0) + (totals.intuition || 0),
+  },
+  {
+    key: "sr6_verteidigung_zauber_indirekt",
+    base: (totals) => (totals.reaktion || 0) + (totals.willenskraft || 0),
+  },
+  {
+    key: "sr6_verteidigung_astralkampf",
+    base: (totals) => (totals.logik || 0) + (totals.intuition || 0),
+  },
+  {
+    key: "sr6_schadenswiderstand_astral",
+    base: (totals) => totals.willenskraft || 0,
+  },
+  {
+    key: "sr6_schadenswiderstand_matrix",
+    base: (_totals, _skillTotals, values) => parseNumber(values.sr6_matrix_firewall),
+  },
+  {
+    key: "sr6_schadenswiderstand_biofeedback",
+    base: (totals) => totals.willenskraft || 0,
+  },
 ];
 
 const SR6_COMBAT_PRIMARY_WEAPON_SELECTIONS = [

@@ -28,6 +28,9 @@
 ## Folgearbeiten nach dem aktuellen Refactor
 
 - [ ] Kampf-Kalkulationsfelder (`Fernkampfangriff`, `Nahkampfangriff`, `Verteidigung (Physisch)`, `Schadenswiderstand (Physisch)`) auf final bestaetigte Formeln umstellen
+- [ ] Allgemeine Verteidigungs-/Widerstandsfelder fuer Drohnen-/Sonderfaelle weiter schaerfen
+  Aktueller Stand: `Verteidigung (Zauber - Direkt)`, `Verteidigung (Zauber - Indirekt)`, `Verteidigung (Astralkampf)`, `Schadenswiderstand (Astral)`, `Schadenswiderstand (Matrix)` und `Schadenswiderstand (Biofeedback)` sind jetzt auf die belegten Standardformeln aus dem Grundregelwerk gezogen.
+  Offen bleibt: Sonderfaelle wie Drohnen/Pilot oder spezifische Matrixprogramme ohne kuenstliche Uebermodellierung sauber einhaengen.
 - [ ] Kampf-UI und Popup systematisch auf die Trennung `Wuerfelpool` vs. `Angriffswert` vs. `Verteidigungswert` vs. `Schaden` ausrichten
 - [ ] Pruefen, ob die Angriffswert-Felder von Nahkampfwaffen im Sheet bereits Endwerte sind oder ob `Staerke` kuenftig noch eingerechnet werden muss
 - [ ] Rollenwahl fuer `Primäre Panzerung`, `Sekundäre Panzerung`, `Helm` und `Schild` gegen die finale UX pruefen und bei Bedarf noch weiter verfeinern
