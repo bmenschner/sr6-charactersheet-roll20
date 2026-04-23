@@ -216,6 +216,22 @@ Aus dieser Zielmatrix folgen fuer die Kampfdomäne die naechsten technischen Reg
   - Verteidigungswert
   - Schaden
 
+### Stand der generischen Roll-Fallbacks
+
+Die heutigen Live-Buttons des Sheets laufen mittlerweile ueberwiegend ueber explizite Modelle:
+
+- `attribute_probe`
+- `skill_probe`
+- `initiative_probe`
+- `defense_probe`
+- `combat_attack_probe`
+- `value_probe`
+- `matrix_action`
+- `spell`
+
+Die generischen Definitionen `value`, `weapon` und `fallback` bleiben damit vor allem als technisches Sicherheitsnetz erhalten.
+Sie werden aktuell nicht mehr als eigentliche Zielarchitektur behandelt.
+
 ### Bestaetigter Ist-Stand fuer Kampf
 
 Der Kampfbereich ist funktional weitgehend auf diesen Zielzustand gezogen:

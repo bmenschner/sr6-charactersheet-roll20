@@ -892,6 +892,7 @@ const SR6_ROLL_DEFINITIONS = [
   },
   {
     id: "weapon",
+    // Legacy safety net for weapon-shaped rolls that are not yet mapped to an explicit domain model.
     matchField: "Waffe",
     titleMode: "pool-prefix",
     primaryFields: ["Waffe"],
@@ -923,6 +924,7 @@ const SR6_ROLL_DEFINITIONS = [
   },
   {
     id: "fallback",
+    // Final generic fallback for rolls that do not match any explicit probe model yet.
     titleMode: "pool-prefix-or-explicit",
     primaryFields: [],
     extraFields: ["Basis", "Gesamt"],

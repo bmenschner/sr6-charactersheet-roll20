@@ -22,7 +22,8 @@
   Aktueller Stand: gemeinsamer Builder fuer physische Kampf-Faelle ist vorhanden; allgemeine Verteidigungs-/Widerstandsfaelle sowie Matrix-/Rigging-Defensivfaelle und astrale Magie-Faelle sind im Code angelegt.
 - [ ] `combat_attack_probe` weiter von Altdefinitionen entkoppeln und als klares Referenzmodell dokumentieren
 - [ ] Generische Altpfade wie `value`, `weapon` und `fallback` nur noch als technisches Sicherheitsnetz behandeln
-  Aktueller Stand: `magic_value`, `matrix_value` und `rigging_value` greifen jetzt als explizite `value_probe`-Pfade fuer ihre Kernwertwuerfe; der verbleibende generische `value`-Pfad ist damit kleiner geworden.
+  Aktueller Stand: `magic_value`, `matrix_value` und `rigging_value` greifen jetzt als explizite `value_probe`-Pfade fuer ihre Kernwertwuerfe; der verbleibende generische `value`-Pfad ist damit kleiner geworden. Die Live-Buttons des Sheets haengen ueberwiegend bereits an expliziten Modellen; `weapon` und `fallback` bleiben aktuell vor allem als Sicherheitsnetz im Resolver.
+  Offen bleibt: gezielt inventarisieren, welche echten Restfaelle noch ueber diese generischen Definitionen laufen, bevor wir sie weiter zurueckdruecken oder ganz entbehrlich machen.
 - [ ] `Allgemein` nicht mehr als eigenes Popup-/Rolltemplate-Ziel behandeln, sondern nur als Spiegel/Ansicht
 
 ## Folgearbeiten nach dem aktuellen Refactor
