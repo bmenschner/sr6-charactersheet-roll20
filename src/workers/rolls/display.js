@@ -87,6 +87,10 @@ function hasWeaponTemplateVariant(definition) {
   return !!(definition && definition.templateVariant === "weapon");
 }
 
+function hasSpellTemplateVariant(definition) {
+  return !!(definition && definition.templateVariant === "spell");
+}
+
 function findLastRowValue(rows, label) {
   for (let index = rows.length - 1; index >= 0; index -= 1) {
     if (rows[index] && rows[index].label === label) {
@@ -168,10 +172,75 @@ function buildWeaponProbePresentation(payload) {
   };
 }
 
+function buildSpellProbePresentation(payload) {
+  const resolvedFields = payload.resolvedFields || {};
+  const spellType = `${resolvedFields.Art || ""}`;
+  const isCombatSpell = spellType === "Kampf";
+  const spellDamage = `${payload.spellDamage || ""}`;
+
+  return {
+    spell: `${resolvedFields.Zauber || ""}`,
+    attackValue: isCombatSpell ? `${resolvedFields.Angriffswert || ""}` : "",
+    art: spellType,
+    range: `${resolvedFields.Reichweite || ""}`,
+    duration: `${resolvedFields.Dauer || ""}`,
+    damage: isCombatSpell ? spellDamage : "",
+    notes: `${resolvedFields.Notiz || ""}`,
+    drainValue: `${payload.drainValue || ""}`,
+    drainDamage: `${payload.drainDamage || ""}`,
+  };
+}
+
 function buildSr6ProbeMessage(payload) {
   const parts = ["&{template:sr6probe}"];
   const name = payload.name || "Probe";
   parts.push(`{{name=${name}}}`);
+
+  if (hasSpellTemplateVariant(payload.definition)) {
+    const presentation = buildSpellProbePresentation(payload);
+
+    parts.push("{{spell_layout=1}}");
+    if (presentation.spell) parts.push(`{{spell=${presentation.spell}}}`);
+    if (presentation.attackValue) parts.push(`{{attack_value=${presentation.attackValue}}}`);
+    if (payload.pool !== undefined && payload.pool !== null && `${payload.pool}` !== "") {
+      parts.push(`{{pool=${payload.pool}}}`);
+    }
+    if (payload.erfolge !== undefined && payload.erfolge !== null && `${payload.erfolge}` !== "") {
+      parts.push(`{{erfolge=${payload.erfolge}}}`);
+    }
+    if (presentation.damage) {
+      parts.push(`{{spell_damage=${presentation.damage}}}`);
+    }
+    if (payload.details) {
+      parts.push(`{{details=${payload.details}}}`);
+    }
+
+    const detailsDice = Array.isArray(payload.detailsDice) ? payload.detailsDice : [];
+    if (detailsDice.length > 0) {
+      parts.push("{{details_dice=1}}");
+      detailsDice.forEach((die, index) => {
+        const dieIndex = index + 1;
+        parts.push(`{{d${dieIndex}_v=${die.value}}}`);
+        parts.push(`{{d${dieIndex}_t=${die.tone}}}`);
+        parts.push(`{{d${dieIndex}_s=${die.style}}}`);
+      });
+    }
+
+    if (presentation.drainValue) parts.push(`{{drain_value=${presentation.drainValue}}}`);
+    if (presentation.drainDamage) parts.push(`{{drain_damage=${presentation.drainDamage}}}`);
+    if (payload.drainDetails) parts.push(`{{drain_details=${payload.drainDetails}}}`);
+    if (presentation.art) parts.push(`{{description_art=${presentation.art}}}`);
+    if (presentation.range) parts.push(`{{description_range=${presentation.range}}}`);
+    if (presentation.duration) parts.push(`{{description_duration=${presentation.duration}}}`);
+    if (presentation.damage) parts.push(`{{description_damage=${presentation.damage}}}`);
+    if (presentation.notes) parts.push(`{{description_notes=${presentation.notes}}}`);
+
+    if (payload.isGlitch) {
+      parts.push("{{is_glitch=1}}");
+    }
+
+    return parts.join(" ");
+  }
 
   if (hasWeaponTemplateVariant(payload.definition)) {
     const presentation = buildWeaponProbePresentation(payload);

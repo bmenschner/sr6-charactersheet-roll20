@@ -13,7 +13,7 @@ function runSuccessProbeRoll(eventInfo) {
     if (!useRoll20Fallback) {
       const popupRequestedAttributes = buildPopupRequestedAttributes(definition, poolAttribute, repeatingRowPrefix);
       getAttrs(popupRequestedAttributes, (popupValues) => {
-        const popupFormPayload = buildPopupPrefillPayload(definition, poolAttribute, repeatingRowPrefix, popupValues);
+        const popupFormPayload = buildPopupPrefillPayload(definition, poolAttribute, repeatingRowPrefix, popupValues, parsedFields);
         setAttrsSilent({
           ...popupFormPayload,
           sr6_roll_popup_definition: definition.id,

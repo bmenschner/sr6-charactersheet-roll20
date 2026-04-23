@@ -25,13 +25,13 @@
           <span data-i18n="field.reichweite">Reichweite</span>
           <span data-i18n="field.dauer">Dauer</span>
           <span data-i18n="field.entzug">Entzug</span>
+          <span data-i18n="field.schaden">Schaden</span>
           <span data-i18n="field.aufrechterhalten">Aufrechterhalten</span>
-          <span data-i18n="field.wurf">Wurf</span>
         </div>
         <fieldset class="repeating_sr6zauber">
           <div class="sr6-foundry-item">
             <div class="sr6-editable-item-fields">
-            <div class="sr6-foundry-item-head sr6-charactersheet-row sr6-charactersheet-row-3">
+            <div class="sr6-foundry-item-head sr6-charactersheet-row sr6-charactersheet-row-4">
               <div class="sr6-charactersheet-field">
                 <span data-i18n="field.zauber_name">Zaubername</span>
                 <input type="text" name="attr_sr6_zauber_name" />
@@ -55,8 +55,6 @@
                   <option value="Spezial" data-i18n="field.reichweite_spezial">Spezial</option>
                 </select>
               </div>
-            </div>
-            <div class="sr6-foundry-item-row sr6-charactersheet-row sr6-charactersheet-row-3">
               <div class="sr6-charactersheet-field">
                 <span data-i18n="field.dauer">Dauer</span>
                 <select name="attr_sr6_zauber_dauer">
@@ -66,30 +64,25 @@
                   <option value="Spezial" data-i18n="field.reichweite_spezial">Spezial</option>
                 </select>
               </div>
+            </div>
+            <div class="sr6-foundry-item-row sr6-charactersheet-row sr6-charactersheet-row-3">
               <div class="sr6-charactersheet-field">
                 <span data-i18n="field.entzug">Entzug</span>
-                <input type="text" name="attr_sr6_zauber_entzug" />
+                <input type="number" name="attr_sr6_zauber_entzug" />
+              </div>
+              <div class="sr6-charactersheet-field">
+                <span data-i18n="field.schaden">Schaden</span>
+                <input type="number" name="attr_sr6_zauber_schaden" />
               </div>
               <div class="sr6-charactersheet-field">
                 <span data-i18n="field.aufrechterhalten">Aufrechterhalten</span>
                 <input type="checkbox" name="attr_sr6_zauber_aufrechterhalten" value="1" />
               </div>
             </div>
-            <div class="sr6-foundry-item-footer sr6-charactersheet-row sr6-charactersheet-row-2">
+            <div class="sr6-foundry-item-footer sr6-charactersheet-row sr6-charactersheet-row-1">
               <div class="sr6-charactersheet-field">
                 <span data-i18n="field.notiz">Notiz</span>
                 <input type="text" name="attr_sr6_zauber_notiz" />
-              </div>
-              <div class="sr6-charactersheet-field">
-                <span data-i18n="field.wurf">Wurf</span>
-                <div class="sr6-charactersheet-field-input-with-dice">
-                  <input type="text" name="attr_sr6_zauber_wurfpool" /><button
-                    type="action"
-                    class="sr6-charactersheet-field-dice-button"
-                    name="act_probe"
-                    value="&{template:default} {{name=Zauberprobe}} {{Zauber=@{sr6_zauber_name}}} {{Pool=[[@{sr6_zauber_wurfpool}]]}} {{Erfolge=[[@{sr6_zauber_wurfpool}d6>5]]}} {{Entzug=@{sr6_zauber_entzug}}}"
-                    aria-label="Wuerfeln"></button>
-                </div>
               </div>
             </div>
             <div class="sr6-zauber-list-roll">
@@ -97,7 +90,7 @@
                 type="action"
                 class="sr6-charactersheet-field-dice-button"
                 name="act_probe"
-                value="&{template:default} {{name=Zauberprobe}} {{Zauber=@{sr6_zauber_name}}} {{Pool=[[@{sr6_zauber_wurfpool}]]}} {{Erfolge=[[@{sr6_zauber_wurfpool}d6>5]]}} {{Entzug=@{sr6_zauber_entzug}}}"
+                value="&{template:default} {{name=Spruchzauberei}} {{Zauber=@{sr6_zauber_name}}} {{Art=@{sr6_zauber_art}}} {{Reichweite=@{sr6_zauber_reichweite}}} {{Dauer=@{sr6_zauber_dauer}}} {{Entzug=@{sr6_zauber_entzug}}} {{Angriffswert=@{sr6_magic_angriffswert}}} {{Schaden=@{sr6_zauber_schaden}}} {{Notiz=@{sr6_zauber_notiz}}} {{Pool=[[@{sr6_magic_spruchzauberei}]]}} {{Erfolge=[[@{sr6_magic_spruchzauberei}d6>5]]}}"
                 aria-label="Wuerfeln"></button>
             </div>
             </div>

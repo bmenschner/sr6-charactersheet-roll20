@@ -165,7 +165,7 @@ const SR6_DEFAULT_ROLL_ROW_ORDER = [
   "Gesamt",
 ];
 
-const SR6_POPUP_FIELD_SLOT_COUNT = 7;
+const SR6_POPUP_FIELD_SLOT_COUNT = 8;
 
 const SR6_POPUP_SELECT_OPTION_SETS = {
   visibility: [
@@ -471,6 +471,74 @@ function createCombatMeleePopupFields(attributeSourceAttr) {
   ];
 }
 
+function createSpellPopupFields() {
+  return [
+    {
+      id: "skill_mod",
+      slot: 1,
+      label: "Skill-Modifikator",
+      type: "number",
+      affects: "pool",
+      includeInTemplate: true,
+      defaultValue: "0",
+    },
+    {
+      id: "attack_value_mod",
+      slot: 2,
+      label: "Angriffswert-Modifikator",
+      type: "number",
+      affects: "attack_value",
+      includeInTemplate: true,
+      defaultValue: "0",
+    },
+    {
+      id: "damage_mod",
+      slot: 3,
+      label: "Schadens-Modifikator",
+      type: "number",
+      affects: "damage",
+      includeInTemplate: true,
+      defaultValue: "0",
+      visibleWhenField: "Art",
+      visibleWhenValue: "Kampf",
+    },
+    {
+      id: "area_increase",
+      slot: 4,
+      label: "Fläche Vergrößern",
+      type: "number",
+      affects: "drain",
+      includeInTemplate: true,
+      defaultValue: "0",
+    },
+    {
+      id: "overcast",
+      slot: 5,
+      label: "Hochdrehen",
+      type: "number",
+      affects: ["damage", "drain"],
+      affectMultipliers: {
+        damage: 1,
+        drain: 2,
+      },
+      includeInTemplate: true,
+      defaultValue: "0",
+      visibleWhenField: "Art",
+      visibleWhenValue: "Kampf",
+    },
+    ...createSpecializationPopupFields(6),
+    {
+      id: "drain_mod",
+      slot: 8,
+      label: "Entzug-Modifikator",
+      type: "number",
+      affects: "drain",
+      includeInTemplate: true,
+      defaultValue: "0",
+    },
+  ];
+}
+
 function createDefenseProbePopupFields(config) {
   const primaryContextLabel = config.primaryContextLabel || config.primaryLabel || "Wert";
   const primaryContextSource = config.primaryContextSource || "pool";
@@ -625,32 +693,18 @@ const SR6_ROLL_DEFINITIONS = [
   },
   {
     id: "spell",
+    probeModel: "spell_probe",
     matchField: "Zauber",
-    titleMode: "pool-prefix",
+    matchPoolPrefix: "sr6_magic_spruchzauberei",
+    titleMode: "fixed",
     primaryFields: ["Zauber"],
-    extraFields: ["Entzug"],
-    popupFields: [
-      SR6_DEFAULT_POPUP_FIELDS[0],
-      {
-        id: "spell_range",
-        slot: 2,
-        label: "Reichweite",
-        type: "select",
-        optionSet: "spell_range",
-        affects: "display",
-        includeInTemplate: true,
-        defaultValue: "Sicht",
-      },
-      {
-        id: "drain_mod",
-        slot: 3,
-        label: "Entzug-Modifikator",
-        type: "number",
-        affects: "display",
-        includeInTemplate: true,
-        defaultValue: "0",
-      },
+    extraFields: ["Art", "Reichweite", "Dauer", "Entzug", "Schaden", "Notiz"],
+    templateVariant: "spell",
+    contextFields: [
+      { label: "Entzugwiderstand", attr: "sr6_magic_entzug_widerstand" },
     ],
+    fixedTitle: "Spruchzauberei",
+    popupFields: createSpellPopupFields(),
     titleFallback: "Zauber",
   },
   {
@@ -1246,6 +1300,7 @@ function buildPopupStateFromValues(values, definition) {
   let poolMod = 0;
   let attackValueMod = 0;
   let damageMod = 0;
+  let drainMod = 0;
 
   popupFields.forEach((field, index) => {
     const rawValue = values[getPopupFieldValueAttr(field, index)];
@@ -1274,6 +1329,14 @@ function buildPopupStateFromValues(values, definition) {
       : field.affects
         ? [field.affects]
         : [];
+    const affectMultipliers = field && field.affectMultipliers && typeof field.affectMultipliers === "object"
+      ? field.affectMultipliers
+      : {};
+    const numericBaseValue = isNumberField
+      ? parseNumber(normalizedValue)
+      : isCheckboxField
+        ? (checkboxChecked ? parseNumber(field.checkedValue) : 0)
+        : 0;
 
     if (field.id) {
       selectedValues[field.id] = normalizedValue;
@@ -1281,24 +1344,31 @@ function buildPopupStateFromValues(values, definition) {
 
     if (affects.includes("pool")) {
       poolMod += isNumberField
-        ? parseNumber(normalizedValue)
+        ? numericBaseValue * (parseNumber(affectMultipliers.pool) || 1)
         : isCheckboxField
-          ? (checkboxChecked ? parseNumber(field.checkedValue) : 0)
+          ? numericBaseValue * (parseNumber(affectMultipliers.pool) || 1)
           : parseNumber(selectedOption && selectedOption.poolMod);
     }
     if (affects.includes("attack_value")) {
       attackValueMod += isNumberField
-        ? parseNumber(normalizedValue)
+        ? numericBaseValue * (parseNumber(affectMultipliers.attack_value) || 1)
         : isCheckboxField
-          ? (checkboxChecked ? parseNumber(field.checkedValue) : 0)
+          ? numericBaseValue * (parseNumber(affectMultipliers.attack_value) || 1)
           : parseNumber(selectedOption && selectedOption.attackValueMod);
     }
     if (affects.includes("damage")) {
       damageMod += isNumberField
-        ? parseNumber(normalizedValue)
+        ? numericBaseValue * (parseNumber(affectMultipliers.damage) || 1)
         : isCheckboxField
-          ? (checkboxChecked ? parseNumber(field.checkedValue) : 0)
+          ? numericBaseValue * (parseNumber(affectMultipliers.damage) || 1)
           : parseNumber(selectedOption && selectedOption.damageMod);
+    }
+    if (affects.includes("drain")) {
+      drainMod += isNumberField
+        ? numericBaseValue * (parseNumber(affectMultipliers.drain) || 1)
+        : isCheckboxField
+          ? numericBaseValue * (parseNumber(affectMultipliers.drain) || 1)
+          : parseNumber(selectedOption && selectedOption.drainMod);
     }
 
     const shouldInclude =
@@ -1334,12 +1404,18 @@ function buildPopupStateFromValues(values, definition) {
     poolMod: poolMod,
     attackValueMod: attackValueMod,
     damageMod: damageMod,
+    drainMod: drainMod,
     selectedValues: selectedValues,
     rows: popupRows,
   };
 }
 
-function buildPopupFormPayload(definition) {
+function fieldMatchesPopupVisibility(field, templateFields) {
+  if (!field || !field.visibleWhenField) return true;
+  return `${(templateFields && templateFields[field.visibleWhenField]) || ""}`.trim() === `${field.visibleWhenValue || ""}`.trim();
+}
+
+function buildPopupFormPayload(definition, templateFields = {}) {
   const popupFields = getRollPopupFields(definition);
   const payload = {};
 
@@ -1363,6 +1439,7 @@ function buildPopupFormPayload(definition) {
   popupFields.forEach((field, index) => {
     const slot = field.slot || (index + 1);
     if (slot > SR6_POPUP_FIELD_SLOT_COUNT) return;
+    if (!fieldMatchesPopupVisibility(field, templateFields)) return;
 
     payload[`sr6_roll_popup_slot_${slot}_visible`] = "1";
     payload[`sr6_roll_popup_slot_${slot}_label`] = field.label || "";
@@ -1408,12 +1485,14 @@ function buildPopupRequestedAttributes(definition, poolAttribute, repeatingRowPr
   return [...new Set(requestedAttributes)];
 }
 
-function buildPopupPrefillPayload(definition, poolAttribute, repeatingRowPrefix, values) {
+function buildPopupPrefillPayload(definition, poolAttribute, repeatingRowPrefix, values, templateFields = {}) {
   const popupFields = getRollPopupFields(definition);
   const lookupAttr = buildAttrLookup(values || {}, repeatingRowPrefix);
-  const payload = buildPopupFormPayload(definition);
+  const resolvedTemplateFields = buildResolvedFields(templateFields || {}, lookupAttr);
+  const payload = buildPopupFormPayload(definition, resolvedTemplateFields);
 
   popupFields.forEach((field, index) => {
+    if (!fieldMatchesPopupVisibility(field, resolvedTemplateFields)) return;
     const sourceAttr = getPopupSourceAttrName(field, poolAttribute);
     const resolvedValue = sourceAttr ? lookupAttr(sourceAttr) : "";
     if (resolvedValue === undefined || resolvedValue === null || `${resolvedValue}` === "") return;
@@ -1667,6 +1746,10 @@ function hasWeaponTemplateVariant(definition) {
   return !!(definition && definition.templateVariant === "weapon");
 }
 
+function hasSpellTemplateVariant(definition) {
+  return !!(definition && definition.templateVariant === "spell");
+}
+
 function findLastRowValue(rows, label) {
   for (let index = rows.length - 1; index >= 0; index -= 1) {
     if (rows[index] && rows[index].label === label) {
@@ -1748,10 +1831,75 @@ function buildWeaponProbePresentation(payload) {
   };
 }
 
+function buildSpellProbePresentation(payload) {
+  const resolvedFields = payload.resolvedFields || {};
+  const spellType = `${resolvedFields.Art || ""}`;
+  const isCombatSpell = spellType === "Kampf";
+  const spellDamage = `${payload.spellDamage || ""}`;
+
+  return {
+    spell: `${resolvedFields.Zauber || ""}`,
+    attackValue: isCombatSpell ? `${resolvedFields.Angriffswert || ""}` : "",
+    art: spellType,
+    range: `${resolvedFields.Reichweite || ""}`,
+    duration: `${resolvedFields.Dauer || ""}`,
+    damage: isCombatSpell ? spellDamage : "",
+    notes: `${resolvedFields.Notiz || ""}`,
+    drainValue: `${payload.drainValue || ""}`,
+    drainDamage: `${payload.drainDamage || ""}`,
+  };
+}
+
 function buildSr6ProbeMessage(payload) {
   const parts = ["&{template:sr6probe}"];
   const name = payload.name || "Probe";
   parts.push(`{{name=${name}}}`);
+
+  if (hasSpellTemplateVariant(payload.definition)) {
+    const presentation = buildSpellProbePresentation(payload);
+
+    parts.push("{{spell_layout=1}}");
+    if (presentation.spell) parts.push(`{{spell=${presentation.spell}}}`);
+    if (presentation.attackValue) parts.push(`{{attack_value=${presentation.attackValue}}}`);
+    if (payload.pool !== undefined && payload.pool !== null && `${payload.pool}` !== "") {
+      parts.push(`{{pool=${payload.pool}}}`);
+    }
+    if (payload.erfolge !== undefined && payload.erfolge !== null && `${payload.erfolge}` !== "") {
+      parts.push(`{{erfolge=${payload.erfolge}}}`);
+    }
+    if (presentation.damage) {
+      parts.push(`{{spell_damage=${presentation.damage}}}`);
+    }
+    if (payload.details) {
+      parts.push(`{{details=${payload.details}}}`);
+    }
+
+    const detailsDice = Array.isArray(payload.detailsDice) ? payload.detailsDice : [];
+    if (detailsDice.length > 0) {
+      parts.push("{{details_dice=1}}");
+      detailsDice.forEach((die, index) => {
+        const dieIndex = index + 1;
+        parts.push(`{{d${dieIndex}_v=${die.value}}}`);
+        parts.push(`{{d${dieIndex}_t=${die.tone}}}`);
+        parts.push(`{{d${dieIndex}_s=${die.style}}}`);
+      });
+    }
+
+    if (presentation.drainValue) parts.push(`{{drain_value=${presentation.drainValue}}}`);
+    if (presentation.drainDamage) parts.push(`{{drain_damage=${presentation.drainDamage}}}`);
+    if (payload.drainDetails) parts.push(`{{drain_details=${payload.drainDetails}}}`);
+    if (presentation.art) parts.push(`{{description_art=${presentation.art}}}`);
+    if (presentation.range) parts.push(`{{description_range=${presentation.range}}}`);
+    if (presentation.duration) parts.push(`{{description_duration=${presentation.duration}}}`);
+    if (presentation.damage) parts.push(`{{description_damage=${presentation.damage}}}`);
+    if (presentation.notes) parts.push(`{{description_notes=${presentation.notes}}}`);
+
+    if (payload.isGlitch) {
+      parts.push("{{is_glitch=1}}");
+    }
+
+    return parts.join(" ");
+  }
 
   if (hasWeaponTemplateVariant(payload.definition)) {
     const presentation = buildWeaponProbePresentation(payload);
@@ -1928,17 +2076,18 @@ function buildProbeComputation(lookupAttr, poolAttribute, popupPoolMod, poolMult
 // BEGIN MODULE: workers/rolls/probe
 function normalizePopupState(popupState) {
   if (typeof popupState === "number") {
-    return { poolMod: popupState, attackValueMod: 0, damageMod: 0, selectedValues: {}, rows: [] };
+    return { poolMod: popupState, attackValueMod: 0, damageMod: 0, drainMod: 0, selectedValues: {}, rows: [] };
   }
 
   if (!popupState || typeof popupState !== "object") {
-    return { poolMod: 0, attackValueMod: 0, damageMod: 0, selectedValues: {}, rows: [] };
+    return { poolMod: 0, attackValueMod: 0, damageMod: 0, drainMod: 0, selectedValues: {}, rows: [] };
   }
 
   return {
     poolMod: parseNumber(popupState.poolMod),
     attackValueMod: parseNumber(popupState.attackValueMod),
     damageMod: parseNumber(popupState.damageMod),
+    drainMod: parseNumber(popupState.drainMod),
     selectedValues: popupState.selectedValues && typeof popupState.selectedValues === "object" ? popupState.selectedValues : {},
     rows: Array.isArray(popupState.rows) ? popupState.rows : [],
   };
@@ -2012,6 +2161,53 @@ function buildPopupDerivedResultRows(definition, lookupAttr, poolAttribute, reso
   return rows;
 }
 
+function isCombatSpell(resolvedFields) {
+  return `${(resolvedFields && resolvedFields.Art) || ""}`.trim() === "Kampf";
+}
+
+function runSpellProbeFromContext(context, lookupAttr, resolvedFields, popupState) {
+  const rows = buildProbeRows(resolvedFields, context.definition);
+  const name = deriveProbeTitle(resolvedFields, context.poolAttribute, context.definition);
+  const spellComputation = buildProbeComputation(
+    lookupAttr,
+    context.poolAttribute,
+    popupState.poolMod
+  );
+  const drainComputation = buildProbeComputation(
+    lookupAttr,
+    "sr6_magic_entzug_widerstand",
+    0
+  );
+  const baseDamage = parseNumber(resolvedFields.Schaden);
+  const finalDamage = isCombatSpell(resolvedFields) || baseDamage || popupState.damageMod
+    ? `${baseDamage + popupState.damageMod}`
+    : "";
+  const modifiedDrain = Math.max(0, parseNumber(resolvedFields.Entzug) + popupState.drainMod);
+  const drainDamage = Math.max(0, modifiedDrain - drainComputation.successCount);
+
+  const chatMessage = buildSr6ProbeMessage({
+    name: name,
+    rows: rows,
+    resolvedFields: resolvedFields,
+    definition: context.definition,
+    definitionId: context.definition && context.definition.id,
+    pool: `${spellComputation.pool}`,
+    erfolge: `${spellComputation.successCount}`,
+    details: buildDiceDetails(spellComputation.diceResults),
+    detailsDice: buildDetailsDice(spellComputation.diceResults),
+    isGlitch: spellComputation.isGlitch,
+    spellDamage: finalDamage,
+    drainValue: `${modifiedDrain}`,
+    drainDamage: `${drainDamage}`,
+    drainDetails: buildDiceDetails(drainComputation.diceResults),
+    drainDetailsDice: buildDetailsDice(drainComputation.diceResults),
+  });
+
+  startRoll(chatMessage, (rollResult) => {
+    finishRoll(rollResult.rollId);
+  });
+}
+
 function runSuccessProbeFromContext(rawTemplate, repeatingRowPrefix, popupState = 0) {
   if (!rawTemplate) return;
 
@@ -2026,6 +2222,12 @@ function runSuccessProbeFromContext(rawTemplate, repeatingRowPrefix, popupState 
       if (resolvedFields[field.label]) return;
       resolvedFields[field.label] = lookupAttr(field.attr);
     });
+
+    if (context.definition && context.definition.probeModel === "spell_probe") {
+      runSpellProbeFromContext(context, lookupAttr, resolvedFields, normalizedPopupState);
+      return;
+    }
+
     const rows = buildProbeRows(resolvedFields, context.definition);
     const name = deriveProbeTitle(resolvedFields, context.poolAttribute, context.definition);
 
@@ -2121,7 +2323,7 @@ function runSuccessProbeRoll(eventInfo) {
     if (!useRoll20Fallback) {
       const popupRequestedAttributes = buildPopupRequestedAttributes(definition, poolAttribute, repeatingRowPrefix);
       getAttrs(popupRequestedAttributes, (popupValues) => {
-        const popupFormPayload = buildPopupPrefillPayload(definition, poolAttribute, repeatingRowPrefix, popupValues);
+        const popupFormPayload = buildPopupPrefillPayload(definition, poolAttribute, repeatingRowPrefix, popupValues, parsedFields);
         setAttrsSilent({
           ...popupFormPayload,
           sr6_roll_popup_definition: definition.id,
@@ -2225,6 +2427,7 @@ function registerSuccessProbeRollEvents() {
   on("clicked:probe", runSuccessProbeRoll);
   on("clicked:repeating_sr6fernkampfwaffen:probe", runSuccessProbeRoll);
   on("clicked:repeating_sr6nahkampfwaffen:probe", runSuccessProbeRoll);
+  on("clicked:repeating_sr6zauber:probe", runSuccessProbeRoll);
   on("clicked:repeating_sr6wissensfertigkeiten:probe", runSuccessProbeRoll);
   on("clicked:repeating_sr6sprachfertigkeiten:probe", runSuccessProbeRoll);
   on("clicked:repeating_sr6talentsofts:probe", runSuccessProbeRoll);
