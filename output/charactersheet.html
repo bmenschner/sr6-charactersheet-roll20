@@ -3006,10 +3006,18 @@
     <fieldset class="repeating_sr6nahkampfwaffen">
       <div class="sr6-foundry-item">
         <div class="sr6-editable-item-fields">
-        <div class="sr6-foundry-item-head sr6-charactersheet-row sr6-charactersheet-row-3">
+        <div class="sr6-foundry-item-head sr6-charactersheet-row sr6-charactersheet-row-6">
           <div class="sr6-charactersheet-field">
             <span data-i18n="field.nahkampfwaffe">Nahkampfwaffe</span>
             <input type="text" name="attr_sr6_nahkampfwaffe" />
+          </div>
+
+          <div class="sr6-charactersheet-field">
+            <span data-i18n="field.attribut">Attribut</span>
+            <select name="attr_sr6_nahkampf_attribut">
+              <option value="Geschicklichkeit" data-i18n="field.geschicklichkeit">Geschicklichkeit</option>
+              <option value="Stärke" data-i18n="field.staerke">Stärke</option>
+            </select>
           </div>
 
           <div class="sr6-charactersheet-field">
@@ -3030,9 +3038,6 @@
               <option value="Exotisch" data-i18n="field.waffentyp_exotisch">Exotisch</option>
             </select>
           </div>
-        </div>
-
-        <div class="sr6-foundry-item-row sr6-charactersheet-row sr6-charactersheet-row-3">
           <div class="sr6-charactersheet-field">
             <span data-i18n="field.schaden">Schaden</span>
             <input type="number" name="attr_sr6_nahkampf_schaden" />
@@ -3042,13 +3047,6 @@
             <select name="attr_sr6_nahkampf_schadentyp">
               <option value="Körperlich" data-i18n="field.schadentyp_koerperlich">Körperlich</option>
               <option value="Betäubung" data-i18n="field.schadentyp_betaeubung">Betäubung</option>
-            </select>
-          </div>
-          <div class="sr6-charactersheet-field">
-            <span data-i18n="field.attribut">Attribut</span>
-            <select name="attr_sr6_nahkampf_attribut">
-              <option value="Geschicklichkeit" data-i18n="field.geschicklichkeit">Geschicklichkeit</option>
-              <option value="Stärke" data-i18n="field.staerke">Stärke</option>
             </select>
           </div>
         </div>
@@ -3174,7 +3172,7 @@
     <fieldset class="repeating_sr6panzerung">
       <div class="sr6-foundry-item sr6-foundry-item--armor">
         <div class="sr6-editable-item-fields">
-          <div class="sr6-foundry-item-head sr6-charactersheet-row sr6-charactersheet-row-3">
+          <div class="sr6-foundry-item-head sr6-charactersheet-row sr6-charactersheet-row-7 sr6-kampf-panzerung-rollen">
             <label class="sr6-charactersheet-field">
               <span data-i18n="field.panzerung">Panzerung</span>
               <input type="text" name="attr_sr6_panzerung_name" />
@@ -3189,25 +3187,23 @@
               <span data-i18n="field.sozial">Sozial</span>
               <input type="text" name="attr_sr6_panzerung_sozial" />
             </label>
+            <label class="sr6-charactersheet-field sr6-charactersheet-field--checkbox">
+              <span data-i18n="field.primaere_panzerung">Primäre Panzerung</span>
+              <input type="checkbox" name="attr_sr6_panzerung_ist_primaer" value="1" />
+            </label>
+            <label class="sr6-charactersheet-field sr6-charactersheet-field--checkbox">
+              <span data-i18n="field.sekundaere_panzerung">Sekundäre Panzerung</span>
+              <input type="checkbox" name="attr_sr6_panzerung_ist_sekundaer" value="1" />
+            </label>
+            <label class="sr6-charactersheet-field sr6-charactersheet-field--checkbox">
+              <span data-i18n="field.helm">Helm</span>
+              <input type="checkbox" name="attr_sr6_panzerung_ist_helm" value="1" />
+            </label>
+            <label class="sr6-charactersheet-field sr6-charactersheet-field--checkbox">
+              <span data-i18n="field.schild">Schild</span>
+              <input type="checkbox" name="attr_sr6_panzerung_ist_schild" value="1" />
+            </label>
           </div>
-        </div>
-        <div class="sr6-foundry-item-footer sr6-charactersheet-row sr6-charactersheet-row-4 sr6-kampf-panzerung-rollen">
-          <label class="sr6-charactersheet-field sr6-charactersheet-field--checkbox">
-            <span data-i18n="field.primaere_panzerung">Primäre Panzerung</span>
-            <input type="checkbox" name="attr_sr6_panzerung_ist_primaer" value="1" />
-          </label>
-          <label class="sr6-charactersheet-field sr6-charactersheet-field--checkbox">
-            <span data-i18n="field.sekundaere_panzerung">Sekundäre Panzerung</span>
-            <input type="checkbox" name="attr_sr6_panzerung_ist_sekundaer" value="1" />
-          </label>
-          <label class="sr6-charactersheet-field sr6-charactersheet-field--checkbox">
-            <span data-i18n="field.helm">Helm</span>
-            <input type="checkbox" name="attr_sr6_panzerung_ist_helm" value="1" />
-          </label>
-          <label class="sr6-charactersheet-field sr6-charactersheet-field--checkbox">
-            <span data-i18n="field.schild">Schild</span>
-            <input type="checkbox" name="attr_sr6_panzerung_ist_schild" value="1" />
-          </label>
         </div>
       </div>
     </fieldset>
