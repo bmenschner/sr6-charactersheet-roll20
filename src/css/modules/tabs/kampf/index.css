@@ -36,3 +36,53 @@
   width: 1rem;
   height: 1rem;
 }
+
+.sr6-charactersheet-box-kampf-fernkampf .sr6-kampf-selection-toggle {
+  font-size: 0.75em;
+}
+
+.sr6-charactersheet-box-kampf-nahkampf .sr6-kampf-selection-toggle {
+  font-size: 0.75em;
+}
+
+/* Kampf > Fernkampfwaffen/Nahkampfwaffen/Panzerung: in beiden Modi in voller Breite. */
+.sr6-charactersheet-box-kampf-fernkampf fieldset.repeating_sr6fernkampfwaffen,
+.sr6-charactersheet-box-kampf-fernkampf .repcontainer[data-groupname="repeating_sr6fernkampfwaffen"],
+.sr6-charactersheet-box-kampf-nahkampf fieldset.repeating_sr6nahkampfwaffen,
+.sr6-charactersheet-box-kampf-nahkampf .repcontainer[data-groupname="repeating_sr6nahkampfwaffen"],
+.sr6-charactersheet-box-kampf-panzerung fieldset.repeating_sr6panzerung,
+.sr6-charactersheet-box-kampf-panzerung .repcontainer[data-groupname="repeating_sr6panzerung"] {
+  grid-template-columns: minmax(0, 1fr) !important;
+}
+
+.sr6-charactersheet-box-kampf-fernkampf .repcontainer[data-groupname="repeating_sr6fernkampfwaffen"] > .repitem,
+.sr6-charactersheet-box-kampf-nahkampf .repcontainer[data-groupname="repeating_sr6nahkampfwaffen"] > .repitem,
+.sr6-charactersheet-box-kampf-panzerung .repcontainer[data-groupname="repeating_sr6panzerung"] > .repitem {
+  grid-column: 1 / -1 !important;
+}
+
+/* Kampf > Fernkampfwaffen, Zeile 2: Reichweite + Input/Roll kompakt pro Spalte */
+.sr6-kampf-fernkampf-range-row .sr6-kampf-fernkampf-range-field {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr);
+  align-items: end;
+  gap: 0.375rem;
+}
+
+.sr6-kampf-fernkampf-range-row .sr6-kampf-fernkampf-range-field > span {
+  line-height: var(--sr6-field-height);
+  white-space: nowrap;
+}
+
+/* Kampf > Nahkampfwaffen, Zeile 2: Reichweite + Input/Roll kompakt pro Spalte */
+.sr6-kampf-nahkampf-range-row .sr6-kampf-nahkampf-range-field {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr);
+  align-items: end;
+  gap: 0.375rem;
+}
+
+.sr6-kampf-nahkampf-range-row .sr6-kampf-nahkampf-range-field > span {
+  line-height: var(--sr6-field-height);
+  white-space: nowrap;
+}

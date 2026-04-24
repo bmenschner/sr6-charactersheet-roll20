@@ -287,6 +287,12 @@ body,
   gap: 0.4375rem;
 }
 
+.sr6-charactersheet-row-8 {
+  display: grid;
+  grid-template-columns: repeat(8, minmax(0, 1fr));
+  gap: 0.4375rem;
+}
+
 .sr6-charactersheet-row-5 {
   display: grid;
   grid-template-columns: repeat(5, minmax(0, 1fr));

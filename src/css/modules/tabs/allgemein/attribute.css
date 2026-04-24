@@ -188,6 +188,15 @@
   flex: 0 0 auto;
 }
 
+/* Allgemein > Kampf: Listenansicht in voller Breite statt 2-Spalten-Kacheln. */
+#sr6_daten_panel_1 .sr6-charactersheet-box-kampf.sr6-editable-overview-section:has(.sr6-editable-section-mode:not(:checked)) .sr6-charactersheet-kampfinfos-grid {
+  grid-template-columns: minmax(0, 1fr);
+}
+
+#sr6_daten_panel_1 .sr6-charactersheet-box-kampf.sr6-editable-overview-section:has(.sr6-editable-section-mode:not(:checked)) .sr6-charactersheet-kampfinfos-column {
+  width: 100%;
+}
+
 /* Allgemein: Test Roll Popup */
 .sr6-test-roll-open {
   display: inline-flex;
