@@ -110,6 +110,21 @@
   display: none;
 }
 
+/* Allgemein > Attribute/Fertigkeiten: Rollbutton in Listenansicht rechts am Zeilenende */
+#sr6_daten_panel_1 .sr6-charactersheet-box-attribute.sr6-editable-overview-section:has(.sr6-editable-section-mode:not(:checked)) .sr6-charactersheet-attr-values,
+#sr6_daten_panel_1 .sr6-charactersheet-box-fertigkeiten-allgemein.sr6-editable-overview-section:has(.sr6-editable-section-mode:not(:checked)) .sr6-charactersheet-attr-values {
+  padding-left: 0;
+  justify-content: flex-end;
+}
+
+#sr6_daten_panel_1 .sr6-charactersheet-box-attribute.sr6-editable-overview-section:has(.sr6-editable-section-mode:not(:checked)) .sr6-charactersheet-attr-value:last-child .sr6-charactersheet-field-dice-button,
+#sr6_daten_panel_1 .sr6-charactersheet-box-fertigkeiten-allgemein.sr6-editable-overview-section:has(.sr6-editable-section-mode:not(:checked)) .sr6-charactersheet-attr-value:last-child .sr6-charactersheet-field-dice-button {
+  position: static;
+  left: auto;
+  top: auto;
+  transform: none;
+}
+
 /* Allgemein (Panel 1): Fertigkeiten Switcher */
 #sr6_daten_panel_1 .sr6-charactersheet-box-fertigkeiten-allgemein .sr6-charactersheet-fertigkeiten-switch {
   display: inline-flex;
@@ -186,6 +201,11 @@
   display: inline-flex;
   margin-left: auto;
   flex: 0 0 auto;
+}
+
+/* Allgemein > Kampf: nach Entfernung von Feuerwaffen/Panzerung einspaltig anzeigen */
+#sr6_daten_panel_1 .sr6-charactersheet-box-kampf .sr6-charactersheet-kampfinfos-grid {
+  grid-template-columns: minmax(0, 1fr);
 }
 
 /* Allgemein > Kampf: Listenansicht in voller Breite statt 2-Spalten-Kacheln. */
