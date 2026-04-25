@@ -416,18 +416,31 @@ body,
   height: var(--sr6-field-height);
 }
 
+.sr6-charactersheet-field-input-with-dice:has(> .sr6-number-stepper) {
+  grid-template-columns: auto 1.75rem;
+  justify-content: start;
+  column-gap: 0.125rem;
+}
+
 .sr6-number-stepper {
   display: grid;
-  grid-template-columns: 1.5rem minmax(0, 1fr) 1.5rem;
+  grid-template-columns: 1.25rem max-content 1.25rem;
   align-items: stretch;
-  width: 100%;
+  width: auto;
   min-width: 0;
   height: 100%;
   gap: 0.125rem;
+  justify-self: start;
+}
+
+.sr6-charactersheet-field-input-with-dice:has(> .sr6-number-stepper) > .sr6-number-stepper {
+  grid-column: 1;
+  width: auto;
+  grid-template-columns: 1.5rem max-content 1.5rem;
 }
 
 .sr6-number-stepper > input {
-  width: 100%;
+  width: 2.75rem;
   min-width: 0;
   height: 100%;
   border: none;
@@ -436,7 +449,12 @@ body,
   color: var(--sr6-text);
   font-size: 0.86rem;
   line-height: var(--sr6-field-height);
-  padding: 0 0.25rem;
+  padding: 0;
+  text-align: center;
+}
+
+.sr6-charactersheet-field-input-with-dice:has(> .sr6-number-stepper) > .sr6-number-stepper > input {
+  width: 2.75rem;
 }
 
 .sr6-number-stepper-button {
@@ -492,6 +510,10 @@ body,
   line-height: 1;
   padding: 0;
   cursor: pointer;
+}
+
+.sr6-charactersheet-field-input-with-dice:has(> .sr6-number-stepper) > .sr6-charactersheet-field-dice-button {
+  grid-column: 2;
 }
 
 .sr6-charactersheet-field-input-with-dice > .sr6-charactersheet-field-dice-button.sr6-charactersheet-field-dice-button--secondary {
