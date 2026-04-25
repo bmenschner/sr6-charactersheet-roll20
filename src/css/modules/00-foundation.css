@@ -78,6 +78,7 @@ body,
   color: var(--sr6-title);
   text-transform: uppercase;
   letter-spacing: 0.03rem;
+  text-align: center;
 }
 
 .sr6-charactersheet-box-content {
@@ -94,6 +95,22 @@ body,
   font-size: 0.68rem;
   color: var(--sr6-text);
   letter-spacing: 0.01rem;
+  text-align: center;
+}
+
+.sr6-charactersheet-field:has(.sr6-number-stepper),
+.sr6-charactersheet-field:has(.sr6-charactersheet-field-input-with-dice) {
+  align-items: center;
+}
+
+.sr6-charactersheet-field:has(.sr6-number-stepper) > span,
+.sr6-charactersheet-field:has(.sr6-charactersheet-field-input-with-dice) > span {
+  text-align: center;
+}
+
+.sr6-charactersheet-field:has(.sr6-number-stepper) > .sr6-number-stepper,
+.sr6-charactersheet-field:has(.sr6-charactersheet-field-input-with-dice) > .sr6-charactersheet-field-input-with-dice {
+  margin-inline: auto;
 }
 
 .sr6-charactersheet-field input {
@@ -416,9 +433,12 @@ body,
 }
 
 .sr6-charactersheet-field-input-with-dice:has(> .sr6-number-stepper) {
-  grid-template-columns: auto 1.75rem;
+  grid-template-columns: max-content 1.75rem;
   justify-content: start;
   column-gap: 0.125rem;
+  width: max-content;
+  max-width: 100%;
+  align-items: center;
 }
 
 .sr6-number-stepper {
@@ -427,15 +447,16 @@ body,
   align-items: stretch;
   width: auto;
   min-width: 0;
-  height: 100%;
   gap: 0.125rem;
   justify-self: start;
+  justify-content: start;
 }
 
 .sr6-charactersheet-field-input-with-dice:has(> .sr6-number-stepper) > .sr6-number-stepper {
   grid-column: 1;
   width: auto;
   grid-template-columns: 1.5rem max-content 1.5rem;
+  justify-content: start;
 }
 
 .sr6-number-stepper > input {
