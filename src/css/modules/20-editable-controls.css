@@ -193,7 +193,8 @@
 .sr6-kampf-lockable-section:has(.sr6-editable-section-mode:not(:checked)) .sr6-editable-item-fields input:not([type="checkbox"]),
 .sr6-kampf-lockable-section:has(.sr6-editable-section-mode:not(:checked)) .sr6-editable-item-fields select,
 .sr6-kampf-lockable-section:has(.sr6-editable-section-mode:not(:checked)) .sr6-editable-item-fields textarea,
-.sr6-kampf-lockable-section:has(.sr6-editable-section-mode:not(:checked)) .sr6-editable-item-fields .sr6-charactersheet-field-input-with-dice > input {
+.sr6-kampf-lockable-section:has(.sr6-editable-section-mode:not(:checked)) .sr6-editable-item-fields .sr6-charactersheet-field-input-with-dice > input,
+.sr6-kampf-lockable-section:has(.sr6-editable-section-mode:not(:checked)) .sr6-editable-item-fields .sr6-charactersheet-field-input-with-dice > .sr6-number-stepper > input {
   border-bottom: none;
 }
 

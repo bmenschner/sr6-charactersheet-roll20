@@ -23,10 +23,18 @@
     <fieldset class="repeating_sr6nahkampfwaffen">
       <div class="sr6-foundry-item">
         <div class="sr6-editable-item-fields">
-        <div class="sr6-foundry-item-head sr6-charactersheet-row sr6-charactersheet-row-3">
+        <div class="sr6-foundry-item-head sr6-charactersheet-row sr6-charactersheet-row-6">
           <div class="sr6-charactersheet-field">
             <span data-i18n="field.nahkampfwaffe">Nahkampfwaffe</span>
             <input type="text" name="attr_sr6_nahkampfwaffe" />
+          </div>
+
+          <div class="sr6-charactersheet-field">
+            <span data-i18n="field.attribut">Attribut</span>
+            <select name="attr_sr6_nahkampf_attribut">
+              <option value="Geschicklichkeit" data-i18n="field.geschicklichkeit">Geschicklichkeit</option>
+              <option value="Stärke" data-i18n="field.staerke">Stärke</option>
+            </select>
           </div>
 
           <div class="sr6-charactersheet-field">
@@ -47,25 +55,15 @@
               <option value="Exotisch" data-i18n="field.waffentyp_exotisch">Exotisch</option>
             </select>
           </div>
-        </div>
-
-        <div class="sr6-foundry-item-row sr6-charactersheet-row sr6-charactersheet-row-3">
           <div class="sr6-charactersheet-field">
             <span data-i18n="field.schaden">Schaden</span>
-            <input type="number" name="attr_sr6_nahkampf_schaden" />
+            <div class="sr6-number-stepper"><button type="action" class="sr6-number-stepper-button sr6-number-stepper-button--minus" name="act_sr6_number_step" value="sr6_nahkampf_schaden::-1" aria-label="Verringern">-</button><input type="number" name="attr_sr6_nahkampf_schaden" /><button type="action" class="sr6-number-stepper-button sr6-number-stepper-button--plus" name="act_sr6_number_step" value="sr6_nahkampf_schaden::1" aria-label="Erhoehen">+</button></div>
           </div>
           <div class="sr6-charactersheet-field">
             <span data-i18n="field.schadentyp">Schadenstyp</span>
             <select name="attr_sr6_nahkampf_schadentyp">
               <option value="Körperlich" data-i18n="field.schadentyp_koerperlich">Körperlich</option>
               <option value="Betäubung" data-i18n="field.schadentyp_betaeubung">Betäubung</option>
-            </select>
-          </div>
-          <div class="sr6-charactersheet-field">
-            <span data-i18n="field.attribut">Attribut</span>
-            <select name="attr_sr6_nahkampf_attribut">
-              <option value="Geschicklichkeit" data-i18n="field.geschicklichkeit">Geschicklichkeit</option>
-              <option value="Stärke" data-i18n="field.staerke">Stärke</option>
             </select>
           </div>
         </div>
@@ -76,11 +74,11 @@
           </div>
         </div>
 
-        <div class="sr6-foundry-item-range sr6-charactersheet-row sr6-charactersheet-row-5">
-          <div class="sr6-charactersheet-field">
+        <div class="sr6-foundry-item-range sr6-charactersheet-row sr6-charactersheet-row-5 sr6-kampf-nahkampf-range-row">
+          <div class="sr6-charactersheet-field sr6-kampf-nahkampf-range-field">
             <span data-i18n="field.s_nah">S. Nah</span>
             <div class="sr6-charactersheet-field-input-with-dice">
-              <input type="number" name="attr_sr6_nahkampf_s_nah" /><button
+              <div class="sr6-number-stepper"><button type="action" class="sr6-number-stepper-button sr6-number-stepper-button--minus" name="act_sr6_number_step" value="sr6_nahkampf_s_nah::-1" aria-label="Verringern">-</button><input type="number" name="attr_sr6_nahkampf_s_nah" /><button type="action" class="sr6-number-stepper-button sr6-number-stepper-button--plus" name="act_sr6_number_step" value="sr6_nahkampf_s_nah::1" aria-label="Erhoehen">+</button></div><button
                 type="action"
                 class="sr6-charactersheet-field-dice-button"
                 name="act_probe"
@@ -89,10 +87,10 @@
             </div>
           </div>
 
-          <div class="sr6-charactersheet-field">
+          <div class="sr6-charactersheet-field sr6-kampf-nahkampf-range-field">
             <span data-i18n="field.nah">Nah</span>
             <div class="sr6-charactersheet-field-input-with-dice">
-              <input type="number" name="attr_sr6_nahkampf_nah" /><button
+              <div class="sr6-number-stepper"><button type="action" class="sr6-number-stepper-button sr6-number-stepper-button--minus" name="act_sr6_number_step" value="sr6_nahkampf_nah::-1" aria-label="Verringern">-</button><input type="number" name="attr_sr6_nahkampf_nah" /><button type="action" class="sr6-number-stepper-button sr6-number-stepper-button--plus" name="act_sr6_number_step" value="sr6_nahkampf_nah::1" aria-label="Erhoehen">+</button></div><button
                 type="action"
                 class="sr6-charactersheet-field-dice-button"
                 name="act_probe"
@@ -101,10 +99,10 @@
             </div>
           </div>
 
-          <div class="sr6-charactersheet-field">
+          <div class="sr6-charactersheet-field sr6-kampf-nahkampf-range-field">
             <span data-i18n="field.mittel">Mittel</span>
             <div class="sr6-charactersheet-field-input-with-dice">
-              <input type="number" name="attr_sr6_nahkampf_mittel" /><button
+              <div class="sr6-number-stepper"><button type="action" class="sr6-number-stepper-button sr6-number-stepper-button--minus" name="act_sr6_number_step" value="sr6_nahkampf_mittel::-1" aria-label="Verringern">-</button><input type="number" name="attr_sr6_nahkampf_mittel" /><button type="action" class="sr6-number-stepper-button sr6-number-stepper-button--plus" name="act_sr6_number_step" value="sr6_nahkampf_mittel::1" aria-label="Erhoehen">+</button></div><button
                 type="action"
                 class="sr6-charactersheet-field-dice-button"
                 name="act_probe"
@@ -113,10 +111,10 @@
             </div>
           </div>
 
-          <div class="sr6-charactersheet-field">
+          <div class="sr6-charactersheet-field sr6-kampf-nahkampf-range-field">
             <span data-i18n="field.weit">Weit</span>
             <div class="sr6-charactersheet-field-input-with-dice">
-              <input type="number" name="attr_sr6_nahkampf_weit" /><button
+              <div class="sr6-number-stepper"><button type="action" class="sr6-number-stepper-button sr6-number-stepper-button--minus" name="act_sr6_number_step" value="sr6_nahkampf_weit::-1" aria-label="Verringern">-</button><input type="number" name="attr_sr6_nahkampf_weit" /><button type="action" class="sr6-number-stepper-button sr6-number-stepper-button--plus" name="act_sr6_number_step" value="sr6_nahkampf_weit::1" aria-label="Erhoehen">+</button></div><button
                 type="action"
                 class="sr6-charactersheet-field-dice-button"
                 name="act_probe"
@@ -125,10 +123,10 @@
             </div>
           </div>
 
-          <div class="sr6-charactersheet-field">
+          <div class="sr6-charactersheet-field sr6-kampf-nahkampf-range-field">
             <span data-i18n="field.s_weit">S. Weit</span>
             <div class="sr6-charactersheet-field-input-with-dice">
-              <input type="number" name="attr_sr6_nahkampf_s_weit" /><button
+              <div class="sr6-number-stepper"><button type="action" class="sr6-number-stepper-button sr6-number-stepper-button--minus" name="act_sr6_number_step" value="sr6_nahkampf_s_weit::-1" aria-label="Verringern">-</button><input type="number" name="attr_sr6_nahkampf_s_weit" /><button type="action" class="sr6-number-stepper-button sr6-number-stepper-button--plus" name="act_sr6_number_step" value="sr6_nahkampf_s_weit::1" aria-label="Erhoehen">+</button></div><button
                 type="action"
                 class="sr6-charactersheet-field-dice-button"
                 name="act_probe"
@@ -139,13 +137,6 @@
         </div>
 
         <div class="sr6-foundry-item-footer sr6-charactersheet-row sr6-charactersheet-row-2">
-          <label class="sr6-kampf-selection-toggle">
-            <input type="checkbox" name="attr_sr6_nahkampf_ist_primaer" value="1" />
-            <span data-i18n="field.primaere_nahkampfwaffe">Primäre Nahkampfwaffe</span>
-          </label>
-        </div>
-
-        <div class="sr6-foundry-item-footer sr6-charactersheet-row sr6-charactersheet-row-1">
           <div class="sr6-charactersheet-field sr6-charactersheet-mod-popup">
             <details>
               <summary data-i18n="field.modifikationen">Modifikationen</summary>
@@ -158,6 +149,10 @@
               </div>
             </details>
           </div>
+          <label class="sr6-kampf-selection-toggle">
+            <input type="checkbox" name="attr_sr6_nahkampf_ist_primaer" value="1" />
+            <span data-i18n="field.primaere_nahkampfwaffe">Primäre Nahkampfwaffe</span>
+          </label>
         </div>
         </div>
       </div>

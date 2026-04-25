@@ -75,8 +75,25 @@ function parsePoolAttributeFromFields(fields) {
 
 function extractRepeatingRowPrefix(eventInfo) {
   const sourceAttribute = (eventInfo && eventInfo.sourceAttribute) || "";
-  const match = sourceAttribute.match(/^(repeating_[^_]+_[^_]+)_/);
-  return match ? match[1] : "";
+  const sourceSection = (eventInfo && eventInfo.sourceSection) || "";
+  const triggerName = (eventInfo && eventInfo.triggerName) || "";
+  const candidates = [sourceAttribute, sourceSection, triggerName];
+
+  for (let index = 0; index < candidates.length; index += 1) {
+    const value = candidates[index] || "";
+    if (!value) continue;
+
+    const directPrefix = value.match(/^(repeating_[^_]+_[^_:\s]+)/);
+    if (directPrefix) return directPrefix[1];
+
+    const prefixedByColon = value.match(/^(repeating_[^_]+_[^:]+):/);
+    if (prefixedByColon) return prefixedByColon[1];
+
+    const prefixedByUnderscore = value.match(/^(repeating_[^_]+_[^_]+)_/);
+    if (prefixedByUnderscore) return prefixedByUnderscore[1];
+  }
+
+  return "";
 }
 
 function buildAttrLookup(values, repeatingRowPrefix) {

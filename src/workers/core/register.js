@@ -141,6 +141,7 @@ function registerWorkerEvents() {
   );
   registerSuccessProbeRollEvents();
   registerEdgeTokenEvents();
+  registerNumberStepperEvents();
   registerMonitorCascadeEvents();
 
   on("sheet:opened", () => {

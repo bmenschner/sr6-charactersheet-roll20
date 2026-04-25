@@ -79,6 +79,7 @@ body,
   color: var(--sr6-title);
   text-transform: uppercase;
   letter-spacing: 0.03rem;
+  text-align: center;
 }
 
 .sr6-charactersheet-box-content {
@@ -95,6 +96,22 @@ body,
   font-size: 0.68rem;
   color: var(--sr6-text);
   letter-spacing: 0.01rem;
+  text-align: center;
+}
+
+.sr6-charactersheet-field:has(.sr6-number-stepper),
+.sr6-charactersheet-field:has(.sr6-charactersheet-field-input-with-dice) {
+  align-items: center;
+}
+
+.sr6-charactersheet-field:has(.sr6-number-stepper) > span,
+.sr6-charactersheet-field:has(.sr6-charactersheet-field-input-with-dice) > span {
+  text-align: center;
+}
+
+.sr6-charactersheet-field:has(.sr6-number-stepper) > .sr6-number-stepper,
+.sr6-charactersheet-field:has(.sr6-charactersheet-field-input-with-dice) > .sr6-charactersheet-field-input-with-dice {
+  margin-inline: auto;
 }
 
 .sr6-charactersheet-field input {
@@ -288,6 +305,12 @@ body,
   gap: 0.4375rem;
 }
 
+.sr6-charactersheet-row-8 {
+  display: grid;
+  grid-template-columns: repeat(8, minmax(0, 1fr));
+  gap: 0.4375rem;
+}
+
 .sr6-charactersheet-row-5 {
   display: grid;
   grid-template-columns: repeat(5, minmax(0, 1fr));
@@ -410,11 +433,74 @@ body,
   height: var(--sr6-field-height);
 }
 
+.sr6-charactersheet-field-input-with-dice:has(> .sr6-number-stepper) {
+  grid-template-columns: max-content 1.75rem;
+  justify-content: start;
+  column-gap: 0.125rem;
+  width: max-content;
+  max-width: 100%;
+  align-items: center;
+}
+
+.sr6-number-stepper {
+  display: grid;
+  grid-template-columns: 1.25rem max-content 1.25rem;
+  align-items: stretch;
+  width: auto;
+  min-width: 0;
+  gap: 0.125rem;
+  justify-self: start;
+  justify-content: start;
+}
+
+.sr6-charactersheet-field-input-with-dice:has(> .sr6-number-stepper) > .sr6-number-stepper {
+  grid-column: 1;
+  width: auto;
+  grid-template-columns: 1.5rem max-content 1.5rem;
+  justify-content: start;
+}
+
+.sr6-number-stepper > input {
+  width: 2.75rem;
+  min-width: 0;
+  height: 100%;
+  border: none;
+  border-bottom: 0.0625rem solid var(--sr6-line-soft);
+  background: transparent;
+  color: var(--sr6-text);
+  font-size: 0.86rem;
+  line-height: var(--sr6-field-height);
+  padding: 0;
+  text-align: center;
+}
+
+.sr6-charactersheet-field-input-with-dice:has(> .sr6-number-stepper) > .sr6-number-stepper > input {
+  width: 2.75rem;
+}
+
+.sr6-number-stepper-button {
+  display: inline-flex;
+  appearance: none;
+  -webkit-appearance: none;
+  border: none;
+  border-bottom: 0.0625rem solid var(--sr6-line-soft);
+  background: transparent;
+  color: var(--sr6-line);
+  font-size: 1rem;
+  font-weight: 700;
+  line-height: 1;
+  padding: 0;
+  cursor: pointer;
+  align-items: center;
+  justify-content: center;
+}
+
 .sr6-charactersheet-field-input-with-dice.sr6-charactersheet-field-input-with-2dice {
   grid-template-columns: minmax(0, 1fr) 1.75rem 1.75rem;
 }
 
-.sr6-charactersheet-field-input-with-dice > input {
+.sr6-charactersheet-field-input-with-dice > input,
+.sr6-charactersheet-field-input-with-dice > .sr6-number-stepper > input {
   width: 100%;
   min-width: 0;
   height: 100%;
@@ -447,6 +533,10 @@ body,
   cursor: pointer;
 }
 
+.sr6-charactersheet-field-input-with-dice:has(> .sr6-number-stepper) > .sr6-charactersheet-field-dice-button {
+  grid-column: 2;
+}
+
 .sr6-charactersheet-field-input-with-dice > .sr6-charactersheet-field-dice-button.sr6-charactersheet-field-dice-button--secondary {
   color: var(--sr6-line);
   font-size: 0.72rem;
@@ -471,6 +561,17 @@ body,
   outline: none;
   box-shadow: inset 0 0 0 0.0625rem var(--sr6-line);
   border-radius: 0.125rem;
+}
+
+.sr6-editable-section:has(.sr6-editable-section-mode:not(:checked)) .sr6-number-stepper,
+.sr6-kampf-lockable-section:has(.sr6-editable-section-mode:not(:checked)) .sr6-number-stepper {
+  grid-template-columns: minmax(0, 1fr);
+  gap: 0;
+}
+
+.sr6-editable-section:has(.sr6-editable-section-mode:not(:checked)) .sr6-number-stepper-button,
+.sr6-kampf-lockable-section:has(.sr6-editable-section-mode:not(:checked)) .sr6-number-stepper-button {
+  display: none;
 }
 /* END MODULE: src/css/modules/00-foundation.css */
 
@@ -1178,7 +1279,8 @@ fieldset.repeating_sr6riggingmanoever .repcontrol {
 .sr6-kampf-lockable-section:has(.sr6-editable-section-mode:not(:checked)) .sr6-editable-item-fields input:not([type="checkbox"]),
 .sr6-kampf-lockable-section:has(.sr6-editable-section-mode:not(:checked)) .sr6-editable-item-fields select,
 .sr6-kampf-lockable-section:has(.sr6-editable-section-mode:not(:checked)) .sr6-editable-item-fields textarea,
-.sr6-kampf-lockable-section:has(.sr6-editable-section-mode:not(:checked)) .sr6-editable-item-fields .sr6-charactersheet-field-input-with-dice > input {
+.sr6-kampf-lockable-section:has(.sr6-editable-section-mode:not(:checked)) .sr6-editable-item-fields .sr6-charactersheet-field-input-with-dice > input,
+.sr6-kampf-lockable-section:has(.sr6-editable-section-mode:not(:checked)) .sr6-editable-item-fields .sr6-charactersheet-field-input-with-dice > .sr6-number-stepper > input {
   border-bottom: none;
 }
 
@@ -1192,7 +1294,8 @@ fieldset.repeating_sr6riggingmanoever .repcontrol {
 .sr6-editable-overview-section:has(.sr6-editable-section-mode:not(:checked)) .sr6-charactersheet-field input,
 .sr6-editable-overview-section:has(.sr6-editable-section-mode:not(:checked)) .sr6-charactersheet-field select,
 .sr6-editable-overview-section:has(.sr6-editable-section-mode:not(:checked)) .sr6-charactersheet-row > input,
-.sr6-editable-overview-section:has(.sr6-editable-section-mode:not(:checked)) .sr6-charactersheet-init-formula > input {
+.sr6-editable-overview-section:has(.sr6-editable-section-mode:not(:checked)) .sr6-charactersheet-init-formula > input,
+.sr6-editable-overview-section:has(.sr6-editable-section-mode:not(:checked)) .sr6-number-stepper > input {
   pointer-events: none;
   user-select: none;
   border-bottom: none;
@@ -1312,7 +1415,9 @@ fieldset.repeating_sr6riggingmanoever .repcontrol {
 .sr6-charactersheet-box-attribute.sr6-editable-overview-section:has(.sr6-editable-section-mode:not(:checked)) .sr6-charactersheet-attr-value > input,
 .sr6-charactersheet-box-attribute.sr6-editable-overview-section:has(.sr6-editable-section-mode:not(:checked)) .sr6-charactersheet-field-input-with-dice > input,
 .sr6-charactersheet-box-fertigkeiten-allgemein.sr6-editable-overview-section:has(.sr6-editable-section-mode:not(:checked)) .sr6-charactersheet-attr-value > input,
-.sr6-charactersheet-box-fertigkeiten-allgemein.sr6-editable-overview-section:has(.sr6-editable-section-mode:not(:checked)) .sr6-charactersheet-field-input-with-dice > input {
+.sr6-charactersheet-box-fertigkeiten-allgemein.sr6-editable-overview-section:has(.sr6-editable-section-mode:not(:checked)) .sr6-charactersheet-field-input-with-dice > input,
+.sr6-charactersheet-box-attribute.sr6-editable-overview-section:has(.sr6-editable-section-mode:not(:checked)) .sr6-number-stepper > input,
+.sr6-charactersheet-box-fertigkeiten-allgemein.sr6-editable-overview-section:has(.sr6-editable-section-mode:not(:checked)) .sr6-number-stepper > input {
   height: var(--sr6-list-single-line-height);
   line-height: var(--sr6-list-single-line-height);
   font-size: 1rem;
@@ -2312,118 +2417,6 @@ fieldset.repeating_sr6riggingfahrzeuge {
 /* END MODULE: src/css/modules/40-layout-and-tab-sections.css */
 
 /* BEGIN MODULE: src/css/modules/tabs/allgemein/attribute.css */
-/* Allgemein (Panel 1): kompakte Listenansicht wie "Konstitution 3 (4) [Wuerfel]" */
-#sr6_daten_panel_1 .sr6-charactersheet-box-attribute.sr6-editable-overview-section:has(.sr6-editable-section-mode:not(:checked)) .sr6-charactersheet-field.sr6-charactersheet-attr-field,
-#sr6_daten_panel_1 .sr6-charactersheet-box-fertigkeiten-allgemein.sr6-editable-overview-section:has(.sr6-editable-section-mode:not(:checked)) .sr6-charactersheet-field.sr6-charactersheet-attr-field {
-  grid-template-columns: minmax(8rem, 0.46fr) minmax(0, 1fr);
-  align-items: center;
-}
-
-#sr6_daten_panel_1 .sr6-charactersheet-box-attribute.sr6-editable-overview-section:has(.sr6-editable-section-mode:not(:checked)) .sr6-charactersheet-field.sr6-charactersheet-attr-field > span,
-#sr6_daten_panel_1 .sr6-charactersheet-box-fertigkeiten-allgemein.sr6-editable-overview-section:has(.sr6-editable-section-mode:not(:checked)) .sr6-charactersheet-field.sr6-charactersheet-attr-field > span {
-  line-height: var(--sr6-list-single-line-height);
-}
-
-#sr6_daten_panel_1 .sr6-charactersheet-box-attribute.sr6-editable-overview-section:has(.sr6-editable-section-mode:not(:checked)) .sr6-charactersheet-attr-values,
-#sr6_daten_panel_1 .sr6-charactersheet-box-fertigkeiten-allgemein.sr6-editable-overview-section:has(.sr6-editable-section-mode:not(:checked)) .sr6-charactersheet-attr-values {
-  display: flex;
-  align-items: center;
-  gap: 0.25rem;
-  position: relative;
-  padding-left: 2rem;
-}
-
-#sr6_daten_panel_1 .sr6-charactersheet-box-attribute.sr6-editable-overview-section:has(.sr6-editable-section-mode:not(:checked)) .sr6-charactersheet-attr-value,
-#sr6_daten_panel_1 .sr6-charactersheet-box-fertigkeiten-allgemein.sr6-editable-overview-section:has(.sr6-editable-section-mode:not(:checked)) .sr6-charactersheet-attr-value {
-  display: inline-flex;
-  align-items: center;
-  gap: 0;
-  flex: 0 0 auto;
-}
-
-#sr6_daten_panel_1 .sr6-charactersheet-box-attribute.sr6-editable-overview-section:has(.sr6-editable-section-mode:not(:checked)) .sr6-charactersheet-attr-value > span,
-#sr6_daten_panel_1 .sr6-charactersheet-box-fertigkeiten-allgemein.sr6-editable-overview-section:has(.sr6-editable-section-mode:not(:checked)) .sr6-charactersheet-attr-value > span {
-  display: none;
-}
-
-#sr6_daten_panel_1 .sr6-charactersheet-box-attribute.sr6-editable-overview-section:has(.sr6-editable-section-mode:not(:checked)) .sr6-charactersheet-attr-value:nth-child(2),
-#sr6_daten_panel_1 .sr6-charactersheet-box-fertigkeiten-allgemein.sr6-editable-overview-section:has(.sr6-editable-section-mode:not(:checked)) .sr6-charactersheet-attr-value:nth-child(2) {
-  display: none;
-}
-
-#sr6_daten_panel_1 .sr6-charactersheet-box-attribute.sr6-editable-overview-section:has(.sr6-editable-section-mode:not(:checked)) .sr6-charactersheet-attr-value:first-child .sr6-charactersheet-field-input-with-dice,
-#sr6_daten_panel_1 .sr6-charactersheet-box-fertigkeiten-allgemein.sr6-editable-overview-section:has(.sr6-editable-section-mode:not(:checked)) .sr6-charactersheet-attr-value:first-child .sr6-charactersheet-field-input-with-dice {
-  width: auto;
-  grid-template-columns: auto;
-}
-
-#sr6_daten_panel_1 .sr6-charactersheet-box-attribute.sr6-editable-overview-section:has(.sr6-editable-section-mode:not(:checked)) .sr6-charactersheet-attr-value:first-child .sr6-charactersheet-field-input-with-dice > input,
-#sr6_daten_panel_1 .sr6-charactersheet-box-fertigkeiten-allgemein.sr6-editable-overview-section:has(.sr6-editable-section-mode:not(:checked)) .sr6-charactersheet-attr-value:first-child .sr6-charactersheet-field-input-with-dice > input {
-  width: 2.25rem;
-  min-width: 2.25rem;
-  text-align: center;
-}
-
-#sr6_daten_panel_1 .sr6-charactersheet-box-attribute.sr6-editable-overview-section:has(.sr6-editable-section-mode:not(:checked)) .sr6-charactersheet-attr-value:first-child .sr6-charactersheet-field-dice-button,
-#sr6_daten_panel_1 .sr6-charactersheet-box-fertigkeiten-allgemein.sr6-editable-overview-section:has(.sr6-editable-section-mode:not(:checked)) .sr6-charactersheet-attr-value:first-child .sr6-charactersheet-field-dice-button {
-  display: none;
-}
-
-#sr6_daten_panel_1 .sr6-charactersheet-box-attribute.sr6-editable-overview-section:has(.sr6-editable-section-mode:not(:checked)) .sr6-charactersheet-attr-value:last-child .sr6-charactersheet-field-input-with-dice,
-#sr6_daten_panel_1 .sr6-charactersheet-box-fertigkeiten-allgemein.sr6-editable-overview-section:has(.sr6-editable-section-mode:not(:checked)) .sr6-charactersheet-attr-value:last-child .sr6-charactersheet-field-input-with-dice {
-  position: relative;
-  width: auto;
-  grid-template-columns: auto 1.75rem;
-}
-
-#sr6_daten_panel_1 .sr6-charactersheet-box-attribute.sr6-editable-overview-section:has(.sr6-editable-section-mode:not(:checked)) .sr6-charactersheet-attr-value:last-child .sr6-charactersheet-field-input-with-dice.sr6-charactersheet-field-input-with-2dice,
-#sr6_daten_panel_1 .sr6-charactersheet-box-fertigkeiten-allgemein.sr6-editable-overview-section:has(.sr6-editable-section-mode:not(:checked)) .sr6-charactersheet-attr-value:last-child .sr6-charactersheet-field-input-with-dice.sr6-charactersheet-field-input-with-2dice {
-  grid-template-columns: auto 1.75rem;
-}
-
-#sr6_daten_panel_1 .sr6-charactersheet-box-attribute.sr6-editable-overview-section:has(.sr6-editable-section-mode:not(:checked)) .sr6-charactersheet-attr-value:last-child .sr6-charactersheet-field-input-with-dice > input,
-#sr6_daten_panel_1 .sr6-charactersheet-box-fertigkeiten-allgemein.sr6-editable-overview-section:has(.sr6-editable-section-mode:not(:checked)) .sr6-charactersheet-attr-value:last-child .sr6-charactersheet-field-input-with-dice > input {
-  width: 2.25rem;
-  min-width: 2.25rem;
-  text-align: center;
-}
-
-#sr6_daten_panel_1 .sr6-charactersheet-box-attribute.sr6-editable-overview-section:has(.sr6-editable-section-mode:not(:checked)) .sr6-charactersheet-attr-value:last-child .sr6-charactersheet-field-input-with-dice::before,
-#sr6_daten_panel_1 .sr6-charactersheet-box-fertigkeiten-allgemein.sr6-editable-overview-section:has(.sr6-editable-section-mode:not(:checked)) .sr6-charactersheet-attr-value:last-child .sr6-charactersheet-field-input-with-dice::before {
-  content: "(";
-  position: absolute;
-  left: -0.2rem;
-  top: 50%;
-  transform: translateY(-50%);
-  font-size: 1rem;
-  line-height: 1;
-}
-
-#sr6_daten_panel_1 .sr6-charactersheet-box-attribute.sr6-editable-overview-section:has(.sr6-editable-section-mode:not(:checked)) .sr6-charactersheet-attr-value:last-child .sr6-charactersheet-field-input-with-dice::after,
-#sr6_daten_panel_1 .sr6-charactersheet-box-fertigkeiten-allgemein.sr6-editable-overview-section:has(.sr6-editable-section-mode:not(:checked)) .sr6-charactersheet-attr-value:last-child .sr6-charactersheet-field-input-with-dice::after {
-  content: ")";
-  position: absolute;
-  right: 1.78rem;
-  top: 50%;
-  transform: translateY(-50%);
-  font-size: 1rem;
-  line-height: 1;
-}
-
-#sr6_daten_panel_1 .sr6-charactersheet-box-attribute.sr6-editable-overview-section:has(.sr6-editable-section-mode:not(:checked)) .sr6-charactersheet-attr-value:last-child .sr6-charactersheet-field-dice-button,
-#sr6_daten_panel_1 .sr6-charactersheet-box-fertigkeiten-allgemein.sr6-editable-overview-section:has(.sr6-editable-section-mode:not(:checked)) .sr6-charactersheet-attr-value:last-child .sr6-charactersheet-field-dice-button {
-  display: flex;
-  position: absolute;
-  left: -2rem;
-  top: 50%;
-  transform: translateY(-50%);
-}
-
-#sr6_daten_panel_1 .sr6-charactersheet-box-attribute.sr6-editable-overview-section:has(.sr6-editable-section-mode:not(:checked)) .sr6-charactersheet-attr-value:last-child .sr6-charactersheet-field-dice-button--secondary,
-#sr6_daten_panel_1 .sr6-charactersheet-box-fertigkeiten-allgemein.sr6-editable-overview-section:has(.sr6-editable-section-mode:not(:checked)) .sr6-charactersheet-attr-value:last-child .sr6-charactersheet-field-dice-button--secondary {
-  display: none;
-}
-
 /* Allgemein (Panel 1): Fertigkeiten Switcher */
 #sr6_daten_panel_1 .sr6-charactersheet-box-fertigkeiten-allgemein .sr6-charactersheet-fertigkeiten-switch {
   display: inline-flex;
@@ -2488,6 +2481,17 @@ fieldset.repeating_sr6riggingfahrzeuge {
   grid-template-columns: minmax(0, 1fr);
 }
 
+/* Allgemein > Attribute/Fertigkeiten: normale Darstellung behalten, nur Datenfelder sperren */
+#sr6_daten_panel_1 .sr6-charactersheet-box-attribute.sr6-editable-section:has(.sr6-editable-section-mode:not(:checked)) .sr6-charactersheet-field input:not([type="checkbox"]):not([type="radio"]),
+#sr6_daten_panel_1 .sr6-charactersheet-box-attribute.sr6-editable-section:has(.sr6-editable-section-mode:not(:checked)) .sr6-charactersheet-field select,
+#sr6_daten_panel_1 .sr6-charactersheet-box-attribute.sr6-editable-section:has(.sr6-editable-section-mode:not(:checked)) .sr6-charactersheet-field textarea,
+#sr6_daten_panel_1 .sr6-charactersheet-box-fertigkeiten-allgemein.sr6-editable-section:has(.sr6-editable-section-mode:not(:checked)) .sr6-charactersheet-field input:not([type="checkbox"]):not([type="radio"]),
+#sr6_daten_panel_1 .sr6-charactersheet-box-fertigkeiten-allgemein.sr6-editable-section:has(.sr6-editable-section-mode:not(:checked)) .sr6-charactersheet-field select,
+#sr6_daten_panel_1 .sr6-charactersheet-box-fertigkeiten-allgemein.sr6-editable-section:has(.sr6-editable-section-mode:not(:checked)) .sr6-charactersheet-field textarea {
+  pointer-events: none;
+  user-select: none;
+}
+
 /* Allgemein > Kampf: Editieren-Toggle immer sichtbar/rechts ausgerichtet */
 #sr6_daten_panel_1 .sr6-charactersheet-box-kampf .sr6-editable-section-title-row {
   display: flex;
@@ -2500,6 +2504,20 @@ fieldset.repeating_sr6riggingfahrzeuge {
   display: inline-flex;
   margin-left: auto;
   flex: 0 0 auto;
+}
+
+/* Allgemein > Kampf: nach Entfernung von Feuerwaffen/Panzerung einspaltig anzeigen */
+#sr6_daten_panel_1 .sr6-charactersheet-box-kampf .sr6-charactersheet-kampfinfos-grid {
+  grid-template-columns: minmax(0, 1fr);
+}
+
+/* Allgemein > Kampf: Listenansicht in voller Breite statt 2-Spalten-Kacheln. */
+#sr6_daten_panel_1 .sr6-charactersheet-box-kampf.sr6-editable-overview-section:has(.sr6-editable-section-mode:not(:checked)) .sr6-charactersheet-kampfinfos-grid {
+  grid-template-columns: minmax(0, 1fr);
+}
+
+#sr6_daten_panel_1 .sr6-charactersheet-box-kampf.sr6-editable-overview-section:has(.sr6-editable-section-mode:not(:checked)) .sr6-charactersheet-kampfinfos-column {
+  width: 100%;
 }
 
 /* Allgemein: Test Roll Popup */
@@ -2661,7 +2679,7 @@ fieldset.repeating_sr6riggingfahrzeuge {
  * bis wir sie schrittweise pro Tab herausziehen.
  */
 
-.sr6-kampf-panzerung-rollen {
+.sr6-foundry-item-footer.sr6-kampf-panzerung-rollen {
   margin-top: 0.5rem;
 }
 
@@ -2692,6 +2710,56 @@ fieldset.repeating_sr6riggingfahrzeuge {
 .sr6-kampf-selection-toggle input {
   width: 1rem;
   height: 1rem;
+}
+
+.sr6-charactersheet-box-kampf-fernkampf .sr6-kampf-selection-toggle {
+  font-size: 0.75em;
+}
+
+.sr6-charactersheet-box-kampf-nahkampf .sr6-kampf-selection-toggle {
+  font-size: 0.75em;
+}
+
+/* Kampf > Fernkampfwaffen/Nahkampfwaffen/Panzerung: in beiden Modi in voller Breite. */
+.sr6-charactersheet-box-kampf-fernkampf fieldset.repeating_sr6fernkampfwaffen,
+.sr6-charactersheet-box-kampf-fernkampf .repcontainer[data-groupname="repeating_sr6fernkampfwaffen"],
+.sr6-charactersheet-box-kampf-nahkampf fieldset.repeating_sr6nahkampfwaffen,
+.sr6-charactersheet-box-kampf-nahkampf .repcontainer[data-groupname="repeating_sr6nahkampfwaffen"],
+.sr6-charactersheet-box-kampf-panzerung fieldset.repeating_sr6panzerung,
+.sr6-charactersheet-box-kampf-panzerung .repcontainer[data-groupname="repeating_sr6panzerung"] {
+  grid-template-columns: minmax(0, 1fr) !important;
+}
+
+.sr6-charactersheet-box-kampf-fernkampf .repcontainer[data-groupname="repeating_sr6fernkampfwaffen"] > .repitem,
+.sr6-charactersheet-box-kampf-nahkampf .repcontainer[data-groupname="repeating_sr6nahkampfwaffen"] > .repitem,
+.sr6-charactersheet-box-kampf-panzerung .repcontainer[data-groupname="repeating_sr6panzerung"] > .repitem {
+  grid-column: 1 / -1 !important;
+}
+
+/* Kampf > Fernkampfwaffen, Zeile 2: Reichweite + Input/Roll kompakt pro Spalte */
+.sr6-kampf-fernkampf-range-row .sr6-kampf-fernkampf-range-field {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr);
+  align-items: end;
+  gap: 0.375rem;
+}
+
+.sr6-kampf-fernkampf-range-row .sr6-kampf-fernkampf-range-field > span {
+  line-height: var(--sr6-field-height);
+  white-space: nowrap;
+}
+
+/* Kampf > Nahkampfwaffen, Zeile 2: Reichweite + Input/Roll kompakt pro Spalte */
+.sr6-kampf-nahkampf-range-row .sr6-kampf-nahkampf-range-field {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr);
+  align-items: end;
+  gap: 0.375rem;
+}
+
+.sr6-kampf-nahkampf-range-row .sr6-kampf-nahkampf-range-field > span {
+  line-height: var(--sr6-field-height);
+  white-space: nowrap;
 }
 /* END MODULE: src/css/modules/tabs/kampf/index.css */
 

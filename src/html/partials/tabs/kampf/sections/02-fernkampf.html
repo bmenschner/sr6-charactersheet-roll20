@@ -23,7 +23,7 @@
     <fieldset class="repeating_sr6fernkampfwaffen">
       <div class="sr6-foundry-item">
         <div class="sr6-editable-item-fields">
-        <div class="sr6-foundry-item-head sr6-charactersheet-row sr6-charactersheet-row-3">
+        <div class="sr6-foundry-item-head sr6-charactersheet-row sr6-charactersheet-row-7">
           <div class="sr6-charactersheet-field">
             <span data-i18n="field.fernkampfwaffe">Fernkampfwaffe</span>
             <input type="text" name="attr_sr6_fernkampfwaffe" />
@@ -51,12 +51,9 @@
               <option value="Exotisch" data-i18n="field.waffentyp_exotisch">Exotisch</option>
             </select>
           </div>
-        </div>
-
-        <div class="sr6-foundry-item-row sr6-charactersheet-row sr6-charactersheet-row-5">
           <div class="sr6-charactersheet-field">
             <span data-i18n="field.schaden">Schaden</span>
-            <input type="number" name="attr_sr6_fernkampf_schaden" />
+            <div class="sr6-number-stepper"><button type="action" class="sr6-number-stepper-button sr6-number-stepper-button--minus" name="act_sr6_number_step" value="sr6_fernkampf_schaden::-1" aria-label="Verringern">-</button><input type="number" name="attr_sr6_fernkampf_schaden" /><button type="action" class="sr6-number-stepper-button sr6-number-stepper-button--plus" name="act_sr6_number_step" value="sr6_fernkampf_schaden::1" aria-label="Erhoehen">+</button></div>
           </div>
 
           <div class="sr6-charactersheet-field">
@@ -71,42 +68,23 @@
           </div>
 
           <div class="sr6-charactersheet-field">
-            <span data-i18n="field.munition">Munition</span>
-            <select name="attr_sr6_fernkampf_munition">
-              <option value="Standard" data-i18n="field.munition_standard">Standard</option>
-              <option value="Huelsenlos" data-i18n="field.munition_huelsenlos">Hülsenlos</option>
-              <option value="APDS" data-i18n="field.munition_apds">APDS</option>
-              <option value="Explosiv" data-i18n="field.munition_explosiv">Explosiv</option>
-              <option value="Flechette" data-i18n="field.munition_flechette">Flechette</option>
-              <option value="Gel" data-i18n="field.munition_gel">Gel</option>
-              <option value="Injektionspfeil" data-i18n="field.munition_injektionspfeil">Injektionspfeil</option>
-              <option value="Schocker" data-i18n="field.munition_schocker">Schocker</option>
-              <option value="DMSO-Gelpack" data-i18n="field.munition_dmso_gelpack">DMSO-Gelpack</option>
-            </select>
-          </div>
-
-          <div class="sr6-charactersheet-field">
             <span data-i18n="field.magazin">Magazin</span>
-            <input type="number" name="attr_sr6_fernkampf_magazin" />
+            <div class="sr6-number-stepper"><button type="action" class="sr6-number-stepper-button sr6-number-stepper-button--minus" name="act_sr6_number_step" value="sr6_fernkampf_magazin::-1" aria-label="Verringern">-</button><input type="number" name="attr_sr6_fernkampf_magazin" /><button type="action" class="sr6-number-stepper-button sr6-number-stepper-button--plus" name="act_sr6_number_step" value="sr6_fernkampf_magazin::1" aria-label="Erhoehen">+</button></div>
           </div>
 
           <div class="sr6-charactersheet-field">
             <span data-i18n="field.ersatzmagazine">Ersatzmagazine</span>
-            <input type="number" name="attr_sr6_fernkampf_ersatzmagazine" />
+            <div class="sr6-number-stepper"><button type="action" class="sr6-number-stepper-button sr6-number-stepper-button--minus" name="act_sr6_number_step" value="sr6_fernkampf_ersatzmagazine::-1" aria-label="Verringern">-</button><input type="number" name="attr_sr6_fernkampf_ersatzmagazine" /><button type="action" class="sr6-number-stepper-button sr6-number-stepper-button--plus" name="act_sr6_number_step" value="sr6_fernkampf_ersatzmagazine::1" aria-label="Erhoehen">+</button></div>
           </div>
         </div>
 
-        <div class="sr6-foundry-item-row sr6-charactersheet-row sr6-charactersheet-row-1">
-          <div class="sr6-charactersheet-field">
-            <span class="sr6-foundry-item-section-label" data-i18n="field.angriffswerte_reichweite">Angriffswerte (Reichweite)</span>
-          </div>
-        </div>
+        <input type="hidden" name="attr_sr6_fernkampf_munition" value="Standard" />
 
-        <div class="sr6-foundry-item-range sr6-charactersheet-row sr6-charactersheet-row-5">
-          <div class="sr6-charactersheet-field">
+        <div class="sr6-foundry-item-range sr6-charactersheet-row sr6-charactersheet-row-5 sr6-kampf-fernkampf-range-row">
+          <div class="sr6-charactersheet-field sr6-kampf-fernkampf-range-field">
             <span data-i18n="field.s_nah">S. Nah</span>
             <div class="sr6-charactersheet-field-input-with-dice">
-              <input type="number" name="attr_sr6_fernkampf_s_nah" /><button
+              <div class="sr6-number-stepper"><button type="action" class="sr6-number-stepper-button sr6-number-stepper-button--minus" name="act_sr6_number_step" value="sr6_fernkampf_s_nah::-1" aria-label="Verringern">-</button><input type="number" name="attr_sr6_fernkampf_s_nah" /><button type="action" class="sr6-number-stepper-button sr6-number-stepper-button--plus" name="act_sr6_number_step" value="sr6_fernkampf_s_nah::1" aria-label="Erhoehen">+</button></div><button
                 type="action"
                 class="sr6-charactersheet-field-dice-button"
                 name="act_probe"
@@ -115,10 +93,10 @@
             </div>
           </div>
 
-          <div class="sr6-charactersheet-field">
+          <div class="sr6-charactersheet-field sr6-kampf-fernkampf-range-field">
             <span data-i18n="field.nah">Nah</span>
             <div class="sr6-charactersheet-field-input-with-dice">
-              <input type="number" name="attr_sr6_fernkampf_nah" /><button
+              <div class="sr6-number-stepper"><button type="action" class="sr6-number-stepper-button sr6-number-stepper-button--minus" name="act_sr6_number_step" value="sr6_fernkampf_nah::-1" aria-label="Verringern">-</button><input type="number" name="attr_sr6_fernkampf_nah" /><button type="action" class="sr6-number-stepper-button sr6-number-stepper-button--plus" name="act_sr6_number_step" value="sr6_fernkampf_nah::1" aria-label="Erhoehen">+</button></div><button
                 type="action"
                 class="sr6-charactersheet-field-dice-button"
                 name="act_probe"
@@ -127,10 +105,10 @@
             </div>
           </div>
 
-          <div class="sr6-charactersheet-field">
+          <div class="sr6-charactersheet-field sr6-kampf-fernkampf-range-field">
             <span data-i18n="field.mittel">Mittel</span>
             <div class="sr6-charactersheet-field-input-with-dice">
-              <input type="number" name="attr_sr6_fernkampf_mittel" /><button
+              <div class="sr6-number-stepper"><button type="action" class="sr6-number-stepper-button sr6-number-stepper-button--minus" name="act_sr6_number_step" value="sr6_fernkampf_mittel::-1" aria-label="Verringern">-</button><input type="number" name="attr_sr6_fernkampf_mittel" /><button type="action" class="sr6-number-stepper-button sr6-number-stepper-button--plus" name="act_sr6_number_step" value="sr6_fernkampf_mittel::1" aria-label="Erhoehen">+</button></div><button
                 type="action"
                 class="sr6-charactersheet-field-dice-button"
                 name="act_probe"
@@ -139,10 +117,10 @@
             </div>
           </div>
 
-          <div class="sr6-charactersheet-field">
+          <div class="sr6-charactersheet-field sr6-kampf-fernkampf-range-field">
             <span data-i18n="field.weit">Weit</span>
             <div class="sr6-charactersheet-field-input-with-dice">
-              <input type="number" name="attr_sr6_fernkampf_weit" /><button
+              <div class="sr6-number-stepper"><button type="action" class="sr6-number-stepper-button sr6-number-stepper-button--minus" name="act_sr6_number_step" value="sr6_fernkampf_weit::-1" aria-label="Verringern">-</button><input type="number" name="attr_sr6_fernkampf_weit" /><button type="action" class="sr6-number-stepper-button sr6-number-stepper-button--plus" name="act_sr6_number_step" value="sr6_fernkampf_weit::1" aria-label="Erhoehen">+</button></div><button
                 type="action"
                 class="sr6-charactersheet-field-dice-button"
                 name="act_probe"
@@ -151,10 +129,10 @@
             </div>
           </div>
 
-          <div class="sr6-charactersheet-field">
+          <div class="sr6-charactersheet-field sr6-kampf-fernkampf-range-field">
             <span data-i18n="field.s_weit">S. Weit</span>
             <div class="sr6-charactersheet-field-input-with-dice">
-              <input type="number" name="attr_sr6_fernkampf_s_weit" /><button
+              <div class="sr6-number-stepper"><button type="action" class="sr6-number-stepper-button sr6-number-stepper-button--minus" name="act_sr6_number_step" value="sr6_fernkampf_s_weit::-1" aria-label="Verringern">-</button><input type="number" name="attr_sr6_fernkampf_s_weit" /><button type="action" class="sr6-number-stepper-button sr6-number-stepper-button--plus" name="act_sr6_number_step" value="sr6_fernkampf_s_weit::1" aria-label="Erhoehen">+</button></div><button
                 type="action"
                 class="sr6-charactersheet-field-dice-button"
                 name="act_probe"
@@ -165,13 +143,6 @@
         </div>
 
         <div class="sr6-foundry-item-footer sr6-charactersheet-row sr6-charactersheet-row-2">
-          <label class="sr6-kampf-selection-toggle">
-            <input type="checkbox" name="attr_sr6_fernkampf_ist_primaer" value="1" />
-            <span data-i18n="field.primaere_fernkampfwaffe">Primäre Fernkampfwaffe</span>
-          </label>
-        </div>
-
-        <div class="sr6-foundry-item-footer sr6-charactersheet-row sr6-charactersheet-row-1">
           <div class="sr6-charactersheet-field sr6-charactersheet-mod-popup">
             <details>
               <summary data-i18n="field.modifikationen">Modifikationen</summary>
@@ -184,6 +155,10 @@
               </div>
             </details>
           </div>
+          <label class="sr6-kampf-selection-toggle">
+            <input type="checkbox" name="attr_sr6_fernkampf_ist_primaer" value="1" />
+            <span data-i18n="field.primaere_fernkampfwaffe">Primäre Fernkampfwaffe</span>
+          </label>
         </div>
         </div>
       </div>

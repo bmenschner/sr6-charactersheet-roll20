@@ -6,6 +6,7 @@ function resetTabToAllgemeinOnOpen() {
 function getEditModeResetPayload() {
   const payload = {
     sr6_allgemein_attribute_edit_mode: "0",
+    sr6_fertigkeiten_attribute_edit_mode: "0",
     sr6_allgemein_initiative_edit_mode: "0",
     sr6_allgemein_fertigkeiten_view: "fertigkeiten",
     sr6_fertigkeiten_edit_mode: "0",

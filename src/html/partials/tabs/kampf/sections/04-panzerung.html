@@ -23,7 +23,7 @@
     <fieldset class="repeating_sr6panzerung">
       <div class="sr6-foundry-item sr6-foundry-item--armor">
         <div class="sr6-editable-item-fields">
-          <div class="sr6-foundry-item-head sr6-charactersheet-row sr6-charactersheet-row-3">
+          <div class="sr6-foundry-item-head sr6-charactersheet-row sr6-charactersheet-row-7 sr6-kampf-panzerung-rollen">
             <label class="sr6-charactersheet-field">
               <span data-i18n="field.panzerung">Panzerung</span>
               <input type="text" name="attr_sr6_panzerung_name" />
@@ -31,32 +31,30 @@
 
             <label class="sr6-charactersheet-field">
               <span data-i18n="field.verteidigungswert">Verteidigungswert</span>
-              <input type="number" name="attr_sr6_panzerung_verteidigungswert" />
+              <div class="sr6-number-stepper"><button type="action" class="sr6-number-stepper-button sr6-number-stepper-button--minus" name="act_sr6_number_step" value="sr6_panzerung_verteidigungswert::-1" aria-label="Verringern">-</button><input type="number" name="attr_sr6_panzerung_verteidigungswert" /><button type="action" class="sr6-number-stepper-button sr6-number-stepper-button--plus" name="act_sr6_number_step" value="sr6_panzerung_verteidigungswert::1" aria-label="Erhoehen">+</button></div>
             </label>
 
             <label class="sr6-charactersheet-field">
               <span data-i18n="field.sozial">Sozial</span>
-              <input type="text" name="attr_sr6_panzerung_sozial" />
+              <div class="sr6-number-stepper"><button type="action" class="sr6-number-stepper-button sr6-number-stepper-button--minus" name="act_sr6_number_step" value="sr6_panzerung_sozial::-1" aria-label="Verringern">-</button><input type="number" name="attr_sr6_panzerung_sozial" /><button type="action" class="sr6-number-stepper-button sr6-number-stepper-button--plus" name="act_sr6_number_step" value="sr6_panzerung_sozial::1" aria-label="Erhoehen">+</button></div>
+            </label>
+            <label class="sr6-charactersheet-field sr6-charactersheet-field--checkbox">
+              <span data-i18n="field.primaere_panzerung">Primäre Panzerung</span>
+              <input type="checkbox" name="attr_sr6_panzerung_ist_primaer" value="1" />
+            </label>
+            <label class="sr6-charactersheet-field sr6-charactersheet-field--checkbox">
+              <span data-i18n="field.sekundaere_panzerung">Sekundäre Panzerung</span>
+              <input type="checkbox" name="attr_sr6_panzerung_ist_sekundaer" value="1" />
+            </label>
+            <label class="sr6-charactersheet-field sr6-charactersheet-field--checkbox">
+              <span data-i18n="field.helm">Helm</span>
+              <input type="checkbox" name="attr_sr6_panzerung_ist_helm" value="1" />
+            </label>
+            <label class="sr6-charactersheet-field sr6-charactersheet-field--checkbox">
+              <span data-i18n="field.schild">Schild</span>
+              <input type="checkbox" name="attr_sr6_panzerung_ist_schild" value="1" />
             </label>
           </div>
-        </div>
-        <div class="sr6-foundry-item-footer sr6-charactersheet-row sr6-charactersheet-row-4 sr6-kampf-panzerung-rollen">
-          <label class="sr6-charactersheet-field sr6-charactersheet-field--checkbox">
-            <span data-i18n="field.primaere_panzerung">Primäre Panzerung</span>
-            <input type="checkbox" name="attr_sr6_panzerung_ist_primaer" value="1" />
-          </label>
-          <label class="sr6-charactersheet-field sr6-charactersheet-field--checkbox">
-            <span data-i18n="field.sekundaere_panzerung">Sekundäre Panzerung</span>
-            <input type="checkbox" name="attr_sr6_panzerung_ist_sekundaer" value="1" />
-          </label>
-          <label class="sr6-charactersheet-field sr6-charactersheet-field--checkbox">
-            <span data-i18n="field.helm">Helm</span>
-            <input type="checkbox" name="attr_sr6_panzerung_ist_helm" value="1" />
-          </label>
-          <label class="sr6-charactersheet-field sr6-charactersheet-field--checkbox">
-            <span data-i18n="field.schild">Schild</span>
-            <input type="checkbox" name="attr_sr6_panzerung_ist_schild" value="1" />
-          </label>
         </div>
       </div>
     </fieldset>
