@@ -1585,8 +1585,25 @@ function parsePoolAttributeFromFields(fields) {
 
 function extractRepeatingRowPrefix(eventInfo) {
   const sourceAttribute = (eventInfo && eventInfo.sourceAttribute) || "";
-  const match = sourceAttribute.match(/^(repeating_[^_]+_[^_]+)_/);
-  return match ? match[1] : "";
+  const sourceSection = (eventInfo && eventInfo.sourceSection) || "";
+  const triggerName = (eventInfo && eventInfo.triggerName) || "";
+  const candidates = [sourceAttribute, sourceSection, triggerName];
+
+  for (let index = 0; index < candidates.length; index += 1) {
+    const value = candidates[index] || "";
+    if (!value) continue;
+
+    const directPrefix = value.match(/^(repeating_[^_]+_[^_:\s]+)/);
+    if (directPrefix) return directPrefix[1];
+
+    const prefixedByColon = value.match(/^(repeating_[^_]+_[^:]+):/);
+    if (prefixedByColon) return prefixedByColon[1];
+
+    const prefixedByUnderscore = value.match(/^(repeating_[^_]+_[^_]+)_/);
+    if (prefixedByUnderscore) return prefixedByUnderscore[1];
+  }
+
+  return "";
 }
 
 function buildAttrLookup(values, repeatingRowPrefix) {
@@ -2422,6 +2439,109 @@ function runEdgeTokenMinus() {
 }
 // END MODULE: workers/rolls/edge
 
+// BEGIN MODULE: workers/rolls/number-stepper
+function resolveRepeatingRowPrefixForStepper(eventInfo, callback) {
+  const fallbackPrefix = extractRepeatingRowPrefix(eventInfo);
+  const sourceAttribute = (eventInfo && eventInfo.sourceAttribute) || "";
+  const triggerName = (eventInfo && eventInfo.triggerName) || "";
+  const sourceSection = (eventInfo && eventInfo.sourceSection) || "";
+  const candidates = [sourceAttribute, triggerName];
+
+  for (let index = 0; index < candidates.length; index += 1) {
+    const candidate = candidates[index] || "";
+    if (!candidate) continue;
+
+    const resolvedMatch = candidate.match(/^(repeating_[^_]+_[^_:\s$]+)_/);
+    if (resolvedMatch) {
+      callback(resolvedMatch[1]);
+      return;
+    }
+
+    const placeholderMatch = candidate.match(/^(repeating_([^_]+)_\$(\d+))_/);
+    if (placeholderMatch) {
+      const sectionName = placeholderMatch[2];
+      const sectionIndex = parseNumber(placeholderMatch[3]);
+      getSectionIDs(`repeating_${sectionName}`, (sectionIds) => {
+        const ids = sectionIds || [];
+        const rowId = ids[sectionIndex];
+        if (!rowId) {
+          callback(fallbackPrefix);
+          return;
+        }
+        callback(`repeating_${sectionName}_${rowId}`);
+      });
+      return;
+    }
+
+    const triggerRowIdMatch = candidate.match(/(?:^|:)repeating_([^:]+):(-[^:]+):/);
+    if (triggerRowIdMatch) {
+      callback(`repeating_${triggerRowIdMatch[1]}_${triggerRowIdMatch[2]}`);
+      return;
+    }
+
+    const triggerIndexMatch = candidate.match(/(?:^|:)repeating_([^:]+):\$(\d+):/);
+    if (triggerIndexMatch) {
+      const sectionName = triggerIndexMatch[1];
+      const sectionIndex = parseNumber(triggerIndexMatch[2]);
+      getSectionIDs(`repeating_${sectionName}`, (sectionIds) => {
+        const ids = sectionIds || [];
+        const rowId = ids[sectionIndex];
+        if (!rowId) {
+          callback(fallbackPrefix);
+          return;
+        }
+        callback(`repeating_${sectionName}_${rowId}`);
+      });
+      return;
+    }
+  }
+
+  if (sourceSection) {
+    const sectionMatch = sourceSection.match(/^repeating_([^_]+)$/);
+    if (sectionMatch) {
+      const sectionName = sectionMatch[1];
+      getSectionIDs(sourceSection, (sectionIds) => {
+        const ids = sectionIds || [];
+        if (ids.length === 1) {
+          callback(`repeating_${sectionName}_${ids[0]}`);
+          return;
+        }
+        callback(fallbackPrefix);
+      });
+      return;
+    }
+  }
+
+  callback(fallbackPrefix);
+}
+
+function runNumberStepperAdjust(eventInfo) {
+  const rawValue =
+    (eventInfo && eventInfo.htmlAttributes && eventInfo.htmlAttributes.value) ||
+    (eventInfo && eventInfo.value) ||
+    "";
+  const modernSeparator = "::";
+  const legacySeparator = "|";
+  const separator = rawValue.includes(modernSeparator) ? modernSeparator : legacySeparator;
+  const separatorIndex = rawValue.lastIndexOf(separator);
+  if (separatorIndex <= 0) return;
+
+  const targetAttr = rawValue.slice(0, separatorIndex);
+  const delta = parseNumber(rawValue.slice(separatorIndex + separator.length));
+  if (!targetAttr || delta === 0) return;
+
+  resolveRepeatingRowPrefixForStepper(eventInfo, (repeatingRowPrefix) => {
+    const scopedTargetAttr = repeatingRowPrefix ? `${repeatingRowPrefix}_${targetAttr}` : targetAttr;
+    getAttrs([scopedTargetAttr], (values) => {
+      const currentValue = parseNumber(values[scopedTargetAttr]);
+      setAttrsSilent({
+        [scopedTargetAttr]: String(currentValue + delta),
+      });
+    });
+  });
+}
+// END MODULE: workers/rolls/number-stepper
+
 // BEGIN MODULE: workers/rolls/index
 function registerSuccessProbeRollEvents() {
   on("clicked:probe", runSuccessProbeRoll);
@@ -2440,6 +2560,45 @@ function registerSuccessProbeRollEvents() {
 function registerEdgeTokenEvents() {
   on("clicked:sr6_edge_token_plus", runEdgeTokenPlus);
   on("clicked:sr6_edge_token_minus", runEdgeTokenMinus);
+}
+
+function registerNumberStepperEvents() {
+  on("clicked:sr6_number_step", runNumberStepperAdjust);
+  const repeatingSections = [
+    "sr6adeptenkraefte",
+    "sr6ausruestung",
+    "sr6bioware",
+    "sr6connections",
+    "sr6cyberware",
+    "sr6fernkampfwaffen",
+    "sr6foki",
+    "sr6geister",
+    "sr6lebensstil",
+    "sr6matrixgeraete",
+    "sr6matrixprogramme",
+    "sr6matrixsprites",
+    "sr6matrixstrukturen",
+    "sr6matrixzubehoer",
+    "sr6nahkampfwaffen",
+    "sr6panzerung",
+    "sr6riggingagenten",
+    "sr6riggingfahrzeuge",
+    "sr6riggingmanoever",
+    "sr6riggingprogramme",
+    "sr6riggingzubehoer",
+    "sr6rituale",
+    "sr6sin",
+    "sr6sprachfertigkeiten",
+    "sr6talentsofts",
+    "sr6wissensfertigkeiten",
+    "sr6wissenssprachsofts",
+    "sr6zauber",
+  ];
+
+  repeatingSections.forEach((sectionName) => {
+    // Stable repeater hook: lets the handler filter real stepper clicks via button value payload.
+    on(`clicked:repeating_${sectionName}`, runNumberStepperAdjust);
+  });
 }
 // END MODULE: workers/rolls/index
 
@@ -3322,6 +3481,7 @@ function registerWorkerEvents() {
   );
   registerSuccessProbeRollEvents();
   registerEdgeTokenEvents();
+  registerNumberStepperEvents();
   registerMonitorCascadeEvents();
 
   on("sheet:opened", () => {

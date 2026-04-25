@@ -31,12 +31,12 @@
 
             <label class="sr6-charactersheet-field">
               <span data-i18n="field.verteidigungswert">Verteidigungswert</span>
-              <input type="number" name="attr_sr6_panzerung_verteidigungswert" />
+              <div class="sr6-number-stepper"><button type="action" class="sr6-number-stepper-button sr6-number-stepper-button--minus" name="act_sr6_number_step" value="sr6_panzerung_verteidigungswert::-1" aria-label="Verringern">-</button><input type="number" name="attr_sr6_panzerung_verteidigungswert" /><button type="action" class="sr6-number-stepper-button sr6-number-stepper-button--plus" name="act_sr6_number_step" value="sr6_panzerung_verteidigungswert::1" aria-label="Erhoehen">+</button></div>
             </label>
 
             <label class="sr6-charactersheet-field">
               <span data-i18n="field.sozial">Sozial</span>
-              <input type="text" name="attr_sr6_panzerung_sozial" />
+              <div class="sr6-number-stepper"><button type="action" class="sr6-number-stepper-button sr6-number-stepper-button--minus" name="act_sr6_number_step" value="sr6_panzerung_sozial::-1" aria-label="Verringern">-</button><input type="number" name="attr_sr6_panzerung_sozial" /><button type="action" class="sr6-number-stepper-button sr6-number-stepper-button--plus" name="act_sr6_number_step" value="sr6_panzerung_sozial::1" aria-label="Erhoehen">+</button></div>
             </label>
             <label class="sr6-charactersheet-field sr6-charactersheet-field--checkbox">
               <span data-i18n="field.primaere_panzerung">Primäre Panzerung</span>

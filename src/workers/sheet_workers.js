@@ -12,6 +12,7 @@
 <!-- @include ./rolls/probe.js -->
 <!-- @include ./rolls/popup.js -->
 <!-- @include ./rolls/edge.js -->
+<!-- @include ./rolls/number-stepper.js -->
 <!-- @include ./rolls/index.js -->
 // END BLOCK: Worker Includes (rolls)
 
