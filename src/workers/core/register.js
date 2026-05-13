@@ -66,6 +66,7 @@ function buildRecalcEvents() {
   events.push("change:sr6_magic_zauberpool_modifikator");
   events.push("change:sr6_magic_spruchzauberei_modifikator");
   events.push("change:sr6_magic_entzug_widerstand_modifikator");
+  events.push("change:sr6_magic_waffenloser_kampf_modifikator");
   events.push("change:sr6_magic_astrale_initiative_modifikator");
   events.push("change:sr6_magic_astrale_verteidigung_modifikator");
   events.push("change:sr6_magic_astraler_schadenswiderstand_modifikator");

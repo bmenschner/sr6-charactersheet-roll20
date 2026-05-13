@@ -40,6 +40,26 @@
   font-size: 0.75rem;
 }
 
+.sr6-charactersheet-kopfbereich-spalte--initiative {
+  width: 100%;
+}
+
+.sr6-header-initiative-grid {
+  width: 100%;
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 0.5rem;
+  align-items: start;
+}
+
+.sr6-header-initiative-column {
+  min-width: 0;
+  display: grid;
+  gap: 0.25rem;
+  justify-items: start;
+  text-align: left;
+}
+
 .sr6-charactersheet-edge-token {
   place-items: center;
 }

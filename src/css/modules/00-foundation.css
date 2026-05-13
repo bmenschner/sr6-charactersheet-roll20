@@ -421,7 +421,6 @@ body,
   column-gap: 0.125rem;
   width: max-content;
   max-width: 100%;
-  align-items: center;
 }
 
 .sr6-charactersheet-field-input-with-dice--compact {

@@ -8,6 +8,7 @@ function appendMagicRequestKeys(requestKeys) {
   requestKeys.push("sr6_magic_zauberpool_modifikator");
   requestKeys.push("sr6_magic_spruchzauberei_modifikator");
   requestKeys.push("sr6_magic_entzug_widerstand_modifikator");
+  requestKeys.push("sr6_magic_waffenloser_kampf_modifikator");
   requestKeys.push("sr6_magic_astrale_initiative_modifikator");
   requestKeys.push("sr6_magic_astrale_verteidigung_modifikator");
   requestKeys.push("sr6_magic_astraler_schadenswiderstand_modifikator");
@@ -27,7 +28,11 @@ function computeMagicDerived(values, totals, skillTotals, updates) {
       parseNumber(updates.sr6_magic_zauberpool) +
       parseNumber(values.sr6_magic_spruchzauberei_modifikator)
   );
-  updates.sr6_magic_waffenloser_kampf = String((skillTotals.astral || 0) + (totals.willenskraft || 0));
+  updates.sr6_magic_waffenloser_kampf = String(
+    (skillTotals.astral || 0) +
+      (totals.willenskraft || 0) +
+      parseNumber(values.sr6_magic_waffenloser_kampf_modifikator)
+  );
   updates.sr6_magic_waffenfoki = String((skillTotals.nahkampf || 0) + (totals.willenskraft || 0));
   updates.sr6_magic_astrale_verteidigung = String(
     (totals.logik || 0) +
