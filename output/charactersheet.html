@@ -215,7 +215,7 @@
     role="tab"
     aria-controls="sr6_daten_panel_2"
     data-i18n="tab.fertigkeiten"
-    >Fertigkeiten</label
+    >Attribute & Fertigkeiten</label
   >
 
   <input
@@ -325,615 +325,6 @@
             <!-- BEGIN BLOCK: Tab Allgemein Entry -->
 <!-- BEGIN BLOCK: Allgemein Tab Inhalt -->
 <div class="sr6-charactersheet-tab-allgemein-grid">
-  <div class="sr6-charactersheet-tab-allgemein-column">
-    <!-- BEGIN BLOCK: Attribute -->
-    <!-- BEGIN BLOCK: Attribute -->
-<section
-  class="sr6-charactersheet-box sr6-charactersheet-box-attribute sr6-editable-section"
-  aria-labelledby="attribute-titel">
-  <div class="sr6-editable-section-title-row">
-    <h1
-      id="attribute-titel"
-      class="sr6-charactersheet-box-title"
-      data-i18n="section.attribute">
-      Attribute
-    </h1>
-    <label class="sr6-editable-section-toggle">
-      <input
-        type="checkbox"
-        name="attr_sr6_allgemein_attribute_edit_mode"
-        class="sr6-editable-section-mode" />
-      <span data-i18n="field.editieren">Editieren</span>
-    </label>
-  </div>
-
-  <div class="sr6-charactersheet-box-content">
-    <!-- BEGIN BLOCK: Attribut-Zeilen als 2-Spalten-Grid -->
-    <div class="sr6-charactersheet-row sr6-charactersheet-row-2">
-      <!-- BEGIN BLOCK: Attribut - Konstitution -->
-      <div class="sr6-charactersheet-field sr6-charactersheet-attr-field">
-        <span data-i18n="field.konstitution">Konstitution</span>
-        <div class="sr6-charactersheet-attr-values">
-          <div
-            class="sr6-charactersheet-attr-value sr6-charactersheet-attr-value--with-dice">
-            <span data-i18n="field.grundwert">Grundwert</span>
-            <div class="sr6-charactersheet-field-input-with-dice">
-              <div class="sr6-number-stepper"><button type="action" class="sr6-number-stepper-button sr6-number-stepper-button--minus" name="act_sr6_number_step" value="sr6_attr_konstitution_grundwert::-1" aria-label="Verringern">-</button><input
-                type="number"
-                name="attr_sr6_attr_konstitution_grundwert" /><button type="action" class="sr6-number-stepper-button sr6-number-stepper-button--plus" name="act_sr6_number_step" value="sr6_attr_konstitution_grundwert::1" aria-label="Erhoehen">+</button></div><button
-                type="action"
-                class="sr6-charactersheet-field-dice-button"
-                name="act_probe"
-                value="&{template:default} {{name=Attribut-Test}} {{Attribut=Konstitution (Grundwert)}} {{Pool=[[@{sr6_attr_konstitution_grundwert}]]}} {{Erfolge=[[@{sr6_attr_konstitution_grundwert}d6>5]]}}"
-                aria-label="Wuerfeln"></button>
-            </div>
-          </div>
-          <div class="sr6-charactersheet-attr-value">
-            <span data-i18n="field.modifikator">Modifikator</span
-            ><div class="sr6-number-stepper"><button type="action" class="sr6-number-stepper-button sr6-number-stepper-button--minus" name="act_sr6_number_step" value="sr6_attr_konstitution_modifikator::-1" aria-label="Verringern">-</button><input type="number" name="attr_sr6_attr_konstitution_modifikator" /><button type="action" class="sr6-number-stepper-button sr6-number-stepper-button--plus" name="act_sr6_number_step" value="sr6_attr_konstitution_modifikator::1" aria-label="Erhoehen">+</button></div>
-          </div>
-          <div
-            class="sr6-charactersheet-attr-value sr6-charactersheet-attr-value--with-dice">
-            <span data-i18n="field.gesamtwert">Gesamtwert</span>
-            <div class="sr6-charactersheet-field-input-with-dice sr6-charactersheet-field-input-with-2dice">
-              <div class="sr6-number-stepper"><button type="action" class="sr6-number-stepper-button sr6-number-stepper-button--minus" name="act_sr6_number_step" value="sr6_attr_konstitution_gesamtwert::-1" aria-label="Verringern">-</button><input
-                type="number"
-                name="attr_sr6_attr_konstitution_gesamtwert" /><button type="action" class="sr6-number-stepper-button sr6-number-stepper-button--plus" name="act_sr6_number_step" value="sr6_attr_konstitution_gesamtwert::1" aria-label="Erhoehen">+</button></div><button
-                type="action"
-                class="sr6-charactersheet-field-dice-button"
-                name="act_probe"
-                value="&{template:default} {{name=Attribut-Test}} {{Attribut=Konstitution (Gesamtwert)}} {{Pool=[[@{sr6_attr_konstitution_gesamtwert}]]}} {{Erfolge=[[@{sr6_attr_konstitution_gesamtwert}d6>5]]}}"
-                aria-label="Wuerfeln"></button><button
-                type="action"
-                class="sr6-charactersheet-field-dice-button sr6-charactersheet-field-dice-button--secondary"
-                name="act_probe"
-                value="&{template:default} {{name=Attribut-Test}} {{Attribut=Konstitution (Gesamtwert)}} {{Attribut x2=1}} {{Pool=[[@{sr6_attr_konstitution_gesamtwert}]]}} {{Erfolge=[[@{sr6_attr_konstitution_gesamtwert}d6>5]]}}"
-                aria-label="Wuerfeln x2">x2</button>
-            </div>
-          </div>
-        </div>
-      </div>
-      <!-- END BLOCK: Attribut - Konstitution -->
-
-      <!-- BEGIN BLOCK: Attribut - Geschicklichkeit -->
-      <div class="sr6-charactersheet-field sr6-charactersheet-attr-field">
-        <span data-i18n="field.geschicklichkeit">Geschicklichkeit</span>
-        <div class="sr6-charactersheet-attr-values">
-          <div
-            class="sr6-charactersheet-attr-value sr6-charactersheet-attr-value--with-dice">
-            <span data-i18n="field.grundwert">Grundwert</span>
-            <div class="sr6-charactersheet-field-input-with-dice">
-              <div class="sr6-number-stepper"><button type="action" class="sr6-number-stepper-button sr6-number-stepper-button--minus" name="act_sr6_number_step" value="sr6_attr_geschicklichkeit_grundwert::-1" aria-label="Verringern">-</button><input
-                type="number"
-                name="attr_sr6_attr_geschicklichkeit_grundwert" /><button type="action" class="sr6-number-stepper-button sr6-number-stepper-button--plus" name="act_sr6_number_step" value="sr6_attr_geschicklichkeit_grundwert::1" aria-label="Erhoehen">+</button></div><button
-                type="action"
-                class="sr6-charactersheet-field-dice-button"
-                name="act_probe"
-                value="&{template:default} {{name=Attribut-Test}} {{Attribut=Geschicklichkeit (Grundwert)}} {{Pool=[[@{sr6_attr_geschicklichkeit_grundwert}]]}} {{Erfolge=[[@{sr6_attr_geschicklichkeit_grundwert}d6>5]]}}"
-                aria-label="Wuerfeln"></button>
-            </div>
-          </div>
-          <div class="sr6-charactersheet-attr-value">
-            <span data-i18n="field.modifikator">Modifikator</span
-            ><div class="sr6-number-stepper"><button type="action" class="sr6-number-stepper-button sr6-number-stepper-button--minus" name="act_sr6_number_step" value="sr6_attr_geschicklichkeit_modifikator::-1" aria-label="Verringern">-</button><input
-              type="number"
-              name="attr_sr6_attr_geschicklichkeit_modifikator" /><button type="action" class="sr6-number-stepper-button sr6-number-stepper-button--plus" name="act_sr6_number_step" value="sr6_attr_geschicklichkeit_modifikator::1" aria-label="Erhoehen">+</button></div>
-          </div>
-          <div
-            class="sr6-charactersheet-attr-value sr6-charactersheet-attr-value--with-dice">
-            <span data-i18n="field.gesamtwert">Gesamtwert</span>
-            <div class="sr6-charactersheet-field-input-with-dice sr6-charactersheet-field-input-with-2dice">
-              <div class="sr6-number-stepper"><button type="action" class="sr6-number-stepper-button sr6-number-stepper-button--minus" name="act_sr6_number_step" value="sr6_attr_geschicklichkeit_gesamtwert::-1" aria-label="Verringern">-</button><input
-                type="number"
-                name="attr_sr6_attr_geschicklichkeit_gesamtwert" /><button type="action" class="sr6-number-stepper-button sr6-number-stepper-button--plus" name="act_sr6_number_step" value="sr6_attr_geschicklichkeit_gesamtwert::1" aria-label="Erhoehen">+</button></div><button
-                type="action"
-                class="sr6-charactersheet-field-dice-button"
-                name="act_probe"
-                value="&{template:default} {{name=Attribut-Test}} {{Attribut=Geschicklichkeit (Gesamtwert)}} {{Pool=[[@{sr6_attr_geschicklichkeit_gesamtwert}]]}} {{Erfolge=[[@{sr6_attr_geschicklichkeit_gesamtwert}d6>5]]}}"
-                aria-label="Wuerfeln"></button><button
-                type="action"
-                class="sr6-charactersheet-field-dice-button sr6-charactersheet-field-dice-button--secondary"
-                name="act_probe"
-                value="&{template:default} {{name=Attribut-Test}} {{Attribut=Geschicklichkeit (Gesamtwert)}} {{Attribut x2=1}} {{Pool=[[@{sr6_attr_geschicklichkeit_gesamtwert}]]}} {{Erfolge=[[@{sr6_attr_geschicklichkeit_gesamtwert}d6>5]]}}"
-                aria-label="Wuerfeln x2">x2</button>
-            </div>
-          </div>
-        </div>
-      </div>
-      <!-- END BLOCK: Attribut - Geschicklichkeit -->
-    </div>
-
-    <div class="sr6-charactersheet-row sr6-charactersheet-row-2">
-      <!-- BEGIN BLOCK: Attribut - Reaktion -->
-      <div class="sr6-charactersheet-field sr6-charactersheet-attr-field">
-        <span data-i18n="field.reaktion">Reaktion</span>
-        <div class="sr6-charactersheet-attr-values">
-          <div
-            class="sr6-charactersheet-attr-value sr6-charactersheet-attr-value--with-dice">
-            <span data-i18n="field.grundwert">Grundwert</span>
-            <div class="sr6-charactersheet-field-input-with-dice">
-              <div class="sr6-number-stepper"><button type="action" class="sr6-number-stepper-button sr6-number-stepper-button--minus" name="act_sr6_number_step" value="sr6_attr_reaktion_grundwert::-1" aria-label="Verringern">-</button><input
-                type="number"
-                name="attr_sr6_attr_reaktion_grundwert" /><button type="action" class="sr6-number-stepper-button sr6-number-stepper-button--plus" name="act_sr6_number_step" value="sr6_attr_reaktion_grundwert::1" aria-label="Erhoehen">+</button></div><button
-                type="action"
-                class="sr6-charactersheet-field-dice-button"
-                name="act_probe"
-                value="&{template:default} {{name=Attribut-Test}} {{Attribut=Reaktion (Grundwert)}} {{Pool=[[@{sr6_attr_reaktion_grundwert}]]}} {{Erfolge=[[@{sr6_attr_reaktion_grundwert}d6>5]]}}"
-                aria-label="Wuerfeln"></button>
-            </div>
-          </div>
-          <div class="sr6-charactersheet-attr-value">
-            <span data-i18n="field.modifikator">Modifikator</span
-            ><div class="sr6-number-stepper"><button type="action" class="sr6-number-stepper-button sr6-number-stepper-button--minus" name="act_sr6_number_step" value="sr6_attr_reaktion_modifikator::-1" aria-label="Verringern">-</button><input type="number" name="attr_sr6_attr_reaktion_modifikator" /><button type="action" class="sr6-number-stepper-button sr6-number-stepper-button--plus" name="act_sr6_number_step" value="sr6_attr_reaktion_modifikator::1" aria-label="Erhoehen">+</button></div>
-          </div>
-          <div
-            class="sr6-charactersheet-attr-value sr6-charactersheet-attr-value--with-dice">
-            <span data-i18n="field.gesamtwert">Gesamtwert</span>
-            <div class="sr6-charactersheet-field-input-with-dice sr6-charactersheet-field-input-with-2dice">
-              <div class="sr6-number-stepper"><button type="action" class="sr6-number-stepper-button sr6-number-stepper-button--minus" name="act_sr6_number_step" value="sr6_attr_reaktion_gesamtwert::-1" aria-label="Verringern">-</button><input
-                type="number"
-                name="attr_sr6_attr_reaktion_gesamtwert" /><button type="action" class="sr6-number-stepper-button sr6-number-stepper-button--plus" name="act_sr6_number_step" value="sr6_attr_reaktion_gesamtwert::1" aria-label="Erhoehen">+</button></div><button
-                type="action"
-                class="sr6-charactersheet-field-dice-button"
-                name="act_probe"
-                value="&{template:default} {{name=Attribut-Test}} {{Attribut=Reaktion (Gesamtwert)}} {{Pool=[[@{sr6_attr_reaktion_gesamtwert}]]}} {{Erfolge=[[@{sr6_attr_reaktion_gesamtwert}d6>5]]}}"
-                aria-label="Wuerfeln"></button><button
-                type="action"
-                class="sr6-charactersheet-field-dice-button sr6-charactersheet-field-dice-button--secondary"
-                name="act_probe"
-                value="&{template:default} {{name=Attribut-Test}} {{Attribut=Reaktion (Gesamtwert)}} {{Attribut x2=1}} {{Pool=[[@{sr6_attr_reaktion_gesamtwert}]]}} {{Erfolge=[[@{sr6_attr_reaktion_gesamtwert}d6>5]]}}"
-                aria-label="Wuerfeln x2">x2</button>
-            </div>
-          </div>
-        </div>
-      </div>
-      <!-- END BLOCK: Attribut - Reaktion -->
-
-      <!-- BEGIN BLOCK: Attribut - Stärke -->
-      <div class="sr6-charactersheet-field sr6-charactersheet-attr-field">
-        <span data-i18n="field.staerke">Stärke</span>
-        <div class="sr6-charactersheet-attr-values">
-          <div
-            class="sr6-charactersheet-attr-value sr6-charactersheet-attr-value--with-dice">
-            <span data-i18n="field.grundwert">Grundwert</span>
-            <div class="sr6-charactersheet-field-input-with-dice">
-              <div class="sr6-number-stepper"><button type="action" class="sr6-number-stepper-button sr6-number-stepper-button--minus" name="act_sr6_number_step" value="sr6_attr_staerke_grundwert::-1" aria-label="Verringern">-</button><input
-                type="number"
-                name="attr_sr6_attr_staerke_grundwert" /><button type="action" class="sr6-number-stepper-button sr6-number-stepper-button--plus" name="act_sr6_number_step" value="sr6_attr_staerke_grundwert::1" aria-label="Erhoehen">+</button></div><button
-                type="action"
-                class="sr6-charactersheet-field-dice-button"
-                name="act_probe"
-                value="&{template:default} {{name=Attribut-Test}} {{Attribut=Staerke (Grundwert)}} {{Pool=[[@{sr6_attr_staerke_grundwert}]]}} {{Erfolge=[[@{sr6_attr_staerke_grundwert}d6>5]]}}"
-                aria-label="Wuerfeln"></button>
-            </div>
-          </div>
-          <div class="sr6-charactersheet-attr-value">
-            <span data-i18n="field.modifikator">Modifikator</span
-            ><div class="sr6-number-stepper"><button type="action" class="sr6-number-stepper-button sr6-number-stepper-button--minus" name="act_sr6_number_step" value="sr6_attr_staerke_modifikator::-1" aria-label="Verringern">-</button><input type="number" name="attr_sr6_attr_staerke_modifikator" /><button type="action" class="sr6-number-stepper-button sr6-number-stepper-button--plus" name="act_sr6_number_step" value="sr6_attr_staerke_modifikator::1" aria-label="Erhoehen">+</button></div>
-          </div>
-          <div
-            class="sr6-charactersheet-attr-value sr6-charactersheet-attr-value--with-dice">
-            <span data-i18n="field.gesamtwert">Gesamtwert</span>
-            <div class="sr6-charactersheet-field-input-with-dice sr6-charactersheet-field-input-with-2dice">
-              <div class="sr6-number-stepper"><button type="action" class="sr6-number-stepper-button sr6-number-stepper-button--minus" name="act_sr6_number_step" value="sr6_attr_staerke_gesamtwert::-1" aria-label="Verringern">-</button><input
-                type="number"
-                name="attr_sr6_attr_staerke_gesamtwert" /><button type="action" class="sr6-number-stepper-button sr6-number-stepper-button--plus" name="act_sr6_number_step" value="sr6_attr_staerke_gesamtwert::1" aria-label="Erhoehen">+</button></div><button
-                type="action"
-                class="sr6-charactersheet-field-dice-button"
-                name="act_probe"
-                value="&{template:default} {{name=Attribut-Test}} {{Attribut=Staerke (Gesamtwert)}} {{Pool=[[@{sr6_attr_staerke_gesamtwert}]]}} {{Erfolge=[[@{sr6_attr_staerke_gesamtwert}d6>5]]}}"
-                aria-label="Wuerfeln"></button><button
-                type="action"
-                class="sr6-charactersheet-field-dice-button sr6-charactersheet-field-dice-button--secondary"
-                name="act_probe"
-                value="&{template:default} {{name=Attribut-Test}} {{Attribut=Staerke (Gesamtwert)}} {{Attribut x2=1}} {{Pool=[[@{sr6_attr_staerke_gesamtwert}]]}} {{Erfolge=[[@{sr6_attr_staerke_gesamtwert}d6>5]]}}"
-                aria-label="Wuerfeln x2">x2</button>
-            </div>
-          </div>
-        </div>
-      </div>
-      <!-- END BLOCK: Attribut - Stärke -->
-    </div>
-
-    <div class="sr6-charactersheet-row sr6-charactersheet-row-2">
-      <!-- BEGIN BLOCK: Attribut - Willenskraft -->
-      <div class="sr6-charactersheet-field sr6-charactersheet-attr-field">
-        <span data-i18n="field.willenskraft">Willenskraft</span>
-        <div class="sr6-charactersheet-attr-values">
-          <div
-            class="sr6-charactersheet-attr-value sr6-charactersheet-attr-value--with-dice">
-            <span data-i18n="field.grundwert">Grundwert</span>
-            <div class="sr6-charactersheet-field-input-with-dice">
-              <div class="sr6-number-stepper"><button type="action" class="sr6-number-stepper-button sr6-number-stepper-button--minus" name="act_sr6_number_step" value="sr6_attr_willenskraft_grundwert::-1" aria-label="Verringern">-</button><input
-                type="number"
-                name="attr_sr6_attr_willenskraft_grundwert" /><button type="action" class="sr6-number-stepper-button sr6-number-stepper-button--plus" name="act_sr6_number_step" value="sr6_attr_willenskraft_grundwert::1" aria-label="Erhoehen">+</button></div><button
-                type="action"
-                class="sr6-charactersheet-field-dice-button"
-                name="act_probe"
-                value="&{template:default} {{name=Attribut-Test}} {{Attribut=Willenskraft (Grundwert)}} {{Pool=[[@{sr6_attr_willenskraft_grundwert}]]}} {{Erfolge=[[@{sr6_attr_willenskraft_grundwert}d6>5]]}}"
-                aria-label="Wuerfeln"></button>
-            </div>
-          </div>
-          <div class="sr6-charactersheet-attr-value">
-            <span data-i18n="field.modifikator">Modifikator</span
-            ><div class="sr6-number-stepper"><button type="action" class="sr6-number-stepper-button sr6-number-stepper-button--minus" name="act_sr6_number_step" value="sr6_attr_willenskraft_modifikator::-1" aria-label="Verringern">-</button><input type="number" name="attr_sr6_attr_willenskraft_modifikator" /><button type="action" class="sr6-number-stepper-button sr6-number-stepper-button--plus" name="act_sr6_number_step" value="sr6_attr_willenskraft_modifikator::1" aria-label="Erhoehen">+</button></div>
-          </div>
-          <div
-            class="sr6-charactersheet-attr-value sr6-charactersheet-attr-value--with-dice">
-            <span data-i18n="field.gesamtwert">Gesamtwert</span>
-            <div class="sr6-charactersheet-field-input-with-dice sr6-charactersheet-field-input-with-2dice">
-              <div class="sr6-number-stepper"><button type="action" class="sr6-number-stepper-button sr6-number-stepper-button--minus" name="act_sr6_number_step" value="sr6_attr_willenskraft_gesamtwert::-1" aria-label="Verringern">-</button><input
-                type="number"
-                name="attr_sr6_attr_willenskraft_gesamtwert" /><button type="action" class="sr6-number-stepper-button sr6-number-stepper-button--plus" name="act_sr6_number_step" value="sr6_attr_willenskraft_gesamtwert::1" aria-label="Erhoehen">+</button></div><button
-                type="action"
-                class="sr6-charactersheet-field-dice-button"
-                name="act_probe"
-                value="&{template:default} {{name=Attribut-Test}} {{Attribut=Willenskraft (Gesamtwert)}} {{Pool=[[@{sr6_attr_willenskraft_gesamtwert}]]}} {{Erfolge=[[@{sr6_attr_willenskraft_gesamtwert}d6>5]]}}"
-                aria-label="Wuerfeln"></button><button
-                type="action"
-                class="sr6-charactersheet-field-dice-button sr6-charactersheet-field-dice-button--secondary"
-                name="act_probe"
-                value="&{template:default} {{name=Attribut-Test}} {{Attribut=Willenskraft (Gesamtwert)}} {{Attribut x2=1}} {{Pool=[[@{sr6_attr_willenskraft_gesamtwert}]]}} {{Erfolge=[[@{sr6_attr_willenskraft_gesamtwert}d6>5]]}}"
-                aria-label="Wuerfeln x2">x2</button>
-            </div>
-          </div>
-        </div>
-      </div>
-      <!-- END BLOCK: Attribut - Willenskraft -->
-
-      <!-- BEGIN BLOCK: Attribut - Logik -->
-      <div class="sr6-charactersheet-field sr6-charactersheet-attr-field">
-        <span data-i18n="field.logik">Logik</span>
-        <div class="sr6-charactersheet-attr-values">
-          <div
-            class="sr6-charactersheet-attr-value sr6-charactersheet-attr-value--with-dice">
-            <span data-i18n="field.grundwert">Grundwert</span>
-            <div class="sr6-charactersheet-field-input-with-dice">
-              <div class="sr6-number-stepper"><button type="action" class="sr6-number-stepper-button sr6-number-stepper-button--minus" name="act_sr6_number_step" value="sr6_attr_logik_grundwert::-1" aria-label="Verringern">-</button><input type="number" name="attr_sr6_attr_logik_grundwert" /><button type="action" class="sr6-number-stepper-button sr6-number-stepper-button--plus" name="act_sr6_number_step" value="sr6_attr_logik_grundwert::1" aria-label="Erhoehen">+</button></div><button
-                type="action"
-                class="sr6-charactersheet-field-dice-button"
-                name="act_probe"
-                value="&{template:default} {{name=Attribut-Test}} {{Attribut=Logik (Grundwert)}} {{Pool=[[@{sr6_attr_logik_grundwert}]]}} {{Erfolge=[[@{sr6_attr_logik_grundwert}d6>5]]}}"
-                aria-label="Wuerfeln"></button>
-            </div>
-          </div>
-          <div class="sr6-charactersheet-attr-value">
-            <span data-i18n="field.modifikator">Modifikator</span
-            ><div class="sr6-number-stepper"><button type="action" class="sr6-number-stepper-button sr6-number-stepper-button--minus" name="act_sr6_number_step" value="sr6_attr_logik_modifikator::-1" aria-label="Verringern">-</button><input type="number" name="attr_sr6_attr_logik_modifikator" /><button type="action" class="sr6-number-stepper-button sr6-number-stepper-button--plus" name="act_sr6_number_step" value="sr6_attr_logik_modifikator::1" aria-label="Erhoehen">+</button></div>
-          </div>
-          <div
-            class="sr6-charactersheet-attr-value sr6-charactersheet-attr-value--with-dice">
-            <span data-i18n="field.gesamtwert">Gesamtwert</span>
-            <div class="sr6-charactersheet-field-input-with-dice">
-              <div class="sr6-number-stepper"><button type="action" class="sr6-number-stepper-button sr6-number-stepper-button--minus" name="act_sr6_number_step" value="sr6_attr_logik_gesamtwert::-1" aria-label="Verringern">-</button><input type="number" name="attr_sr6_attr_logik_gesamtwert" /><button type="action" class="sr6-number-stepper-button sr6-number-stepper-button--plus" name="act_sr6_number_step" value="sr6_attr_logik_gesamtwert::1" aria-label="Erhoehen">+</button></div><button
-                type="action"
-                class="sr6-charactersheet-field-dice-button"
-                name="act_probe"
-                value="&{template:default} {{name=Attribut-Test}} {{Attribut=Logik (Gesamtwert)}} {{Pool=[[@{sr6_attr_logik_gesamtwert}]]}} {{Erfolge=[[@{sr6_attr_logik_gesamtwert}d6>5]]}}"
-                aria-label="Wuerfeln"></button><button
-                type="action"
-                class="sr6-charactersheet-field-dice-button sr6-charactersheet-field-dice-button--secondary"
-                name="act_probe"
-                value="&{template:default} {{name=Attribut-Test}} {{Attribut=Logik (Gesamtwert)}} {{Attribut x2=1}} {{Pool=[[@{sr6_attr_logik_gesamtwert}]]}} {{Erfolge=[[@{sr6_attr_logik_gesamtwert}d6>5]]}}"
-                aria-label="Wuerfeln x2">x2</button>
-            </div>
-          </div>
-        </div>
-      </div>
-      <!-- END BLOCK: Attribut - Logik -->
-    </div>
-
-    <div class="sr6-charactersheet-row sr6-charactersheet-row-2">
-      <!-- BEGIN BLOCK: Attribut - Intuition -->
-      <div class="sr6-charactersheet-field sr6-charactersheet-attr-field">
-        <span data-i18n="field.intuition">Intuition</span>
-        <div class="sr6-charactersheet-attr-values">
-          <div
-            class="sr6-charactersheet-attr-value sr6-charactersheet-attr-value--with-dice">
-            <span data-i18n="field.grundwert">Grundwert</span>
-            <div class="sr6-charactersheet-field-input-with-dice">
-              <div class="sr6-number-stepper"><button type="action" class="sr6-number-stepper-button sr6-number-stepper-button--minus" name="act_sr6_number_step" value="sr6_attr_intuition_grundwert::-1" aria-label="Verringern">-</button><input
-                type="number"
-                name="attr_sr6_attr_intuition_grundwert" /><button type="action" class="sr6-number-stepper-button sr6-number-stepper-button--plus" name="act_sr6_number_step" value="sr6_attr_intuition_grundwert::1" aria-label="Erhoehen">+</button></div><button
-                type="action"
-                class="sr6-charactersheet-field-dice-button"
-                name="act_probe"
-                value="&{template:default} {{name=Attribut-Test}} {{Attribut=Intuition (Grundwert)}} {{Pool=[[@{sr6_attr_intuition_grundwert}]]}} {{Erfolge=[[@{sr6_attr_intuition_grundwert}d6>5]]}}"
-                aria-label="Wuerfeln"></button>
-            </div>
-          </div>
-          <div class="sr6-charactersheet-attr-value">
-            <span data-i18n="field.modifikator">Modifikator</span
-            ><div class="sr6-number-stepper"><button type="action" class="sr6-number-stepper-button sr6-number-stepper-button--minus" name="act_sr6_number_step" value="sr6_attr_intuition_modifikator::-1" aria-label="Verringern">-</button><input type="number" name="attr_sr6_attr_intuition_modifikator" /><button type="action" class="sr6-number-stepper-button sr6-number-stepper-button--plus" name="act_sr6_number_step" value="sr6_attr_intuition_modifikator::1" aria-label="Erhoehen">+</button></div>
-          </div>
-          <div
-            class="sr6-charactersheet-attr-value sr6-charactersheet-attr-value--with-dice">
-            <span data-i18n="field.gesamtwert">Gesamtwert</span>
-            <div class="sr6-charactersheet-field-input-with-dice sr6-charactersheet-field-input-with-2dice">
-              <div class="sr6-number-stepper"><button type="action" class="sr6-number-stepper-button sr6-number-stepper-button--minus" name="act_sr6_number_step" value="sr6_attr_intuition_gesamtwert::-1" aria-label="Verringern">-</button><input
-                type="number"
-                name="attr_sr6_attr_intuition_gesamtwert" /><button type="action" class="sr6-number-stepper-button sr6-number-stepper-button--plus" name="act_sr6_number_step" value="sr6_attr_intuition_gesamtwert::1" aria-label="Erhoehen">+</button></div><button
-                type="action"
-                class="sr6-charactersheet-field-dice-button"
-                name="act_probe"
-                value="&{template:default} {{name=Attribut-Test}} {{Attribut=Intuition (Gesamtwert)}} {{Pool=[[@{sr6_attr_intuition_gesamtwert}]]}} {{Erfolge=[[@{sr6_attr_intuition_gesamtwert}d6>5]]}}"
-                aria-label="Wuerfeln"></button><button
-                type="action"
-                class="sr6-charactersheet-field-dice-button sr6-charactersheet-field-dice-button--secondary"
-                name="act_probe"
-                value="&{template:default} {{name=Attribut-Test}} {{Attribut=Intuition (Gesamtwert)}} {{Attribut x2=1}} {{Pool=[[@{sr6_attr_intuition_gesamtwert}]]}} {{Erfolge=[[@{sr6_attr_intuition_gesamtwert}d6>5]]}}"
-                aria-label="Wuerfeln x2">x2</button>
-            </div>
-          </div>
-        </div>
-      </div>
-      <!-- END BLOCK: Attribut - Intuition -->
-
-      <!-- BEGIN BLOCK: Attribut - Charisma -->
-      <div class="sr6-charactersheet-field sr6-charactersheet-attr-field">
-        <span data-i18n="field.charisma">Charisma</span>
-        <div class="sr6-charactersheet-attr-values">
-          <div
-            class="sr6-charactersheet-attr-value sr6-charactersheet-attr-value--with-dice">
-            <span data-i18n="field.grundwert">Grundwert</span>
-            <div class="sr6-charactersheet-field-input-with-dice">
-              <div class="sr6-number-stepper"><button type="action" class="sr6-number-stepper-button sr6-number-stepper-button--minus" name="act_sr6_number_step" value="sr6_attr_charisma_grundwert::-1" aria-label="Verringern">-</button><input
-                type="number"
-                name="attr_sr6_attr_charisma_grundwert" /><button type="action" class="sr6-number-stepper-button sr6-number-stepper-button--plus" name="act_sr6_number_step" value="sr6_attr_charisma_grundwert::1" aria-label="Erhoehen">+</button></div><button
-                type="action"
-                class="sr6-charactersheet-field-dice-button"
-                name="act_probe"
-                value="&{template:default} {{name=Attribut-Test}} {{Attribut=Charisma (Grundwert)}} {{Pool=[[@{sr6_attr_charisma_grundwert}]]}} {{Erfolge=[[@{sr6_attr_charisma_grundwert}d6>5]]}}"
-                aria-label="Wuerfeln"></button>
-            </div>
-          </div>
-          <div class="sr6-charactersheet-attr-value">
-            <span data-i18n="field.modifikator">Modifikator</span
-            ><div class="sr6-number-stepper"><button type="action" class="sr6-number-stepper-button sr6-number-stepper-button--minus" name="act_sr6_number_step" value="sr6_attr_charisma_modifikator::-1" aria-label="Verringern">-</button><input type="number" name="attr_sr6_attr_charisma_modifikator" /><button type="action" class="sr6-number-stepper-button sr6-number-stepper-button--plus" name="act_sr6_number_step" value="sr6_attr_charisma_modifikator::1" aria-label="Erhoehen">+</button></div>
-          </div>
-          <div
-            class="sr6-charactersheet-attr-value sr6-charactersheet-attr-value--with-dice">
-            <span data-i18n="field.gesamtwert">Gesamtwert</span>
-            <div class="sr6-charactersheet-field-input-with-dice sr6-charactersheet-field-input-with-2dice">
-              <div class="sr6-number-stepper"><button type="action" class="sr6-number-stepper-button sr6-number-stepper-button--minus" name="act_sr6_number_step" value="sr6_attr_charisma_gesamtwert::-1" aria-label="Verringern">-</button><input
-                type="number"
-                name="attr_sr6_attr_charisma_gesamtwert" /><button type="action" class="sr6-number-stepper-button sr6-number-stepper-button--plus" name="act_sr6_number_step" value="sr6_attr_charisma_gesamtwert::1" aria-label="Erhoehen">+</button></div><button
-                type="action"
-                class="sr6-charactersheet-field-dice-button"
-                name="act_probe"
-                value="&{template:default} {{name=Attribut-Test}} {{Attribut=Charisma (Gesamtwert)}} {{Pool=[[@{sr6_attr_charisma_gesamtwert}]]}} {{Erfolge=[[@{sr6_attr_charisma_gesamtwert}d6>5]]}}"
-                aria-label="Wuerfeln"></button><button
-                type="action"
-                class="sr6-charactersheet-field-dice-button sr6-charactersheet-field-dice-button--secondary"
-                name="act_probe"
-                value="&{template:default} {{name=Attribut-Test}} {{Attribut=Charisma (Gesamtwert)}} {{Attribut x2=1}} {{Pool=[[@{sr6_attr_charisma_gesamtwert}]]}} {{Erfolge=[[@{sr6_attr_charisma_gesamtwert}d6>5]]}}"
-                aria-label="Wuerfeln x2">x2</button>
-            </div>
-          </div>
-        </div>
-      </div>
-      <!-- END BLOCK: Attribut - Charisma -->
-    </div>
-
-    <div class="sr6-charactersheet-row sr6-charactersheet-row-2">
-      <!-- BEGIN BLOCK: Attribut - Edge -->
-      <div class="sr6-charactersheet-field sr6-charactersheet-attr-field">
-        <span data-i18n="field.edge">Edge</span>
-        <div class="sr6-charactersheet-attr-values">
-          <div
-            class="sr6-charactersheet-attr-value sr6-charactersheet-attr-value--with-dice">
-            <span data-i18n="field.grundwert">Grundwert</span>
-            <div class="sr6-charactersheet-field-input-with-dice">
-              <div class="sr6-number-stepper"><button type="action" class="sr6-number-stepper-button sr6-number-stepper-button--minus" name="act_sr6_number_step" value="sr6_attr_edge_grundwert::-1" aria-label="Verringern">-</button><input type="number" name="attr_sr6_attr_edge_grundwert" /><button type="action" class="sr6-number-stepper-button sr6-number-stepper-button--plus" name="act_sr6_number_step" value="sr6_attr_edge_grundwert::1" aria-label="Erhoehen">+</button></div><button
-                type="action"
-                class="sr6-charactersheet-field-dice-button"
-                name="act_probe"
-                value="&{template:default} {{name=Attribut-Test}} {{Attribut=Edge (Grundwert)}} {{Pool=[[@{sr6_attr_edge_grundwert}]]}} {{Erfolge=[[@{sr6_attr_edge_grundwert}d6>5]]}}"
-                aria-label="Wuerfeln"></button>
-            </div>
-          </div>
-          <div class="sr6-charactersheet-attr-value">
-            <span data-i18n="field.modifikator">Modifikator</span
-            ><div class="sr6-number-stepper"><button type="action" class="sr6-number-stepper-button sr6-number-stepper-button--minus" name="act_sr6_number_step" value="sr6_attr_edge_modifikator::-1" aria-label="Verringern">-</button><input type="number" name="attr_sr6_attr_edge_modifikator" /><button type="action" class="sr6-number-stepper-button sr6-number-stepper-button--plus" name="act_sr6_number_step" value="sr6_attr_edge_modifikator::1" aria-label="Erhoehen">+</button></div>
-          </div>
-          <div
-            class="sr6-charactersheet-attr-value sr6-charactersheet-attr-value--with-dice">
-            <span data-i18n="field.gesamtwert">Gesamtwert</span>
-            <div class="sr6-charactersheet-field-input-with-dice">
-              <div class="sr6-number-stepper"><button type="action" class="sr6-number-stepper-button sr6-number-stepper-button--minus" name="act_sr6_number_step" value="sr6_attr_edge_gesamtwert::-1" aria-label="Verringern">-</button><input type="number" name="attr_sr6_attr_edge_gesamtwert" /><button type="action" class="sr6-number-stepper-button sr6-number-stepper-button--plus" name="act_sr6_number_step" value="sr6_attr_edge_gesamtwert::1" aria-label="Erhoehen">+</button></div><button
-                type="action"
-                class="sr6-charactersheet-field-dice-button"
-                name="act_probe"
-                value="&{template:default} {{name=Attribut-Test}} {{Attribut=Edge (Gesamtwert)}} {{Pool=[[@{sr6_attr_edge_gesamtwert}]]}} {{Erfolge=[[@{sr6_attr_edge_gesamtwert}d6>5]]}}"
-                aria-label="Wuerfeln"></button><button
-                type="action"
-                class="sr6-charactersheet-field-dice-button sr6-charactersheet-field-dice-button--secondary"
-                name="act_probe"
-                value="&{template:default} {{name=Attribut-Test}} {{Attribut=Edge (Gesamtwert)}} {{Attribut x2=1}} {{Pool=[[@{sr6_attr_edge_gesamtwert}]]}} {{Erfolge=[[@{sr6_attr_edge_gesamtwert}d6>5]]}}"
-                aria-label="Wuerfeln x2">x2</button>
-            </div>
-          </div>
-        </div>
-      </div>
-      <!-- END BLOCK: Attribut - Edge -->
-
-      <!-- BEGIN BLOCK: Attribut - Magie/Resonanz -->
-      <div class="sr6-charactersheet-field sr6-charactersheet-attr-field">
-        <span data-i18n="field.magie_resonanz">Magie/Resonanz</span>
-        <div class="sr6-charactersheet-attr-values">
-          <div
-            class="sr6-charactersheet-attr-value sr6-charactersheet-attr-value--with-dice">
-            <span data-i18n="field.grundwert">Grundwert</span>
-            <div class="sr6-charactersheet-field-input-with-dice">
-              <div class="sr6-number-stepper"><button type="action" class="sr6-number-stepper-button sr6-number-stepper-button--minus" name="act_sr6_number_step" value="sr6_attr_magie_resonanz_grundwert::-1" aria-label="Verringern">-</button><input
-                type="number"
-                name="attr_sr6_attr_magie_resonanz_grundwert" /><button type="action" class="sr6-number-stepper-button sr6-number-stepper-button--plus" name="act_sr6_number_step" value="sr6_attr_magie_resonanz_grundwert::1" aria-label="Erhoehen">+</button></div><button
-                type="action"
-                class="sr6-charactersheet-field-dice-button"
-                name="act_probe"
-                value="&{template:default} {{name=Attribut-Test}} {{Attribut=Magie/Resonanz (Grundwert)}} {{Pool=[[@{sr6_attr_magie_resonanz_grundwert}]]}} {{Erfolge=[[@{sr6_attr_magie_resonanz_grundwert}d6>5]]}}"
-                aria-label="Wuerfeln"></button>
-            </div>
-          </div>
-          <div class="sr6-charactersheet-attr-value">
-            <span data-i18n="field.modifikator">Modifikator</span
-            ><div class="sr6-number-stepper"><button type="action" class="sr6-number-stepper-button sr6-number-stepper-button--minus" name="act_sr6_number_step" value="sr6_attr_magie_resonanz_modifikator::-1" aria-label="Verringern">-</button><input
-              type="number"
-              name="attr_sr6_attr_magie_resonanz_modifikator" /><button type="action" class="sr6-number-stepper-button sr6-number-stepper-button--plus" name="act_sr6_number_step" value="sr6_attr_magie_resonanz_modifikator::1" aria-label="Erhoehen">+</button></div>
-          </div>
-          <div
-            class="sr6-charactersheet-attr-value sr6-charactersheet-attr-value--with-dice">
-            <span data-i18n="field.gesamtwert">Gesamtwert</span>
-            <div class="sr6-charactersheet-field-input-with-dice sr6-charactersheet-field-input-with-2dice">
-              <div class="sr6-number-stepper"><button type="action" class="sr6-number-stepper-button sr6-number-stepper-button--minus" name="act_sr6_number_step" value="sr6_attr_magie_resonanz_gesamtwert::-1" aria-label="Verringern">-</button><input
-                type="number"
-                name="attr_sr6_attr_magie_resonanz_gesamtwert" /><button type="action" class="sr6-number-stepper-button sr6-number-stepper-button--plus" name="act_sr6_number_step" value="sr6_attr_magie_resonanz_gesamtwert::1" aria-label="Erhoehen">+</button></div><button
-                type="action"
-                class="sr6-charactersheet-field-dice-button"
-                name="act_probe"
-                value="&{template:default} {{name=Attribut-Test}} {{Attribut=Magie/Resonanz (Gesamtwert)}} {{Pool=[[@{sr6_attr_magie_resonanz_gesamtwert}]]}} {{Erfolge=[[@{sr6_attr_magie_resonanz_gesamtwert}d6>5]]}}"
-                aria-label="Wuerfeln"></button><button
-                type="action"
-                class="sr6-charactersheet-field-dice-button sr6-charactersheet-field-dice-button--secondary"
-                name="act_probe"
-                value="&{template:default} {{name=Attribut-Test}} {{Attribut=Magie/Resonanz (Gesamtwert)}} {{Attribut x2=1}} {{Pool=[[@{sr6_attr_magie_resonanz_gesamtwert}]]}} {{Erfolge=[[@{sr6_attr_magie_resonanz_gesamtwert}d6>5]]}}"
-                aria-label="Wuerfeln x2">x2</button>
-            </div>
-          </div>
-        </div>
-      </div>
-      <!-- END BLOCK: Attribut - Magie/Resonanz -->
-    </div>
-    <!-- END BLOCK: Attribut-Zeilen als 2-Spalten-Grid -->
-  </div>
-</section>
-<!-- END BLOCK: Attribute -->
-
-    <!-- END BLOCK: Attribute -->
-    <!-- BEGIN BLOCK: Initiative -->
-    <!-- BEGIN BLOCK: Initiative -->
-<section
-  class="sr6-charactersheet-box sr6-charactersheet-box-initiative sr6-editable-section sr6-editable-overview-section"
-  aria-labelledby="initiative-titel">
-  <div class="sr6-editable-section-title-row">
-    <h1
-      id="initiative-titel"
-      class="sr6-charactersheet-box-title"
-      data-i18n="section.initiative">
-      Initiative
-    </h1>
-    <label class="sr6-editable-section-toggle">
-      <input
-        type="checkbox"
-        name="attr_sr6_allgemein_initiative_edit_mode"
-        class="sr6-editable-section-mode"
-                      />
-                    <span data-i18n="field.editieren">Editieren</span>
-    </label>
-  </div>
-
-  <div class="sr6-charactersheet-box-content">
-    <!-- BEGIN BLOCK: Zeile - Physische Initiative -->
-    <div class="sr6-charactersheet-init-row">
-      <span
-        class="sr6-charactersheet-init-row-title"
-        data-i18n="field.physisch"
-        >Physisch</span
-      >
-      <div class="sr6-charactersheet-init-formula">
-        <span data-i18n="field.basis">Basis</span>
-        <input
-          type="number"
-          name="attr_sr6_derived_initiative_basis"
-          readonly />
-      </div>
-      <div class="sr6-charactersheet-init-formula-with-dice">
-        <span class="sr6-charactersheet-initiative-plus" aria-hidden="true">+</span>
-        <span data-i18n="field.w6">W6</span>
-        <div class="sr6-charactersheet-field-input-with-dice">
-          <div class="sr6-number-stepper"><button type="action" class="sr6-number-stepper-button sr6-number-stepper-button--minus" name="act_sr6_number_step" value="sr6_initiative_physisch_w6::-1" aria-label="Verringern">-</button><input
-            type="number"
-            name="attr_sr6_initiative_physisch_w6"
-            value="1" /><button type="action" class="sr6-number-stepper-button sr6-number-stepper-button--plus" name="act_sr6_number_step" value="sr6_initiative_physisch_w6::1" aria-label="Erhoehen">+</button></div><button
-            type="action"
-            class="sr6-charactersheet-field-dice-button"
-            name="act_probe"
-            value="&{template:default} {{name=Initiative: Physisch}} {{Basis=[[@{sr6_derived_initiative_basis}]]}} {{W6=[[@{sr6_initiative_physisch_w6}d6]]}} {{Gesamt=[[@{sr6_derived_initiative_basis}+(@{sr6_initiative_physisch_w6}d6)]]}}"
-            aria-label="Wuerfeln"></button>
-        </div>
-      </div>
-    </div>
-    <!-- END BLOCK: Zeile - Physische Initiative -->
-
-    <!-- BEGIN BLOCK: Zeile - Astrale Initiative -->
-    <div class="sr6-charactersheet-init-row">
-      <span
-        class="sr6-charactersheet-init-row-title"
-        data-i18n="field.astral"
-        >Astral</span
-      >
-      <div class="sr6-charactersheet-init-formula">
-        <span data-i18n="field.basis">Basis</span>
-        <input
-          type="number"
-          name="attr_sr6_magic_astrale_initiative"
-          readonly />
-      </div>
-      <div class="sr6-charactersheet-init-formula-with-dice">
-        <span class="sr6-charactersheet-initiative-plus" aria-hidden="true">+</span>
-        <span data-i18n="field.w6">W6</span>
-        <div class="sr6-charactersheet-field-input-with-dice">
-          <div class="sr6-number-stepper"><button type="action" class="sr6-number-stepper-button sr6-number-stepper-button--minus" name="act_sr6_number_step" value="sr6_magic_astrale_initiative_w6::-1" aria-label="Verringern">-</button><input
-            type="number"
-            name="attr_sr6_magic_astrale_initiative_w6"
-            value="3" /><button type="action" class="sr6-number-stepper-button sr6-number-stepper-button--plus" name="act_sr6_number_step" value="sr6_magic_astrale_initiative_w6::1" aria-label="Erhoehen">+</button></div><button
-            type="action"
-            class="sr6-charactersheet-field-dice-button"
-            name="act_probe"
-            value="&{template:default} {{name=Initiative: Astral}} {{Basis=[[@{sr6_magic_astrale_initiative}]]}} {{W6=[[@{sr6_magic_astrale_initiative_w6}d6]]}} {{Gesamt=[[@{sr6_magic_astrale_initiative}+(@{sr6_magic_astrale_initiative_w6}d6)]]}}"
-            aria-label="Wuerfeln"></button>
-        </div>
-      </div>
-    </div>
-    <!-- END BLOCK: Zeile - Astrale Initiative -->
-
-    <!-- BEGIN BLOCK: Zeile - Matrix-Initiative -->
-    <div class="sr6-charactersheet-init-row">
-      <span
-        class="sr6-charactersheet-init-row-title"
-        data-i18n="field.matrix"
-        >Matrix</span
-      >
-      <div class="sr6-charactersheet-init-formula">
-        <span data-i18n="field.basis">Basis</span>
-        <input
-          type="number"
-          name="attr_sr6_matrix_initiative"
-          readonly />
-      </div>
-      <div class="sr6-charactersheet-init-formula-with-dice">
-        <span class="sr6-charactersheet-initiative-plus" aria-hidden="true">+</span>
-        <span data-i18n="field.w6">W6</span>
-        <div class="sr6-charactersheet-field-input-with-dice">
-          <div class="sr6-number-stepper"><button type="action" class="sr6-number-stepper-button sr6-number-stepper-button--minus" name="act_sr6_number_step" value="sr6_matrix_initiative_w6::-1" aria-label="Verringern">-</button><input
-            type="number"
-            name="attr_sr6_matrix_initiative_w6"
-            value="4" /><button type="action" class="sr6-number-stepper-button sr6-number-stepper-button--plus" name="act_sr6_number_step" value="sr6_matrix_initiative_w6::1" aria-label="Erhoehen">+</button></div><button
-            type="action"
-            class="sr6-charactersheet-field-dice-button"
-            name="act_probe"
-            value="&{template:default} {{name=Initiative: Matrix}} {{Basis=[[@{sr6_matrix_initiative}]]}} {{W6=[[@{sr6_matrix_initiative_w6}d6]]}} {{Gesamt=[[@{sr6_matrix_initiative}+(@{sr6_matrix_initiative_w6}d6)]]}}"
-            aria-label="Wuerfeln"></button>
-        </div>
-      </div>
-    </div>
-    <!-- END BLOCK: Zeile - Matrix-Initiative -->
-  </div>
-</section>
-<!-- END BLOCK: Initiative -->
-
-    <!-- END BLOCK: Initiative -->
-  </div>
   <div class="sr6-charactersheet-tab-allgemein-column">
     <!-- BEGIN BLOCK: Fertigkeiten (Allgemein) -->
     <!-- BEGIN BLOCK: Fertigkeiten (Allgemein) -->
@@ -9836,6 +9227,18 @@ function runEdgeTokenMinus() {
 // END MODULE: workers/rolls/edge
 
 // BEGIN MODULE: workers/rolls/number-stepper
+const SR6_NUMBER_STEPPER_COMPUTED_TARGETS = [
+  "sr6_magic_magie",
+  "sr6_magic_zauberpool",
+  "sr6_magic_spruchzauberei",
+  "sr6_magic_entzug_widerstand",
+  "sr6_magic_astrale_initiative",
+  "sr6_magic_astrale_verteidigung",
+  "sr6_magic_astraler_schadenswiderstand",
+  "sr6_magic_astralkampf_angriffswert",
+  "sr6_magic_astralkampf_verteidigungswert",
+];
+
 function resolveRepeatingRowPrefixForStepper(eventInfo, callback) {
   const fallbackPrefix = extractRepeatingRowPrefix(eventInfo);
   const sourceAttribute = (eventInfo && eventInfo.sourceAttribute) || "";
@@ -9911,6 +9314,13 @@ function resolveRepeatingRowPrefixForStepper(eventInfo, callback) {
   callback(fallbackPrefix);
 }
 
+function resolveNumberStepperTargetAttr(targetAttr, repeatingRowPrefix) {
+  if (repeatingRowPrefix) return targetAttr;
+  if (targetAttr.endsWith("_gesamtwert")) return targetAttr.replace(/_gesamtwert$/, "_modifikator");
+  if (SR6_NUMBER_STEPPER_COMPUTED_TARGETS.includes(targetAttr)) return `${targetAttr}_modifikator`;
+  return targetAttr;
+}
+
 function runNumberStepperAdjust(eventInfo) {
   const rawValue =
     (eventInfo && eventInfo.htmlAttributes && eventInfo.htmlAttributes.value) ||
@@ -9927,11 +9337,16 @@ function runNumberStepperAdjust(eventInfo) {
   if (!targetAttr || delta === 0) return;
 
   resolveRepeatingRowPrefixForStepper(eventInfo, (repeatingRowPrefix) => {
-    const scopedTargetAttr = repeatingRowPrefix ? `${repeatingRowPrefix}_${targetAttr}` : targetAttr;
+    const effectiveTargetAttr = resolveNumberStepperTargetAttr(targetAttr, repeatingRowPrefix);
+    const scopedTargetAttr = repeatingRowPrefix ? `${repeatingRowPrefix}_${effectiveTargetAttr}` : effectiveTargetAttr;
     getAttrs([scopedTargetAttr], (values) => {
       const currentValue = parseNumber(values[scopedTargetAttr]);
       setAttrsSilent({
         [scopedTargetAttr]: String(currentValue + delta),
+      }, () => {
+        if (!repeatingRowPrefix && typeof recomputeAll === "function") {
+          recomputeAll();
+        }
       });
     });
   });
@@ -10496,28 +9911,67 @@ function syncCombatPrimaryWeapons(callback, eventInfo) {
 function appendMagicRequestKeys(requestKeys) {
   requestKeys.push("sr6_magic_traditionsattribut_1");
   requestKeys.push("sr6_magic_traditionsattribut_2");
+  requestKeys.push("sr6_magic_traditionsattribut_1_modifikator");
+  requestKeys.push("sr6_magic_traditionsattribut_2_modifikator");
+  requestKeys.push("sr6_magic_magie_modifikator");
+  requestKeys.push("sr6_magic_zauberpool_modifikator");
+  requestKeys.push("sr6_magic_spruchzauberei_modifikator");
+  requestKeys.push("sr6_magic_entzug_widerstand_modifikator");
+  requestKeys.push("sr6_magic_astrale_initiative_modifikator");
+  requestKeys.push("sr6_magic_astrale_verteidigung_modifikator");
+  requestKeys.push("sr6_magic_astraler_schadenswiderstand_modifikator");
+  requestKeys.push("sr6_magic_astralkampf_angriffswert_modifikator");
+  requestKeys.push("sr6_magic_astralkampf_verteidigungswert_modifikator");
 }
 
 function computeMagicDerived(values, totals, skillTotals, updates) {
-  updates.sr6_magic_magie = String(totals.magie_resonanz || 0);
-  updates.sr6_magic_zauberpool = String(skillTotals.hexerei || 0);
+  updates.sr6_magic_magie = String(
+    (totals.magie_resonanz || 0) + parseNumber(values.sr6_magic_magie_modifikator)
+  );
+  updates.sr6_magic_zauberpool = String(
+    (skillTotals.hexerei || 0) + parseNumber(values.sr6_magic_zauberpool_modifikator)
+  );
   updates.sr6_magic_spruchzauberei = String(
-    parseNumber(updates.sr6_magic_magie) + parseNumber(updates.sr6_magic_zauberpool)
+    parseNumber(updates.sr6_magic_magie) +
+      parseNumber(updates.sr6_magic_zauberpool) +
+      parseNumber(values.sr6_magic_spruchzauberei_modifikator)
   );
   updates.sr6_magic_waffenloser_kampf = String((skillTotals.astral || 0) + (totals.willenskraft || 0));
   updates.sr6_magic_waffenfoki = String((skillTotals.nahkampf || 0) + (totals.willenskraft || 0));
-  updates.sr6_magic_astrale_verteidigung = String((totals.logik || 0) + (totals.intuition || 0));
-  updates.sr6_magic_astraler_schadenswiderstand = String(totals.willenskraft || 0);
-  updates.sr6_magic_astrale_initiative = String((totals.logik || 0) + (totals.intuition || 0));
+  updates.sr6_magic_astrale_verteidigung = String(
+    (totals.logik || 0) +
+      (totals.intuition || 0) +
+      parseNumber(values.sr6_magic_astrale_verteidigung_modifikator)
+  );
+  updates.sr6_magic_astraler_schadenswiderstand = String(
+    (totals.willenskraft || 0) + parseNumber(values.sr6_magic_astraler_schadenswiderstand_modifikator)
+  );
+  updates.sr6_magic_astrale_initiative = String(
+    (totals.logik || 0) +
+      (totals.intuition || 0) +
+      parseNumber(values.sr6_magic_astrale_initiative_modifikator)
+  );
 
   const traditionKey1 = mapTraditionsattributToKey(values.sr6_magic_traditionsattribut_1);
   const traditionKey2 = mapTraditionsattributToKey(values.sr6_magic_traditionsattribut_2);
-  const traditionValue1 = traditionKey1 ? (totals[traditionKey1] || 0) : 0;
-  const traditionValue2 = traditionKey2 ? (totals[traditionKey2] || 0) : 0;
+  const traditionValue1 =
+    (traditionKey1 ? (totals[traditionKey1] || 0) : 0) +
+    parseNumber(values.sr6_magic_traditionsattribut_1_modifikator);
+  const traditionValue2 =
+    (traditionKey2 ? (totals[traditionKey2] || 0) : 0) +
+    parseNumber(values.sr6_magic_traditionsattribut_2_modifikator);
 
-  updates.sr6_magic_entzug_widerstand = String(traditionValue1 + traditionValue2);
-  updates.sr6_magic_astralkampf_angriffswert = String((totals.magie_resonanz || 0) + traditionValue1);
-  updates.sr6_magic_astralkampf_verteidigungswert = String(totals.intuition || 0);
+  updates.sr6_magic_entzug_widerstand = String(
+    traditionValue1 + traditionValue2 + parseNumber(values.sr6_magic_entzug_widerstand_modifikator)
+  );
+  updates.sr6_magic_astralkampf_angriffswert = String(
+    (totals.magie_resonanz || 0) +
+      traditionValue1 +
+      parseNumber(values.sr6_magic_astralkampf_angriffswert_modifikator)
+  );
+  updates.sr6_magic_astralkampf_verteidigungswert = String(
+    (totals.intuition || 0) + parseNumber(values.sr6_magic_astralkampf_verteidigungswert_modifikator)
+  );
 }
 // END MODULE: workers/compute/magic
 
@@ -10797,6 +10251,17 @@ function buildRecalcEvents() {
 
   events.push("change:sr6_magic_traditionsattribut_1");
   events.push("change:sr6_magic_traditionsattribut_2");
+  events.push("change:sr6_magic_traditionsattribut_1_modifikator");
+  events.push("change:sr6_magic_traditionsattribut_2_modifikator");
+  events.push("change:sr6_magic_magie_modifikator");
+  events.push("change:sr6_magic_zauberpool_modifikator");
+  events.push("change:sr6_magic_spruchzauberei_modifikator");
+  events.push("change:sr6_magic_entzug_widerstand_modifikator");
+  events.push("change:sr6_magic_astrale_initiative_modifikator");
+  events.push("change:sr6_magic_astrale_verteidigung_modifikator");
+  events.push("change:sr6_magic_astraler_schadenswiderstand_modifikator");
+  events.push("change:sr6_magic_astralkampf_angriffswert_modifikator");
+  events.push("change:sr6_magic_astralkampf_verteidigungswert_modifikator");
   events.push("change:sr6_matrix_modus");
   events.push("change:sr6_matrix_datenverarbeitung");
   events.push("change:sr6_rigging_modus");
@@ -10954,7 +10419,7 @@ registerWorkerEvents();
   "section.schadenswiderstand": "Schadenswiderstand",
   "section.test_roll_popup": "Test Roll Popup",
   "tab.allgemein": "Allgemein",
-  "tab.fertigkeiten": "Fertigkeiten",
+  "tab.fertigkeiten": "Attribute & Fertigkeiten",
   "tab.kampf": "Kampf",
   "tab.magie": "Magie",
   "tab.matrix": "Matrix",

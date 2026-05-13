@@ -60,6 +60,17 @@ function buildRecalcEvents() {
 
   events.push("change:sr6_magic_traditionsattribut_1");
   events.push("change:sr6_magic_traditionsattribut_2");
+  events.push("change:sr6_magic_traditionsattribut_1_modifikator");
+  events.push("change:sr6_magic_traditionsattribut_2_modifikator");
+  events.push("change:sr6_magic_magie_modifikator");
+  events.push("change:sr6_magic_zauberpool_modifikator");
+  events.push("change:sr6_magic_spruchzauberei_modifikator");
+  events.push("change:sr6_magic_entzug_widerstand_modifikator");
+  events.push("change:sr6_magic_astrale_initiative_modifikator");
+  events.push("change:sr6_magic_astrale_verteidigung_modifikator");
+  events.push("change:sr6_magic_astraler_schadenswiderstand_modifikator");
+  events.push("change:sr6_magic_astralkampf_angriffswert_modifikator");
+  events.push("change:sr6_magic_astralkampf_verteidigungswert_modifikator");
   events.push("change:sr6_matrix_modus");
   events.push("change:sr6_matrix_datenverarbeitung");
   events.push("change:sr6_rigging_modus");
