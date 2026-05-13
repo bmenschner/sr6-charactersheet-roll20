@@ -1306,11 +1306,11 @@ function fieldMatchesPopupVisibility(field, templateFields) {
   return `${(templateFields && templateFields[field.visibleWhenField]) || ""}`.trim() === `${field.visibleWhenValue || ""}`.trim();
 }
 
-function buildPopupFormPayload(definition, templateFields = {}) {
-  const popupFields = getRollPopupFields(definition);
+function buildPopupResetPayload() {
   const payload = {};
 
   for (let slot = 1; slot <= SR6_POPUP_FIELD_SLOT_COUNT; slot += 1) {
+    payload[`sr6_roll_popup_slot_${slot}_active`] = "0";
     payload[`sr6_roll_popup_slot_${slot}_visible`] = "0";
     payload[`sr6_roll_popup_slot_${slot}_label`] = "";
     payload[`sr6_roll_popup_slot_${slot}_is_number`] = "0";
@@ -1327,11 +1327,19 @@ function buildPopupFormPayload(definition, templateFields = {}) {
     });
   }
 
+  return payload;
+}
+
+function buildPopupFormPayload(definition, templateFields = {}) {
+  const popupFields = getRollPopupFields(definition);
+  const payload = buildPopupResetPayload();
+
   popupFields.forEach((field, index) => {
     const slot = field.slot || (index + 1);
     if (slot > SR6_POPUP_FIELD_SLOT_COUNT) return;
     if (!fieldMatchesPopupVisibility(field, templateFields)) return;
 
+    payload[`sr6_roll_popup_slot_${slot}_active`] = "1";
     payload[`sr6_roll_popup_slot_${slot}_visible`] = "1";
     payload[`sr6_roll_popup_slot_${slot}_label`] = field.label || "";
     const fieldType = field.type === "select"

@@ -3138,6 +3138,7 @@ body:has(.sr6-tabs-toggle-input:checked) #tab-content.tab-content,
   align-items: center;
 }
 
+
 .sr6-roll-popup-slot-toggle--1:checked ~ .sr6-roll-popup-slot-kind-toggle--1-number:checked ~ .sr6-roll-popup-overlay .sr6-roll-popup-field--1,
 .sr6-roll-popup-slot-toggle--2:checked ~ .sr6-roll-popup-slot-kind-toggle--2-number:checked ~ .sr6-roll-popup-overlay .sr6-roll-popup-field--2,
 .sr6-roll-popup-slot-toggle--3:checked ~ .sr6-roll-popup-slot-kind-toggle--3-number:checked ~ .sr6-roll-popup-overlay .sr6-roll-popup-field--3,
@@ -3170,6 +3171,29 @@ body:has(.sr6-tabs-toggle-input:checked) #tab-content.tab-content,
 .sr6-roll-popup-slot-toggle--6:checked ~ .sr6-roll-popup-slot-kind-toggle--6-checkbox:checked ~ .sr6-roll-popup-overlay .sr6-roll-popup-field--6,
 .sr6-roll-popup-slot-toggle--7:checked ~ .sr6-roll-popup-slot-kind-toggle--7-checkbox:checked ~ .sr6-roll-popup-overlay .sr6-roll-popup-field--7,
 .sr6-roll-popup-slot-toggle--8:checked ~ .sr6-roll-popup-slot-kind-toggle--8-checkbox:checked ~ .sr6-roll-popup-overlay .sr6-roll-popup-field--8 {
+  display: grid;
+}
+
+/* Eigener Aktiv-State verhindert, dass alte Typ-Toggles leere Slots sichtbar halten. */
+.sr6-roll-popup-slot-active-toggle--1:not(:checked) ~ .sr6-roll-popup-overlay .sr6-roll-popup-field--1,
+.sr6-roll-popup-slot-active-toggle--2:not(:checked) ~ .sr6-roll-popup-overlay .sr6-roll-popup-field--2,
+.sr6-roll-popup-slot-active-toggle--3:not(:checked) ~ .sr6-roll-popup-overlay .sr6-roll-popup-field--3,
+.sr6-roll-popup-slot-active-toggle--4:not(:checked) ~ .sr6-roll-popup-overlay .sr6-roll-popup-field--4,
+.sr6-roll-popup-slot-active-toggle--5:not(:checked) ~ .sr6-roll-popup-overlay .sr6-roll-popup-field--5,
+.sr6-roll-popup-slot-active-toggle--6:not(:checked) ~ .sr6-roll-popup-overlay .sr6-roll-popup-field--6,
+.sr6-roll-popup-slot-active-toggle--7:not(:checked) ~ .sr6-roll-popup-overlay .sr6-roll-popup-field--7,
+.sr6-roll-popup-slot-active-toggle--8:not(:checked) ~ .sr6-roll-popup-overlay .sr6-roll-popup-field--8 {
+  display: none !important;
+}
+
+.sr6-roll-popup-slot-active-toggle--1:checked ~ .sr6-roll-popup-overlay .sr6-roll-popup-field--1,
+.sr6-roll-popup-slot-active-toggle--2:checked ~ .sr6-roll-popup-overlay .sr6-roll-popup-field--2,
+.sr6-roll-popup-slot-active-toggle--3:checked ~ .sr6-roll-popup-overlay .sr6-roll-popup-field--3,
+.sr6-roll-popup-slot-active-toggle--4:checked ~ .sr6-roll-popup-overlay .sr6-roll-popup-field--4,
+.sr6-roll-popup-slot-active-toggle--5:checked ~ .sr6-roll-popup-overlay .sr6-roll-popup-field--5,
+.sr6-roll-popup-slot-active-toggle--6:checked ~ .sr6-roll-popup-overlay .sr6-roll-popup-field--6,
+.sr6-roll-popup-slot-active-toggle--7:checked ~ .sr6-roll-popup-overlay .sr6-roll-popup-field--7,
+.sr6-roll-popup-slot-active-toggle--8:checked ~ .sr6-roll-popup-overlay .sr6-roll-popup-field--8 {
   display: grid;
 }
 

@@ -15,11 +15,16 @@ function runSuccessProbeRoll(eventInfo) {
       getAttrs(popupRequestedAttributes, (popupValues) => {
         const popupFormPayload = buildPopupPrefillPayload(definition, poolAttribute, repeatingRowPrefix, popupValues, parsedFields);
         setAttrsSilent({
-          ...popupFormPayload,
-          sr6_roll_popup_definition: definition.id,
-          sr6_roll_popup_template: rawTemplate,
-          sr6_roll_popup_row_prefix: repeatingRowPrefix || "",
-          sr6_roll_popup_open: "1",
+          ...buildPopupResetPayload(),
+          sr6_roll_popup_open: "0",
+        }, () => {
+          setAttrsSilent({
+            ...popupFormPayload,
+            sr6_roll_popup_definition: definition.id,
+            sr6_roll_popup_template: rawTemplate,
+            sr6_roll_popup_row_prefix: repeatingRowPrefix || "",
+            sr6_roll_popup_open: "1",
+          });
         });
       });
       return;
