@@ -30,7 +30,7 @@
     </div>
 
     <!-- BEGIN BLOCK: Zeile 2 -->
-    <div class="sr6-charactersheet-row sr6-charactersheet-row-4">
+    <div class="sr6-charactersheet-row sr6-charactersheet-row-5">
       <div class="sr6-charactersheet-field">
         <span data-i18n="field.fernkampfangriff">Fernkampfangriff</span>
         <div class="sr6-charactersheet-field-input-with-dice">
@@ -39,6 +39,17 @@
             class="sr6-charactersheet-field-dice-button"
             name="act_probe"
             value="&{template:default} {{name=Kampf: Kernwerte}} {{Wert=Fernkampfangriff}} {{Pool=[[@{sr6_combat_fernkampfangriff_gesamtwert}]]}} {{Erfolge=[[@{sr6_combat_fernkampfangriff_gesamtwert}d6>5]]}}"
+            aria-label="Wuerfeln"></button>
+          </div>
+      </div>
+      <div class="sr6-charactersheet-field">
+        <span data-i18n="field.projektilwaffen">Projektilwaffen</span>
+        <div class="sr6-charactersheet-field-input-with-dice">
+          <div class="sr6-number-stepper"><button type="action" class="sr6-number-stepper-button sr6-number-stepper-button--minus" name="act_sr6_number_step" value="sr6_combat_projektilwaffen_gesamtwert::-1" aria-label="Verringern">-</button><input type="number" name="attr_sr6_combat_projektilwaffen_gesamtwert" readonly /><button type="action" class="sr6-number-stepper-button sr6-number-stepper-button--plus" name="act_sr6_number_step" value="sr6_combat_projektilwaffen_gesamtwert::1" aria-label="Erhoehen">+</button></div><button
+            type="action"
+            class="sr6-charactersheet-field-dice-button"
+            name="act_probe"
+            value="&{template:default} {{name=Kampf: Kernwerte}} {{Wert=Projektilwaffen}} {{Pool=[[@{sr6_combat_projektilwaffen_gesamtwert}]]}} {{Erfolge=[[@{sr6_combat_projektilwaffen_gesamtwert}d6>5]]}}"
             aria-label="Wuerfeln"></button>
         </div>
       </div>

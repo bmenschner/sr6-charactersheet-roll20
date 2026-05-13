@@ -50,6 +50,8 @@ function buildRecalcEvents() {
   events.push("change:sr6_combat_helm");
   events.push("change:sr6_combat_schild");
   events.push("change:sr6_combat_fernkampfangriff_modifikator");
+  events.push("change:sr6_combat_projektilwaffen_modifikator");
+  events.push("change:sr6_combat_fernkampf_fertigkeit");
   events.push("change:sr6_combat_nahkampfangriff_modifikator");
   events.push("change:sr6_verteidigung_physisch_modifikator");
   events.push("change:sr6_schadenswiderstand_physisch_modifikator");
@@ -125,6 +127,7 @@ function registerWorkerEvents() {
     [
       "change:repeating_sr6fernkampfwaffen:sr6_fernkampf_ist_primaer",
       "change:repeating_sr6fernkampfwaffen:sr6_fernkampfwaffe",
+      "change:repeating_sr6fernkampfwaffen:sr6_fernkampf_fertigkeit",
       "change:repeating_sr6fernkampfwaffen:sr6_fernkampf_schaden",
       "change:repeating_sr6fernkampfwaffen:sr6_fernkampf_munition",
       "change:repeating_sr6fernkampfwaffen:sr6_fernkampf_modus",
