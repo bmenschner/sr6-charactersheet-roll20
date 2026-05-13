@@ -96,22 +96,6 @@ body,
   font-size: 0.68rem;
   color: var(--sr6-text);
   letter-spacing: 0.01rem;
-  text-align: center;
-}
-
-.sr6-charactersheet-field:has(.sr6-number-stepper),
-.sr6-charactersheet-field:has(.sr6-charactersheet-field-input-with-dice) {
-  align-items: center;
-}
-
-.sr6-charactersheet-field:has(.sr6-number-stepper) > span,
-.sr6-charactersheet-field:has(.sr6-charactersheet-field-input-with-dice) > span {
-  text-align: center;
-}
-
-.sr6-charactersheet-field:has(.sr6-number-stepper) > .sr6-number-stepper,
-.sr6-charactersheet-field:has(.sr6-charactersheet-field-input-with-dice) > .sr6-charactersheet-field-input-with-dice {
-  margin-inline: auto;
 }
 
 .sr6-charactersheet-field input {
@@ -2047,7 +2031,7 @@ fieldset.repeating_sr6riggingmanoever .repcontrol {
 
 .sr6-charactersheet-tab-allgemein-grid {
   display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
+  grid-template-columns: repeat(1, minmax(0, 1fr));
   gap: 0.75rem;
 }
 

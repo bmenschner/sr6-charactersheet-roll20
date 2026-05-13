@@ -1,4 +1,16 @@
 // BEGIN MODULE: workers/rolls/number-stepper
+const SR6_NUMBER_STEPPER_COMPUTED_TARGETS = [
+  "sr6_magic_magie",
+  "sr6_magic_zauberpool",
+  "sr6_magic_spruchzauberei",
+  "sr6_magic_entzug_widerstand",
+  "sr6_magic_astrale_initiative",
+  "sr6_magic_astrale_verteidigung",
+  "sr6_magic_astraler_schadenswiderstand",
+  "sr6_magic_astralkampf_angriffswert",
+  "sr6_magic_astralkampf_verteidigungswert",
+];
+
 function resolveRepeatingRowPrefixForStepper(eventInfo, callback) {
   const fallbackPrefix = extractRepeatingRowPrefix(eventInfo);
   const sourceAttribute = (eventInfo && eventInfo.sourceAttribute) || "";
@@ -74,6 +86,13 @@ function resolveRepeatingRowPrefixForStepper(eventInfo, callback) {
   callback(fallbackPrefix);
 }
 
+function resolveNumberStepperTargetAttr(targetAttr, repeatingRowPrefix) {
+  if (repeatingRowPrefix) return targetAttr;
+  if (targetAttr.endsWith("_gesamtwert")) return targetAttr.replace(/_gesamtwert$/, "_modifikator");
+  if (SR6_NUMBER_STEPPER_COMPUTED_TARGETS.includes(targetAttr)) return `${targetAttr}_modifikator`;
+  return targetAttr;
+}
+
 function runNumberStepperAdjust(eventInfo) {
   const rawValue =
     (eventInfo && eventInfo.htmlAttributes && eventInfo.htmlAttributes.value) ||
@@ -90,11 +109,16 @@ function runNumberStepperAdjust(eventInfo) {
   if (!targetAttr || delta === 0) return;
 
   resolveRepeatingRowPrefixForStepper(eventInfo, (repeatingRowPrefix) => {
-    const scopedTargetAttr = repeatingRowPrefix ? `${repeatingRowPrefix}_${targetAttr}` : targetAttr;
+    const effectiveTargetAttr = resolveNumberStepperTargetAttr(targetAttr, repeatingRowPrefix);
+    const scopedTargetAttr = repeatingRowPrefix ? `${repeatingRowPrefix}_${effectiveTargetAttr}` : effectiveTargetAttr;
     getAttrs([scopedTargetAttr], (values) => {
       const currentValue = parseNumber(values[scopedTargetAttr]);
       setAttrsSilent({
         [scopedTargetAttr]: String(currentValue + delta),
+      }, () => {
+        if (!repeatingRowPrefix && typeof recomputeAll === "function") {
+          recomputeAll();
+        }
       });
     });
   });
