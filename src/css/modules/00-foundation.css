@@ -234,8 +234,7 @@ body,
 }
 
 .sr6-charactersheet-initiative-input {
-  display: grid;
-  grid-template-columns: minmax(0, 1fr) auto auto minmax(0, 4.75rem);
+  display: flex;
   gap: 0.375rem;
   align-items: end;
 }
@@ -423,6 +422,12 @@ body,
   width: max-content;
   max-width: 100%;
   align-items: center;
+}
+
+.sr6-charactersheet-field-input-with-dice--compact {
+  grid-template-columns: max-content 1.75rem;
+  width: max-content;
+  max-width: 100%;
 }
 
 .sr6-number-stepper {
