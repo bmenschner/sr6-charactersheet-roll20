@@ -38,10 +38,26 @@ function getCombatMeleeAttributeTotal(totals, values) {
   return (totals && totals.geschicklichkeit) || 0;
 }
 
+function getCombatRangedSkillTotal(skillTotals, values) {
+  const selectedSkill = `${(values && values.sr6_combat_fernkampf_fertigkeit) || "Feuerwaffen"}`.trim();
+  if (selectedSkill === "Projektilwaffen") {
+    return (skillTotals && skillTotals.athletik) || 0;
+  }
+  if (selectedSkill === "Exotische Waffen") {
+    return (skillTotals && skillTotals.exotische_waffen) || 0;
+  }
+  return (skillTotals && skillTotals.feuerwaffen) || 0;
+}
+
 const SR6_COMBAT_CALCULATED_FIELDS = [
   {
     key: "sr6_combat_fernkampfangriff",
-    base: (totals, skillTotals) => (skillTotals.feuerwaffen || 0) + (totals.geschicklichkeit || 0),
+    base: (totals, skillTotals, values) =>
+      getCombatRangedSkillTotal(skillTotals, values) + (totals.geschicklichkeit || 0),
+  },
+  {
+    key: "sr6_combat_projektilwaffen",
+    base: (totals, skillTotals) => (skillTotals.athletik || 0) + (totals.geschicklichkeit || 0),
   },
   {
     key: "sr6_combat_nahkampfangriff",
@@ -156,6 +172,7 @@ function appendCombatRequestKeys(requestKeys) {
   SR6_COMBAT_CALCULATED_FIELDS.forEach((field) => {
     requestKeys.push(`${field.key}_modifikator`);
   });
+  requestKeys.push("sr6_combat_fernkampf_fertigkeit");
   requestKeys.push("sr6_combat_nahkampf_fertigkeit");
   requestKeys.push("sr6_combat_nahkampf_attribut");
   SR6_COMBAT_ARMOR_SELECTION_FIELDS.forEach((field) => {
