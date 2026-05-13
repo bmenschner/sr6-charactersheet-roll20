@@ -1378,28 +1378,26 @@ fieldset.repeating_sr6riggingmanoever .repcontrol {
   line-height: var(--sr6-list-single-line-height);
 }
 
-/* Fertigkeiten: komplette Zeile neu aufbauen (Name + 3 Werte in einer horizontalen Ebene) */
+/* Attribute/Fertigkeiten: komplette Zeile neu aufbauen (Name + 3 Werte in einer horizontalen Ebene) */
+.sr6-charactersheet-box-attribute.sr6-editable-overview-section:has(.sr6-editable-section-mode:not(:checked)) .sr6-charactersheet-field.sr6-charactersheet-attr-field,
 .sr6-charactersheet-box-fertigkeiten-allgemein.sr6-editable-overview-section:has(.sr6-editable-section-mode:not(:checked)) .sr6-charactersheet-field.sr6-charactersheet-attr-field {
-  grid-template-columns: minmax(6rem, 1.5fr) minmax(0, 1fr) minmax(0, 1fr) minmax(0, 2fr);
+  grid-template-columns: minmax(7.5rem, 1.4fr) minmax(5.5rem, 0.8fr) minmax(6.5rem, 0.9fr) minmax(7.5rem, 1.1fr);
+  column-gap: 0.625rem;
   align-items: center;
 }
 
+.sr6-charactersheet-box-attribute.sr6-editable-overview-section:has(.sr6-editable-section-mode:not(:checked)) .sr6-charactersheet-attr-values,
 .sr6-charactersheet-box-fertigkeiten-allgemein.sr6-editable-overview-section:has(.sr6-editable-section-mode:not(:checked)) .sr6-charactersheet-attr-values {
   display: contents;
 }
 
-.sr6-charactersheet-box-attribute.sr6-editable-overview-section:has(.sr6-editable-section-mode:not(:checked)) .sr6-charactersheet-attr-values {
-  display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: 0.5rem;
-  align-items: center;
-}
-
+.sr6-charactersheet-box-attribute.sr6-editable-overview-section:has(.sr6-editable-section-mode:not(:checked)) .sr6-charactersheet-attr-value,
 .sr6-charactersheet-box-fertigkeiten-allgemein.sr6-editable-overview-section:has(.sr6-editable-section-mode:not(:checked)) .sr6-charactersheet-attr-value {
-  display: flex;
-  flex-direction: row;
+  display: grid;
+  grid-template-columns: max-content max-content;
   align-items: center;
-  gap: 0.25rem;
+  column-gap: 0.375rem;
+  justify-content: start;
   min-width: 0;
   height: var(--sr6-list-single-line-height);
 }
@@ -1419,16 +1417,23 @@ fieldset.repeating_sr6riggingmanoever .repcontrol {
   align-items: center;
 }
 
+.sr6-charactersheet-box-attribute.sr6-editable-overview-section:has(.sr6-editable-section-mode:not(:checked)) .sr6-charactersheet-field-dice-button,
 .sr6-charactersheet-box-fertigkeiten-allgemein.sr6-editable-overview-section:has(.sr6-editable-section-mode:not(:checked)) .sr6-charactersheet-field-dice-button {
   display: none;
 }
 
+.sr6-charactersheet-box-attribute.sr6-editable-overview-section:has(.sr6-editable-section-mode:not(:checked)) .sr6-charactersheet-attr-value:last-child .sr6-charactersheet-field-input-with-dice,
 .sr6-charactersheet-box-fertigkeiten-allgemein.sr6-editable-overview-section:has(.sr6-editable-section-mode:not(:checked)) .sr6-charactersheet-attr-value:last-child .sr6-charactersheet-field-input-with-dice {
-  grid-template-columns: minmax(0, 1fr) 1.75rem;
+  grid-template-columns: 2rem 1.75rem;
 }
 
+.sr6-charactersheet-box-attribute.sr6-editable-overview-section:has(.sr6-editable-section-mode:not(:checked)) .sr6-charactersheet-attr-value:last-child .sr6-charactersheet-field-dice-button,
 .sr6-charactersheet-box-fertigkeiten-allgemein.sr6-editable-overview-section:has(.sr6-editable-section-mode:not(:checked)) .sr6-charactersheet-attr-value:last-child .sr6-charactersheet-field-dice-button {
   display: flex;
+}
+
+.sr6-charactersheet-box-attribute.sr6-editable-overview-section:has(.sr6-editable-section-mode:not(:checked)) .sr6-charactersheet-attr-value:last-child .sr6-charactersheet-field-input-with-2dice {
+  grid-template-columns: 2rem 1.75rem 1.75rem;
 }
 
 .sr6-charactersheet-box-attribute.sr6-editable-overview-section:has(.sr6-editable-section-mode:not(:checked)) .sr6-charactersheet-attr-value > input,
@@ -1442,6 +1447,18 @@ fieldset.repeating_sr6riggingmanoever .repcontrol {
   font-size: 1rem;
   font-weight: 400;
   padding: 0 0.25rem;
+}
+
+.sr6-charactersheet-box-attribute.sr6-editable-overview-section:has(.sr6-editable-section-mode:not(:checked)) .sr6-number-stepper,
+.sr6-charactersheet-box-fertigkeiten-allgemein.sr6-editable-overview-section:has(.sr6-editable-section-mode:not(:checked)) .sr6-number-stepper {
+  width: 2rem;
+}
+
+.sr6-charactersheet-box-attribute.sr6-editable-overview-section:has(.sr6-editable-section-mode:not(:checked)) .sr6-number-stepper > input,
+.sr6-charactersheet-box-fertigkeiten-allgemein.sr6-editable-overview-section:has(.sr6-editable-section-mode:not(:checked)) .sr6-number-stepper > input {
+  width: 2rem;
+  padding: 0;
+  text-align: center;
 }
 /* END MODULE: src/css/modules/30-list-overview.css */
 
