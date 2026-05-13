@@ -10,6 +10,7 @@ const SR6_NUMBER_STEPPER_COMPUTED_TARGETS = [
   "sr6_magic_astraler_schadenswiderstand",
   "sr6_magic_astralkampf_angriffswert",
   "sr6_magic_astralkampf_verteidigungswert",
+  "sr6_derived_initiative_basis",
 ];
 
 function resolveRepeatingRowPrefixForStepper(eventInfo, callback) {

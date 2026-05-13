@@ -2491,6 +2491,7 @@ const SR6_NUMBER_STEPPER_COMPUTED_TARGETS = [
   "sr6_magic_astraler_schadenswiderstand",
   "sr6_magic_astralkampf_angriffswert",
   "sr6_magic_astralkampf_verteidigungswert",
+  "sr6_derived_initiative_basis",
 ];
 
 function resolveRepeatingRowPrefixForStepper(eventInfo, callback) {
@@ -3007,6 +3008,7 @@ const SR6_COMBAT_PRIMARY_WEAPON_SELECTIONS = [
 ];
 
 function appendCombatRequestKeys(requestKeys) {
+  requestKeys.push("sr6_derived_initiative_basis_modifikator");
   SR6_COMBAT_CALCULATED_FIELDS.forEach((field) => {
     requestKeys.push(`${field.key}_modifikator`);
   });
@@ -3022,8 +3024,9 @@ function computeCombatDerivedFromAttributes(totals, values, updates, skillTotals
   const reaktion = totals.reaktion || 0;
   const intuition = totals.intuition || 0;
   const resolvedSkillTotals = skillTotals || {};
+  const physicalInitiativeModifier = parseNumber(values.sr6_derived_initiative_basis_modifikator);
 
-  updates.sr6_derived_initiative_basis = String(reaktion + intuition);
+  updates.sr6_derived_initiative_basis = String(reaktion + intuition + physicalInitiativeModifier);
 
   SR6_COMBAT_CALCULATED_FIELDS.forEach((field) => {
     const baseValue = field.base(totals, resolvedSkillTotals, values);
@@ -3526,6 +3529,7 @@ function buildRecalcEvents() {
   events.push("change:sr6_combat_nahkampfangriff");
   events.push("change:sr6_verteidigung_physisch_gesamtwert");
   events.push("change:sr6_schadenswiderstand_physisch_gesamtwert");
+  events.push("change:sr6_derived_initiative_basis_modifikator");
 
   events.push("change:sr6_magic_traditionsattribut_1");
   events.push("change:sr6_magic_traditionsattribut_2");

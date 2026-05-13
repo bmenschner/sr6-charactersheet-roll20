@@ -59,6 +59,7 @@ function buildRecalcEvents() {
   events.push("change:sr6_combat_nahkampfangriff");
   events.push("change:sr6_verteidigung_physisch_gesamtwert");
   events.push("change:sr6_schadenswiderstand_physisch_gesamtwert");
+  events.push("change:sr6_derived_initiative_basis_modifikator");
 
   events.push("change:sr6_magic_traditionsattribut_1");
   events.push("change:sr6_magic_traditionsattribut_2");

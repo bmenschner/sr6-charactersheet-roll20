@@ -169,6 +169,7 @@ const SR6_COMBAT_PRIMARY_WEAPON_SELECTIONS = [
 ];
 
 function appendCombatRequestKeys(requestKeys) {
+  requestKeys.push("sr6_derived_initiative_basis_modifikator");
   SR6_COMBAT_CALCULATED_FIELDS.forEach((field) => {
     requestKeys.push(`${field.key}_modifikator`);
   });
@@ -184,8 +185,9 @@ function computeCombatDerivedFromAttributes(totals, values, updates, skillTotals
   const reaktion = totals.reaktion || 0;
   const intuition = totals.intuition || 0;
   const resolvedSkillTotals = skillTotals || {};
+  const physicalInitiativeModifier = parseNumber(values.sr6_derived_initiative_basis_modifikator);
 
-  updates.sr6_derived_initiative_basis = String(reaktion + intuition);
+  updates.sr6_derived_initiative_basis = String(reaktion + intuition + physicalInitiativeModifier);
 
   SR6_COMBAT_CALCULATED_FIELDS.forEach((field) => {
     const baseValue = field.base(totals, resolvedSkillTotals, values);
