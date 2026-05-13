@@ -196,6 +196,17 @@ function createAttributeProbePopupFields() {
       defaultValue: "0",
       includeInTemplate: true,
     },
+    {
+      id: "attribute_x2",
+      slot: 2,
+      label: "Attribut x2",
+      type: "checkbox",
+      affects: "pool_multiplier",
+      checkedValue: 2,
+      checkedDisplayValue: "x2",
+      defaultValue: "0",
+      includeInTemplate: true,
+    },
   ];
 }
 
@@ -1169,6 +1180,7 @@ function buildPopupStateFromValues(values, definition) {
   let attackValueMod = 0;
   let damageMod = 0;
   let drainMod = 0;
+  let poolMultiplier = 1;
 
   popupFields.forEach((field, index) => {
     const rawValue = values[getPopupFieldValueAttr(field, index)];
@@ -1238,6 +1250,16 @@ function buildPopupStateFromValues(values, definition) {
           ? numericBaseValue * (parseNumber(affectMultipliers.drain) || 1)
           : parseNumber(selectedOption && selectedOption.drainMod);
     }
+    if (affects.includes("pool_multiplier")) {
+      const multiplierValue = isCheckboxField && checkboxChecked
+        ? parseNumber(field.checkedValue)
+        : isNumberField
+          ? parseNumber(normalizedValue)
+          : 1;
+      if (multiplierValue > poolMultiplier) {
+        poolMultiplier = multiplierValue;
+      }
+    }
 
     const shouldInclude =
       field.includeInTemplate &&
@@ -1273,6 +1295,7 @@ function buildPopupStateFromValues(values, definition) {
     attackValueMod: attackValueMod,
     damageMod: damageMod,
     drainMod: drainMod,
+    poolMultiplier: poolMultiplier,
     selectedValues: selectedValues,
     rows: popupRows,
   };

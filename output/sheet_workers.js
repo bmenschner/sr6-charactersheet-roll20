@@ -328,6 +328,17 @@ function createAttributeProbePopupFields() {
       defaultValue: "0",
       includeInTemplate: true,
     },
+    {
+      id: "attribute_x2",
+      slot: 2,
+      label: "Attribut x2",
+      type: "checkbox",
+      affects: "pool_multiplier",
+      checkedValue: 2,
+      checkedDisplayValue: "x2",
+      defaultValue: "0",
+      includeInTemplate: true,
+    },
   ];
 }
 
@@ -1301,6 +1312,7 @@ function buildPopupStateFromValues(values, definition) {
   let attackValueMod = 0;
   let damageMod = 0;
   let drainMod = 0;
+  let poolMultiplier = 1;
 
   popupFields.forEach((field, index) => {
     const rawValue = values[getPopupFieldValueAttr(field, index)];
@@ -1370,6 +1382,16 @@ function buildPopupStateFromValues(values, definition) {
           ? numericBaseValue * (parseNumber(affectMultipliers.drain) || 1)
           : parseNumber(selectedOption && selectedOption.drainMod);
     }
+    if (affects.includes("pool_multiplier")) {
+      const multiplierValue = isCheckboxField && checkboxChecked
+        ? parseNumber(field.checkedValue)
+        : isNumberField
+          ? parseNumber(normalizedValue)
+          : 1;
+      if (multiplierValue > poolMultiplier) {
+        poolMultiplier = multiplierValue;
+      }
+    }
 
     const shouldInclude =
       field.includeInTemplate &&
@@ -1405,6 +1427,7 @@ function buildPopupStateFromValues(values, definition) {
     attackValueMod: attackValueMod,
     damageMod: damageMod,
     drainMod: drainMod,
+    poolMultiplier: poolMultiplier,
     selectedValues: selectedValues,
     rows: popupRows,
   };
@@ -2093,11 +2116,11 @@ function buildProbeComputation(lookupAttr, poolAttribute, popupPoolMod, poolMult
 // BEGIN MODULE: workers/rolls/probe
 function normalizePopupState(popupState) {
   if (typeof popupState === "number") {
-    return { poolMod: popupState, attackValueMod: 0, damageMod: 0, drainMod: 0, selectedValues: {}, rows: [] };
+    return { poolMod: popupState, attackValueMod: 0, damageMod: 0, drainMod: 0, poolMultiplier: 1, selectedValues: {}, rows: [] };
   }
 
   if (!popupState || typeof popupState !== "object") {
-    return { poolMod: 0, attackValueMod: 0, damageMod: 0, drainMod: 0, selectedValues: {}, rows: [] };
+    return { poolMod: 0, attackValueMod: 0, damageMod: 0, drainMod: 0, poolMultiplier: 1, selectedValues: {}, rows: [] };
   }
 
   return {
@@ -2105,6 +2128,7 @@ function normalizePopupState(popupState) {
     attackValueMod: parseNumber(popupState.attackValueMod),
     damageMod: parseNumber(popupState.damageMod),
     drainMod: parseNumber(popupState.drainMod),
+    poolMultiplier: Math.max(1, parseNumber(popupState.poolMultiplier) || 1),
     selectedValues: popupState.selectedValues && typeof popupState.selectedValues === "object" ? popupState.selectedValues : {},
     rows: Array.isArray(popupState.rows) ? popupState.rows : [],
   };
@@ -2266,7 +2290,10 @@ function runSuccessProbeFromContext(rawTemplate, repeatingRowPrefix, popupState 
       return;
     }
 
-    const poolMultiplier = getRollPoolMultiplier(context.definition, resolvedFields);
+    const poolMultiplier = Math.max(
+      getRollPoolMultiplier(context.definition, resolvedFields),
+      normalizedPopupState.poolMultiplier
+    );
     const meleeAttributeOverride = resolveMeleePopupAttributePoolOverride(
       context.definition,
       resolvedFields,
