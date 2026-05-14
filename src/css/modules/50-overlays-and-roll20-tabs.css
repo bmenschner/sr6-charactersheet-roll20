@@ -49,7 +49,15 @@
   }
 
   .sr6-charactersheet-skills-overview-grid {
+    grid-auto-flow: row;
     grid-template-columns: minmax(0, 1fr);
+    grid-template-rows: none;
+  }
+
+  #sr6_daten_panel_2 .sr6-charactersheet-box-attribute > .sr6-charactersheet-box-content {
+    grid-auto-flow: row;
+    grid-template-columns: minmax(0, 1fr);
+    grid-template-rows: none;
   }
 }
 

@@ -2059,6 +2059,23 @@ fieldset.repeating_sr6riggingmanoever .repcontrol {
   gap: 0.5rem 1.5rem;
 }
 
+#sr6_daten_panel_2 .sr6-charactersheet-box-attribute > .sr6-charactersheet-box-content {
+  display: grid;
+  grid-auto-flow: column;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  grid-template-rows: repeat(5, auto);
+  gap: 0.5rem 1.5rem;
+}
+
+#sr6_daten_panel_2 .sr6-charactersheet-box-attribute > .sr6-charactersheet-box-content > .sr6-charactersheet-row-2 {
+  display: contents;
+}
+
+#sr6_daten_panel_2 .sr6-charactersheet-box-fertigkeiten-allgemein .sr6-charactersheet-skills-overview-grid {
+  grid-auto-flow: column;
+  grid-template-rows: repeat(10, auto);
+}
+
 .sr6-charactersheet-tab-biographie-personendaten .sr6-charactersheet-row + .sr6-charactersheet-row {
   margin-top: 0.5rem;
 }
@@ -2228,6 +2245,8 @@ fieldset.repeating_sr6riggingmanoever .repcontrol {
 }
 
 .sr6-matrix-handlungen-section:has(.sr6-editable-section-mode:not(:checked)) .sr6-charactersheet-skills-overview-grid {
+  grid-auto-flow: column;
+  grid-template-rows: repeat(23, auto);
   gap: 0.375rem 1.5rem;
 }
 
@@ -2899,7 +2918,15 @@ fieldset.repeating_sr6riggingfahrzeuge {
   }
 
   .sr6-charactersheet-skills-overview-grid {
+    grid-auto-flow: row;
     grid-template-columns: minmax(0, 1fr);
+    grid-template-rows: none;
+  }
+
+  #sr6_daten_panel_2 .sr6-charactersheet-box-attribute > .sr6-charactersheet-box-content {
+    grid-auto-flow: row;
+    grid-template-columns: minmax(0, 1fr);
+    grid-template-rows: none;
   }
 }
 
