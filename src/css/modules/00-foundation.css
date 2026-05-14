@@ -89,7 +89,7 @@ input[type="number"]::-webkit-inner-spin-button {
   color: var(--sr6-title);
   text-transform: uppercase;
   letter-spacing: 0.03rem;
-  text-align: center;
+  text-align: left;
 }
 
 .sr6-charactersheet-box-content {

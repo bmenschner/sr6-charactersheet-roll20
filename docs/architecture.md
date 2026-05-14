@@ -21,9 +21,7 @@
 2. HTML Include-Aufloesung -> `output/charactersheet.html`
 3. CSS-Modulbundle aus `src/css/modules/manifest.json` -> `output/charactersheet.css`
 4. Worker-Bundle aus `src/workers/sheet_workers.js` -> `output/sheet_workers.js`
-5. i18n:
-   - `translation.full.json` (voll)
-   - `translation.json` (flat, Roll20-kompatibel)
+5. i18n aus `src/i18n/translation.json` -> `output/translation.json` (flat, Roll20-kompatibel)
 6. statische Assets -> `output/assets/images`
 
 ## Include-Roots

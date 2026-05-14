@@ -16,7 +16,6 @@
   - `output/charactersheet.css`
   - `output/sheet_workers.js`
   - `output/translation.json` (flaches Roll20-Format)
-  - `output/translation.full.json` (interner Vollstand DE/EN/FR)
   - `output/assets/images/*`
 
 ## Lokale Skripte
