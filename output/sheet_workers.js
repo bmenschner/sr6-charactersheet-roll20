@@ -1025,7 +1025,7 @@ const SR6_ROLL_DEFINITIONS = [
     matchPoolPrefix: "sr6_combat_fernkampf_",
     titleMode: "pool-prefix",
     primaryFields: ["Waffe"],
-    extraFields: ["Schadenswert", "Munition", "Reichweite", "Modus"],
+    extraFields: ["Schadenswert", "Munition", "Reichweite", "Angriffswert", "Modus"],
     templateVariant: "weapon",
     fixedTitle: "Fernkampfangriff",
     popupFields: SR6_COMBAT_TAB_POPUP_FIELDS,
@@ -1046,7 +1046,7 @@ const SR6_ROLL_DEFINITIONS = [
     matchPoolPrefix: "sr6_combat_nahkampf_",
     titleMode: "pool-prefix",
     primaryFields: ["Waffe"],
-    extraFields: ["Fertigkeit", "Attribut", "Schadenswert", "Schadenstyp", "Reichweite"],
+    extraFields: ["Fertigkeit", "Attribut", "Schadenswert", "Schadenstyp", "Reichweite", "Angriffswert"],
     templateVariant: "weapon",
     contextFields: [
       { label: "Fertigkeit", attr: "sr6_combat_nahkampf_fertigkeit" },
@@ -1078,7 +1078,7 @@ const SR6_ROLL_DEFINITIONS = [
     titleMode: "field-short",
     titleField: "Fertigkeit",
     primaryFields: ["Waffe"],
-    extraFields: ["Fertigkeit", "Schadenswert", "Munition", "Reichweite"],
+    extraFields: ["Fertigkeit", "Schadenswert", "Munition", "Reichweite", "Angriffswert"],
     templateVariant: "weapon",
     fixedTitle: "Fernkampfangriff",
     popupFields: SR6_COMBAT_TAB_POPUP_FIELDS,
@@ -1100,7 +1100,7 @@ const SR6_ROLL_DEFINITIONS = [
     titleMode: "field-short",
     titleField: "Fertigkeit",
     primaryFields: ["Waffe"],
-    extraFields: ["Fertigkeit", "Attribut", "Schadenswert", "Schadenstyp", "Reichweite"],
+    extraFields: ["Fertigkeit", "Attribut", "Schadenswert", "Schadenstyp", "Reichweite", "Angriffswert"],
     templateVariant: "weapon",
     contextFields: [
       { label: "Fertigkeit", attr: "sr6_nahkampf_fertigkeit" },
@@ -2842,24 +2842,32 @@ const SR6_COMBAT_ARMOR_SELECTION_FIELDS = [
   },
 ];
 
-function getCombatMeleeSkillTotal(skillTotals, values) {
-  const selectedSkill = `${(values && values.sr6_combat_nahkampf_fertigkeit) || "Nahkampf"}`.trim();
+function getCombatMeleeSkillName(values, fieldName) {
+  return `${(values && values[fieldName || "sr6_combat_nahkampf_fertigkeit"]) || "Nahkampf"}`.trim();
+}
+
+function getCombatMeleeSkillTotal(skillTotals, values, fieldName) {
+  const selectedSkill = getCombatMeleeSkillName(values, fieldName);
   if (selectedSkill === "Exotische Waffen") {
     return (skillTotals && skillTotals.exotische_waffen) || 0;
   }
   return (skillTotals && skillTotals.nahkampf) || 0;
 }
 
-function getCombatMeleeAttributeTotal(totals, values) {
-  const selectedAttribute = `${(values && values.sr6_combat_nahkampf_attribut) || "Geschicklichkeit"}`.trim();
+function getCombatMeleeAttributeTotal(totals, values, fieldName) {
+  const selectedAttribute = `${(values && values[fieldName || "sr6_combat_nahkampf_attribut"]) || "Geschicklichkeit"}`.trim();
   if (selectedAttribute === "Stärke") {
     return (totals && totals.staerke) || 0;
   }
   return (totals && totals.geschicklichkeit) || 0;
 }
 
-function getCombatRangedSkillTotal(skillTotals, values) {
-  const selectedSkill = `${(values && values.sr6_combat_fernkampf_fertigkeit) || "Feuerwaffen"}`.trim();
+function getCombatRangedSkillName(values, fieldName) {
+  return `${(values && values[fieldName || "sr6_combat_fernkampf_fertigkeit"]) || "Feuerwaffen"}`.trim();
+}
+
+function getCombatRangedSkillTotal(skillTotals, values, fieldName) {
+  const selectedSkill = getCombatRangedSkillName(values, fieldName);
   if (selectedSkill === "Projektilwaffen") {
     return (skillTotals && skillTotals.athletik) || 0;
   }
@@ -2869,11 +2877,43 @@ function getCombatRangedSkillTotal(skillTotals, values) {
   return (skillTotals && skillTotals.feuerwaffen) || 0;
 }
 
+function getCombatRangedAttackBase(totals, skillTotals, values, fieldName) {
+  return getCombatRangedSkillTotal(skillTotals, values, fieldName) + ((totals && totals.geschicklichkeit) || 0);
+}
+
+function getCombatRangedAttackPool(totals, skillTotals, values, fieldName, modifier, projektilwaffenTotal) {
+  const selectedSkill = getCombatRangedSkillName(values, fieldName);
+
+  if (selectedSkill === "Projektilwaffen" && typeof projektilwaffenTotal === "number") {
+    return projektilwaffenTotal;
+  }
+
+  if (selectedSkill === "Exotische Waffen") {
+    return getCombatRangedAttackBase(totals, skillTotals, values, fieldName);
+  }
+
+  return getCombatRangedAttackBase(totals, skillTotals, values, fieldName) + (modifier || 0);
+}
+
+function getCombatMeleeAttackBase(totals, skillTotals, values, skillFieldName, attributeFieldName) {
+  return getCombatMeleeSkillTotal(skillTotals, values, skillFieldName) +
+    getCombatMeleeAttributeTotal(totals, values, attributeFieldName);
+}
+
+function getCombatMeleeAttackPool(totals, skillTotals, values, skillFieldName, attributeFieldName, modifier) {
+  const selectedSkill = getCombatMeleeSkillName(values, skillFieldName);
+
+  if (selectedSkill === "Exotische Waffen") {
+    return ((totals && totals.geschicklichkeit) || 0) + ((skillTotals && skillTotals.exotische_waffen) || 0);
+  }
+
+  return getCombatMeleeAttackBase(totals, skillTotals, values, skillFieldName, attributeFieldName) + (modifier || 0);
+}
+
 const SR6_COMBAT_CALCULATED_FIELDS = [
   {
     key: "sr6_combat_fernkampfangriff",
-    base: (totals, skillTotals, values) =>
-      getCombatRangedSkillTotal(skillTotals, values) + (totals.geschicklichkeit || 0),
+    base: (totals, skillTotals, values) => getCombatRangedAttackBase(totals, skillTotals, values),
   },
   {
     key: "sr6_combat_projektilwaffen",
@@ -2881,8 +2921,7 @@ const SR6_COMBAT_CALCULATED_FIELDS = [
   },
   {
     key: "sr6_combat_nahkampfangriff",
-    base: (totals, skillTotals, values) =>
-      getCombatMeleeSkillTotal(skillTotals, values) + getCombatMeleeAttributeTotal(totals, values),
+    base: (totals, skillTotals, values) => getCombatMeleeAttackBase(totals, skillTotals, values),
   },
   {
     key: "sr6_combat_verteidigungswert",
@@ -3160,6 +3199,98 @@ function syncCombatPrimaryWeapons(callback, eventInfo) {
   syncCombatPrimaryWeaponSelection(SR6_COMBAT_PRIMARY_WEAPON_SELECTIONS[0], () => {
     syncCombatPrimaryWeaponSelection(SR6_COMBAT_PRIMARY_WEAPON_SELECTIONS[1], callback, eventInfo);
   }, eventInfo);
+}
+
+function syncCombatWeaponAttackPools(callback) {
+  const baseRequestKeys = [
+    "sr6_attr_geschicklichkeit_gesamtwert",
+    "sr6_attr_staerke_gesamtwert",
+    "sr6_combat_fernkampfangriff_modifikator",
+    "sr6_combat_nahkampfangriff_modifikator",
+    "sr6_combat_projektilwaffen_gesamtwert",
+    "sr6_skill_athletik_gesamtwert",
+    "sr6_skill_exotische_waffen_gesamtwert",
+    "sr6_skill_feuerwaffen_gesamtwert",
+    "sr6_skill_nahkampf_gesamtwert",
+  ];
+
+  getSectionIDs("repeating_sr6fernkampfwaffen", (rangedIds) => {
+    getSectionIDs("repeating_sr6nahkampfwaffen", (meleeIds) => {
+      const requestKeys = [...baseRequestKeys];
+      const rangedRowIds = rangedIds || [];
+      const meleeRowIds = meleeIds || [];
+
+      if (!rangedRowIds.length && !meleeRowIds.length) {
+        if (typeof callback === "function") {
+          callback();
+        }
+        return;
+      }
+
+      rangedRowIds.forEach((rowId) => {
+        requestKeys.push(`repeating_sr6fernkampfwaffen_${rowId}_sr6_fernkampf_fertigkeit`);
+      });
+
+      meleeRowIds.forEach((rowId) => {
+        requestKeys.push(`repeating_sr6nahkampfwaffen_${rowId}_sr6_nahkampf_fertigkeit`);
+        requestKeys.push(`repeating_sr6nahkampfwaffen_${rowId}_sr6_nahkampf_attribut`);
+      });
+
+      getAttrs(requestKeys, (values) => {
+        const totals = {
+          geschicklichkeit: parseNumber(values.sr6_attr_geschicklichkeit_gesamtwert),
+          staerke: parseNumber(values.sr6_attr_staerke_gesamtwert),
+          fernkampfangriffModifikator: parseNumber(values.sr6_combat_fernkampfangriff_modifikator),
+          nahkampfangriffModifikator: parseNumber(values.sr6_combat_nahkampfangriff_modifikator),
+          projektilwaffen: parseNumber(values.sr6_combat_projektilwaffen_gesamtwert),
+        };
+        const skillTotals = {
+          athletik: parseNumber(values.sr6_skill_athletik_gesamtwert),
+          exotische_waffen: parseNumber(values.sr6_skill_exotische_waffen_gesamtwert),
+          feuerwaffen: parseNumber(values.sr6_skill_feuerwaffen_gesamtwert),
+          nahkampf: parseNumber(values.sr6_skill_nahkampf_gesamtwert),
+        };
+        const updates = {};
+
+        rangedRowIds.forEach((rowId) => {
+          const rowPrefix = `repeating_sr6fernkampfwaffen_${rowId}`;
+          const rowValues = {
+            sr6_fernkampf_fertigkeit: values[`${rowPrefix}_sr6_fernkampf_fertigkeit`],
+          };
+          updates[`${rowPrefix}_sr6_fernkampf_angriffspool`] = String(
+            getCombatRangedAttackPool(
+              totals,
+              skillTotals,
+              rowValues,
+              "sr6_fernkampf_fertigkeit",
+              totals.fernkampfangriffModifikator,
+              totals.projektilwaffen
+            )
+          );
+        });
+
+        meleeRowIds.forEach((rowId) => {
+          const rowPrefix = `repeating_sr6nahkampfwaffen_${rowId}`;
+          const rowValues = {
+            sr6_nahkampf_fertigkeit: values[`${rowPrefix}_sr6_nahkampf_fertigkeit`],
+            sr6_nahkampf_attribut: values[`${rowPrefix}_sr6_nahkampf_attribut`],
+          };
+          updates[`${rowPrefix}_sr6_nahkampf_angriffspool`] = String(
+            getCombatMeleeAttackPool(
+              totals,
+              skillTotals,
+              rowValues,
+              "sr6_nahkampf_fertigkeit",
+              "sr6_nahkampf_attribut",
+              totals.nahkampfangriffModifikator
+            )
+          );
+        });
+
+        setAttrsSilent(updates, callback);
+      });
+    });
+  });
 }
 
 // BEGIN MODULE: workers/compute/magic
@@ -3541,7 +3672,9 @@ function buildRecalcEvents() {
 
 function registerWorkerEvents() {
   const recalcEvents = buildRecalcEvents();
-  on(recalcEvents.join(" "), recomputeAll);
+  on(recalcEvents.join(" "), () => {
+    recomputeAll(syncCombatWeaponAttackPools);
+  });
   on(
     [
       "change:repeating_sr6wissensfertigkeiten:sr6_wissensfertigkeit_grundwert",
@@ -3603,7 +3736,9 @@ function registerWorkerEvents() {
       "remove:repeating_sr6nahkampfwaffen",
     ].join(" "),
     (eventInfo) => {
-      syncCombatPrimaryWeapons(recomputeAll, eventInfo);
+      syncCombatPrimaryWeapons(() => {
+        recomputeAll(syncCombatWeaponAttackPools);
+      }, eventInfo);
     }
   );
   registerSuccessProbeRollEvents();
@@ -3617,7 +3752,7 @@ function registerWorkerEvents() {
     syncCombatArmorSelections(() => {
       syncCombatPrimaryWeapons(() => {
         recomputeAll(() => {
-          syncRepeatingSkillTotals();
+          syncCombatWeaponAttackPools(syncRepeatingSkillTotals);
         });
       });
     });

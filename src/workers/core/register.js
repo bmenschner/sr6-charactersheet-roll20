@@ -90,7 +90,9 @@ function buildRecalcEvents() {
 
 function registerWorkerEvents() {
   const recalcEvents = buildRecalcEvents();
-  on(recalcEvents.join(" "), recomputeAll);
+  on(recalcEvents.join(" "), () => {
+    recomputeAll(syncCombatWeaponAttackPools);
+  });
   on(
     [
       "change:repeating_sr6wissensfertigkeiten:sr6_wissensfertigkeit_grundwert",
@@ -152,7 +154,9 @@ function registerWorkerEvents() {
       "remove:repeating_sr6nahkampfwaffen",
     ].join(" "),
     (eventInfo) => {
-      syncCombatPrimaryWeapons(recomputeAll, eventInfo);
+      syncCombatPrimaryWeapons(() => {
+        recomputeAll(syncCombatWeaponAttackPools);
+      }, eventInfo);
     }
   );
   registerSuccessProbeRollEvents();
@@ -166,7 +170,7 @@ function registerWorkerEvents() {
     syncCombatArmorSelections(() => {
       syncCombatPrimaryWeapons(() => {
         recomputeAll(() => {
-          syncRepeatingSkillTotals();
+          syncCombatWeaponAttackPools(syncRepeatingSkillTotals);
         });
       });
     });
