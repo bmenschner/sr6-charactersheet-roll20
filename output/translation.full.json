@@ -284,6 +284,7 @@
   "field.notizen": "Notizen",
   "field.menge": "Menge",
   "field.kosten": "Kosten",
+  "field.notizen_zubehoer_modifikationen": "Notizen, Zubehör, Modifikationen",
   "field.notiz": "Notiz",
   "field.option_auto_berechnung": "Auto-Berechnung",
   "field.option_rolltemplate": "Rolltemplate-Stil",

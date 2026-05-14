@@ -239,6 +239,14 @@ input[type="number"]::-webkit-inner-spin-button {
   border-color: var(--sr6-line);
 }
 
+.sr6-repeater-notes-mod-row {
+  width: 100%;
+}
+
+.sr6-repeater-notes-mod-field {
+  width: 100%;
+}
+
 .sr6-charactersheet-field input[readonly] {
   color: #2a2a2a;
   font-weight: 600;
