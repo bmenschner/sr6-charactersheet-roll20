@@ -158,8 +158,12 @@
 
 .sr6-matrix-geraete-section:has(.sr6-editable-section-mode:not(:checked)) .sr6-generic-list-header--double {
   display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
+  grid-template-columns: minmax(0, 1fr);
   gap: 1.5rem;
+}
+
+.sr6-matrix-geraete-section:has(.sr6-editable-section-mode:not(:checked)) .sr6-generic-list-header--double .sr6-generic-list-header-group:nth-child(2) {
+  display: none;
 }
 
 .sr6-matrix-geraete-section:has(.sr6-editable-section-mode:not(:checked)) .sr6-generic-list-header-group--6 {

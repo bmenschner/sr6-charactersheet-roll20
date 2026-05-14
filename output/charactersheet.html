@@ -3840,7 +3840,7 @@
       <fieldset class="repeating_sr6matrixgeraete">
         <div class="sr6-foundry-item">
           <div class="sr6-editable-item-fields">
-            <div class="sr6-foundry-item-head sr6-charactersheet-row sr6-charactersheet-row-3">
+            <div class="sr6-foundry-item-head sr6-matrix-geraet-main-row">
               <div class="sr6-charactersheet-field">
                 <span data-i18n="field.name">Name</span>
                 <input type="text" name="attr_sr6_matrix_geraet_name" />
@@ -3854,12 +3854,6 @@
                   <option value="Host" data-i18n="field.matrix_geraet_typ_host">Host</option>
                 </select>
               </div>
-              <div class="sr6-charactersheet-field sr6-matrix-geraet-programme-field">
-                <span data-i18n="section.matrix_programme">Programme</span>
-                <input type="text" name="attr_sr6_matrix_geraet_programme" />
-              </div>
-            </div>
-            <div class="sr6-foundry-item-row sr6-charactersheet-row sr6-charactersheet-row-4">
               <div class="sr6-charactersheet-field">
                 <span data-i18n="field.matrix_angriff">Angriff</span>
                 <div class="sr6-number-stepper"><button type="action" class="sr6-number-stepper-button sr6-number-stepper-button--minus" name="act_sr6_number_step" value="sr6_matrix_geraet_angriff::-1" aria-label="Verringern">-</button><input type="number" name="attr_sr6_matrix_geraet_angriff" /><button type="action" class="sr6-number-stepper-button sr6-number-stepper-button--plus" name="act_sr6_number_step" value="sr6_matrix_geraet_angriff::1" aria-label="Erhoehen">+</button></div>
@@ -3875,6 +3869,12 @@
               <div class="sr6-charactersheet-field">
                 <span data-i18n="field.matrix_firewall">Firewall</span>
                 <div class="sr6-number-stepper"><button type="action" class="sr6-number-stepper-button sr6-number-stepper-button--minus" name="act_sr6_number_step" value="sr6_matrix_geraet_firewall::-1" aria-label="Verringern">-</button><input type="number" name="attr_sr6_matrix_geraet_firewall" /><button type="action" class="sr6-number-stepper-button sr6-number-stepper-button--plus" name="act_sr6_number_step" value="sr6_matrix_geraet_firewall::1" aria-label="Erhoehen">+</button></div>
+              </div>
+            </div>
+            <div class="sr6-foundry-item-footer sr6-matrix-geraet-programme-row">
+              <div class="sr6-charactersheet-field sr6-matrix-geraet-programme-field">
+                <span data-i18n="field.programme_zubehoer">Programme/Zubehör</span>
+                <input type="text" name="attr_sr6_matrix_geraet_programme" />
               </div>
             </div>
           </div>
@@ -10471,6 +10471,7 @@ registerWorkerEvents();
   "ui.roll_popup_roll": "Würfeln",
   "field.sichtverhaeltnisse": "Sichtverhältnisse",
   "field.bewegung": "Bewegung",
+  "field.programme_zubehoer": "Programme/Zubehör",
   "field.entzug_modifikator": "Entzug-Modifikator",
   "field.overwatch_modifikator": "Overwatch-Modifikator",
   "field.popup_sicht_klar": "Klare Sicht",

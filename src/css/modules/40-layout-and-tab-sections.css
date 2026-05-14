@@ -204,6 +204,76 @@
   grid-column: 1 / -1;
 }
 
+fieldset.repeating_sr6ausruestung,
+fieldset.repeating_sr6matrixgeraete,
+.charsheet .repcontainer[data-groupname="repeating_sr6ausruestung"],
+.charsheet .repcontainer[data-groupname="repeating_sr6matrixgeraete"] {
+  grid-template-columns: minmax(0, 1fr);
+}
+
+.charsheet .repcontainer[data-groupname="repeating_sr6ausruestung"] > .repitem,
+.charsheet .repcontainer[data-groupname="repeating_sr6matrixgeraete"] > .repitem {
+  grid-column: 1 / -1 !important;
+}
+
+.sr6-matrix-geraete-section:has(.sr6-editable-section-mode:not(:checked)) .sr6-generic-list-header {
+  display: none;
+}
+
+.sr6-matrix-geraete-section .sr6-editable-item-fields {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: 0.5rem;
+  align-items: stretch;
+  width: 100%;
+}
+
+.sr6-matrix-geraete-section .sr6-matrix-geraet-main-row {
+  display: grid;
+  grid-template-columns: minmax(0, 1.25fr) minmax(0, 1.15fr) repeat(4, minmax(0, 1fr));
+  gap: 0.75rem;
+  align-items: end;
+}
+
+.sr6-matrix-geraete-section .sr6-matrix-geraet-programme-row {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+}
+
+.sr6-matrix-geraete-section .sr6-matrix-geraet-programme-field {
+  grid-column: 1 / -1;
+}
+
+.sr6-matrix-geraete-section:has(.sr6-editable-section-mode:not(:checked)) .sr6-editable-item-fields .sr6-foundry-item-head,
+.sr6-matrix-geraete-section:has(.sr6-editable-section-mode:not(:checked)) .sr6-editable-item-fields .sr6-foundry-item-footer {
+  display: grid;
+}
+
+.sr6-matrix-geraete-section:has(.sr6-editable-section-mode:not(:checked)) .sr6-editable-item-fields .sr6-charactersheet-field {
+  min-height: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 0.125rem;
+  align-items: stretch;
+}
+
+.sr6-matrix-geraete-section .sr6-matrix-geraet-main-row .sr6-charactersheet-field {
+  justify-content: end;
+}
+
+.sr6-matrix-geraete-section .sr6-matrix-geraet-main-row select,
+.sr6-matrix-geraete-section .sr6-matrix-geraet-main-row input:not([type="checkbox"]):not([type="radio"]) {
+  min-height: var(--sr6-field-height);
+}
+
+.sr6-matrix-geraete-section:has(.sr6-editable-section-mode:not(:checked)) .sr6-editable-item-fields .sr6-charactersheet-field > span {
+  display: block;
+}
+
+.sr6-matrix-geraete-section:has(.sr6-editable-section-mode:not(:checked)) .sr6-editable-item-fields .sr6-matrix-geraet-programme-field {
+  display: flex;
+}
+
 .sr6-charactersheet-tab-rigging-item--full {
   grid-column: 1 / -1;
 }

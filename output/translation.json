@@ -63,6 +63,7 @@
   "ui.roll_popup_roll": "Würfeln",
   "field.sichtverhaeltnisse": "Sichtverhältnisse",
   "field.bewegung": "Bewegung",
+  "field.programme_zubehoer": "Programme/Zubehör",
   "field.entzug_modifikator": "Entzug-Modifikator",
   "field.overwatch_modifikator": "Overwatch-Modifikator",
   "field.popup_sicht_klar": "Klare Sicht",
