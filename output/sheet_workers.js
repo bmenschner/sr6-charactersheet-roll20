@@ -1710,22 +1710,27 @@ function buildDiceDetails(diceResults) {
   return diceResults.join(" + ");
 }
 
-function getDieToneStyle(tone) {
-  if (tone === "success") {
-    return "display:inline-flex;align-items:center;justify-content:center;min-width:1.35rem;height:1.35rem;padding:0 0.25rem;border-radius:0.22rem;border:0.125rem solid #9fcb9f;background:#dff3df;color:#1f5f1f;font-weight:700;line-height:1;";
-  }
-  if (tone === "fail") {
-    return "display:inline-flex;align-items:center;justify-content:center;min-width:1.35rem;height:1.35rem;padding:0 0.25rem;border-radius:0.22rem;border:0.125rem solid #e3a8af;background:#f8d7da;color:#7a0f1b;font-weight:700;line-height:1;";
-  }
-  return "display:inline-flex;align-items:center;justify-content:center;min-width:1.35rem;height:1.35rem;padding:0 0.25rem;border-radius:0.22rem;border:0.125rem solid #d0d0d0;background:#ececec;color:#111111;font-weight:700;line-height:1;";
-}
-
 function buildDetailsDice(diceResults, maxDice = 20) {
   return diceResults.slice(0, maxDice).map((die) => {
     let tone = "neutral";
     if (die === 1) tone = "fail";
     if (die >= 5) tone = "success";
-    return { value: `${die}`, tone: tone, style: getDieToneStyle(tone) };
+    return { value: `${die}`, tone: tone };
+  });
+}
+
+function appendDetailsDiceTemplateFields(parts, detailsDice) {
+  if (!Array.isArray(detailsDice) || detailsDice.length === 0) return;
+
+  parts.push("{{details_dice=1}}");
+  detailsDice.forEach((die, index) => {
+    const dieIndex = index + 1;
+    const tone = die.tone || "neutral";
+    parts.push(`{{d${dieIndex}_v=${die.value}}}`);
+    parts.push(`{{d${dieIndex}_${tone}=1}}`);
+    if (index < detailsDice.length - 1) {
+      parts.push(`{{d${dieIndex}_plus=1}}`);
+    }
   });
 }
 
@@ -1923,15 +1928,7 @@ function buildSr6ProbeMessage(payload) {
     }
 
     const detailsDice = Array.isArray(payload.detailsDice) ? payload.detailsDice : [];
-    if (detailsDice.length > 0) {
-      parts.push("{{details_dice=1}}");
-      detailsDice.forEach((die, index) => {
-        const dieIndex = index + 1;
-        parts.push(`{{d${dieIndex}_v=${die.value}}}`);
-        parts.push(`{{d${dieIndex}_t=${die.tone}}}`);
-        parts.push(`{{d${dieIndex}_s=${die.style}}}`);
-      });
-    }
+    appendDetailsDiceTemplateFields(parts, detailsDice);
 
     if (presentation.drainValue) parts.push(`{{drain_value=${presentation.drainValue}}}`);
     if (presentation.drainDamage) parts.push(`{{drain_damage=${presentation.drainDamage}}}`);
@@ -1974,15 +1971,7 @@ function buildSr6ProbeMessage(payload) {
     }
 
     const detailsDice = Array.isArray(payload.detailsDice) ? payload.detailsDice : [];
-    if (detailsDice.length > 0) {
-      parts.push("{{details_dice=1}}");
-      detailsDice.forEach((die, index) => {
-        const dieIndex = index + 1;
-        parts.push(`{{d${dieIndex}_v=${die.value}}}`);
-        parts.push(`{{d${dieIndex}_t=${die.tone}}}`);
-        parts.push(`{{d${dieIndex}_s=${die.style}}}`);
-      });
-    }
+    appendDetailsDiceTemplateFields(parts, detailsDice);
 
     if (payload.isGlitch) {
       parts.push("{{is_glitch=1}}");
@@ -2054,15 +2043,7 @@ function buildSr6ProbeMessage(payload) {
   }
 
   const detailsDice = Array.isArray(payload.detailsDice) ? payload.detailsDice : [];
-  if (detailsDice.length > 0) {
-    parts.push("{{details_dice=1}}");
-    detailsDice.forEach((die, index) => {
-      const dieIndex = index + 1;
-      parts.push(`{{d${dieIndex}_v=${die.value}}}`);
-      parts.push(`{{d${dieIndex}_t=${die.tone}}}`);
-      parts.push(`{{d${dieIndex}_s=${die.style}}}`);
-    });
-  }
+  appendDetailsDiceTemplateFields(parts, detailsDice);
 
   if (payload.isGlitch) {
     parts.push("{{is_glitch=1}}");

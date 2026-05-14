@@ -3072,23 +3072,18 @@ body:has(.sr6-tabs-toggle-input:checked) #tab-content.tab-content,
   gap: 0.75rem;
 }
 
-.sr6-roll-popup-open-toggle {
-  position: absolute;
-  opacity: 0;
-  pointer-events: none;
-}
-
-.sr6-roll-popup-slot-toggle {
-  position: absolute;
-  opacity: 0;
-  pointer-events: none;
-}
-
+.sr6-roll-popup-open-toggle,
+.sr6-roll-popup-slot-active-toggle,
+.sr6-roll-popup-slot-toggle,
 .sr6-roll-popup-slot-kind-toggle,
 .sr6-roll-popup-slot-option-toggle,
 .sr6-roll-popup-slot-dependency-toggle {
   position: absolute;
+  width: 0;
+  height: 0;
+  margin: 0;
   opacity: 0;
+  overflow: hidden;
   pointer-events: none;
 }
 
