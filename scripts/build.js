@@ -20,10 +20,6 @@ const workerTargetPath = path.join(outputDir, 'sheet_workers.js');
 const INCLUDE_PATTERN = /<!--\s*@include\s+([^\s]+)\s*-->/g;
 const INCLUDE_ROOTS = [htmlDir, i18nDir, workersDir];
 
-const SOURCE_FILES = [
-  { from: path.join(srcDir, 'i18n', 'translation.json'), to: path.join(outputDir, 'translation.full.json') }
-];
-
 const ASSET_EXTENSIONS = new Set(['.png', '.jpg', '.jpeg', '.webp', '.svg', '.gif']);
 
 function ensureDir(dirPath) {
@@ -137,17 +133,7 @@ function buildSheetWorkersJs() {
   console.log(`[build] wrote ${path.relative(rootDir, workerTargetPath)} (worker modules bundled)`);
 }
 
-// Copies direct source artifacts that are not composed (full i18n source dump).
-function copyMainSources() {
-  SOURCE_FILES.forEach(({ from, to }) => {
-    if (!fs.existsSync(from)) {
-      throw new Error(`Missing source file: ${path.relative(rootDir, from)}`);
-    }
-    copyFile(from, to);
-  });
-}
-
-// Writes Roll20-compatible flat translation.json (de fallback) next to full translation file.
+// Writes Roll20-compatible flat translation.json (de fallback).
 function writeRoll20CompatibilityFiles() {
   const i18nSource = path.join(srcDir, 'i18n', 'translation.json');
 
@@ -187,7 +173,6 @@ function runBuild() {
   buildCharactersheetHtml();
   buildCharactersheetCss();
   buildSheetWorkersJs();
-  copyMainSources();
   writeRoll20CompatibilityFiles();
   copyStaticAssets();
   console.log('[build] done');

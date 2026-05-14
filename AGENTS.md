@@ -33,7 +33,6 @@ Dieses Projekt ist **kein klassisches Frontend**.
 - `output/charactersheet.css`
 - `output/sheet_workers.js`
 - `output/translation.json`
-- `output/translation.full.json`
 - `output/assets/images/*`
 
 ### Dokumentation
