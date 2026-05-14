@@ -118,6 +118,7 @@ input[type="number"]::-webkit-inner-spin-button {
   color: var(--sr6-text);
   font-size: 0.86rem;
   padding: 0.125rem 0.25rem;
+  margin-bottom: 0;
 }
 
 .sr6-charactersheet-row > input {
@@ -140,6 +141,7 @@ input[type="number"]::-webkit-inner-spin-button {
   color: var(--sr6-text);
   font-size: 0.86rem;
   padding: 0.125rem 0.25rem;
+  margin-bottom: 0;
 }
 
 .sr6-charactersheet-field textarea {
@@ -153,6 +155,7 @@ input[type="number"]::-webkit-inner-spin-button {
   line-height: 1.35;
   padding: 0.25rem;
   resize: vertical;
+  margin-bottom: 0;
 }
 
 .sr6-charactersheet-field textarea.sr6-charactersheet-autogrow-textarea {
@@ -1751,49 +1754,23 @@ fieldset.repeating_sr6riggingmanoever .repcontrol {
   flex: 1 1 0;
 }
 
-.sr6-matrix-programme-section:has(.sr6-editable-section-mode:not(:checked)) .sr6-editable-item-fields .sr6-foundry-item-head,
-.sr6-matrix-geraete-section:has(.sr6-editable-section-mode:not(:checked)) .sr6-editable-item-fields .sr6-foundry-item-head {
+.sr6-matrix-programme-section:has(.sr6-editable-section-mode:not(:checked)) .sr6-editable-item-fields .sr6-foundry-item-head {
   display: grid;
   grid-template-columns: repeat(5, minmax(0, 1fr));
   gap: 0.375rem;
   flex: 1 1 0;
 }
 
-.sr6-matrix-geraete-section:has(.sr6-editable-section-mode:not(:checked)) .sr6-generic-list-header {
-  margin-bottom: 0.25rem;
-}
-
-.sr6-matrix-geraete-section:has(.sr6-editable-section-mode:not(:checked)) .sr6-generic-list-header--double {
-  display: grid;
-  grid-template-columns: minmax(0, 1fr);
-  gap: 1.5rem;
-}
-
-.sr6-matrix-geraete-section:has(.sr6-editable-section-mode:not(:checked)) .sr6-generic-list-header--double .sr6-generic-list-header-group:nth-child(2) {
-  display: none;
-}
-
-.sr6-matrix-geraete-section:has(.sr6-editable-section-mode:not(:checked)) .sr6-generic-list-header-group--6 {
+.sr6-matrix-geraete-section:has(.sr6-editable-section-mode:not(:checked)) .sr6-editable-item-fields .sr6-foundry-item-head {
   display: grid;
   grid-template-columns: repeat(6, minmax(0, 1fr));
   gap: 0.375rem;
+  flex: 1 1 0;
 }
 
-.sr6-matrix-geraete-section:has(.sr6-editable-section-mode:not(:checked)) .sr6-editable-item-fields {
-  display: grid;
-  grid-template-columns: repeat(6, minmax(0, 1fr));
-  gap: 0.375rem;
-  align-items: center;
-  width: 100%;
-}
-
-.sr6-matrix-geraete-section:has(.sr6-editable-section-mode:not(:checked)) .sr6-editable-item-fields .sr6-matrix-geraet-programme-field {
+.sr6-matrix-geraete-section:has(.sr6-editable-section-mode:not(:checked)) .sr6-matrix-geraet-programme-row,
+.sr6-matrix-geraete-section:has(.sr6-editable-section-mode:not(:checked)) .sr6-repeater-notes-mod-row {
   display: none;
-}
-
-.sr6-matrix-geraete-section:has(.sr6-editable-section-mode:not(:checked)) .sr6-editable-item-fields .sr6-foundry-item-head,
-.sr6-matrix-geraete-section:has(.sr6-editable-section-mode:not(:checked)) .sr6-editable-item-fields .sr6-foundry-item-row {
-  display: contents;
 }
 
 .sr6-matrix-handlungen-section:has(.sr6-editable-section-mode:not(:checked)) .sr6-editable-item-fields .sr6-foundry-item-head {
@@ -1947,6 +1924,10 @@ fieldset.repeating_sr6riggingmanoever .repcontrol {
 }
 
 .sr6-foki-section:has(.sr6-editable-section-mode:not(:checked)) .sr6-editable-item-fields .sr6-foki-notiz-field {
+  display: none;
+}
+
+.sr6-foki-section:has(.sr6-editable-section-mode:not(:checked)) .sr6-editable-item-fields .sr6-repeater-notes-mod-row {
   display: none;
 }
 
@@ -2204,11 +2185,7 @@ fieldset.repeating_sr6matrixgeraete,
   grid-column: 1 / -1 !important;
 }
 
-.sr6-matrix-geraete-section:has(.sr6-editable-section-mode:not(:checked)) .sr6-generic-list-header {
-  display: none;
-}
-
-.sr6-matrix-geraete-section .sr6-editable-item-fields {
+.sr6-matrix-geraete-section:has(.sr6-editable-section-mode:checked) .sr6-editable-item-fields {
   display: grid;
   grid-template-columns: minmax(0, 1fr);
   gap: 0.5rem;
@@ -2216,14 +2193,14 @@ fieldset.repeating_sr6matrixgeraete,
   width: 100%;
 }
 
-.sr6-matrix-geraete-section .sr6-matrix-geraet-main-row {
+.sr6-matrix-geraete-section:has(.sr6-editable-section-mode:checked) .sr6-matrix-geraet-main-row {
   display: grid;
   grid-template-columns: minmax(0, 1.25fr) minmax(0, 1.15fr) repeat(4, minmax(0, 1fr));
   gap: 0.75rem;
   align-items: end;
 }
 
-.sr6-matrix-geraete-section .sr6-matrix-geraet-programme-row {
+.sr6-matrix-geraete-section:has(.sr6-editable-section-mode:checked) .sr6-matrix-geraet-programme-row {
   display: grid;
   grid-template-columns: minmax(0, 1fr);
 }
@@ -2232,34 +2209,18 @@ fieldset.repeating_sr6matrixgeraete,
   grid-column: 1 / -1;
 }
 
-.sr6-matrix-geraete-section:has(.sr6-editable-section-mode:not(:checked)) .sr6-editable-item-fields .sr6-foundry-item-head,
-.sr6-matrix-geraete-section:has(.sr6-editable-section-mode:not(:checked)) .sr6-editable-item-fields .sr6-foundry-item-footer {
+.sr6-matrix-geraete-section:has(.sr6-editable-section-mode:checked) .sr6-editable-item-fields .sr6-foundry-item-head,
+.sr6-matrix-geraete-section:has(.sr6-editable-section-mode:checked) .sr6-editable-item-fields .sr6-foundry-item-footer {
   display: grid;
 }
 
-.sr6-matrix-geraete-section:has(.sr6-editable-section-mode:not(:checked)) .sr6-editable-item-fields .sr6-charactersheet-field {
-  min-height: auto;
-  display: flex;
-  flex-direction: column;
-  gap: 0.125rem;
-  align-items: stretch;
-}
-
-.sr6-matrix-geraete-section .sr6-matrix-geraet-main-row .sr6-charactersheet-field {
+.sr6-matrix-geraete-section:has(.sr6-editable-section-mode:checked) .sr6-matrix-geraet-main-row .sr6-charactersheet-field {
   justify-content: end;
 }
 
-.sr6-matrix-geraete-section .sr6-matrix-geraet-main-row select,
-.sr6-matrix-geraete-section .sr6-matrix-geraet-main-row input:not([type="checkbox"]):not([type="radio"]) {
+.sr6-matrix-geraete-section:has(.sr6-editable-section-mode:checked) .sr6-matrix-geraet-main-row select,
+.sr6-matrix-geraete-section:has(.sr6-editable-section-mode:checked) .sr6-matrix-geraet-main-row input:not([type="checkbox"]):not([type="radio"]) {
   min-height: var(--sr6-field-height);
-}
-
-.sr6-matrix-geraete-section:has(.sr6-editable-section-mode:not(:checked)) .sr6-editable-item-fields .sr6-charactersheet-field > span {
-  display: block;
-}
-
-.sr6-matrix-geraete-section:has(.sr6-editable-section-mode:not(:checked)) .sr6-editable-item-fields .sr6-matrix-geraet-programme-field {
-  display: flex;
 }
 
 .sr6-charactersheet-tab-rigging-item--full {

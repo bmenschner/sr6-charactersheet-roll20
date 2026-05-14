@@ -117,6 +117,7 @@ input[type="number"]::-webkit-inner-spin-button {
   color: var(--sr6-text);
   font-size: 0.86rem;
   padding: 0.125rem 0.25rem;
+  margin-bottom: 0;
 }
 
 .sr6-charactersheet-row > input {
@@ -139,6 +140,7 @@ input[type="number"]::-webkit-inner-spin-button {
   color: var(--sr6-text);
   font-size: 0.86rem;
   padding: 0.125rem 0.25rem;
+  margin-bottom: 0;
 }
 
 .sr6-charactersheet-field textarea {
@@ -152,6 +154,7 @@ input[type="number"]::-webkit-inner-spin-button {
   line-height: 1.35;
   padding: 0.25rem;
   resize: vertical;
+  margin-bottom: 0;
 }
 
 .sr6-charactersheet-field textarea.sr6-charactersheet-autogrow-textarea {
