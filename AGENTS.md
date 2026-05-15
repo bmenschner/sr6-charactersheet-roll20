@@ -38,8 +38,8 @@ Dieses Projekt ist **kein klassisches Frontend**.
 ### Dokumentation
 
 - `docs/*`
+- `docs/archive/*` (historisch, nicht operative Arbeitsgrundlage)
 - `readme.md`
-- `roll20-cse-checklist.md`
 
 ---
 

@@ -1,7 +1,27 @@
 # Roll20 CSE Checklist (SR6)
 
 Stand: 2026-04-16
-Ort: Root-Checkliste fuer den aktuellen Entwicklungsstand
+Ort: Historische CSE-Checkliste
+
+## Status
+
+Diese Datei ist eine historische Checkliste aus der fruehen CSE-/Tab-Aufbauphase.
+Sie ist nicht mehr die operative Quelle fuer aktuelle Refactor- oder Bugfix-Arbeiten.
+
+Aktuelle operative Doku:
+
+- `readme.md`
+- `docs/architecture.md`
+- `docs/path-map.md`
+- `docs/refactoring/refactor-data-fields-matrix.md`
+- `docs/archive/refactor-data-fields-todos.md`
+- `docs/refactoring/popup-logic-audit.md`
+
+Bekannte historische Aussagen in dieser Datei:
+
+- `Allgemein` enthaelt nicht mehr die alten Kampf-/Verteidigungsboxen, sondern ist nach dem Refactor eine Uebersicht/Spiegel-Ansicht.
+- Viele Rollbuttons laufen inzwischen ueber `type="action"` und Worker-basierte Probenmodelle statt nur ueber `type="roll"`.
+- Einige alte Dateinamen wie `output/charakterbogen.de.html`, `docs/roll20-roll-button-naming-v1.md` oder `docs/roll20-live-check-v1.md` existieren im aktuellen Repository nicht mehr.
 
 ## Ziel
 Dieses Projekt wird nach moeglichst aktuellem Roll20-Standard umgesetzt: **CSE-first**.
