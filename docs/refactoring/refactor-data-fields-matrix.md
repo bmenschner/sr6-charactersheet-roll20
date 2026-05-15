@@ -380,6 +380,98 @@ Fuer Issue 12 sollte zuerst keine neue Logik gebaut werden. Startpunkt ist eine 
 | Matrix-/Rigging-Kernwerte | Sind Modus, Matrixattribute und abgeleitete Initiative/Defensivwerte nachvollziehbar? | Berechnete Felder markieren; manuelle Geraetewerte getrennt halten |
 | Matrix-Handlungen | Sind Grundwert, Modifikator und Gesamtwert fachlich ausreichend oder braucht es Attributs-/Fertigkeitsmapping? | Entscheidung dokumentieren, bevor Workerlogik erweitert wird |
 
+### Regelwerksgrundlage fuer Issue 12
+
+Aus dem Grundregelwerk ergibt sich fuer die naechste Pruefung:
+
+- Der normale Wuerfelpool entsteht in den meisten Faellen aus `Attribut + Fertigkeit`.
+- Beide Werte werden addiert und ergeben die Anzahl der zu werfenden W6.
+- `5` und `6` zaehlen als Erfolge.
+- Modifikatoren veraendern den Wuerfelpool situationsabhaengig.
+- Fertigkeiten haben ein Primaerattribut; wenn ein sekundaeres verknuepftes Attribut angegeben ist, kann dieses fuer passende Kontextfaelle verwendet werden.
+- Manche Proben sind Sonderfaelle und nutzen zwei Attribute, dasselbe Attribut doppelt oder eigene Werte.
+- Initiative ist ein Sonderfall: Sie nutzt einen Initiativewert plus Initiativewuerfel und addiert die Augenzahlen statt Erfolge zu zaehlen.
+
+Fuer das Sheet bedeutet das als Zielmodell:
+
+```text
+Attribut (Grundwert + Modifikator)
++ Fertigkeit (Grundwert + Modifikator)
++ Situations-/Popup-Modifikator
+= Wuerfelpool
+```
+
+Die technische Basis ist bereits vorhanden:
+
+- `sr6_attr_<name>_gesamtwert = sr6_attr_<name>_grundwert + sr6_attr_<name>_modifikator`
+- `sr6_skill_<name>_gesamtwert = sr6_skill_<name>_grundwert + sr6_skill_<name>_modifikator`
+- `buildProbeComputation()` wuerfelt den finalen Pool als W6 und zaehlt `die >= 5` als Erfolg
+- der Zustandsmonitor wird als globaler Poolmodifikator beruecksichtigt
+- Popup-Modifikatoren werden erst beim Wurf auf den Pool addiert
+
+### Issue-12 Pruefbefund Probenmodelle
+
+| Probenmodell / Bereich | Aktueller Stand | Issue-12-Befund | Naechster Schritt |
+| --- | --- | --- | --- |
+| `attribute_probe` | Nutzt einen Attribut-Gesamtwert als Pool; optional `Attribut x2`; Popup-Modifikator wird addiert | Fuer reine Attributproben und `Attribut x2` passend; kein Standardmodell fuer `Attribut + Fertigkeit` | Beibehalten, aber klar als Attribut-/Sonderprobe behandeln |
+| `skill_probe` | Nutzt aktuell den Fertigkeits-Gesamtwert als Pool; Popup-Skill-Modifikator, Spezialisierung und Expertise werden addiert | Nicht vollstaendig regelkonform fuer Standardproben, wenn kein Attributanteil gesetzt ist | Attributquelle pro Aktionsfertigkeit und pro Repeating-Skill klaeren, bevor Workerlogik erweitert wird |
+| Attribute & Fertigkeiten / Aktionsfertigkeiten | `grundwert + modifikator = gesamtwert` funktioniert als Fertigkeitswert | Datenquelle ist korrekt, aber der Rollbutton auf `Gesamtwert` ist fachlich nur der Fertigkeitsanteil, nicht die komplette Probe | Rollbuttons entweder als Fertigkeits-Test kennzeichnen oder auf `Attribut + Fertigkeit` umstellen |
+| Wissens-/Sprach-/Soft-Felder | Repeating-Felder berechnen `grundwert + modifikator = gesamtwert` | Werteberechnung passt; Attributszuordnung fuer echte Proben ist noch offen | Attribut-Dropdown/Default je Typ fachlich entscheiden |
+| `combat_attack_probe` / Kampf-Kernwerte | Fernkampf, Projektilwaffen und Nahkampf berechnen bereits `Attribut + Fertigkeit + Modifikator` in den Kernwerten | Grundmechanik passt fuer die globalen Kampf-Kernwerte; Waffen-Rollbuttons muessen weiterhin gegen dieselbe Poolquelle geprueft werden | Waffen-Sonderfaelle separat ueber vorhandene Kampf-/Waffen-Issues nachziehen |
+| `spell_probe` / Zauber | Spruchzauberei nutzt `Magie + Hexerei/Zauberpool + Modifikatoren`; Entzug laeuft getrennt | Passt als magischer Sonderfall: eigener Hauptwurf plus Entzugswiderstand | Nur konkrete Zauberarten/Schaden/Entzug weiter gegen Regelwerk pruefen |
+| Magie-Kernwerte / Astralkampf | Mehrere Werte sind berechnete Sonderfaelle aus Attributen/Fertigkeiten, z. B. Waffenloser Kampf aus `Astral + Willenskraft` | Kein einheitliches Standardmodell, aber bewusst Sonderlogik | Formeln einzeln dokumentieren und UI als berechnet/manuell modifiziert kennzeichnen |
+| `defense_probe` | Nutzt berechnete Verteidigungs-/Widerstandswerte als Pool und zeigt Vergleichswerte | Verteidigung und Widerstand sind Sonderfaelle; nicht blind in `Attribut + Fertigkeit` pressen | Jede Verteidigungsart gegen Regelwerk pruefen, aber Modell als Sonderprobe beibehalten |
+| `matrix_action` | Matrix-Handlungen berechnen aktuell nur `Grundwert + Modifikator` | Offen: fachlich nicht sichtbar, ob `Grundwert` bereits `Attribut + Fertigkeit` ist oder manuell gepflegt wird | Fuer Issue 12 hohe Prioritaet: Matrix-Handlungen brauchen klares Attribut-/Fertigkeitsmapping oder bewusste Endwert-Entscheidung |
+| Matrix-/Rigging-Kernwerte | Matrixattribute/Geraetewerte sind teils manuelle Werte; Initiative nutzt Modus-Sonderlogik | Initiative passt als Sonderfall; Angriffs-/Defensivwerte muessen als Geraete-/Kernwerte getrennt bleiben | Keine pauschale Dreiklang-Umstellung; nur Formelquellen sichtbar machen |
+| `initiative_probe` | Nutzt `Basis + W6` und addiert Augenzahlen | Regelkonformer Sonderfall, nicht Teil von `Attribut + Fertigkeit` | Beibehalten |
+| `value_probe` / Fallback | Nutzt Einzelwerte als Pool oder Vergleichswert | Technisches Sicherheitsnetz, kein fachliches Zielmodell fuer Standardproben | Nicht weiter ausbauen; Restfaelle gezielt in echte Modelle ueberfuehren |
+
+### Issue-12 Attributsmapping fuer Aktionsfertigkeiten
+
+Dieses Mapping ist die Grundlage, um `skill_probe` von einem reinen Fertigkeitswurf zu einer vollstaendigen Standardprobe auszubauen.
+Primaerattribute werden als Default genutzt. Das Popup zeigt ein Attribut-Dropdown mit dem Primaerattribut als Vorauswahl und zusaetzlichen Sekundaerattributen als Alternativen, wenn sie laut Fertigkeitsbeschreibung vorhanden sind.
+
+| Fertigkeit | Primaerattribut | Primaerquelle | Sekundaerattribut | Sekundaerquelle | Kontext |
+| --- | --- | --- | --- | --- | --- |
+| Astral | Intuition | `sr6_attr_intuition_gesamtwert` | Willenskraft | `sr6_attr_willenskraft_gesamtwert` | Sekundaer fuer Astralkampf |
+| Athletik | Geschicklichkeit | `sr6_attr_geschicklichkeit_gesamtwert` | Staerke | `sr6_attr_staerke_gesamtwert` | Sekundaer bei Kraft-/Widerstandsfaellen; Projektil-/Wurfwaffen bleiben primaer `Athletik + Geschicklichkeit` |
+| Beschwoeren | Magie | `sr6_attr_magie_resonanz_gesamtwert` | - | - | Magie-/Resonanz-Feld wird hier fachlich als `Magie` gelesen |
+| Biotech | Logik | `sr6_attr_logik_gesamtwert` | Intuition | `sr6_attr_intuition_gesamtwert` | Sekundaer fuer unkonventionelle/ungeplante medizinische Loesungen |
+| Cracken | Logik | `sr6_attr_logik_gesamtwert` | - | - | Matrix-Sonderhandlungen koennen spaeter trotzdem eigene Mappingregeln brauchen |
+| Einfluss | Charisma | `sr6_attr_charisma_gesamtwert` | Logik | `sr6_attr_logik_gesamtwert` | Sekundaer fuer sachliche Argumentation |
+| Elektronik | Logik | `sr6_attr_logik_gesamtwert` | Intuition | `sr6_attr_intuition_gesamtwert` | Sekundaer fuer schnelle Bastelloesungen |
+| Exotische Waffen | Geschicklichkeit | `sr6_attr_geschicklichkeit_gesamtwert` | - | - | Fuer Kampf bereits als Fertigkeitsauswahl vorgesehen |
+| Feuerwaffen | Geschicklichkeit | `sr6_attr_geschicklichkeit_gesamtwert` | - | - | Fuer Kampf bereits als Fertigkeitsauswahl vorgesehen |
+| Heimlichkeit | Geschicklichkeit | `sr6_attr_geschicklichkeit_gesamtwert` | - | - | Keine explizite Sekundaerquelle in der Fertigkeitsbeschreibung |
+| Hexerei | Magie | `sr6_attr_magie_resonanz_gesamtwert` | - | - | Magie-/Resonanz-Feld wird hier fachlich als `Magie` gelesen |
+| Mechanik | Logik | `sr6_attr_logik_gesamtwert` | Geschicklichkeit / Intuition | `sr6_attr_geschicklichkeit_gesamtwert` / `sr6_attr_intuition_gesamtwert` | Geschicklichkeit fuer Schloesser; Intuition fuer Improvisieren |
+| Nahkampf | Geschicklichkeit | `sr6_attr_geschicklichkeit_gesamtwert` | - | - | Kampfwaffen duerfen bereits per Waffen-/Popup-Kontext auf Staerke wechseln; kein allgemeines Sekundaerattribut in der Fertigkeitsbeschreibung |
+| Natur | Intuition | `sr6_attr_intuition_gesamtwert` | - | - | Keine explizite Sekundaerquelle in der Fertigkeitsbeschreibung |
+| Steuern | Reaktion | `sr6_attr_reaktion_gesamtwert` | - | - | Fahrzeug-/Rigging-Sonderfaelle spaeter separat pruefen |
+| Tasken | Resonanz | `sr6_attr_magie_resonanz_gesamtwert` | - | - | Magie-/Resonanz-Feld wird hier fachlich als `Resonanz` gelesen |
+| Ueberreden | Charisma | `sr6_attr_charisma_gesamtwert` | - | - | Keine explizite Sekundaerquelle in der Fertigkeitsbeschreibung |
+| Verzaubern | Magie | `sr6_attr_magie_resonanz_gesamtwert` | - | - | Magie-/Resonanz-Feld wird hier fachlich als `Magie` gelesen |
+| Wahrnehmung | Intuition | `sr6_attr_intuition_gesamtwert` | Logik | `sr6_attr_logik_gesamtwert` | Sekundaer fuer Mustererkennung |
+
+Umsetzungsregel fuer `skill_probe`:
+
+- Der angezeigte Fertigkeitswert bleibt `sr6_skill_<name>_gesamtwert`.
+- Der Standard-Wuerfelpool wird `ausgewaehltes Attribut-Gesamtwert + Fertigkeits-Gesamtwert + Popup-Modifikatoren`.
+- Das Popup bietet fuer Aktionsfertigkeiten ein Attribut-Dropdown an.
+- Die Dropdown-Vorauswahl ist immer das Primaerattribut der Fertigkeit.
+- Die Dropdown-Optionen bestehen aus Primaerattribut plus den im Regelwerk genannten Sekundaerattributen.
+- Fertigkeiten ohne Sekundaerattribut zeigen nur das Primaerattribut; das Dropdown kann dann technisch entfallen oder als nicht wechselbare Anzeige umgesetzt werden.
+- Spezialisierung und Expertise bleiben Popup-Modifikatoren auf den Pool.
+- Kontextfaelle werden nicht blind automatisch gewaehlt; die Auswahl erfolgt durch den Spieler im Popup.
+- Magie/Resonanz nutzt technisch dasselbe Sheet-Feld, muss im Rolltemplate aber fachlich mit dem passenden Label ausgegeben werden.
+
+Beispiel:
+
+- `Athletik` nutzt standardmaessig `Geschicklichkeit`.
+- Das Popup-Dropdown ist auf `Geschicklichkeit` vorausgewaehlt.
+- Als weitere Option steht `Staerke` zur Verfuegung.
+- Der Wuerfelpool wird aus der gewaehlten Attributquelle plus `sr6_skill_athletik_gesamtwert` gebildet.
+
 ## Offener Sammeltest
 
 Der alte Datenfeld-Refactor ist funktional weitgehend abgeschlossen. Ein letzter Sammeltest bleibt als Sicherheitsnetz sinnvoll, wird aber nicht mehr als eigener alter Refactor-Block gefuehrt.

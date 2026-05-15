@@ -44,6 +44,31 @@ function resolveMeleePopupAttributePoolOverride(definition, resolvedFields, popu
   };
 }
 
+function resolveSkillProbeAttributePoolOverride(definition, popupState, lookupAttr, poolAttribute) {
+  if (!definition || definition.probeModel !== "skill_probe") {
+    return null;
+  }
+
+  const attributeOption = resolveSkillProbeAttributeOption(
+    definition,
+    (((popupState || {}).selectedValues || {}).skill_attribute) || ""
+  );
+
+  if (!attributeOption || !attributeOption.attr) {
+    return null;
+  }
+
+  const skillValue = parseNumber(lookupAttr(poolAttribute));
+  const attributeValue = parseNumber(lookupAttr(attributeOption.attr));
+
+  return {
+    selectedAttribute: attributeOption.value,
+    skillValue: skillValue,
+    attributeValue: attributeValue,
+    poolBasisOverride: skillValue + attributeValue,
+  };
+}
+
 function resolvePopupDerivedSourceAttr(result, resolvedFields) {
   if (!result || !resolvedFields) {
     return "";
@@ -186,12 +211,23 @@ function runSuccessProbeFromContext(rawTemplate, repeatingRowPrefix, popupState 
       lookupAttr,
       context.poolAttribute
     );
+    const skillAttributeOverride = resolveSkillProbeAttributePoolOverride(
+      context.definition,
+      normalizedPopupState,
+      lookupAttr,
+      context.poolAttribute
+    );
+    const poolBasisOverride = meleeAttributeOverride
+      ? meleeAttributeOverride.poolBasisOverride
+      : skillAttributeOverride
+        ? skillAttributeOverride.poolBasisOverride
+        : null;
     const computation = buildProbeComputation(
       lookupAttr,
       context.poolAttribute,
       normalizedPopupState.poolMod,
       poolMultiplier,
-      meleeAttributeOverride ? meleeAttributeOverride.poolBasisOverride : null
+      poolBasisOverride
     );
 
     if (meleeAttributeOverride) {
@@ -199,6 +235,11 @@ function runSuccessProbeFromContext(rawTemplate, repeatingRowPrefix, popupState 
         label: "Attribut-Fallback",
         value: `${meleeAttributeOverride.currentAttribute} -> ${meleeAttributeOverride.selectedAttribute}`,
       });
+    }
+    if (skillAttributeOverride) {
+      rows.push({ label: "Attribut", value: skillAttributeOverride.selectedAttribute });
+      rows.push({ label: "Attribut-Wert", value: `${skillAttributeOverride.attributeValue}` });
+      rows.push({ label: "Fertigkeitswert", value: `${skillAttributeOverride.skillValue}` });
     }
     const glitchText = computation.isCriticalGlitch ? "!! Kritischer Patzer !!" : "!! Patzer !!";
     const erfolgeValue = computation.isGlitch ? glitchText : `${computation.successCount}`;

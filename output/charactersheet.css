@@ -3406,7 +3406,20 @@ body:has(.sr6-tabs-toggle-input:checked) #tab-content.tab-content,
 .sr6-roll-popup-slot-kind-toggle--5-select:checked ~ .sr6-roll-popup-slot-option-toggle--5-melee-attribute:checked ~ .sr6-roll-popup-overlay .sr6-roll-popup-field--5 .sr6-roll-popup-field-input--select-melee-attribute,
 .sr6-roll-popup-slot-kind-toggle--6-select:checked ~ .sr6-roll-popup-slot-option-toggle--6-melee-attribute:checked ~ .sr6-roll-popup-overlay .sr6-roll-popup-field--6 .sr6-roll-popup-field-input--select-melee-attribute,
 .sr6-roll-popup-slot-kind-toggle--7-select:checked ~ .sr6-roll-popup-slot-option-toggle--7-melee-attribute:checked ~ .sr6-roll-popup-overlay .sr6-roll-popup-field--7 .sr6-roll-popup-field-input--select-melee-attribute,
-.sr6-roll-popup-slot-kind-toggle--8-select:checked ~ .sr6-roll-popup-slot-option-toggle--8-melee-attribute:checked ~ .sr6-roll-popup-overlay .sr6-roll-popup-field--8 .sr6-roll-popup-field-input--select-melee-attribute {
+.sr6-roll-popup-slot-kind-toggle--8-select:checked ~ .sr6-roll-popup-slot-option-toggle--8-melee-attribute:checked ~ .sr6-roll-popup-overlay .sr6-roll-popup-field--8 .sr6-roll-popup-field-input--select-melee-attribute,
+.sr6-roll-popup-slot-kind-toggle--2-select:checked ~ .sr6-roll-popup-slot-option-toggle--2-skill-attr-intuition-willenskraft:checked ~ .sr6-roll-popup-overlay .sr6-roll-popup-field--2 .sr6-roll-popup-field-input--select-skill-attr-intuition-willenskraft,
+.sr6-roll-popup-slot-kind-toggle--2-select:checked ~ .sr6-roll-popup-slot-option-toggle--2-skill-attr-geschicklichkeit-staerke:checked ~ .sr6-roll-popup-overlay .sr6-roll-popup-field--2 .sr6-roll-popup-field-input--select-skill-attr-geschicklichkeit-staerke,
+.sr6-roll-popup-slot-kind-toggle--2-select:checked ~ .sr6-roll-popup-slot-option-toggle--2-skill-attr-magie:checked ~ .sr6-roll-popup-overlay .sr6-roll-popup-field--2 .sr6-roll-popup-field-input--select-skill-attr-magie,
+.sr6-roll-popup-slot-kind-toggle--2-select:checked ~ .sr6-roll-popup-slot-option-toggle--2-skill-attr-logik-intuition:checked ~ .sr6-roll-popup-overlay .sr6-roll-popup-field--2 .sr6-roll-popup-field-input--select-skill-attr-logik-intuition,
+.sr6-roll-popup-slot-kind-toggle--2-select:checked ~ .sr6-roll-popup-slot-option-toggle--2-skill-attr-logik:checked ~ .sr6-roll-popup-overlay .sr6-roll-popup-field--2 .sr6-roll-popup-field-input--select-skill-attr-logik,
+.sr6-roll-popup-slot-kind-toggle--2-select:checked ~ .sr6-roll-popup-slot-option-toggle--2-skill-attr-charisma-logik:checked ~ .sr6-roll-popup-overlay .sr6-roll-popup-field--2 .sr6-roll-popup-field-input--select-skill-attr-charisma-logik,
+.sr6-roll-popup-slot-kind-toggle--2-select:checked ~ .sr6-roll-popup-slot-option-toggle--2-skill-attr-geschicklichkeit:checked ~ .sr6-roll-popup-overlay .sr6-roll-popup-field--2 .sr6-roll-popup-field-input--select-skill-attr-geschicklichkeit,
+.sr6-roll-popup-slot-kind-toggle--2-select:checked ~ .sr6-roll-popup-slot-option-toggle--2-skill-attr-logik-geschicklichkeit-intuition:checked ~ .sr6-roll-popup-overlay .sr6-roll-popup-field--2 .sr6-roll-popup-field-input--select-skill-attr-logik-geschicklichkeit-intuition,
+.sr6-roll-popup-slot-kind-toggle--2-select:checked ~ .sr6-roll-popup-slot-option-toggle--2-skill-attr-intuition:checked ~ .sr6-roll-popup-overlay .sr6-roll-popup-field--2 .sr6-roll-popup-field-input--select-skill-attr-intuition,
+.sr6-roll-popup-slot-kind-toggle--2-select:checked ~ .sr6-roll-popup-slot-option-toggle--2-skill-attr-intuition-logik:checked ~ .sr6-roll-popup-overlay .sr6-roll-popup-field--2 .sr6-roll-popup-field-input--select-skill-attr-intuition-logik,
+.sr6-roll-popup-slot-kind-toggle--2-select:checked ~ .sr6-roll-popup-slot-option-toggle--2-skill-attr-reaktion:checked ~ .sr6-roll-popup-overlay .sr6-roll-popup-field--2 .sr6-roll-popup-field-input--select-skill-attr-reaktion,
+.sr6-roll-popup-slot-kind-toggle--2-select:checked ~ .sr6-roll-popup-slot-option-toggle--2-skill-attr-resonanz:checked ~ .sr6-roll-popup-overlay .sr6-roll-popup-field--2 .sr6-roll-popup-field-input--select-skill-attr-resonanz,
+.sr6-roll-popup-slot-kind-toggle--2-select:checked ~ .sr6-roll-popup-slot-option-toggle--2-skill-attr-charisma:checked ~ .sr6-roll-popup-overlay .sr6-roll-popup-field--2 .sr6-roll-popup-field-input--select-skill-attr-charisma {
   display: block !important;
 }
 

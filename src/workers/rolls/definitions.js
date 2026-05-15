@@ -62,6 +62,52 @@ const SR6_POPUP_SELECT_OPTION_SETS = {
     { value: "Geschicklichkeit", label: "Geschicklichkeit", rowValue: "Geschicklichkeit" },
     { value: "Stärke", label: "Stärke", rowValue: "Stärke" },
   ],
+  skill_attr_intuition_willenskraft: [
+    { value: "Intuition", label: "Intuition", rowValue: "Intuition" },
+    { value: "Willenskraft", label: "Willenskraft", rowValue: "Willenskraft" },
+  ],
+  skill_attr_geschicklichkeit_staerke: [
+    { value: "Geschicklichkeit", label: "Geschicklichkeit", rowValue: "Geschicklichkeit" },
+    { value: "Stärke", label: "Stärke", rowValue: "Stärke" },
+  ],
+  skill_attr_magie: [
+    { value: "Magie", label: "Magie", rowValue: "Magie" },
+  ],
+  skill_attr_logik_intuition: [
+    { value: "Logik", label: "Logik", rowValue: "Logik" },
+    { value: "Intuition", label: "Intuition", rowValue: "Intuition" },
+  ],
+  skill_attr_logik: [
+    { value: "Logik", label: "Logik", rowValue: "Logik" },
+  ],
+  skill_attr_charisma_logik: [
+    { value: "Charisma", label: "Charisma", rowValue: "Charisma" },
+    { value: "Logik", label: "Logik", rowValue: "Logik" },
+  ],
+  skill_attr_geschicklichkeit: [
+    { value: "Geschicklichkeit", label: "Geschicklichkeit", rowValue: "Geschicklichkeit" },
+  ],
+  skill_attr_logik_geschicklichkeit_intuition: [
+    { value: "Logik", label: "Logik", rowValue: "Logik" },
+    { value: "Geschicklichkeit", label: "Geschicklichkeit", rowValue: "Geschicklichkeit" },
+    { value: "Intuition", label: "Intuition", rowValue: "Intuition" },
+  ],
+  skill_attr_intuition: [
+    { value: "Intuition", label: "Intuition", rowValue: "Intuition" },
+  ],
+  skill_attr_intuition_logik: [
+    { value: "Intuition", label: "Intuition", rowValue: "Intuition" },
+    { value: "Logik", label: "Logik", rowValue: "Logik" },
+  ],
+  skill_attr_reaktion: [
+    { value: "Reaktion", label: "Reaktion", rowValue: "Reaktion" },
+  ],
+  skill_attr_resonanz: [
+    { value: "Resonanz", label: "Resonanz", rowValue: "Resonanz" },
+  ],
+  skill_attr_charisma: [
+    { value: "Charisma", label: "Charisma", rowValue: "Charisma" },
+  ],
   ammo: [
     { value: "Standard", label: "Standard", rowValue: "Standard" },
     { value: "Huelsenlos", label: "Hülsenlos", rowValue: "Hülsenlos" },
@@ -147,6 +193,150 @@ const SR6_DEFAULT_POPUP_FIELDS = [
     includeInTemplate: true,
   },
 ];
+
+const SR6_SKILL_ATTRIBUTE_CONFIGS = {
+  astral: {
+    optionSet: "skill_attr_intuition_willenskraft",
+    defaultValue: "Intuition",
+    options: [
+      { value: "Intuition", attr: "sr6_attr_intuition_gesamtwert" },
+      { value: "Willenskraft", attr: "sr6_attr_willenskraft_gesamtwert" },
+    ],
+  },
+  athletik: {
+    optionSet: "skill_attr_geschicklichkeit_staerke",
+    defaultValue: "Geschicklichkeit",
+    options: [
+      { value: "Geschicklichkeit", attr: "sr6_attr_geschicklichkeit_gesamtwert" },
+      { value: "Stärke", attr: "sr6_attr_staerke_gesamtwert" },
+    ],
+  },
+  beschwoeren: {
+    optionSet: "skill_attr_magie",
+    defaultValue: "Magie",
+    options: [
+      { value: "Magie", attr: "sr6_attr_magie_resonanz_gesamtwert" },
+    ],
+  },
+  biotech: {
+    optionSet: "skill_attr_logik_intuition",
+    defaultValue: "Logik",
+    options: [
+      { value: "Logik", attr: "sr6_attr_logik_gesamtwert" },
+      { value: "Intuition", attr: "sr6_attr_intuition_gesamtwert" },
+    ],
+  },
+  cracken: {
+    optionSet: "skill_attr_logik",
+    defaultValue: "Logik",
+    options: [
+      { value: "Logik", attr: "sr6_attr_logik_gesamtwert" },
+    ],
+  },
+  einfluss: {
+    optionSet: "skill_attr_charisma_logik",
+    defaultValue: "Charisma",
+    options: [
+      { value: "Charisma", attr: "sr6_attr_charisma_gesamtwert" },
+      { value: "Logik", attr: "sr6_attr_logik_gesamtwert" },
+    ],
+  },
+  elektronik: {
+    optionSet: "skill_attr_logik_intuition",
+    defaultValue: "Logik",
+    options: [
+      { value: "Logik", attr: "sr6_attr_logik_gesamtwert" },
+      { value: "Intuition", attr: "sr6_attr_intuition_gesamtwert" },
+    ],
+  },
+  exotische_waffen: {
+    optionSet: "skill_attr_geschicklichkeit",
+    defaultValue: "Geschicklichkeit",
+    options: [
+      { value: "Geschicklichkeit", attr: "sr6_attr_geschicklichkeit_gesamtwert" },
+    ],
+  },
+  feuerwaffen: {
+    optionSet: "skill_attr_geschicklichkeit",
+    defaultValue: "Geschicklichkeit",
+    options: [
+      { value: "Geschicklichkeit", attr: "sr6_attr_geschicklichkeit_gesamtwert" },
+    ],
+  },
+  heimlichkeit: {
+    optionSet: "skill_attr_geschicklichkeit",
+    defaultValue: "Geschicklichkeit",
+    options: [
+      { value: "Geschicklichkeit", attr: "sr6_attr_geschicklichkeit_gesamtwert" },
+    ],
+  },
+  hexerei: {
+    optionSet: "skill_attr_magie",
+    defaultValue: "Magie",
+    options: [
+      { value: "Magie", attr: "sr6_attr_magie_resonanz_gesamtwert" },
+    ],
+  },
+  mechanik: {
+    optionSet: "skill_attr_logik_geschicklichkeit_intuition",
+    defaultValue: "Logik",
+    options: [
+      { value: "Logik", attr: "sr6_attr_logik_gesamtwert" },
+      { value: "Geschicklichkeit", attr: "sr6_attr_geschicklichkeit_gesamtwert" },
+      { value: "Intuition", attr: "sr6_attr_intuition_gesamtwert" },
+    ],
+  },
+  nahkampf: {
+    optionSet: "skill_attr_geschicklichkeit",
+    defaultValue: "Geschicklichkeit",
+    options: [
+      { value: "Geschicklichkeit", attr: "sr6_attr_geschicklichkeit_gesamtwert" },
+    ],
+  },
+  natur: {
+    optionSet: "skill_attr_intuition",
+    defaultValue: "Intuition",
+    options: [
+      { value: "Intuition", attr: "sr6_attr_intuition_gesamtwert" },
+    ],
+  },
+  steuern: {
+    optionSet: "skill_attr_reaktion",
+    defaultValue: "Reaktion",
+    options: [
+      { value: "Reaktion", attr: "sr6_attr_reaktion_gesamtwert" },
+    ],
+  },
+  tasken: {
+    optionSet: "skill_attr_resonanz",
+    defaultValue: "Resonanz",
+    options: [
+      { value: "Resonanz", attr: "sr6_attr_magie_resonanz_gesamtwert" },
+    ],
+  },
+  ueberreden: {
+    optionSet: "skill_attr_charisma",
+    defaultValue: "Charisma",
+    options: [
+      { value: "Charisma", attr: "sr6_attr_charisma_gesamtwert" },
+    ],
+  },
+  verzaubern: {
+    optionSet: "skill_attr_magie",
+    defaultValue: "Magie",
+    options: [
+      { value: "Magie", attr: "sr6_attr_magie_resonanz_gesamtwert" },
+    ],
+  },
+  wahrnehmung: {
+    optionSet: "skill_attr_intuition_logik",
+    defaultValue: "Intuition",
+    options: [
+      { value: "Intuition", attr: "sr6_attr_intuition_gesamtwert" },
+      { value: "Logik", attr: "sr6_attr_logik_gesamtwert" },
+    ],
+  },
+};
 
 function createPopupField(config) {
   return {
@@ -235,7 +425,29 @@ function createSkillProbePopupFields() {
   ];
 }
 
+function createMappedSkillProbePopupFields(attributeConfig) {
+  if (!attributeConfig || !attributeConfig.optionSet) {
+    return createSkillProbePopupFields();
+  }
+
+  return [
+    SR6_DEFAULT_POPUP_FIELDS[0],
+    {
+      id: "skill_attribute",
+      slot: 2,
+      label: "Attribut",
+      type: "select",
+      optionSet: attributeConfig.optionSet,
+      affects: "display",
+      includeInTemplate: false,
+      defaultValue: attributeConfig.defaultValue || "",
+    },
+    ...createSpecializationPopupFields(3),
+  ];
+}
+
 function createSkillProbeDefinition(config = {}) {
+  const attributeConfig = config.skillAttributeConfig || null;
   return {
     probeModel: "skill_probe",
     matchField: config.matchField || "Fertigkeit",
@@ -244,7 +456,9 @@ function createSkillProbeDefinition(config = {}) {
     titleField: config.titleField || "",
     primaryFields: config.primaryFields || ["Fertigkeit"],
     extraFields: config.extraFields || [],
-    popupFields: config.popupFields || SR6_SKILL_PROBE_POPUP_FIELDS,
+    popupFields: config.popupFields || createMappedSkillProbePopupFields(attributeConfig),
+    skillKey: config.skillKey || "",
+    skillAttributeConfig: attributeConfig,
     fixedTitle: config.fixedTitle || "",
     titleFallback: config.titleFallback || "Fertigkeiten",
   };
@@ -557,13 +771,15 @@ const SR6_ROLL_DEFINITIONS = [
       titleFallback: "Wissens-/Sprachsofts",
     }),
   },
-  {
-    id: "skill",
+  ...SR6_SKILLS.map((skillKey) => ({
+    id: `skill_${skillKey}`,
     ...createSkillProbeDefinition({
-      matchPoolPrefix: "sr6_skill_",
+      matchPoolPrefix: `sr6_skill_${skillKey}_`,
+      skillKey: skillKey,
+      skillAttributeConfig: SR6_SKILL_ATTRIBUTE_CONFIGS[skillKey],
       titleFallback: "Fertigkeiten",
     }),
-  },
+  })),
   {
     id: "generic_skill",
     ...createSkillProbeDefinition({
@@ -1115,6 +1331,28 @@ function getRollPopupFields(definition) {
     return resolvedDefinition.popupFields;
   }
   return SR6_DEFAULT_POPUP_FIELDS;
+}
+
+function getSkillProbeAttributeOptions(definition) {
+  const resolvedDefinition = definition || resolveRollDefinition({});
+  const config = resolvedDefinition.skillAttributeConfig || {};
+  return Array.isArray(config.options) ? config.options : [];
+}
+
+function resolveSkillProbeAttributeOption(definition, selectedValue) {
+  const options = getSkillProbeAttributeOptions(definition);
+  if (options.length === 0) return null;
+
+  const normalizedValue = `${selectedValue || ""}`.trim();
+  return options.find((option) => option.value === normalizedValue) || options[0];
+}
+
+function getRollAdditionalAttributes(definition) {
+  const attributes = [];
+  getSkillProbeAttributeOptions(definition).forEach((option) => {
+    if (option && option.attr) attributes.push(option.attr);
+  });
+  return [...new Set(attributes)];
 }
 
 function getRollContextFields(definition) {
