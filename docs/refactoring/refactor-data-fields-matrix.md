@@ -48,7 +48,7 @@ Dabei gilt:
 | `combat_attack_probe` | Angriffsprobe mit getrennten Ebenen fuer `Pool`, `Angriffswert`, `Schaden` | `Skill-Modifikator`, `Angriffswert-Modifikator`, `Schadens-Modifikator`, `Munition`, `Spezialisierung`, `Expertise` | `Waffe`, `Angriffswert`, `Pool`, `Erfolge`, `Schaden`, `Reichweite`, `Munition`, `Munitionshinweis`, `Berechnung` | Nah-/Fernkampfwerte, Waffenkontext, Munitionsquelle, Reichweite |
 | `spell_probe` | `Spruchzauberei` plus separater Entzug | Skill-, Angriffswert-, Schadens-, Flaechen-, Hochdrehen- und Entzugsmodifikatoren | Zauber, Pool, Erfolge, Schaden, modifizierter Entzug, Entzugsschaden, Beschreibung | Magie-Zauber |
 | `value_probe` | einzelner Wert als Probe oder Vergleichswert | Standard-Modifikator, teils Matrix-Zugriff/Overwatch | Wert, Pool, Erfolge, Details | Magie-, Matrix-, Rigging- und Fallback-Werte |
-| `matrix_action` | Matrixhandlung mit getrennter Probe und Verteidigung | Modifikator, Zugriff, Verteidigungsquelle, Overwatch-Kontext | Handlung, Probe, Verteidigung, Pool, Erfolge, Details | Matrix-Handlungen |
+| `matrix_action` | Matrixhandlung mit getrennter Probe und Verteidigung | Verteidigungsquelle in der Handlungszeile; keine Standard-Popup-Pflicht | Handlung, Probe, Verteidigung, Pool, Erfolge, Details | Matrix-Handlungen |
 
 ### Aktuelles Mapping auf diese Zielmodelle
 
@@ -59,7 +59,7 @@ Dabei gilt:
 | `skill` | `skill_probe` | Modell aktiv und in Roll20 bestaetigt | Aktionsfertigkeiten nutzen jetzt ein Attribut-Dropdown im Popup; Primaerattribut ist vorausgewaehlt, Sekundaerattribute koennen je Fertigkeit gewaehlt werden; der Pool wird aus gewaehltem Attribut plus Fertigkeitswert berechnet |
 | `knowledge_skill`, `language_skill`, `talentsoft_skill`, `knowledge_language_soft_skill`, `generic_skill` | `skill_probe` | Modell aktiv in Nutzung, Attributszuordnung offen | Gemeinsamer `skill_probe`-Builder traegt Wissens-/Sprachfertigkeiten sowie Soft-Faelle; Spezialisierung/Expertise bleiben zentral im Popup-Modell; fachliche Attributszuordnung folgt separat |
 | `spell` | `spell_probe` | Modell aktiv in erster echter Nutzung | Zauber laufen jetzt nicht mehr ueber einen simplen Einzelwurf, sondern ueber ein eigenes Modell mit `Spruchzauberei`-Probe, modifiziertem Entzug und separatem Entzugswiderstand; das Popup fuehrt Skill-, Schadens- und Entzugsmodifikatoren explizit |
-| `matrix_action` | `matrix_action` | Ist-Modell aktiv, Zielmodell inventarisiert | Aktuell eigener Popup-Pfad mit Zugriff und Overwatch-Modifikator; Ziel ist die Umstellung von manuellem `Grundwert + Modifikator` auf Regelwerksmapping aus Probe und Verteidigung |
+| `matrix_action` | `matrix_action` | Modell aktiv und auf Regelwerksmapping umgestellt | Matrix-Handlungen nutzen jetzt getrennte Proben- und Verteidigungswerte aus `SR6_MATRIX_ACTION_RULES`; variable Verteidigungen werden in der Handlungszeile gewaehlt |
 | `physical_defense`, `physical_damage_resistance`, `general_defense`, `general_damage_resistance`, `astral_defense`, `astral_damage_resistance`, `matrix_defense`, `matrix_damage_resistance`, `matrix_biofeedback_damage_resistance`, `rigging_matrix_defense`, `rigging_matrix_damage_resistance`, `rigging_biofeedback_damage_resistance` | `defense_probe` | Modell aktiv in Nutzung | Gemeinsamer Builder existiert und wird bereits fuer Kampf sowie allgemeine, magische, Matrix- und Rigging-Defensivfaelle verwendet |
 | `combat_ranged_core_attack`, `combat_melee_core_attack`, `combat_ranged_weapon`, `combat_melee_weapon`, `ranged_weapon`, `melee_weapon` | `combat_attack_probe` | Am besten modelliert | Gemeinsames Kampf-Popup und gemeinsamer Weapon-Outputpfad bereits vorhanden |
 | `magic_value`, `matrix_value`, `rigging_value`, `value` | `value_probe` | Modell jetzt explizit, aber noch Uebergangspfad | Magie-, Matrix- und Rigging-Kernwerte laufen jetzt ueber explizite `value_probe`-Pfade statt direkt ueber den generischen Catch-all; der verbleibende generische `value`-Pfad bleibt vorerst technisches Sicherheitsnetz |
@@ -77,18 +77,19 @@ Dabei gilt:
 Diese Matrix beschreibt weiterhin die **fachlichen Datenbereiche** je Tab.
 Sie ist **nicht** mehr die Zielstruktur fuer Popup- und Rolltemplate-Logik.
 
-## Aktueller Stand vor Issue 12
+## Aktueller Stand zu Issue 12
 
 Issue 12 (`Attributszuordnung und Berechnungen`) setzt auf dem abgeschlossenen Datenfeld-Refactor auf.
-Vor der fachlichen Pruefung gilt:
+Nach den bisherigen Issue-12-Schritten gilt:
 
 - `Allgemein` ist keine operative Pflegeflaeche fuer Attribute, Fertigkeiten, Kampf, Verteidigung oder Schadenswiderstand mehr.
 - Attribute und Aktionsfertigkeiten werden im Tab `Attribute & Fertigkeiten` gepflegt.
 - Gemeinsame Datenquellen fuer Attribute und Fertigkeiten bleiben unveraendert:
   - `sr6_attr_<name>_grundwert/modifikator/gesamtwert`
   - `sr6_skill_<name>_grundwert/modifikator/gesamtwert`
-- Issue 12 soll pruefen, ob alle sichtbaren Attributszuordnungen dieselben Quellen verwenden und ob berechnete Felder klar als berechnet/manuell angepasst erkennbar werden.
+- Issue 12 prueft schrittweise, ob alle sichtbaren Attributszuordnungen dieselben Quellen verwenden und ob berechnete Felder klar als berechnet/manuell angepasst erkennbar werden.
 - Besonders relevant fuer Issue 12 sind alle Felder, die aus Attributen und/oder Fertigkeiten abgeleitet werden, aber in der UI nicht immer als berechnet erkennbar sind.
+- Aktionsfertigkeiten und Matrix-Handlungen sind in diesem Sinne bereits umgesetzt; Wissens-/Sprach-/Soft-Felder und weitere Sonderbereiche bleiben Folgepruefungen.
 
 | Tab | Fachbereich | Haupt-Wertetypen | Gemeinsame Datenquellen / Muster | Refactor-Status |
 | --- | --- | --- | --- | --- |
@@ -102,7 +103,7 @@ Vor der fachlichen Pruefung gilt:
 | Magie | Kernwerte | Attribut, Kalkulationsfeld, Einzelwert | `sr6_magic_*`, teilweise Attribute-/Skill-Bezug | Noch projektweit typisieren, nicht blind umbenennen |
 | Magie | Zauber / Rituale / Foki / Geister | Einzelwert, Kontextwert, teils eigene Probenlogik | `repeating_sr6zauber_*`, `repeating_sr6rituale_*`, `repeating_sr6foki_*`, `repeating_sr6geister_*` | `Zauber` laufen jetzt ueber ein eigenes `spell_probe`-Modell; `Rituale` bleiben fuer diesen Refactor bewusst Datenfelder ohne Wuerfel |
 | Matrix | Kernwerte | Einzelwert, Kalkulationsfeld | `sr6_matrix_*` | Kernwerte spaeter typisieren, aktuell nicht pauschal in Dreiklang zwingen |
-| Matrix | Handlungen | Probe, Verteidigung, Kontextwert | aktuell `sr6_matrix_handlung_<name>_grundwert/modifikator/gesamtwert`; Zielmapping siehe Issue-12 Matrix-Handlungen | Ist: numerische Dreiklang-Felder; Soll: `Handlung`, `Probe`, `Verteidigung` mit Regelwerksmapping |
+| Matrix | Handlungen | Probe, Verteidigung, Kontextwert | `sr6_matrix_handlung_<name>_probe_wert`, `sr6_matrix_handlung_<name>_verteidigung_auswahl`, `sr6_matrix_handlung_<name>_verteidigung_wert`; Legacy-Dreiklang bleibt kompatibel | Regelwerksmapping umgesetzt: `Handlung`, `Probe`, `Verteidigung` mit getrennten Rollbuttons |
 | Matrix | Geraete / Programme / Zubehoer / Komplexe Strukturen / Sprites | Einzelwert / Kontextwert | `repeating_sr6matrixgeraete_*`, `repeating_sr6programme_*`, etc. | Erst nach Gesamtklassifikation verfeinern |
 | Rigging | Kernwerte | Einzelwert, Kalkulationsfeld | `sr6_rigging_*` | Formel- und Typpruefung noch offen |
 | Rigging | Fahrzeuge / Programme / Zubehoer / Agenten / Manoever | Einzelwert / Kontextwert | `repeating_sr6fahrzeuge_*`, `repeating_sr6agenten_*`, `repeating_sr6manoever_*` | Kein pauschaler Dreiklang ohne fachliche Bestaetigung |
@@ -144,7 +145,13 @@ Status:
 
 ### 3. Matrix-Handlungen
 
-Kanonisches Schema:
+Aktuelles Schema:
+
+- `sr6_matrix_handlung_<name>_probe_wert`
+- `sr6_matrix_handlung_<name>_verteidigung_auswahl`
+- `sr6_matrix_handlung_<name>_verteidigung_wert`
+
+Legacy-/Kompatibilitaetsschema:
 
 - `sr6_matrix_handlung_<name>_grundwert`
 - `sr6_matrix_handlung_<name>_modifikator`
@@ -153,8 +160,12 @@ Kanonisches Schema:
 Status:
 
 - bereits vorhanden
-- gutes Referenzmodell fuer andere Kalkulationsfelder
-- numerische Inputs bereits umgestellt
+- auf Regelwerksmapping aus Probe und Verteidigung umgestellt
+- die sichtbare Matrix-Handlungsansicht nutzt `Handlung`, `Probe`, `Verteidigung`
+- Probe und Verteidigung haben getrennte berechnete Werte und getrennte Rollbuttons
+- variable Verteidigungsformeln werden direkt in der Matrix-Handlungszeile gewaehlt
+- `A-Z` ist die Standardansicht; `Gast`, `User` und `Admin` sortieren zunaechst aktive und danach inaktive Handlungen
+- der alte Dreiklang wird weiterhin berechnet, aber nicht mehr als primaere Matrix-Handlungsansicht verwendet
 
 ### 4. Verteidigung / Schadenswiderstand
 
@@ -379,7 +390,7 @@ Fuer Issue 12 sollte zuerst keine neue Logik gebaut werden. Startpunkt ist eine 
 | Kampf-Kernwerte | Sind Attributs- und Fertigkeitsanteile sichtbar/nachvollziehbar? | Berechnete Felder markieren; manuelle Modifikatoren klar trennen |
 | Magie-Kernwerte | Sind Traditionsattribute, Astralkampfwerte und Entzug sauber auf Attribute/Fertigkeiten abgebildet? | Berechnete Felder markieren; Attributsquellen pruefen |
 | Matrix-/Rigging-Kernwerte | Sind Modus, Matrixattribute und abgeleitete Initiative/Defensivwerte nachvollziehbar? | Berechnete Felder markieren; manuelle Geraetewerte getrennt halten |
-| Matrix-Handlungen | Sind Grundwert, Modifikator und Gesamtwert fachlich ausreichend oder braucht es Attributs-/Fertigkeitsmapping? | Entscheidung dokumentieren, bevor Workerlogik erweitert wird |
+| Matrix-Handlungen | Sind Grundwert, Modifikator und Gesamtwert fachlich ausreichend oder braucht es Attributs-/Fertigkeitsmapping? | Abgeschlossen: Matrix-Handlungen nutzen jetzt getrenntes Probe-/Verteidigungs-Mapping; Legacy-Dreiklang bleibt nur kompatibel |
 
 ### Regelwerksgrundlage fuer Issue 12
 
@@ -422,7 +433,7 @@ Die technische Basis ist bereits vorhanden:
 | `spell_probe` / Zauber | Spruchzauberei nutzt `Magie + Hexerei/Zauberpool + Modifikatoren`; Entzug laeuft getrennt | Passt als magischer Sonderfall: eigener Hauptwurf plus Entzugswiderstand | Nur konkrete Zauberarten/Schaden/Entzug weiter gegen Regelwerk pruefen |
 | Magie-Kernwerte / Astralkampf | Mehrere Werte sind berechnete Sonderfaelle aus Attributen/Fertigkeiten, z. B. Waffenloser Kampf aus `Astral + Willenskraft` | Kein einheitliches Standardmodell, aber bewusst Sonderlogik | Formeln einzeln dokumentieren und UI als berechnet/manuell modifiziert kennzeichnen |
 | `defense_probe` | Nutzt berechnete Verteidigungs-/Widerstandswerte als Pool und zeigt Vergleichswerte | Verteidigung und Widerstand sind Sonderfaelle; nicht blind in `Attribut + Fertigkeit` pressen | Jede Verteidigungsart gegen Regelwerk pruefen, aber Modell als Sonderprobe beibehalten |
-| `matrix_action` | Matrix-Handlungen berechnen aktuell nur `Grundwert + Modifikator`; Regelwerksmapping ist jetzt inventarisiert | Ist-Zustand ist nicht ausreichend, weil Probe und Verteidigung getrennt benoetigt werden | Zielmodell aus der Matrix-Handlungs-Tabelle umsetzen: `Handlung`, `Probe`, `Verteidigung` plus Popup-Auswahl fuer variable Verteidigungsquellen |
+| `matrix_action` | Matrix-Handlungen nutzen `SR6_MATRIX_ACTION_RULES` fuer Probe und Verteidigung; variable Verteidigungen werden in der Handlungszeile gewaehlt | Regelwerksmapping ist umgesetzt; Probe und Verteidigung sind getrennt rollbar | Restfaelle mit Zielwerten wie `Pilot`, `Geraetestufe` oder `Cyberware-Geraetestufe` spaeter als eigene Zielwertfelder entscheiden |
 | Matrix-/Rigging-Kernwerte | Matrixattribute/Geraetewerte sind teils manuelle Werte; Initiative nutzt Modus-Sonderlogik | Initiative passt als Sonderfall; Angriffs-/Defensivwerte muessen als Geraete-/Kernwerte getrennt bleiben | Keine pauschale Dreiklang-Umstellung; nur Formelquellen sichtbar machen |
 | `initiative_probe` | Nutzt `Basis + W6` und addiert Augenzahlen | Regelkonformer Sonderfall, nicht Teil von `Attribut + Fertigkeit` | Beibehalten |
 | `value_probe` / Fallback | Nutzt Einzelwerte als Pool oder Vergleichswert | Technisches Sicherheitsnetz, kein fachliches Zielmodell fuer Standardproben | Nicht weiter ausbauen; Restfaelle gezielt in echte Modelle ueberfuehren |
@@ -473,7 +484,7 @@ Beispiel:
 - Als weitere Option steht `Staerke` zur Verfuegung.
 - Der Wuerfelpool wird aus der gewaehlten Attributquelle plus `sr6_skill_athletik_gesamtwert` gebildet.
 
-### Issue-12 Matrix-Handlungen: Soll-/Ist-Mapping
+### Issue-12 Matrix-Handlungen: Mapping und aktueller Stand
 
 Regelwerksquelle und Soll-Grundlage fuer diese Inventur:
 
@@ -482,14 +493,14 @@ Regelwerksquelle und Soll-Grundlage fuer diese Inventur:
 - Matrixhandlungs-Uebersicht S. 330
 - zusaetzliche, vom Projekt bestaetigte Matrixhandlungs-Liste fuer erweiterte Handlungen
 
-Aktueller Ist-Zustand im Sheet:
+Stand vor Umsetzung:
 
 - Die UI zeigt `Handlung`, `Grundwert`, `Modifikator`, `Gesamtwert`.
 - Der Worker berechnet `sr6_matrix_handlung_<name>_gesamtwert = grundwert + modifikator`.
 - Rollbuttons wuerfeln aktuell auf `Grundwert` oder `Gesamtwert`.
 - Die fachliche Probe und die Verteidigungsprobe sind nicht getrennt abgebildet.
 
-Ziel fuer die Matrix-Handlungsansicht:
+Aktueller Stand nach Umsetzung:
 
 - Titelzeile: `Handlung`, `Probe`, `Verteidigung`.
 - Pro Zeile wird die Probe als Formel plus berechnetem Pool angezeigt, z. B. `Elektronik + Willenskraft`.
@@ -498,8 +509,13 @@ Ziel fuer die Matrix-Handlungsansicht:
 - Wo das Regelwerk mehrere Verteidigungsformeln nennt, wird die Verteidigungsquelle direkt in der Matrix-Handlungszeile gewaehlt.
 - Wo das Regelwerk einen festen Schwellenwert nennt, wird dieser nicht technisch modelliert; der Spieler liest die noetigen Erfolge aus dem Probenwurf ab.
 - Handlungen ohne Probe bleiben als solche sichtbar und bekommen keinen Pool-Rollbutton.
+- Die Aktionen sind alphabetisch in der DOM-Reihenfolge angelegt.
+- Die Standardansicht ist `A-Z`; die Ansichten `Gast`, `User` und `Admin` sortieren aktive Handlungen vor inaktive Handlungen.
+- Inaktive Handlungen werden in der Zugriffssortierung als ganze Zeile ausgegraut.
+- Neue/ergaenzte Handlungen wie `Cyberware kontrollieren`, `Dienstverweigerung`, `Stoersender lokalisieren` und `Suendenbock` sind im Mapping vorhanden.
+- Der alte Dreiklang `grundwert/modifikator/gesamtwert` bleibt als kompatibler Datenpfad erhalten, ist aber nicht mehr die primaere UI fuer Matrix-Handlungen.
 
-| Handlung | Sheet-Key | Ist-Zustand | Soll Probe | Soll Verteidigung | Popup-Auswahl / Hinweis |
+| Handlung | Sheet-Key | Vor Umsetzung | Probe | Verteidigung | Auswahl / Hinweis |
 | --- | --- | --- | --- | --- | --- |
 | Ausstoepseln | `ausstoepseln` | `Grundwert + Modifikator` | `Elektronik + Willenskraft` | `Charisma + Datenverarbeitung` oder `Angriff + Datenverarbeitung` | Verteidigung im Sheet waehlen |
 | Bedrohungsanalyse | `bedrohungsanalyse` | `Grundwert + Modifikator` | `Elektronik + Logik` | Keine Verteidigungsprobe | Kein Verteidigungsrollbutton |
@@ -551,14 +567,15 @@ Ziel fuer die Matrix-Handlungsansicht:
 | Virtuelles Zielen | `virtuelles_zielen` | `Grundwert + Modifikator` | Keine Probe | Keine Verteidigungsprobe | Kein Rollbutton |
 | Volle Matrixabwehr | `volle_matrixabwehr` | `Grundwert + Modifikator` | Siehe Beschreibung | Keine Verteidigungsprobe | Als Effekt-/Statushandlung modellieren, nicht als Standardroll |
 
-Technische Ableitung fuer die Umsetzung:
+Technischer Stand:
 
-- `matrix_action` sollte nicht mehr als manuelles Dreiklang-Modell arbeiten.
-- Jede Matrixhandlung braucht ein Mappingobjekt fuer `probe`, `defense`, `access`, `legality`, `actionType` und optionale Hinweise.
-- Die sichtbare UI kann die alten Felder fuer Migration/Kompatibilitaet vorerst behalten, sollte im Ansichtsmodus aber die neue Darstellung nutzen.
-- Proben mit fester Schwelle brauchen keine eigene technische Schwellenwertlogik.
-- Proben mit mehreren Verteidigungsquellen brauchen ein Dropdown in der Matrix-Handlungszeile fuer die Verteidigung.
-- Handlungen ohne Probe duerfen keine leeren Rollbuttons oder leere Poolfelder erzeugen.
+- `matrix_action` arbeitet jetzt ueber `SR6_MATRIX_ACTION_RULES`.
+- Jede Matrixhandlung hat ein Mappingobjekt fuer `probe`, `defense`, `access`, `legality`, `actionType` und optionale Hinweise.
+- Die sichtbare UI nutzt die neue Handlungsdarstellung; alte Felder bleiben fuer Migration/Kompatibilitaet im Hintergrund erhalten.
+- Proben mit fester Schwelle haben keine eigene technische Schwellenwertlogik.
+- Proben mit mehreren Verteidigungsquellen nutzen ein Dropdown in der Matrix-Handlungszeile.
+- Handlungen ohne Probe erzeugen keine leeren Rollbuttons und keine irrefuehrenden Poolfelder.
+- Ziel-/Gegnerwerte wie `Pilot`, `Geraetestufe` oder `Cyberware-Geraetestufe` sind bewusst noch keine automatisch berechneten Sheetwerte, solange keine passenden Zielwertfelder im Sheet existieren.
 
 ## Offener Sammeltest
 
