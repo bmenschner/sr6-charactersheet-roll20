@@ -42,13 +42,13 @@ Dabei gilt:
 | Probenmodell | Fachliche Grundlogik | Typische Popup-Felder | Typische Output-Felder | Tab-spezifische Feldquellen |
 | --- | --- | --- | --- | --- |
 | `attribute_probe` | `Attribut` oder `Attribut x2` `+- Modifikator` | `Modifikator`, spaeter optional `x2`/Variante | `Attribut`, `Wert`, `Pool`, `Erfolge`, `Details` | Attributsname und Poolquelle je nach Probe |
-| `skill_probe` | `Attribut + Fertigkeitsgrundwert + Modifikator + Spezialisierung/Expertise` | `Skill-Modifikator`, `Spezialisierung`, `Expertise` | `Attribut`, `Fertigkeit`, `Wert/Gesamt`, `Pool`, `Erfolge`, `Details` | Attribut-, Fertigkeits- und Poolquelle je Tab/Fall |
+| `skill_probe` | `Attribut + Fertigkeitsgrundwert + Modifikator + Spezialisierung/Expertise` | `Skill-Modifikator`, `Attribut`, `Spezialisierung`, `Expertise` | `Attribut`, `Attribut-Wert`, `Fertigkeitswert`, `Pool`, `Erfolge`, `Details` | Attribut-, Fertigkeits- und Poolquelle je Tab/Fall |
 | `initiative_probe` | `Basis + W6` | keine Standard-Popup-Modifikatoren | `Basis`, `W6`, `Gesamt` | physische, astrale, Matrix- und Rigging-Initiative |
 | `defense_probe` | `Attribut + Fertigkeit +- Modifikator` nach SR6-Grundlogik | `Modifikator`, kontextabhaengige Vergleichswerte wie `Verteidigungswert` | `Wert`, Vergleichswert, `Pool`, `Erfolge`, `Details` | pro Tab andere Attribut-/Fertigkeitsquellen, z. B. `Kampf`, `Matrix`, spaeter weitere |
 | `combat_attack_probe` | Angriffsprobe mit getrennten Ebenen fuer `Pool`, `Angriffswert`, `Schaden` | `Skill-Modifikator`, `Angriffswert-Modifikator`, `Schadens-Modifikator`, `Munition`, `Spezialisierung`, `Expertise` | `Waffe`, `Angriffswert`, `Pool`, `Erfolge`, `Schaden`, `Reichweite`, `Munition`, `Munitionshinweis`, `Berechnung` | Nah-/Fernkampfwerte, Waffenkontext, Munitionsquelle, Reichweite |
 | `spell_probe` | `Spruchzauberei` plus separater Entzug | Skill-, Angriffswert-, Schadens-, Flaechen-, Hochdrehen- und Entzugsmodifikatoren | Zauber, Pool, Erfolge, Schaden, modifizierter Entzug, Entzugsschaden, Beschreibung | Magie-Zauber |
 | `value_probe` | einzelner Wert als Probe oder Vergleichswert | Standard-Modifikator, teils Matrix-Zugriff/Overwatch | Wert, Pool, Erfolge, Details | Magie-, Matrix-, Rigging- und Fallback-Werte |
-| `matrix_action` | Matrix-Handlungswert `Grundwert + Modifikator` | Modifikator, Zugriff, Overwatch-Modifikator | Handlung, Pool, Erfolge, Zugriff/Overwatch | Matrix-Handlungen |
+| `matrix_action` | Matrixhandlung mit getrennter Probe und Verteidigung | Modifikator, Zugriff, Verteidigungsquelle, Overwatch-Kontext | Handlung, Probe, Verteidigung, Pool, Erfolge, Details | Matrix-Handlungen |
 
 ### Aktuelles Mapping auf diese Zielmodelle
 
@@ -56,9 +56,10 @@ Dabei gilt:
 | --- | --- | --- | --- |
 | `attribute` | `attribute_probe` | Modell aktiv in erster Nutzung | Eigenes Modell und Pool-Multiplikator sind im Code verankert; erster echter `Attribut x2`-Pilot ist bei `Attribute & Fertigkeiten > Attribute > Gesamtwert` umgesetzt und in Roll20 bestaetigt |
 | `initiative` | `initiative_probe` | Modell aktiv in erster Nutzung | Initiativwuerfe mit `Basis / W6 / Gesamt` laufen nicht mehr ueber den generischen Fallback, sondern ueber ein eigenes Initiativmodell; physische, astrale, Matrix- und Rigging-Initiative nutzen getrennte Basisfelder. Matrix- und Rigging-Initiative leiten Basis und `W6` jetzt aus dem Modus ab |
-| `knowledge_skill`, `language_skill`, `talentsoft_skill`, `knowledge_language_soft_skill`, `skill`, `generic_skill` | `skill_probe` | Modell aktiv in Nutzung | Gemeinsamer `skill_probe`-Builder traegt jetzt Basisfertigkeiten, Wissens-/Sprachfertigkeiten sowie Soft-Faelle; Spezialisierung/Expertise bleiben zentral im Popup-Modell |
+| `skill` | `skill_probe` | Modell aktiv und in Roll20 bestaetigt | Aktionsfertigkeiten nutzen jetzt ein Attribut-Dropdown im Popup; Primaerattribut ist vorausgewaehlt, Sekundaerattribute koennen je Fertigkeit gewaehlt werden; der Pool wird aus gewaehltem Attribut plus Fertigkeitswert berechnet |
+| `knowledge_skill`, `language_skill`, `talentsoft_skill`, `knowledge_language_soft_skill`, `generic_skill` | `skill_probe` | Modell aktiv in Nutzung, Attributszuordnung offen | Gemeinsamer `skill_probe`-Builder traegt Wissens-/Sprachfertigkeiten sowie Soft-Faelle; Spezialisierung/Expertise bleiben zentral im Popup-Modell; fachliche Attributszuordnung folgt separat |
 | `spell` | `spell_probe` | Modell aktiv in erster echter Nutzung | Zauber laufen jetzt nicht mehr ueber einen simplen Einzelwurf, sondern ueber ein eigenes Modell mit `Spruchzauberei`-Probe, modifiziertem Entzug und separatem Entzugswiderstand; das Popup fuehrt Skill-, Schadens- und Entzugsmodifikatoren explizit |
-| `matrix_action` | `matrix_action` | Modell aktiv in Nutzung | Matrix-Handlungen haben einen eigenen Popup-Pfad mit Zugriff und Overwatch-Modifikator; die Gesamtwerte werden aus manuellem Grundwert plus Modifikator berechnet |
+| `matrix_action` | `matrix_action` | Ist-Modell aktiv, Zielmodell inventarisiert | Aktuell eigener Popup-Pfad mit Zugriff und Overwatch-Modifikator; Ziel ist die Umstellung von manuellem `Grundwert + Modifikator` auf Regelwerksmapping aus Probe und Verteidigung |
 | `physical_defense`, `physical_damage_resistance`, `general_defense`, `general_damage_resistance`, `astral_defense`, `astral_damage_resistance`, `matrix_defense`, `matrix_damage_resistance`, `matrix_biofeedback_damage_resistance`, `rigging_matrix_defense`, `rigging_matrix_damage_resistance`, `rigging_biofeedback_damage_resistance` | `defense_probe` | Modell aktiv in Nutzung | Gemeinsamer Builder existiert und wird bereits fuer Kampf sowie allgemeine, magische, Matrix- und Rigging-Defensivfaelle verwendet |
 | `combat_ranged_core_attack`, `combat_melee_core_attack`, `combat_ranged_weapon`, `combat_melee_weapon`, `ranged_weapon`, `melee_weapon` | `combat_attack_probe` | Am besten modelliert | Gemeinsames Kampf-Popup und gemeinsamer Weapon-Outputpfad bereits vorhanden |
 | `magic_value`, `matrix_value`, `rigging_value`, `value` | `value_probe` | Modell jetzt explizit, aber noch Uebergangspfad | Magie-, Matrix- und Rigging-Kernwerte laufen jetzt ueber explizite `value_probe`-Pfade statt direkt ueber den generischen Catch-all; der verbleibende generische `value`-Pfad bleibt vorerst technisches Sicherheitsnetz |
@@ -101,7 +102,7 @@ Vor der fachlichen Pruefung gilt:
 | Magie | Kernwerte | Attribut, Kalkulationsfeld, Einzelwert | `sr6_magic_*`, teilweise Attribute-/Skill-Bezug | Noch projektweit typisieren, nicht blind umbenennen |
 | Magie | Zauber / Rituale / Foki / Geister | Einzelwert, Kontextwert, teils eigene Probenlogik | `repeating_sr6zauber_*`, `repeating_sr6rituale_*`, `repeating_sr6foki_*`, `repeating_sr6geister_*` | `Zauber` laufen jetzt ueber ein eigenes `spell_probe`-Modell; `Rituale` bleiben fuer diesen Refactor bewusst Datenfelder ohne Wuerfel |
 | Matrix | Kernwerte | Einzelwert, Kalkulationsfeld | `sr6_matrix_*` | Kernwerte spaeter typisieren, aktuell nicht pauschal in Dreiklang zwingen |
-| Matrix | Handlungen | Kalkulationsfeld | `sr6_matrix_handlung_<name>_grundwert/modifikator/gesamtwert` | Numerische Inputs aktiv; `gesamtwert = grundwert + modifikator`; Attributszuordnung ist fachlich fuer Issue 12 noch zu pruefen |
+| Matrix | Handlungen | Probe, Verteidigung, Kontextwert | aktuell `sr6_matrix_handlung_<name>_grundwert/modifikator/gesamtwert`; Zielmapping siehe Issue-12 Matrix-Handlungen | Ist: numerische Dreiklang-Felder; Soll: `Handlung`, `Probe`, `Verteidigung` mit Regelwerksmapping |
 | Matrix | Geraete / Programme / Zubehoer / Komplexe Strukturen / Sprites | Einzelwert / Kontextwert | `repeating_sr6matrixgeraete_*`, `repeating_sr6programme_*`, etc. | Erst nach Gesamtklassifikation verfeinern |
 | Rigging | Kernwerte | Einzelwert, Kalkulationsfeld | `sr6_rigging_*` | Formel- und Typpruefung noch offen |
 | Rigging | Fahrzeuge / Programme / Zubehoer / Agenten / Manoever | Einzelwert / Kontextwert | `repeating_sr6fahrzeuge_*`, `repeating_sr6agenten_*`, `repeating_sr6manoever_*` | Kein pauschaler Dreiklang ohne fachliche Bestaetigung |
@@ -414,14 +415,14 @@ Die technische Basis ist bereits vorhanden:
 | Probenmodell / Bereich | Aktueller Stand | Issue-12-Befund | Naechster Schritt |
 | --- | --- | --- | --- |
 | `attribute_probe` | Nutzt einen Attribut-Gesamtwert als Pool; optional `Attribut x2`; Popup-Modifikator wird addiert | Fuer reine Attributproben und `Attribut x2` passend; kein Standardmodell fuer `Attribut + Fertigkeit` | Beibehalten, aber klar als Attribut-/Sonderprobe behandeln |
-| `skill_probe` | Nutzt aktuell den Fertigkeits-Gesamtwert als Pool; Popup-Skill-Modifikator, Spezialisierung und Expertise werden addiert | Nicht vollstaendig regelkonform fuer Standardproben, wenn kein Attributanteil gesetzt ist | Attributquelle pro Aktionsfertigkeit und pro Repeating-Skill klaeren, bevor Workerlogik erweitert wird |
-| Attribute & Fertigkeiten / Aktionsfertigkeiten | `grundwert + modifikator = gesamtwert` funktioniert als Fertigkeitswert | Datenquelle ist korrekt, aber der Rollbutton auf `Gesamtwert` ist fachlich nur der Fertigkeitsanteil, nicht die komplette Probe | Rollbuttons entweder als Fertigkeits-Test kennzeichnen oder auf `Attribut + Fertigkeit` umstellen |
+| `skill_probe` | Aktionsfertigkeiten nutzen ein Attribut-Dropdown im Popup; Popup-Skill-Modifikator, Spezialisierung und Expertise werden addiert | Fuer Aktionsfertigkeiten jetzt regelkonform als `gewaehltes Attribut + Fertigkeitswert + Modifikatoren` umgesetzt; Sandbox-Test und Matrix-Abgleich bestanden | Fuer Wissens-/Sprach-/Soft-Felder separat entscheiden, ob und welche Attributszuordnung gewuenscht ist |
+| Attribute & Fertigkeiten / Aktionsfertigkeiten | `grundwert + modifikator = gesamtwert` bleibt der Fertigkeitswert; der Rollbutton baut daraus plus gewaehltem Attribut den Pool | Datenquelle ist korrekt und wird im Popup zur vollstaendigen Standardprobe erweitert | Beibehalten; keine parallelen Skillquellen einfuehren |
 | Wissens-/Sprach-/Soft-Felder | Repeating-Felder berechnen `grundwert + modifikator = gesamtwert` | Werteberechnung passt; Attributszuordnung fuer echte Proben ist noch offen | Attribut-Dropdown/Default je Typ fachlich entscheiden |
 | `combat_attack_probe` / Kampf-Kernwerte | Fernkampf, Projektilwaffen und Nahkampf berechnen bereits `Attribut + Fertigkeit + Modifikator` in den Kernwerten | Grundmechanik passt fuer die globalen Kampf-Kernwerte; Waffen-Rollbuttons muessen weiterhin gegen dieselbe Poolquelle geprueft werden | Waffen-Sonderfaelle separat ueber vorhandene Kampf-/Waffen-Issues nachziehen |
 | `spell_probe` / Zauber | Spruchzauberei nutzt `Magie + Hexerei/Zauberpool + Modifikatoren`; Entzug laeuft getrennt | Passt als magischer Sonderfall: eigener Hauptwurf plus Entzugswiderstand | Nur konkrete Zauberarten/Schaden/Entzug weiter gegen Regelwerk pruefen |
 | Magie-Kernwerte / Astralkampf | Mehrere Werte sind berechnete Sonderfaelle aus Attributen/Fertigkeiten, z. B. Waffenloser Kampf aus `Astral + Willenskraft` | Kein einheitliches Standardmodell, aber bewusst Sonderlogik | Formeln einzeln dokumentieren und UI als berechnet/manuell modifiziert kennzeichnen |
 | `defense_probe` | Nutzt berechnete Verteidigungs-/Widerstandswerte als Pool und zeigt Vergleichswerte | Verteidigung und Widerstand sind Sonderfaelle; nicht blind in `Attribut + Fertigkeit` pressen | Jede Verteidigungsart gegen Regelwerk pruefen, aber Modell als Sonderprobe beibehalten |
-| `matrix_action` | Matrix-Handlungen berechnen aktuell nur `Grundwert + Modifikator` | Offen: fachlich nicht sichtbar, ob `Grundwert` bereits `Attribut + Fertigkeit` ist oder manuell gepflegt wird | Fuer Issue 12 hohe Prioritaet: Matrix-Handlungen brauchen klares Attribut-/Fertigkeitsmapping oder bewusste Endwert-Entscheidung |
+| `matrix_action` | Matrix-Handlungen berechnen aktuell nur `Grundwert + Modifikator`; Regelwerksmapping ist jetzt inventarisiert | Ist-Zustand ist nicht ausreichend, weil Probe und Verteidigung getrennt benoetigt werden | Zielmodell aus der Matrix-Handlungs-Tabelle umsetzen: `Handlung`, `Probe`, `Verteidigung` plus Popup-Auswahl fuer variable Verteidigungsquellen |
 | Matrix-/Rigging-Kernwerte | Matrixattribute/Geraetewerte sind teils manuelle Werte; Initiative nutzt Modus-Sonderlogik | Initiative passt als Sonderfall; Angriffs-/Defensivwerte muessen als Geraete-/Kernwerte getrennt bleiben | Keine pauschale Dreiklang-Umstellung; nur Formelquellen sichtbar machen |
 | `initiative_probe` | Nutzt `Basis + W6` und addiert Augenzahlen | Regelkonformer Sonderfall, nicht Teil von `Attribut + Fertigkeit` | Beibehalten |
 | `value_probe` / Fallback | Nutzt Einzelwerte als Pool oder Vergleichswert | Technisches Sicherheitsnetz, kein fachliches Zielmodell fuer Standardproben | Nicht weiter ausbauen; Restfaelle gezielt in echte Modelle ueberfuehren |
@@ -471,6 +472,93 @@ Beispiel:
 - Das Popup-Dropdown ist auf `Geschicklichkeit` vorausgewaehlt.
 - Als weitere Option steht `Staerke` zur Verfuegung.
 - Der Wuerfelpool wird aus der gewaehlten Attributquelle plus `sr6_skill_athletik_gesamtwert` gebildet.
+
+### Issue-12 Matrix-Handlungen: Soll-/Ist-Mapping
+
+Regelwerksquelle und Soll-Grundlage fuer diese Inventur:
+
+- `docs/Shadowrun 6D - Grundregelwerk 2024.pdf`
+- Matrixhandlungen S. 179-184
+- Matrixhandlungs-Uebersicht S. 330
+- zusaetzliche, vom Projekt bestaetigte Matrixhandlungs-Liste fuer erweiterte Handlungen
+
+Aktueller Ist-Zustand im Sheet:
+
+- Die UI zeigt `Handlung`, `Grundwert`, `Modifikator`, `Gesamtwert`.
+- Der Worker berechnet `sr6_matrix_handlung_<name>_gesamtwert = grundwert + modifikator`.
+- Rollbuttons wuerfeln aktuell auf `Grundwert` oder `Gesamtwert`.
+- Die fachliche Probe und die Verteidigungsprobe sind nicht getrennt abgebildet.
+
+Ziel fuer die Matrix-Handlungsansicht:
+
+- Titelzeile: `Handlung`, `Probe`, `Verteidigung`.
+- Pro Zeile wird die Probe als Formel plus berechnetem Pool angezeigt, z. B. `Elektronik + Willenskraft`.
+- Pro Zeile wird die Verteidigung als Formel plus berechnetem Pool oder `Keine Probe` angezeigt.
+- Probe und Verteidigung bekommen jeweils eigene Rollbuttons, wenn tatsaechlich gewuerfelt wird.
+- Wo das Regelwerk mehrere Verteidigungsformeln nennt, wird die Verteidigungsquelle direkt in der Matrix-Handlungszeile gewaehlt.
+- Wo das Regelwerk einen festen Schwellenwert nennt, wird dieser nicht technisch modelliert; der Spieler liest die noetigen Erfolge aus dem Probenwurf ab.
+- Handlungen ohne Probe bleiben als solche sichtbar und bekommen keinen Pool-Rollbutton.
+
+| Handlung | Sheet-Key | Ist-Zustand | Soll Probe | Soll Verteidigung | Popup-Auswahl / Hinweis |
+| --- | --- | --- | --- | --- | --- |
+| Ausstoepseln | `ausstoepseln` | `Grundwert + Modifikator` | `Elektronik + Willenskraft` | `Charisma + Datenverarbeitung` oder `Angriff + Datenverarbeitung` | Verteidigung im Sheet waehlen |
+| Bedrohungsanalyse | `bedrohungsanalyse` | `Grundwert + Modifikator` | `Elektronik + Logik` | Keine Verteidigungsprobe | Kein Verteidigungsrollbutton |
+| Befehl vortaeuschen | `befehl_vortaeuschen` | `Grundwert + Modifikator` | `Cracken + Logik` | `Datenverarbeitung + Firewall` oder `Pilot + Firewall` | Verteidigung im Sheet waehlen |
+| Brute Force | `brute_force` | `Grundwert + Modifikator` | `Cracken + Logik` | `Willenskraft + Firewall` oder `Firewall x2` | Angriff-verbundene Handlung; Verteidigung im Sheet waehlen |
+| Cyberware kontrollieren | `cyberware_kontrollieren` | Nicht vorhanden | `Cracken + Logik` | `Willenskraft + Firewall + Cyberware-Geraetestufe` | Neue Matrixhandlung ergaenzen; Cyberware-Geraetestufe als Zielwert |
+| Datei cracken | `datei_cracken` | `Grundwert + Modifikator` | `Cracken + Logik` | Keine Verteidigungsprobe | Schwelle wird nicht technisch modelliert |
+| Datei editieren | `datei_editieren` | `Grundwert + Modifikator` | `Elektronik + Logik` | `Intuition + Firewall` oder `Schleicher + Firewall` | Verteidigung im Sheet waehlen |
+| Datei verschluesseln | `datei_verschluesseln` | `Grundwert + Modifikator` | `Elektronik + Logik` | Keine Verteidigungsprobe | Erfolge erzeugen Verschluesselungsstufe |
+| Datenbombe entschaerfen | `datenbombe_entschaerfen` | `Grundwert + Modifikator` | `Elektronik + Logik` | Keine Verteidigungsprobe | Schwelle wird nicht technisch modelliert |
+| Datenbombe legen | `datenbombe_legen` | `Grundwert + Modifikator` | `Cracken + Logik` | Keine Verteidigungsprobe | Schwelle wird nicht technisch modelliert |
+| Datenspike | `datenspike` | `Grundwert + Modifikator` | `Cracken + Logik` | `Datenverarbeitung + Firewall` oder `Logik + Firewall` | Angriff-verbundene Handlung; Verteidigung im Sheet waehlen |
+| Dienstverweigerung | `dienstverweigerung` | Nicht vorhanden | `Cracken + Logik` | `Willenskraft + Firewall` oder `Firewall x2` | Neue Matrixhandlung ergaenzen; Verteidigung im Sheet waehlen |
+| Ersticken | `ersticken` | `Grundwert + Modifikator` | `Cracken + Logik` | `Intuition + Schleicher` oder `Schleicher x2` | Verteidigung im Sheet waehlen |
+| Garbage In/Garbage Out | `garbage_in_garbage_out` | `Grundwert + Modifikator` | `Cracken + Logik` | `Willenskraft + Firewall` oder `Firewall x2` | Verteidigung im Sheet waehlen |
+| Geraet formatieren | `geraet_formatieren` | `Grundwert + Modifikator` | `Elektronik + Logik` | `Willenskraft + Firewall` oder `Firewall x2` | Verteidigung im Sheet waehlen |
+| Geraet neu starten | `geraet_neu_starten` | `Grundwert + Modifikator` | `Elektronik + Logik` | `Willenskraft + Firewall` oder `Firewall x2` | Verteidigung im Sheet waehlen |
+| Geraet steuern | `geraet_steuern` | `Grundwert + Modifikator` | `Elektronik + Logik` | `Willenskraft + Firewall` oder `Firewall x2` | Verteidigung im Sheet waehlen |
+| Geraetesperre | `geraetesperre` | `Grundwert + Modifikator` | `Cracken + Logik` | `Willenskraft + Firewall` oder `Firewall x2` | Verteidigung im Sheet waehlen |
+| Hineinspringen | `hineinspringen` | `Grundwert + Modifikator` | `Elektronik + Logik` | `Willenskraft + Firewall` oder `Firewall x2` | Verteidigung im Sheet waehlen |
+| Hintertuer benutzen | `hintertuer_benutzen` | `Grundwert + Modifikator` | `Cracken + Logik` | `Willenskraft + Firewall` oder `Firewall x2` | Schleicher-verbundene Handlung; Verteidigung im Sheet waehlen |
+| Hintertuer mit bekanntem Exploit benutzen | `hintertuer_mit_bekanntem_exploit_benutzen` | `Grundwert + Modifikator` | `Cracken + Logik` | `Willenskraft + Firewall` oder `Firewall x2` | Schleicher-verbundene Handlung; Verteidigung im Sheet waehlen |
+| Host betreten/verlassen | `host_betreten_verlassen` | `Grundwert + Modifikator` | Keine Probe | Keine Verteidigungsprobe | Kein Rollbutton |
+| Icon aufspueren | `icon_aufspueren` | `Grundwert + Modifikator` | `Cracken + Intuition` | `Willenskraft + Schleicher` oder `Firewall + Schleicher` | Schleicher-verbundene Handlung; Verteidigung im Sheet waehlen |
+| Icon modifizieren | `icon_modifizieren` | `Grundwert + Modifikator` | `Cracken + Logik` | `Intuition + Datenverarbeitung` oder `Schleicher + Datenverarbeitung` | Verteidigung im Sheet waehlen |
+| Icon veraendern | `icon_veraendern` | `Grundwert + Modifikator` | Keine Probe | Keine Verteidigungsprobe | Kein Rollbutton |
+| Infrastruktur unterwandern | `infrastruktur_unterwandern` | `Grundwert + Modifikator` | `Cracken + Intuition` | `Intuition + Firewall` oder `Schleicher + Firewall` | Verteidigung im Sheet waehlen |
+| Interfacemodus wechseln | `interfacemodus_wechseln` | `Grundwert + Modifikator` | Keine Probe | Keine Verteidigungsprobe | Kein Rollbutton |
+| Kalibrierung | `kalibrierung` | `Grundwert + Modifikator` | `Elektronik + Logik` | Keine Verteidigungsprobe | Kein Verteidigungsrollbutton |
+| Maskerade | `maskerade` | `Grundwert + Modifikator` | `Cracken + Logik` | `Intuition + Datenverarbeitung` oder `Schleicher + Datenverarbeitung` | Verteidigung im Sheet waehlen |
+| Matrixattribute tauschen | `matrixattribute_austauschen` | `Grundwert + Modifikator` | Keine Probe | Keine Verteidigungsprobe | Kein Rollbutton |
+| Matrixsuche | `matrixsuche` | `Grundwert + Modifikator` | `Elektronik + Intuition` | Keine Verteidigungsprobe | Kein Verteidigungsrollbutton |
+| Matrixwahrnehmung | `matrixwahrnehmung` | `Grundwert + Modifikator` | `Elektronik + Intuition` | `Willenskraft + Schleicher` oder `Firewall + Schleicher` | Verteidigung im Sheet waehlen |
+| Mittelsmetamensch | `mittelsmetamensch` | `Grundwert + Modifikator` | `Cracken + Logik` | `Intuition + Datenverarbeitung` oder `Schleicher + Datenverarbeitung` | Verteidigung im Sheet waehlen |
+| Nachricht uebermitteln | `nachricht_uebermitteln` | `Grundwert + Modifikator` | Keine Probe | Keine Verteidigungsprobe | Kein Rollbutton |
+| Overwatch-Wert bestimmen | `overwatch_wert_bestimmen` | `Grundwert + Modifikator` | `Cracken + Logik` | Keine Verteidigungsprobe | Schwelle wird nicht technisch modelliert |
+| Pop-Up | `pop_up` | `Grundwert + Modifikator` | `Cracken + Logik` | `Intuition + Datenverarbeitung` oder `Schleicher + Datenverarbeitung` | Verteidigung im Sheet waehlen |
+| Programm abstuerzen lassen | `programm_abstuerzen_lassen` | `Grundwert + Modifikator` | `Cracken + Logik` | `Datenverarbeitung + Geraetestufe` | Geraetestufe/Ziel-Datenverarbeitung als Zielwerte |
+| Pruefsummensuche | `pruefsummensuche` | `Grundwert + Modifikator` | `Cracken + Logik` | Keine Verteidigungsprobe | Schwelle wird nicht technisch modelliert |
+| Signal stoeren | `signal_stoeren` | `Grundwert + Modifikator` | `Cracken + Logik` | Keine Verteidigungsprobe | Kein Verteidigungsrollbutton |
+| Sondieren | `sondieren` | `Grundwert + Modifikator` | `Cracken + Logik` | `Willenskraft + Firewall` oder `Firewall x2` | Schleicher-verbundene Handlung; Verteidigung im Sheet waehlen |
+| Stalking | `stalking` | `Grundwert + Modifikator` | `Cracken + Logik` | `Willenskraft + Firewall` oder `Firewall x2` | Verteidigung im Sheet waehlen |
+| Stoersender lokalisieren | `stoersender_lokalisieren` | Nicht vorhanden | `Cracken (Elektronische Kriegsfuehrung) + Logik` | Siehe Beschreibung | Neue Matrixhandlung ergaenzen; Sonderfall |
+| Suendenbock | `suendenbock` | Nicht vorhanden | `Cracken + Schleicher` | `Willenskraft + Firewall` | Neue illegale Haupthandlung ergaenzen; Verteidigung ist fest |
+| Teergrube | `teergrube` | `Grundwert + Modifikator` | `Cracken + Logik` | `Datenverarbeitung + Firewall` oder `Logik + Firewall` | Angriff-verbundene Handlung; Verteidigung im Sheet waehlen |
+| Uebertragung abfangen | `uebertragung_abfangen` | `Grundwert + Modifikator` | `Cracken + Logik` | `Logik + Firewall` oder `Datenverarbeitung + Firewall` | Verteidigung im Sheet waehlen |
+| Verstecken | `verstecken` | `Grundwert + Modifikator` | `Cracken + Intuition` | `Intuition + Datenverarbeitung` oder `Schleicher + Datenverarbeitung` | Schleicher-verbundene Handlung; Verteidigung im Sheet waehlen |
+| Verzoegerter Befehl | `verzoegerter_befehl` | `Grundwert + Modifikator` | `Cracken + Logik` | `Datenverarbeitung + Firewall` oder `Pilot + Firewall` | Verteidigung im Sheet waehlen |
+| Virtuelles Zielen | `virtuelles_zielen` | `Grundwert + Modifikator` | Keine Probe | Keine Verteidigungsprobe | Kein Rollbutton |
+| Volle Matrixabwehr | `volle_matrixabwehr` | `Grundwert + Modifikator` | Siehe Beschreibung | Keine Verteidigungsprobe | Als Effekt-/Statushandlung modellieren, nicht als Standardroll |
+
+Technische Ableitung fuer die Umsetzung:
+
+- `matrix_action` sollte nicht mehr als manuelles Dreiklang-Modell arbeiten.
+- Jede Matrixhandlung braucht ein Mappingobjekt fuer `probe`, `defense`, `access`, `legality`, `actionType` und optionale Hinweise.
+- Die sichtbare UI kann die alten Felder fuer Migration/Kompatibilitaet vorerst behalten, sollte im Ansichtsmodus aber die neue Darstellung nutzen.
+- Proben mit fester Schwelle brauchen keine eigene technische Schwellenwertlogik.
+- Proben mit mehreren Verteidigungsquellen brauchen ein Dropdown in der Matrix-Handlungszeile fuer die Verteidigung.
+- Handlungen ohne Probe duerfen keine leeren Rollbuttons oder leere Poolfelder erzeugen.
 
 ## Offener Sammeltest
 

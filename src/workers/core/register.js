@@ -16,7 +16,7 @@ function recomputeAll(callback) {
   getAttrs(requestKeys, (values) => {
     computeAttributeTotals(values, updates, totals);
     computeSkillTotals(values, updates, skillTotals);
-    computeMatrixTotals(values, totals, updates);
+    computeMatrixTotals(values, totals, skillTotals, updates);
     computeCombatDerivedFromAttributes(totals, values, updates, skillTotals);
     computeHeaderMonitorDerivedFromAttributes(totals, values, updates);
     computeMagicDerived(values, totals, skillTotals, updates);
@@ -42,6 +42,7 @@ function buildRecalcEvents() {
   SR6_MATRIX_ACTIONS.forEach((actionName) => {
     events.push(`change:sr6_matrix_handlung_${actionName}_grundwert`);
     events.push(`change:sr6_matrix_handlung_${actionName}_modifikator`);
+    events.push(`change:sr6_matrix_handlung_${actionName}_verteidigung_auswahl`);
   });
 
   events.push("change:sr6_combat_verteidigungswert_modifikator");
@@ -76,7 +77,10 @@ function buildRecalcEvents() {
   events.push("change:sr6_magic_astralkampf_angriffswert_modifikator");
   events.push("change:sr6_magic_astralkampf_verteidigungswert_modifikator");
   events.push("change:sr6_matrix_modus");
+  events.push("change:sr6_matrix_angriff");
+  events.push("change:sr6_matrix_schleicher");
   events.push("change:sr6_matrix_datenverarbeitung");
+  events.push("change:sr6_matrix_firewall");
   events.push("change:sr6_rigging_modus");
   events.push("change:sr6_rigging_datenverarbeitung");
 

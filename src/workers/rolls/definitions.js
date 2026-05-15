@@ -1325,12 +1325,13 @@ function getInternalRollFields(definition) {
   return Array.isArray(resolvedDefinition.internalFields) ? resolvedDefinition.internalFields : [];
 }
 
-function getRollPopupFields(definition) {
+function getRollPopupFields(definition, poolAttribute) {
   const resolvedDefinition = definition || resolveRollDefinition({});
-  if (Array.isArray(resolvedDefinition.popupFields) && resolvedDefinition.popupFields.length > 0) {
-    return resolvedDefinition.popupFields;
-  }
-  return SR6_DEFAULT_POPUP_FIELDS;
+  const baseFields = Array.isArray(resolvedDefinition.popupFields) && resolvedDefinition.popupFields.length > 0
+    ? resolvedDefinition.popupFields
+    : SR6_DEFAULT_POPUP_FIELDS;
+
+  return baseFields;
 }
 
 function getSkillProbeAttributeOptions(definition) {
@@ -1352,7 +1353,76 @@ function getRollAdditionalAttributes(definition) {
   getSkillProbeAttributeOptions(definition).forEach((option) => {
     if (option && option.attr) attributes.push(option.attr);
   });
+  if (definition && definition.id === "matrix_action") {
+    return [...new Set([...attributes, ...getMatrixActionRuleAttributeRefs(), ...getMatrixActionSelectionAttributeRefs()])];
+  }
   return [...new Set(attributes)];
+}
+
+function getMatrixActionKeyFromPoolAttribute(poolAttribute) {
+  const prefix = "sr6_matrix_handlung_";
+  const suffixes = ["_grundwert", "_modifikator", "_gesamtwert", "_probe_wert", "_verteidigung_wert"];
+  if (!poolAttribute || !poolAttribute.startsWith(prefix)) return "";
+
+  const actionPart = poolAttribute.slice(prefix.length);
+  for (let index = 0; index < suffixes.length; index += 1) {
+    const suffix = suffixes[index];
+    if (actionPart.endsWith(suffix)) {
+      return actionPart.slice(0, -suffix.length);
+    }
+  }
+  return actionPart;
+}
+
+function getMatrixActionRollModeFromPoolAttribute(poolAttribute) {
+  if (!poolAttribute) return "probe";
+  if (poolAttribute.endsWith("_verteidigung_wert")) return "defense";
+  return "probe";
+}
+
+function getMatrixActionRule(actionKey) {
+  return (SR6_MATRIX_ACTION_RULES && SR6_MATRIX_ACTION_RULES[actionKey]) || null;
+}
+
+function getMatrixRuleComponentAttr(component) {
+  if (!component) return "";
+  if (component.attribute) {
+    return `sr6_attr_${component.attribute}_gesamtwert`;
+  }
+  if (component.skill) {
+    return `sr6_skill_${component.skill}_gesamtwert`;
+  }
+  if (component.matrix) {
+    return `sr6_matrix_${component.matrix}`;
+  }
+  return "";
+}
+
+function collectMatrixRuleComponentAttrs(component, attributes) {
+  const directAttr = getMatrixRuleComponentAttr(component);
+  if (directAttr) attributes.push(directAttr);
+  if (component && component.matrixSecond) {
+    attributes.push(`sr6_matrix_${component.matrixSecond}`);
+  }
+}
+
+function getMatrixActionRuleAttributeRefs() {
+  const attributes = [];
+  Object.keys(SR6_MATRIX_ACTION_RULES || {}).forEach((actionKey) => {
+    const rule = SR6_MATRIX_ACTION_RULES[actionKey] || {};
+    collectMatrixRuleComponentAttrs(rule.probe, attributes);
+    const defense = rule.defense || {};
+    if (Array.isArray(defense.options)) {
+      defense.options.forEach((option) => collectMatrixRuleComponentAttrs(option, attributes));
+    } else {
+      collectMatrixRuleComponentAttrs(defense, attributes);
+    }
+  });
+  return [...new Set(attributes)];
+}
+
+function getMatrixActionSelectionAttributeRefs() {
+  return SR6_MATRIX_ACTIONS.map((actionKey) => `sr6_matrix_handlung_${actionKey}_verteidigung_auswahl`);
 }
 
 function getRollContextFields(definition) {
@@ -1410,8 +1480,8 @@ function getPopupSelectOptions(field) {
   return SR6_POPUP_SELECT_OPTION_SETS[field.optionSet] || [];
 }
 
-function buildPopupStateFromValues(values, definition) {
-  const popupFields = getRollPopupFields(definition);
+function buildPopupStateFromValues(values, definition, poolAttribute) {
+  const popupFields = getRollPopupFields(definition, poolAttribute);
   const popupRows = [];
   const selectedValues = {};
   let poolMod = 0;
@@ -1568,8 +1638,8 @@ function buildPopupResetPayload() {
   return payload;
 }
 
-function buildPopupFormPayload(definition, templateFields = {}) {
-  const popupFields = getRollPopupFields(definition);
+function buildPopupFormPayload(definition, templateFields = {}, poolAttribute) {
+  const popupFields = getRollPopupFields(definition, poolAttribute);
   const payload = buildPopupResetPayload();
 
   popupFields.forEach((field, index) => {
@@ -1607,7 +1677,7 @@ function getPopupSourceAttrName(field, poolAttribute) {
 }
 
 function buildPopupRequestedAttributes(definition, poolAttribute, repeatingRowPrefix) {
-  const popupFields = getRollPopupFields(definition);
+  const popupFields = getRollPopupFields(definition, poolAttribute);
   const requestedAttributes = [];
 
   popupFields.forEach((field) => {
@@ -1623,10 +1693,10 @@ function buildPopupRequestedAttributes(definition, poolAttribute, repeatingRowPr
 }
 
 function buildPopupPrefillPayload(definition, poolAttribute, repeatingRowPrefix, values, templateFields = {}) {
-  const popupFields = getRollPopupFields(definition);
+  const popupFields = getRollPopupFields(definition, poolAttribute);
   const lookupAttr = buildAttrLookup(values || {}, repeatingRowPrefix);
   const resolvedTemplateFields = buildResolvedFields(templateFields || {}, lookupAttr);
-  const payload = buildPopupFormPayload(definition, resolvedTemplateFields);
+  const payload = buildPopupFormPayload(definition, resolvedTemplateFields, poolAttribute);
 
   popupFields.forEach((field, index) => {
     if (!fieldMatchesPopupVisibility(field, resolvedTemplateFields)) return;

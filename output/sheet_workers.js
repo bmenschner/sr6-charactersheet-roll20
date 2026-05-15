@@ -40,12 +40,14 @@ const SR6_MATRIX_ACTIONS = [
   "befehl_vortaeuschen",
   "bedrohungsanalyse",
   "brute_force",
+  "cyberware_kontrollieren",
   "datei_cracken",
   "datei_editieren",
   "datei_verschluesseln",
   "datenbombe_entschaerfen",
   "datenbombe_legen",
   "datenspike",
+  "dienstverweigerung",
   "ersticken",
   "garbage_in_garbage_out",
   "geraet_formatieren",
@@ -76,6 +78,8 @@ const SR6_MATRIX_ACTIONS = [
   "signal_stoeren",
   "sondieren",
   "stalking",
+  "stoersender_lokalisieren",
+  "suendenbock",
   "teergrube",
   "uebertragung_abfangen",
   "verstecken",
@@ -83,6 +87,383 @@ const SR6_MATRIX_ACTIONS = [
   "virtuelles_zielen",
   "volle_matrixabwehr"
 ];
+
+const SR6_MATRIX_ACTION_RULES = {
+  ausstoepseln: {
+    probe: { label: "Elektronik + Willenskraft", skill: "elektronik", attribute: "willenskraft" },
+    defense: {
+      type: "choice",
+      options: [
+        { label: "Charisma + Datenverarbeitung", attribute: "charisma", matrix: "datenverarbeitung" },
+        { label: "Angriff + Datenverarbeitung", matrix: "angriff", matrixSecond: "datenverarbeitung" },
+      ],
+    },
+  },
+  bedrohungsanalyse: {
+    probe: { label: "Elektronik + Logik", skill: "elektronik", attribute: "logik" },
+    defense: { type: "none" },
+  },
+  befehl_vortaeuschen: {
+    probe: { label: "Cracken + Logik", skill: "cracken", attribute: "logik" },
+    defense: {
+      type: "choice",
+      options: [
+        { label: "Datenverarbeitung + Firewall", matrix: "datenverarbeitung", matrixSecond: "firewall" },
+        { label: "Pilot + Firewall", target: "pilot", matrix: "firewall" },
+      ],
+    },
+  },
+  brute_force: {
+    probe: { label: "Cracken + Logik", skill: "cracken", attribute: "logik", linkedMatrixAttribute: "angriff" },
+    defense: {
+      type: "choice",
+      options: [
+        { label: "Willenskraft + Firewall", attribute: "willenskraft", matrix: "firewall" },
+        { label: "Firewall x2", matrix: "firewall", multiplier: 2 },
+      ],
+    },
+  },
+  cyberware_kontrollieren: {
+    probe: { label: "Cracken + Logik", skill: "cracken", attribute: "logik" },
+    defense: { type: "fixed_formula", label: "Willenskraft + Firewall + Cyberware-Geraetestufe" },
+  },
+  datei_cracken: {
+    probe: { label: "Cracken + Logik", skill: "cracken", attribute: "logik" },
+    defense: { type: "none" },
+  },
+  datei_editieren: {
+    probe: { label: "Elektronik + Logik", skill: "elektronik", attribute: "logik" },
+    defense: {
+      type: "choice",
+      options: [
+        { label: "Intuition + Firewall", attribute: "intuition", matrix: "firewall" },
+        { label: "Schleicher + Firewall", matrix: "schleicher", matrixSecond: "firewall" },
+      ],
+    },
+  },
+  datei_verschluesseln: {
+    probe: { label: "Elektronik + Logik", skill: "elektronik", attribute: "logik" },
+    defense: { type: "none" },
+  },
+  datenbombe_entschaerfen: {
+    probe: { label: "Elektronik + Logik", skill: "elektronik", attribute: "logik" },
+    defense: { type: "none" },
+  },
+  datenbombe_legen: {
+    probe: { label: "Cracken + Logik", skill: "cracken", attribute: "logik" },
+    defense: { type: "none" },
+  },
+  datenspike: {
+    probe: { label: "Cracken + Logik", skill: "cracken", attribute: "logik", linkedMatrixAttribute: "angriff" },
+    defense: {
+      type: "choice",
+      options: [
+        { label: "Datenverarbeitung + Firewall", matrix: "datenverarbeitung", matrixSecond: "firewall" },
+        { label: "Logik + Firewall", attribute: "logik", matrix: "firewall" },
+      ],
+    },
+  },
+  dienstverweigerung: {
+    probe: { label: "Cracken + Logik", skill: "cracken", attribute: "logik" },
+    defense: {
+      type: "choice",
+      options: [
+        { label: "Willenskraft + Firewall", attribute: "willenskraft", matrix: "firewall" },
+        { label: "Firewall x2", matrix: "firewall", multiplier: 2 },
+      ],
+    },
+  },
+  ersticken: {
+    probe: { label: "Cracken + Logik", skill: "cracken", attribute: "logik" },
+    defense: {
+      type: "choice",
+      options: [
+        { label: "Intuition + Schleicher", attribute: "intuition", matrix: "schleicher" },
+        { label: "Schleicher x2", matrix: "schleicher", multiplier: 2 },
+      ],
+    },
+  },
+  garbage_in_garbage_out: {
+    probe: { label: "Cracken + Logik", skill: "cracken", attribute: "logik" },
+    defense: {
+      type: "choice",
+      options: [
+        { label: "Willenskraft + Firewall", attribute: "willenskraft", matrix: "firewall" },
+        { label: "Firewall x2", matrix: "firewall", multiplier: 2 },
+      ],
+    },
+  },
+  geraet_formatieren: {
+    probe: { label: "Elektronik + Logik", skill: "elektronik", attribute: "logik" },
+    defense: {
+      type: "choice",
+      options: [
+        { label: "Willenskraft + Firewall", attribute: "willenskraft", matrix: "firewall" },
+        { label: "Firewall x2", matrix: "firewall", multiplier: 2 },
+      ],
+    },
+  },
+  geraet_neu_starten: {
+    probe: { label: "Elektronik + Logik", skill: "elektronik", attribute: "logik" },
+    defense: {
+      type: "choice",
+      options: [
+        { label: "Willenskraft + Firewall", attribute: "willenskraft", matrix: "firewall" },
+        { label: "Firewall x2", matrix: "firewall", multiplier: 2 },
+      ],
+    },
+  },
+  geraet_steuern: {
+    probe: { label: "Elektronik + Logik", skill: "elektronik", attribute: "logik" },
+    defense: {
+      type: "choice",
+      options: [
+        { label: "Willenskraft + Firewall", attribute: "willenskraft", matrix: "firewall" },
+        { label: "Firewall x2", matrix: "firewall", multiplier: 2 },
+      ],
+    },
+  },
+  geraetesperre: {
+    probe: { label: "Cracken + Logik", skill: "cracken", attribute: "logik" },
+    defense: {
+      type: "choice",
+      options: [
+        { label: "Willenskraft + Firewall", attribute: "willenskraft", matrix: "firewall" },
+        { label: "Firewall x2", matrix: "firewall", multiplier: 2 },
+      ],
+    },
+  },
+  hineinspringen: {
+    probe: { label: "Elektronik + Logik", skill: "elektronik", attribute: "logik" },
+    defense: {
+      type: "choice",
+      options: [
+        { label: "Willenskraft + Firewall", attribute: "willenskraft", matrix: "firewall" },
+        { label: "Firewall x2", matrix: "firewall", multiplier: 2 },
+      ],
+    },
+  },
+  hintertuer_benutzen: {
+    probe: { label: "Cracken + Logik", skill: "cracken", attribute: "logik", linkedMatrixAttribute: "schleicher" },
+    defense: {
+      type: "choice",
+      options: [
+        { label: "Willenskraft + Firewall", attribute: "willenskraft", matrix: "firewall" },
+        { label: "Firewall x2", matrix: "firewall", multiplier: 2 },
+      ],
+    },
+  },
+  hintertuer_mit_bekanntem_exploit_benutzen: {
+    probe: { label: "Cracken + Logik", skill: "cracken", attribute: "logik", linkedMatrixAttribute: "schleicher" },
+    defense: {
+      type: "choice",
+      options: [
+        { label: "Willenskraft + Firewall", attribute: "willenskraft", matrix: "firewall" },
+        { label: "Firewall x2", matrix: "firewall", multiplier: 2 },
+      ],
+    },
+  },
+  host_betreten_verlassen: {
+    probe: { type: "none" },
+    defense: { type: "none" },
+  },
+  icon_aufspueren: {
+    probe: { label: "Cracken + Intuition", skill: "cracken", attribute: "intuition", linkedMatrixAttribute: "schleicher" },
+    defense: {
+      type: "choice",
+      options: [
+        { label: "Willenskraft + Schleicher", attribute: "willenskraft", matrix: "schleicher" },
+        { label: "Firewall + Schleicher", matrix: "firewall", matrixSecond: "schleicher" },
+      ],
+    },
+  },
+  icon_modifizieren: {
+    probe: { label: "Cracken + Logik", skill: "cracken", attribute: "logik" },
+    defense: {
+      type: "choice",
+      options: [
+        { label: "Intuition + Datenverarbeitung", attribute: "intuition", matrix: "datenverarbeitung" },
+        { label: "Schleicher + Datenverarbeitung", matrix: "schleicher", matrixSecond: "datenverarbeitung" },
+      ],
+    },
+  },
+  icon_veraendern: {
+    probe: { type: "none" },
+    defense: { type: "none" },
+  },
+  infrastruktur_unterwandern: {
+    probe: { label: "Cracken + Intuition", skill: "cracken", attribute: "intuition" },
+    defense: {
+      type: "choice",
+      options: [
+        { label: "Intuition + Firewall", attribute: "intuition", matrix: "firewall" },
+        { label: "Schleicher + Firewall", matrix: "schleicher", matrixSecond: "firewall" },
+      ],
+    },
+  },
+  interfacemodus_wechseln: {
+    probe: { type: "none" },
+    defense: { type: "none" },
+  },
+  kalibrierung: {
+    probe: { label: "Elektronik + Logik", skill: "elektronik", attribute: "logik" },
+    defense: { type: "none" },
+  },
+  maskerade: {
+    probe: { label: "Cracken + Logik", skill: "cracken", attribute: "logik" },
+    defense: {
+      type: "choice",
+      options: [
+        { label: "Intuition + Datenverarbeitung", attribute: "intuition", matrix: "datenverarbeitung" },
+        { label: "Schleicher + Datenverarbeitung", matrix: "schleicher", matrixSecond: "datenverarbeitung" },
+      ],
+    },
+  },
+  matrixattribute_austauschen: {
+    probe: { type: "none" },
+    defense: { type: "none" },
+  },
+  matrixsignatur_loeschen: {
+    probe: { label: "Cracken + Logik", skill: "cracken", attribute: "logik" },
+    defense: {
+      type: "choice",
+      options: [
+        { label: "Willenskraft + Firewall", attribute: "willenskraft", matrix: "firewall" },
+        { label: "Firewall x2", matrix: "firewall", multiplier: 2 },
+      ],
+    },
+  },
+  matrixsuche: {
+    probe: { label: "Elektronik + Intuition", skill: "elektronik", attribute: "intuition" },
+    defense: { type: "none" },
+  },
+  matrixwahrnehmung: {
+    probe: { label: "Elektronik + Intuition", skill: "elektronik", attribute: "intuition" },
+    defense: {
+      type: "choice",
+      options: [
+        { label: "Willenskraft + Schleicher", attribute: "willenskraft", matrix: "schleicher" },
+        { label: "Firewall + Schleicher", matrix: "firewall", matrixSecond: "schleicher" },
+      ],
+    },
+  },
+  mittelsmetamensch: {
+    probe: { label: "Cracken + Logik", skill: "cracken", attribute: "logik" },
+    defense: {
+      type: "choice",
+      options: [
+        { label: "Intuition + Datenverarbeitung", attribute: "intuition", matrix: "datenverarbeitung" },
+        { label: "Schleicher + Datenverarbeitung", matrix: "schleicher", matrixSecond: "datenverarbeitung" },
+      ],
+    },
+  },
+  nachricht_uebermitteln: {
+    probe: { type: "none" },
+    defense: { type: "none" },
+  },
+  overwatch_wert_bestimmen: {
+    probe: { label: "Cracken + Logik", skill: "cracken", attribute: "logik" },
+    defense: { type: "none" },
+  },
+  pop_up: {
+    probe: { label: "Cracken + Logik", skill: "cracken", attribute: "logik" },
+    defense: {
+      type: "choice",
+      options: [
+        { label: "Intuition + Datenverarbeitung", attribute: "intuition", matrix: "datenverarbeitung" },
+        { label: "Schleicher + Datenverarbeitung", matrix: "schleicher", matrixSecond: "datenverarbeitung" },
+      ],
+    },
+  },
+  programm_abstuerzen_lassen: {
+    probe: { label: "Cracken + Logik", skill: "cracken", attribute: "logik" },
+    defense: { type: "fixed_formula", label: "Datenverarbeitung + Geraetestufe" },
+  },
+  pruefsummensuche: {
+    probe: { label: "Cracken + Logik", skill: "cracken", attribute: "logik" },
+    defense: { type: "none" },
+  },
+  signal_stoeren: {
+    probe: { label: "Cracken + Logik", skill: "cracken", attribute: "logik" },
+    defense: { type: "none" },
+  },
+  sondieren: {
+    probe: { label: "Cracken + Logik", skill: "cracken", attribute: "logik", linkedMatrixAttribute: "schleicher" },
+    defense: {
+      type: "choice",
+      options: [
+        { label: "Willenskraft + Firewall", attribute: "willenskraft", matrix: "firewall" },
+        { label: "Firewall x2", matrix: "firewall", multiplier: 2 },
+      ],
+    },
+  },
+  stalking: {
+    probe: { label: "Cracken + Logik", skill: "cracken", attribute: "logik" },
+    defense: {
+      type: "choice",
+      options: [
+        { label: "Willenskraft + Firewall", attribute: "willenskraft", matrix: "firewall" },
+        { label: "Firewall x2", matrix: "firewall", multiplier: 2 },
+      ],
+    },
+  },
+  stoersender_lokalisieren: {
+    probe: { label: "Cracken (Elektronische Kriegsfuehrung) + Logik", skill: "cracken", attribute: "logik", specialization: "Elektronische Kriegsfuehrung" },
+    defense: { type: "description" },
+  },
+  suendenbock: {
+    probe: { label: "Cracken + Schleicher", skill: "cracken", matrix: "schleicher" },
+    defense: { type: "fixed_formula", label: "Willenskraft + Firewall", attribute: "willenskraft", matrix: "firewall" },
+  },
+  teergrube: {
+    probe: { label: "Cracken + Logik", skill: "cracken", attribute: "logik", linkedMatrixAttribute: "angriff" },
+    defense: {
+      type: "choice",
+      options: [
+        { label: "Datenverarbeitung + Firewall", matrix: "datenverarbeitung", matrixSecond: "firewall" },
+        { label: "Logik + Firewall", attribute: "logik", matrix: "firewall" },
+      ],
+    },
+  },
+  uebertragung_abfangen: {
+    probe: { label: "Cracken + Logik", skill: "cracken", attribute: "logik" },
+    defense: {
+      type: "choice",
+      options: [
+        { label: "Logik + Firewall", attribute: "logik", matrix: "firewall" },
+        { label: "Datenverarbeitung + Firewall", matrix: "datenverarbeitung", matrixSecond: "firewall" },
+      ],
+    },
+  },
+  verstecken: {
+    probe: { label: "Cracken + Intuition", skill: "cracken", attribute: "intuition", linkedMatrixAttribute: "schleicher" },
+    defense: {
+      type: "choice",
+      options: [
+        { label: "Intuition + Datenverarbeitung", attribute: "intuition", matrix: "datenverarbeitung" },
+        { label: "Schleicher + Datenverarbeitung", matrix: "schleicher", matrixSecond: "datenverarbeitung" },
+      ],
+    },
+  },
+  verzoegerter_befehl: {
+    probe: { label: "Cracken + Logik", skill: "cracken", attribute: "logik" },
+    defense: {
+      type: "choice",
+      options: [
+        { label: "Datenverarbeitung + Firewall", matrix: "datenverarbeitung", matrixSecond: "firewall" },
+        { label: "Pilot + Firewall", target: "pilot", matrix: "firewall" },
+      ],
+    },
+  },
+  virtuelles_zielen: {
+    probe: { type: "none" },
+    defense: { type: "none" },
+  },
+  volle_matrixabwehr: {
+    probe: { type: "description" },
+    defense: { type: "none" },
+  },
+};
 // END MODULE: workers/core/constants
 
 // BEGIN MODULE: workers/core/helpers
@@ -1457,12 +1838,13 @@ function getInternalRollFields(definition) {
   return Array.isArray(resolvedDefinition.internalFields) ? resolvedDefinition.internalFields : [];
 }
 
-function getRollPopupFields(definition) {
+function getRollPopupFields(definition, poolAttribute) {
   const resolvedDefinition = definition || resolveRollDefinition({});
-  if (Array.isArray(resolvedDefinition.popupFields) && resolvedDefinition.popupFields.length > 0) {
-    return resolvedDefinition.popupFields;
-  }
-  return SR6_DEFAULT_POPUP_FIELDS;
+  const baseFields = Array.isArray(resolvedDefinition.popupFields) && resolvedDefinition.popupFields.length > 0
+    ? resolvedDefinition.popupFields
+    : SR6_DEFAULT_POPUP_FIELDS;
+
+  return baseFields;
 }
 
 function getSkillProbeAttributeOptions(definition) {
@@ -1484,7 +1866,76 @@ function getRollAdditionalAttributes(definition) {
   getSkillProbeAttributeOptions(definition).forEach((option) => {
     if (option && option.attr) attributes.push(option.attr);
   });
+  if (definition && definition.id === "matrix_action") {
+    return [...new Set([...attributes, ...getMatrixActionRuleAttributeRefs(), ...getMatrixActionSelectionAttributeRefs()])];
+  }
   return [...new Set(attributes)];
+}
+
+function getMatrixActionKeyFromPoolAttribute(poolAttribute) {
+  const prefix = "sr6_matrix_handlung_";
+  const suffixes = ["_grundwert", "_modifikator", "_gesamtwert", "_probe_wert", "_verteidigung_wert"];
+  if (!poolAttribute || !poolAttribute.startsWith(prefix)) return "";
+
+  const actionPart = poolAttribute.slice(prefix.length);
+  for (let index = 0; index < suffixes.length; index += 1) {
+    const suffix = suffixes[index];
+    if (actionPart.endsWith(suffix)) {
+      return actionPart.slice(0, -suffix.length);
+    }
+  }
+  return actionPart;
+}
+
+function getMatrixActionRollModeFromPoolAttribute(poolAttribute) {
+  if (!poolAttribute) return "probe";
+  if (poolAttribute.endsWith("_verteidigung_wert")) return "defense";
+  return "probe";
+}
+
+function getMatrixActionRule(actionKey) {
+  return (SR6_MATRIX_ACTION_RULES && SR6_MATRIX_ACTION_RULES[actionKey]) || null;
+}
+
+function getMatrixRuleComponentAttr(component) {
+  if (!component) return "";
+  if (component.attribute) {
+    return `sr6_attr_${component.attribute}_gesamtwert`;
+  }
+  if (component.skill) {
+    return `sr6_skill_${component.skill}_gesamtwert`;
+  }
+  if (component.matrix) {
+    return `sr6_matrix_${component.matrix}`;
+  }
+  return "";
+}
+
+function collectMatrixRuleComponentAttrs(component, attributes) {
+  const directAttr = getMatrixRuleComponentAttr(component);
+  if (directAttr) attributes.push(directAttr);
+  if (component && component.matrixSecond) {
+    attributes.push(`sr6_matrix_${component.matrixSecond}`);
+  }
+}
+
+function getMatrixActionRuleAttributeRefs() {
+  const attributes = [];
+  Object.keys(SR6_MATRIX_ACTION_RULES || {}).forEach((actionKey) => {
+    const rule = SR6_MATRIX_ACTION_RULES[actionKey] || {};
+    collectMatrixRuleComponentAttrs(rule.probe, attributes);
+    const defense = rule.defense || {};
+    if (Array.isArray(defense.options)) {
+      defense.options.forEach((option) => collectMatrixRuleComponentAttrs(option, attributes));
+    } else {
+      collectMatrixRuleComponentAttrs(defense, attributes);
+    }
+  });
+  return [...new Set(attributes)];
+}
+
+function getMatrixActionSelectionAttributeRefs() {
+  return SR6_MATRIX_ACTIONS.map((actionKey) => `sr6_matrix_handlung_${actionKey}_verteidigung_auswahl`);
 }
 
 function getRollContextFields(definition) {
@@ -1542,8 +1993,8 @@ function getPopupSelectOptions(field) {
   return SR6_POPUP_SELECT_OPTION_SETS[field.optionSet] || [];
 }
 
-function buildPopupStateFromValues(values, definition) {
-  const popupFields = getRollPopupFields(definition);
+function buildPopupStateFromValues(values, definition, poolAttribute) {
+  const popupFields = getRollPopupFields(definition, poolAttribute);
   const popupRows = [];
   const selectedValues = {};
   let poolMod = 0;
@@ -1700,8 +2151,8 @@ function buildPopupResetPayload() {
   return payload;
 }
 
-function buildPopupFormPayload(definition, templateFields = {}) {
-  const popupFields = getRollPopupFields(definition);
+function buildPopupFormPayload(definition, templateFields = {}, poolAttribute) {
+  const popupFields = getRollPopupFields(definition, poolAttribute);
   const payload = buildPopupResetPayload();
 
   popupFields.forEach((field, index) => {
@@ -1739,7 +2190,7 @@ function getPopupSourceAttrName(field, poolAttribute) {
 }
 
 function buildPopupRequestedAttributes(definition, poolAttribute, repeatingRowPrefix) {
-  const popupFields = getRollPopupFields(definition);
+  const popupFields = getRollPopupFields(definition, poolAttribute);
   const requestedAttributes = [];
 
   popupFields.forEach((field) => {
@@ -1755,10 +2206,10 @@ function buildPopupRequestedAttributes(definition, poolAttribute, repeatingRowPr
 }
 
 function buildPopupPrefillPayload(definition, poolAttribute, repeatingRowPrefix, values, templateFields = {}) {
-  const popupFields = getRollPopupFields(definition);
+  const popupFields = getRollPopupFields(definition, poolAttribute);
   const lookupAttr = buildAttrLookup(values || {}, repeatingRowPrefix);
   const resolvedTemplateFields = buildResolvedFields(templateFields || {}, lookupAttr);
-  const payload = buildPopupFormPayload(definition, resolvedTemplateFields);
+  const payload = buildPopupFormPayload(definition, resolvedTemplateFields, poolAttribute);
 
   popupFields.forEach((field, index) => {
     if (!fieldMatchesPopupVisibility(field, resolvedTemplateFields)) return;
@@ -2418,6 +2869,140 @@ function resolveSkillProbeAttributePoolOverride(definition, popupState, lookupAt
   };
 }
 
+function resolveMatrixActionComponentValue(component, lookupAttr) {
+  if (!component || component.type === "none" || component.type === "description") {
+    return null;
+  }
+
+  if (component.multiplier && component.matrix) {
+    const matrixValue = parseNumber(lookupAttr(`sr6_matrix_${component.matrix}`));
+    return {
+      label: component.label || component.matrix,
+      value: matrixValue * parseNumber(component.multiplier),
+      parts: [{ label: component.matrix, value: matrixValue }],
+    };
+  }
+
+  if (component.target) {
+    return {
+      label: component.label || component.target,
+      value: null,
+      parts: [],
+    };
+  }
+
+  const parts = [];
+  let total = 0;
+
+  if (component.skill) {
+    const value = parseNumber(lookupAttr(`sr6_skill_${component.skill}_gesamtwert`));
+    parts.push({ label: component.skill, value: value });
+    total += value;
+  }
+  if (component.attribute) {
+    const value = parseNumber(lookupAttr(`sr6_attr_${component.attribute}_gesamtwert`));
+    parts.push({ label: component.attribute, value: value });
+    total += value;
+  }
+  if (component.matrix) {
+    const value = parseNumber(lookupAttr(`sr6_matrix_${component.matrix}`));
+    parts.push({ label: component.matrix, value: value });
+    total += value;
+  }
+  if (component.matrixSecond) {
+    const value = parseNumber(lookupAttr(`sr6_matrix_${component.matrixSecond}`));
+    parts.push({ label: component.matrixSecond, value: value });
+    total += value;
+  }
+
+  if (parts.length === 0) {
+    return null;
+  }
+
+  return {
+    label: component.label || parts.map((part) => part.label).join(" + "),
+    value: total,
+    parts: parts,
+  };
+}
+
+function resolveMatrixActionRuleContext(definition, popupState, lookupAttr, poolAttribute) {
+  if (!definition || definition.id !== "matrix_action") {
+    return null;
+  }
+
+  const actionKey = getMatrixActionKeyFromPoolAttribute(poolAttribute);
+  const rollMode = getMatrixActionRollModeFromPoolAttribute(poolAttribute);
+  const rule = getMatrixActionRule(actionKey);
+  if (!actionKey || !rule) {
+    return null;
+  }
+
+  const probe = resolveMatrixActionComponentValue(rule.probe, lookupAttr);
+  const defense = rule.defense || {};
+  const selectedDefense = `${(((popupState || {}).selectedValues || {}).matrix_defense) || lookupAttr(`sr6_matrix_handlung_${actionKey}_verteidigung_auswahl`) || ""}`.trim();
+  const defenseOption = Array.isArray(defense.options)
+    ? (defense.options.find((option) => `${option.label || ""}`.trim() === selectedDefense) || defense.options[0])
+    : defense;
+  const defenseValue = resolveMatrixActionComponentValue(defenseOption, lookupAttr);
+  const poolBasisOverride = rollMode === "defense"
+    ? (defenseValue && defenseValue.value !== null ? defenseValue.value : null)
+    : (probe ? probe.value : null);
+
+  return {
+    actionKey: actionKey,
+    rollMode: rollMode,
+    rule: rule,
+    probe: probe,
+    defense: defense,
+    defenseOption: defenseOption,
+    defenseValue: defenseValue,
+    poolBasisOverride: poolBasisOverride,
+  };
+}
+
+function appendMatrixActionRows(rows, matrixActionContext) {
+  if (!matrixActionContext) return;
+
+  const rule = matrixActionContext.rule || {};
+  const probe = matrixActionContext.probe;
+  const defense = matrixActionContext.defense || {};
+  const defenseValue = matrixActionContext.defenseValue;
+  const defenseOption = matrixActionContext.defenseOption || {};
+
+  if (rule.probe && rule.probe.type === "none") {
+    rows.push({ label: "Probe", value: "Keine Probe" });
+  } else if (rule.probe && rule.probe.type === "description") {
+    rows.push({ label: "Probe", value: "Siehe Beschreibung" });
+  } else if (probe) {
+    rows.push({ label: "Probe", value: probe.label });
+    rows.push({ label: "Probe-Wert", value: `${probe.value}` });
+  }
+
+  if (rule.probe && rule.probe.linkedMatrixAttribute) {
+    rows.push({ label: "Matrixattribut", value: rule.probe.linkedMatrixAttribute });
+  }
+  if (rule.probe && rule.probe.specialization) {
+    rows.push({ label: "Spezialisierung", value: rule.probe.specialization });
+  }
+
+  if (defense.type === "none") {
+    rows.push({ label: "Verteidigung", value: "Keine Verteidigungsprobe" });
+  } else if (defense.type === "description") {
+    rows.push({ label: "Verteidigung", value: "Siehe Beschreibung" });
+  } else if (defense.type === "fixed_formula" && defenseValue && defenseValue.value !== null) {
+    rows.push({ label: "Verteidigung", value: defenseValue.label });
+    rows.push({ label: "Verteidigungswert", value: `${defenseValue.value}` });
+  } else if (defense.type === "fixed_formula") {
+    rows.push({ label: "Verteidigung", value: defense.label || "Zielwert" });
+  } else if (defenseValue && defenseValue.value !== null) {
+    rows.push({ label: "Verteidigung", value: defenseValue.label });
+    rows.push({ label: "Verteidigungswert", value: `${defenseValue.value}` });
+  } else if (defenseOption && defenseOption.label) {
+    rows.push({ label: "Verteidigung", value: defenseOption.label });
+  }
+}
+
 function resolvePopupDerivedSourceAttr(result, resolvedFields) {
   if (!result || !resolvedFields) {
     return "";
@@ -2566,11 +3151,19 @@ function runSuccessProbeFromContext(rawTemplate, repeatingRowPrefix, popupState 
       lookupAttr,
       context.poolAttribute
     );
+    const matrixActionContext = resolveMatrixActionRuleContext(
+      context.definition,
+      normalizedPopupState,
+      lookupAttr,
+      context.poolAttribute
+    );
     const poolBasisOverride = meleeAttributeOverride
       ? meleeAttributeOverride.poolBasisOverride
       : skillAttributeOverride
         ? skillAttributeOverride.poolBasisOverride
-        : null;
+        : matrixActionContext && matrixActionContext.poolBasisOverride !== null
+          ? matrixActionContext.poolBasisOverride
+          : null;
     const computation = buildProbeComputation(
       lookupAttr,
       context.poolAttribute,
@@ -2590,6 +3183,7 @@ function runSuccessProbeFromContext(rawTemplate, repeatingRowPrefix, popupState 
       rows.push({ label: "Attribut-Wert", value: `${skillAttributeOverride.attributeValue}` });
       rows.push({ label: "Fertigkeitswert", value: `${skillAttributeOverride.skillValue}` });
     }
+    appendMatrixActionRows(rows, matrixActionContext);
     const glitchText = computation.isCriticalGlitch ? "!! Kritischer Patzer !!" : "!! Patzer !!";
     const erfolgeValue = computation.isGlitch ? glitchText : `${computation.successCount}`;
 
@@ -2711,7 +3305,9 @@ function runGlobalPopupProbeConfirm() {
     const definition = getRollDefinitionById(values.sr6_roll_popup_definition || "");
     const rawTemplate = values.sr6_roll_popup_template || "";
     const repeatingRowPrefix = values.sr6_roll_popup_row_prefix || "";
-    const popupState = buildPopupStateFromValues(values, definition);
+    const parsedFields = parseTemplateFields(rawTemplate);
+    const poolAttribute = parsePoolAttributeFromFields(parsedFields);
+    const popupState = buildPopupStateFromValues(values, definition, poolAttribute);
 
     setAttrsSilent({ sr6_roll_popup_open: "0" });
     runSuccessProbeFromContext(rawTemplate, repeatingRowPrefix, popupState);
@@ -3524,11 +4120,14 @@ function computeMagicDerived(values, totals, skillTotals, updates) {
 // BEGIN MODULE: workers/compute/matrix
 function appendMatrixRequestKeys(requestKeys) {
   requestKeys.push("sr6_matrix_modus");
+  requestKeys.push("sr6_matrix_angriff");
+  requestKeys.push("sr6_matrix_schleicher");
   requestKeys.push("sr6_matrix_datenverarbeitung");
   requestKeys.push("sr6_matrix_firewall");
   SR6_MATRIX_ACTIONS.forEach((actionName) => {
     requestKeys.push(`sr6_matrix_handlung_${actionName}_grundwert`);
     requestKeys.push(`sr6_matrix_handlung_${actionName}_modifikator`);
+    requestKeys.push(`sr6_matrix_handlung_${actionName}_verteidigung_auswahl`);
   });
 }
 
@@ -3544,7 +4143,48 @@ function resolveMatrixInitiativeMode(mode) {
   return { basisSource: "physical", w6: 1 };
 }
 
-function computeMatrixTotals(values, totals, updates) {
+function resolveMatrixActionComponentTotal(component, values, totals, skillTotals) {
+  if (!component || component.type === "none" || component.type === "description" || component.target) {
+    return "";
+  }
+
+  if (component.multiplier && component.matrix) {
+    return String(parseNumber(values[`sr6_matrix_${component.matrix}`]) * parseNumber(component.multiplier));
+  }
+
+  let total = 0;
+  let hasParts = false;
+
+  if (component.skill) {
+    total += parseNumber(skillTotals[component.skill]);
+    hasParts = true;
+  }
+  if (component.attribute) {
+    total += parseNumber(totals[component.attribute]);
+    hasParts = true;
+  }
+  if (component.matrix) {
+    total += parseNumber(values[`sr6_matrix_${component.matrix}`]);
+    hasParts = true;
+  }
+  if (component.matrixSecond) {
+    total += parseNumber(values[`sr6_matrix_${component.matrixSecond}`]);
+    hasParts = true;
+  }
+
+  return hasParts ? String(total) : "";
+}
+
+function resolveMatrixActionDefenseComponent(rule, selectedDefense) {
+  const defense = (rule && rule.defense) || {};
+  if (Array.isArray(defense.options)) {
+    const normalizedSelection = `${selectedDefense || ""}`.trim();
+    return defense.options.find((option) => `${option.label || ""}`.trim() === normalizedSelection) || defense.options[0];
+  }
+  return defense;
+}
+
+function computeMatrixTotals(values, totals, skillTotals, updates) {
   const matrixInitiativeMode = resolveMatrixInitiativeMode(values.sr6_matrix_modus);
   const matrixBasis =
     matrixInitiativeMode.basisSource === "matrix"
@@ -3555,12 +4195,19 @@ function computeMatrixTotals(values, totals, updates) {
   updates.sr6_matrix_initiative_w6 = String(matrixInitiativeMode.w6);
 
   SR6_MATRIX_ACTIONS.forEach((actionName) => {
+    const rule = SR6_MATRIX_ACTION_RULES[actionName] || {};
     const baseKey = `sr6_matrix_handlung_${actionName}_grundwert`;
     const modifierKey = `sr6_matrix_handlung_${actionName}_modifikator`;
     const totalKey = `sr6_matrix_handlung_${actionName}_gesamtwert`;
     const total = parseNumber(values[baseKey]) + parseNumber(values[modifierKey]);
+    const defenseSelectionKey = `sr6_matrix_handlung_${actionName}_verteidigung_auswahl`;
+    const probeTotalKey = `sr6_matrix_handlung_${actionName}_probe_wert`;
+    const defenseTotalKey = `sr6_matrix_handlung_${actionName}_verteidigung_wert`;
+    const defenseComponent = resolveMatrixActionDefenseComponent(rule, values[defenseSelectionKey]);
 
     updates[totalKey] = String(total);
+    updates[probeTotalKey] = resolveMatrixActionComponentTotal(rule.probe, values, totals, skillTotals);
+    updates[defenseTotalKey] = resolveMatrixActionComponentTotal(defenseComponent, values, totals, skillTotals);
   });
 }
 // END MODULE: workers/compute/matrix
@@ -3753,7 +4400,7 @@ function recomputeAll(callback) {
   getAttrs(requestKeys, (values) => {
     computeAttributeTotals(values, updates, totals);
     computeSkillTotals(values, updates, skillTotals);
-    computeMatrixTotals(values, totals, updates);
+    computeMatrixTotals(values, totals, skillTotals, updates);
     computeCombatDerivedFromAttributes(totals, values, updates, skillTotals);
     computeHeaderMonitorDerivedFromAttributes(totals, values, updates);
     computeMagicDerived(values, totals, skillTotals, updates);
@@ -3779,6 +4426,7 @@ function buildRecalcEvents() {
   SR6_MATRIX_ACTIONS.forEach((actionName) => {
     events.push(`change:sr6_matrix_handlung_${actionName}_grundwert`);
     events.push(`change:sr6_matrix_handlung_${actionName}_modifikator`);
+    events.push(`change:sr6_matrix_handlung_${actionName}_verteidigung_auswahl`);
   });
 
   events.push("change:sr6_combat_verteidigungswert_modifikator");
@@ -3813,7 +4461,10 @@ function buildRecalcEvents() {
   events.push("change:sr6_magic_astralkampf_angriffswert_modifikator");
   events.push("change:sr6_magic_astralkampf_verteidigungswert_modifikator");
   events.push("change:sr6_matrix_modus");
+  events.push("change:sr6_matrix_angriff");
+  events.push("change:sr6_matrix_schleicher");
   events.push("change:sr6_matrix_datenverarbeitung");
+  events.push("change:sr6_matrix_firewall");
   events.push("change:sr6_rigging_modus");
   events.push("change:sr6_rigging_datenverarbeitung");
 
