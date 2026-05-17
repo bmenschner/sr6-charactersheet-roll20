@@ -517,6 +517,7 @@ const SR6_ROLL_TITLE_PREFIXES = [
   { prefix: "sr6_fernkampf_", title: "Fernkampfwaffen" },
   { prefix: "sr6_nahkampf_", title: "Nahkampfwaffen" },
   { prefix: "sr6_matrix_handlung_", title: "Matrix-Handlungen" },
+  { prefix: "sr6_attrprobe_", title: "Attributsproben" },
   { prefix: "sr6_matrix_", title: "Matrix: Kernwerte" },
   { prefix: "sr6_rigging_manoever_", title: "Manöver" },
   { prefix: "sr6_rigging_", title: "Rigging: Kernwerte" },
@@ -1244,6 +1245,18 @@ const SR6_ROLL_DEFINITIONS = [
     }),
   },
   {
+    id: "attribute_pair",
+    ...createAttributeProbeDefinition({
+      matchField: "Attributsprobe",
+      matchPoolPrefix: "sr6_attrprobe_",
+      titleField: "Attributsprobe",
+      primaryFields: ["Attributsprobe"],
+      extraFields: ["Formel", "Fertigkeit"],
+      popupFields: SR6_DEFAULT_POPUP_FIELDS,
+      titleFallback: "Attributsproben",
+    }),
+  },
+  {
     id: "attribute",
     ...createAttributeProbeDefinition({
       matchField: "Attribut",
@@ -1274,6 +1287,7 @@ const SR6_ROLL_DEFINITIONS = [
     id: "talentsoft_skill",
     ...createSkillProbeDefinition({
       matchPoolPrefix: "sr6_talentsoft_",
+      extraFields: ["Attribut", "Stufe", "Modifikator", "Hinweis"],
       titleFallback: "Talentsofts",
     }),
   },
@@ -3357,6 +3371,18 @@ const SR6_NUMBER_STEPPER_COMPUTED_TARGETS = [
   "sr6_derived_initiative_basis",
 ];
 
+const SR6_NUMBER_STEPPER_REPEATING_SKILL_PREFIXES = [
+  "repeating_sr6wissensfertigkeiten_",
+  "repeating_sr6sprachfertigkeiten_",
+  "repeating_sr6talentsofts_",
+  "repeating_sr6wissenssprachsofts_",
+];
+
+function shouldSyncRepeatingSkillTotalsAfterStepper(repeatingRowPrefix) {
+  if (!repeatingRowPrefix) return false;
+  return SR6_NUMBER_STEPPER_REPEATING_SKILL_PREFIXES.some((prefix) => repeatingRowPrefix.startsWith(prefix));
+}
+
 function resolveRepeatingRowPrefixForStepper(eventInfo, callback) {
   const fallbackPrefix = extractRepeatingRowPrefix(eventInfo);
   const sourceAttribute = (eventInfo && eventInfo.sourceAttribute) || "";
@@ -3462,6 +3488,10 @@ function runNumberStepperAdjust(eventInfo) {
       setAttrsSilent({
         [scopedTargetAttr]: String(currentValue + delta),
       }, () => {
+        if (shouldSyncRepeatingSkillTotalsAfterStepper(repeatingRowPrefix) && typeof syncRepeatingSkillTotals === "function") {
+          syncRepeatingSkillTotals();
+          return;
+        }
         if (!repeatingRowPrefix && typeof recomputeAll === "function") {
           recomputeAll();
         }
@@ -3552,6 +3582,11 @@ function computeAttributeTotals(values, updates, totals) {
     totals[attributeName] = total;
     updates[totalKey] = String(total);
   });
+
+  updates.sr6_attrprobe_erinnerungsvermoegen = String(parseNumber(totals.logik) + parseNumber(totals.intuition));
+  updates.sr6_attrprobe_heben_tragen = String(parseNumber(totals.konstitution) + parseNumber(totals.willenskraft));
+  updates.sr6_attrprobe_menschenkenntnis = String(parseNumber(totals.willenskraft) + parseNumber(totals.intuition));
+  updates.sr6_attrprobe_selbstbeherrschung = String(parseNumber(totals.willenskraft) + parseNumber(totals.charisma));
 }
 // END MODULE: workers/compute/attributes
 
@@ -3579,20 +3614,44 @@ const SR6_REPEATING_SKILL_TOTAL_SECTIONS = [
   {
     section: "repeating_sr6wissensfertigkeiten",
     prefix: "sr6_wissensfertigkeit_",
+    totalSource: "memory",
   },
   {
     section: "repeating_sr6sprachfertigkeiten",
     prefix: "sr6_sprachfertigkeit_",
+    totalSource: "memory",
   },
   {
     section: "repeating_sr6talentsofts",
     prefix: "sr6_talentsoft_",
+    totalSource: "talentsoft",
   },
   {
     section: "repeating_sr6wissenssprachsofts",
     prefix: "sr6_wissenssprachsoft_",
+    totalSource: "memory",
   },
 ];
+
+const SR6_TALENTSOFT_ATTRIBUTE_SOURCES = {
+  "Geschicklichkeit": "sr6_attr_geschicklichkeit_gesamtwert",
+  "Konstitution": "sr6_attr_konstitution_gesamtwert",
+  "Reaktion": "sr6_attr_reaktion_gesamtwert",
+  "Stärke": "sr6_attr_staerke_gesamtwert",
+  "Willenskraft": "sr6_attr_willenskraft_gesamtwert",
+  "Logik": "sr6_attr_logik_gesamtwert",
+  "Intuition": "sr6_attr_intuition_gesamtwert",
+  "Charisma": "sr6_attr_charisma_gesamtwert",
+  "Magie/Resonanz": "sr6_attr_magie_resonanz_gesamtwert",
+};
+
+function getTalentsoftAttributeTotal(values, selectedAttribute) {
+  const attrKey =
+    SR6_TALENTSOFT_ATTRIBUTE_SOURCES[`${selectedAttribute || ""}`.trim()] ||
+    SR6_TALENTSOFT_ATTRIBUTE_SOURCES["Geschicklichkeit"];
+  if (!attrKey) return 0;
+  return parseNumber(values[attrKey]);
+}
 
 function syncRepeatingSkillTotals(callback) {
   const pendingSections = SR6_REPEATING_SKILL_TOTAL_SECTIONS.length;
@@ -3618,10 +3677,18 @@ function syncRepeatingSkillTotals(callback) {
       SR6_REPEATING_SKILL_TOTAL_SECTIONS.forEach((sectionConfig) => {
         const sectionIds = sectionIdsByName[sectionConfig.section] || [];
         sectionIds.forEach((rowId) => {
-          requestKeys.push(`${sectionConfig.section}_${rowId}_${sectionConfig.prefix}grundwert`);
-          requestKeys.push(`${sectionConfig.section}_${rowId}_${sectionConfig.prefix}modifikator`);
+          if (sectionConfig.totalSource === "talentsoft") {
+            requestKeys.push(`${sectionConfig.section}_${rowId}_${sectionConfig.prefix}grundwert`);
+            requestKeys.push(`${sectionConfig.section}_${rowId}_${sectionConfig.prefix}modifikator`);
+            requestKeys.push(`${sectionConfig.section}_${rowId}_${sectionConfig.prefix}attribut`);
+          }
         });
       });
+
+      Object.keys(SR6_TALENTSOFT_ATTRIBUTE_SOURCES).forEach((attributeName) => {
+        requestKeys.push(SR6_TALENTSOFT_ATTRIBUTE_SOURCES[attributeName]);
+      });
+      requestKeys.push("sr6_attrprobe_erinnerungsvermoegen");
 
       if (requestKeys.length === 0) {
         if (typeof callback === "function") callback();
@@ -3635,7 +3702,16 @@ function syncRepeatingSkillTotals(callback) {
           const sectionIds = sectionIdsByName[sectionConfig.section] || [];
           sectionIds.forEach((rowId) => {
             const rowPrefix = `${sectionConfig.section}_${rowId}_${sectionConfig.prefix}`;
+            if (sectionConfig.totalSource === "memory") {
+              updates[`${rowPrefix}gesamtwert`] = String(parseNumber(values.sr6_attrprobe_erinnerungsvermoegen));
+              return;
+            }
+            const attributeTotal =
+              sectionConfig.totalSource === "talentsoft"
+                ? getTalentsoftAttributeTotal(values, values[`${rowPrefix}attribut`])
+                : 0;
             const total =
+              attributeTotal +
               parseNumber(values[`${rowPrefix}grundwert`]) +
               parseNumber(values[`${rowPrefix}modifikator`]);
 
@@ -4478,20 +4554,22 @@ function buildRecalcEvents() {
 
 function registerWorkerEvents() {
   const recalcEvents = buildRecalcEvents();
-  on(recalcEvents.join(" "), recomputeAll);
+  on(recalcEvents.join(" "), () => {
+    recomputeAll(() => {
+      syncRepeatingSkillTotals();
+    });
+  });
   on(
     [
-      "change:repeating_sr6wissensfertigkeiten:sr6_wissensfertigkeit_grundwert",
-      "change:repeating_sr6wissensfertigkeiten:sr6_wissensfertigkeit_modifikator",
+      "change:repeating_sr6wissensfertigkeiten:sr6_wissensfertigkeit_name",
       "remove:repeating_sr6wissensfertigkeiten",
-      "change:repeating_sr6sprachfertigkeiten:sr6_sprachfertigkeit_grundwert",
-      "change:repeating_sr6sprachfertigkeiten:sr6_sprachfertigkeit_modifikator",
+      "change:repeating_sr6sprachfertigkeiten:sr6_sprachfertigkeit_name",
       "remove:repeating_sr6sprachfertigkeiten",
+      "change:repeating_sr6talentsofts:sr6_talentsoft_attribut",
       "change:repeating_sr6talentsofts:sr6_talentsoft_grundwert",
       "change:repeating_sr6talentsofts:sr6_talentsoft_modifikator",
       "remove:repeating_sr6talentsofts",
-      "change:repeating_sr6wissenssprachsofts:sr6_wissenssprachsoft_grundwert",
-      "change:repeating_sr6wissenssprachsofts:sr6_wissenssprachsoft_modifikator",
+      "change:repeating_sr6wissenssprachsofts:sr6_wissenssprachsoft_name",
       "remove:repeating_sr6wissenssprachsofts",
     ].join(" "),
     () => {

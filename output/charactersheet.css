@@ -1470,6 +1470,21 @@ fieldset.repeating_sr6riggingmanoever .repcontrol {
   display: flex;
 }
 
+.sr6-charactersheet-box-attribute.sr6-editable-overview-section:has(.sr6-editable-section-mode:not(:checked)) .sr6-charactersheet-attribute-probes .sr6-charactersheet-field-input-with-dice {
+  grid-template-columns: 2rem 1.75rem;
+  height: var(--sr6-list-single-line-height);
+  align-items: center;
+  width: max-content;
+}
+
+.sr6-charactersheet-box-attribute.sr6-editable-overview-section:has(.sr6-editable-section-mode:not(:checked)) .sr6-charactersheet-attribute-probes .sr6-charactersheet-field-dice-button {
+  display: flex;
+}
+
+.sr6-charactersheet-box-attribute.sr6-editable-overview-section:has(.sr6-editable-section-mode:not(:checked)) .sr6-charactersheet-attribute-probes .sr6-charactersheet-field > span {
+  display: block;
+}
+
 .sr6-charactersheet-box-attribute.sr6-editable-overview-section:has(.sr6-editable-section-mode:not(:checked)) .sr6-charactersheet-attr-value:last-child .sr6-charactersheet-field-input-with-2dice {
   grid-template-columns: 2rem 1.75rem 1.75rem;
 }
@@ -2080,6 +2095,10 @@ fieldset.repeating_sr6riggingmanoever .repcontrol {
 }
 
 #sr6_daten_panel_2 .sr6-charactersheet-box-attribute > .sr6-charactersheet-box-content {
+  display: block;
+}
+
+#sr6_daten_panel_2 .sr6-charactersheet-box-attribute .sr6-charactersheet-attribute-grid {
   display: grid;
   grid-auto-flow: column;
   grid-template-columns: repeat(2, minmax(0, 1fr));
@@ -2087,8 +2106,29 @@ fieldset.repeating_sr6riggingmanoever .repcontrol {
   gap: 0.5rem 1.5rem;
 }
 
-#sr6_daten_panel_2 .sr6-charactersheet-box-attribute > .sr6-charactersheet-box-content > .sr6-charactersheet-row-2 {
+#sr6_daten_panel_2 .sr6-charactersheet-box-attribute .sr6-charactersheet-attribute-grid > .sr6-charactersheet-row-2 {
   display: contents;
+}
+
+#sr6_daten_panel_2 .sr6-charactersheet-box-attribute .sr6-charactersheet-attribute-probes {
+  border-top: 0.0625rem solid rgba(0, 0, 0, 0.18);
+  margin-top: 0.875rem;
+  padding-top: 0.875rem;
+}
+
+#sr6_daten_panel_2 .sr6-charactersheet-box-attribute .sr6-charactersheet-attribute-probe-row {
+  display: grid;
+  grid-template-columns: repeat(4, max-content);
+  justify-content: space-between;
+  align-items: center;
+  gap: 1rem;
+}
+
+#sr6_daten_panel_2 .sr6-charactersheet-box-attribute .sr6-charactersheet-attribute-probe-row .sr6-charactersheet-field {
+  display: grid;
+  grid-template-columns: max-content max-content;
+  align-items: center;
+  column-gap: 0.375rem;
 }
 
 #sr6_daten_panel_2 .sr6-charactersheet-box-fertigkeiten-allgemein .sr6-charactersheet-skills-overview-grid {
@@ -2788,6 +2828,28 @@ fieldset.repeating_sr6riggingfahrzeuge {
   grid-template-columns: repeat(4, minmax(0, 1fr));
   gap: 0.375rem;
   flex: 1 1 0;
+}
+
+.sr6-generic-list-header--memory-probe,
+.sr6-fertigkeiten-extra-section .sr6-fertigkeiten-memory-probe-row,
+.sr6-fertigkeiten-extra-section:has(.sr6-editable-section-mode:not(:checked)) .sr6-editable-item-fields .sr6-fertigkeiten-memory-probe-row {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) max-content;
+}
+
+.sr6-talentsofts-section:has(.sr6-editable-section-mode:not(:checked)) .sr6-editable-item-fields .sr6-foundry-item-head {
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+}
+
+.sr6-fertigkeiten-memory-probe-row .sr6-charactersheet-field-input-with-dice {
+  width: max-content;
+  justify-self: start;
+}
+
+.sr6-fertigkeiten-memory-probe-row input[readonly] {
+  width: 3rem;
+  min-width: 3rem;
+  pointer-events: none;
 }
 
 .sr6-fertigkeiten-extra-section:has(.sr6-editable-section-mode:not(:checked)) .sr6-editable-item-fields .sr6-charactersheet-field {

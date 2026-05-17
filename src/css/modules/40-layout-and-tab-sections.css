@@ -84,6 +84,10 @@
 }
 
 #sr6_daten_panel_2 .sr6-charactersheet-box-attribute > .sr6-charactersheet-box-content {
+  display: block;
+}
+
+#sr6_daten_panel_2 .sr6-charactersheet-box-attribute .sr6-charactersheet-attribute-grid {
   display: grid;
   grid-auto-flow: column;
   grid-template-columns: repeat(2, minmax(0, 1fr));
@@ -91,8 +95,29 @@
   gap: 0.5rem 1.5rem;
 }
 
-#sr6_daten_panel_2 .sr6-charactersheet-box-attribute > .sr6-charactersheet-box-content > .sr6-charactersheet-row-2 {
+#sr6_daten_panel_2 .sr6-charactersheet-box-attribute .sr6-charactersheet-attribute-grid > .sr6-charactersheet-row-2 {
   display: contents;
+}
+
+#sr6_daten_panel_2 .sr6-charactersheet-box-attribute .sr6-charactersheet-attribute-probes {
+  border-top: 0.0625rem solid rgba(0, 0, 0, 0.18);
+  margin-top: 0.875rem;
+  padding-top: 0.875rem;
+}
+
+#sr6_daten_panel_2 .sr6-charactersheet-box-attribute .sr6-charactersheet-attribute-probe-row {
+  display: grid;
+  grid-template-columns: repeat(4, max-content);
+  justify-content: space-between;
+  align-items: center;
+  gap: 1rem;
+}
+
+#sr6_daten_panel_2 .sr6-charactersheet-box-attribute .sr6-charactersheet-attribute-probe-row .sr6-charactersheet-field {
+  display: grid;
+  grid-template-columns: max-content max-content;
+  align-items: center;
+  column-gap: 0.375rem;
 }
 
 #sr6_daten_panel_2 .sr6-charactersheet-box-fertigkeiten-allgemein .sr6-charactersheet-skills-overview-grid {

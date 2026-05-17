@@ -121,6 +121,21 @@
   display: flex;
 }
 
+.sr6-charactersheet-box-attribute.sr6-editable-overview-section:has(.sr6-editable-section-mode:not(:checked)) .sr6-charactersheet-attribute-probes .sr6-charactersheet-field-input-with-dice {
+  grid-template-columns: 2rem 1.75rem;
+  height: var(--sr6-list-single-line-height);
+  align-items: center;
+  width: max-content;
+}
+
+.sr6-charactersheet-box-attribute.sr6-editable-overview-section:has(.sr6-editable-section-mode:not(:checked)) .sr6-charactersheet-attribute-probes .sr6-charactersheet-field-dice-button {
+  display: flex;
+}
+
+.sr6-charactersheet-box-attribute.sr6-editable-overview-section:has(.sr6-editable-section-mode:not(:checked)) .sr6-charactersheet-attribute-probes .sr6-charactersheet-field > span {
+  display: block;
+}
+
 .sr6-charactersheet-box-attribute.sr6-editable-overview-section:has(.sr6-editable-section-mode:not(:checked)) .sr6-charactersheet-attr-value:last-child .sr6-charactersheet-field-input-with-2dice {
   grid-template-columns: 2rem 1.75rem 1.75rem;
 }

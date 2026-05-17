@@ -4,6 +4,7 @@ const SR6_ROLL_TITLE_PREFIXES = [
   { prefix: "sr6_fernkampf_", title: "Fernkampfwaffen" },
   { prefix: "sr6_nahkampf_", title: "Nahkampfwaffen" },
   { prefix: "sr6_matrix_handlung_", title: "Matrix-Handlungen" },
+  { prefix: "sr6_attrprobe_", title: "Attributsproben" },
   { prefix: "sr6_matrix_", title: "Matrix: Kernwerte" },
   { prefix: "sr6_rigging_manoever_", title: "Manöver" },
   { prefix: "sr6_rigging_", title: "Rigging: Kernwerte" },
@@ -731,6 +732,18 @@ const SR6_ROLL_DEFINITIONS = [
     }),
   },
   {
+    id: "attribute_pair",
+    ...createAttributeProbeDefinition({
+      matchField: "Attributsprobe",
+      matchPoolPrefix: "sr6_attrprobe_",
+      titleField: "Attributsprobe",
+      primaryFields: ["Attributsprobe"],
+      extraFields: ["Formel", "Fertigkeit"],
+      popupFields: SR6_DEFAULT_POPUP_FIELDS,
+      titleFallback: "Attributsproben",
+    }),
+  },
+  {
     id: "attribute",
     ...createAttributeProbeDefinition({
       matchField: "Attribut",
@@ -761,6 +774,7 @@ const SR6_ROLL_DEFINITIONS = [
     id: "talentsoft_skill",
     ...createSkillProbeDefinition({
       matchPoolPrefix: "sr6_talentsoft_",
+      extraFields: ["Attribut", "Stufe", "Modifikator", "Hinweis"],
       titleFallback: "Talentsofts",
     }),
   },

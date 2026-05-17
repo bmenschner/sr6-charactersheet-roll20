@@ -13,6 +13,18 @@ const SR6_NUMBER_STEPPER_COMPUTED_TARGETS = [
   "sr6_derived_initiative_basis",
 ];
 
+const SR6_NUMBER_STEPPER_REPEATING_SKILL_PREFIXES = [
+  "repeating_sr6wissensfertigkeiten_",
+  "repeating_sr6sprachfertigkeiten_",
+  "repeating_sr6talentsofts_",
+  "repeating_sr6wissenssprachsofts_",
+];
+
+function shouldSyncRepeatingSkillTotalsAfterStepper(repeatingRowPrefix) {
+  if (!repeatingRowPrefix) return false;
+  return SR6_NUMBER_STEPPER_REPEATING_SKILL_PREFIXES.some((prefix) => repeatingRowPrefix.startsWith(prefix));
+}
+
 function resolveRepeatingRowPrefixForStepper(eventInfo, callback) {
   const fallbackPrefix = extractRepeatingRowPrefix(eventInfo);
   const sourceAttribute = (eventInfo && eventInfo.sourceAttribute) || "";
@@ -118,6 +130,10 @@ function runNumberStepperAdjust(eventInfo) {
       setAttrsSilent({
         [scopedTargetAttr]: String(currentValue + delta),
       }, () => {
+        if (shouldSyncRepeatingSkillTotalsAfterStepper(repeatingRowPrefix) && typeof syncRepeatingSkillTotals === "function") {
+          syncRepeatingSkillTotals();
+          return;
+        }
         if (!repeatingRowPrefix && typeof recomputeAll === "function") {
           recomputeAll();
         }

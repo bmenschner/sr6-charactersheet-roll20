@@ -16,5 +16,10 @@ function computeAttributeTotals(values, updates, totals) {
     totals[attributeName] = total;
     updates[totalKey] = String(total);
   });
+
+  updates.sr6_attrprobe_erinnerungsvermoegen = String(parseNumber(totals.logik) + parseNumber(totals.intuition));
+  updates.sr6_attrprobe_heben_tragen = String(parseNumber(totals.konstitution) + parseNumber(totals.willenskraft));
+  updates.sr6_attrprobe_menschenkenntnis = String(parseNumber(totals.willenskraft) + parseNumber(totals.intuition));
+  updates.sr6_attrprobe_selbstbeherrschung = String(parseNumber(totals.willenskraft) + parseNumber(totals.charisma));
 }
 // END MODULE: workers/compute/attributes

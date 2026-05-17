@@ -94,20 +94,22 @@ function buildRecalcEvents() {
 
 function registerWorkerEvents() {
   const recalcEvents = buildRecalcEvents();
-  on(recalcEvents.join(" "), recomputeAll);
+  on(recalcEvents.join(" "), () => {
+    recomputeAll(() => {
+      syncRepeatingSkillTotals();
+    });
+  });
   on(
     [
-      "change:repeating_sr6wissensfertigkeiten:sr6_wissensfertigkeit_grundwert",
-      "change:repeating_sr6wissensfertigkeiten:sr6_wissensfertigkeit_modifikator",
+      "change:repeating_sr6wissensfertigkeiten:sr6_wissensfertigkeit_name",
       "remove:repeating_sr6wissensfertigkeiten",
-      "change:repeating_sr6sprachfertigkeiten:sr6_sprachfertigkeit_grundwert",
-      "change:repeating_sr6sprachfertigkeiten:sr6_sprachfertigkeit_modifikator",
+      "change:repeating_sr6sprachfertigkeiten:sr6_sprachfertigkeit_name",
       "remove:repeating_sr6sprachfertigkeiten",
+      "change:repeating_sr6talentsofts:sr6_talentsoft_attribut",
       "change:repeating_sr6talentsofts:sr6_talentsoft_grundwert",
       "change:repeating_sr6talentsofts:sr6_talentsoft_modifikator",
       "remove:repeating_sr6talentsofts",
-      "change:repeating_sr6wissenssprachsofts:sr6_wissenssprachsoft_grundwert",
-      "change:repeating_sr6wissenssprachsofts:sr6_wissenssprachsoft_modifikator",
+      "change:repeating_sr6wissenssprachsofts:sr6_wissenssprachsoft_name",
       "remove:repeating_sr6wissenssprachsofts",
     ].join(" "),
     () => {
