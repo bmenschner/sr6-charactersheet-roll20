@@ -107,6 +107,8 @@
   "field.expertise": "Expertise",
   "field.keine_spezialisierung": "Keine Spezialisierung",
   "field.keine_expertise": "Keine Expertise",
+  "field.keine_auswahl": "Keine Auswahl",
+  "field.bezug": "Bezug",
   "field.grundwert": "Grundwert",
   "field.modifikator": "Modifikator",
   "field.gesamtwert": "Gesamtwert",

@@ -313,6 +313,55 @@ function appendRowIfMissing(rows, label, value) {
   rows.push({ label: label, value: normalizedValue });
 }
 
+function runEquipmentProbeFromContext(context, lookupAttr, resolvedFields, popupState) {
+  const rows = buildProbeRows(resolvedFields, context.definition);
+  const name = deriveProbeTitle(resolvedFields, context.poolAttribute, context.definition);
+  const sourceKey = `${(resolvedFields && resolvedFields.Auswahl) || ""}`.trim();
+  const sourceOption = getEquipmentSourceOption(sourceKey);
+  const sourceValue = sourceOption ? parseNumber(lookupAttr(sourceOption.attr)) : 0;
+  const rating = parseNumber((resolvedFields && resolvedFields.Stufe) || lookupAttr(context.poolAttribute));
+  const ratingMultiplier = `${((popupState.selectedValues || {}).equipment_rating_x2) || ""}`.trim() === "1" ? 2 : 1;
+  const ratingValue = rating * ratingMultiplier;
+  const poolBasisOverride = sourceValue + ratingValue;
+  const computation = buildProbeComputation(
+    lookupAttr,
+    context.poolAttribute,
+    popupState.poolMod,
+    1,
+    poolBasisOverride
+  );
+  const glitchText = computation.isCriticalGlitch ? "!! Kritischer Patzer !!" : "!! Patzer !!";
+  const erfolgeValue = computation.isGlitch ? glitchText : `${computation.successCount}`;
+
+  rows.push({ label: "Bezug", value: sourceOption ? sourceOption.label : "Keine Auswahl" });
+  if (sourceOption) {
+    rows.push({ label: sourceOption.type, value: `${sourceOption.label} (${sourceValue})` });
+  }
+  rows.push({ label: ratingMultiplier === 2 ? "Stufe x2" : "Stufe", value: `${ratingValue}` });
+  if (computation.monitorPoolMod !== 0) {
+    rows.push({ label: "Pool-Basis", value: `${computation.poolBasis}` });
+    rows.push({ label: "Zustandsmodifikator", value: `${computation.monitorPoolMod}` });
+  }
+  popupState.rows.forEach((popupRow) => rows.push(popupRow));
+
+  const chatMessage = buildSr6ProbeMessage({
+    name: name,
+    rows: rows,
+    resolvedFields: resolvedFields,
+    definition: context.definition,
+    definitionId: context.definition && context.definition.id,
+    pool: `${computation.pool}`,
+    erfolge: erfolgeValue,
+    details: buildDiceDetails(computation.diceResults),
+    detailsDice: buildDetailsDice(computation.diceResults),
+    isGlitch: computation.isGlitch,
+  });
+
+  startRoll(chatMessage, (rollResult) => {
+    finishRoll(rollResult.rollId);
+  });
+}
+
 function runSpellProbeFromContext(context, lookupAttr, resolvedFields, popupState) {
   const rows = buildProbeRows(resolvedFields, context.definition);
   const name = deriveProbeTitle(resolvedFields, context.poolAttribute, context.definition);
@@ -470,6 +519,10 @@ function runSuccessProbeFromContext(rawTemplate, repeatingRowPrefix, popupState 
     }
     if (context.definition && context.definition.probeModel === "summoning_probe") {
       runSummoningProbeFromContext(context, lookupAttr, resolvedFields, normalizedPopupState);
+      return;
+    }
+    if (context.definition && context.definition.probeModel === "equipment_probe") {
+      runEquipmentProbeFromContext(context, lookupAttr, resolvedFields, normalizedPopupState);
       return;
     }
 

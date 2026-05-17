@@ -46,12 +46,15 @@
             </div>
             <div class="sr6-charactersheet-field">
               <span data-i18n="skill.beschwoeren">Beschwören</span>
-              <button
-                type="action"
-                class="sr6-charactersheet-field-dice-button"
-                name="act_probe"
-                value="&{template:default} {{name=Beschwören}} {{Geist=@{sr6_geist_name}}} {{Typ=@{sr6_geist_typ}}} {{Stufe=@{sr6_geist_stufe}}} {{Pool=[[@{sr6_magic_beschwoeren}]]}} {{Erfolge=[[@{sr6_magic_beschwoeren}d6&gt;5]]}}"
-                aria-label="Wuerfeln"></button>
+              <div class="sr6-charactersheet-field-input-with-dice sr6-charactersheet-field-input-with-dice--compact">
+                <span aria-hidden="true"></span>
+                <button
+                  type="action"
+                  class="sr6-charactersheet-field-dice-button"
+                  name="act_probe"
+                  value="&{template:default} {{name=Beschwören}} {{Geist=@{sr6_geist_name}}} {{Typ=@{sr6_geist_typ}}} {{Stufe=@{sr6_geist_stufe}}} {{Pool=[[@{sr6_magic_beschwoeren}]]}} {{Erfolge=[[@{sr6_magic_beschwoeren}d6&gt;5]]}}"
+                  aria-label="Wuerfeln"></button>
+              </div>
             </div>
           </div>
           <div class="sr6-foundry-item-footer sr6-charactersheet-row sr6-charactersheet-row-1">

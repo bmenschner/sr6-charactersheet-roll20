@@ -1828,12 +1828,12 @@ fieldset.repeating_sr6riggingmanoever .repcontrol {
 }
 
 .sr6-geister-section:has(.sr6-editable-section-mode:not(:checked)) .sr6-editable-item-fields .sr6-foundry-item-head {
-  grid-template-columns: repeat(4, minmax(0, 1fr));
+  grid-template-columns: repeat(5, minmax(0, 1fr));
 }
 
 .sr6-ausruestung-section:has(.sr6-editable-section-mode:not(:checked)) .sr6-editable-item-fields .sr6-foundry-item-head {
   display: grid;
-  grid-template-columns: repeat(4, minmax(0, 1fr));
+  grid-template-columns: repeat(6, minmax(0, 1fr));
   gap: 0.375rem;
   flex: 1 1 0;
 }
@@ -1932,8 +1932,8 @@ fieldset.repeating_sr6riggingmanoever .repcontrol {
 }
 
 .sr6-geister-section:has(.sr6-editable-section-mode:not(:checked)) .sr6-editable-item-fields .sr6-foundry-item-head {
-  grid-template-columns: repeat(4, minmax(0, 1fr));
-  flex: 4 1 0;
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+  flex: 5 1 0;
 }
 
 .sr6-geister-section:has(.sr6-editable-section-mode:not(:checked)) .sr6-editable-item-fields .sr6-foundry-item-footer {
@@ -2066,11 +2066,6 @@ fieldset.repeating_sr6riggingmanoever .repcontrol {
   display: none;
 }
 
-.sr6-geister-section:has(.sr6-editable-section-mode:not(:checked)) .sr6-generic-list-header {
-  grid-template-columns: repeat(4, minmax(0, 1fr));
-}
-
-.sr6-geister-section:has(.sr6-editable-section-mode:not(:checked)) .sr6-generic-list-header > span:nth-child(5),
 .sr6-geister-section:has(.sr6-editable-section-mode:not(:checked)) .sr6-editable-item-fields .sr6-foundry-item-footer {
   display: none;
 }

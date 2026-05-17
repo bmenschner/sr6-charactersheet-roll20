@@ -18,6 +18,7 @@ const SR6_ROLL_TITLE_PREFIXES = [
   { prefix: "sr6_sprachfertigkeit_", title: "Sprachfertigkeiten" },
   { prefix: "sr6_talentsoft_", title: "Talentsofts" },
   { prefix: "sr6_wissenssprachsoft_", title: "Wissens-/Sprachsofts" },
+  { prefix: "sr6_ausruestung_", title: "Ausrüstung" },
 ];
 
 const SR6_DEFAULT_ROLL_ROW_ORDER = [
@@ -35,6 +36,48 @@ const SR6_DEFAULT_ROLL_ROW_ORDER = [
 ];
 
 const SR6_POPUP_FIELD_SLOT_COUNT = 8;
+
+const SR6_EQUIPMENT_SOURCE_OPTIONS = {
+  "attr:konstitution": { label: "Konstitution", type: "Attribut", attr: "sr6_attr_konstitution_gesamtwert" },
+  "attr:geschicklichkeit": { label: "Geschicklichkeit", type: "Attribut", attr: "sr6_attr_geschicklichkeit_gesamtwert" },
+  "attr:reaktion": { label: "Reaktion", type: "Attribut", attr: "sr6_attr_reaktion_gesamtwert" },
+  "attr:staerke": { label: "Stärke", type: "Attribut", attr: "sr6_attr_staerke_gesamtwert" },
+  "attr:willenskraft": { label: "Willenskraft", type: "Attribut", attr: "sr6_attr_willenskraft_gesamtwert" },
+  "attr:logik": { label: "Logik", type: "Attribut", attr: "sr6_attr_logik_gesamtwert" },
+  "attr:intuition": { label: "Intuition", type: "Attribut", attr: "sr6_attr_intuition_gesamtwert" },
+  "attr:charisma": { label: "Charisma", type: "Attribut", attr: "sr6_attr_charisma_gesamtwert" },
+  "attr:edge": { label: "Edge", type: "Attribut", attr: "sr6_attr_edge_gesamtwert" },
+  "attr:magie_resonanz": { label: "Magie/Resonanz", type: "Attribut", attr: "sr6_attr_magie_resonanz_gesamtwert" },
+  "skill:astral": { label: "Astral", type: "Fertigkeit", attr: "sr6_skill_astral_gesamtwert" },
+  "skill:athletik": { label: "Athletik", type: "Fertigkeit", attr: "sr6_skill_athletik_gesamtwert" },
+  "skill:beschwoeren": { label: "Beschwören", type: "Fertigkeit", attr: "sr6_skill_beschwoeren_gesamtwert" },
+  "skill:biotech": { label: "Biotech", type: "Fertigkeit", attr: "sr6_skill_biotech_gesamtwert" },
+  "skill:cracken": { label: "Cracken", type: "Fertigkeit", attr: "sr6_skill_cracken_gesamtwert" },
+  "skill:einfluss": { label: "Einfluss", type: "Fertigkeit", attr: "sr6_skill_einfluss_gesamtwert" },
+  "skill:elektronik": { label: "Elektronik", type: "Fertigkeit", attr: "sr6_skill_elektronik_gesamtwert" },
+  "skill:exotische_waffen": { label: "Exotische Waffen", type: "Fertigkeit", attr: "sr6_skill_exotische_waffen_gesamtwert" },
+  "skill:feuerwaffen": { label: "Feuerwaffen", type: "Fertigkeit", attr: "sr6_skill_feuerwaffen_gesamtwert" },
+  "skill:heimlichkeit": { label: "Heimlichkeit", type: "Fertigkeit", attr: "sr6_skill_heimlichkeit_gesamtwert" },
+  "skill:hexerei": { label: "Hexerei", type: "Fertigkeit", attr: "sr6_skill_hexerei_gesamtwert" },
+  "skill:mechanik": { label: "Mechanik", type: "Fertigkeit", attr: "sr6_skill_mechanik_gesamtwert" },
+  "skill:nahkampf": { label: "Nahkampf", type: "Fertigkeit", attr: "sr6_skill_nahkampf_gesamtwert" },
+  "skill:natur": { label: "Natur", type: "Fertigkeit", attr: "sr6_skill_natur_gesamtwert" },
+  "skill:steuern": { label: "Steuern", type: "Fertigkeit", attr: "sr6_skill_steuern_gesamtwert" },
+  "skill:tasken": { label: "Tasken", type: "Fertigkeit", attr: "sr6_skill_tasken_gesamtwert" },
+  "skill:ueberreden": { label: "Überreden", type: "Fertigkeit", attr: "sr6_skill_ueberreden_gesamtwert" },
+  "skill:verzaubern": { label: "Verzaubern", type: "Fertigkeit", attr: "sr6_skill_verzaubern_gesamtwert" },
+  "skill:wahrnehmung": { label: "Wahrnehmung", type: "Fertigkeit", attr: "sr6_skill_wahrnehmung_gesamtwert" },
+};
+
+function getEquipmentSourceOption(sourceKey) {
+  return SR6_EQUIPMENT_SOURCE_OPTIONS[`${sourceKey || ""}`.trim()] || null;
+}
+
+function getEquipmentSourceAttributeRefs() {
+  return Object.keys(SR6_EQUIPMENT_SOURCE_OPTIONS)
+    .map((sourceKey) => SR6_EQUIPMENT_SOURCE_OPTIONS[sourceKey].attr)
+    .filter((attr) => !!attr);
+}
 
 const SR6_POPUP_SELECT_OPTION_SETS = {
   visibility: [
@@ -477,6 +520,23 @@ function createSkillProbeDefinition(config = {}) {
   };
 }
 
+function createEquipmentPopupFields() {
+  return [
+    SR6_DEFAULT_POPUP_FIELDS[0],
+    {
+      id: "equipment_rating_x2",
+      slot: 2,
+      label: "Stufe x2",
+      type: "checkbox",
+      affects: "display",
+      checkedValue: 1,
+      checkedDisplayValue: "x2",
+      defaultValue: "0",
+      includeInTemplate: false,
+    },
+  ];
+}
+
 function createAttackValueSourceByRange(prefix) {
   return {
     "S. Nah": `${prefix}_s_nah`,
@@ -869,6 +929,19 @@ const SR6_ROLL_DEFINITIONS = [
       matchPoolPrefix: "sr6_wissenssprachsoft_",
       titleFallback: "Wissens-/Sprachsofts",
     }),
+  },
+  {
+    id: "equipment",
+    probeModel: "equipment_probe",
+    matchField: "Ausrüstung",
+    matchPoolPrefix: "sr6_ausruestung_",
+    titleMode: "field-short",
+    titleField: "Ausrüstung",
+    primaryFields: ["Ausrüstung"],
+    extraFields: ["Stufe"],
+    popupFields: createEquipmentPopupFields(),
+    internalFields: ["Auswahl"],
+    titleFallback: "Ausrüstung",
   },
   ...SR6_SKILLS.map((skillKey) => ({
     id: `skill_${skillKey}`,
@@ -1464,6 +1537,9 @@ function getRollAdditionalAttributes(definition) {
   getSkillProbeAttributeOptions(definition).forEach((option) => {
     if (option && option.attr) attributes.push(option.attr);
   });
+  if (definition && definition.id === "equipment") {
+    attributes.push(...getEquipmentSourceAttributeRefs());
+  }
   if (definition && definition.id === "matrix_action") {
     return [...new Set([...attributes, ...getMatrixActionRuleAttributeRefs(), ...getMatrixActionSelectionAttributeRefs()])];
   }

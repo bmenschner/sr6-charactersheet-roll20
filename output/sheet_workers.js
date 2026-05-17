@@ -531,6 +531,7 @@ const SR6_ROLL_TITLE_PREFIXES = [
   { prefix: "sr6_sprachfertigkeit_", title: "Sprachfertigkeiten" },
   { prefix: "sr6_talentsoft_", title: "Talentsofts" },
   { prefix: "sr6_wissenssprachsoft_", title: "Wissens-/Sprachsofts" },
+  { prefix: "sr6_ausruestung_", title: "Ausrüstung" },
 ];
 
 const SR6_DEFAULT_ROLL_ROW_ORDER = [
@@ -548,6 +549,48 @@ const SR6_DEFAULT_ROLL_ROW_ORDER = [
 ];
 
 const SR6_POPUP_FIELD_SLOT_COUNT = 8;
+
+const SR6_EQUIPMENT_SOURCE_OPTIONS = {
+  "attr:konstitution": { label: "Konstitution", type: "Attribut", attr: "sr6_attr_konstitution_gesamtwert" },
+  "attr:geschicklichkeit": { label: "Geschicklichkeit", type: "Attribut", attr: "sr6_attr_geschicklichkeit_gesamtwert" },
+  "attr:reaktion": { label: "Reaktion", type: "Attribut", attr: "sr6_attr_reaktion_gesamtwert" },
+  "attr:staerke": { label: "Stärke", type: "Attribut", attr: "sr6_attr_staerke_gesamtwert" },
+  "attr:willenskraft": { label: "Willenskraft", type: "Attribut", attr: "sr6_attr_willenskraft_gesamtwert" },
+  "attr:logik": { label: "Logik", type: "Attribut", attr: "sr6_attr_logik_gesamtwert" },
+  "attr:intuition": { label: "Intuition", type: "Attribut", attr: "sr6_attr_intuition_gesamtwert" },
+  "attr:charisma": { label: "Charisma", type: "Attribut", attr: "sr6_attr_charisma_gesamtwert" },
+  "attr:edge": { label: "Edge", type: "Attribut", attr: "sr6_attr_edge_gesamtwert" },
+  "attr:magie_resonanz": { label: "Magie/Resonanz", type: "Attribut", attr: "sr6_attr_magie_resonanz_gesamtwert" },
+  "skill:astral": { label: "Astral", type: "Fertigkeit", attr: "sr6_skill_astral_gesamtwert" },
+  "skill:athletik": { label: "Athletik", type: "Fertigkeit", attr: "sr6_skill_athletik_gesamtwert" },
+  "skill:beschwoeren": { label: "Beschwören", type: "Fertigkeit", attr: "sr6_skill_beschwoeren_gesamtwert" },
+  "skill:biotech": { label: "Biotech", type: "Fertigkeit", attr: "sr6_skill_biotech_gesamtwert" },
+  "skill:cracken": { label: "Cracken", type: "Fertigkeit", attr: "sr6_skill_cracken_gesamtwert" },
+  "skill:einfluss": { label: "Einfluss", type: "Fertigkeit", attr: "sr6_skill_einfluss_gesamtwert" },
+  "skill:elektronik": { label: "Elektronik", type: "Fertigkeit", attr: "sr6_skill_elektronik_gesamtwert" },
+  "skill:exotische_waffen": { label: "Exotische Waffen", type: "Fertigkeit", attr: "sr6_skill_exotische_waffen_gesamtwert" },
+  "skill:feuerwaffen": { label: "Feuerwaffen", type: "Fertigkeit", attr: "sr6_skill_feuerwaffen_gesamtwert" },
+  "skill:heimlichkeit": { label: "Heimlichkeit", type: "Fertigkeit", attr: "sr6_skill_heimlichkeit_gesamtwert" },
+  "skill:hexerei": { label: "Hexerei", type: "Fertigkeit", attr: "sr6_skill_hexerei_gesamtwert" },
+  "skill:mechanik": { label: "Mechanik", type: "Fertigkeit", attr: "sr6_skill_mechanik_gesamtwert" },
+  "skill:nahkampf": { label: "Nahkampf", type: "Fertigkeit", attr: "sr6_skill_nahkampf_gesamtwert" },
+  "skill:natur": { label: "Natur", type: "Fertigkeit", attr: "sr6_skill_natur_gesamtwert" },
+  "skill:steuern": { label: "Steuern", type: "Fertigkeit", attr: "sr6_skill_steuern_gesamtwert" },
+  "skill:tasken": { label: "Tasken", type: "Fertigkeit", attr: "sr6_skill_tasken_gesamtwert" },
+  "skill:ueberreden": { label: "Überreden", type: "Fertigkeit", attr: "sr6_skill_ueberreden_gesamtwert" },
+  "skill:verzaubern": { label: "Verzaubern", type: "Fertigkeit", attr: "sr6_skill_verzaubern_gesamtwert" },
+  "skill:wahrnehmung": { label: "Wahrnehmung", type: "Fertigkeit", attr: "sr6_skill_wahrnehmung_gesamtwert" },
+};
+
+function getEquipmentSourceOption(sourceKey) {
+  return SR6_EQUIPMENT_SOURCE_OPTIONS[`${sourceKey || ""}`.trim()] || null;
+}
+
+function getEquipmentSourceAttributeRefs() {
+  return Object.keys(SR6_EQUIPMENT_SOURCE_OPTIONS)
+    .map((sourceKey) => SR6_EQUIPMENT_SOURCE_OPTIONS[sourceKey].attr)
+    .filter((attr) => !!attr);
+}
 
 const SR6_POPUP_SELECT_OPTION_SETS = {
   visibility: [
@@ -990,6 +1033,23 @@ function createSkillProbeDefinition(config = {}) {
   };
 }
 
+function createEquipmentPopupFields() {
+  return [
+    SR6_DEFAULT_POPUP_FIELDS[0],
+    {
+      id: "equipment_rating_x2",
+      slot: 2,
+      label: "Stufe x2",
+      type: "checkbox",
+      affects: "display",
+      checkedValue: 1,
+      checkedDisplayValue: "x2",
+      defaultValue: "0",
+      includeInTemplate: false,
+    },
+  ];
+}
+
 function createAttackValueSourceByRange(prefix) {
   return {
     "S. Nah": `${prefix}_s_nah`,
@@ -1382,6 +1442,19 @@ const SR6_ROLL_DEFINITIONS = [
       matchPoolPrefix: "sr6_wissenssprachsoft_",
       titleFallback: "Wissens-/Sprachsofts",
     }),
+  },
+  {
+    id: "equipment",
+    probeModel: "equipment_probe",
+    matchField: "Ausrüstung",
+    matchPoolPrefix: "sr6_ausruestung_",
+    titleMode: "field-short",
+    titleField: "Ausrüstung",
+    primaryFields: ["Ausrüstung"],
+    extraFields: ["Stufe"],
+    popupFields: createEquipmentPopupFields(),
+    internalFields: ["Auswahl"],
+    titleFallback: "Ausrüstung",
   },
   ...SR6_SKILLS.map((skillKey) => ({
     id: `skill_${skillKey}`,
@@ -1977,6 +2050,9 @@ function getRollAdditionalAttributes(definition) {
   getSkillProbeAttributeOptions(definition).forEach((option) => {
     if (option && option.attr) attributes.push(option.attr);
   });
+  if (definition && definition.id === "equipment") {
+    attributes.push(...getEquipmentSourceAttributeRefs());
+  }
   if (definition && definition.id === "matrix_action") {
     return [...new Set([...attributes, ...getMatrixActionRuleAttributeRefs(), ...getMatrixActionSelectionAttributeRefs()])];
   }
@@ -3297,6 +3373,55 @@ function appendRowIfMissing(rows, label, value) {
   rows.push({ label: label, value: normalizedValue });
 }
 
+function runEquipmentProbeFromContext(context, lookupAttr, resolvedFields, popupState) {
+  const rows = buildProbeRows(resolvedFields, context.definition);
+  const name = deriveProbeTitle(resolvedFields, context.poolAttribute, context.definition);
+  const sourceKey = `${(resolvedFields && resolvedFields.Auswahl) || ""}`.trim();
+  const sourceOption = getEquipmentSourceOption(sourceKey);
+  const sourceValue = sourceOption ? parseNumber(lookupAttr(sourceOption.attr)) : 0;
+  const rating = parseNumber((resolvedFields && resolvedFields.Stufe) || lookupAttr(context.poolAttribute));
+  const ratingMultiplier = `${((popupState.selectedValues || {}).equipment_rating_x2) || ""}`.trim() === "1" ? 2 : 1;
+  const ratingValue = rating * ratingMultiplier;
+  const poolBasisOverride = sourceValue + ratingValue;
+  const computation = buildProbeComputation(
+    lookupAttr,
+    context.poolAttribute,
+    popupState.poolMod,
+    1,
+    poolBasisOverride
+  );
+  const glitchText = computation.isCriticalGlitch ? "!! Kritischer Patzer !!" : "!! Patzer !!";
+  const erfolgeValue = computation.isGlitch ? glitchText : `${computation.successCount}`;
+
+  rows.push({ label: "Bezug", value: sourceOption ? sourceOption.label : "Keine Auswahl" });
+  if (sourceOption) {
+    rows.push({ label: sourceOption.type, value: `${sourceOption.label} (${sourceValue})` });
+  }
+  rows.push({ label: ratingMultiplier === 2 ? "Stufe x2" : "Stufe", value: `${ratingValue}` });
+  if (computation.monitorPoolMod !== 0) {
+    rows.push({ label: "Pool-Basis", value: `${computation.poolBasis}` });
+    rows.push({ label: "Zustandsmodifikator", value: `${computation.monitorPoolMod}` });
+  }
+  popupState.rows.forEach((popupRow) => rows.push(popupRow));
+
+  const chatMessage = buildSr6ProbeMessage({
+    name: name,
+    rows: rows,
+    resolvedFields: resolvedFields,
+    definition: context.definition,
+    definitionId: context.definition && context.definition.id,
+    pool: `${computation.pool}`,
+    erfolge: erfolgeValue,
+    details: buildDiceDetails(computation.diceResults),
+    detailsDice: buildDetailsDice(computation.diceResults),
+    isGlitch: computation.isGlitch,
+  });
+
+  startRoll(chatMessage, (rollResult) => {
+    finishRoll(rollResult.rollId);
+  });
+}
+
 function runSpellProbeFromContext(context, lookupAttr, resolvedFields, popupState) {
   const rows = buildProbeRows(resolvedFields, context.definition);
   const name = deriveProbeTitle(resolvedFields, context.poolAttribute, context.definition);
@@ -3454,6 +3579,10 @@ function runSuccessProbeFromContext(rawTemplate, repeatingRowPrefix, popupState 
     }
     if (context.definition && context.definition.probeModel === "summoning_probe") {
       runSummoningProbeFromContext(context, lookupAttr, resolvedFields, normalizedPopupState);
+      return;
+    }
+    if (context.definition && context.definition.probeModel === "equipment_probe") {
+      runEquipmentProbeFromContext(context, lookupAttr, resolvedFields, normalizedPopupState);
       return;
     }
 
@@ -3841,6 +3970,7 @@ function registerSuccessProbeRollEvents() {
   on("clicked:repeating_sr6nahkampfwaffen:probe", runSuccessProbeRoll);
   on("clicked:repeating_sr6zauber:probe", runSuccessProbeRoll);
   on("clicked:repeating_sr6geister:probe", runSuccessProbeRoll);
+  on("clicked:repeating_sr6ausruestung:probe", runSuccessProbeRoll);
   on("clicked:repeating_sr6wissensfertigkeiten:probe", runSuccessProbeRoll);
   on("clicked:repeating_sr6sprachfertigkeiten:probe", runSuccessProbeRoll);
   on("clicked:repeating_sr6talentsofts:probe", runSuccessProbeRoll);
