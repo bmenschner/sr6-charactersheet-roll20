@@ -54,6 +54,18 @@ const SR6_POPUP_SELECT_OPTION_SETS = {
     { value: "Sicht", label: "Sicht", rowValue: "Sicht" },
     { value: "Spezial", label: "Spezial", rowValue: "Spezial" },
   ],
+  spirit_type: [
+    { value: "Erdgeister", label: "Erdgeister", rowValue: "Erdgeister" },
+    { value: "Feuergeister", label: "Feuergeister", rowValue: "Feuergeister" },
+    { value: "Luftgeister", label: "Luftgeister", rowValue: "Luftgeister" },
+    { value: "Geister des Menschen", label: "Geister des Menschen", rowValue: "Geister des Menschen" },
+    { value: "Geister des Tieres", label: "Geister des Tieres", rowValue: "Geister des Tieres" },
+    { value: "Wassergeister", label: "Wassergeister", rowValue: "Wassergeister" },
+    { value: "Beschützergeister", label: "Beschützergeister", rowValue: "Beschützergeister" },
+    { value: "Helfergeister", label: "Helfergeister", rowValue: "Helfergeister" },
+    { value: "Pflanzengeister", label: "Pflanzengeister", rowValue: "Pflanzengeister" },
+    { value: "Ratgebergeister", label: "Ratgebergeister", rowValue: "Ratgebergeister" },
+  ],
   matrix_access: [
     { value: "Benutzer", label: "Benutzer", rowValue: "Benutzer" },
     { value: "Admin", label: "Admin", rowValue: "Admin" },
@@ -595,6 +607,7 @@ function createSpellPopupFields() {
       defaultValue: "0",
       visibleWhenField: "Art",
       visibleWhenValue: "Kampf",
+      visibleWhenFieldMissing: true,
     },
     {
       id: "area_increase",
@@ -619,6 +632,7 @@ function createSpellPopupFields() {
       defaultValue: "0",
       visibleWhenField: "Art",
       visibleWhenValue: "Kampf",
+      visibleWhenFieldMissing: true,
     },
     ...createSpecializationPopupFields(6),
     {
@@ -631,6 +645,77 @@ function createSpellPopupFields() {
       defaultValue: "0",
     },
   ];
+}
+
+function createSummoningPopupFields() {
+  return [
+    {
+      id: "spirit_type",
+      slot: 1,
+      label: "Geistertyp",
+      type: "select",
+      optionSet: "spirit_type",
+      affects: "display",
+      includeInTemplate: true,
+      defaultValue: "Luftgeister",
+    },
+    {
+      id: "spirit_force",
+      slot: 2,
+      label: "Kraftstufe",
+      type: "number",
+      affects: "display",
+      includeInTemplate: true,
+      defaultValue: "0",
+      sourceField: "Stufe",
+    },
+    {
+      id: "pool_mod",
+      slot: 3,
+      label: "Beschwören-Modifikator",
+      type: "number",
+      affects: "pool",
+      includeInTemplate: true,
+      defaultValue: "0",
+    },
+    {
+      id: "drain_mod",
+      slot: 4,
+      label: "Entzug-Modifikator",
+      type: "number",
+      affects: "drain",
+      includeInTemplate: true,
+      defaultValue: "0",
+    },
+    {
+      id: "possession",
+      slot: 5,
+      label: "Besessenheit",
+      type: "checkbox",
+      affects: "display",
+      checkedDisplayValue: "Ja",
+      includeInTemplate: true,
+      defaultValue: "0",
+    },
+    {
+      id: "object_resistance",
+      slot: 6,
+      label: "Objektwiderstand",
+      type: "number",
+      affects: "display",
+      includeInTemplate: true,
+      defaultValue: "0",
+      requiresCheckedSlot: 5,
+    },
+  ];
+}
+
+function getMagicRollAdditionalAttributes(definition) {
+  if (!definition) return [];
+  if (definition.id === "spell" || definition.id === "summoning") {
+    return ["sr6_magic_magie", "sr6_magic_entzug_widerstand"];
+  }
+  return [];
 }
 
 function createDefenseProbePopupFields(config) {
@@ -803,7 +888,7 @@ const SR6_ROLL_DEFINITIONS = [
   {
     id: "spell",
     probeModel: "spell_probe",
-    matchField: "Zauber",
+    matchField: "",
     matchPoolPrefix: "sr6_magic_spruchzauberei",
     titleMode: "fixed",
     primaryFields: ["Zauber"],
@@ -815,6 +900,18 @@ const SR6_ROLL_DEFINITIONS = [
     fixedTitle: "Spruchzauberei",
     popupFields: createSpellPopupFields(),
     titleFallback: "Zauber",
+  },
+  {
+    id: "summoning",
+    probeModel: "summoning_probe",
+    matchField: "",
+    matchPoolPrefix: "sr6_magic_beschwoeren",
+    titleMode: "fixed",
+    primaryFields: ["Geist"],
+    extraFields: ["Typ", "Stufe"],
+    fixedTitle: "Beschwören",
+    popupFields: createSummoningPopupFields(),
+    titleFallback: "Geister",
   },
   {
     id: "astral_defense",
@@ -1363,7 +1460,7 @@ function resolveSkillProbeAttributeOption(definition, selectedValue) {
 }
 
 function getRollAdditionalAttributes(definition) {
-  const attributes = [];
+  const attributes = getMagicRollAdditionalAttributes(definition);
   getSkillProbeAttributeOptions(definition).forEach((option) => {
     if (option && option.attr) attributes.push(option.attr);
   });
@@ -1635,6 +1732,8 @@ function buildPopupStateFromValues(values, definition, poolAttribute) {
 
 function fieldMatchesPopupVisibility(field, templateFields) {
   if (!field || !field.visibleWhenField) return true;
+  const hasVisibilityField = !!(templateFields && templateFields[field.visibleWhenField] !== undefined);
+  if (!hasVisibilityField && field.visibleWhenFieldMissing) return true;
   return `${(templateFields && templateFields[field.visibleWhenField]) || ""}`.trim() === `${field.visibleWhenValue || ""}`.trim();
 }
 
@@ -1726,6 +1825,14 @@ function buildPopupPrefillPayload(definition, poolAttribute, repeatingRowPrefix,
     if (!fieldMatchesPopupVisibility(field, resolvedTemplateFields)) return;
     const sourceAttr = getPopupSourceAttrName(field, poolAttribute);
     const resolvedValue = sourceAttr ? lookupAttr(sourceAttr) : "";
+    if (resolvedValue === undefined || resolvedValue === null || `${resolvedValue}` === "") return;
+    payload[getPopupFieldValueAttr(field, index)] = `${resolvedValue}`;
+  });
+
+  popupFields.forEach((field, index) => {
+    if (!fieldMatchesPopupVisibility(field, resolvedTemplateFields)) return;
+    if (!field.sourceField) return;
+    const resolvedValue = resolvedTemplateFields[field.sourceField];
     if (resolvedValue === undefined || resolvedValue === null || `${resolvedValue}` === "") return;
     payload[getPopupFieldValueAttr(field, index)] = `${resolvedValue}`;
   });

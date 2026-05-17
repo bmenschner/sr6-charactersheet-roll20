@@ -41,4 +41,24 @@ function buildProbeComputation(lookupAttr, poolAttribute, popupPoolMod, poolMult
     isCriticalGlitch: glitchState.isCriticalGlitch,
   };
 }
+
+function buildFixedPoolComputation(poolValue) {
+  const pool = Math.max(0, parseNumber(poolValue));
+  const diceResults = [];
+
+  for (let index = 0; index < pool; index += 1) {
+    diceResults.push(rollD6());
+  }
+
+  const successCount = diceResults.filter((die) => die >= 5).length;
+  const glitchState = evaluateGlitch(diceResults, successCount);
+
+  return {
+    pool: pool,
+    diceResults: diceResults,
+    successCount: successCount,
+    isGlitch: glitchState.isGlitch,
+    isCriticalGlitch: glitchState.isCriticalGlitch,
+  };
+}
 // END MODULE: workers/rolls/compute

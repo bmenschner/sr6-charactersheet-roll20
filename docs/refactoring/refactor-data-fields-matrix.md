@@ -46,7 +46,8 @@ Dabei gilt:
 | `initiative_probe` | `Basis + W6` | keine Standard-Popup-Modifikatoren | `Basis`, `W6`, `Gesamt` | physische, astrale, Matrix- und Rigging-Initiative |
 | `defense_probe` | `Attribut + Fertigkeit +- Modifikator` nach SR6-Grundlogik | `Modifikator`, kontextabhaengige Vergleichswerte wie `Verteidigungswert` | `Wert`, Vergleichswert, `Pool`, `Erfolge`, `Details` | pro Tab andere Attribut-/Fertigkeitsquellen, z. B. `Kampf`, `Matrix`, spaeter weitere |
 | `combat_attack_probe` | Angriffsprobe mit getrennten Ebenen fuer `Pool`, `Angriffswert`, `Schaden` | `Skill-Modifikator`, `Angriffswert-Modifikator`, `Schadens-Modifikator`, `Munition`, `Spezialisierung`, `Expertise` | `Waffe`, `Angriffswert`, `Pool`, `Erfolge`, `Schaden`, `Reichweite`, `Munition`, `Munitionshinweis`, `Berechnung` | Nah-/Fernkampfwerte, Waffenkontext, Munitionsquelle, Reichweite |
-| `spell_probe` | `Spruchzauberei` plus separater Entzug | Skill-, Angriffswert-, Schadens-, Flaechen-, Hochdrehen- und Entzugsmodifikatoren | Zauber, Pool, Erfolge, Schaden, modifizierter Entzug, Entzugsschaden, Beschreibung | Magie-Zauber |
+| `spell_probe` | `Spruchzauberei` plus separater Entzug | Skill-, Angriffswert-, Schadens-, Flaechen-, Hochdrehen- und Entzugsmodifikatoren | Zauber, Pool, Erfolge, Schaden, modifizierter Entzug, Entzugsschaden inkl. Schadenstyp, Beschreibung, weitere Werte | Magie-Zauber |
+| `summoning_probe` | `Beschwoeren + Magie` gegen `Kraftstufe x 2`, Dienste aus Nettoerfolgen, Entzug aus Geister-Erfolgen | `Geistertyp`, `Beschwoeren-Modifikator`, `Entzug-Modifikator`, `Besessenheit`, `Objektwiderstand` | Geist, Typ, Stufe, Geistertyp, Pool, Erfolge, Geist-Pool, Geist-Erfolge, Nettoerfolge, erhaltene Dienste, entstandener Entzug, Entzugsschaden | Magie-Geister |
 | `value_probe` | einzelner Wert als Probe oder Vergleichswert | Standard-Modifikator, teils Matrix-Zugriff/Overwatch | Wert, Pool, Erfolge, Details | Magie-, Matrix-, Rigging- und Fallback-Werte |
 | `matrix_action` | Matrixhandlung mit getrennter Probe und Verteidigung | Verteidigungsquelle in der Handlungszeile; keine Standard-Popup-Pflicht | Handlung, Probe, Verteidigung, Pool, Erfolge, Details | Matrix-Handlungen |
 
@@ -58,7 +59,8 @@ Dabei gilt:
 | `initiative` | `initiative_probe` | Modell aktiv in erster Nutzung | Initiativwuerfe mit `Basis / W6 / Gesamt` laufen nicht mehr ueber den generischen Fallback, sondern ueber ein eigenes Initiativmodell; physische, astrale, Matrix- und Rigging-Initiative nutzen getrennte Basisfelder. Matrix- und Rigging-Initiative leiten Basis und `W6` jetzt aus dem Modus ab |
 | `skill` | `skill_probe` | Modell aktiv und in Roll20 bestaetigt | Aktionsfertigkeiten nutzen jetzt ein Attribut-Dropdown im Popup; Primaerattribut ist vorausgewaehlt, Sekundaerattribute koennen je Fertigkeit gewaehlt werden; der Pool wird aus gewaehltem Attribut plus Fertigkeitswert berechnet. Spezialisierungen addieren `+2`, Expertisen addieren `+3`; Expertise ersetzt den Spezialisierungsbonus und addiert ihn nicht zusaetzlich |
 | `knowledge_skill`, `language_skill`, `talentsoft_skill`, `knowledge_language_soft_skill`, `generic_skill` | Fachspezifische Sondermodelle neben `skill_probe` | Issue-12-Pruefung fuer Attribute & Fertigkeiten abgeschlossen | Wissens-/Sprachfelder und Wissens-/Sprachsofts nutzen Erinnerungsvermoegen (`Logik + Intuition`) als Wuerfelpool; Talentsofts nutzen `gewaehltes Attribut + Stufe + Modifikator` |
-| `spell` | `spell_probe` | Modell aktiv in erster echter Nutzung | Zauber laufen jetzt nicht mehr ueber einen simplen Einzelwurf, sondern ueber ein eigenes Modell mit `Spruchzauberei`-Probe, modifiziertem Entzug und separatem Entzugswiderstand; das Popup fuehrt Skill-, Schadens- und Entzugsmodifikatoren explizit |
+| `spell` | `spell_probe` | Modell aktiv in erster echter Nutzung | Zauber und der Kernwerte-Wurf `Spruchzauberei` laufen jetzt ueber ein eigenes Modell mit `Spruchzauberei`-Probe, modifiziertem Entzug, Entzugsschaden-Typ und separatem Entzugswiderstand; das Popup fuehrt Skill-, Angriffswert-, Schadens-, Flaechen-, Hochdrehen- und Entzugsmodifikatoren explizit |
+| `summoning` | `summoning_probe` | Modell aktiv in erster Nutzung | Geister koennen aus der Geisterliste heraus beschworen werden: Hauptprobe `Beschwoeren + Magie`, Gegenpool `Kraftstufe x 2`, Dienste aus Nettoerfolgen, Entzug aus Geister-Erfolgen; Geistertyp wird im Popup aus den Grundregelwerk-Geisterarten plus Beschuetzergeister, Helfergeister, Pflanzengeister und Ratgebergeister gewaehlt |
 | `matrix_action` | `matrix_action` | Modell aktiv und auf Regelwerksmapping umgestellt | Matrix-Handlungen nutzen jetzt getrennte Proben- und Verteidigungswerte aus `SR6_MATRIX_ACTION_RULES`; variable Verteidigungen werden in der Handlungszeile gewaehlt |
 | `physical_defense`, `physical_damage_resistance`, `general_defense`, `general_damage_resistance`, `astral_defense`, `astral_damage_resistance`, `matrix_defense`, `matrix_damage_resistance`, `matrix_biofeedback_damage_resistance`, `rigging_matrix_defense`, `rigging_matrix_damage_resistance`, `rigging_biofeedback_damage_resistance` | `defense_probe` | Modell aktiv in Nutzung | Gemeinsamer Builder existiert und wird bereits fuer Kampf sowie allgemeine, magische, Matrix- und Rigging-Defensivfaelle verwendet |
 | `combat_ranged_core_attack`, `combat_melee_core_attack`, `combat_ranged_weapon`, `combat_melee_weapon`, `ranged_weapon`, `melee_weapon` | `combat_attack_probe` | Am besten modelliert | Gemeinsames Kampf-Popup und gemeinsamer Weapon-Outputpfad bereits vorhanden |
@@ -89,7 +91,7 @@ Nach den bisherigen Issue-12-Schritten gilt:
   - `sr6_skill_<name>_grundwert/modifikator/gesamtwert`
 - Issue 12 prueft schrittweise, ob alle sichtbaren Attributszuordnungen dieselben Quellen verwenden und ob berechnete Felder klar als berechnet/manuell angepasst erkennbar werden.
 - Besonders relevant fuer Issue 12 sind alle Felder, die aus Attributen und/oder Fertigkeiten abgeleitet werden, aber in der UI nicht immer als berechnet erkennbar sind.
-- Aktionsfertigkeiten, Attributsproben, Wissens-/Sprach-/Soft-Felder, Talentsofts, Kampfwerte und Matrix-Handlungen sind in diesem Sinne umgesetzt und in der Sandbox bzw. per Code-/Formelabgleich bestaetigt.
+- Aktionsfertigkeiten, Attributsproben, Wissens-/Sprach-/Soft-Felder, Talentsofts, Kampfwerte, Magie-Kernwerte und Matrix-Handlungen sind in diesem Sinne umgesetzt und in der Sandbox bzw. per Code-/Formelabgleich bestaetigt.
 
 | Tab | Fachbereich | Haupt-Wertetypen | Gemeinsame Datenquellen / Muster | Refactor-Status |
 | --- | --- | --- | --- | --- |
@@ -100,13 +102,13 @@ Nach den bisherigen Issue-12-Schritten gilt:
 | Kampf | Kernwerte | Kalkulationsfeld, Einzelwert | `sr6_combat_*`, `sr6_verteidigung_*`, `sr6_schadenswiderstand_*` | Issue-12-Pruefung abgeschlossen: `Fernkampfangriff`, `Nahkampfangriff`, `Verteidigung (Physisch)`, `Schadenswiderstand (Physisch)`, `Verteidigungswert` laufen berechnet; `Verteidigungswert` bleibt bewusst Vergleichswert ohne Rollbutton |
 | Kampf | Fernkampfwaffen / Nahkampfwaffen | Einzelwert, Kontextwert, berechneter Waffen-Pool | `repeating_sr6fernkampfwaffen_*`, `repeating_sr6nahkampfwaffen_*` | Issue-12-Pruefung abgeschlossen: `Schaden` ist ein numerischer Einzelwert; `Angriffswert` bleibt reichweitenabhaengiger Waffenwert; Waffen-Rollbuttons nutzen je Waffenzeile einen berechneten Pool inkl. passender Spezialisierung/Expertise und zeigen Reichweite/Angriffswert nur als Rolltemplate-Kontext |
 | Kampf | Panzerung | Einzelwert / Kontextwert | `repeating_sr6panzerung_*`, `sr6_combat_*` | Issue-12-Pruefung abgeschlossen: Panzerungsrollen werden direkt in `Kampf > Panzerung` zugewiesen; primaere, sekundaere Panzerung, Helm und Schild zaehlen additiv zum Verteidigungswert |
-| Magie | Kernwerte | Attribut, Kalkulationsfeld, Einzelwert | `sr6_magic_*`, teilweise Attribute-/Skill-Bezug | Noch projektweit typisieren, nicht blind umbenennen |
+| Magie | Kernwerte | Attribut, Kalkulationsfeld, Einzelwert | `sr6_magic_*`, Attribute-/Skill-Bezug aus `sr6_attr_*` und `sr6_skill_*` | Issue-12-Pruefung abgeschlossen: Spruchzauberei, Beschwoeren, Entzugswiderstand und Astralkampfwerte laufen als dokumentierte Sonderformeln; `A. Verteidigungswert` bleibt bewusst `Intuition + Modifikator` |
 | Magie | Zauber / Rituale / Foki / Geister | Einzelwert, Kontextwert, teils eigene Probenlogik | `repeating_sr6zauber_*`, `repeating_sr6rituale_*`, `repeating_sr6foki_*`, `repeating_sr6geister_*` | `Zauber` laufen jetzt ueber ein eigenes `spell_probe`-Modell; `Rituale` bleiben fuer diesen Refactor bewusst Datenfelder ohne Wuerfel |
-| Matrix | Kernwerte | Einzelwert, Kalkulationsfeld | `sr6_matrix_*` | Kernwerte spaeter typisieren, aktuell nicht pauschal in Dreiklang zwingen |
+| Matrix | Kernwerte | Einzelwert, Kalkulationsfeld, Vergleichswert | `sr6_matrix_*` | Issue-12-Pruefung abgeschlossen: ASDF und Overwatch bleiben manuelle Matrix-/Geraetewerte; Matrix-Initiative wird aus Modus abgeleitet; Angriffswert/Verteidigungswert sind Vergleichswerte ohne Rollbutton |
 | Matrix | Handlungen | Probe, Verteidigung, Kontextwert | `sr6_matrix_handlung_<name>_probe_wert`, `sr6_matrix_handlung_<name>_verteidigung_auswahl`, `sr6_matrix_handlung_<name>_verteidigung_wert`; Legacy-Dreiklang bleibt kompatibel | Regelwerksmapping umgesetzt: `Handlung`, `Probe`, `Verteidigung` mit getrennten Rollbuttons |
 | Matrix | Geraete / Programme / Zubehoer / Komplexe Strukturen / Sprites | Einzelwert / Kontextwert | `repeating_sr6matrixgeraete_*`, `repeating_sr6programme_*`, etc. | Erst nach Gesamtklassifikation verfeinern |
-| Rigging | Kernwerte | Einzelwert, Kalkulationsfeld | `sr6_rigging_*` | Formel- und Typpruefung noch offen |
-| Rigging | Fahrzeuge / Programme / Zubehoer / Agenten / Manoever | Einzelwert / Kontextwert | `repeating_sr6fahrzeuge_*`, `repeating_sr6agenten_*`, `repeating_sr6manoever_*` | Kein pauschaler Dreiklang ohne fachliche Bestaetigung |
+| Rigging | Kernwerte | Einzelwert, Kalkulationsfeld, Vergleichswert | `sr6_rigging_*` | Issue-12-Pruefung abgeschlossen: Riggerkonsolenwerte bleiben manuelle Geraetewerte; Rigging-Initiative wird aus Modus abgeleitet; Angriffswert/Verteidigungswert sind Vergleichswerte ohne Rollbutton |
+| Rigging | Fahrzeuge / Programme / Zubehoer / Agenten / Manoever | Einzelwert / Kontextwert | `repeating_sr6fahrzeuge_*`, `repeating_sr6agenten_*`, `repeating_sr6manoever_*` | Fahrzeuge/Drohnen sind inventarisiert: Werte sind aktuell reine Datenfelder; regelkonforme Fahrzeug-/Drohnenproben brauchen spaeter eigene Rollmodelle statt pauschalem Dreiklang |
 | Ausruestung | Ausruestung / Cyberware / Bioware | Einzelwert / Kontextwert | `repeating_sr6ausruestung_*`, `repeating_sr6cyberware_*`, `repeating_sr6bioware_*` | Ueberwiegend Einzel-/Kontextwerte; kein pauschaler Dreiklang ohne fachliche Not |
 | Leben | Personendaten / SIN / Lebensstil / Connections / Beschreibung | Einzelwert / Kontextwert | `sr6_bio_*`, `repeating_sr6sin_*`, `repeating_sr6lebensstil_*`, `repeating_sr6connections_*`, Textfelder | Tab technisch unter `biographie`; kein kuenstlicher Dreiklang ohne fachliche Not |
 
@@ -469,13 +471,48 @@ Die technische Basis ist bereits vorhanden:
 | Attribute & Fertigkeiten / Aktionsfertigkeiten | `grundwert + modifikator = gesamtwert` bleibt der Fertigkeitswert; der Rollbutton baut daraus plus gewaehltem Attribut den Pool | Datenquelle ist korrekt und wird im Popup zur vollstaendigen Standardprobe erweitert | Beibehalten; keine parallelen Skillquellen einfuehren |
 | Wissens-/Sprach-/Soft-Felder | Wissens-/Sprach-/Wissenssprachsofts zeigen `Name` und den berechneten `Wert = Erinnerungsvermoegen`; Talentsofts berechnen `Attribut + Stufe + Modifikator` | Erinnerungsvermoegen ist als Attributsprobe `Logik + Intuition` umgesetzt; Talentsofts sind eigener Ersatz-Fertigkeitsfall | Wissen/Sprache bleibt ohne eigenen Dreiklang; Talentsofts optional spaeter um Soft-Typ/Aktionsfertigkeit erweitern |
 | `combat_attack_probe` / Kampf-Kernwerte | Fernkampf, Projektilwaffen und Nahkampf berechnen bereits `Attribut + Fertigkeit + Modifikator` in den Kernwerten | Grundmechanik passt fuer die globalen Kampf-Kernwerte; Waffen-Rollbuttons muessen weiterhin gegen dieselbe Poolquelle geprueft werden | Waffen-Sonderfaelle separat ueber vorhandene Kampf-/Waffen-Issues nachziehen |
-| `spell_probe` / Zauber | Spruchzauberei nutzt `Magie + Hexerei/Zauberpool + Modifikatoren`; Entzug laeuft getrennt | Passt als magischer Sonderfall: eigener Hauptwurf plus Entzugswiderstand | Nur konkrete Zauberarten/Schaden/Entzug weiter gegen Regelwerk pruefen |
-| Magie-Kernwerte / Astralkampf | Mehrere Werte sind berechnete Sonderfaelle aus Attributen/Fertigkeiten, z. B. Waffenloser Kampf aus `Astral + Willenskraft` | Kein einheitliches Standardmodell, aber bewusst Sonderlogik | Formeln einzeln dokumentieren und UI als berechnet/manuell modifiziert kennzeichnen |
+| `spell_probe` / Zauber | Spruchzauberei nutzt `Magie + Hexerei/Zauberpool + Modifikatoren`; Entzug laeuft getrennt als `Zauber-Entzug + Popup-Anpassungen - Entzugswiderstands-Erfolge` | Passt als magischer Sonderfall: eigener Hauptwurf plus Entzugswiderstand; Entzugsschaden wird als `Betäubung` oder `Körperlich` ausgewiesen; Kernwerte-Button nutzt dasselbe Popup wie konkrete Zauber | Zauber-Sonderregeln, die nicht aus den aktuellen Feldern ableitbar sind, bleiben ueber `Entzug-Modifikator` oder spaetere Zusatzfelder zu erfassen |
+| `summoning_probe` / Geister | Beschwoeren nutzt `Magie + Beschwoeren + Modifikatoren`; Geist widersteht mit `Kraftstufe x 2`; Entzug entspricht den Geister-Erfolgen plus Entzugsmodifikator | Regelkonformer Herbeirufen-Sonderfall fuer Dienste und Entzug; Popup bietet Erd-, Feuer-, Luft-, Menschen-, Tier- und Wassergeister sowie Beschuetzergeister, Helfergeister, Pflanzengeister und Ratgebergeister | `Besessenheit` aktiviert eine einfache Objektwiderstands-Gegenprobe: `Geist-Erfolge aus Kraftstufe x 2 - Objektwiderstand-Erfolge`, Minimum 0; Verbannen braucht eigene Aktion, weil Entzug dort anders skaliert |
+| Magie-Kernwerte / Astralkampf | Mehrere Werte sind berechnete Sonderfaelle aus Attributen/Fertigkeiten, z. B. Waffenloser Kampf aus `Astral + Willenskraft` | Issue-12-Pruefung abgeschlossen; Formeln sind einzeln dokumentiert | Beibehalten; keine pauschale Standardprobe erzwingen |
+| Magie gesamt | Magie-Kernwerte, Zauber, Geister und Rituale sind fachlich fuer Issue 12 abgeschlossen | Regelwerksmechanik und Popup-Anforderungen sind umgesetzt bzw. bewusst abgegrenzt | Das Rolltemplate bleibt als globale Aufgabe fuer alle Wuerfeloptionen offen und wird nicht mehr als Magie-spezifischer Block gefuehrt |
 | `defense_probe` | Nutzt berechnete Verteidigungs-/Widerstandswerte als Pool und zeigt Vergleichswerte | Verteidigung und Widerstand sind Sonderfaelle; nicht blind in `Attribut + Fertigkeit` pressen | Jede Verteidigungsart gegen Regelwerk pruefen, aber Modell als Sonderprobe beibehalten |
 | `matrix_action` | Matrix-Handlungen nutzen `SR6_MATRIX_ACTION_RULES` fuer Probe und Verteidigung; variable Verteidigungen werden in der Handlungszeile gewaehlt | Regelwerksmapping ist umgesetzt; Probe und Verteidigung sind getrennt rollbar | Restfaelle mit Zielwerten wie `Pilot`, `Geraetestufe` oder `Cyberware-Geraetestufe` spaeter als eigene Zielwertfelder entscheiden |
-| Matrix-/Rigging-Kernwerte | Matrixattribute/Geraetewerte sind teils manuelle Werte; Initiative nutzt Modus-Sonderlogik | Initiative passt als Sonderfall; Angriffs-/Defensivwerte muessen als Geraete-/Kernwerte getrennt bleiben | Keine pauschale Dreiklang-Umstellung; nur Formelquellen sichtbar machen |
+| Matrix-/Rigging-Kernwerte | Matrixattribute/Geraetewerte sind teils manuelle Werte; Initiative nutzt Modus-Sonderlogik | Issue-12-Pruefung abgeschlossen; ASDF-/Riggerkonsolenwerte bleiben manuell, Initiative ist berechnet, Angriffs-/Verteidigungswerte sind Vergleichswerte | Beibehalten; keine pauschale Dreiklang-Umstellung |
 | `initiative_probe` | Nutzt `Basis + W6` und addiert Augenzahlen | Regelkonformer Sonderfall, nicht Teil von `Attribut + Fertigkeit` | Beibehalten |
 | `value_probe` / Fallback | Nutzt Einzelwerte als Pool oder Vergleichswert | Technisches Sicherheitsnetz, kein fachliches Zielmodell fuer Standardproben | Nicht weiter ausbauen; Restfaelle gezielt in echte Modelle ueberfuehren |
+
+### Issue-12 Pruefbefund Magie-Kernwerte
+
+Grundlage fuer die Magie-Kernwerte ist das Regelwerksmuster aus Magieprobe, Entzug und Astralkampf. Magische Fertigkeitsproben sind keine einfachen Einzelwerte, sondern verwenden `Magie` plus die passende Fertigkeit; Astralkampfwerte bleiben dokumentierte Sonderformeln.
+
+| Feld | Soll-Formel | Sheet-Quelle | Status / Hinweis |
+| --- | --- | --- | --- |
+| `Magie` | `Magie/Resonanz + Modifikator` | `sr6_attr_magie_resonanz_gesamtwert + sr6_magic_magie_modifikator` | Berechneter Magie-Kernwert |
+| `Hexerei` / `Zauberpool` | `Hexerei + Modifikator` | `sr6_skill_hexerei_gesamtwert + sr6_magic_zauberpool_modifikator` | Komponentenwert fuer Spruchzauberei |
+| `Spruchzauberei` | `Magie + Hexerei + Modifikator` | `sr6_magic_magie + sr6_magic_zauberpool + sr6_magic_spruchzauberei_modifikator` | Regelwerksnaher Zauberpool |
+| `Beschwoeren` | `Magie + Beschwoeren + Modifikator` | `sr6_magic_magie + sr6_skill_beschwoeren_gesamtwert + sr6_magic_beschwoeren_modifikator` | Von reinem Fertigkeitswert auf Magieprobe umgestellt |
+| `Entzugswiderstand` | `Traditionsattribut + Willenskraft + Modifikator` | `Wert(sr6_magic_traditionsattribut_1) + sr6_attr_willenskraft_gesamtwert + sr6_magic_entzug_widerstand_modifikator` | `Traditionsattribut 2` wird nicht mehr verwendet und ist aus der UI entfernt |
+| `Waffenloser Kampf` | `Astral + Willenskraft + Modifikator` | `sr6_skill_astral_gesamtwert + sr6_attr_willenskraft_gesamtwert + sr6_magic_waffenloser_kampf_modifikator` | Astralkampf-Sonderformel |
+| `A. Verteidigung` | `Logik + Intuition + Modifikator` | `sr6_attr_logik_gesamtwert + sr6_attr_intuition_gesamtwert + sr6_magic_astrale_verteidigung_modifikator` | Astrale Verteidigungsprobe |
+| `A. Schadenswiderstand` | `Willenskraft + Modifikator` | `sr6_attr_willenskraft_gesamtwert + sr6_magic_astraler_schadenswiderstand_modifikator` | Astraler Schadenswiderstand |
+| `A. Angriffswert` | `Magie + Traditionsattribut + Modifikator` | `sr6_attr_magie_resonanz_gesamtwert + Wert(sr6_magic_traditionsattribut_1) + sr6_magic_astralkampf_angriffswert_modifikator` | Astralkampf-Vergleichswert |
+| `A. Verteidigungswert` | `Intuition + Modifikator` | `sr6_attr_intuition_gesamtwert + sr6_magic_astralkampf_verteidigungswert_modifikator` | Bewusste Sheet-Entscheidung; natuerliche Panzerung/Panzerungseffekte werden nicht als eigene Felder gefuehrt |
+
+### Issue-12 Pruefbefund Matrix-/Rigging-Kernwerte
+
+Matrix- und Rigging-Kernwerte enthalten bewusst mehr manuelle Geraete- und Vergleichswerte als klassische `Attribut + Fertigkeit`-Proben. ASDF-Werte, Riggerkonsolenwerte, Angriffswert, Verteidigungswert und Overwatch sind daher keine Dreiklaenge. Gewuerfelt werden nur echte Proben-/Widerstandswerte; Initiative bleibt ein eigener Sonderwurf.
+
+| Bereich | Feld | Soll-Logik | Sheet-Quelle | Status / Hinweis |
+| --- | --- | --- | --- | --- |
+| Matrix | `Angriff`, `Schleicher`, `Datenverarbeitung`, `Firewall` | Manuelle Matrixattribute des aktiven Geraets / der Persona | `sr6_matrix_angriff`, `sr6_matrix_schleicher`, `sr6_matrix_datenverarbeitung`, `sr6_matrix_firewall` | Bleiben manuelle Einzelwerte |
+| Matrix | `Overwatch` | Manuell gefuehrter Overwatch-Wert | `sr6_matrix_overwatch` | Kein Standard-Wuerfelpool |
+| Matrix | `Matrix-Initiative` | AR: `Reaktion + Intuition + 1W6`; VR: `Datenverarbeitung + Intuition + 2W6/3W6` | `sr6_matrix_modus`, `sr6_matrix_datenverarbeitung`, Attribute `Reaktion`, `Intuition` | Regelkonformer Initiative-Sonderfall |
+| Matrix | `Angriffswert`, `Verteidigungswert` | Vergleichswerte fuer Edge-/Kontextvergleich | `sr6_matrix_angriffswert`, `sr6_matrix_verteidigungswert` | Keine Rollbuttons mehr |
+| Matrix | `Matrix Verteidigung`, `Matrix Schadenswiderstand`, `Biofeedback Schadenswiderstand` | Proben-/Widerstandswerte, die im Rolltemplate den Verteidigungswert als Vergleichswert zeigen | `sr6_matrix_verteidigung`, `sr6_matrix_schadenswiderstand`, `sr6_matrix_biofeedback_schadenswiderstand` | Bleiben rollbar als Sonderproben |
+| Rigging | `Angriff`, `Schleicher`, `Datenverarbeitung`, `Firewall`, `Overwatch` | Manuelle Riggerkonsolen-/Matrixwerte | `sr6_rigging_*` | Bleiben manuelle Einzelwerte |
+| Rigging | `Rigging-Initiative` | AR: `Reaktion + Intuition + 1W6`; VR im aktuellen Sheet: `Datenverarbeitung + Intuition + 2W6/3W6` | `sr6_rigging_modus`, `sr6_rigging_datenverarbeitung`, Attribute `Reaktion`, `Intuition` | Passt fuer WiFi-/Riggerkonsolen-VR; hineingesprungen per Kabel ohne Riggerkonsole wird aktuell nicht separat modelliert |
+| Rigging | `Angriffswert`, `Verteidigungswert` | Vergleichswerte fuer Fahrzeug-/Rigging-Kontext | `sr6_rigging_angriffswert`, `sr6_rigging_verteidigungswert` | Keine Rollbuttons mehr |
+| Rigging | `Matrix Verteidigung`, `Matrix Schadenswiderstand`, `Biofeedback Schadenswiderstand` | Proben-/Widerstandswerte, die im Rolltemplate den Verteidigungswert als Vergleichswert zeigen | `sr6_rigging_matrix_verteidigung`, `sr6_rigging_matrix_schadenswiderstand`, `sr6_rigging_biofeedback_schadenswiderstand` | Bleiben rollbar als Sonderproben |
 
 ### Issue-12 Attributsmapping fuer Aktionsfertigkeiten
 
@@ -665,6 +702,31 @@ Technischer Stand:
 - Handlungen ohne Probe erzeugen keine leeren Rollbuttons und keine irrefuehrenden Poolfelder.
 - Ziel-/Gegnerwerte wie `Pilot`, `Geraetestufe` oder `Cyberware-Geraetestufe` sind bewusst noch keine automatisch berechneten Sheetwerte, solange keine passenden Zielwertfelder im Sheet existieren.
 
+### Issue-12 Pruefbefund Rigging Fahrzeuge/Drohnen
+
+Der Repeating-Bereich `Rigging > Fahrzeuge` ist aktuell ein Datenblock fuer Fahrzeug-/Drohnenwerte. Das passt fuer Fahrzeugdaten, ist aber noch kein vollstaendiges Probenmodell. Laut Regelwerk unterscheiden sich manuelle/AR-Steuerung, VR/hineingesprungenes Rigging und autonome Drohnen deutlich. Deshalb darf dieser Bereich nicht pauschal zu `Grundwert + Modifikator + Gesamtwert` umgebaut werden.
+
+| Regelwerkswert / Probe | Manuell / AR | Hineingesprungen / VR | Autonome Drohne | Aktueller Sheet-Stand | Befund |
+| --- | --- | --- | --- | --- | --- |
+| `Initiative` | `Reaktion + Intuition + 1W6` | `Intuition + Intuition + 2W6/3W6`; bei WiFi/Riggerkonsole `Datenverarbeitung + Intuition + 2W6/3W6` | `Pilot x 2 + 3W6` | Global in Rigging-Kernwerten ueber Modus; Fahrzeugzeile hat kein eigenes Initiativefeld | Kernwert passt fuer Riggerkonsole/WiFi; autonome Drohneninitiative fehlt als eigenes Fahrzeug-/Drohnenmodell |
+| `Angriffswert` | `Steuern + Sensor` | `Steuern + Sensor` | Montierte Waffe bzw. `Manoevrieren + Sensor` | Fahrzeugzeile fuehrt `Sensor`, aber keinen berechneten Angriffswert / Rollbutton | Offenes Fahrzeug-/Drohnen-Rollmodell |
+| `Verteidigungswert` | `Steuern + Panzerung` | `Steuern + Panzerung` | `Manoevrieren + Panzerung` | Fahrzeugzeile fuehrt `Panzerung`, aber keinen berechneten Verteidigungswert | Offenes Vergleichswertmodell |
+| `Handlingprobe` | `Steuern + Reaktion` | `Steuern + Intuition` plus ggf. Riggerkontrolle | Nicht als Standard-Pilotprobe in der Fahrzeugzeile abgebildet | Fahrzeugzeile fuehrt `Handling`, `Intervall`, `Geschwindigkeit` | Offenes Rollmodell mit Steuerungsmodus |
+| `Angriffsprobe (Fahrzeug als Waffe)` | `Steuern + Reaktion` | `Steuern + Intuition` plus ggf. Riggerkontrolle | Nicht als Standard-Pilotprobe abgebildet | Kein Rollbutton | Offenes Rollmodell |
+| `Angriffsprobe (Fahrzeugwaffe)` | `Mechanik + Logik` | `Mechanik + Logik` plus ggf. Riggerkontrolle | `[Waffe] Zielerfassung + Sensor` | Fahrzeugzeile fuehrt `Waffe`, aber keine Zielerfassung/Autosoft-Auswahl | Offenes Rollmodell; benoetigt zusaetzliche Datenentscheidung |
+| `Verteidigungsprobe` | `Steuern + Reaktion` | `Steuern + Intuition` plus ggf. Riggerkontrolle | `Ausweichen + Pilot` | Kein Rollbutton | Offenes Rollmodell |
+| `Heimlichkeit` | `Heimlichkeit + Geschicklichkeit` | `Heimlichkeit + Logik` plus ggf. Riggerkontrolle | `Stealth + Pilot` | Kein Stealth-/Autosoft-Feld in der Fahrzeugzeile | Offenes Rollmodell |
+| `Wahrnehmung` | `Wahrnehmung + Intuition` | `Wahrnehmung + Sensor` | `Clearsight + Sensor` | Fahrzeugzeile fuehrt `Sensor`, aber keine Clearsight-Auswahl | Offenes Rollmodell |
+| `Schadenswiderstand` | `Rumpf` | `Rumpf` | `Rumpf` | Fahrzeugzeile fuehrt `Rumpf` | Koennte spaeter als einfacher Widerstands-Rollbutton umgesetzt werden |
+| `Zustandsmonitor` | `[Rumpf / 2 aufgerundet] + 8` | `[Rumpf / 2 aufgerundet] + 8` | `[Rumpf / 2 aufgerundet] + 8` | Kein berechneter Monitor in der Fahrzeugzeile | Offenes berechnetes Anzeigefeld |
+
+Umsetzungsregel fuer spaeter:
+
+- Fahrzeug-/Drohnenproben brauchen ein eigenes Rollmodell mit Steuerungsmodus.
+- `Riggerkontrolle-Stufe` und Autosofts wie `Manoevrieren`, `Zielerfassung`, `Ausweichen`, `Stealth` und `Clearsight` duerfen nicht implizit geraten werden.
+- Bestehende Felder `Handling`, `Beschleunigung`, `Intervall`, `Geschwindigkeit`, `Rumpf`, `Panzerung`, `Pilot`, `Sensor`, `Sitze`, `Waffe`, `Modus` bleiben stabile Datenfelder.
+- Kurzfristig keine UI-Rollbuttons einfuehren, solange die benoetigten Autosoft-/Riggerkontrolle-Quellen nicht festgelegt sind.
+
 ## Offener Sammeltest
 
 Der alte Datenfeld-Refactor ist funktional weitgehend abgeschlossen. Ein letzter Sammeltest bleibt als Sicherheitsnetz sinnvoll, wird aber nicht mehr als eigener alter Refactor-Block gefuehrt.
@@ -675,6 +737,6 @@ Zu pruefen:
 - Basis- und Repeating-`skill_probe`
 - Initiative: physisch, astral, Matrix, Rigging
 - Kampf: Fernkampf, Nahkampf, Verteidigung (Physisch), Schadenswiderstand (Physisch), Waffenpools mit Spezialisierung/Expertise
-- Magie-Kernwerte
+- Magie-Kernwerte, Zauber, Geister und Rituale
 - Matrix- und Rigging-Kernwerte
-- Rituale ohne Wuerfel
+- Rolltemplate-Ausgabe global fuer alle Wuerfeloptionen

@@ -65,12 +65,11 @@ function buildRecalcEvents() {
   events.push("change:sr6_derived_initiative_basis_modifikator");
 
   events.push("change:sr6_magic_traditionsattribut_1");
-  events.push("change:sr6_magic_traditionsattribut_2");
   events.push("change:sr6_magic_traditionsattribut_1_modifikator");
-  events.push("change:sr6_magic_traditionsattribut_2_modifikator");
   events.push("change:sr6_magic_magie_modifikator");
   events.push("change:sr6_magic_zauberpool_modifikator");
   events.push("change:sr6_magic_spruchzauberei_modifikator");
+  events.push("change:sr6_magic_beschwoeren_modifikator");
   events.push("change:sr6_magic_entzug_widerstand_modifikator");
   events.push("change:sr6_magic_waffenloser_kampf_modifikator");
   events.push("change:sr6_magic_astrale_initiative_modifikator");

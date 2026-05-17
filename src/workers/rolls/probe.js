@@ -285,6 +285,34 @@ function isCombatSpell(resolvedFields) {
   return `${(resolvedFields && resolvedFields.Art) || ""}`.trim() === "Kampf";
 }
 
+function resolveDrainDamageType(remainingDrainDamage, magicValue) {
+  if (parseNumber(remainingDrainDamage) <= 0) return "";
+  return parseNumber(remainingDrainDamage) > parseNumber(magicValue) ? "Körperlich" : "Betäubung";
+}
+
+function resolveSummoningSpiritType(resolvedFields, popupState) {
+  const selectedSpiritType = `${(((popupState || {}).selectedValues || {}).spirit_type) || ""}`.trim();
+  if (selectedSpiritType) return selectedSpiritType;
+  return `${(resolvedFields && resolvedFields.Typ) || ""}`.trim();
+}
+
+function resolveSummoningSpiritForce(resolvedFields, popupState) {
+  const selectedSpiritForce = parseNumber(((popupState || {}).selectedValues || {}).spirit_force);
+  if (selectedSpiritForce > 0) return selectedSpiritForce;
+  return parseNumber(resolvedFields.Stufe);
+}
+
+function isSummoningPossessionCheckEnabled(popupState) {
+  return `${(((popupState || {}).selectedValues || {}).possession) || ""}`.trim() === "1";
+}
+
+function appendRowIfMissing(rows, label, value) {
+  const normalizedValue = `${value || ""}`.trim();
+  if (!normalizedValue) return;
+  if (rows.some((row) => row && row.label === label && `${row.value || ""}`.trim() === normalizedValue)) return;
+  rows.push({ label: label, value: normalizedValue });
+}
+
 function runSpellProbeFromContext(context, lookupAttr, resolvedFields, popupState) {
   const rows = buildProbeRows(resolvedFields, context.definition);
   const name = deriveProbeTitle(resolvedFields, context.poolAttribute, context.definition);
@@ -299,11 +327,26 @@ function runSpellProbeFromContext(context, lookupAttr, resolvedFields, popupStat
     0
   );
   const baseDamage = parseNumber(resolvedFields.Schaden);
+  const baseAttackValue = parseNumber(resolvedFields.Angriffswert);
+  const finalAttackValue = isCombatSpell(resolvedFields)
+    ? Math.max(0, baseAttackValue + popupState.attackValueMod)
+    : "";
   const finalDamage = isCombatSpell(resolvedFields) || baseDamage || popupState.damageMod
     ? `${baseDamage + popupState.damageMod}`
     : "";
   const modifiedDrain = Math.max(0, parseNumber(resolvedFields.Entzug) + popupState.drainMod);
   const drainDamage = Math.max(0, modifiedDrain - drainComputation.successCount);
+  const drainDamageType = resolveDrainDamageType(drainDamage, lookupAttr("sr6_magic_magie"));
+
+  popupState.rows.forEach((popupRow) => {
+    if (!popupRow || !popupRow.label) return;
+    appendRowIfMissing(rows, popupRow.label, popupRow.value);
+  });
+  if (isCombatSpell(resolvedFields) && popupState.attackValueMod !== 0) {
+    rows.push({ label: "Angriffswert-Basis", value: `${baseAttackValue}` });
+    rows.push({ label: "Angriffswert-Modifikator", value: `${popupState.attackValueMod}` });
+    rows.push({ label: "Angriffswert", value: `${finalAttackValue}` });
+  }
 
   const chatMessage = buildSr6ProbeMessage({
     name: name,
@@ -316,11 +359,89 @@ function runSpellProbeFromContext(context, lookupAttr, resolvedFields, popupStat
     details: buildDiceDetails(spellComputation.diceResults),
     detailsDice: buildDetailsDice(spellComputation.diceResults),
     isGlitch: spellComputation.isGlitch,
+    spellAttackValue: `${finalAttackValue}`,
     spellDamage: finalDamage,
     drainValue: `${modifiedDrain}`,
     drainDamage: `${drainDamage}`,
+    drainDamageType: drainDamageType,
     drainDetails: buildDiceDetails(drainComputation.diceResults),
     drainDetailsDice: buildDetailsDice(drainComputation.diceResults),
+  });
+
+  startRoll(chatMessage, (rollResult) => {
+    finishRoll(rollResult.rollId);
+  });
+}
+
+function runSummoningProbeFromContext(context, lookupAttr, resolvedFields, popupState) {
+  const rows = buildProbeRows(resolvedFields, context.definition);
+  const name = deriveProbeTitle(resolvedFields, context.poolAttribute, context.definition);
+  const spiritType = resolveSummoningSpiritType(resolvedFields, popupState);
+  const spiritForce = resolveSummoningSpiritForce(resolvedFields, popupState);
+  const summonerComputation = buildProbeComputation(
+    lookupAttr,
+    context.poolAttribute,
+    popupState.poolMod
+  );
+  const spiritComputation = buildFixedPoolComputation(spiritForce * 2);
+  const netHits = summonerComputation.successCount - spiritComputation.successCount;
+  const services = Math.max(0, netHits);
+  const modifiedDrain = Math.max(0, spiritComputation.successCount + popupState.drainMod);
+  const drainComputation = buildProbeComputation(
+    lookupAttr,
+    "sr6_magic_entzug_widerstand",
+    0
+  );
+  const drainDamage = Math.max(0, modifiedDrain - drainComputation.successCount);
+  const drainDamageType = resolveDrainDamageType(drainDamage, lookupAttr("sr6_magic_magie"));
+  const objectResistancePool = parseNumber((popupState.selectedValues || {}).object_resistance);
+  const objectResistanceComputation = isSummoningPossessionCheckEnabled(popupState)
+    ? buildFixedPoolComputation(objectResistancePool)
+    : null;
+  const objectResistanceNetHits = objectResistanceComputation
+    ? Math.max(0, spiritComputation.successCount - objectResistanceComputation.successCount)
+    : null;
+
+  appendRowIfMissing(rows, "Geistertyp", spiritType);
+  appendRowIfMissing(rows, "Kraftstufe", `${spiritForce}`);
+  popupState.rows.forEach((popupRow) => {
+    if (!popupRow || !popupRow.label) return;
+    appendRowIfMissing(rows, popupRow.label, popupRow.value);
+  });
+  rows.push({ label: "Beschwören-Pool", value: `${summonerComputation.pool}` });
+  rows.push({ label: "Beschwören-Erfolge", value: `${summonerComputation.successCount}` });
+  rows.push({ label: "Geist-Pool", value: `${spiritComputation.pool}` });
+  rows.push({ label: "Geist-Erfolge", value: `${spiritComputation.successCount}` });
+  if (objectResistanceNetHits !== null) {
+    rows.push({ label: "Objektwiderstand-Pool", value: `${objectResistancePool}` });
+    rows.push({ label: "Objektwiderstand-Erfolge", value: `${objectResistanceComputation.successCount}` });
+    rows.push({ label: "Objektwiderstand-Nettoerfolge", value: `${objectResistanceNetHits}` });
+    rows.push({ label: "Objektwiderstand-Details", value: buildDiceDetails(objectResistanceComputation.diceResults) });
+  }
+  rows.push({ label: "Nettoerfolge", value: `${netHits}` });
+  rows.push({
+    label: "Erhaltene Dienste",
+    value: services > 0 ? `${services}` : "0 (nicht herbeigerufen)",
+  });
+  rows.push({ label: "Entstandener Entzug", value: `${modifiedDrain}` });
+  rows.push({
+    label: "Entzugsschaden",
+    value: drainDamageType ? `${drainDamage} (${drainDamageType})` : `${drainDamage}`,
+  });
+  rows.push({ label: "Geist-Details", value: buildDiceDetails(spiritComputation.diceResults) });
+  rows.push({ label: "Entzug-Details", value: buildDiceDetails(drainComputation.diceResults) });
+
+  const chatMessage = buildSr6ProbeMessage({
+    name: name,
+    rows: rows,
+    resolvedFields: resolvedFields,
+    definition: context.definition,
+    definitionId: context.definition && context.definition.id,
+    pool: `${summonerComputation.pool}`,
+    erfolge: `${summonerComputation.successCount}`,
+    details: buildDiceDetails(summonerComputation.diceResults),
+    detailsDice: buildDetailsDice(summonerComputation.diceResults),
+    isGlitch: summonerComputation.isGlitch,
   });
 
   startRoll(chatMessage, (rollResult) => {
@@ -345,6 +466,10 @@ function runSuccessProbeFromContext(rawTemplate, repeatingRowPrefix, popupState 
 
     if (context.definition && context.definition.probeModel === "spell_probe") {
       runSpellProbeFromContext(context, lookupAttr, resolvedFields, normalizedPopupState);
+      return;
+    }
+    if (context.definition && context.definition.probeModel === "summoning_probe") {
+      runSummoningProbeFromContext(context, lookupAttr, resolvedFields, normalizedPopupState);
       return;
     }
 

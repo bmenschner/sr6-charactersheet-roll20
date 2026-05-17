@@ -1,12 +1,11 @@
 // BEGIN MODULE: workers/compute/magic
 function appendMagicRequestKeys(requestKeys) {
   requestKeys.push("sr6_magic_traditionsattribut_1");
-  requestKeys.push("sr6_magic_traditionsattribut_2");
   requestKeys.push("sr6_magic_traditionsattribut_1_modifikator");
-  requestKeys.push("sr6_magic_traditionsattribut_2_modifikator");
   requestKeys.push("sr6_magic_magie_modifikator");
   requestKeys.push("sr6_magic_zauberpool_modifikator");
   requestKeys.push("sr6_magic_spruchzauberei_modifikator");
+  requestKeys.push("sr6_magic_beschwoeren_modifikator");
   requestKeys.push("sr6_magic_entzug_widerstand_modifikator");
   requestKeys.push("sr6_magic_waffenloser_kampf_modifikator");
   requestKeys.push("sr6_magic_astrale_initiative_modifikator");
@@ -27,6 +26,11 @@ function computeMagicDerived(values, totals, skillTotals, updates) {
     parseNumber(updates.sr6_magic_magie) +
       parseNumber(updates.sr6_magic_zauberpool) +
       parseNumber(values.sr6_magic_spruchzauberei_modifikator)
+  );
+  updates.sr6_magic_beschwoeren = String(
+    (skillTotals.beschwoeren || 0) +
+      parseNumber(updates.sr6_magic_magie) +
+      parseNumber(values.sr6_magic_beschwoeren_modifikator)
   );
   updates.sr6_magic_waffenloser_kampf = String(
     (skillTotals.astral || 0) +
@@ -49,16 +53,14 @@ function computeMagicDerived(values, totals, skillTotals, updates) {
   );
 
   const traditionKey1 = mapTraditionsattributToKey(values.sr6_magic_traditionsattribut_1);
-  const traditionKey2 = mapTraditionsattributToKey(values.sr6_magic_traditionsattribut_2);
   const traditionValue1 =
     (traditionKey1 ? (totals[traditionKey1] || 0) : 0) +
     parseNumber(values.sr6_magic_traditionsattribut_1_modifikator);
-  const traditionValue2 =
-    (traditionKey2 ? (totals[traditionKey2] || 0) : 0) +
-    parseNumber(values.sr6_magic_traditionsattribut_2_modifikator);
 
   updates.sr6_magic_entzug_widerstand = String(
-    traditionValue1 + traditionValue2 + parseNumber(values.sr6_magic_entzug_widerstand_modifikator)
+    traditionValue1 +
+      (totals.willenskraft || 0) +
+      parseNumber(values.sr6_magic_entzug_widerstand_modifikator)
   );
   updates.sr6_magic_astralkampf_angriffswert = String(
     (totals.magie_resonanz || 0) +
