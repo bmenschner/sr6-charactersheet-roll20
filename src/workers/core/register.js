@@ -37,6 +37,8 @@ function buildRecalcEvents() {
   SR6_SKILLS.forEach((skillName) => {
     events.push(`change:sr6_skill_${skillName}_grundwert`);
     events.push(`change:sr6_skill_${skillName}_modifikator`);
+    events.push(`change:sr6_skill_${skillName}_spezialisierung`);
+    events.push(`change:sr6_skill_${skillName}_expertise`);
   });
 
   SR6_MATRIX_ACTIONS.forEach((actionName) => {
@@ -96,7 +98,9 @@ function registerWorkerEvents() {
   const recalcEvents = buildRecalcEvents();
   on(recalcEvents.join(" "), () => {
     recomputeAll(() => {
-      syncRepeatingSkillTotals();
+      syncCombatWeaponPools(() => {
+        syncRepeatingSkillTotals();
+      });
     });
   });
   on(
@@ -135,6 +139,7 @@ function registerWorkerEvents() {
       "change:repeating_sr6fernkampfwaffen:sr6_fernkampf_ist_primaer",
       "change:repeating_sr6fernkampfwaffen:sr6_fernkampfwaffe",
       "change:repeating_sr6fernkampfwaffen:sr6_fernkampf_fertigkeit",
+      "change:repeating_sr6fernkampfwaffen:sr6_fernkampf_waffentyp",
       "change:repeating_sr6fernkampfwaffen:sr6_fernkampf_schaden",
       "change:repeating_sr6fernkampfwaffen:sr6_fernkampf_munition",
       "change:repeating_sr6fernkampfwaffen:sr6_fernkampf_modus",
@@ -148,6 +153,7 @@ function registerWorkerEvents() {
       "change:repeating_sr6nahkampfwaffen:sr6_nahkampfwaffe",
       "change:repeating_sr6nahkampfwaffen:sr6_nahkampf_fertigkeit",
       "change:repeating_sr6nahkampfwaffen:sr6_nahkampf_attribut",
+      "change:repeating_sr6nahkampfwaffen:sr6_nahkampf_waffentyp",
       "change:repeating_sr6nahkampfwaffen:sr6_nahkampf_schaden",
       "change:repeating_sr6nahkampfwaffen:sr6_nahkampf_schadentyp",
       "change:repeating_sr6nahkampfwaffen:sr6_nahkampf_s_nah",
@@ -158,7 +164,11 @@ function registerWorkerEvents() {
       "remove:repeating_sr6nahkampfwaffen",
     ].join(" "),
     (eventInfo) => {
-      syncCombatPrimaryWeapons(recomputeAll, eventInfo);
+      syncCombatPrimaryWeapons(() => {
+        recomputeAll(() => {
+          syncCombatWeaponPools();
+        });
+      }, eventInfo);
     }
   );
   registerSuccessProbeRollEvents();
@@ -172,7 +182,9 @@ function registerWorkerEvents() {
     syncCombatArmorSelections(() => {
       syncCombatPrimaryWeapons(() => {
         recomputeAll(() => {
-          syncRepeatingSkillTotals();
+          syncCombatWeaponPools(() => {
+            syncRepeatingSkillTotals();
+          });
         });
       });
     });

@@ -98,7 +98,7 @@ Nach den bisherigen Issue-12-Schritten gilt:
 | Attribute & Fertigkeiten | Aktionsfertigkeiten | Fertigkeit | `sr6_skill_<name>_grundwert/modifikator/gesamtwert`, `sr6_skill_<name>_spezialisierung`, `sr6_skill_<name>_expertise` | Dreiklang vorhanden, numerische Inputs aktiv; gemeinsame Quelle fuer alle Skill-Proben; Spezialisierung/Expertise sind in UI, Popup und Poolberechnung umgesetzt |
 | Attribute & Fertigkeiten | Wissens-/Sprach-/Soft-Felder | Spezialtyp / Kontextwert / Ersatz-Fertigkeitswert | `sr6_wissensfertigkeit_*`, `sr6_sprachfertigkeit_*`, `sr6_talentsoft_*`, `sr6_wissenssprachsoft_*` | Fachlich getrennt: Wissens-/Sprachfertigkeiten und Wissens-/Sprachsofts wuerfeln auf Erinnerungsvermoegen; Talentsofts wuerfeln auf gewaehltes Attribut + Stufe + Modifikator |
 | Kampf | Kernwerte | Kalkulationsfeld, Einzelwert | `sr6_combat_*`, `sr6_verteidigung_*`, `sr6_schadenswiderstand_*` | `Fernkampfangriff`, `Nahkampfangriff`, `Verteidigung (Physisch)`, `Schadenswiderstand (Physisch)`, `Verteidigungswert` laufen jetzt berechnet; Panzerungsrollen werden direkt in `Kampf > Panzerung` zugewiesen |
-| Kampf | Fernkampfwaffen / Nahkampfwaffen | Einzelwert, Kontextwert, spaeter ggf. Kalkulationsfeld | `repeating_sr6fernkampfwaffen_*`, `repeating_sr6nahkampfwaffen_*` | `Schaden` ist ein numerischer Einzelwert; `Angriffswert` sitzt aktuell in den reichweitenabhaengigen Zahlenfeldern und bleibt vorerst daran gekoppelt |
+| Kampf | Fernkampfwaffen / Nahkampfwaffen | Einzelwert, Kontextwert, berechneter Waffen-Pool | `repeating_sr6fernkampfwaffen_*`, `repeating_sr6nahkampfwaffen_*` | `Schaden` ist ein numerischer Einzelwert; `Angriffswert` bleibt reichweitenabhaengiger Waffenwert; Waffen-Rollbuttons nutzen je Waffenzeile einen berechneten Pool und zeigen Reichweite/Angriffswert nur als Rolltemplate-Kontext |
 | Kampf | Panzerung | Einzelwert / Kontextwert | `repeating_sr6panzerung_*`, `sr6_combat_*` | Kein erzwungener Dreiklang ohne fachliche Not |
 | Magie | Kernwerte | Attribut, Kalkulationsfeld, Einzelwert | `sr6_magic_*`, teilweise Attribute-/Skill-Bezug | Noch projektweit typisieren, nicht blind umbenennen |
 | Magie | Zauber / Rituale / Foki / Geister | Einzelwert, Kontextwert, teils eigene Probenlogik | `repeating_sr6zauber_*`, `repeating_sr6rituale_*`, `repeating_sr6foki_*`, `repeating_sr6geister_*` | `Zauber` laufen jetzt ueber ein eigenes `spell_probe`-Modell; `Rituale` bleiben fuer diesen Refactor bewusst Datenfelder ohne Wuerfel |
@@ -258,6 +258,8 @@ Das ist fuer den weiteren Refactor wichtig, weil diese Begriffe im Sheet aktuell
 | `Verteidigungswert` | Kalkulationsfeld | `Konstitution (Gesamtwert) + Verteidigungswertbonus durch Panzerung und Ausruestung` | `sr6_combat_verteidigungswert_grundwert/modifikator/gesamtwert` | Im Sheet aktuell umgesetzt als `Konstitution + Primaer + Sekundaer + Helm + Schild`; dieser Sheet-Stand bleibt bewusst erhalten |
 | `Fernkampfwaffen: Angriffswert` | Kontextwert / Waffenwert | reichweitenabhaengige Waffenwerte `S. Nah / Nah / Mittel / Weit / S. Weit`; kein eigener Wuerfelpool | `repeating_sr6fernkampfwaffen_*` | Bewusst kein Dreiklang; Werte werden pro Waffe gepflegt |
 | `Nahkampfwaffen: Angriffswert` | Kontextwert / Waffenwert | Waffen-Angriffswert pro Reichweite; das Sheet behandelt die eingetragenen Werte weiterhin als Endwerte | `repeating_sr6nahkampfwaffen_*` | Die Waffe fuehrt jetzt zusaetzlich `Schadenstyp` und das verwendete `Attribut`; die Reichweitenwerte bleiben vorerst manuell gepflegte Endwerte |
+| `Fernkampfwaffen: Waffen-Pool` | Kalkulationsfeld je Repeating-Zeile | `Geschicklichkeit (Gesamtwert) + gewaehlte Fernkampf-Fertigkeit + passender Spezialisierungs-/Expertisebonus`; `Projektilwaffen` nutzt `Athletik`, `Exotische Waffen` nutzt `Exotische Waffen`, sonst `Feuerwaffen` | `repeating_sr6fernkampfwaffen_*_sr6_fernkampf_pool` | Wird versteckt berechnet und von allen Reichweiten-Rollbuttons der jeweiligen Waffe als Pool verwendet; Waffentyp wird gegen Spezialisierung/Expertise der verwendeten Fertigkeit abgeglichen |
+| `Nahkampfwaffen: Waffen-Pool` | Kalkulationsfeld je Repeating-Zeile | `gewaehltes Attribut + gewaehlte Nahkampf-Fertigkeit + passender Spezialisierungs-/Expertisebonus`; `Exotische Waffen` nutzt `Exotische Waffen`, sonst `Nahkampf` | `repeating_sr6nahkampfwaffen_*_sr6_nahkampf_pool` | Wird versteckt berechnet und von allen Reichweiten-Rollbuttons der jeweiligen Waffe als Pool verwendet; Waffentyp wird gegen Spezialisierung/Expertise der verwendeten Fertigkeit abgeglichen |
 | `Fernkampfwaffen: Schaden` | Einzelwert | numerischer Einzelwert; kann durch Munition oder Popup modifiziert werden | `repeating_sr6fernkampfwaffen_*` | Festgelegt |
 | `Nahkampfwaffen: Schaden` | Einzelwert | numerischer Einzelwert mit zusaetzlichem `Schadenstyp`-Kontext | `repeating_sr6nahkampfwaffen_*` | Festgelegt; `Schadenstyp` wird getrennt gefuehrt |
 | `Munition` | Kontextwert | modifiziert je nach Munitionsart `Angriffswert` und/oder `Schaden`, nicht pauschal den Wuerfelpool | Popup + Waffenfeld | Festgelegt, aber je Munitionsart weiter verfeinerbar |
@@ -345,12 +347,14 @@ Der Kampfbereich ist funktional weitgehend auf diesen Zielzustand gezogen:
 - `Fernkampfangriff`, `Nahkampfangriff`, `Verteidigung (Physisch)` und `Schadenswiderstand (Physisch)` laufen als Wuerfelpool-Proben
 - `Verteidigungswert` bleibt ein Vergleichswert und wird nicht als Probe behandelt
 - reichweitenabhaengige Waffenwerte in Fern- und Nahkampf bleiben Angriffswert-Kontextwerte
+- Waffen-Rollbuttons in Fern- und Nahkampf nutzen je Waffenzeile einen berechneten Pool; Reichweitenwerte werden im Rolltemplate als `Angriffswert` ausgegeben
 - `Schaden` bleibt ein numerischer Einzelwert
 - Nahkampf fuehrt zusaetzlich `Schadenstyp` und `Attribut`
 - der globale `Nahkampfangriff` liest `Fertigkeit` und `Attribut` der primaeren Nahkampfwaffe
 - die Nahkampf-Popups fuehren `Attribut` als Fallback und koennen den Attributanteil des Pools vor dem Wurf umschalten
 - `Projektilwaffen` ist als eigener Kernwert vorhanden und verwendet `Geschicklichkeit + Athletik`.
 - `Exotische Waffen` wird in Kampfberechnungen als eigene Fertigkeitsauswahl beruecksichtigt.
+- Waffen-Rollbuttons beruecksichtigen passende Spezialisierung (+2) oder Expertise (+3), wenn Waffentyp und Spezialisierung/Expertise 1:1 uebereinstimmen. Expertise ersetzt den Spezialisierungsbonus und wird nicht zusaetzlich zu +2 gestapelt.
 
 Offen sind damit im Kampfbereich vor allem:
 
@@ -372,7 +376,7 @@ Mehrere Kampfwerte sind aktuell nur als Einzelattribut vorhanden, z. B.:
 - `sr6_fernkampf_schaden`
 - `sr6_nahkampf_schaden`
 
-`Schaden` ist dabei jetzt fachlich als **bewusster numerischer Einzelwert** eingeordnet. Die reichweitenabhaengigen Poolfelder repraesentieren derzeit den **Angriffswert** und bleiben deshalb getrennt von `Schaden`.
+`Schaden` ist dabei jetzt fachlich als **bewusster numerischer Einzelwert** eingeordnet. Die reichweitenabhaengigen Waffenfelder repraesentieren den **Angriffswert** und bleiben deshalb getrennt von `Schaden` und vom berechneten Waffen-Pool.
 
 ### 2. Spiegel zwischen Allgemein und Fach-Tab
 
