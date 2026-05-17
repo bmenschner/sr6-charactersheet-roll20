@@ -181,7 +181,7 @@
 }
 
 .sr6-charactersheet-box-fertigkeiten-allgemein.sr6-editable-overview-section:has(.sr6-editable-section-mode:not(:checked)) .sr6-charactersheet-field.sr6-charactersheet-skill-field {
-  grid-template-columns: minmax(7.5rem, 1fr) max-content minmax(8rem, 1fr) minmax(8rem, 1fr);
+  grid-template-columns: minmax(7.5rem, 1fr) max-content minmax(9rem, 1.35fr) minmax(9rem, 1.35fr);
 }
 
 .sr6-charactersheet-box-fertigkeiten-allgemein.sr6-editable-overview-section:has(.sr6-editable-section-mode:not(:checked)) .sr6-charactersheet-skill-specialization-row {
@@ -197,9 +197,10 @@
 .sr6-charactersheet-box-fertigkeiten-allgemein.sr6-editable-overview-section:has(.sr6-editable-section-mode:not(:checked)) .sr6-skill-specialization-value,
 .sr6-charactersheet-box-fertigkeiten-allgemein.sr6-editable-overview-section:has(.sr6-editable-section-mode:not(:checked)) .sr6-skill-expertise-value {
   display: grid;
-  grid-template-columns: minmax(0, max-content);
+  grid-template-columns: minmax(0, 1fr);
   height: var(--sr6-list-single-line-height);
   min-width: 0;
+  width: 100%;
 }
 
 .sr6-charactersheet-box-fertigkeiten-allgemein.sr6-editable-overview-section:has(.sr6-editable-section-mode:not(:checked)) .sr6-skill-total-value > span,
@@ -214,6 +215,13 @@
   grid-template-columns: minmax(0, 1fr) 1.75rem;
   height: var(--sr6-list-single-line-height);
   align-items: center;
+  width: 100%;
+}
+
+.sr6-charactersheet-box-fertigkeiten-allgemein.sr6-editable-overview-section:has(.sr6-editable-section-mode:not(:checked)) .sr6-charactersheet-field.sr6-charactersheet-skill-field .sr6-skill-expertise-value.sr6-charactersheet-attr-value:last-child .sr6-charactersheet-field-input-with-dice,
+.sr6-charactersheet-box-fertigkeiten-allgemein.sr6-editable-overview-section:has(.sr6-editable-section-mode:not(:checked)) .sr6-charactersheet-field.sr6-charactersheet-skill-field .sr6-skill-specialization-value.sr6-charactersheet-attr-value .sr6-charactersheet-field-input-with-dice {
+  grid-template-columns: minmax(0, 1fr) 1.75rem;
+  width: 100%;
 }
 
 .sr6-charactersheet-box-fertigkeiten-allgemein.sr6-editable-overview-section:has(.sr6-editable-section-mode:not(:checked)) .sr6-skill-total-value .sr6-number-stepper {

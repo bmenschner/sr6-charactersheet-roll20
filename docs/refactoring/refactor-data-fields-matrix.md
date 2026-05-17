@@ -56,8 +56,8 @@ Dabei gilt:
 | --- | --- | --- | --- |
 | `attribute` | `attribute_probe` | Modell aktiv in erster Nutzung | Eigenes Modell und Pool-Multiplikator sind im Code verankert; erster echter `Attribut x2`-Pilot ist bei `Attribute & Fertigkeiten > Attribute > Gesamtwert` umgesetzt und in Roll20 bestaetigt |
 | `initiative` | `initiative_probe` | Modell aktiv in erster Nutzung | Initiativwuerfe mit `Basis / W6 / Gesamt` laufen nicht mehr ueber den generischen Fallback, sondern ueber ein eigenes Initiativmodell; physische, astrale, Matrix- und Rigging-Initiative nutzen getrennte Basisfelder. Matrix- und Rigging-Initiative leiten Basis und `W6` jetzt aus dem Modus ab |
-| `skill` | `skill_probe` | Modell aktiv und in Roll20 bestaetigt | Aktionsfertigkeiten nutzen jetzt ein Attribut-Dropdown im Popup; Primaerattribut ist vorausgewaehlt, Sekundaerattribute koennen je Fertigkeit gewaehlt werden; der Pool wird aus gewaehltem Attribut plus Fertigkeitswert berechnet |
-| `knowledge_skill`, `language_skill`, `talentsoft_skill`, `knowledge_language_soft_skill`, `generic_skill` | Uebergangsmodell, nicht pauschal `skill_probe` | Technisch aktiv, fachlich nach Issue-12-Pruefung zu trennen | Wissens-/Sprachfelder und Wissens-/Sprachsofts nutzen Erinnerungsvermoegen; Talentsofts koennen Aktionsfertigkeiten ersetzen und brauchen dafuer ein eigenes Mapping |
+| `skill` | `skill_probe` | Modell aktiv und in Roll20 bestaetigt | Aktionsfertigkeiten nutzen jetzt ein Attribut-Dropdown im Popup; Primaerattribut ist vorausgewaehlt, Sekundaerattribute koennen je Fertigkeit gewaehlt werden; der Pool wird aus gewaehltem Attribut plus Fertigkeitswert berechnet. Spezialisierungen addieren `+2`, Expertisen addieren `+3`; Expertise ersetzt den Spezialisierungsbonus und addiert ihn nicht zusaetzlich |
+| `knowledge_skill`, `language_skill`, `talentsoft_skill`, `knowledge_language_soft_skill`, `generic_skill` | Fachspezifische Sondermodelle neben `skill_probe` | Issue-12-Pruefung fuer Attribute & Fertigkeiten abgeschlossen | Wissens-/Sprachfelder und Wissens-/Sprachsofts nutzen Erinnerungsvermoegen (`Logik + Intuition`) als Wuerfelpool; Talentsofts nutzen `gewaehltes Attribut + Stufe + Modifikator` |
 | `spell` | `spell_probe` | Modell aktiv in erster echter Nutzung | Zauber laufen jetzt nicht mehr ueber einen simplen Einzelwurf, sondern ueber ein eigenes Modell mit `Spruchzauberei`-Probe, modifiziertem Entzug und separatem Entzugswiderstand; das Popup fuehrt Skill-, Schadens- und Entzugsmodifikatoren explizit |
 | `matrix_action` | `matrix_action` | Modell aktiv und auf Regelwerksmapping umgestellt | Matrix-Handlungen nutzen jetzt getrennte Proben- und Verteidigungswerte aus `SR6_MATRIX_ACTION_RULES`; variable Verteidigungen werden in der Handlungszeile gewaehlt |
 | `physical_defense`, `physical_damage_resistance`, `general_defense`, `general_damage_resistance`, `astral_defense`, `astral_damage_resistance`, `matrix_defense`, `matrix_damage_resistance`, `matrix_biofeedback_damage_resistance`, `rigging_matrix_defense`, `rigging_matrix_damage_resistance`, `rigging_biofeedback_damage_resistance` | `defense_probe` | Modell aktiv in Nutzung | Gemeinsamer Builder existiert und wird bereits fuer Kampf sowie allgemeine, magische, Matrix- und Rigging-Defensivfaelle verwendet |
@@ -89,14 +89,14 @@ Nach den bisherigen Issue-12-Schritten gilt:
   - `sr6_skill_<name>_grundwert/modifikator/gesamtwert`
 - Issue 12 prueft schrittweise, ob alle sichtbaren Attributszuordnungen dieselben Quellen verwenden und ob berechnete Felder klar als berechnet/manuell angepasst erkennbar werden.
 - Besonders relevant fuer Issue 12 sind alle Felder, die aus Attributen und/oder Fertigkeiten abgeleitet werden, aber in der UI nicht immer als berechnet erkennbar sind.
-- Aktionsfertigkeiten und Matrix-Handlungen sind in diesem Sinne bereits umgesetzt; Wissens-/Sprach-/Soft-Felder und weitere Sonderbereiche bleiben Folgepruefungen.
+- Aktionsfertigkeiten, Attributsproben, Wissens-/Sprach-/Soft-Felder, Talentsofts und Matrix-Handlungen sind in diesem Sinne umgesetzt und in der Sandbox bestaetigt.
 
 | Tab | Fachbereich | Haupt-Wertetypen | Gemeinsame Datenquellen / Muster | Refactor-Status |
 | --- | --- | --- | --- | --- |
 | Allgemein | Uebersicht / Spiegel | Kontext- und Uebersichtswerte | bestehende Quellen aus den Fach-Tabs | Nach Refactor bewusst keine primaere Pflegeflaeche fuer Attribute, Fertigkeiten oder Kampfwerte |
-| Attribute & Fertigkeiten | Attribute | Attribut | `sr6_attr_<name>_grundwert/modifikator/gesamtwert` | Dreiklang vorhanden, numerische Inputs aktiv; Issue 12 prueft Attributszuordnung und Berechnungsindikatoren |
-| Attribute & Fertigkeiten | Aktionsfertigkeiten | Fertigkeit | `sr6_skill_<name>_grundwert/modifikator/gesamtwert` | Dreiklang vorhanden, numerische Inputs aktiv; gemeinsame Quelle fuer alle Skill-Proben |
-| Attribute & Fertigkeiten | Wissens-/Sprach-/Soft-Felder | Spezialtyp / Kontextwert / Ersatz-Fertigkeitswert | `sr6_wissensfertigkeit_*`, `sr6_sprachfertigkeit_*`, `sr6_talentsoft_*`, `sr6_wissenssprachsoft_*` | Dreiklang technisch vorhanden; fachlich nicht pauschal als `Attribut + Fertigkeit` behandeln |
+| Attribute & Fertigkeiten | Attribute | Attribut | `sr6_attr_<name>_grundwert/modifikator/gesamtwert` | Dreiklang vorhanden, numerische Inputs aktiv; Attributsproben und `Attribut x2` sind bestaetigt |
+| Attribute & Fertigkeiten | Aktionsfertigkeiten | Fertigkeit | `sr6_skill_<name>_grundwert/modifikator/gesamtwert`, `sr6_skill_<name>_spezialisierung`, `sr6_skill_<name>_expertise` | Dreiklang vorhanden, numerische Inputs aktiv; gemeinsame Quelle fuer alle Skill-Proben; Spezialisierung/Expertise sind in UI, Popup und Poolberechnung umgesetzt |
+| Attribute & Fertigkeiten | Wissens-/Sprach-/Soft-Felder | Spezialtyp / Kontextwert / Ersatz-Fertigkeitswert | `sr6_wissensfertigkeit_*`, `sr6_sprachfertigkeit_*`, `sr6_talentsoft_*`, `sr6_wissenssprachsoft_*` | Fachlich getrennt: Wissens-/Sprachfertigkeiten und Wissens-/Sprachsofts wuerfeln auf Erinnerungsvermoegen; Talentsofts wuerfeln auf gewaehltes Attribut + Stufe + Modifikator |
 | Kampf | Kernwerte | Kalkulationsfeld, Einzelwert | `sr6_combat_*`, `sr6_verteidigung_*`, `sr6_schadenswiderstand_*` | `Fernkampfangriff`, `Nahkampfangriff`, `Verteidigung (Physisch)`, `Schadenswiderstand (Physisch)`, `Verteidigungswert` laufen jetzt berechnet; Panzerungsrollen werden direkt in `Kampf > Panzerung` zugewiesen |
 | Kampf | Fernkampfwaffen / Nahkampfwaffen | Einzelwert, Kontextwert, spaeter ggf. Kalkulationsfeld | `repeating_sr6fernkampfwaffen_*`, `repeating_sr6nahkampfwaffen_*` | `Schaden` ist ein numerischer Einzelwert; `Angriffswert` sitzt aktuell in den reichweitenabhaengigen Zahlenfeldern und bleibt vorerst daran gekoppelt |
 | Kampf | Panzerung | Einzelwert / Kontextwert | `repeating_sr6panzerung_*`, `sr6_combat_*` | Kein erzwungener Dreiklang ohne fachliche Not |
@@ -142,8 +142,47 @@ Status:
 - in `Attribute & Fertigkeiten > Fertigkeiten` genutzt
 - dieselbe Quelle in allen Ansichten beibehalten
 - numerische Inputs bereits umgestellt
+- Primaer- und Sekundaerattribute werden im Popup ueber ein Attribut-Dropdown abgebildet
+- Spezialisierung und Expertise werden je Fertigkeit gespeichert und koennen direkt aus der Listenansicht gewuerfelt werden
+- Spezialisierung addiert `+2` Wuerfel, Expertise addiert `+3` Wuerfel
+- Wird Expertise genutzt, wird Spezialisierung nicht zusaetzlich addiert
 
-### 3. Matrix-Handlungen
+### 3. Attributsproben
+
+Kanonisches Schema:
+
+- `sr6_attrprobe_<name>`
+
+Status:
+
+- im Bereich `Attribute & Fertigkeiten > Attribute` unterhalb der Attribute ergaenzt
+- als normale Proben mit Rollbutton umgesetzt
+- aktuelle Proben:
+  - `Erinnerungsvermoegen = Logik + Intuition`
+  - `Heben/Tragen = Konstitution + Willenskraft`
+  - `Menschenkenntnis = Willenskraft + Intuition`
+  - `Selbstbeherrschung = Willenskraft + Charisma`
+
+### 4. Wissens-, Sprach- und Soft-Felder
+
+Kanonische Regel fuer Wissens-/Sprachwuerfe:
+
+- Wissensfertigkeiten, Sprachfertigkeiten und Wissens-/Sprachsofts wuerfeln auf `Erinnerungsvermoegen`
+- `Erinnerungsvermoegen = Logik + Intuition`
+
+Talentsofts:
+
+- Talentsofts ersetzen Aktionsfertigkeiten fachlich als Soft-Fertigkeit
+- Formel: `gewaehltes Attribut + Stufe + Modifikator = Gesamtwert`
+- das Attribut wird per Dropdown aus den verwendeten Attributen gewaehlt
+
+Status:
+
+- Wissens-/Sprachfelder zeigen keinen eigenen Dreiklang mehr, sondern den Wert aus Erinnerungsvermoegen
+- Talentsofts haben Attributsauswahl, Stufe, Modifikator und berechneten Gesamtwert
+- Sandbox-Test fuer diesen Bereich ist bestanden
+
+### 5. Matrix-Handlungen
 
 Aktuelles Schema:
 
@@ -167,7 +206,7 @@ Status:
 - `A-Z` ist die Standardansicht; `Gast`, `User` und `Admin` sortieren zunaechst aktive und danach inaktive Handlungen
 - der alte Dreiklang wird weiterhin berechnet, aber nicht mehr als primaere Matrix-Handlungsansicht verwendet
 
-### 4. Verteidigung / Schadenswiderstand
+### 6. Verteidigung / Schadenswiderstand
 
 Kanonisches Schema:
 
@@ -180,7 +219,7 @@ Status:
 - muessen fachlich noch gegen finale Formeln und Popup-Profile gespiegelt werden
 - numerische Inputs bereits umgestellt
 
-### 5. Erste berechnete Kampf-Kernwerte
+### 7. Erste berechnete Kampf-Kernwerte
 
 Aktueller technischer Stand:
 
