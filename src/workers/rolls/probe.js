@@ -19,6 +19,41 @@ function normalizePopupState(popupState) {
   };
 }
 
+function applyTemplateSkillBonusToPopupState(popupState, resolvedFields) {
+  const state = normalizePopupState(popupState);
+  const rows = Array.isArray(state.rows) ? [...state.rows] : [];
+  const hasPopupBonusRow = (label, value) => rows.some((row) => (
+    row &&
+    row.label === label &&
+    `${row.value || ""}`.trim() === value
+  ));
+  const expertiseName = `${(resolvedFields && resolvedFields.Expertise) || ""}`.trim();
+  const specializationName = `${(resolvedFields && resolvedFields.Spezialisierung) || ""}`.trim();
+  const expertiseRequested = `${(resolvedFields && resolvedFields["Expertise Aktiv"]) || ""}`.trim() === "1" && expertiseName !== "";
+  const specializationRequested = `${(resolvedFields && resolvedFields["Spezialisierung Aktiv"]) || ""}`.trim() === "1" && specializationName !== "";
+
+  if (expertiseRequested && !hasPopupBonusRow("Expertise", "+3")) {
+    return {
+      ...state,
+      poolMod: state.poolMod + 3,
+      rows: [...rows, { label: "Expertise", value: "+3" }],
+    };
+  }
+
+  if (specializationRequested && !expertiseRequested && !hasPopupBonusRow("Spezialisierung", "+2")) {
+    return {
+      ...state,
+      poolMod: state.poolMod + 2,
+      rows: [...rows, { label: "Spezialisierung", value: "+2" }],
+    };
+  }
+
+  return {
+    ...state,
+    rows: rows,
+  };
+}
+
 function resolveMeleePopupAttributePoolOverride(definition, resolvedFields, popupState, lookupAttr, poolAttribute) {
   if (!definition || definition.popupPoolAttributeOverride !== "melee_attribute") {
     return null;
@@ -313,6 +348,8 @@ function runSuccessProbeFromContext(rawTemplate, repeatingRowPrefix, popupState 
       return;
     }
 
+    const effectivePopupState = applyTemplateSkillBonusToPopupState(normalizedPopupState, resolvedFields);
+
     const rows = buildProbeRows(resolvedFields, context.definition);
     const name = deriveProbeTitle(resolvedFields, context.poolAttribute, context.definition);
 
@@ -336,24 +373,24 @@ function runSuccessProbeFromContext(rawTemplate, repeatingRowPrefix, popupState 
 
     const poolMultiplier = Math.max(
       getRollPoolMultiplier(context.definition, resolvedFields),
-      normalizedPopupState.poolMultiplier
+      effectivePopupState.poolMultiplier
     );
     const meleeAttributeOverride = resolveMeleePopupAttributePoolOverride(
       context.definition,
       resolvedFields,
-      normalizedPopupState,
+      effectivePopupState,
       lookupAttr,
       context.poolAttribute
     );
     const skillAttributeOverride = resolveSkillProbeAttributePoolOverride(
       context.definition,
-      normalizedPopupState,
+      effectivePopupState,
       lookupAttr,
       context.poolAttribute
     );
     const matrixActionContext = resolveMatrixActionRuleContext(
       context.definition,
-      normalizedPopupState,
+      effectivePopupState,
       lookupAttr,
       context.poolAttribute
     );
@@ -367,7 +404,7 @@ function runSuccessProbeFromContext(rawTemplate, repeatingRowPrefix, popupState 
     const computation = buildProbeComputation(
       lookupAttr,
       context.poolAttribute,
-      normalizedPopupState.poolMod,
+      effectivePopupState.poolMod,
       poolMultiplier,
       poolBasisOverride
     );
@@ -398,8 +435,8 @@ function runSuccessProbeFromContext(rawTemplate, repeatingRowPrefix, popupState 
       });
       rows.push({ label: "Zustandsmodifikator", value: `${computation.monitorPoolMod}` });
     }
-    normalizedPopupState.rows.forEach((popupRow) => rows.push(popupRow));
-    buildPopupDerivedResultRows(context.definition, lookupAttr, context.poolAttribute, resolvedFields, normalizedPopupState)
+    effectivePopupState.rows.forEach((popupRow) => rows.push(popupRow));
+    buildPopupDerivedResultRows(context.definition, lookupAttr, context.poolAttribute, resolvedFields, effectivePopupState)
       .forEach((popupRow) => rows.push(popupRow));
 
     const chatMessage = buildSr6ProbeMessage({

@@ -19,33 +19,69 @@
   <div class="sr6-charactersheet-box-content">
     <div class="sr6-charactersheet-skills-overview-grid">
       <!-- BEGIN BLOCK: Fertigkeit - Astral -->
-      <div class="sr6-charactersheet-field sr6-charactersheet-attr-field">
+      <div class="sr6-charactersheet-field sr6-charactersheet-attr-field sr6-charactersheet-skill-field">
         <span data-i18n="skill.astral">Astral</span>
-        <div class="sr6-charactersheet-attr-values">
-          <div class="sr6-charactersheet-attr-value sr6-charactersheet-attr-value--with-dice">
+        <div class="sr6-charactersheet-attr-values sr6-charactersheet-skill-values">
+          <div class="sr6-charactersheet-attr-value sr6-charactersheet-attr-value--with-dice sr6-skill-base-value">
             <span data-i18n="field.grundwert">Grundwert</span>
             <div class="sr6-charactersheet-field-input-with-dice">
               <div class="sr6-number-stepper"><button type="action" class="sr6-number-stepper-button sr6-number-stepper-button--minus" name="act_sr6_number_step" value="sr6_skill_astral_grundwert::-1" aria-label="Verringern">-</button><input type="number" name="attr_sr6_skill_astral_grundwert" /><button type="action" class="sr6-number-stepper-button sr6-number-stepper-button--plus" name="act_sr6_number_step" value="sr6_skill_astral_grundwert::1" aria-label="Erhoehen">+</button></div><button
                 type="action"
                 class="sr6-charactersheet-field-dice-button"
                 name="act_probe"
-                value="&{template:default} {{name=Fertigkeits-Test}} {{Fertigkeit=Astral (Grundwert)}} {{Pool=[[@{sr6_skill_astral_grundwert}]]}} {{Erfolge=[[@{sr6_skill_astral_grundwert}d6>5]]}}"
+                value="&{template:default} {{name=Fertigkeits-Test}} {{Fertigkeit=Astral (Grundwert)}} {{Pool=[[@{sr6_skill_astral_grundwert}]]}} {{Erfolge=[[@{sr6_skill_astral_grundwert}d6&gt;5]]}}"
                 aria-label="Wuerfeln"></button>
             </div>
           </div>
-          <div class="sr6-charactersheet-attr-value">
+          <div class="sr6-charactersheet-attr-value sr6-skill-modifier-value">
             <span data-i18n="field.modifikator">Modifikator</span><div class="sr6-number-stepper"><button type="action" class="sr6-number-stepper-button sr6-number-stepper-button--minus" name="act_sr6_number_step" value="sr6_skill_astral_modifikator::-1" aria-label="Verringern">-</button><input
               type="number"
               name="attr_sr6_skill_astral_modifikator" /><button type="action" class="sr6-number-stepper-button sr6-number-stepper-button--plus" name="act_sr6_number_step" value="sr6_skill_astral_modifikator::1" aria-label="Erhoehen">+</button></div>
           </div>
-          <div class="sr6-charactersheet-attr-value sr6-charactersheet-attr-value--with-dice">
+          <div class="sr6-charactersheet-attr-value sr6-charactersheet-attr-value--with-dice sr6-skill-total-value">
             <span data-i18n="field.gesamtwert">Gesamtwert</span>
             <div class="sr6-charactersheet-field-input-with-dice">
               <div class="sr6-number-stepper"><button type="action" class="sr6-number-stepper-button sr6-number-stepper-button--minus" name="act_sr6_number_step" value="sr6_skill_astral_gesamtwert::-1" aria-label="Verringern">-</button><input type="number" name="attr_sr6_skill_astral_gesamtwert" /><button type="action" class="sr6-number-stepper-button sr6-number-stepper-button--plus" name="act_sr6_number_step" value="sr6_skill_astral_gesamtwert::1" aria-label="Erhoehen">+</button></div><button
                 type="action"
                 class="sr6-charactersheet-field-dice-button"
                 name="act_probe"
-                value="&{template:default} {{name=Fertigkeits-Test}} {{Fertigkeit=Astral (Gesamtwert)}} {{Pool=[[@{sr6_skill_astral_gesamtwert}]]}} {{Erfolge=[[@{sr6_skill_astral_gesamtwert}d6>5]]}}"
+                value="&{template:default} {{name=Fertigkeits-Test}} {{Fertigkeit=Astral (Gesamtwert)}} {{Pool=[[@{sr6_skill_astral_gesamtwert}]]}} {{Erfolge=[[@{sr6_skill_astral_gesamtwert}d6&gt;5]]}}"
+                aria-label="Wuerfeln"></button>
+            </div>
+          </div>
+        </div>
+        <div class="sr6-charactersheet-skill-specialization-row">
+          <div class="sr6-charactersheet-attr-value sr6-charactersheet-attr-value--with-dice sr6-skill-specialization-value">
+            <span data-i18n="field.spezialisierung">Spezialisierung</span>
+            <div class="sr6-charactersheet-field-input-with-dice sr6-charactersheet-skill-select-with-dice">
+              <select name="attr_sr6_skill_astral_spezialisierung">
+                  <option value="" data-i18n="field.keine_spezialisierung">Keine</option>
+                  <option value="Astrale Signaturen">Astrale Signaturen</option>
+                  <option value="Astralkampf">Astralkampf</option>
+                  <option value="Gefühlszustände">Gefühlszustände</option>
+                  <option value="Geisterarten">Geisterarten</option>
+              </select><button
+                type="action"
+                class="sr6-charactersheet-field-dice-button"
+                name="act_probe"
+                value="&{template:default} {{name=Fertigkeits-Test}} {{Fertigkeit=Astral (Spezialisierung)}} {{Spezialisierung=@{sr6_skill_astral_spezialisierung}}} {{Spezialisierung Aktiv=1}} {{Pool=[[@{sr6_skill_astral_gesamtwert}]]}} {{Erfolge=[[@{sr6_skill_astral_gesamtwert}d6&gt;5]]}}"
+                aria-label="Wuerfeln"></button>
+            </div>
+          </div>
+          <div class="sr6-charactersheet-attr-value sr6-charactersheet-attr-value--with-dice sr6-skill-expertise-value">
+            <span data-i18n="field.expertise">Expertise</span>
+            <div class="sr6-charactersheet-field-input-with-dice sr6-charactersheet-skill-select-with-dice">
+              <select name="attr_sr6_skill_astral_expertise">
+                  <option value="" data-i18n="field.keine_expertise">Keine</option>
+                  <option value="Astrale Signaturen">Astrale Signaturen</option>
+                  <option value="Astralkampf">Astralkampf</option>
+                  <option value="Gefühlszustände">Gefühlszustände</option>
+                  <option value="Geisterarten">Geisterarten</option>
+              </select><button
+                type="action"
+                class="sr6-charactersheet-field-dice-button"
+                name="act_probe"
+                value="&{template:default} {{name=Fertigkeits-Test}} {{Fertigkeit=Astral (Expertise)}} {{Expertise=@{sr6_skill_astral_expertise}}} {{Expertise Aktiv=1}} {{Pool=[[@{sr6_skill_astral_gesamtwert}]]}} {{Erfolge=[[@{sr6_skill_astral_gesamtwert}d6&gt;5]]}}"
                 aria-label="Wuerfeln"></button>
             </div>
           </div>
@@ -54,33 +90,81 @@
       <!-- END BLOCK: Fertigkeit - Astral -->
 
       <!-- BEGIN BLOCK: Fertigkeit - Athletik -->
-      <div class="sr6-charactersheet-field sr6-charactersheet-attr-field">
+      <div class="sr6-charactersheet-field sr6-charactersheet-attr-field sr6-charactersheet-skill-field">
         <span data-i18n="skill.athletik">Athletik</span>
-        <div class="sr6-charactersheet-attr-values">
-          <div class="sr6-charactersheet-attr-value sr6-charactersheet-attr-value--with-dice">
+        <div class="sr6-charactersheet-attr-values sr6-charactersheet-skill-values">
+          <div class="sr6-charactersheet-attr-value sr6-charactersheet-attr-value--with-dice sr6-skill-base-value">
             <span data-i18n="field.grundwert">Grundwert</span>
             <div class="sr6-charactersheet-field-input-with-dice">
               <div class="sr6-number-stepper"><button type="action" class="sr6-number-stepper-button sr6-number-stepper-button--minus" name="act_sr6_number_step" value="sr6_skill_athletik_grundwert::-1" aria-label="Verringern">-</button><input type="number" name="attr_sr6_skill_athletik_grundwert" /><button type="action" class="sr6-number-stepper-button sr6-number-stepper-button--plus" name="act_sr6_number_step" value="sr6_skill_athletik_grundwert::1" aria-label="Erhoehen">+</button></div><button
                 type="action"
                 class="sr6-charactersheet-field-dice-button"
                 name="act_probe"
-                value="&{template:default} {{name=Fertigkeits-Test}} {{Fertigkeit=Athletik (Grundwert)}} {{Pool=[[@{sr6_skill_athletik_grundwert}]]}} {{Erfolge=[[@{sr6_skill_athletik_grundwert}d6>5]]}}"
+                value="&{template:default} {{name=Fertigkeits-Test}} {{Fertigkeit=Athletik (Grundwert)}} {{Pool=[[@{sr6_skill_athletik_grundwert}]]}} {{Erfolge=[[@{sr6_skill_athletik_grundwert}d6&gt;5]]}}"
                 aria-label="Wuerfeln"></button>
             </div>
           </div>
-          <div class="sr6-charactersheet-attr-value">
+          <div class="sr6-charactersheet-attr-value sr6-skill-modifier-value">
             <span data-i18n="field.modifikator">Modifikator</span><div class="sr6-number-stepper"><button type="action" class="sr6-number-stepper-button sr6-number-stepper-button--minus" name="act_sr6_number_step" value="sr6_skill_athletik_modifikator::-1" aria-label="Verringern">-</button><input
               type="number"
               name="attr_sr6_skill_athletik_modifikator" /><button type="action" class="sr6-number-stepper-button sr6-number-stepper-button--plus" name="act_sr6_number_step" value="sr6_skill_athletik_modifikator::1" aria-label="Erhoehen">+</button></div>
           </div>
-          <div class="sr6-charactersheet-attr-value sr6-charactersheet-attr-value--with-dice">
+          <div class="sr6-charactersheet-attr-value sr6-charactersheet-attr-value--with-dice sr6-skill-total-value">
             <span data-i18n="field.gesamtwert">Gesamtwert</span>
             <div class="sr6-charactersheet-field-input-with-dice">
               <div class="sr6-number-stepper"><button type="action" class="sr6-number-stepper-button sr6-number-stepper-button--minus" name="act_sr6_number_step" value="sr6_skill_athletik_gesamtwert::-1" aria-label="Verringern">-</button><input type="number" name="attr_sr6_skill_athletik_gesamtwert" /><button type="action" class="sr6-number-stepper-button sr6-number-stepper-button--plus" name="act_sr6_number_step" value="sr6_skill_athletik_gesamtwert::1" aria-label="Erhoehen">+</button></div><button
                 type="action"
                 class="sr6-charactersheet-field-dice-button"
                 name="act_probe"
-                value="&{template:default} {{name=Fertigkeits-Test}} {{Fertigkeit=Athletik (Gesamtwert)}} {{Pool=[[@{sr6_skill_athletik_gesamtwert}]]}} {{Erfolge=[[@{sr6_skill_athletik_gesamtwert}d6>5]]}}"
+                value="&{template:default} {{name=Fertigkeits-Test}} {{Fertigkeit=Athletik (Gesamtwert)}} {{Pool=[[@{sr6_skill_athletik_gesamtwert}]]}} {{Erfolge=[[@{sr6_skill_athletik_gesamtwert}d6&gt;5]]}}"
+                aria-label="Wuerfeln"></button>
+            </div>
+          </div>
+        </div>
+        <div class="sr6-charactersheet-skill-specialization-row">
+          <div class="sr6-charactersheet-attr-value sr6-charactersheet-attr-value--with-dice sr6-skill-specialization-value">
+            <span data-i18n="field.spezialisierung">Spezialisierung</span>
+            <div class="sr6-charactersheet-field-input-with-dice sr6-charactersheet-skill-select-with-dice">
+              <select name="attr_sr6_skill_athletik_spezialisierung">
+                  <option value="" data-i18n="field.keine_spezialisierung">Keine</option>
+                  <option value="Akrobatik">Akrobatik</option>
+                  <option value="Entfesseln">Entfesseln</option>
+                  <option value="Fliegen">Fliegen</option>
+                  <option value="Freier Fall">Freier Fall</option>
+                  <option value="Klettern">Klettern</option>
+                  <option value="Projektilwaffen">Projektilwaffen</option>
+                  <option value="Schwimmen">Schwimmen</option>
+                  <option value="Sprinten">Sprinten</option>
+                  <option value="Tauchen">Tauchen</option>
+                  <option value="Werfen">Werfen</option>
+              </select><button
+                type="action"
+                class="sr6-charactersheet-field-dice-button"
+                name="act_probe"
+                value="&{template:default} {{name=Fertigkeits-Test}} {{Fertigkeit=Athletik (Spezialisierung)}} {{Spezialisierung=@{sr6_skill_athletik_spezialisierung}}} {{Spezialisierung Aktiv=1}} {{Pool=[[@{sr6_skill_athletik_gesamtwert}]]}} {{Erfolge=[[@{sr6_skill_athletik_gesamtwert}d6&gt;5]]}}"
+                aria-label="Wuerfeln"></button>
+            </div>
+          </div>
+          <div class="sr6-charactersheet-attr-value sr6-charactersheet-attr-value--with-dice sr6-skill-expertise-value">
+            <span data-i18n="field.expertise">Expertise</span>
+            <div class="sr6-charactersheet-field-input-with-dice sr6-charactersheet-skill-select-with-dice">
+              <select name="attr_sr6_skill_athletik_expertise">
+                  <option value="" data-i18n="field.keine_expertise">Keine</option>
+                  <option value="Akrobatik">Akrobatik</option>
+                  <option value="Entfesseln">Entfesseln</option>
+                  <option value="Fliegen">Fliegen</option>
+                  <option value="Freier Fall">Freier Fall</option>
+                  <option value="Klettern">Klettern</option>
+                  <option value="Projektilwaffen">Projektilwaffen</option>
+                  <option value="Schwimmen">Schwimmen</option>
+                  <option value="Sprinten">Sprinten</option>
+                  <option value="Tauchen">Tauchen</option>
+                  <option value="Werfen">Werfen</option>
+              </select><button
+                type="action"
+                class="sr6-charactersheet-field-dice-button"
+                name="act_probe"
+                value="&{template:default} {{name=Fertigkeits-Test}} {{Fertigkeit=Athletik (Expertise)}} {{Expertise=@{sr6_skill_athletik_expertise}}} {{Expertise Aktiv=1}} {{Pool=[[@{sr6_skill_athletik_gesamtwert}]]}} {{Erfolge=[[@{sr6_skill_athletik_gesamtwert}d6&gt;5]]}}"
                 aria-label="Wuerfeln"></button>
             </div>
           </div>
@@ -89,33 +173,65 @@
       <!-- END BLOCK: Fertigkeit - Athletik -->
 
       <!-- BEGIN BLOCK: Fertigkeit - Beschwören -->
-      <div class="sr6-charactersheet-field sr6-charactersheet-attr-field">
+      <div class="sr6-charactersheet-field sr6-charactersheet-attr-field sr6-charactersheet-skill-field">
         <span data-i18n="skill.beschwoeren">Beschwören</span>
-        <div class="sr6-charactersheet-attr-values">
-          <div class="sr6-charactersheet-attr-value sr6-charactersheet-attr-value--with-dice">
+        <div class="sr6-charactersheet-attr-values sr6-charactersheet-skill-values">
+          <div class="sr6-charactersheet-attr-value sr6-charactersheet-attr-value--with-dice sr6-skill-base-value">
             <span data-i18n="field.grundwert">Grundwert</span>
             <div class="sr6-charactersheet-field-input-with-dice">
               <div class="sr6-number-stepper"><button type="action" class="sr6-number-stepper-button sr6-number-stepper-button--minus" name="act_sr6_number_step" value="sr6_skill_beschwoeren_grundwert::-1" aria-label="Verringern">-</button><input type="number" name="attr_sr6_skill_beschwoeren_grundwert" /><button type="action" class="sr6-number-stepper-button sr6-number-stepper-button--plus" name="act_sr6_number_step" value="sr6_skill_beschwoeren_grundwert::1" aria-label="Erhoehen">+</button></div><button
                 type="action"
                 class="sr6-charactersheet-field-dice-button"
                 name="act_probe"
-                value="&{template:default} {{name=Fertigkeits-Test}} {{Fertigkeit=Beschwoeren (Grundwert)}} {{Pool=[[@{sr6_skill_beschwoeren_grundwert}]]}} {{Erfolge=[[@{sr6_skill_beschwoeren_grundwert}d6>5]]}}"
+                value="&{template:default} {{name=Fertigkeits-Test}} {{Fertigkeit=Beschwoeren (Grundwert)}} {{Pool=[[@{sr6_skill_beschwoeren_grundwert}]]}} {{Erfolge=[[@{sr6_skill_beschwoeren_grundwert}d6&gt;5]]}}"
                 aria-label="Wuerfeln"></button>
             </div>
           </div>
-          <div class="sr6-charactersheet-attr-value">
+          <div class="sr6-charactersheet-attr-value sr6-skill-modifier-value">
             <span data-i18n="field.modifikator">Modifikator</span><div class="sr6-number-stepper"><button type="action" class="sr6-number-stepper-button sr6-number-stepper-button--minus" name="act_sr6_number_step" value="sr6_skill_beschwoeren_modifikator::-1" aria-label="Verringern">-</button><input
               type="number"
               name="attr_sr6_skill_beschwoeren_modifikator" /><button type="action" class="sr6-number-stepper-button sr6-number-stepper-button--plus" name="act_sr6_number_step" value="sr6_skill_beschwoeren_modifikator::1" aria-label="Erhoehen">+</button></div>
           </div>
-          <div class="sr6-charactersheet-attr-value sr6-charactersheet-attr-value--with-dice">
+          <div class="sr6-charactersheet-attr-value sr6-charactersheet-attr-value--with-dice sr6-skill-total-value">
             <span data-i18n="field.gesamtwert">Gesamtwert</span>
             <div class="sr6-charactersheet-field-input-with-dice">
               <div class="sr6-number-stepper"><button type="action" class="sr6-number-stepper-button sr6-number-stepper-button--minus" name="act_sr6_number_step" value="sr6_skill_beschwoeren_gesamtwert::-1" aria-label="Verringern">-</button><input type="number" name="attr_sr6_skill_beschwoeren_gesamtwert" /><button type="action" class="sr6-number-stepper-button sr6-number-stepper-button--plus" name="act_sr6_number_step" value="sr6_skill_beschwoeren_gesamtwert::1" aria-label="Erhoehen">+</button></div><button
                 type="action"
                 class="sr6-charactersheet-field-dice-button"
                 name="act_probe"
-                value="&{template:default} {{name=Fertigkeits-Test}} {{Fertigkeit=Beschwoeren (Gesamtwert)}} {{Pool=[[@{sr6_skill_beschwoeren_gesamtwert}]]}} {{Erfolge=[[@{sr6_skill_beschwoeren_gesamtwert}d6>5]]}}"
+                value="&{template:default} {{name=Fertigkeits-Test}} {{Fertigkeit=Beschwoeren (Gesamtwert)}} {{Pool=[[@{sr6_skill_beschwoeren_gesamtwert}]]}} {{Erfolge=[[@{sr6_skill_beschwoeren_gesamtwert}d6&gt;5]]}}"
+                aria-label="Wuerfeln"></button>
+            </div>
+          </div>
+        </div>
+        <div class="sr6-charactersheet-skill-specialization-row">
+          <div class="sr6-charactersheet-attr-value sr6-charactersheet-attr-value--with-dice sr6-skill-specialization-value">
+            <span data-i18n="field.spezialisierung">Spezialisierung</span>
+            <div class="sr6-charactersheet-field-input-with-dice sr6-charactersheet-skill-select-with-dice">
+              <select name="attr_sr6_skill_beschwoeren_spezialisierung">
+                  <option value="" data-i18n="field.keine_spezialisierung">Keine</option>
+                  <option value="Herbeirufen">Herbeirufen</option>
+                  <option value="Verbannen">Verbannen</option>
+              </select><button
+                type="action"
+                class="sr6-charactersheet-field-dice-button"
+                name="act_probe"
+                value="&{template:default} {{name=Fertigkeits-Test}} {{Fertigkeit=Beschwoeren (Spezialisierung)}} {{Spezialisierung=@{sr6_skill_beschwoeren_spezialisierung}}} {{Spezialisierung Aktiv=1}} {{Pool=[[@{sr6_skill_beschwoeren_gesamtwert}]]}} {{Erfolge=[[@{sr6_skill_beschwoeren_gesamtwert}d6&gt;5]]}}"
+                aria-label="Wuerfeln"></button>
+            </div>
+          </div>
+          <div class="sr6-charactersheet-attr-value sr6-charactersheet-attr-value--with-dice sr6-skill-expertise-value">
+            <span data-i18n="field.expertise">Expertise</span>
+            <div class="sr6-charactersheet-field-input-with-dice sr6-charactersheet-skill-select-with-dice">
+              <select name="attr_sr6_skill_beschwoeren_expertise">
+                  <option value="" data-i18n="field.keine_expertise">Keine</option>
+                  <option value="Herbeirufen">Herbeirufen</option>
+                  <option value="Verbannen">Verbannen</option>
+              </select><button
+                type="action"
+                class="sr6-charactersheet-field-dice-button"
+                name="act_probe"
+                value="&{template:default} {{name=Fertigkeits-Test}} {{Fertigkeit=Beschwoeren (Expertise)}} {{Expertise=@{sr6_skill_beschwoeren_expertise}}} {{Expertise Aktiv=1}} {{Pool=[[@{sr6_skill_beschwoeren_gesamtwert}]]}} {{Erfolge=[[@{sr6_skill_beschwoeren_gesamtwert}d6&gt;5]]}}"
                 aria-label="Wuerfeln"></button>
             </div>
           </div>
@@ -124,33 +240,69 @@
       <!-- END BLOCK: Fertigkeit - Beschwören -->
 
       <!-- BEGIN BLOCK: Fertigkeit - Biotech -->
-      <div class="sr6-charactersheet-field sr6-charactersheet-attr-field">
+      <div class="sr6-charactersheet-field sr6-charactersheet-attr-field sr6-charactersheet-skill-field">
         <span data-i18n="skill.biotech">Biotech</span>
-        <div class="sr6-charactersheet-attr-values">
-          <div class="sr6-charactersheet-attr-value sr6-charactersheet-attr-value--with-dice">
+        <div class="sr6-charactersheet-attr-values sr6-charactersheet-skill-values">
+          <div class="sr6-charactersheet-attr-value sr6-charactersheet-attr-value--with-dice sr6-skill-base-value">
             <span data-i18n="field.grundwert">Grundwert</span>
             <div class="sr6-charactersheet-field-input-with-dice">
               <div class="sr6-number-stepper"><button type="action" class="sr6-number-stepper-button sr6-number-stepper-button--minus" name="act_sr6_number_step" value="sr6_skill_biotech_grundwert::-1" aria-label="Verringern">-</button><input type="number" name="attr_sr6_skill_biotech_grundwert" /><button type="action" class="sr6-number-stepper-button sr6-number-stepper-button--plus" name="act_sr6_number_step" value="sr6_skill_biotech_grundwert::1" aria-label="Erhoehen">+</button></div><button
                 type="action"
                 class="sr6-charactersheet-field-dice-button"
                 name="act_probe"
-                value="&{template:default} {{name=Fertigkeits-Test}} {{Fertigkeit=Biotech (Grundwert)}} {{Pool=[[@{sr6_skill_biotech_grundwert}]]}} {{Erfolge=[[@{sr6_skill_biotech_grundwert}d6>5]]}}"
+                value="&{template:default} {{name=Fertigkeits-Test}} {{Fertigkeit=Biotech (Grundwert)}} {{Pool=[[@{sr6_skill_biotech_grundwert}]]}} {{Erfolge=[[@{sr6_skill_biotech_grundwert}d6&gt;5]]}}"
                 aria-label="Wuerfeln"></button>
             </div>
           </div>
-          <div class="sr6-charactersheet-attr-value">
+          <div class="sr6-charactersheet-attr-value sr6-skill-modifier-value">
             <span data-i18n="field.modifikator">Modifikator</span><div class="sr6-number-stepper"><button type="action" class="sr6-number-stepper-button sr6-number-stepper-button--minus" name="act_sr6_number_step" value="sr6_skill_biotech_modifikator::-1" aria-label="Verringern">-</button><input
               type="number"
               name="attr_sr6_skill_biotech_modifikator" /><button type="action" class="sr6-number-stepper-button sr6-number-stepper-button--plus" name="act_sr6_number_step" value="sr6_skill_biotech_modifikator::1" aria-label="Erhoehen">+</button></div>
           </div>
-          <div class="sr6-charactersheet-attr-value sr6-charactersheet-attr-value--with-dice">
+          <div class="sr6-charactersheet-attr-value sr6-charactersheet-attr-value--with-dice sr6-skill-total-value">
             <span data-i18n="field.gesamtwert">Gesamtwert</span>
             <div class="sr6-charactersheet-field-input-with-dice">
               <div class="sr6-number-stepper"><button type="action" class="sr6-number-stepper-button sr6-number-stepper-button--minus" name="act_sr6_number_step" value="sr6_skill_biotech_gesamtwert::-1" aria-label="Verringern">-</button><input type="number" name="attr_sr6_skill_biotech_gesamtwert" /><button type="action" class="sr6-number-stepper-button sr6-number-stepper-button--plus" name="act_sr6_number_step" value="sr6_skill_biotech_gesamtwert::1" aria-label="Erhoehen">+</button></div><button
                 type="action"
                 class="sr6-charactersheet-field-dice-button"
                 name="act_probe"
-                value="&{template:default} {{name=Fertigkeits-Test}} {{Fertigkeit=Biotech (Gesamtwert)}} {{Pool=[[@{sr6_skill_biotech_gesamtwert}]]}} {{Erfolge=[[@{sr6_skill_biotech_gesamtwert}d6>5]]}}"
+                value="&{template:default} {{name=Fertigkeits-Test}} {{Fertigkeit=Biotech (Gesamtwert)}} {{Pool=[[@{sr6_skill_biotech_gesamtwert}]]}} {{Erfolge=[[@{sr6_skill_biotech_gesamtwert}d6&gt;5]]}}"
+                aria-label="Wuerfeln"></button>
+            </div>
+          </div>
+        </div>
+        <div class="sr6-charactersheet-skill-specialization-row">
+          <div class="sr6-charactersheet-attr-value sr6-charactersheet-attr-value--with-dice sr6-skill-specialization-value">
+            <span data-i18n="field.spezialisierung">Spezialisierung</span>
+            <div class="sr6-charactersheet-field-input-with-dice sr6-charactersheet-skill-select-with-dice">
+              <select name="attr_sr6_skill_biotech_spezialisierung">
+                  <option value="" data-i18n="field.keine_spezialisierung">Keine</option>
+                  <option value="Biotechnologie">Biotechnologie</option>
+                  <option value="Cybertechnologie">Cybertechnologie</option>
+                  <option value="Erste Hilfe">Erste Hilfe</option>
+                  <option value="Medizin">Medizin</option>
+              </select><button
+                type="action"
+                class="sr6-charactersheet-field-dice-button"
+                name="act_probe"
+                value="&{template:default} {{name=Fertigkeits-Test}} {{Fertigkeit=Biotech (Spezialisierung)}} {{Spezialisierung=@{sr6_skill_biotech_spezialisierung}}} {{Spezialisierung Aktiv=1}} {{Pool=[[@{sr6_skill_biotech_gesamtwert}]]}} {{Erfolge=[[@{sr6_skill_biotech_gesamtwert}d6&gt;5]]}}"
+                aria-label="Wuerfeln"></button>
+            </div>
+          </div>
+          <div class="sr6-charactersheet-attr-value sr6-charactersheet-attr-value--with-dice sr6-skill-expertise-value">
+            <span data-i18n="field.expertise">Expertise</span>
+            <div class="sr6-charactersheet-field-input-with-dice sr6-charactersheet-skill-select-with-dice">
+              <select name="attr_sr6_skill_biotech_expertise">
+                  <option value="" data-i18n="field.keine_expertise">Keine</option>
+                  <option value="Biotechnologie">Biotechnologie</option>
+                  <option value="Cybertechnologie">Cybertechnologie</option>
+                  <option value="Erste Hilfe">Erste Hilfe</option>
+                  <option value="Medizin">Medizin</option>
+              </select><button
+                type="action"
+                class="sr6-charactersheet-field-dice-button"
+                name="act_probe"
+                value="&{template:default} {{name=Fertigkeits-Test}} {{Fertigkeit=Biotech (Expertise)}} {{Expertise=@{sr6_skill_biotech_expertise}}} {{Expertise Aktiv=1}} {{Pool=[[@{sr6_skill_biotech_gesamtwert}]]}} {{Erfolge=[[@{sr6_skill_biotech_gesamtwert}d6&gt;5]]}}"
                 aria-label="Wuerfeln"></button>
             </div>
           </div>
@@ -159,33 +311,67 @@
       <!-- END BLOCK: Fertigkeit - Biotech -->
 
       <!-- BEGIN BLOCK: Fertigkeit - Cracken -->
-      <div class="sr6-charactersheet-field sr6-charactersheet-attr-field">
+      <div class="sr6-charactersheet-field sr6-charactersheet-attr-field sr6-charactersheet-skill-field">
         <span data-i18n="skill.cracken">Cracken</span>
-        <div class="sr6-charactersheet-attr-values">
-          <div class="sr6-charactersheet-attr-value sr6-charactersheet-attr-value--with-dice">
+        <div class="sr6-charactersheet-attr-values sr6-charactersheet-skill-values">
+          <div class="sr6-charactersheet-attr-value sr6-charactersheet-attr-value--with-dice sr6-skill-base-value">
             <span data-i18n="field.grundwert">Grundwert</span>
             <div class="sr6-charactersheet-field-input-with-dice">
               <div class="sr6-number-stepper"><button type="action" class="sr6-number-stepper-button sr6-number-stepper-button--minus" name="act_sr6_number_step" value="sr6_skill_cracken_grundwert::-1" aria-label="Verringern">-</button><input type="number" name="attr_sr6_skill_cracken_grundwert" /><button type="action" class="sr6-number-stepper-button sr6-number-stepper-button--plus" name="act_sr6_number_step" value="sr6_skill_cracken_grundwert::1" aria-label="Erhoehen">+</button></div><button
                 type="action"
                 class="sr6-charactersheet-field-dice-button"
                 name="act_probe"
-                value="&{template:default} {{name=Fertigkeits-Test}} {{Fertigkeit=Cracken (Grundwert)}} {{Pool=[[@{sr6_skill_cracken_grundwert}]]}} {{Erfolge=[[@{sr6_skill_cracken_grundwert}d6>5]]}}"
+                value="&{template:default} {{name=Fertigkeits-Test}} {{Fertigkeit=Cracken (Grundwert)}} {{Pool=[[@{sr6_skill_cracken_grundwert}]]}} {{Erfolge=[[@{sr6_skill_cracken_grundwert}d6&gt;5]]}}"
                 aria-label="Wuerfeln"></button>
             </div>
           </div>
-          <div class="sr6-charactersheet-attr-value">
+          <div class="sr6-charactersheet-attr-value sr6-skill-modifier-value">
             <span data-i18n="field.modifikator">Modifikator</span><div class="sr6-number-stepper"><button type="action" class="sr6-number-stepper-button sr6-number-stepper-button--minus" name="act_sr6_number_step" value="sr6_skill_cracken_modifikator::-1" aria-label="Verringern">-</button><input
               type="number"
               name="attr_sr6_skill_cracken_modifikator" /><button type="action" class="sr6-number-stepper-button sr6-number-stepper-button--plus" name="act_sr6_number_step" value="sr6_skill_cracken_modifikator::1" aria-label="Erhoehen">+</button></div>
           </div>
-          <div class="sr6-charactersheet-attr-value sr6-charactersheet-attr-value--with-dice">
+          <div class="sr6-charactersheet-attr-value sr6-charactersheet-attr-value--with-dice sr6-skill-total-value">
             <span data-i18n="field.gesamtwert">Gesamtwert</span>
             <div class="sr6-charactersheet-field-input-with-dice">
               <div class="sr6-number-stepper"><button type="action" class="sr6-number-stepper-button sr6-number-stepper-button--minus" name="act_sr6_number_step" value="sr6_skill_cracken_gesamtwert::-1" aria-label="Verringern">-</button><input type="number" name="attr_sr6_skill_cracken_gesamtwert" /><button type="action" class="sr6-number-stepper-button sr6-number-stepper-button--plus" name="act_sr6_number_step" value="sr6_skill_cracken_gesamtwert::1" aria-label="Erhoehen">+</button></div><button
                 type="action"
                 class="sr6-charactersheet-field-dice-button"
                 name="act_probe"
-                value="&{template:default} {{name=Fertigkeits-Test}} {{Fertigkeit=Cracken (Gesamtwert)}} {{Pool=[[@{sr6_skill_cracken_gesamtwert}]]}} {{Erfolge=[[@{sr6_skill_cracken_gesamtwert}d6>5]]}}"
+                value="&{template:default} {{name=Fertigkeits-Test}} {{Fertigkeit=Cracken (Gesamtwert)}} {{Pool=[[@{sr6_skill_cracken_gesamtwert}]]}} {{Erfolge=[[@{sr6_skill_cracken_gesamtwert}d6&gt;5]]}}"
+                aria-label="Wuerfeln"></button>
+            </div>
+          </div>
+        </div>
+        <div class="sr6-charactersheet-skill-specialization-row">
+          <div class="sr6-charactersheet-attr-value sr6-charactersheet-attr-value--with-dice sr6-skill-specialization-value">
+            <span data-i18n="field.spezialisierung">Spezialisierung</span>
+            <div class="sr6-charactersheet-field-input-with-dice sr6-charactersheet-skill-select-with-dice">
+              <select name="attr_sr6_skill_cracken_spezialisierung">
+                  <option value="" data-i18n="field.keine_spezialisierung">Keine</option>
+                  <option value="Elektronische Kriegsführung">Elektronische Kriegsführung</option>
+                  <option value="Hacken">Hacken</option>
+                  <option value="Matrixkampf">Matrixkampf</option>
+              </select><button
+                type="action"
+                class="sr6-charactersheet-field-dice-button"
+                name="act_probe"
+                value="&{template:default} {{name=Fertigkeits-Test}} {{Fertigkeit=Cracken (Spezialisierung)}} {{Spezialisierung=@{sr6_skill_cracken_spezialisierung}}} {{Spezialisierung Aktiv=1}} {{Pool=[[@{sr6_skill_cracken_gesamtwert}]]}} {{Erfolge=[[@{sr6_skill_cracken_gesamtwert}d6&gt;5]]}}"
+                aria-label="Wuerfeln"></button>
+            </div>
+          </div>
+          <div class="sr6-charactersheet-attr-value sr6-charactersheet-attr-value--with-dice sr6-skill-expertise-value">
+            <span data-i18n="field.expertise">Expertise</span>
+            <div class="sr6-charactersheet-field-input-with-dice sr6-charactersheet-skill-select-with-dice">
+              <select name="attr_sr6_skill_cracken_expertise">
+                  <option value="" data-i18n="field.keine_expertise">Keine</option>
+                  <option value="Elektronische Kriegsführung">Elektronische Kriegsführung</option>
+                  <option value="Hacken">Hacken</option>
+                  <option value="Matrixkampf">Matrixkampf</option>
+              </select><button
+                type="action"
+                class="sr6-charactersheet-field-dice-button"
+                name="act_probe"
+                value="&{template:default} {{name=Fertigkeits-Test}} {{Fertigkeit=Cracken (Expertise)}} {{Expertise=@{sr6_skill_cracken_expertise}}} {{Expertise Aktiv=1}} {{Pool=[[@{sr6_skill_cracken_gesamtwert}]]}} {{Erfolge=[[@{sr6_skill_cracken_gesamtwert}d6&gt;5]]}}"
                 aria-label="Wuerfeln"></button>
             </div>
           </div>
@@ -194,33 +380,71 @@
       <!-- END BLOCK: Fertigkeit - Cracken -->
 
       <!-- BEGIN BLOCK: Fertigkeit - Einfluss -->
-      <div class="sr6-charactersheet-field sr6-charactersheet-attr-field">
+      <div class="sr6-charactersheet-field sr6-charactersheet-attr-field sr6-charactersheet-skill-field">
         <span data-i18n="skill.einfluss">Einfluss</span>
-        <div class="sr6-charactersheet-attr-values">
-          <div class="sr6-charactersheet-attr-value sr6-charactersheet-attr-value--with-dice">
+        <div class="sr6-charactersheet-attr-values sr6-charactersheet-skill-values">
+          <div class="sr6-charactersheet-attr-value sr6-charactersheet-attr-value--with-dice sr6-skill-base-value">
             <span data-i18n="field.grundwert">Grundwert</span>
             <div class="sr6-charactersheet-field-input-with-dice">
               <div class="sr6-number-stepper"><button type="action" class="sr6-number-stepper-button sr6-number-stepper-button--minus" name="act_sr6_number_step" value="sr6_skill_einfluss_grundwert::-1" aria-label="Verringern">-</button><input type="number" name="attr_sr6_skill_einfluss_grundwert" /><button type="action" class="sr6-number-stepper-button sr6-number-stepper-button--plus" name="act_sr6_number_step" value="sr6_skill_einfluss_grundwert::1" aria-label="Erhoehen">+</button></div><button
                 type="action"
                 class="sr6-charactersheet-field-dice-button"
                 name="act_probe"
-                value="&{template:default} {{name=Fertigkeits-Test}} {{Fertigkeit=Einfluss (Grundwert)}} {{Pool=[[@{sr6_skill_einfluss_grundwert}]]}} {{Erfolge=[[@{sr6_skill_einfluss_grundwert}d6>5]]}}"
+                value="&{template:default} {{name=Fertigkeits-Test}} {{Fertigkeit=Einfluss (Grundwert)}} {{Pool=[[@{sr6_skill_einfluss_grundwert}]]}} {{Erfolge=[[@{sr6_skill_einfluss_grundwert}d6&gt;5]]}}"
                 aria-label="Wuerfeln"></button>
             </div>
           </div>
-          <div class="sr6-charactersheet-attr-value">
+          <div class="sr6-charactersheet-attr-value sr6-skill-modifier-value">
             <span data-i18n="field.modifikator">Modifikator</span><div class="sr6-number-stepper"><button type="action" class="sr6-number-stepper-button sr6-number-stepper-button--minus" name="act_sr6_number_step" value="sr6_skill_einfluss_modifikator::-1" aria-label="Verringern">-</button><input
               type="number"
               name="attr_sr6_skill_einfluss_modifikator" /><button type="action" class="sr6-number-stepper-button sr6-number-stepper-button--plus" name="act_sr6_number_step" value="sr6_skill_einfluss_modifikator::1" aria-label="Erhoehen">+</button></div>
           </div>
-          <div class="sr6-charactersheet-attr-value sr6-charactersheet-attr-value--with-dice">
+          <div class="sr6-charactersheet-attr-value sr6-charactersheet-attr-value--with-dice sr6-skill-total-value">
             <span data-i18n="field.gesamtwert">Gesamtwert</span>
             <div class="sr6-charactersheet-field-input-with-dice">
               <div class="sr6-number-stepper"><button type="action" class="sr6-number-stepper-button sr6-number-stepper-button--minus" name="act_sr6_number_step" value="sr6_skill_einfluss_gesamtwert::-1" aria-label="Verringern">-</button><input type="number" name="attr_sr6_skill_einfluss_gesamtwert" /><button type="action" class="sr6-number-stepper-button sr6-number-stepper-button--plus" name="act_sr6_number_step" value="sr6_skill_einfluss_gesamtwert::1" aria-label="Erhoehen">+</button></div><button
                 type="action"
                 class="sr6-charactersheet-field-dice-button"
                 name="act_probe"
-                value="&{template:default} {{name=Fertigkeits-Test}} {{Fertigkeit=Einfluss (Gesamtwert)}} {{Pool=[[@{sr6_skill_einfluss_gesamtwert}]]}} {{Erfolge=[[@{sr6_skill_einfluss_gesamtwert}d6>5]]}}"
+                value="&{template:default} {{name=Fertigkeits-Test}} {{Fertigkeit=Einfluss (Gesamtwert)}} {{Pool=[[@{sr6_skill_einfluss_gesamtwert}]]}} {{Erfolge=[[@{sr6_skill_einfluss_gesamtwert}d6&gt;5]]}}"
+                aria-label="Wuerfeln"></button>
+            </div>
+          </div>
+        </div>
+        <div class="sr6-charactersheet-skill-specialization-row">
+          <div class="sr6-charactersheet-attr-value sr6-charactersheet-attr-value--with-dice sr6-skill-specialization-value">
+            <span data-i18n="field.spezialisierung">Spezialisierung</span>
+            <div class="sr6-charactersheet-field-input-with-dice sr6-charactersheet-skill-select-with-dice">
+              <select name="attr_sr6_skill_einfluss_spezialisierung">
+                  <option value="" data-i18n="field.keine_spezialisierung">Keine</option>
+                  <option value="Einschüchtern">Einschüchtern</option>
+                  <option value="Führen">Führen</option>
+                  <option value="Gebräuche">Gebräuche</option>
+                  <option value="Unterrichten">Unterrichten</option>
+                  <option value="Verhandeln">Verhandeln</option>
+              </select><button
+                type="action"
+                class="sr6-charactersheet-field-dice-button"
+                name="act_probe"
+                value="&{template:default} {{name=Fertigkeits-Test}} {{Fertigkeit=Einfluss (Spezialisierung)}} {{Spezialisierung=@{sr6_skill_einfluss_spezialisierung}}} {{Spezialisierung Aktiv=1}} {{Pool=[[@{sr6_skill_einfluss_gesamtwert}]]}} {{Erfolge=[[@{sr6_skill_einfluss_gesamtwert}d6&gt;5]]}}"
+                aria-label="Wuerfeln"></button>
+            </div>
+          </div>
+          <div class="sr6-charactersheet-attr-value sr6-charactersheet-attr-value--with-dice sr6-skill-expertise-value">
+            <span data-i18n="field.expertise">Expertise</span>
+            <div class="sr6-charactersheet-field-input-with-dice sr6-charactersheet-skill-select-with-dice">
+              <select name="attr_sr6_skill_einfluss_expertise">
+                  <option value="" data-i18n="field.keine_expertise">Keine</option>
+                  <option value="Einschüchtern">Einschüchtern</option>
+                  <option value="Führen">Führen</option>
+                  <option value="Gebräuche">Gebräuche</option>
+                  <option value="Unterrichten">Unterrichten</option>
+                  <option value="Verhandeln">Verhandeln</option>
+              </select><button
+                type="action"
+                class="sr6-charactersheet-field-dice-button"
+                name="act_probe"
+                value="&{template:default} {{name=Fertigkeits-Test}} {{Fertigkeit=Einfluss (Expertise)}} {{Expertise=@{sr6_skill_einfluss_expertise}}} {{Expertise Aktiv=1}} {{Pool=[[@{sr6_skill_einfluss_gesamtwert}]]}} {{Erfolge=[[@{sr6_skill_einfluss_gesamtwert}d6&gt;5]]}}"
                 aria-label="Wuerfeln"></button>
             </div>
           </div>
@@ -229,33 +453,69 @@
       <!-- END BLOCK: Fertigkeit - Einfluss -->
 
       <!-- BEGIN BLOCK: Fertigkeit - Elektronik -->
-      <div class="sr6-charactersheet-field sr6-charactersheet-attr-field">
+      <div class="sr6-charactersheet-field sr6-charactersheet-attr-field sr6-charactersheet-skill-field">
         <span data-i18n="skill.elektronik">Elektronik</span>
-        <div class="sr6-charactersheet-attr-values">
-          <div class="sr6-charactersheet-attr-value sr6-charactersheet-attr-value--with-dice">
+        <div class="sr6-charactersheet-attr-values sr6-charactersheet-skill-values">
+          <div class="sr6-charactersheet-attr-value sr6-charactersheet-attr-value--with-dice sr6-skill-base-value">
             <span data-i18n="field.grundwert">Grundwert</span>
             <div class="sr6-charactersheet-field-input-with-dice">
               <div class="sr6-number-stepper"><button type="action" class="sr6-number-stepper-button sr6-number-stepper-button--minus" name="act_sr6_number_step" value="sr6_skill_elektronik_grundwert::-1" aria-label="Verringern">-</button><input type="number" name="attr_sr6_skill_elektronik_grundwert" /><button type="action" class="sr6-number-stepper-button sr6-number-stepper-button--plus" name="act_sr6_number_step" value="sr6_skill_elektronik_grundwert::1" aria-label="Erhoehen">+</button></div><button
                 type="action"
                 class="sr6-charactersheet-field-dice-button"
                 name="act_probe"
-                value="&{template:default} {{name=Fertigkeits-Test}} {{Fertigkeit=Elektronik (Grundwert)}} {{Pool=[[@{sr6_skill_elektronik_grundwert}]]}} {{Erfolge=[[@{sr6_skill_elektronik_grundwert}d6>5]]}}"
+                value="&{template:default} {{name=Fertigkeits-Test}} {{Fertigkeit=Elektronik (Grundwert)}} {{Pool=[[@{sr6_skill_elektronik_grundwert}]]}} {{Erfolge=[[@{sr6_skill_elektronik_grundwert}d6&gt;5]]}}"
                 aria-label="Wuerfeln"></button>
             </div>
           </div>
-          <div class="sr6-charactersheet-attr-value">
+          <div class="sr6-charactersheet-attr-value sr6-skill-modifier-value">
             <span data-i18n="field.modifikator">Modifikator</span><div class="sr6-number-stepper"><button type="action" class="sr6-number-stepper-button sr6-number-stepper-button--minus" name="act_sr6_number_step" value="sr6_skill_elektronik_modifikator::-1" aria-label="Verringern">-</button><input
               type="number"
               name="attr_sr6_skill_elektronik_modifikator" /><button type="action" class="sr6-number-stepper-button sr6-number-stepper-button--plus" name="act_sr6_number_step" value="sr6_skill_elektronik_modifikator::1" aria-label="Erhoehen">+</button></div>
           </div>
-          <div class="sr6-charactersheet-attr-value sr6-charactersheet-attr-value--with-dice">
+          <div class="sr6-charactersheet-attr-value sr6-charactersheet-attr-value--with-dice sr6-skill-total-value">
             <span data-i18n="field.gesamtwert">Gesamtwert</span>
             <div class="sr6-charactersheet-field-input-with-dice">
               <div class="sr6-number-stepper"><button type="action" class="sr6-number-stepper-button sr6-number-stepper-button--minus" name="act_sr6_number_step" value="sr6_skill_elektronik_gesamtwert::-1" aria-label="Verringern">-</button><input type="number" name="attr_sr6_skill_elektronik_gesamtwert" /><button type="action" class="sr6-number-stepper-button sr6-number-stepper-button--plus" name="act_sr6_number_step" value="sr6_skill_elektronik_gesamtwert::1" aria-label="Erhoehen">+</button></div><button
                 type="action"
                 class="sr6-charactersheet-field-dice-button"
                 name="act_probe"
-                value="&{template:default} {{name=Fertigkeits-Test}} {{Fertigkeit=Elektronik (Gesamtwert)}} {{Pool=[[@{sr6_skill_elektronik_gesamtwert}]]}} {{Erfolge=[[@{sr6_skill_elektronik_gesamtwert}d6>5]]}}"
+                value="&{template:default} {{name=Fertigkeits-Test}} {{Fertigkeit=Elektronik (Gesamtwert)}} {{Pool=[[@{sr6_skill_elektronik_gesamtwert}]]}} {{Erfolge=[[@{sr6_skill_elektronik_gesamtwert}d6&gt;5]]}}"
+                aria-label="Wuerfeln"></button>
+            </div>
+          </div>
+        </div>
+        <div class="sr6-charactersheet-skill-specialization-row">
+          <div class="sr6-charactersheet-attr-value sr6-charactersheet-attr-value--with-dice sr6-skill-specialization-value">
+            <span data-i18n="field.spezialisierung">Spezialisierung</span>
+            <div class="sr6-charactersheet-field-input-with-dice sr6-charactersheet-skill-select-with-dice">
+              <select name="attr_sr6_skill_elektronik_spezialisierung">
+                  <option value="" data-i18n="field.keine_spezialisierung">Keine</option>
+                  <option value="Computer">Computer</option>
+                  <option value="Hardware">Hardware</option>
+                  <option value="Komplexe Formen">Komplexe Formen</option>
+                  <option value="Software">Software</option>
+              </select><button
+                type="action"
+                class="sr6-charactersheet-field-dice-button"
+                name="act_probe"
+                value="&{template:default} {{name=Fertigkeits-Test}} {{Fertigkeit=Elektronik (Spezialisierung)}} {{Spezialisierung=@{sr6_skill_elektronik_spezialisierung}}} {{Spezialisierung Aktiv=1}} {{Pool=[[@{sr6_skill_elektronik_gesamtwert}]]}} {{Erfolge=[[@{sr6_skill_elektronik_gesamtwert}d6&gt;5]]}}"
+                aria-label="Wuerfeln"></button>
+            </div>
+          </div>
+          <div class="sr6-charactersheet-attr-value sr6-charactersheet-attr-value--with-dice sr6-skill-expertise-value">
+            <span data-i18n="field.expertise">Expertise</span>
+            <div class="sr6-charactersheet-field-input-with-dice sr6-charactersheet-skill-select-with-dice">
+              <select name="attr_sr6_skill_elektronik_expertise">
+                  <option value="" data-i18n="field.keine_expertise">Keine</option>
+                  <option value="Computer">Computer</option>
+                  <option value="Hardware">Hardware</option>
+                  <option value="Komplexe Formen">Komplexe Formen</option>
+                  <option value="Software">Software</option>
+              </select><button
+                type="action"
+                class="sr6-charactersheet-field-dice-button"
+                name="act_probe"
+                value="&{template:default} {{name=Fertigkeits-Test}} {{Fertigkeit=Elektronik (Expertise)}} {{Expertise=@{sr6_skill_elektronik_expertise}}} {{Expertise Aktiv=1}} {{Pool=[[@{sr6_skill_elektronik_gesamtwert}]]}} {{Erfolge=[[@{sr6_skill_elektronik_gesamtwert}d6&gt;5]]}}"
                 aria-label="Wuerfeln"></button>
             </div>
           </div>
@@ -264,33 +524,69 @@
       <!-- END BLOCK: Fertigkeit - Elektronik -->
 
       <!-- BEGIN BLOCK: Fertigkeit - Exotische Waffen -->
-      <div class="sr6-charactersheet-field sr6-charactersheet-attr-field">
+      <div class="sr6-charactersheet-field sr6-charactersheet-attr-field sr6-charactersheet-skill-field">
         <span data-i18n="skill.exotische_waffen">Exotische Waffen</span>
-        <div class="sr6-charactersheet-attr-values">
-          <div class="sr6-charactersheet-attr-value sr6-charactersheet-attr-value--with-dice">
+        <div class="sr6-charactersheet-attr-values sr6-charactersheet-skill-values">
+          <div class="sr6-charactersheet-attr-value sr6-charactersheet-attr-value--with-dice sr6-skill-base-value">
             <span data-i18n="field.grundwert">Grundwert</span>
             <div class="sr6-charactersheet-field-input-with-dice">
               <div class="sr6-number-stepper"><button type="action" class="sr6-number-stepper-button sr6-number-stepper-button--minus" name="act_sr6_number_step" value="sr6_skill_exotische_waffen_grundwert::-1" aria-label="Verringern">-</button><input type="number" name="attr_sr6_skill_exotische_waffen_grundwert" /><button type="action" class="sr6-number-stepper-button sr6-number-stepper-button--plus" name="act_sr6_number_step" value="sr6_skill_exotische_waffen_grundwert::1" aria-label="Erhoehen">+</button></div><button
                 type="action"
                 class="sr6-charactersheet-field-dice-button"
                 name="act_probe"
-                value="&{template:default} {{name=Fertigkeits-Test}} {{Fertigkeit=Exotische Waffen (Grundwert)}} {{Pool=[[@{sr6_skill_exotische_waffen_grundwert}]]}} {{Erfolge=[[@{sr6_skill_exotische_waffen_grundwert}d6>5]]}}"
+                value="&{template:default} {{name=Fertigkeits-Test}} {{Fertigkeit=Exotische Waffen (Grundwert)}} {{Pool=[[@{sr6_skill_exotische_waffen_grundwert}]]}} {{Erfolge=[[@{sr6_skill_exotische_waffen_grundwert}d6&gt;5]]}}"
                 aria-label="Wuerfeln"></button>
             </div>
           </div>
-          <div class="sr6-charactersheet-attr-value">
+          <div class="sr6-charactersheet-attr-value sr6-skill-modifier-value">
             <span data-i18n="field.modifikator">Modifikator</span><div class="sr6-number-stepper"><button type="action" class="sr6-number-stepper-button sr6-number-stepper-button--minus" name="act_sr6_number_step" value="sr6_skill_exotische_waffen_modifikator::-1" aria-label="Verringern">-</button><input
               type="number"
               name="attr_sr6_skill_exotische_waffen_modifikator" /><button type="action" class="sr6-number-stepper-button sr6-number-stepper-button--plus" name="act_sr6_number_step" value="sr6_skill_exotische_waffen_modifikator::1" aria-label="Erhoehen">+</button></div>
           </div>
-          <div class="sr6-charactersheet-attr-value sr6-charactersheet-attr-value--with-dice">
+          <div class="sr6-charactersheet-attr-value sr6-charactersheet-attr-value--with-dice sr6-skill-total-value">
             <span data-i18n="field.gesamtwert">Gesamtwert</span>
             <div class="sr6-charactersheet-field-input-with-dice">
               <div class="sr6-number-stepper"><button type="action" class="sr6-number-stepper-button sr6-number-stepper-button--minus" name="act_sr6_number_step" value="sr6_skill_exotische_waffen_gesamtwert::-1" aria-label="Verringern">-</button><input type="number" name="attr_sr6_skill_exotische_waffen_gesamtwert" /><button type="action" class="sr6-number-stepper-button sr6-number-stepper-button--plus" name="act_sr6_number_step" value="sr6_skill_exotische_waffen_gesamtwert::1" aria-label="Erhoehen">+</button></div><button
                 type="action"
                 class="sr6-charactersheet-field-dice-button"
                 name="act_probe"
-                value="&{template:default} {{name=Fertigkeits-Test}} {{Fertigkeit=Exotische Waffen (Gesamtwert)}} {{Pool=[[@{sr6_skill_exotische_waffen_gesamtwert}]]}} {{Erfolge=[[@{sr6_skill_exotische_waffen_gesamtwert}d6>5]]}}"
+                value="&{template:default} {{name=Fertigkeits-Test}} {{Fertigkeit=Exotische Waffen (Gesamtwert)}} {{Pool=[[@{sr6_skill_exotische_waffen_gesamtwert}]]}} {{Erfolge=[[@{sr6_skill_exotische_waffen_gesamtwert}d6&gt;5]]}}"
+                aria-label="Wuerfeln"></button>
+            </div>
+          </div>
+        </div>
+        <div class="sr6-charactersheet-skill-specialization-row">
+          <div class="sr6-charactersheet-attr-value sr6-charactersheet-attr-value--with-dice sr6-skill-specialization-value">
+            <span data-i18n="field.spezialisierung">Spezialisierung</span>
+            <div class="sr6-charactersheet-field-input-with-dice sr6-charactersheet-skill-select-with-dice">
+              <select name="attr_sr6_skill_exotische_waffen_spezialisierung">
+                  <option value="" data-i18n="field.keine_spezialisierung">Keine</option>
+                  <option value="Handgemenge-Waffen">Handgemenge-Waffen</option>
+                  <option value="Peitschen">Peitschen</option>
+                  <option value="Kettensägen">Kettensägen</option>
+                  <option value="Werfer">Werfer</option>
+                  <option value="Druckluftwaffen">Druckluftwaffen</option>
+                  <option value="Sprühwaffen">Sprühwaffen</option>
+                  <option value="Laserwaffen">Laserwaffen</option>
+                  <option value="Energiewaffen">Energiewaffen</option>
+              </select><button
+                type="action"
+                class="sr6-charactersheet-field-dice-button"
+                name="act_probe"
+                value="&{template:default} {{name=Fertigkeits-Test}} {{Fertigkeit=Exotische Waffen (Spezialisierung)}} {{Spezialisierung=@{sr6_skill_exotische_waffen_spezialisierung}}} {{Spezialisierung Aktiv=1}} {{Pool=[[@{sr6_skill_exotische_waffen_gesamtwert}]]}} {{Erfolge=[[@{sr6_skill_exotische_waffen_gesamtwert}d6&gt;5]]}}"
+                aria-label="Wuerfeln"></button>
+            </div>
+          </div>
+          <div class="sr6-charactersheet-attr-value sr6-charactersheet-attr-value--with-dice sr6-skill-expertise-value">
+            <span data-i18n="field.expertise">Expertise</span>
+            <div class="sr6-charactersheet-field-input-with-dice sr6-charactersheet-skill-select-with-dice">
+              <select name="attr_sr6_skill_exotische_waffen_expertise">
+                  <option value="" data-i18n="field.keine_expertise">Keine</option>
+              </select><button
+                type="action"
+                class="sr6-charactersheet-field-dice-button"
+                name="act_probe"
+                value="&{template:default} {{name=Fertigkeits-Test}} {{Fertigkeit=Exotische Waffen (Expertise)}} {{Expertise=@{sr6_skill_exotische_waffen_expertise}}} {{Expertise Aktiv=1}} {{Pool=[[@{sr6_skill_exotische_waffen_gesamtwert}]]}} {{Erfolge=[[@{sr6_skill_exotische_waffen_gesamtwert}d6&gt;5]]}}"
                 aria-label="Wuerfeln"></button>
             </div>
           </div>
@@ -299,33 +595,81 @@
       <!-- END BLOCK: Fertigkeit - Exotische Waffen -->
 
       <!-- BEGIN BLOCK: Fertigkeit - Feuerwaffen -->
-      <div class="sr6-charactersheet-field sr6-charactersheet-attr-field">
+      <div class="sr6-charactersheet-field sr6-charactersheet-attr-field sr6-charactersheet-skill-field">
         <span data-i18n="skill.feuerwaffen">Feuerwaffen</span>
-        <div class="sr6-charactersheet-attr-values">
-          <div class="sr6-charactersheet-attr-value sr6-charactersheet-attr-value--with-dice">
+        <div class="sr6-charactersheet-attr-values sr6-charactersheet-skill-values">
+          <div class="sr6-charactersheet-attr-value sr6-charactersheet-attr-value--with-dice sr6-skill-base-value">
             <span data-i18n="field.grundwert">Grundwert</span>
             <div class="sr6-charactersheet-field-input-with-dice">
               <div class="sr6-number-stepper"><button type="action" class="sr6-number-stepper-button sr6-number-stepper-button--minus" name="act_sr6_number_step" value="sr6_skill_feuerwaffen_grundwert::-1" aria-label="Verringern">-</button><input type="number" name="attr_sr6_skill_feuerwaffen_grundwert" /><button type="action" class="sr6-number-stepper-button sr6-number-stepper-button--plus" name="act_sr6_number_step" value="sr6_skill_feuerwaffen_grundwert::1" aria-label="Erhoehen">+</button></div><button
                 type="action"
                 class="sr6-charactersheet-field-dice-button"
                 name="act_probe"
-                value="&{template:default} {{name=Fertigkeits-Test}} {{Fertigkeit=Feuerwaffen (Grundwert)}} {{Pool=[[@{sr6_skill_feuerwaffen_grundwert}]]}} {{Erfolge=[[@{sr6_skill_feuerwaffen_grundwert}d6>5]]}}"
+                value="&{template:default} {{name=Fertigkeits-Test}} {{Fertigkeit=Feuerwaffen (Grundwert)}} {{Pool=[[@{sr6_skill_feuerwaffen_grundwert}]]}} {{Erfolge=[[@{sr6_skill_feuerwaffen_grundwert}d6&gt;5]]}}"
                 aria-label="Wuerfeln"></button>
             </div>
           </div>
-          <div class="sr6-charactersheet-attr-value">
+          <div class="sr6-charactersheet-attr-value sr6-skill-modifier-value">
             <span data-i18n="field.modifikator">Modifikator</span><div class="sr6-number-stepper"><button type="action" class="sr6-number-stepper-button sr6-number-stepper-button--minus" name="act_sr6_number_step" value="sr6_skill_feuerwaffen_modifikator::-1" aria-label="Verringern">-</button><input
               type="number"
               name="attr_sr6_skill_feuerwaffen_modifikator" /><button type="action" class="sr6-number-stepper-button sr6-number-stepper-button--plus" name="act_sr6_number_step" value="sr6_skill_feuerwaffen_modifikator::1" aria-label="Erhoehen">+</button></div>
           </div>
-          <div class="sr6-charactersheet-attr-value sr6-charactersheet-attr-value--with-dice">
+          <div class="sr6-charactersheet-attr-value sr6-charactersheet-attr-value--with-dice sr6-skill-total-value">
             <span data-i18n="field.gesamtwert">Gesamtwert</span>
             <div class="sr6-charactersheet-field-input-with-dice">
               <div class="sr6-number-stepper"><button type="action" class="sr6-number-stepper-button sr6-number-stepper-button--minus" name="act_sr6_number_step" value="sr6_skill_feuerwaffen_gesamtwert::-1" aria-label="Verringern">-</button><input type="number" name="attr_sr6_skill_feuerwaffen_gesamtwert" /><button type="action" class="sr6-number-stepper-button sr6-number-stepper-button--plus" name="act_sr6_number_step" value="sr6_skill_feuerwaffen_gesamtwert::1" aria-label="Erhoehen">+</button></div><button
                 type="action"
                 class="sr6-charactersheet-field-dice-button"
                 name="act_probe"
-                value="&{template:default} {{name=Fertigkeits-Test}} {{Fertigkeit=Feuerwaffen (Gesamtwert)}} {{Pool=[[@{sr6_skill_feuerwaffen_gesamtwert}]]}} {{Erfolge=[[@{sr6_skill_feuerwaffen_gesamtwert}d6>5]]}}"
+                value="&{template:default} {{name=Fertigkeits-Test}} {{Fertigkeit=Feuerwaffen (Gesamtwert)}} {{Pool=[[@{sr6_skill_feuerwaffen_gesamtwert}]]}} {{Erfolge=[[@{sr6_skill_feuerwaffen_gesamtwert}d6&gt;5]]}}"
+                aria-label="Wuerfeln"></button>
+            </div>
+          </div>
+        </div>
+        <div class="sr6-charactersheet-skill-specialization-row">
+          <div class="sr6-charactersheet-attr-value sr6-charactersheet-attr-value--with-dice sr6-skill-specialization-value">
+            <span data-i18n="field.spezialisierung">Spezialisierung</span>
+            <div class="sr6-charactersheet-field-input-with-dice sr6-charactersheet-skill-select-with-dice">
+              <select name="attr_sr6_skill_feuerwaffen_spezialisierung">
+                  <option value="" data-i18n="field.keine_spezialisierung">Keine</option>
+                  <option value="Automatikpistolen">Automatikpistolen</option>
+                  <option value="Gewehre">Gewehre</option>
+                  <option value="Holdout-Pistolen">Holdout-Pistolen</option>
+                  <option value="Leichte Pistolen">Leichte Pistolen</option>
+                  <option value="Maschinengewehre">Maschinengewehre</option>
+                  <option value="Maschinenpistolen">Maschinenpistolen</option>
+                  <option value="Schrotflinten">Schrotflinten</option>
+                  <option value="Schwere Pistolen">Schwere Pistolen</option>
+                  <option value="Sturmkanonen">Sturmkanonen</option>
+                  <option value="Taser">Taser</option>
+              </select><button
+                type="action"
+                class="sr6-charactersheet-field-dice-button"
+                name="act_probe"
+                value="&{template:default} {{name=Fertigkeits-Test}} {{Fertigkeit=Feuerwaffen (Spezialisierung)}} {{Spezialisierung=@{sr6_skill_feuerwaffen_spezialisierung}}} {{Spezialisierung Aktiv=1}} {{Pool=[[@{sr6_skill_feuerwaffen_gesamtwert}]]}} {{Erfolge=[[@{sr6_skill_feuerwaffen_gesamtwert}d6&gt;5]]}}"
+                aria-label="Wuerfeln"></button>
+            </div>
+          </div>
+          <div class="sr6-charactersheet-attr-value sr6-charactersheet-attr-value--with-dice sr6-skill-expertise-value">
+            <span data-i18n="field.expertise">Expertise</span>
+            <div class="sr6-charactersheet-field-input-with-dice sr6-charactersheet-skill-select-with-dice">
+              <select name="attr_sr6_skill_feuerwaffen_expertise">
+                  <option value="" data-i18n="field.keine_expertise">Keine</option>
+                  <option value="Automatikpistolen">Automatikpistolen</option>
+                  <option value="Gewehre">Gewehre</option>
+                  <option value="Holdout-Pistolen">Holdout-Pistolen</option>
+                  <option value="Leichte Pistolen">Leichte Pistolen</option>
+                  <option value="Maschinengewehre">Maschinengewehre</option>
+                  <option value="Maschinenpistolen">Maschinenpistolen</option>
+                  <option value="Schrotflinten">Schrotflinten</option>
+                  <option value="Schwere Pistolen">Schwere Pistolen</option>
+                  <option value="Sturmkanonen">Sturmkanonen</option>
+                  <option value="Taser">Taser</option>
+              </select><button
+                type="action"
+                class="sr6-charactersheet-field-dice-button"
+                name="act_probe"
+                value="&{template:default} {{name=Fertigkeits-Test}} {{Fertigkeit=Feuerwaffen (Expertise)}} {{Expertise=@{sr6_skill_feuerwaffen_expertise}}} {{Expertise Aktiv=1}} {{Pool=[[@{sr6_skill_feuerwaffen_gesamtwert}]]}} {{Erfolge=[[@{sr6_skill_feuerwaffen_gesamtwert}d6&gt;5]]}}"
                 aria-label="Wuerfeln"></button>
             </div>
           </div>
@@ -334,33 +678,67 @@
       <!-- END BLOCK: Fertigkeit - Feuerwaffen -->
 
       <!-- BEGIN BLOCK: Fertigkeit - Heimlichkeit -->
-      <div class="sr6-charactersheet-field sr6-charactersheet-attr-field">
+      <div class="sr6-charactersheet-field sr6-charactersheet-attr-field sr6-charactersheet-skill-field">
         <span data-i18n="skill.heimlichkeit">Heimlichkeit</span>
-        <div class="sr6-charactersheet-attr-values">
-          <div class="sr6-charactersheet-attr-value sr6-charactersheet-attr-value--with-dice">
+        <div class="sr6-charactersheet-attr-values sr6-charactersheet-skill-values">
+          <div class="sr6-charactersheet-attr-value sr6-charactersheet-attr-value--with-dice sr6-skill-base-value">
             <span data-i18n="field.grundwert">Grundwert</span>
             <div class="sr6-charactersheet-field-input-with-dice">
               <div class="sr6-number-stepper"><button type="action" class="sr6-number-stepper-button sr6-number-stepper-button--minus" name="act_sr6_number_step" value="sr6_skill_heimlichkeit_grundwert::-1" aria-label="Verringern">-</button><input type="number" name="attr_sr6_skill_heimlichkeit_grundwert" /><button type="action" class="sr6-number-stepper-button sr6-number-stepper-button--plus" name="act_sr6_number_step" value="sr6_skill_heimlichkeit_grundwert::1" aria-label="Erhoehen">+</button></div><button
                 type="action"
                 class="sr6-charactersheet-field-dice-button"
                 name="act_probe"
-                value="&{template:default} {{name=Fertigkeits-Test}} {{Fertigkeit=Heimlichkeit (Grundwert)}} {{Pool=[[@{sr6_skill_heimlichkeit_grundwert}]]}} {{Erfolge=[[@{sr6_skill_heimlichkeit_grundwert}d6>5]]}}"
+                value="&{template:default} {{name=Fertigkeits-Test}} {{Fertigkeit=Heimlichkeit (Grundwert)}} {{Pool=[[@{sr6_skill_heimlichkeit_grundwert}]]}} {{Erfolge=[[@{sr6_skill_heimlichkeit_grundwert}d6&gt;5]]}}"
                 aria-label="Wuerfeln"></button>
             </div>
           </div>
-          <div class="sr6-charactersheet-attr-value">
+          <div class="sr6-charactersheet-attr-value sr6-skill-modifier-value">
             <span data-i18n="field.modifikator">Modifikator</span><div class="sr6-number-stepper"><button type="action" class="sr6-number-stepper-button sr6-number-stepper-button--minus" name="act_sr6_number_step" value="sr6_skill_heimlichkeit_modifikator::-1" aria-label="Verringern">-</button><input
               type="number"
               name="attr_sr6_skill_heimlichkeit_modifikator" /><button type="action" class="sr6-number-stepper-button sr6-number-stepper-button--plus" name="act_sr6_number_step" value="sr6_skill_heimlichkeit_modifikator::1" aria-label="Erhoehen">+</button></div>
           </div>
-          <div class="sr6-charactersheet-attr-value sr6-charactersheet-attr-value--with-dice">
+          <div class="sr6-charactersheet-attr-value sr6-charactersheet-attr-value--with-dice sr6-skill-total-value">
             <span data-i18n="field.gesamtwert">Gesamtwert</span>
             <div class="sr6-charactersheet-field-input-with-dice">
               <div class="sr6-number-stepper"><button type="action" class="sr6-number-stepper-button sr6-number-stepper-button--minus" name="act_sr6_number_step" value="sr6_skill_heimlichkeit_gesamtwert::-1" aria-label="Verringern">-</button><input type="number" name="attr_sr6_skill_heimlichkeit_gesamtwert" /><button type="action" class="sr6-number-stepper-button sr6-number-stepper-button--plus" name="act_sr6_number_step" value="sr6_skill_heimlichkeit_gesamtwert::1" aria-label="Erhoehen">+</button></div><button
                 type="action"
                 class="sr6-charactersheet-field-dice-button"
                 name="act_probe"
-                value="&{template:default} {{name=Fertigkeits-Test}} {{Fertigkeit=Heimlichkeit (Gesamtwert)}} {{Pool=[[@{sr6_skill_heimlichkeit_gesamtwert}]]}} {{Erfolge=[[@{sr6_skill_heimlichkeit_gesamtwert}d6>5]]}}"
+                value="&{template:default} {{name=Fertigkeits-Test}} {{Fertigkeit=Heimlichkeit (Gesamtwert)}} {{Pool=[[@{sr6_skill_heimlichkeit_gesamtwert}]]}} {{Erfolge=[[@{sr6_skill_heimlichkeit_gesamtwert}d6&gt;5]]}}"
+                aria-label="Wuerfeln"></button>
+            </div>
+          </div>
+        </div>
+        <div class="sr6-charactersheet-skill-specialization-row">
+          <div class="sr6-charactersheet-attr-value sr6-charactersheet-attr-value--with-dice sr6-skill-specialization-value">
+            <span data-i18n="field.spezialisierung">Spezialisierung</span>
+            <div class="sr6-charactersheet-field-input-with-dice sr6-charactersheet-skill-select-with-dice">
+              <select name="attr_sr6_skill_heimlichkeit_spezialisierung">
+                  <option value="" data-i18n="field.keine_spezialisierung">Keine</option>
+                  <option value="Fingerfertigkeit">Fingerfertigkeit</option>
+                  <option value="Schleichen">Schleichen</option>
+                  <option value="Tarnung">Tarnung</option>
+              </select><button
+                type="action"
+                class="sr6-charactersheet-field-dice-button"
+                name="act_probe"
+                value="&{template:default} {{name=Fertigkeits-Test}} {{Fertigkeit=Heimlichkeit (Spezialisierung)}} {{Spezialisierung=@{sr6_skill_heimlichkeit_spezialisierung}}} {{Spezialisierung Aktiv=1}} {{Pool=[[@{sr6_skill_heimlichkeit_gesamtwert}]]}} {{Erfolge=[[@{sr6_skill_heimlichkeit_gesamtwert}d6&gt;5]]}}"
+                aria-label="Wuerfeln"></button>
+            </div>
+          </div>
+          <div class="sr6-charactersheet-attr-value sr6-charactersheet-attr-value--with-dice sr6-skill-expertise-value">
+            <span data-i18n="field.expertise">Expertise</span>
+            <div class="sr6-charactersheet-field-input-with-dice sr6-charactersheet-skill-select-with-dice">
+              <select name="attr_sr6_skill_heimlichkeit_expertise">
+                  <option value="" data-i18n="field.keine_expertise">Keine</option>
+                  <option value="Fingerfertigkeit">Fingerfertigkeit</option>
+                  <option value="Schleichen">Schleichen</option>
+                  <option value="Tarnung">Tarnung</option>
+              </select><button
+                type="action"
+                class="sr6-charactersheet-field-dice-button"
+                name="act_probe"
+                value="&{template:default} {{name=Fertigkeits-Test}} {{Fertigkeit=Heimlichkeit (Expertise)}} {{Expertise=@{sr6_skill_heimlichkeit_expertise}}} {{Expertise Aktiv=1}} {{Pool=[[@{sr6_skill_heimlichkeit_gesamtwert}]]}} {{Erfolge=[[@{sr6_skill_heimlichkeit_gesamtwert}d6&gt;5]]}}"
                 aria-label="Wuerfeln"></button>
             </div>
           </div>
@@ -369,33 +747,67 @@
       <!-- END BLOCK: Fertigkeit - Heimlichkeit -->
 
       <!-- BEGIN BLOCK: Fertigkeit - Hexerei -->
-      <div class="sr6-charactersheet-field sr6-charactersheet-attr-field">
+      <div class="sr6-charactersheet-field sr6-charactersheet-attr-field sr6-charactersheet-skill-field">
         <span data-i18n="skill.hexerei">Hexerei</span>
-        <div class="sr6-charactersheet-attr-values">
-          <div class="sr6-charactersheet-attr-value sr6-charactersheet-attr-value--with-dice">
+        <div class="sr6-charactersheet-attr-values sr6-charactersheet-skill-values">
+          <div class="sr6-charactersheet-attr-value sr6-charactersheet-attr-value--with-dice sr6-skill-base-value">
             <span data-i18n="field.grundwert">Grundwert</span>
             <div class="sr6-charactersheet-field-input-with-dice">
               <div class="sr6-number-stepper"><button type="action" class="sr6-number-stepper-button sr6-number-stepper-button--minus" name="act_sr6_number_step" value="sr6_skill_hexerei_grundwert::-1" aria-label="Verringern">-</button><input type="number" name="attr_sr6_skill_hexerei_grundwert" /><button type="action" class="sr6-number-stepper-button sr6-number-stepper-button--plus" name="act_sr6_number_step" value="sr6_skill_hexerei_grundwert::1" aria-label="Erhoehen">+</button></div><button
                 type="action"
                 class="sr6-charactersheet-field-dice-button"
                 name="act_probe"
-                value="&{template:default} {{name=Fertigkeits-Test}} {{Fertigkeit=Hexerei (Grundwert)}} {{Pool=[[@{sr6_skill_hexerei_grundwert}]]}} {{Erfolge=[[@{sr6_skill_hexerei_grundwert}d6>5]]}}"
+                value="&{template:default} {{name=Fertigkeits-Test}} {{Fertigkeit=Hexerei (Grundwert)}} {{Pool=[[@{sr6_skill_hexerei_grundwert}]]}} {{Erfolge=[[@{sr6_skill_hexerei_grundwert}d6&gt;5]]}}"
                 aria-label="Wuerfeln"></button>
             </div>
           </div>
-          <div class="sr6-charactersheet-attr-value">
+          <div class="sr6-charactersheet-attr-value sr6-skill-modifier-value">
             <span data-i18n="field.modifikator">Modifikator</span><div class="sr6-number-stepper"><button type="action" class="sr6-number-stepper-button sr6-number-stepper-button--minus" name="act_sr6_number_step" value="sr6_skill_hexerei_modifikator::-1" aria-label="Verringern">-</button><input
               type="number"
               name="attr_sr6_skill_hexerei_modifikator" /><button type="action" class="sr6-number-stepper-button sr6-number-stepper-button--plus" name="act_sr6_number_step" value="sr6_skill_hexerei_modifikator::1" aria-label="Erhoehen">+</button></div>
           </div>
-          <div class="sr6-charactersheet-attr-value sr6-charactersheet-attr-value--with-dice">
+          <div class="sr6-charactersheet-attr-value sr6-charactersheet-attr-value--with-dice sr6-skill-total-value">
             <span data-i18n="field.gesamtwert">Gesamtwert</span>
             <div class="sr6-charactersheet-field-input-with-dice">
               <div class="sr6-number-stepper"><button type="action" class="sr6-number-stepper-button sr6-number-stepper-button--minus" name="act_sr6_number_step" value="sr6_skill_hexerei_gesamtwert::-1" aria-label="Verringern">-</button><input type="number" name="attr_sr6_skill_hexerei_gesamtwert" /><button type="action" class="sr6-number-stepper-button sr6-number-stepper-button--plus" name="act_sr6_number_step" value="sr6_skill_hexerei_gesamtwert::1" aria-label="Erhoehen">+</button></div><button
                 type="action"
                 class="sr6-charactersheet-field-dice-button"
                 name="act_probe"
-                value="&{template:default} {{name=Fertigkeits-Test}} {{Fertigkeit=Hexerei (Gesamtwert)}} {{Pool=[[@{sr6_skill_hexerei_gesamtwert}]]}} {{Erfolge=[[@{sr6_skill_hexerei_gesamtwert}d6>5]]}}"
+                value="&{template:default} {{name=Fertigkeits-Test}} {{Fertigkeit=Hexerei (Gesamtwert)}} {{Pool=[[@{sr6_skill_hexerei_gesamtwert}]]}} {{Erfolge=[[@{sr6_skill_hexerei_gesamtwert}d6&gt;5]]}}"
+                aria-label="Wuerfeln"></button>
+            </div>
+          </div>
+        </div>
+        <div class="sr6-charactersheet-skill-specialization-row">
+          <div class="sr6-charactersheet-attr-value sr6-charactersheet-attr-value--with-dice sr6-skill-specialization-value">
+            <span data-i18n="field.spezialisierung">Spezialisierung</span>
+            <div class="sr6-charactersheet-field-input-with-dice sr6-charactersheet-skill-select-with-dice">
+              <select name="attr_sr6_skill_hexerei_spezialisierung">
+                  <option value="" data-i18n="field.keine_spezialisierung">Keine</option>
+                  <option value="Antimagie">Antimagie</option>
+                  <option value="Ritualzauberei">Ritualzauberei</option>
+                  <option value="Spruchzauberei">Spruchzauberei</option>
+              </select><button
+                type="action"
+                class="sr6-charactersheet-field-dice-button"
+                name="act_probe"
+                value="&{template:default} {{name=Fertigkeits-Test}} {{Fertigkeit=Hexerei (Spezialisierung)}} {{Spezialisierung=@{sr6_skill_hexerei_spezialisierung}}} {{Spezialisierung Aktiv=1}} {{Pool=[[@{sr6_skill_hexerei_gesamtwert}]]}} {{Erfolge=[[@{sr6_skill_hexerei_gesamtwert}d6&gt;5]]}}"
+                aria-label="Wuerfeln"></button>
+            </div>
+          </div>
+          <div class="sr6-charactersheet-attr-value sr6-charactersheet-attr-value--with-dice sr6-skill-expertise-value">
+            <span data-i18n="field.expertise">Expertise</span>
+            <div class="sr6-charactersheet-field-input-with-dice sr6-charactersheet-skill-select-with-dice">
+              <select name="attr_sr6_skill_hexerei_expertise">
+                  <option value="" data-i18n="field.keine_expertise">Keine</option>
+                  <option value="Antimagie">Antimagie</option>
+                  <option value="Ritualzauberei">Ritualzauberei</option>
+                  <option value="Spruchzauberei">Spruchzauberei</option>
+              </select><button
+                type="action"
+                class="sr6-charactersheet-field-dice-button"
+                name="act_probe"
+                value="&{template:default} {{name=Fertigkeits-Test}} {{Fertigkeit=Hexerei (Expertise)}} {{Expertise=@{sr6_skill_hexerei_expertise}}} {{Expertise Aktiv=1}} {{Pool=[[@{sr6_skill_hexerei_gesamtwert}]]}} {{Erfolge=[[@{sr6_skill_hexerei_gesamtwert}d6&gt;5]]}}"
                 aria-label="Wuerfeln"></button>
             </div>
           </div>
@@ -404,33 +816,77 @@
       <!-- END BLOCK: Fertigkeit - Hexerei -->
 
       <!-- BEGIN BLOCK: Fertigkeit - Mechanik -->
-      <div class="sr6-charactersheet-field sr6-charactersheet-attr-field">
+      <div class="sr6-charactersheet-field sr6-charactersheet-attr-field sr6-charactersheet-skill-field">
         <span data-i18n="skill.mechanik">Mechanik</span>
-        <div class="sr6-charactersheet-attr-values">
-          <div class="sr6-charactersheet-attr-value sr6-charactersheet-attr-value--with-dice">
+        <div class="sr6-charactersheet-attr-values sr6-charactersheet-skill-values">
+          <div class="sr6-charactersheet-attr-value sr6-charactersheet-attr-value--with-dice sr6-skill-base-value">
             <span data-i18n="field.grundwert">Grundwert</span>
             <div class="sr6-charactersheet-field-input-with-dice">
               <div class="sr6-number-stepper"><button type="action" class="sr6-number-stepper-button sr6-number-stepper-button--minus" name="act_sr6_number_step" value="sr6_skill_mechanik_grundwert::-1" aria-label="Verringern">-</button><input type="number" name="attr_sr6_skill_mechanik_grundwert" /><button type="action" class="sr6-number-stepper-button sr6-number-stepper-button--plus" name="act_sr6_number_step" value="sr6_skill_mechanik_grundwert::1" aria-label="Erhoehen">+</button></div><button
                 type="action"
                 class="sr6-charactersheet-field-dice-button"
                 name="act_probe"
-                value="&{template:default} {{name=Fertigkeits-Test}} {{Fertigkeit=Mechanik (Grundwert)}} {{Pool=[[@{sr6_skill_mechanik_grundwert}]]}} {{Erfolge=[[@{sr6_skill_mechanik_grundwert}d6>5]]}}"
+                value="&{template:default} {{name=Fertigkeits-Test}} {{Fertigkeit=Mechanik (Grundwert)}} {{Pool=[[@{sr6_skill_mechanik_grundwert}]]}} {{Erfolge=[[@{sr6_skill_mechanik_grundwert}d6&gt;5]]}}"
                 aria-label="Wuerfeln"></button>
             </div>
           </div>
-          <div class="sr6-charactersheet-attr-value">
+          <div class="sr6-charactersheet-attr-value sr6-skill-modifier-value">
             <span data-i18n="field.modifikator">Modifikator</span><div class="sr6-number-stepper"><button type="action" class="sr6-number-stepper-button sr6-number-stepper-button--minus" name="act_sr6_number_step" value="sr6_skill_mechanik_modifikator::-1" aria-label="Verringern">-</button><input
               type="number"
               name="attr_sr6_skill_mechanik_modifikator" /><button type="action" class="sr6-number-stepper-button sr6-number-stepper-button--plus" name="act_sr6_number_step" value="sr6_skill_mechanik_modifikator::1" aria-label="Erhoehen">+</button></div>
           </div>
-          <div class="sr6-charactersheet-attr-value sr6-charactersheet-attr-value--with-dice">
+          <div class="sr6-charactersheet-attr-value sr6-charactersheet-attr-value--with-dice sr6-skill-total-value">
             <span data-i18n="field.gesamtwert">Gesamtwert</span>
             <div class="sr6-charactersheet-field-input-with-dice">
               <div class="sr6-number-stepper"><button type="action" class="sr6-number-stepper-button sr6-number-stepper-button--minus" name="act_sr6_number_step" value="sr6_skill_mechanik_gesamtwert::-1" aria-label="Verringern">-</button><input type="number" name="attr_sr6_skill_mechanik_gesamtwert" /><button type="action" class="sr6-number-stepper-button sr6-number-stepper-button--plus" name="act_sr6_number_step" value="sr6_skill_mechanik_gesamtwert::1" aria-label="Erhoehen">+</button></div><button
                 type="action"
                 class="sr6-charactersheet-field-dice-button"
                 name="act_probe"
-                value="&{template:default} {{name=Fertigkeits-Test}} {{Fertigkeit=Mechanik (Gesamtwert)}} {{Pool=[[@{sr6_skill_mechanik_gesamtwert}]]}} {{Erfolge=[[@{sr6_skill_mechanik_gesamtwert}d6>5]]}}"
+                value="&{template:default} {{name=Fertigkeits-Test}} {{Fertigkeit=Mechanik (Gesamtwert)}} {{Pool=[[@{sr6_skill_mechanik_gesamtwert}]]}} {{Erfolge=[[@{sr6_skill_mechanik_gesamtwert}d6&gt;5]]}}"
+                aria-label="Wuerfeln"></button>
+            </div>
+          </div>
+        </div>
+        <div class="sr6-charactersheet-skill-specialization-row">
+          <div class="sr6-charactersheet-attr-value sr6-charactersheet-attr-value--with-dice sr6-skill-specialization-value">
+            <span data-i18n="field.spezialisierung">Spezialisierung</span>
+            <div class="sr6-charactersheet-field-input-with-dice sr6-charactersheet-skill-select-with-dice">
+              <select name="attr_sr6_skill_mechanik_spezialisierung">
+                  <option value="" data-i18n="field.keine_spezialisierung">Keine</option>
+                  <option value="Fahrzeugmechanik">Fahrzeugmechanik</option>
+                  <option value="Geschütze">Geschütze</option>
+                  <option value="Industriemechanik">Industriemechanik</option>
+                  <option value="Luftfahrtmechanik">Luftfahrtmechanik</option>
+                  <option value="Schlösser knacken">Schlösser knacken</option>
+                  <option value="Seefahrtmechanik">Seefahrtmechanik</option>
+                  <option value="Sprengstoffe">Sprengstoffe</option>
+                  <option value="Waffenbau">Waffenbau</option>
+              </select><button
+                type="action"
+                class="sr6-charactersheet-field-dice-button"
+                name="act_probe"
+                value="&{template:default} {{name=Fertigkeits-Test}} {{Fertigkeit=Mechanik (Spezialisierung)}} {{Spezialisierung=@{sr6_skill_mechanik_spezialisierung}}} {{Spezialisierung Aktiv=1}} {{Pool=[[@{sr6_skill_mechanik_gesamtwert}]]}} {{Erfolge=[[@{sr6_skill_mechanik_gesamtwert}d6&gt;5]]}}"
+                aria-label="Wuerfeln"></button>
+            </div>
+          </div>
+          <div class="sr6-charactersheet-attr-value sr6-charactersheet-attr-value--with-dice sr6-skill-expertise-value">
+            <span data-i18n="field.expertise">Expertise</span>
+            <div class="sr6-charactersheet-field-input-with-dice sr6-charactersheet-skill-select-with-dice">
+              <select name="attr_sr6_skill_mechanik_expertise">
+                  <option value="" data-i18n="field.keine_expertise">Keine</option>
+                  <option value="Fahrzeugmechanik">Fahrzeugmechanik</option>
+                  <option value="Geschütze">Geschütze</option>
+                  <option value="Industriemechanik">Industriemechanik</option>
+                  <option value="Luftfahrtmechanik">Luftfahrtmechanik</option>
+                  <option value="Schlösser knacken">Schlösser knacken</option>
+                  <option value="Seefahrtmechanik">Seefahrtmechanik</option>
+                  <option value="Sprengstoffe">Sprengstoffe</option>
+                  <option value="Waffenbau">Waffenbau</option>
+              </select><button
+                type="action"
+                class="sr6-charactersheet-field-dice-button"
+                name="act_probe"
+                value="&{template:default} {{name=Fertigkeits-Test}} {{Fertigkeit=Mechanik (Expertise)}} {{Expertise=@{sr6_skill_mechanik_expertise}}} {{Expertise Aktiv=1}} {{Pool=[[@{sr6_skill_mechanik_gesamtwert}]]}} {{Erfolge=[[@{sr6_skill_mechanik_gesamtwert}d6&gt;5]]}}"
                 aria-label="Wuerfeln"></button>
             </div>
           </div>
@@ -439,33 +895,67 @@
       <!-- END BLOCK: Fertigkeit - Mechanik -->
 
       <!-- BEGIN BLOCK: Fertigkeit - Nahkampf -->
-      <div class="sr6-charactersheet-field sr6-charactersheet-attr-field">
+      <div class="sr6-charactersheet-field sr6-charactersheet-attr-field sr6-charactersheet-skill-field">
         <span data-i18n="skill.nahkampf">Nahkampf</span>
-        <div class="sr6-charactersheet-attr-values">
-          <div class="sr6-charactersheet-attr-value sr6-charactersheet-attr-value--with-dice">
+        <div class="sr6-charactersheet-attr-values sr6-charactersheet-skill-values">
+          <div class="sr6-charactersheet-attr-value sr6-charactersheet-attr-value--with-dice sr6-skill-base-value">
             <span data-i18n="field.grundwert">Grundwert</span>
             <div class="sr6-charactersheet-field-input-with-dice">
               <div class="sr6-number-stepper"><button type="action" class="sr6-number-stepper-button sr6-number-stepper-button--minus" name="act_sr6_number_step" value="sr6_skill_nahkampf_grundwert::-1" aria-label="Verringern">-</button><input type="number" name="attr_sr6_skill_nahkampf_grundwert" /><button type="action" class="sr6-number-stepper-button sr6-number-stepper-button--plus" name="act_sr6_number_step" value="sr6_skill_nahkampf_grundwert::1" aria-label="Erhoehen">+</button></div><button
                 type="action"
                 class="sr6-charactersheet-field-dice-button"
                 name="act_probe"
-                value="&{template:default} {{name=Fertigkeits-Test}} {{Fertigkeit=Nahkampf (Grundwert)}} {{Pool=[[@{sr6_skill_nahkampf_grundwert}]]}} {{Erfolge=[[@{sr6_skill_nahkampf_grundwert}d6>5]]}}"
+                value="&{template:default} {{name=Fertigkeits-Test}} {{Fertigkeit=Nahkampf (Grundwert)}} {{Pool=[[@{sr6_skill_nahkampf_grundwert}]]}} {{Erfolge=[[@{sr6_skill_nahkampf_grundwert}d6&gt;5]]}}"
                 aria-label="Wuerfeln"></button>
             </div>
           </div>
-          <div class="sr6-charactersheet-attr-value">
+          <div class="sr6-charactersheet-attr-value sr6-skill-modifier-value">
             <span data-i18n="field.modifikator">Modifikator</span><div class="sr6-number-stepper"><button type="action" class="sr6-number-stepper-button sr6-number-stepper-button--minus" name="act_sr6_number_step" value="sr6_skill_nahkampf_modifikator::-1" aria-label="Verringern">-</button><input
               type="number"
               name="attr_sr6_skill_nahkampf_modifikator" /><button type="action" class="sr6-number-stepper-button sr6-number-stepper-button--plus" name="act_sr6_number_step" value="sr6_skill_nahkampf_modifikator::1" aria-label="Erhoehen">+</button></div>
           </div>
-          <div class="sr6-charactersheet-attr-value sr6-charactersheet-attr-value--with-dice">
+          <div class="sr6-charactersheet-attr-value sr6-charactersheet-attr-value--with-dice sr6-skill-total-value">
             <span data-i18n="field.gesamtwert">Gesamtwert</span>
             <div class="sr6-charactersheet-field-input-with-dice">
               <div class="sr6-number-stepper"><button type="action" class="sr6-number-stepper-button sr6-number-stepper-button--minus" name="act_sr6_number_step" value="sr6_skill_nahkampf_gesamtwert::-1" aria-label="Verringern">-</button><input type="number" name="attr_sr6_skill_nahkampf_gesamtwert" /><button type="action" class="sr6-number-stepper-button sr6-number-stepper-button--plus" name="act_sr6_number_step" value="sr6_skill_nahkampf_gesamtwert::1" aria-label="Erhoehen">+</button></div><button
                 type="action"
                 class="sr6-charactersheet-field-dice-button"
                 name="act_probe"
-                value="&{template:default} {{name=Fertigkeits-Test}} {{Fertigkeit=Nahkampf (Gesamtwert)}} {{Pool=[[@{sr6_skill_nahkampf_gesamtwert}]]}} {{Erfolge=[[@{sr6_skill_nahkampf_gesamtwert}d6>5]]}}"
+                value="&{template:default} {{name=Fertigkeits-Test}} {{Fertigkeit=Nahkampf (Gesamtwert)}} {{Pool=[[@{sr6_skill_nahkampf_gesamtwert}]]}} {{Erfolge=[[@{sr6_skill_nahkampf_gesamtwert}d6&gt;5]]}}"
+                aria-label="Wuerfeln"></button>
+            </div>
+          </div>
+        </div>
+        <div class="sr6-charactersheet-skill-specialization-row">
+          <div class="sr6-charactersheet-attr-value sr6-charactersheet-attr-value--with-dice sr6-skill-specialization-value">
+            <span data-i18n="field.spezialisierung">Spezialisierung</span>
+            <div class="sr6-charactersheet-field-input-with-dice sr6-charactersheet-skill-select-with-dice">
+              <select name="attr_sr6_skill_nahkampf_spezialisierung">
+                  <option value="" data-i18n="field.keine_spezialisierung">Keine</option>
+                  <option value="Klingenwaffen">Klingenwaffen</option>
+                  <option value="Knüppel">Knüppel</option>
+                  <option value="Waffenloser Kampf">Waffenloser Kampf</option>
+              </select><button
+                type="action"
+                class="sr6-charactersheet-field-dice-button"
+                name="act_probe"
+                value="&{template:default} {{name=Fertigkeits-Test}} {{Fertigkeit=Nahkampf (Spezialisierung)}} {{Spezialisierung=@{sr6_skill_nahkampf_spezialisierung}}} {{Spezialisierung Aktiv=1}} {{Pool=[[@{sr6_skill_nahkampf_gesamtwert}]]}} {{Erfolge=[[@{sr6_skill_nahkampf_gesamtwert}d6&gt;5]]}}"
+                aria-label="Wuerfeln"></button>
+            </div>
+          </div>
+          <div class="sr6-charactersheet-attr-value sr6-charactersheet-attr-value--with-dice sr6-skill-expertise-value">
+            <span data-i18n="field.expertise">Expertise</span>
+            <div class="sr6-charactersheet-field-input-with-dice sr6-charactersheet-skill-select-with-dice">
+              <select name="attr_sr6_skill_nahkampf_expertise">
+                  <option value="" data-i18n="field.keine_expertise">Keine</option>
+                  <option value="Klingenwaffen">Klingenwaffen</option>
+                  <option value="Knüppel">Knüppel</option>
+                  <option value="Waffenloser Kampf">Waffenloser Kampf</option>
+              </select><button
+                type="action"
+                class="sr6-charactersheet-field-dice-button"
+                name="act_probe"
+                value="&{template:default} {{name=Fertigkeits-Test}} {{Fertigkeit=Nahkampf (Expertise)}} {{Expertise=@{sr6_skill_nahkampf_expertise}}} {{Expertise Aktiv=1}} {{Pool=[[@{sr6_skill_nahkampf_gesamtwert}]]}} {{Erfolge=[[@{sr6_skill_nahkampf_gesamtwert}d6&gt;5]]}}"
                 aria-label="Wuerfeln"></button>
             </div>
           </div>
@@ -474,33 +964,75 @@
       <!-- END BLOCK: Fertigkeit - Nahkampf -->
 
       <!-- BEGIN BLOCK: Fertigkeit - Natur -->
-      <div class="sr6-charactersheet-field sr6-charactersheet-attr-field">
+      <div class="sr6-charactersheet-field sr6-charactersheet-attr-field sr6-charactersheet-skill-field">
         <span data-i18n="skill.natur">Natur</span>
-        <div class="sr6-charactersheet-attr-values">
-          <div class="sr6-charactersheet-attr-value sr6-charactersheet-attr-value--with-dice">
+        <div class="sr6-charactersheet-attr-values sr6-charactersheet-skill-values">
+          <div class="sr6-charactersheet-attr-value sr6-charactersheet-attr-value--with-dice sr6-skill-base-value">
             <span data-i18n="field.grundwert">Grundwert</span>
             <div class="sr6-charactersheet-field-input-with-dice">
               <div class="sr6-number-stepper"><button type="action" class="sr6-number-stepper-button sr6-number-stepper-button--minus" name="act_sr6_number_step" value="sr6_skill_natur_grundwert::-1" aria-label="Verringern">-</button><input type="number" name="attr_sr6_skill_natur_grundwert" /><button type="action" class="sr6-number-stepper-button sr6-number-stepper-button--plus" name="act_sr6_number_step" value="sr6_skill_natur_grundwert::1" aria-label="Erhoehen">+</button></div><button
                 type="action"
                 class="sr6-charactersheet-field-dice-button"
                 name="act_probe"
-                value="&{template:default} {{name=Fertigkeits-Test}} {{Fertigkeit=Natur (Grundwert)}} {{Pool=[[@{sr6_skill_natur_grundwert}]]}} {{Erfolge=[[@{sr6_skill_natur_grundwert}d6>5]]}}"
+                value="&{template:default} {{name=Fertigkeits-Test}} {{Fertigkeit=Natur (Grundwert)}} {{Pool=[[@{sr6_skill_natur_grundwert}]]}} {{Erfolge=[[@{sr6_skill_natur_grundwert}d6&gt;5]]}}"
                 aria-label="Wuerfeln"></button>
             </div>
           </div>
-          <div class="sr6-charactersheet-attr-value">
+          <div class="sr6-charactersheet-attr-value sr6-skill-modifier-value">
             <span data-i18n="field.modifikator">Modifikator</span><div class="sr6-number-stepper"><button type="action" class="sr6-number-stepper-button sr6-number-stepper-button--minus" name="act_sr6_number_step" value="sr6_skill_natur_modifikator::-1" aria-label="Verringern">-</button><input
               type="number"
               name="attr_sr6_skill_natur_modifikator" /><button type="action" class="sr6-number-stepper-button sr6-number-stepper-button--plus" name="act_sr6_number_step" value="sr6_skill_natur_modifikator::1" aria-label="Erhoehen">+</button></div>
           </div>
-          <div class="sr6-charactersheet-attr-value sr6-charactersheet-attr-value--with-dice">
+          <div class="sr6-charactersheet-attr-value sr6-charactersheet-attr-value--with-dice sr6-skill-total-value">
             <span data-i18n="field.gesamtwert">Gesamtwert</span>
             <div class="sr6-charactersheet-field-input-with-dice">
               <div class="sr6-number-stepper"><button type="action" class="sr6-number-stepper-button sr6-number-stepper-button--minus" name="act_sr6_number_step" value="sr6_skill_natur_gesamtwert::-1" aria-label="Verringern">-</button><input type="number" name="attr_sr6_skill_natur_gesamtwert" /><button type="action" class="sr6-number-stepper-button sr6-number-stepper-button--plus" name="act_sr6_number_step" value="sr6_skill_natur_gesamtwert::1" aria-label="Erhoehen">+</button></div><button
                 type="action"
                 class="sr6-charactersheet-field-dice-button"
                 name="act_probe"
-                value="&{template:default} {{name=Fertigkeits-Test}} {{Fertigkeit=Natur (Gesamtwert)}} {{Pool=[[@{sr6_skill_natur_gesamtwert}]]}} {{Erfolge=[[@{sr6_skill_natur_gesamtwert}d6>5]]}}"
+                value="&{template:default} {{name=Fertigkeits-Test}} {{Fertigkeit=Natur (Gesamtwert)}} {{Pool=[[@{sr6_skill_natur_gesamtwert}]]}} {{Erfolge=[[@{sr6_skill_natur_gesamtwert}d6&gt;5]]}}"
+                aria-label="Wuerfeln"></button>
+            </div>
+          </div>
+        </div>
+        <div class="sr6-charactersheet-skill-specialization-row">
+          <div class="sr6-charactersheet-attr-value sr6-charactersheet-attr-value--with-dice sr6-skill-specialization-value">
+            <span data-i18n="field.spezialisierung">Spezialisierung</span>
+            <div class="sr6-charactersheet-field-input-with-dice sr6-charactersheet-skill-select-with-dice">
+              <select name="attr_sr6_skill_natur_spezialisierung">
+                  <option value="" data-i18n="field.keine_spezialisierung">Keine</option>
+                  <option value="Navigation">Navigation</option>
+                  <option value="Spurenlesen">Spurenlesen</option>
+                  <option value="Survival">Survival</option>
+                  <option value="Tierfuehrung">Tierfuehrung</option>
+                  <option value="Wald">Wald</option>
+                  <option value="Wüste">Wüste</option>
+                  <option value="Stadt">Stadt</option>
+              </select><button
+                type="action"
+                class="sr6-charactersheet-field-dice-button"
+                name="act_probe"
+                value="&{template:default} {{name=Fertigkeits-Test}} {{Fertigkeit=Natur (Spezialisierung)}} {{Spezialisierung=@{sr6_skill_natur_spezialisierung}}} {{Spezialisierung Aktiv=1}} {{Pool=[[@{sr6_skill_natur_gesamtwert}]]}} {{Erfolge=[[@{sr6_skill_natur_gesamtwert}d6&gt;5]]}}"
+                aria-label="Wuerfeln"></button>
+            </div>
+          </div>
+          <div class="sr6-charactersheet-attr-value sr6-charactersheet-attr-value--with-dice sr6-skill-expertise-value">
+            <span data-i18n="field.expertise">Expertise</span>
+            <div class="sr6-charactersheet-field-input-with-dice sr6-charactersheet-skill-select-with-dice">
+              <select name="attr_sr6_skill_natur_expertise">
+                  <option value="" data-i18n="field.keine_expertise">Keine</option>
+                  <option value="Navigation">Navigation</option>
+                  <option value="Spurenlesen">Spurenlesen</option>
+                  <option value="Survival">Survival</option>
+                  <option value="Tierfuehrung">Tierfuehrung</option>
+                  <option value="Wald">Wald</option>
+                  <option value="Wüste">Wüste</option>
+                  <option value="Stadt">Stadt</option>
+              </select><button
+                type="action"
+                class="sr6-charactersheet-field-dice-button"
+                name="act_probe"
+                value="&{template:default} {{name=Fertigkeits-Test}} {{Fertigkeit=Natur (Expertise)}} {{Expertise=@{sr6_skill_natur_expertise}}} {{Expertise Aktiv=1}} {{Pool=[[@{sr6_skill_natur_gesamtwert}]]}} {{Erfolge=[[@{sr6_skill_natur_gesamtwert}d6&gt;5]]}}"
                 aria-label="Wuerfeln"></button>
             </div>
           </div>
@@ -509,33 +1041,67 @@
       <!-- END BLOCK: Fertigkeit - Natur -->
 
       <!-- BEGIN BLOCK: Fertigkeit - Steuern -->
-      <div class="sr6-charactersheet-field sr6-charactersheet-attr-field">
+      <div class="sr6-charactersheet-field sr6-charactersheet-attr-field sr6-charactersheet-skill-field">
         <span data-i18n="skill.steuern">Steuern</span>
-        <div class="sr6-charactersheet-attr-values">
-          <div class="sr6-charactersheet-attr-value sr6-charactersheet-attr-value--with-dice">
+        <div class="sr6-charactersheet-attr-values sr6-charactersheet-skill-values">
+          <div class="sr6-charactersheet-attr-value sr6-charactersheet-attr-value--with-dice sr6-skill-base-value">
             <span data-i18n="field.grundwert">Grundwert</span>
             <div class="sr6-charactersheet-field-input-with-dice">
               <div class="sr6-number-stepper"><button type="action" class="sr6-number-stepper-button sr6-number-stepper-button--minus" name="act_sr6_number_step" value="sr6_skill_steuern_grundwert::-1" aria-label="Verringern">-</button><input type="number" name="attr_sr6_skill_steuern_grundwert" /><button type="action" class="sr6-number-stepper-button sr6-number-stepper-button--plus" name="act_sr6_number_step" value="sr6_skill_steuern_grundwert::1" aria-label="Erhoehen">+</button></div><button
                 type="action"
                 class="sr6-charactersheet-field-dice-button"
                 name="act_probe"
-                value="&{template:default} {{name=Fertigkeits-Test}} {{Fertigkeit=Steuern (Grundwert)}} {{Pool=[[@{sr6_skill_steuern_grundwert}]]}} {{Erfolge=[[@{sr6_skill_steuern_grundwert}d6>5]]}}"
+                value="&{template:default} {{name=Fertigkeits-Test}} {{Fertigkeit=Steuern (Grundwert)}} {{Pool=[[@{sr6_skill_steuern_grundwert}]]}} {{Erfolge=[[@{sr6_skill_steuern_grundwert}d6&gt;5]]}}"
                 aria-label="Wuerfeln"></button>
             </div>
           </div>
-          <div class="sr6-charactersheet-attr-value">
+          <div class="sr6-charactersheet-attr-value sr6-skill-modifier-value">
             <span data-i18n="field.modifikator">Modifikator</span><div class="sr6-number-stepper"><button type="action" class="sr6-number-stepper-button sr6-number-stepper-button--minus" name="act_sr6_number_step" value="sr6_skill_steuern_modifikator::-1" aria-label="Verringern">-</button><input
               type="number"
               name="attr_sr6_skill_steuern_modifikator" /><button type="action" class="sr6-number-stepper-button sr6-number-stepper-button--plus" name="act_sr6_number_step" value="sr6_skill_steuern_modifikator::1" aria-label="Erhoehen">+</button></div>
           </div>
-          <div class="sr6-charactersheet-attr-value sr6-charactersheet-attr-value--with-dice">
+          <div class="sr6-charactersheet-attr-value sr6-charactersheet-attr-value--with-dice sr6-skill-total-value">
             <span data-i18n="field.gesamtwert">Gesamtwert</span>
             <div class="sr6-charactersheet-field-input-with-dice">
               <div class="sr6-number-stepper"><button type="action" class="sr6-number-stepper-button sr6-number-stepper-button--minus" name="act_sr6_number_step" value="sr6_skill_steuern_gesamtwert::-1" aria-label="Verringern">-</button><input type="number" name="attr_sr6_skill_steuern_gesamtwert" /><button type="action" class="sr6-number-stepper-button sr6-number-stepper-button--plus" name="act_sr6_number_step" value="sr6_skill_steuern_gesamtwert::1" aria-label="Erhoehen">+</button></div><button
                 type="action"
                 class="sr6-charactersheet-field-dice-button"
                 name="act_probe"
-                value="&{template:default} {{name=Fertigkeits-Test}} {{Fertigkeit=Steuern (Gesamtwert)}} {{Pool=[[@{sr6_skill_steuern_gesamtwert}]]}} {{Erfolge=[[@{sr6_skill_steuern_gesamtwert}d6>5]]}}"
+                value="&{template:default} {{name=Fertigkeits-Test}} {{Fertigkeit=Steuern (Gesamtwert)}} {{Pool=[[@{sr6_skill_steuern_gesamtwert}]]}} {{Erfolge=[[@{sr6_skill_steuern_gesamtwert}d6&gt;5]]}}"
+                aria-label="Wuerfeln"></button>
+            </div>
+          </div>
+        </div>
+        <div class="sr6-charactersheet-skill-specialization-row">
+          <div class="sr6-charactersheet-attr-value sr6-charactersheet-attr-value--with-dice sr6-skill-specialization-value">
+            <span data-i18n="field.spezialisierung">Spezialisierung</span>
+            <div class="sr6-charactersheet-field-input-with-dice sr6-charactersheet-skill-select-with-dice">
+              <select name="attr_sr6_skill_steuern_spezialisierung">
+                  <option value="" data-i18n="field.keine_spezialisierung">Keine</option>
+                  <option value="Bodenfahrzeuge">Bodenfahrzeuge</option>
+                  <option value="Luftfahrzeuge">Luftfahrzeuge</option>
+                  <option value="Wasserfahrzeuge">Wasserfahrzeuge</option>
+              </select><button
+                type="action"
+                class="sr6-charactersheet-field-dice-button"
+                name="act_probe"
+                value="&{template:default} {{name=Fertigkeits-Test}} {{Fertigkeit=Steuern (Spezialisierung)}} {{Spezialisierung=@{sr6_skill_steuern_spezialisierung}}} {{Spezialisierung Aktiv=1}} {{Pool=[[@{sr6_skill_steuern_gesamtwert}]]}} {{Erfolge=[[@{sr6_skill_steuern_gesamtwert}d6&gt;5]]}}"
+                aria-label="Wuerfeln"></button>
+            </div>
+          </div>
+          <div class="sr6-charactersheet-attr-value sr6-charactersheet-attr-value--with-dice sr6-skill-expertise-value">
+            <span data-i18n="field.expertise">Expertise</span>
+            <div class="sr6-charactersheet-field-input-with-dice sr6-charactersheet-skill-select-with-dice">
+              <select name="attr_sr6_skill_steuern_expertise">
+                  <option value="" data-i18n="field.keine_expertise">Keine</option>
+                  <option value="Bodenfahrzeuge">Bodenfahrzeuge</option>
+                  <option value="Luftfahrzeuge">Luftfahrzeuge</option>
+                  <option value="Wasserfahrzeuge">Wasserfahrzeuge</option>
+              </select><button
+                type="action"
+                class="sr6-charactersheet-field-dice-button"
+                name="act_probe"
+                value="&{template:default} {{name=Fertigkeits-Test}} {{Fertigkeit=Steuern (Expertise)}} {{Expertise=@{sr6_skill_steuern_expertise}}} {{Expertise Aktiv=1}} {{Pool=[[@{sr6_skill_steuern_gesamtwert}]]}} {{Erfolge=[[@{sr6_skill_steuern_gesamtwert}d6&gt;5]]}}"
                 aria-label="Wuerfeln"></button>
             </div>
           </div>
@@ -544,33 +1110,67 @@
       <!-- END BLOCK: Fertigkeit - Steuern -->
 
       <!-- BEGIN BLOCK: Fertigkeit - Tasken -->
-      <div class="sr6-charactersheet-field sr6-charactersheet-attr-field">
+      <div class="sr6-charactersheet-field sr6-charactersheet-attr-field sr6-charactersheet-skill-field">
         <span data-i18n="skill.tasken">Tasken</span>
-        <div class="sr6-charactersheet-attr-values">
-          <div class="sr6-charactersheet-attr-value sr6-charactersheet-attr-value--with-dice">
+        <div class="sr6-charactersheet-attr-values sr6-charactersheet-skill-values">
+          <div class="sr6-charactersheet-attr-value sr6-charactersheet-attr-value--with-dice sr6-skill-base-value">
             <span data-i18n="field.grundwert">Grundwert</span>
             <div class="sr6-charactersheet-field-input-with-dice">
               <div class="sr6-number-stepper"><button type="action" class="sr6-number-stepper-button sr6-number-stepper-button--minus" name="act_sr6_number_step" value="sr6_skill_tasken_grundwert::-1" aria-label="Verringern">-</button><input type="number" name="attr_sr6_skill_tasken_grundwert" /><button type="action" class="sr6-number-stepper-button sr6-number-stepper-button--plus" name="act_sr6_number_step" value="sr6_skill_tasken_grundwert::1" aria-label="Erhoehen">+</button></div><button
                 type="action"
                 class="sr6-charactersheet-field-dice-button"
                 name="act_probe"
-                value="&{template:default} {{name=Fertigkeits-Test}} {{Fertigkeit=Tasken (Grundwert)}} {{Pool=[[@{sr6_skill_tasken_grundwert}]]}} {{Erfolge=[[@{sr6_skill_tasken_grundwert}d6>5]]}}"
+                value="&{template:default} {{name=Fertigkeits-Test}} {{Fertigkeit=Tasken (Grundwert)}} {{Pool=[[@{sr6_skill_tasken_grundwert}]]}} {{Erfolge=[[@{sr6_skill_tasken_grundwert}d6&gt;5]]}}"
                 aria-label="Wuerfeln"></button>
             </div>
           </div>
-          <div class="sr6-charactersheet-attr-value">
+          <div class="sr6-charactersheet-attr-value sr6-skill-modifier-value">
             <span data-i18n="field.modifikator">Modifikator</span><div class="sr6-number-stepper"><button type="action" class="sr6-number-stepper-button sr6-number-stepper-button--minus" name="act_sr6_number_step" value="sr6_skill_tasken_modifikator::-1" aria-label="Verringern">-</button><input
               type="number"
               name="attr_sr6_skill_tasken_modifikator" /><button type="action" class="sr6-number-stepper-button sr6-number-stepper-button--plus" name="act_sr6_number_step" value="sr6_skill_tasken_modifikator::1" aria-label="Erhoehen">+</button></div>
           </div>
-          <div class="sr6-charactersheet-attr-value sr6-charactersheet-attr-value--with-dice">
+          <div class="sr6-charactersheet-attr-value sr6-charactersheet-attr-value--with-dice sr6-skill-total-value">
             <span data-i18n="field.gesamtwert">Gesamtwert</span>
             <div class="sr6-charactersheet-field-input-with-dice">
               <div class="sr6-number-stepper"><button type="action" class="sr6-number-stepper-button sr6-number-stepper-button--minus" name="act_sr6_number_step" value="sr6_skill_tasken_gesamtwert::-1" aria-label="Verringern">-</button><input type="number" name="attr_sr6_skill_tasken_gesamtwert" /><button type="action" class="sr6-number-stepper-button sr6-number-stepper-button--plus" name="act_sr6_number_step" value="sr6_skill_tasken_gesamtwert::1" aria-label="Erhoehen">+</button></div><button
                 type="action"
                 class="sr6-charactersheet-field-dice-button"
                 name="act_probe"
-                value="&{template:default} {{name=Fertigkeits-Test}} {{Fertigkeit=Tasken (Gesamtwert)}} {{Pool=[[@{sr6_skill_tasken_gesamtwert}]]}} {{Erfolge=[[@{sr6_skill_tasken_gesamtwert}d6>5]]}}"
+                value="&{template:default} {{name=Fertigkeits-Test}} {{Fertigkeit=Tasken (Gesamtwert)}} {{Pool=[[@{sr6_skill_tasken_gesamtwert}]]}} {{Erfolge=[[@{sr6_skill_tasken_gesamtwert}d6&gt;5]]}}"
+                aria-label="Wuerfeln"></button>
+            </div>
+          </div>
+        </div>
+        <div class="sr6-charactersheet-skill-specialization-row">
+          <div class="sr6-charactersheet-attr-value sr6-charactersheet-attr-value--with-dice sr6-skill-specialization-value">
+            <span data-i18n="field.spezialisierung">Spezialisierung</span>
+            <div class="sr6-charactersheet-field-input-with-dice sr6-charactersheet-skill-select-with-dice">
+              <select name="attr_sr6_skill_tasken_spezialisierung">
+                  <option value="" data-i18n="field.keine_spezialisierung">Keine</option>
+                  <option value="Dekompilieren">Dekompilieren</option>
+                  <option value="Kompilieren">Kompilieren</option>
+                  <option value="Registrieren">Registrieren</option>
+              </select><button
+                type="action"
+                class="sr6-charactersheet-field-dice-button"
+                name="act_probe"
+                value="&{template:default} {{name=Fertigkeits-Test}} {{Fertigkeit=Tasken (Spezialisierung)}} {{Spezialisierung=@{sr6_skill_tasken_spezialisierung}}} {{Spezialisierung Aktiv=1}} {{Pool=[[@{sr6_skill_tasken_gesamtwert}]]}} {{Erfolge=[[@{sr6_skill_tasken_gesamtwert}d6&gt;5]]}}"
+                aria-label="Wuerfeln"></button>
+            </div>
+          </div>
+          <div class="sr6-charactersheet-attr-value sr6-charactersheet-attr-value--with-dice sr6-skill-expertise-value">
+            <span data-i18n="field.expertise">Expertise</span>
+            <div class="sr6-charactersheet-field-input-with-dice sr6-charactersheet-skill-select-with-dice">
+              <select name="attr_sr6_skill_tasken_expertise">
+                  <option value="" data-i18n="field.keine_expertise">Keine</option>
+                  <option value="Dekompilieren">Dekompilieren</option>
+                  <option value="Kompilieren">Kompilieren</option>
+                  <option value="Registrieren">Registrieren</option>
+              </select><button
+                type="action"
+                class="sr6-charactersheet-field-dice-button"
+                name="act_probe"
+                value="&{template:default} {{name=Fertigkeits-Test}} {{Fertigkeit=Tasken (Expertise)}} {{Expertise=@{sr6_skill_tasken_expertise}}} {{Expertise Aktiv=1}} {{Pool=[[@{sr6_skill_tasken_gesamtwert}]]}} {{Erfolge=[[@{sr6_skill_tasken_gesamtwert}d6&gt;5]]}}"
                 aria-label="Wuerfeln"></button>
             </div>
           </div>
@@ -579,33 +1179,69 @@
       <!-- END BLOCK: Fertigkeit - Tasken -->
 
       <!-- BEGIN BLOCK: Fertigkeit - Überreden -->
-      <div class="sr6-charactersheet-field sr6-charactersheet-attr-field">
+      <div class="sr6-charactersheet-field sr6-charactersheet-attr-field sr6-charactersheet-skill-field">
         <span data-i18n="skill.ueberreden">Überreden</span>
-        <div class="sr6-charactersheet-attr-values">
-          <div class="sr6-charactersheet-attr-value sr6-charactersheet-attr-value--with-dice">
+        <div class="sr6-charactersheet-attr-values sr6-charactersheet-skill-values">
+          <div class="sr6-charactersheet-attr-value sr6-charactersheet-attr-value--with-dice sr6-skill-base-value">
             <span data-i18n="field.grundwert">Grundwert</span>
             <div class="sr6-charactersheet-field-input-with-dice">
               <div class="sr6-number-stepper"><button type="action" class="sr6-number-stepper-button sr6-number-stepper-button--minus" name="act_sr6_number_step" value="sr6_skill_ueberreden_grundwert::-1" aria-label="Verringern">-</button><input type="number" name="attr_sr6_skill_ueberreden_grundwert" /><button type="action" class="sr6-number-stepper-button sr6-number-stepper-button--plus" name="act_sr6_number_step" value="sr6_skill_ueberreden_grundwert::1" aria-label="Erhoehen">+</button></div><button
                 type="action"
                 class="sr6-charactersheet-field-dice-button"
                 name="act_probe"
-                value="&{template:default} {{name=Fertigkeits-Test}} {{Fertigkeit=Ueberreden (Grundwert)}} {{Pool=[[@{sr6_skill_ueberreden_grundwert}]]}} {{Erfolge=[[@{sr6_skill_ueberreden_grundwert}d6>5]]}}"
+                value="&{template:default} {{name=Fertigkeits-Test}} {{Fertigkeit=Ueberreden (Grundwert)}} {{Pool=[[@{sr6_skill_ueberreden_grundwert}]]}} {{Erfolge=[[@{sr6_skill_ueberreden_grundwert}d6&gt;5]]}}"
                 aria-label="Wuerfeln"></button>
             </div>
           </div>
-          <div class="sr6-charactersheet-attr-value">
+          <div class="sr6-charactersheet-attr-value sr6-skill-modifier-value">
             <span data-i18n="field.modifikator">Modifikator</span><div class="sr6-number-stepper"><button type="action" class="sr6-number-stepper-button sr6-number-stepper-button--minus" name="act_sr6_number_step" value="sr6_skill_ueberreden_modifikator::-1" aria-label="Verringern">-</button><input
               type="number"
               name="attr_sr6_skill_ueberreden_modifikator" /><button type="action" class="sr6-number-stepper-button sr6-number-stepper-button--plus" name="act_sr6_number_step" value="sr6_skill_ueberreden_modifikator::1" aria-label="Erhoehen">+</button></div>
           </div>
-          <div class="sr6-charactersheet-attr-value sr6-charactersheet-attr-value--with-dice">
+          <div class="sr6-charactersheet-attr-value sr6-charactersheet-attr-value--with-dice sr6-skill-total-value">
             <span data-i18n="field.gesamtwert">Gesamtwert</span>
             <div class="sr6-charactersheet-field-input-with-dice">
               <div class="sr6-number-stepper"><button type="action" class="sr6-number-stepper-button sr6-number-stepper-button--minus" name="act_sr6_number_step" value="sr6_skill_ueberreden_gesamtwert::-1" aria-label="Verringern">-</button><input type="number" name="attr_sr6_skill_ueberreden_gesamtwert" /><button type="action" class="sr6-number-stepper-button sr6-number-stepper-button--plus" name="act_sr6_number_step" value="sr6_skill_ueberreden_gesamtwert::1" aria-label="Erhoehen">+</button></div><button
                 type="action"
                 class="sr6-charactersheet-field-dice-button"
                 name="act_probe"
-                value="&{template:default} {{name=Fertigkeits-Test}} {{Fertigkeit=Ueberreden (Gesamtwert)}} {{Pool=[[@{sr6_skill_ueberreden_gesamtwert}]]}} {{Erfolge=[[@{sr6_skill_ueberreden_gesamtwert}d6>5]]}}"
+                value="&{template:default} {{name=Fertigkeits-Test}} {{Fertigkeit=Ueberreden (Gesamtwert)}} {{Pool=[[@{sr6_skill_ueberreden_gesamtwert}]]}} {{Erfolge=[[@{sr6_skill_ueberreden_gesamtwert}d6&gt;5]]}}"
+                aria-label="Wuerfeln"></button>
+            </div>
+          </div>
+        </div>
+        <div class="sr6-charactersheet-skill-specialization-row">
+          <div class="sr6-charactersheet-attr-value sr6-charactersheet-attr-value--with-dice sr6-skill-specialization-value">
+            <span data-i18n="field.spezialisierung">Spezialisierung</span>
+            <div class="sr6-charactersheet-field-input-with-dice sr6-charactersheet-skill-select-with-dice">
+              <select name="attr_sr6_skill_ueberreden_spezialisierung">
+                  <option value="" data-i18n="field.keine_spezialisierung">Keine</option>
+                  <option value="Schauspielern">Schauspielern</option>
+                  <option value="Verkleiden">Verkleiden</option>
+                  <option value="Verkörpern">Verkörpern</option>
+                  <option value="Vorführen">Vorführen</option>
+              </select><button
+                type="action"
+                class="sr6-charactersheet-field-dice-button"
+                name="act_probe"
+                value="&{template:default} {{name=Fertigkeits-Test}} {{Fertigkeit=Ueberreden (Spezialisierung)}} {{Spezialisierung=@{sr6_skill_ueberreden_spezialisierung}}} {{Spezialisierung Aktiv=1}} {{Pool=[[@{sr6_skill_ueberreden_gesamtwert}]]}} {{Erfolge=[[@{sr6_skill_ueberreden_gesamtwert}d6&gt;5]]}}"
+                aria-label="Wuerfeln"></button>
+            </div>
+          </div>
+          <div class="sr6-charactersheet-attr-value sr6-charactersheet-attr-value--with-dice sr6-skill-expertise-value">
+            <span data-i18n="field.expertise">Expertise</span>
+            <div class="sr6-charactersheet-field-input-with-dice sr6-charactersheet-skill-select-with-dice">
+              <select name="attr_sr6_skill_ueberreden_expertise">
+                  <option value="" data-i18n="field.keine_expertise">Keine</option>
+                  <option value="Schauspielern">Schauspielern</option>
+                  <option value="Verkleiden">Verkleiden</option>
+                  <option value="Verkörpern">Verkörpern</option>
+                  <option value="Vorführen">Vorführen</option>
+              </select><button
+                type="action"
+                class="sr6-charactersheet-field-dice-button"
+                name="act_probe"
+                value="&{template:default} {{name=Fertigkeits-Test}} {{Fertigkeit=Ueberreden (Expertise)}} {{Expertise=@{sr6_skill_ueberreden_expertise}}} {{Expertise Aktiv=1}} {{Pool=[[@{sr6_skill_ueberreden_gesamtwert}]]}} {{Erfolge=[[@{sr6_skill_ueberreden_gesamtwert}d6&gt;5]]}}"
                 aria-label="Wuerfeln"></button>
             </div>
           </div>
@@ -614,33 +1250,67 @@
       <!-- END BLOCK: Fertigkeit - Überreden -->
 
       <!-- BEGIN BLOCK: Fertigkeit - Verzaubern -->
-      <div class="sr6-charactersheet-field sr6-charactersheet-attr-field">
+      <div class="sr6-charactersheet-field sr6-charactersheet-attr-field sr6-charactersheet-skill-field">
         <span data-i18n="skill.verzaubern">Verzaubern</span>
-        <div class="sr6-charactersheet-attr-values">
-          <div class="sr6-charactersheet-attr-value sr6-charactersheet-attr-value--with-dice">
+        <div class="sr6-charactersheet-attr-values sr6-charactersheet-skill-values">
+          <div class="sr6-charactersheet-attr-value sr6-charactersheet-attr-value--with-dice sr6-skill-base-value">
             <span data-i18n="field.grundwert">Grundwert</span>
             <div class="sr6-charactersheet-field-input-with-dice">
               <div class="sr6-number-stepper"><button type="action" class="sr6-number-stepper-button sr6-number-stepper-button--minus" name="act_sr6_number_step" value="sr6_skill_verzaubern_grundwert::-1" aria-label="Verringern">-</button><input type="number" name="attr_sr6_skill_verzaubern_grundwert" /><button type="action" class="sr6-number-stepper-button sr6-number-stepper-button--plus" name="act_sr6_number_step" value="sr6_skill_verzaubern_grundwert::1" aria-label="Erhoehen">+</button></div><button
                 type="action"
                 class="sr6-charactersheet-field-dice-button"
                 name="act_probe"
-                value="&{template:default} {{name=Fertigkeits-Test}} {{Fertigkeit=Verzaubern (Grundwert)}} {{Pool=[[@{sr6_skill_verzaubern_grundwert}]]}} {{Erfolge=[[@{sr6_skill_verzaubern_grundwert}d6>5]]}}"
+                value="&{template:default} {{name=Fertigkeits-Test}} {{Fertigkeit=Verzaubern (Grundwert)}} {{Pool=[[@{sr6_skill_verzaubern_grundwert}]]}} {{Erfolge=[[@{sr6_skill_verzaubern_grundwert}d6&gt;5]]}}"
                 aria-label="Wuerfeln"></button>
             </div>
           </div>
-          <div class="sr6-charactersheet-attr-value">
+          <div class="sr6-charactersheet-attr-value sr6-skill-modifier-value">
             <span data-i18n="field.modifikator">Modifikator</span><div class="sr6-number-stepper"><button type="action" class="sr6-number-stepper-button sr6-number-stepper-button--minus" name="act_sr6_number_step" value="sr6_skill_verzaubern_modifikator::-1" aria-label="Verringern">-</button><input
               type="number"
               name="attr_sr6_skill_verzaubern_modifikator" /><button type="action" class="sr6-number-stepper-button sr6-number-stepper-button--plus" name="act_sr6_number_step" value="sr6_skill_verzaubern_modifikator::1" aria-label="Erhoehen">+</button></div>
           </div>
-          <div class="sr6-charactersheet-attr-value sr6-charactersheet-attr-value--with-dice">
+          <div class="sr6-charactersheet-attr-value sr6-charactersheet-attr-value--with-dice sr6-skill-total-value">
             <span data-i18n="field.gesamtwert">Gesamtwert</span>
             <div class="sr6-charactersheet-field-input-with-dice">
               <div class="sr6-number-stepper"><button type="action" class="sr6-number-stepper-button sr6-number-stepper-button--minus" name="act_sr6_number_step" value="sr6_skill_verzaubern_gesamtwert::-1" aria-label="Verringern">-</button><input type="number" name="attr_sr6_skill_verzaubern_gesamtwert" /><button type="action" class="sr6-number-stepper-button sr6-number-stepper-button--plus" name="act_sr6_number_step" value="sr6_skill_verzaubern_gesamtwert::1" aria-label="Erhoehen">+</button></div><button
                 type="action"
                 class="sr6-charactersheet-field-dice-button"
                 name="act_probe"
-                value="&{template:default} {{name=Fertigkeits-Test}} {{Fertigkeit=Verzaubern (Gesamtwert)}} {{Pool=[[@{sr6_skill_verzaubern_gesamtwert}]]}} {{Erfolge=[[@{sr6_skill_verzaubern_gesamtwert}d6>5]]}}"
+                value="&{template:default} {{name=Fertigkeits-Test}} {{Fertigkeit=Verzaubern (Gesamtwert)}} {{Pool=[[@{sr6_skill_verzaubern_gesamtwert}]]}} {{Erfolge=[[@{sr6_skill_verzaubern_gesamtwert}d6&gt;5]]}}"
+                aria-label="Wuerfeln"></button>
+            </div>
+          </div>
+        </div>
+        <div class="sr6-charactersheet-skill-specialization-row">
+          <div class="sr6-charactersheet-attr-value sr6-charactersheet-attr-value--with-dice sr6-skill-specialization-value">
+            <span data-i18n="field.spezialisierung">Spezialisierung</span>
+            <div class="sr6-charactersheet-field-input-with-dice sr6-charactersheet-skill-select-with-dice">
+              <select name="attr_sr6_skill_verzaubern_spezialisierung">
+                  <option value="" data-i18n="field.keine_spezialisierung">Keine</option>
+                  <option value="Alchemie">Alchemie</option>
+                  <option value="Entzaubern">Entzaubern</option>
+                  <option value="Fokusherstellung">Fokusherstellung</option>
+              </select><button
+                type="action"
+                class="sr6-charactersheet-field-dice-button"
+                name="act_probe"
+                value="&{template:default} {{name=Fertigkeits-Test}} {{Fertigkeit=Verzaubern (Spezialisierung)}} {{Spezialisierung=@{sr6_skill_verzaubern_spezialisierung}}} {{Spezialisierung Aktiv=1}} {{Pool=[[@{sr6_skill_verzaubern_gesamtwert}]]}} {{Erfolge=[[@{sr6_skill_verzaubern_gesamtwert}d6&gt;5]]}}"
+                aria-label="Wuerfeln"></button>
+            </div>
+          </div>
+          <div class="sr6-charactersheet-attr-value sr6-charactersheet-attr-value--with-dice sr6-skill-expertise-value">
+            <span data-i18n="field.expertise">Expertise</span>
+            <div class="sr6-charactersheet-field-input-with-dice sr6-charactersheet-skill-select-with-dice">
+              <select name="attr_sr6_skill_verzaubern_expertise">
+                  <option value="" data-i18n="field.keine_expertise">Keine</option>
+                  <option value="Alchemie">Alchemie</option>
+                  <option value="Entzaubern">Entzaubern</option>
+                  <option value="Fokusherstellung">Fokusherstellung</option>
+              </select><button
+                type="action"
+                class="sr6-charactersheet-field-dice-button"
+                name="act_probe"
+                value="&{template:default} {{name=Fertigkeits-Test}} {{Fertigkeit=Verzaubern (Expertise)}} {{Expertise=@{sr6_skill_verzaubern_expertise}}} {{Expertise Aktiv=1}} {{Pool=[[@{sr6_skill_verzaubern_gesamtwert}]]}} {{Erfolge=[[@{sr6_skill_verzaubern_gesamtwert}d6&gt;5]]}}"
                 aria-label="Wuerfeln"></button>
             </div>
           </div>
@@ -649,33 +1319,77 @@
       <!-- END BLOCK: Fertigkeit - Verzaubern -->
 
       <!-- BEGIN BLOCK: Fertigkeit - Wahrnehmung -->
-      <div class="sr6-charactersheet-field sr6-charactersheet-attr-field">
+      <div class="sr6-charactersheet-field sr6-charactersheet-attr-field sr6-charactersheet-skill-field">
         <span data-i18n="skill.wahrnehmung">Wahrnehmung</span>
-        <div class="sr6-charactersheet-attr-values">
-          <div class="sr6-charactersheet-attr-value sr6-charactersheet-attr-value--with-dice">
+        <div class="sr6-charactersheet-attr-values sr6-charactersheet-skill-values">
+          <div class="sr6-charactersheet-attr-value sr6-charactersheet-attr-value--with-dice sr6-skill-base-value">
             <span data-i18n="field.grundwert">Grundwert</span>
             <div class="sr6-charactersheet-field-input-with-dice">
               <div class="sr6-number-stepper"><button type="action" class="sr6-number-stepper-button sr6-number-stepper-button--minus" name="act_sr6_number_step" value="sr6_skill_wahrnehmung_grundwert::-1" aria-label="Verringern">-</button><input type="number" name="attr_sr6_skill_wahrnehmung_grundwert" /><button type="action" class="sr6-number-stepper-button sr6-number-stepper-button--plus" name="act_sr6_number_step" value="sr6_skill_wahrnehmung_grundwert::1" aria-label="Erhoehen">+</button></div><button
                 type="action"
                 class="sr6-charactersheet-field-dice-button"
                 name="act_probe"
-                value="&{template:default} {{name=Fertigkeits-Test}} {{Fertigkeit=Wahrnehmung (Grundwert)}} {{Pool=[[@{sr6_skill_wahrnehmung_grundwert}]]}} {{Erfolge=[[@{sr6_skill_wahrnehmung_grundwert}d6>5]]}}"
+                value="&{template:default} {{name=Fertigkeits-Test}} {{Fertigkeit=Wahrnehmung (Grundwert)}} {{Pool=[[@{sr6_skill_wahrnehmung_grundwert}]]}} {{Erfolge=[[@{sr6_skill_wahrnehmung_grundwert}d6&gt;5]]}}"
                 aria-label="Wuerfeln"></button>
             </div>
           </div>
-          <div class="sr6-charactersheet-attr-value">
+          <div class="sr6-charactersheet-attr-value sr6-skill-modifier-value">
             <span data-i18n="field.modifikator">Modifikator</span><div class="sr6-number-stepper"><button type="action" class="sr6-number-stepper-button sr6-number-stepper-button--minus" name="act_sr6_number_step" value="sr6_skill_wahrnehmung_modifikator::-1" aria-label="Verringern">-</button><input
               type="number"
               name="attr_sr6_skill_wahrnehmung_modifikator" /><button type="action" class="sr6-number-stepper-button sr6-number-stepper-button--plus" name="act_sr6_number_step" value="sr6_skill_wahrnehmung_modifikator::1" aria-label="Erhoehen">+</button></div>
           </div>
-          <div class="sr6-charactersheet-attr-value sr6-charactersheet-attr-value--with-dice">
+          <div class="sr6-charactersheet-attr-value sr6-charactersheet-attr-value--with-dice sr6-skill-total-value">
             <span data-i18n="field.gesamtwert">Gesamtwert</span>
             <div class="sr6-charactersheet-field-input-with-dice">
               <div class="sr6-number-stepper"><button type="action" class="sr6-number-stepper-button sr6-number-stepper-button--minus" name="act_sr6_number_step" value="sr6_skill_wahrnehmung_gesamtwert::-1" aria-label="Verringern">-</button><input type="number" name="attr_sr6_skill_wahrnehmung_gesamtwert" /><button type="action" class="sr6-number-stepper-button sr6-number-stepper-button--plus" name="act_sr6_number_step" value="sr6_skill_wahrnehmung_gesamtwert::1" aria-label="Erhoehen">+</button></div><button
                 type="action"
                 class="sr6-charactersheet-field-dice-button"
                 name="act_probe"
-                value="&{template:default} {{name=Fertigkeits-Test}} {{Fertigkeit=Wahrnehmung (Gesamtwert)}} {{Pool=[[@{sr6_skill_wahrnehmung_gesamtwert}]]}} {{Erfolge=[[@{sr6_skill_wahrnehmung_gesamtwert}d6>5]]}}"
+                value="&{template:default} {{name=Fertigkeits-Test}} {{Fertigkeit=Wahrnehmung (Gesamtwert)}} {{Pool=[[@{sr6_skill_wahrnehmung_gesamtwert}]]}} {{Erfolge=[[@{sr6_skill_wahrnehmung_gesamtwert}d6&gt;5]]}}"
+                aria-label="Wuerfeln"></button>
+            </div>
+          </div>
+        </div>
+        <div class="sr6-charactersheet-skill-specialization-row">
+          <div class="sr6-charactersheet-attr-value sr6-charactersheet-attr-value--with-dice sr6-skill-specialization-value">
+            <span data-i18n="field.spezialisierung">Spezialisierung</span>
+            <div class="sr6-charactersheet-field-input-with-dice sr6-charactersheet-skill-select-with-dice">
+              <select name="attr_sr6_skill_wahrnehmung_spezialisierung">
+                  <option value="" data-i18n="field.keine_spezialisierung">Keine</option>
+                  <option value="Hören">Hören</option>
+                  <option value="Riechen">Riechen</option>
+                  <option value="Schmecken">Schmecken</option>
+                  <option value="Sehen">Sehen</option>
+                  <option value="Tasten">Tasten</option>
+                  <option value="Wald">Wald</option>
+                  <option value="Wüste">Wüste</option>
+                  <option value="Stadt">Stadt</option>
+              </select><button
+                type="action"
+                class="sr6-charactersheet-field-dice-button"
+                name="act_probe"
+                value="&{template:default} {{name=Fertigkeits-Test}} {{Fertigkeit=Wahrnehmung (Spezialisierung)}} {{Spezialisierung=@{sr6_skill_wahrnehmung_spezialisierung}}} {{Spezialisierung Aktiv=1}} {{Pool=[[@{sr6_skill_wahrnehmung_gesamtwert}]]}} {{Erfolge=[[@{sr6_skill_wahrnehmung_gesamtwert}d6&gt;5]]}}"
+                aria-label="Wuerfeln"></button>
+            </div>
+          </div>
+          <div class="sr6-charactersheet-attr-value sr6-charactersheet-attr-value--with-dice sr6-skill-expertise-value">
+            <span data-i18n="field.expertise">Expertise</span>
+            <div class="sr6-charactersheet-field-input-with-dice sr6-charactersheet-skill-select-with-dice">
+              <select name="attr_sr6_skill_wahrnehmung_expertise">
+                  <option value="" data-i18n="field.keine_expertise">Keine</option>
+                  <option value="Hören">Hören</option>
+                  <option value="Riechen">Riechen</option>
+                  <option value="Schmecken">Schmecken</option>
+                  <option value="Sehen">Sehen</option>
+                  <option value="Tasten">Tasten</option>
+                  <option value="Wald">Wald</option>
+                  <option value="Wüste">Wüste</option>
+                  <option value="Stadt">Stadt</option>
+              </select><button
+                type="action"
+                class="sr6-charactersheet-field-dice-button"
+                name="act_probe"
+                value="&{template:default} {{name=Fertigkeits-Test}} {{Fertigkeit=Wahrnehmung (Expertise)}} {{Expertise=@{sr6_skill_wahrnehmung_expertise}}} {{Expertise Aktiv=1}} {{Pool=[[@{sr6_skill_wahrnehmung_gesamtwert}]]}} {{Erfolge=[[@{sr6_skill_wahrnehmung_gesamtwert}d6&gt;5]]}}"
                 aria-label="Wuerfeln"></button>
             </div>
           </div>

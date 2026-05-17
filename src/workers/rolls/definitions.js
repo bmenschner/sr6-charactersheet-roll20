@@ -367,11 +367,10 @@ function createSpecializationPopupFields(startSlot = 2) {
       label: "Expertise",
       type: "checkbox",
       affects: "pool",
-      checkedValue: 1,
-      checkedDisplayValue: "+1 (gesamt +3)",
+      checkedValue: 3,
+      checkedDisplayValue: "+3",
       includeInTemplate: true,
       defaultValue: "0",
-      requiresCheckedSlot: startSlot,
     },
   ];
 }
@@ -460,6 +459,7 @@ function createSkillProbeDefinition(config = {}) {
     popupFields: config.popupFields || createMappedSkillProbePopupFields(attributeConfig),
     skillKey: config.skillKey || "",
     skillAttributeConfig: attributeConfig,
+    internalFields: config.internalFields || ["Spezialisierung Aktiv", "Expertise Aktiv"],
     fixedTitle: config.fixedTitle || "",
     titleFallback: config.titleFallback || "Fertigkeiten",
   };
@@ -1503,6 +1503,11 @@ function buildPopupStateFromValues(values, definition, poolAttribute) {
   let damageMod = 0;
   let drainMod = 0;
   let poolMultiplier = 1;
+  const expertiseFieldIndex = popupFields.findIndex((field) => field && field.id === "expertise");
+  const expertiseField = expertiseFieldIndex >= 0 ? popupFields[expertiseFieldIndex] : null;
+  const expertiseChecked = expertiseField
+    ? isCheckedValue(values[getPopupFieldValueAttr(expertiseField, expertiseFieldIndex)])
+    : false;
 
   popupFields.forEach((field, index) => {
     const rawValue = values[getPopupFieldValueAttr(field, index)];
@@ -1510,7 +1515,12 @@ function buildPopupStateFromValues(values, definition, poolAttribute) {
     const isTextField = field.type === "text";
     const isCheckboxField = field.type === "checkbox";
     const dependencySatisfied = !field.requiresCheckedSlot || isCheckedValue(values[`sr6_roll_popup_value_${field.requiresCheckedSlot}_checkbox`]);
-    const checkboxChecked = dependencySatisfied && isCheckboxField ? isCheckedValue(rawValue) : false;
+    const checkboxChecked =
+      dependencySatisfied &&
+      isCheckboxField &&
+      !(field.id === "specialization" && expertiseChecked)
+        ? isCheckedValue(rawValue)
+        : false;
     const normalizedValue = isNumberField
       ? parseNumber(rawValue)
       : isCheckboxField
@@ -1718,6 +1728,16 @@ function buildPopupPrefillPayload(definition, poolAttribute, repeatingRowPrefix,
     const resolvedValue = sourceAttr ? lookupAttr(sourceAttr) : "";
     if (resolvedValue === undefined || resolvedValue === null || `${resolvedValue}` === "") return;
     payload[getPopupFieldValueAttr(field, index)] = `${resolvedValue}`;
+  });
+
+  popupFields.forEach((field, index) => {
+    if (!fieldMatchesPopupVisibility(field, resolvedTemplateFields)) return;
+    if (field.id === "specialization" && resolvedTemplateFields["Spezialisierung Aktiv"] === "1" && resolvedTemplateFields.Spezialisierung) {
+      payload[getPopupFieldValueAttr(field, index)] = "1";
+    }
+    if (field.id === "expertise" && resolvedTemplateFields["Expertise Aktiv"] === "1" && resolvedTemplateFields.Expertise) {
+      payload[getPopupFieldValueAttr(field, index)] = "1";
+    }
   });
 
   return payload;
