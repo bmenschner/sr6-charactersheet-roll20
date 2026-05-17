@@ -89,7 +89,7 @@ Nach den bisherigen Issue-12-Schritten gilt:
   - `sr6_skill_<name>_grundwert/modifikator/gesamtwert`
 - Issue 12 prueft schrittweise, ob alle sichtbaren Attributszuordnungen dieselben Quellen verwenden und ob berechnete Felder klar als berechnet/manuell angepasst erkennbar werden.
 - Besonders relevant fuer Issue 12 sind alle Felder, die aus Attributen und/oder Fertigkeiten abgeleitet werden, aber in der UI nicht immer als berechnet erkennbar sind.
-- Aktionsfertigkeiten, Attributsproben, Wissens-/Sprach-/Soft-Felder, Talentsofts und Matrix-Handlungen sind in diesem Sinne umgesetzt und in der Sandbox bestaetigt.
+- Aktionsfertigkeiten, Attributsproben, Wissens-/Sprach-/Soft-Felder, Talentsofts, Kampfwerte und Matrix-Handlungen sind in diesem Sinne umgesetzt und in der Sandbox bzw. per Code-/Formelabgleich bestaetigt.
 
 | Tab | Fachbereich | Haupt-Wertetypen | Gemeinsame Datenquellen / Muster | Refactor-Status |
 | --- | --- | --- | --- | --- |
@@ -97,9 +97,9 @@ Nach den bisherigen Issue-12-Schritten gilt:
 | Attribute & Fertigkeiten | Attribute | Attribut | `sr6_attr_<name>_grundwert/modifikator/gesamtwert` | Dreiklang vorhanden, numerische Inputs aktiv; Attributsproben und `Attribut x2` sind bestaetigt |
 | Attribute & Fertigkeiten | Aktionsfertigkeiten | Fertigkeit | `sr6_skill_<name>_grundwert/modifikator/gesamtwert`, `sr6_skill_<name>_spezialisierung`, `sr6_skill_<name>_expertise` | Dreiklang vorhanden, numerische Inputs aktiv; gemeinsame Quelle fuer alle Skill-Proben; Spezialisierung/Expertise sind in UI, Popup und Poolberechnung umgesetzt |
 | Attribute & Fertigkeiten | Wissens-/Sprach-/Soft-Felder | Spezialtyp / Kontextwert / Ersatz-Fertigkeitswert | `sr6_wissensfertigkeit_*`, `sr6_sprachfertigkeit_*`, `sr6_talentsoft_*`, `sr6_wissenssprachsoft_*` | Fachlich getrennt: Wissens-/Sprachfertigkeiten und Wissens-/Sprachsofts wuerfeln auf Erinnerungsvermoegen; Talentsofts wuerfeln auf gewaehltes Attribut + Stufe + Modifikator |
-| Kampf | Kernwerte | Kalkulationsfeld, Einzelwert | `sr6_combat_*`, `sr6_verteidigung_*`, `sr6_schadenswiderstand_*` | `Fernkampfangriff`, `Nahkampfangriff`, `Verteidigung (Physisch)`, `Schadenswiderstand (Physisch)`, `Verteidigungswert` laufen jetzt berechnet; Panzerungsrollen werden direkt in `Kampf > Panzerung` zugewiesen |
-| Kampf | Fernkampfwaffen / Nahkampfwaffen | Einzelwert, Kontextwert, berechneter Waffen-Pool | `repeating_sr6fernkampfwaffen_*`, `repeating_sr6nahkampfwaffen_*` | `Schaden` ist ein numerischer Einzelwert; `Angriffswert` bleibt reichweitenabhaengiger Waffenwert; Waffen-Rollbuttons nutzen je Waffenzeile einen berechneten Pool und zeigen Reichweite/Angriffswert nur als Rolltemplate-Kontext |
-| Kampf | Panzerung | Einzelwert / Kontextwert | `repeating_sr6panzerung_*`, `sr6_combat_*` | Kein erzwungener Dreiklang ohne fachliche Not |
+| Kampf | Kernwerte | Kalkulationsfeld, Einzelwert | `sr6_combat_*`, `sr6_verteidigung_*`, `sr6_schadenswiderstand_*` | Issue-12-Pruefung abgeschlossen: `Fernkampfangriff`, `Nahkampfangriff`, `Verteidigung (Physisch)`, `Schadenswiderstand (Physisch)`, `Verteidigungswert` laufen berechnet; `Verteidigungswert` bleibt bewusst Vergleichswert ohne Rollbutton |
+| Kampf | Fernkampfwaffen / Nahkampfwaffen | Einzelwert, Kontextwert, berechneter Waffen-Pool | `repeating_sr6fernkampfwaffen_*`, `repeating_sr6nahkampfwaffen_*` | Issue-12-Pruefung abgeschlossen: `Schaden` ist ein numerischer Einzelwert; `Angriffswert` bleibt reichweitenabhaengiger Waffenwert; Waffen-Rollbuttons nutzen je Waffenzeile einen berechneten Pool inkl. passender Spezialisierung/Expertise und zeigen Reichweite/Angriffswert nur als Rolltemplate-Kontext |
+| Kampf | Panzerung | Einzelwert / Kontextwert | `repeating_sr6panzerung_*`, `sr6_combat_*` | Issue-12-Pruefung abgeschlossen: Panzerungsrollen werden direkt in `Kampf > Panzerung` zugewiesen; primaere, sekundaere Panzerung, Helm und Schild zaehlen additiv zum Verteidigungswert |
 | Magie | Kernwerte | Attribut, Kalkulationsfeld, Einzelwert | `sr6_magic_*`, teilweise Attribute-/Skill-Bezug | Noch projektweit typisieren, nicht blind umbenennen |
 | Magie | Zauber / Rituale / Foki / Geister | Einzelwert, Kontextwert, teils eigene Probenlogik | `repeating_sr6zauber_*`, `repeating_sr6rituale_*`, `repeating_sr6foki_*`, `repeating_sr6geister_*` | `Zauber` laufen jetzt ueber ein eigenes `spell_probe`-Modell; `Rituale` bleiben fuer diesen Refactor bewusst Datenfelder ohne Wuerfel |
 | Matrix | Kernwerte | Einzelwert, Kalkulationsfeld | `sr6_matrix_*` | Kernwerte spaeter typisieren, aktuell nicht pauschal in Dreiklang zwingen |
@@ -340,9 +340,9 @@ Nahkampf-Auspraegung:
 
 Damit ist `combat_attack_probe` fuer diesen Refactor funktional gesetzt; spaetere Arbeiten betreffen vor allem die Regelwerkspruefung einzelner Attributs-/Fertigkeitszuordnungen und UX-Feinschliff.
 
-### Bestaetigter Ist-Stand fuer Kampf
+### Bestaetigter Abschlussstand fuer Kampf
 
-Der Kampfbereich ist funktional weitgehend auf diesen Zielzustand gezogen:
+Der Kampfbereich ist fuer Issue 12 funktional abgeschlossen:
 
 - `Fernkampfangriff`, `Nahkampfangriff`, `Verteidigung (Physisch)` und `Schadenswiderstand (Physisch)` laufen als Wuerfelpool-Proben
 - `Verteidigungswert` bleibt ein Vergleichswert und wird nicht als Probe behandelt
@@ -356,11 +356,7 @@ Der Kampfbereich ist funktional weitgehend auf diesen Zielzustand gezogen:
 - `Exotische Waffen` wird in Kampfberechnungen als eigene Fertigkeitsauswahl beruecksichtigt.
 - Waffen-Rollbuttons beruecksichtigen passende Spezialisierung (+2) oder Expertise (+3), wenn Waffentyp und Spezialisierung/Expertise 1:1 uebereinstimmen. Expertise ersetzt den Spezialisierungsbonus und wird nicht zusaetzlich zu +2 gestapelt.
 
-Offen sind damit im Kampfbereich vor allem:
-
-- spaetere UX-Feinarbeit
-- moegliche weitere Regelwerks-Sonderfaelle
-- allgemeine Popup-Konsolidierung im Gesamtprojekt
+Nicht Teil dieses Kampf-Abschlusses sind spaetere allgemeine UX-Feinarbeit und die projektweite Popup-Konsolidierung.
 
 ## Aktuelle Konfliktmuster
 
@@ -678,7 +674,7 @@ Zu pruefen:
 - `attribute_probe x2`
 - Basis- und Repeating-`skill_probe`
 - Initiative: physisch, astral, Matrix, Rigging
-- Kampf: Fernkampf, Nahkampf, Verteidigung (Physisch), Schadenswiderstand (Physisch)
+- Kampf: Fernkampf, Nahkampf, Verteidigung (Physisch), Schadenswiderstand (Physisch), Waffenpools mit Spezialisierung/Expertise
 - Magie-Kernwerte
 - Matrix- und Rigging-Kernwerte
 - Rituale ohne Wuerfel
