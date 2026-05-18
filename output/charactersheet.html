@@ -9144,6 +9144,18 @@ const SR6_ROLL_DEFINITIONS = [
     }),
   },
   {
+    id: "combat_projectile_core_attack",
+    probeModel: "combat_attack_probe",
+    matchField: "Wert",
+    matchPoolPrefix: "sr6_combat_projektilwaffen",
+    titleMode: "field-short",
+    titleField: "Wert",
+    primaryFields: ["Wert"],
+    extraFields: ["Fertigkeit"],
+    fixedTitle: "Projektilwaffen",
+    titleFallback: "Kampf",
+  },
+  {
     id: "value",
     ...createValueProbeDefinition({
       titleFallback: "Probe",
