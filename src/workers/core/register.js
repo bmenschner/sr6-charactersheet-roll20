@@ -98,7 +98,9 @@ function registerWorkerEvents() {
   on(recalcEvents.join(" "), () => {
     recomputeAll(() => {
       syncCombatWeaponPools(() => {
-        syncRepeatingSkillTotals();
+        syncRiggingVehicleProbes(() => {
+          syncRepeatingSkillTotals();
+        });
       });
     });
   });
@@ -170,6 +172,29 @@ function registerWorkerEvents() {
       }, eventInfo);
     }
   );
+  on(
+    [
+      "change:repeating_sr6riggingfahrzeuge:sr6_rigging_fahrzeug_probe",
+      "change:repeating_sr6riggingfahrzeuge:sr6_rigging_fahrzeug_modus",
+      "change:repeating_sr6riggingfahrzeuge:sr6_rigging_fahrzeug_rumpf",
+      "change:repeating_sr6riggingfahrzeuge:sr6_rigging_fahrzeug_panzerung",
+      "change:repeating_sr6riggingfahrzeuge:sr6_rigging_fahrzeug_pilot",
+      "change:repeating_sr6riggingfahrzeuge:sr6_rigging_fahrzeug_sensor",
+      "change:repeating_sr6riggingfahrzeuge:sr6_rigging_fahrzeug_agentenstufe",
+      "change:repeating_sr6riggingfahrzeuge:sr6_rigging_fahrzeug_riggerkontrolle",
+      "change:repeating_sr6riggingfahrzeuge:sr6_rigging_fahrzeug_manoevrieren",
+      "change:repeating_sr6riggingfahrzeuge:sr6_rigging_fahrzeug_zielerfassung",
+      "change:repeating_sr6riggingfahrzeuge:sr6_rigging_fahrzeug_ausweichen",
+      "change:repeating_sr6riggingfahrzeuge:sr6_rigging_fahrzeug_stealth",
+      "change:repeating_sr6riggingfahrzeuge:sr6_rigging_fahrzeug_clearsight",
+      "change:sr6_skill_mechanik_spezialisierung",
+      "change:sr6_skill_mechanik_expertise",
+      "remove:repeating_sr6riggingfahrzeuge",
+    ].join(" "),
+    () => {
+      syncRiggingVehicleProbes();
+    }
+  );
   registerSuccessProbeRollEvents();
   registerEdgeTokenEvents();
   registerNumberStepperEvents();
@@ -182,7 +207,9 @@ function registerWorkerEvents() {
       syncCombatPrimaryWeapons(() => {
         recomputeAll(() => {
           syncCombatWeaponPools(() => {
-            syncRepeatingSkillTotals();
+            syncRiggingVehicleProbes(() => {
+              syncRepeatingSkillTotals();
+            });
           });
         });
       });

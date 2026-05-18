@@ -108,7 +108,7 @@ Nach den bisherigen Issue-12-Schritten gilt:
 | Matrix | Handlungen | Probe, Verteidigung, Kontextwert | `sr6_matrix_handlung_<name>_probe_wert`, `sr6_matrix_handlung_<name>_verteidigung_auswahl`, `sr6_matrix_handlung_<name>_verteidigung_wert`; Legacy-Dreiklang bleibt kompatibel | Regelwerksmapping umgesetzt: `Handlung`, `Probe`, `Verteidigung` mit getrennten Rollbuttons |
 | Matrix | Geraete / Programme / Zubehoer / Komplexe Strukturen / Sprites | Einzelwert / Kontextwert | `repeating_sr6matrixgeraete_*`, `repeating_sr6programme_*`, etc. | Erst nach Gesamtklassifikation verfeinern |
 | Rigging | Kernwerte | Einzelwert, Kalkulationsfeld, Vergleichswert | `sr6_rigging_*` | Issue-12-Pruefung abgeschlossen: Riggerkonsolenwerte bleiben manuelle Geraetewerte; Rigging-Initiative wird aus Modus abgeleitet; Angriffswert/Verteidigungswert sind Vergleichswerte ohne Rollbutton |
-| Rigging | Fahrzeuge / Programme / Zubehoer / Agenten / Manoever | Einzelwert / Kontextwert | `repeating_sr6fahrzeuge_*`, `repeating_sr6agenten_*`, `repeating_sr6manoever_*` | Fahrzeuge/Drohnen sind inventarisiert: Werte sind aktuell reine Datenfelder; regelkonforme Fahrzeug-/Drohnenproben brauchen spaeter eigene Rollmodelle statt pauschalem Dreiklang |
+| Rigging | Fahrzeuge / Programme / Zubehoer / Agenten / Manoever | Einzelwert / Kontextwert / Fahrzeugprobe | `repeating_sr6fahrzeuge_*`, `repeating_sr6agenten_*`, `repeating_sr6manoever_*` | Fahrzeuge/Drohnen nutzen jetzt ein eigenes `rigging_vehicle_probe`-Modell mit Steuerungsmodus, Riggerkontrolle und Autosoft-Werten; Programme/Zubehoer/Agenten/Manoever bleiben Kontextwerte |
 | Ausruestung | Ausruestung / Cyberware / Bioware | Einzelwert / Kontextwert / optionaler Ausruestungswurf | `repeating_sr6ausruestung_*`, `repeating_sr6cyberware_*`, `repeating_sr6bioware_*` | Ausruestung hat jetzt einen optionalen Bezug auf Attribut oder Fertigkeit und wuerfelt `Bezug + Stufe` oder nur `Stufe`; `Stufe x2` ist als Popup-Option umgesetzt. Cyberware/Bioware bleiben Kontextwerte |
 | Leben | Personendaten / SIN / Lebensstil / Connections / Beschreibung | Einzelwert / Kontextwert | `sr6_bio_*`, `repeating_sr6sin_*`, `repeating_sr6lebensstil_*`, `repeating_sr6connections_*`, Textfelder | Tab technisch unter `biographie`; kein kuenstlicher Dreiklang ohne fachliche Not |
 
@@ -479,6 +479,7 @@ Die technische Basis ist bereits vorhanden:
 | `matrix_action` | Matrix-Handlungen nutzen `SR6_MATRIX_ACTION_RULES` fuer Probe und Verteidigung; variable Verteidigungen werden in der Handlungszeile gewaehlt | Regelwerksmapping ist umgesetzt; Probe und Verteidigung sind getrennt rollbar | Restfaelle mit Zielwerten wie `Pilot`, `Geraetestufe` oder `Cyberware-Geraetestufe` spaeter als eigene Zielwertfelder entscheiden |
 | Matrix-/Rigging-Kernwerte | Matrixattribute/Geraetewerte sind teils manuelle Werte; Initiative nutzt Modus-Sonderlogik | Issue-12-Pruefung abgeschlossen; ASDF-/Riggerkonsolenwerte bleiben manuell, Initiative ist berechnet, Angriffs-/Verteidigungswerte sind Vergleichswerte | Beibehalten; keine pauschale Dreiklang-Umstellung |
 | `equipment_probe` / Ausruestung | Ausruestungszeilen koennen optional auf ein Attribut oder eine Fertigkeit referenzieren | Pool ist `Attribut/Fertigkeit + Stufe` oder nur `Stufe`; Popup kann `Stufe x2` aktivieren | Als kleiner Sonderfall abgeschlossen; keine pauschale Ausweitung auf Cyberware/Bioware |
+| `rigging_vehicle_probe` / Fahrzeuge und Drohnen | Fahrzeugproben nutzen je Modus unterschiedliche Formeln aus Regelwerk S. 199-201 | Handling, Fahrzeugangriff, Fahrzeugwaffe, Verteidigung, Heimlichkeit, Wahrnehmung und Schadenswiderstand sind als auswählbare Fahrzeugprobe umgesetzt; Angriffswert, Verteidigungswert und Zustandsmonitor werden berechnet angezeigt; Drohnenwaffen fuehren eigenen Waffen-/Reichweitenkontext | Abgeschlossen; Programme, Zubehoer, Agenten und Manoever bleiben bewusst reine Kontextwerte ohne Berechnung/Rollbutton |
 | `initiative_probe` | Nutzt `Basis + W6` und addiert Augenzahlen | Regelkonformer Sonderfall, nicht Teil von `Attribut + Fertigkeit` | Beibehalten |
 | `value_probe` / Fallback | Nutzt Einzelwerte als Pool oder Vergleichswert | Technisches Sicherheitsnetz, kein fachliches Zielmodell fuer Standardproben | Nicht weiter ausbauen; Restfaelle gezielt in echte Modelle ueberfuehren |
 
@@ -705,28 +706,31 @@ Technischer Stand:
 
 ### Issue-12 Pruefbefund Rigging Fahrzeuge/Drohnen
 
-Der Repeating-Bereich `Rigging > Fahrzeuge` ist aktuell ein Datenblock fuer Fahrzeug-/Drohnenwerte. Das passt fuer Fahrzeugdaten, ist aber noch kein vollstaendiges Probenmodell. Laut Regelwerk unterscheiden sich manuelle/AR-Steuerung, VR/hineingesprungenes Rigging und autonome Drohnen deutlich. Deshalb darf dieser Bereich nicht pauschal zu `Grundwert + Modifikator + Gesamtwert` umgebaut werden.
+Der Repeating-Bereich `Rigging > Fahrzeuge` bleibt ein Datenblock fuer Fahrzeug-/Drohnenwerte, hat jetzt aber ein eigenes Probenmodell. Laut Regelwerk unterscheiden sich manuelle/AR-Steuerung, VR/hineingesprungenes Rigging und autonome Drohnen deutlich. Deshalb wurde dieser Bereich nicht zu `Grundwert + Modifikator + Gesamtwert` umgebaut, sondern als `rigging_vehicle_probe` mit Steuerungsmodus umgesetzt.
 
 | Regelwerkswert / Probe | Manuell / AR | Hineingesprungen / VR | Autonome Drohne | Aktueller Sheet-Stand | Befund |
 | --- | --- | --- | --- | --- | --- |
-| `Initiative` | `Reaktion + Intuition + 1W6` | `Intuition + Intuition + 2W6/3W6`; bei WiFi/Riggerkonsole `Datenverarbeitung + Intuition + 2W6/3W6` | `Pilot x 2 + 3W6` | Global in Rigging-Kernwerten ueber Modus; Fahrzeugzeile hat kein eigenes Initiativefeld | Kernwert passt fuer Riggerkonsole/WiFi; autonome Drohneninitiative fehlt als eigenes Fahrzeug-/Drohnenmodell |
-| `Angriffswert` | `Steuern + Sensor` | `Steuern + Sensor` | Montierte Waffe bzw. `Manoevrieren + Sensor` | Fahrzeugzeile fuehrt `Sensor`, aber keinen berechneten Angriffswert / Rollbutton | Offenes Fahrzeug-/Drohnen-Rollmodell |
-| `Verteidigungswert` | `Steuern + Panzerung` | `Steuern + Panzerung` | `Manoevrieren + Panzerung` | Fahrzeugzeile fuehrt `Panzerung`, aber keinen berechneten Verteidigungswert | Offenes Vergleichswertmodell |
-| `Handlingprobe` | `Steuern + Reaktion` | `Steuern + Intuition` plus ggf. Riggerkontrolle | Nicht als Standard-Pilotprobe in der Fahrzeugzeile abgebildet | Fahrzeugzeile fuehrt `Handling`, `Intervall`, `Geschwindigkeit` | Offenes Rollmodell mit Steuerungsmodus |
-| `Angriffsprobe (Fahrzeug als Waffe)` | `Steuern + Reaktion` | `Steuern + Intuition` plus ggf. Riggerkontrolle | Nicht als Standard-Pilotprobe abgebildet | Kein Rollbutton | Offenes Rollmodell |
-| `Angriffsprobe (Fahrzeugwaffe)` | `Mechanik + Logik` | `Mechanik + Logik` plus ggf. Riggerkontrolle | `[Waffe] Zielerfassung + Sensor` | Fahrzeugzeile fuehrt `Waffe`, aber keine Zielerfassung/Autosoft-Auswahl | Offenes Rollmodell; benoetigt zusaetzliche Datenentscheidung |
-| `Verteidigungsprobe` | `Steuern + Reaktion` | `Steuern + Intuition` plus ggf. Riggerkontrolle | `Ausweichen + Pilot` | Kein Rollbutton | Offenes Rollmodell |
-| `Heimlichkeit` | `Heimlichkeit + Geschicklichkeit` | `Heimlichkeit + Logik` plus ggf. Riggerkontrolle | `Stealth + Pilot` | Kein Stealth-/Autosoft-Feld in der Fahrzeugzeile | Offenes Rollmodell |
-| `Wahrnehmung` | `Wahrnehmung + Intuition` | `Wahrnehmung + Sensor` | `Clearsight + Sensor` | Fahrzeugzeile fuehrt `Sensor`, aber keine Clearsight-Auswahl | Offenes Rollmodell |
-| `Schadenswiderstand` | `Rumpf` | `Rumpf` | `Rumpf` | Fahrzeugzeile fuehrt `Rumpf` | Koennte spaeter als einfacher Widerstands-Rollbutton umgesetzt werden |
-| `Zustandsmonitor` | `[Rumpf / 2 aufgerundet] + 8` | `[Rumpf / 2 aufgerundet] + 8` | `[Rumpf / 2 aufgerundet] + 8` | Kein berechneter Monitor in der Fahrzeugzeile | Offenes berechnetes Anzeigefeld |
+| `Initiative` | `Reaktion + Intuition + 1W6` | `Intuition + Intuition + 2W6/3W6`; bei WiFi/Riggerkonsole `Datenverarbeitung + Intuition + 2W6/3W6` | `Pilot x 2 + 3W6` | Global in Rigging-Kernwerten ueber Modus; Fahrzeugzeile hat bewusst kein eigenes Initiativefeld | Kernwert passt fuer Riggerkonsole/WiFi; autonome Drohneninitiative wird nicht in der Fahrzeugzeile modelliert |
+| `Angriffswert` | `Steuern + Sensor` | `Steuern + Sensor` | Montierte Waffe bzw. `Manoevrieren + Sensor` | Fahrzeugzeile zeigt berechneten Angriffswert | Umgesetzt als Vergleichswert; montierte Waffen bleiben Kontext |
+| `Verteidigungswert` | `Steuern + Panzerung` | `Steuern + Panzerung` | `Manoevrieren + Panzerung` | Fahrzeugzeile zeigt berechneten Verteidigungswert | Umgesetzt als Vergleichswert |
+| `Handlingprobe` | `Steuern + Reaktion` | `Steuern + Intuition` plus ggf. Riggerkontrolle | `Ausweichen + Pilot` als pragmatischer autonomer Ersatz | auswählbare Fahrzeugprobe | Umgesetzt |
+| `Angriffsprobe (Fahrzeug als Waffe)` | `Steuern + Reaktion` | `Steuern + Intuition` plus ggf. Riggerkontrolle | `Zielerfassung + Sensor` als pragmatischer Drohnenangriff | auswählbare Fahrzeugprobe | Umgesetzt; autonomer Spezialfall bleibt fachlich vereinfachend |
+| `Angriffsprobe (Fahrzeugwaffe)` | `Mechanik + Logik`; Spezialisierung/Expertise `Geschuetze` gibt Bonus | `Mechanik + Logik` plus ggf. Riggerkontrolle; Spezialisierung/Expertise `Geschuetze` gibt Bonus | `[Waffe] Zielerfassung + Sensor`; Agent: `Agentenstufe + Sensor` | auswählbare Fahrzeugprobe plus eigener Drohnenwaffen-Kontext | Umgesetzt; `Geschuetze` ist als fixer Waffentyp gesetzt, Waffenmodus ist ein Fernkampf-Modus-Dropdown, Reichweiten haben eigene Rollbuttons mit eigenem Angriffswert |
+| `Verteidigungsprobe` | `Steuern + Reaktion` | `Steuern + Intuition` plus ggf. Riggerkontrolle | `Ausweichen + Pilot` | auswählbare Fahrzeugprobe | Umgesetzt |
+| `Heimlichkeit` | `Heimlichkeit + Geschicklichkeit` | `Heimlichkeit + Logik` plus ggf. Riggerkontrolle | `Stealth + Pilot` | auswählbare Fahrzeugprobe | Umgesetzt |
+| `Wahrnehmung` | `Wahrnehmung + Intuition` | `Wahrnehmung + Sensor` plus ggf. Riggerkontrolle | `Clearsight + Sensor` | auswählbare Fahrzeugprobe | Umgesetzt |
+| `Schadenswiderstand` | `Rumpf` | `Rumpf` | `Rumpf` | auswählbare Fahrzeugprobe | Umgesetzt |
+| `Zustandsmonitor` | `[Rumpf / 2 aufgerundet] + 8` | `[Rumpf / 2 aufgerundet] + 8` | `[Rumpf / 2 aufgerundet] + 8` | Fahrzeugzeile zeigt berechneten Monitor | Umgesetzt |
 
-Umsetzungsregel fuer spaeter:
+Umsetzungsstand:
 
-- Fahrzeug-/Drohnenproben brauchen ein eigenes Rollmodell mit Steuerungsmodus.
-- `Riggerkontrolle-Stufe` und Autosofts wie `Manoevrieren`, `Zielerfassung`, `Ausweichen`, `Stealth` und `Clearsight` duerfen nicht implizit geraten werden.
-- Bestehende Felder `Handling`, `Beschleunigung`, `Intervall`, `Geschwindigkeit`, `Rumpf`, `Panzerung`, `Pilot`, `Sensor`, `Sitze`, `Waffe`, `Modus` bleiben stabile Datenfelder.
-- Kurzfristig keine UI-Rollbuttons einfuehren, solange die benoetigten Autosoft-/Riggerkontrolle-Quellen nicht festgelegt sind.
+- Fahrzeug-/Drohnenproben nutzen ein eigenes Rollmodell mit Steuerungsmodus.
+- `Riggerkontrolle-Stufe` und Autosofts wie `Manoevrieren`, `Zielerfassung`, `Ausweichen`, `Stealth` und `Clearsight` werden explizit in der Fahrzeugzeile gepflegt.
+- Bestehende Felder `Handling`, `Beschleunigung`, `Intervall`, `Geschwindigkeit`, `Rumpf`, `Panzerung`, `Pilot`, `Sensor`, `Sitze` und `Modus` bleiben stabile Datenfelder; der fruehere einfache `Waffe`-Kontext wurde zu einem kompakten Drohnenwaffenblock erweitert. Fahrzeugwaffen nutzen Mechanik; bei nicht-autonomen Modi wird `Geschuetze` als Mechanik-Spezialisierung/Expertise beruecksichtigt. Im Modus `Agent` ersetzt `Agentenstufe` die Skill-/Autosoft-Stufe und wird mit `Sensor` oder `Pilot` kombiniert.
+- Proben werden ueber das Feld `Probe` gewaehlt und mit einem Rollbutton gewuerfelt.
+- Der Fahrzeuge/Drohnen-Block ist fuer Issue 12 abgeschlossen. Autonome Drohneninitiative wird nicht in der Fahrzeugzeile modelliert; eine automatische Kopplung an Kampf-Waffenrepeater ist bewusst nicht Teil dieses Stands. Sonderfaelle wie Riggerkontrolle-Edge/Schwellenwertsenkung bleiben spaeterer Rolltemplate-/Regelfeinheit vorbehalten.
+- Rigging-Programme, Rigging-Zubehoer, Agenten und Manoever bleiben bewusst reine Kontextwerte ohne eigene Berechnungen oder Rollbuttons.
+- Cyberware und Bioware bleiben ebenfalls reine Kontextwerte ohne Berechnungen oder Rollbuttons.
 
 ## Offener Sammeltest
 

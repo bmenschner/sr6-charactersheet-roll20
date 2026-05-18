@@ -362,6 +362,102 @@ function runEquipmentProbeFromContext(context, lookupAttr, resolvedFields, popup
   });
 }
 
+function buildRiggingVehicleRollDataFromLookup(lookupAttr) {
+  return {
+    reaktion: parseNumber(lookupAttr("sr6_attr_reaktion_gesamtwert")),
+    geschicklichkeit: parseNumber(lookupAttr("sr6_attr_geschicklichkeit_gesamtwert")),
+    intuition: parseNumber(lookupAttr("sr6_attr_intuition_gesamtwert")),
+    logik: parseNumber(lookupAttr("sr6_attr_logik_gesamtwert")),
+    steuern: parseNumber(lookupAttr("sr6_skill_steuern_gesamtwert")),
+    mechanik: parseNumber(lookupAttr("sr6_skill_mechanik_gesamtwert")),
+    mechanikSpezialisierung: lookupAttr("sr6_skill_mechanik_spezialisierung"),
+    mechanikExpertise: lookupAttr("sr6_skill_mechanik_expertise"),
+    heimlichkeit: parseNumber(lookupAttr("sr6_skill_heimlichkeit_gesamtwert")),
+    wahrnehmung: parseNumber(lookupAttr("sr6_skill_wahrnehmung_gesamtwert")),
+    rumpf: parseNumber(lookupAttr("sr6_rigging_fahrzeug_rumpf")),
+    panzerung: parseNumber(lookupAttr("sr6_rigging_fahrzeug_panzerung")),
+    pilot: parseNumber(lookupAttr("sr6_rigging_fahrzeug_pilot")),
+    sensor: parseNumber(lookupAttr("sr6_rigging_fahrzeug_sensor")),
+    agentenstufe: parseNumber(lookupAttr("sr6_rigging_fahrzeug_agentenstufe")),
+    riggerkontrolle: parseNumber(lookupAttr("sr6_rigging_fahrzeug_riggerkontrolle")),
+    manoevrieren: parseNumber(lookupAttr("sr6_rigging_fahrzeug_manoevrieren")),
+    zielerfassung: parseNumber(lookupAttr("sr6_rigging_fahrzeug_zielerfassung")),
+    ausweichen: parseNumber(lookupAttr("sr6_rigging_fahrzeug_ausweichen")),
+    stealth: parseNumber(lookupAttr("sr6_rigging_fahrzeug_stealth")),
+    clearsight: parseNumber(lookupAttr("sr6_rigging_fahrzeug_clearsight")),
+  };
+}
+
+function buildRiggingVehicleWeaponRangeText(lookupAttr) {
+  const rangeValues = [
+    ["S. Nah", lookupAttr("sr6_rigging_fahrzeug_waffe_s_nah")],
+    ["Nah", lookupAttr("sr6_rigging_fahrzeug_waffe_nah")],
+    ["Mittel", lookupAttr("sr6_rigging_fahrzeug_waffe_mittel")],
+    ["Weit", lookupAttr("sr6_rigging_fahrzeug_waffe_weit")],
+    ["S. Weit", lookupAttr("sr6_rigging_fahrzeug_waffe_s_weit")],
+  ];
+  return rangeValues
+    .map(([label, value]) => `${label}: ${parseNumber(value)}`)
+    .join(" / ");
+}
+
+function runRiggingVehicleProbeFromContext(context, lookupAttr, resolvedFields, popupState) {
+  const rows = buildProbeRows(resolvedFields, context.definition);
+  const probeKey = `${resolvedFields.Probe || lookupAttr("sr6_rigging_fahrzeug_probe") || "handling"}`.trim();
+  const mode = lookupAttr("sr6_rigging_fahrzeug_modus") || resolvedFields.Modus || "Autonom";
+  const data = buildRiggingVehicleRollDataFromLookup(lookupAttr);
+  const probe = getRiggingVehicleProbeValue(probeKey, mode, data);
+  const attackValue = probeKey === "weapon_attack" && resolvedFields.Angriffswert
+    ? resolvedFields.Angriffswert
+    : `${getRiggingVehicleAttackValue(mode, data)}`;
+  const computation = buildProbeComputation(
+    lookupAttr,
+    context.poolAttribute,
+    popupState.poolMod,
+    1,
+    probe.value
+  );
+  const glitchText = computation.isCriticalGlitch ? "!! Kritischer Patzer !!" : "!! Patzer !!";
+  const erfolgeValue = computation.isGlitch ? glitchText : `${computation.successCount}`;
+
+  rows.push({ label: "Probe", value: getRiggingVehicleProbeLabel(probeKey) });
+  rows.push({ label: "Formel", value: probe.formula });
+  rows.push({ label: "Modus", value: mode });
+  rows.push({ label: "Angriffswert", value: `${attackValue}` });
+  rows.push({ label: "Verteidigungswert", value: `${getRiggingVehicleDefenseValue(mode, data)}` });
+  rows.push({ label: "Zustandsmonitor", value: `${getRiggingVehicleMonitorValue(data)}` });
+  if (probeKey === "weapon_attack") {
+    rows.push({ label: "Installierte Waffe", value: lookupAttr("sr6_rigging_fahrzeug_waffe_name") || "-" });
+    rows.push({ label: "Waffentyp", value: lookupAttr("sr6_rigging_fahrzeug_waffe") || "-" });
+    rows.push({ label: "Schaden", value: lookupAttr("sr6_rigging_fahrzeug_waffe_schaden") || "-" });
+    rows.push({ label: "Waffenmodus", value: lookupAttr("sr6_rigging_fahrzeug_waffe_modus") || "-" });
+    rows.push({ label: "Angriffswerte (Reichweite)", value: buildRiggingVehicleWeaponRangeText(lookupAttr) });
+  }
+  if (normalizeRiggingVehicleMode(mode) === "jumped_in_vr") {
+    rows.push({ label: "Riggerkontrolle", value: `${data.riggerkontrolle}` });
+  }
+  if (normalizeRiggingVehicleMode(mode) === "agent") {
+    rows.push({ label: "Agentenstufe", value: `${data.agentenstufe}` });
+  }
+  popupState.rows.forEach((popupRow) => rows.push(popupRow));
+
+  const chatMessage = buildSr6ProbeMessage({
+    name: "Rigging-Fahrzeugprobe",
+    rows: rows,
+    resolvedFields: resolvedFields,
+    definition: context.definition,
+    definitionId: context.definition && context.definition.id,
+    pool: `${computation.pool}`,
+    erfolge: erfolgeValue,
+    details: buildDiceDetails(computation.diceResults),
+    detailsDice: buildDetailsDice(computation.diceResults),
+    isGlitch: computation.isGlitch,
+  });
+  startRoll(chatMessage, (rollResult) => {
+    finishRoll(rollResult.rollId);
+  });
+}
+
 function runSpellProbeFromContext(context, lookupAttr, resolvedFields, popupState) {
   const rows = buildProbeRows(resolvedFields, context.definition);
   const name = deriveProbeTitle(resolvedFields, context.poolAttribute, context.definition);
@@ -523,6 +619,10 @@ function runSuccessProbeFromContext(rawTemplate, repeatingRowPrefix, popupState 
     }
     if (context.definition && context.definition.probeModel === "equipment_probe") {
       runEquipmentProbeFromContext(context, lookupAttr, resolvedFields, normalizedPopupState);
+      return;
+    }
+    if (context.definition && context.definition.probeModel === "rigging_vehicle_probe") {
+      runRiggingVehicleProbeFromContext(context, lookupAttr, resolvedFields, normalizedPopupState);
       return;
     }
 

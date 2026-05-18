@@ -517,6 +517,7 @@ const SR6_ROLL_TITLE_PREFIXES = [
   { prefix: "sr6_fernkampf_", title: "Fernkampfwaffen" },
   { prefix: "sr6_nahkampf_", title: "Nahkampfwaffen" },
   { prefix: "sr6_matrix_handlung_", title: "Matrix-Handlungen" },
+  { prefix: "sr6_rigging_fahrzeug_", title: "Rigging-Fahrzeuge" },
   { prefix: "sr6_attrprobe_", title: "Attributsproben" },
   { prefix: "sr6_matrix_", title: "Matrix: Kernwerte" },
   { prefix: "sr6_rigging_manoever_", title: "Manöver" },
@@ -549,6 +550,45 @@ const SR6_DEFAULT_ROLL_ROW_ORDER = [
 ];
 
 const SR6_POPUP_FIELD_SLOT_COUNT = 8;
+
+const SR6_RIGGING_VEHICLE_ROLL_ATTRIBUTES = [
+  "sr6_attr_reaktion_gesamtwert",
+  "sr6_attr_geschicklichkeit_gesamtwert",
+  "sr6_attr_intuition_gesamtwert",
+  "sr6_attr_logik_gesamtwert",
+  "sr6_skill_steuern_gesamtwert",
+  "sr6_skill_mechanik_gesamtwert",
+  "sr6_skill_mechanik_spezialisierung",
+  "sr6_skill_mechanik_expertise",
+  "sr6_skill_heimlichkeit_gesamtwert",
+  "sr6_skill_wahrnehmung_gesamtwert",
+  "sr6_rigging_fahrzeug_probe",
+  "sr6_rigging_fahrzeug_modus",
+  "sr6_rigging_fahrzeug_rumpf",
+  "sr6_rigging_fahrzeug_panzerung",
+  "sr6_rigging_fahrzeug_pilot",
+  "sr6_rigging_fahrzeug_sensor",
+  "sr6_rigging_fahrzeug_agentenstufe",
+  "sr6_rigging_fahrzeug_riggerkontrolle",
+  "sr6_rigging_fahrzeug_manoevrieren",
+  "sr6_rigging_fahrzeug_zielerfassung",
+  "sr6_rigging_fahrzeug_ausweichen",
+  "sr6_rigging_fahrzeug_stealth",
+  "sr6_rigging_fahrzeug_clearsight",
+  "sr6_rigging_fahrzeug_angriffswert",
+  "sr6_rigging_fahrzeug_verteidigungswert",
+  "sr6_rigging_fahrzeug_zustandsmonitor",
+  "sr6_rigging_fahrzeug_waffe_probe_wert",
+  "sr6_rigging_fahrzeug_waffe_name",
+  "sr6_rigging_fahrzeug_waffe",
+  "sr6_rigging_fahrzeug_waffe_schaden",
+  "sr6_rigging_fahrzeug_waffe_modus",
+  "sr6_rigging_fahrzeug_waffe_s_nah",
+  "sr6_rigging_fahrzeug_waffe_nah",
+  "sr6_rigging_fahrzeug_waffe_mittel",
+  "sr6_rigging_fahrzeug_waffe_weit",
+  "sr6_rigging_fahrzeug_waffe_s_weit",
+];
 
 const SR6_EQUIPMENT_SOURCE_OPTIONS = {
   "attr:konstitution": { label: "Konstitution", type: "Attribut", attr: "sr6_attr_konstitution_gesamtwert" },
@@ -1661,6 +1701,19 @@ const SR6_ROLL_DEFINITIONS = [
     }),
   },
   {
+    id: "rigging_vehicle",
+    probeModel: "rigging_vehicle_probe",
+    matchField: "Fahrzeug",
+    matchPoolPrefix: "sr6_rigging_fahrzeug_",
+    titleMode: "field-short",
+    titleField: "Probe",
+    primaryFields: ["Fahrzeug", "Probe"],
+    extraFields: ["Modus"],
+    popupFields: SR6_DEFAULT_POPUP_FIELDS,
+    internalFields: ["Probe"],
+    titleFallback: "Rigging-Fahrzeugprobe",
+  },
+  {
     id: "rigging_value",
     ...createValueProbeDefinition({
       matchPoolPrefix: "sr6_rigging_",
@@ -2052,6 +2105,9 @@ function getRollAdditionalAttributes(definition) {
   });
   if (definition && definition.id === "equipment") {
     attributes.push(...getEquipmentSourceAttributeRefs());
+  }
+  if (definition && definition.id === "rigging_vehicle") {
+    attributes.push(...SR6_RIGGING_VEHICLE_ROLL_ATTRIBUTES);
   }
   if (definition && definition.id === "matrix_action") {
     return [...new Set([...attributes, ...getMatrixActionRuleAttributeRefs(), ...getMatrixActionSelectionAttributeRefs()])];
@@ -3422,6 +3478,102 @@ function runEquipmentProbeFromContext(context, lookupAttr, resolvedFields, popup
   });
 }
 
+function buildRiggingVehicleRollDataFromLookup(lookupAttr) {
+  return {
+    reaktion: parseNumber(lookupAttr("sr6_attr_reaktion_gesamtwert")),
+    geschicklichkeit: parseNumber(lookupAttr("sr6_attr_geschicklichkeit_gesamtwert")),
+    intuition: parseNumber(lookupAttr("sr6_attr_intuition_gesamtwert")),
+    logik: parseNumber(lookupAttr("sr6_attr_logik_gesamtwert")),
+    steuern: parseNumber(lookupAttr("sr6_skill_steuern_gesamtwert")),
+    mechanik: parseNumber(lookupAttr("sr6_skill_mechanik_gesamtwert")),
+    mechanikSpezialisierung: lookupAttr("sr6_skill_mechanik_spezialisierung"),
+    mechanikExpertise: lookupAttr("sr6_skill_mechanik_expertise"),
+    heimlichkeit: parseNumber(lookupAttr("sr6_skill_heimlichkeit_gesamtwert")),
+    wahrnehmung: parseNumber(lookupAttr("sr6_skill_wahrnehmung_gesamtwert")),
+    rumpf: parseNumber(lookupAttr("sr6_rigging_fahrzeug_rumpf")),
+    panzerung: parseNumber(lookupAttr("sr6_rigging_fahrzeug_panzerung")),
+    pilot: parseNumber(lookupAttr("sr6_rigging_fahrzeug_pilot")),
+    sensor: parseNumber(lookupAttr("sr6_rigging_fahrzeug_sensor")),
+    agentenstufe: parseNumber(lookupAttr("sr6_rigging_fahrzeug_agentenstufe")),
+    riggerkontrolle: parseNumber(lookupAttr("sr6_rigging_fahrzeug_riggerkontrolle")),
+    manoevrieren: parseNumber(lookupAttr("sr6_rigging_fahrzeug_manoevrieren")),
+    zielerfassung: parseNumber(lookupAttr("sr6_rigging_fahrzeug_zielerfassung")),
+    ausweichen: parseNumber(lookupAttr("sr6_rigging_fahrzeug_ausweichen")),
+    stealth: parseNumber(lookupAttr("sr6_rigging_fahrzeug_stealth")),
+    clearsight: parseNumber(lookupAttr("sr6_rigging_fahrzeug_clearsight")),
+  };
+}
+
+function buildRiggingVehicleWeaponRangeText(lookupAttr) {
+  const rangeValues = [
+    ["S. Nah", lookupAttr("sr6_rigging_fahrzeug_waffe_s_nah")],
+    ["Nah", lookupAttr("sr6_rigging_fahrzeug_waffe_nah")],
+    ["Mittel", lookupAttr("sr6_rigging_fahrzeug_waffe_mittel")],
+    ["Weit", lookupAttr("sr6_rigging_fahrzeug_waffe_weit")],
+    ["S. Weit", lookupAttr("sr6_rigging_fahrzeug_waffe_s_weit")],
+  ];
+  return rangeValues
+    .map(([label, value]) => `${label}: ${parseNumber(value)}`)
+    .join(" / ");
+}
+
+function runRiggingVehicleProbeFromContext(context, lookupAttr, resolvedFields, popupState) {
+  const rows = buildProbeRows(resolvedFields, context.definition);
+  const probeKey = `${resolvedFields.Probe || lookupAttr("sr6_rigging_fahrzeug_probe") || "handling"}`.trim();
+  const mode = lookupAttr("sr6_rigging_fahrzeug_modus") || resolvedFields.Modus || "Autonom";
+  const data = buildRiggingVehicleRollDataFromLookup(lookupAttr);
+  const probe = getRiggingVehicleProbeValue(probeKey, mode, data);
+  const attackValue = probeKey === "weapon_attack" && resolvedFields.Angriffswert
+    ? resolvedFields.Angriffswert
+    : `${getRiggingVehicleAttackValue(mode, data)}`;
+  const computation = buildProbeComputation(
+    lookupAttr,
+    context.poolAttribute,
+    popupState.poolMod,
+    1,
+    probe.value
+  );
+  const glitchText = computation.isCriticalGlitch ? "!! Kritischer Patzer !!" : "!! Patzer !!";
+  const erfolgeValue = computation.isGlitch ? glitchText : `${computation.successCount}`;
+
+  rows.push({ label: "Probe", value: getRiggingVehicleProbeLabel(probeKey) });
+  rows.push({ label: "Formel", value: probe.formula });
+  rows.push({ label: "Modus", value: mode });
+  rows.push({ label: "Angriffswert", value: `${attackValue}` });
+  rows.push({ label: "Verteidigungswert", value: `${getRiggingVehicleDefenseValue(mode, data)}` });
+  rows.push({ label: "Zustandsmonitor", value: `${getRiggingVehicleMonitorValue(data)}` });
+  if (probeKey === "weapon_attack") {
+    rows.push({ label: "Installierte Waffe", value: lookupAttr("sr6_rigging_fahrzeug_waffe_name") || "-" });
+    rows.push({ label: "Waffentyp", value: lookupAttr("sr6_rigging_fahrzeug_waffe") || "-" });
+    rows.push({ label: "Schaden", value: lookupAttr("sr6_rigging_fahrzeug_waffe_schaden") || "-" });
+    rows.push({ label: "Waffenmodus", value: lookupAttr("sr6_rigging_fahrzeug_waffe_modus") || "-" });
+    rows.push({ label: "Angriffswerte (Reichweite)", value: buildRiggingVehicleWeaponRangeText(lookupAttr) });
+  }
+  if (normalizeRiggingVehicleMode(mode) === "jumped_in_vr") {
+    rows.push({ label: "Riggerkontrolle", value: `${data.riggerkontrolle}` });
+  }
+  if (normalizeRiggingVehicleMode(mode) === "agent") {
+    rows.push({ label: "Agentenstufe", value: `${data.agentenstufe}` });
+  }
+  popupState.rows.forEach((popupRow) => rows.push(popupRow));
+
+  const chatMessage = buildSr6ProbeMessage({
+    name: "Rigging-Fahrzeugprobe",
+    rows: rows,
+    resolvedFields: resolvedFields,
+    definition: context.definition,
+    definitionId: context.definition && context.definition.id,
+    pool: `${computation.pool}`,
+    erfolge: erfolgeValue,
+    details: buildDiceDetails(computation.diceResults),
+    detailsDice: buildDetailsDice(computation.diceResults),
+    isGlitch: computation.isGlitch,
+  });
+  startRoll(chatMessage, (rollResult) => {
+    finishRoll(rollResult.rollId);
+  });
+}
+
 function runSpellProbeFromContext(context, lookupAttr, resolvedFields, popupState) {
   const rows = buildProbeRows(resolvedFields, context.definition);
   const name = deriveProbeTitle(resolvedFields, context.poolAttribute, context.definition);
@@ -3583,6 +3735,10 @@ function runSuccessProbeFromContext(rawTemplate, repeatingRowPrefix, popupState 
     }
     if (context.definition && context.definition.probeModel === "equipment_probe") {
       runEquipmentProbeFromContext(context, lookupAttr, resolvedFields, normalizedPopupState);
+      return;
+    }
+    if (context.definition && context.definition.probeModel === "rigging_vehicle_probe") {
+      runRiggingVehicleProbeFromContext(context, lookupAttr, resolvedFields, normalizedPopupState);
       return;
     }
 
@@ -3840,9 +3996,18 @@ const SR6_NUMBER_STEPPER_REPEATING_SKILL_PREFIXES = [
   "repeating_sr6wissenssprachsofts_",
 ];
 
+const SR6_NUMBER_STEPPER_RIGGING_VEHICLE_PREFIXES = [
+  "repeating_sr6riggingfahrzeuge_",
+];
+
 function shouldSyncRepeatingSkillTotalsAfterStepper(repeatingRowPrefix) {
   if (!repeatingRowPrefix) return false;
   return SR6_NUMBER_STEPPER_REPEATING_SKILL_PREFIXES.some((prefix) => repeatingRowPrefix.startsWith(prefix));
+}
+
+function shouldSyncRiggingVehicleProbesAfterStepper(repeatingRowPrefix) {
+  if (!repeatingRowPrefix) return false;
+  return SR6_NUMBER_STEPPER_RIGGING_VEHICLE_PREFIXES.some((prefix) => repeatingRowPrefix.startsWith(prefix));
 }
 
 function resolveRepeatingRowPrefixForStepper(eventInfo, callback) {
@@ -3950,6 +4115,10 @@ function runNumberStepperAdjust(eventInfo) {
       setAttrsSilent({
         [scopedTargetAttr]: String(currentValue + delta),
       }, () => {
+        if (shouldSyncRiggingVehicleProbesAfterStepper(repeatingRowPrefix) && typeof syncRiggingVehicleProbes === "function") {
+          syncRiggingVehicleProbes();
+          return;
+        }
         if (shouldSyncRepeatingSkillTotalsAfterStepper(repeatingRowPrefix) && typeof syncRepeatingSkillTotals === "function") {
           syncRepeatingSkillTotals();
           return;
@@ -3971,6 +4140,7 @@ function registerSuccessProbeRollEvents() {
   on("clicked:repeating_sr6zauber:probe", runSuccessProbeRoll);
   on("clicked:repeating_sr6geister:probe", runSuccessProbeRoll);
   on("clicked:repeating_sr6ausruestung:probe", runSuccessProbeRoll);
+  on("clicked:repeating_sr6riggingfahrzeuge:probe", runSuccessProbeRoll);
   on("clicked:repeating_sr6wissensfertigkeiten:probe", runSuccessProbeRoll);
   on("clicked:repeating_sr6sprachfertigkeiten:probe", runSuccessProbeRoll);
   on("clicked:repeating_sr6talentsofts:probe", runSuccessProbeRoll);
@@ -4932,6 +5102,16 @@ function appendRiggingRequestKeys(requestKeys) {
   requestKeys.push("sr6_rigging_datenverarbeitung");
 }
 
+const SR6_RIGGING_VEHICLE_PROBE_LABELS = {
+  handling: "Handlingprobe",
+  ramming_attack: "Fahrzeug als Waffe",
+  weapon_attack: "Fahrzeugwaffe",
+  defense: "Verteidigungsprobe",
+  stealth: "Heimlichkeit",
+  perception: "Wahrnehmung",
+  damage_resistance: "Schadenswiderstand",
+};
+
 function resolveRiggingInitiativeMode(mode) {
   if (mode === "VR Heiss") {
     return { basisSource: "matrix", w6: 3 };
@@ -4953,6 +5133,248 @@ function computeRiggingDerived(values, totals, _skillTotals, updates) {
 
   updates.sr6_rigging_initiative = String(riggingBasis);
   updates.sr6_rigging_initiative_w6 = String(riggingInitiativeMode.w6);
+}
+
+function normalizeRiggingVehicleMode(mode) {
+  const normalizedMode = `${mode || ""}`.trim();
+  if (normalizedMode === "Agent") return "agent";
+  if (normalizedMode === "Autonom") return "autonomous";
+  if (normalizedMode === "Eingesprungen (VR)") return "jumped_in_vr";
+  return "manual_ar";
+}
+
+function getRiggingVehicleProbeLabel(probeKey) {
+  return SR6_RIGGING_VEHICLE_PROBE_LABELS[probeKey] || SR6_RIGGING_VEHICLE_PROBE_LABELS.handling;
+}
+
+function getRiggingVehicleGunneryBonus(mode, data) {
+  if (normalizeRiggingVehicleMode(mode) === "autonomous") {
+    return 0;
+  }
+  return getCombatSpecializationBonus(data.mechanikSpezialisierung, data.mechanikExpertise, ["Geschuetze", "Geschütze"]);
+}
+
+function getRiggingVehicleProbeValue(probeKey, mode, data) {
+  const modeKey = normalizeRiggingVehicleMode(mode);
+  const riggerControl = modeKey === "jumped_in_vr" ? data.riggerkontrolle : 0;
+  const gunneryBonus = getRiggingVehicleGunneryBonus(mode, data);
+  const gunneryFormulaBonus = gunneryBonus ? " + Geschütze" : "";
+
+  if (probeKey === "damage_resistance") {
+    return {
+      value: data.rumpf,
+      formula: "Rumpf",
+    };
+  }
+
+  if (modeKey === "autonomous") {
+    if (probeKey === "weapon_attack" || probeKey === "ramming_attack") {
+      return {
+        value: data.zielerfassung + data.sensor,
+        formula: "Zielerfassung + Sensor",
+      };
+    }
+    if (probeKey === "defense" || probeKey === "handling") {
+      return {
+        value: data.ausweichen + data.pilot,
+        formula: "Ausweichen + Pilot",
+      };
+    }
+    if (probeKey === "stealth") {
+      return {
+        value: data.stealth + data.pilot,
+        formula: "Stealth + Pilot",
+      };
+    }
+    if (probeKey === "perception") {
+      return {
+        value: data.clearsight + data.sensor,
+        formula: "Clearsight + Sensor",
+      };
+    }
+  }
+
+  if (modeKey === "agent") {
+    if (probeKey === "weapon_attack" || probeKey === "ramming_attack") {
+      return {
+        value: data.agentenstufe + data.sensor,
+        formula: "Agentenstufe + Sensor",
+      };
+    }
+    if (probeKey === "perception") {
+      return {
+        value: data.agentenstufe + data.sensor,
+        formula: "Agentenstufe + Sensor",
+      };
+    }
+    if (probeKey === "defense" || probeKey === "handling" || probeKey === "stealth") {
+      return {
+        value: data.agentenstufe + data.pilot,
+        formula: "Agentenstufe + Pilot",
+      };
+    }
+  }
+
+  if (modeKey === "jumped_in_vr") {
+    if (probeKey === "weapon_attack") {
+      return {
+        value: data.mechanik + data.logik + riggerControl + gunneryBonus,
+        formula: `Mechanik + Logik + Riggerkontrolle${gunneryFormulaBonus}`,
+      };
+    }
+    if (probeKey === "stealth") {
+      return {
+        value: data.heimlichkeit + data.logik + riggerControl,
+        formula: "Heimlichkeit + Logik + Riggerkontrolle",
+      };
+    }
+    if (probeKey === "perception") {
+      return {
+        value: data.wahrnehmung + data.sensor + riggerControl,
+        formula: "Wahrnehmung + Sensor + Riggerkontrolle",
+      };
+    }
+    return {
+      value: data.steuern + data.intuition + riggerControl,
+      formula: "Steuern + Intuition + Riggerkontrolle",
+    };
+  }
+
+  if (probeKey === "weapon_attack") {
+    return {
+      value: data.mechanik + data.logik + gunneryBonus,
+      formula: `Mechanik + Logik${gunneryFormulaBonus}`,
+    };
+  }
+  if (probeKey === "stealth") {
+    return {
+      value: data.heimlichkeit + data.geschicklichkeit,
+      formula: "Heimlichkeit + Geschicklichkeit",
+    };
+  }
+  if (probeKey === "perception") {
+    return {
+      value: data.wahrnehmung + data.intuition,
+      formula: "Wahrnehmung + Intuition",
+    };
+  }
+
+  return {
+    value: data.steuern + data.reaktion,
+    formula: "Steuern + Reaktion",
+  };
+}
+
+function getRiggingVehicleAttackValue(mode, data) {
+  if (normalizeRiggingVehicleMode(mode) === "agent") {
+    return data.agentenstufe + data.sensor;
+  }
+  if (normalizeRiggingVehicleMode(mode) === "autonomous") {
+    return data.manoevrieren + data.sensor;
+  }
+  return data.steuern + data.sensor;
+}
+
+function getRiggingVehicleDefenseValue(mode, data) {
+  if (normalizeRiggingVehicleMode(mode) === "agent") {
+    return data.agentenstufe + data.panzerung;
+  }
+  if (normalizeRiggingVehicleMode(mode) === "autonomous") {
+    return data.manoevrieren + data.panzerung;
+  }
+  return data.steuern + data.panzerung;
+}
+
+function getRiggingVehicleMonitorValue(data) {
+  return Math.ceil(data.rumpf / 2) + 8;
+}
+
+function buildRiggingVehicleData(values, rowPrefix) {
+  return {
+    reaktion: parseNumber(values.sr6_attr_reaktion_gesamtwert),
+    geschicklichkeit: parseNumber(values.sr6_attr_geschicklichkeit_gesamtwert),
+    intuition: parseNumber(values.sr6_attr_intuition_gesamtwert),
+    logik: parseNumber(values.sr6_attr_logik_gesamtwert),
+    steuern: parseNumber(values.sr6_skill_steuern_gesamtwert),
+    mechanik: parseNumber(values.sr6_skill_mechanik_gesamtwert),
+    mechanikSpezialisierung: values.sr6_skill_mechanik_spezialisierung,
+    mechanikExpertise: values.sr6_skill_mechanik_expertise,
+    heimlichkeit: parseNumber(values.sr6_skill_heimlichkeit_gesamtwert),
+    wahrnehmung: parseNumber(values.sr6_skill_wahrnehmung_gesamtwert),
+    rumpf: parseNumber(values[`${rowPrefix}_sr6_rigging_fahrzeug_rumpf`]),
+    panzerung: parseNumber(values[`${rowPrefix}_sr6_rigging_fahrzeug_panzerung`]),
+    pilot: parseNumber(values[`${rowPrefix}_sr6_rigging_fahrzeug_pilot`]),
+    sensor: parseNumber(values[`${rowPrefix}_sr6_rigging_fahrzeug_sensor`]),
+    agentenstufe: parseNumber(values[`${rowPrefix}_sr6_rigging_fahrzeug_agentenstufe`]),
+    riggerkontrolle: parseNumber(values[`${rowPrefix}_sr6_rigging_fahrzeug_riggerkontrolle`]),
+    manoevrieren: parseNumber(values[`${rowPrefix}_sr6_rigging_fahrzeug_manoevrieren`]),
+    zielerfassung: parseNumber(values[`${rowPrefix}_sr6_rigging_fahrzeug_zielerfassung`]),
+    ausweichen: parseNumber(values[`${rowPrefix}_sr6_rigging_fahrzeug_ausweichen`]),
+    stealth: parseNumber(values[`${rowPrefix}_sr6_rigging_fahrzeug_stealth`]),
+    clearsight: parseNumber(values[`${rowPrefix}_sr6_rigging_fahrzeug_clearsight`]),
+  };
+}
+
+function appendRiggingVehicleRequestKeys(requestKeys, rowPrefix) {
+  requestKeys.push(`${rowPrefix}_sr6_rigging_fahrzeug_probe`);
+  requestKeys.push(`${rowPrefix}_sr6_rigging_fahrzeug_modus`);
+  requestKeys.push(`${rowPrefix}_sr6_rigging_fahrzeug_rumpf`);
+  requestKeys.push(`${rowPrefix}_sr6_rigging_fahrzeug_panzerung`);
+  requestKeys.push(`${rowPrefix}_sr6_rigging_fahrzeug_pilot`);
+  requestKeys.push(`${rowPrefix}_sr6_rigging_fahrzeug_sensor`);
+  requestKeys.push(`${rowPrefix}_sr6_rigging_fahrzeug_agentenstufe`);
+  requestKeys.push(`${rowPrefix}_sr6_rigging_fahrzeug_riggerkontrolle`);
+  requestKeys.push(`${rowPrefix}_sr6_rigging_fahrzeug_manoevrieren`);
+  requestKeys.push(`${rowPrefix}_sr6_rigging_fahrzeug_zielerfassung`);
+  requestKeys.push(`${rowPrefix}_sr6_rigging_fahrzeug_ausweichen`);
+  requestKeys.push(`${rowPrefix}_sr6_rigging_fahrzeug_stealth`);
+  requestKeys.push(`${rowPrefix}_sr6_rigging_fahrzeug_clearsight`);
+}
+
+function syncRiggingVehicleProbes(callback) {
+  const requestKeys = [
+    "sr6_attr_reaktion_gesamtwert",
+    "sr6_attr_geschicklichkeit_gesamtwert",
+    "sr6_attr_intuition_gesamtwert",
+    "sr6_attr_logik_gesamtwert",
+    "sr6_skill_steuern_gesamtwert",
+    "sr6_skill_mechanik_gesamtwert",
+    "sr6_skill_mechanik_spezialisierung",
+    "sr6_skill_mechanik_expertise",
+    "sr6_skill_heimlichkeit_gesamtwert",
+    "sr6_skill_wahrnehmung_gesamtwert",
+  ];
+
+  getSectionIDs("repeating_sr6riggingfahrzeuge", (sectionIds) => {
+    const rowIds = sectionIds || [];
+    rowIds.forEach((rowId) => appendRiggingVehicleRequestKeys(requestKeys, `repeating_sr6riggingfahrzeuge_${rowId}`));
+
+    getAttrs(requestKeys, (values) => {
+      const updates = {};
+
+      rowIds.forEach((rowId) => {
+        const rowPrefix = `repeating_sr6riggingfahrzeuge_${rowId}`;
+        const probeKey = values[`${rowPrefix}_sr6_rigging_fahrzeug_probe`] || "handling";
+        const mode = values[`${rowPrefix}_sr6_rigging_fahrzeug_modus`] || "Autonom";
+        const data = buildRiggingVehicleData(values, rowPrefix);
+        const probe = getRiggingVehicleProbeValue(probeKey, mode, data);
+        const weaponProbe = getRiggingVehicleProbeValue("weapon_attack", mode, data);
+
+        updates[`${rowPrefix}_sr6_rigging_fahrzeug_waffe`] = "Geschütze";
+        updates[`${rowPrefix}_sr6_rigging_fahrzeug_probe_wert`] = String(probe.value);
+        updates[`${rowPrefix}_sr6_rigging_fahrzeug_waffe_probe_wert`] = String(weaponProbe.value);
+        updates[`${rowPrefix}_sr6_rigging_fahrzeug_angriffswert`] = String(getRiggingVehicleAttackValue(mode, data));
+        updates[`${rowPrefix}_sr6_rigging_fahrzeug_verteidigungswert`] = String(getRiggingVehicleDefenseValue(mode, data));
+        updates[`${rowPrefix}_sr6_rigging_fahrzeug_zustandsmonitor`] = String(getRiggingVehicleMonitorValue(data));
+      });
+
+      if (Object.keys(updates).length === 0) {
+        if (typeof callback === "function") callback();
+        return;
+      }
+      setAttrsSilent(updates, callback);
+    });
+  });
 }
 // END MODULE: workers/compute/rigging
 
@@ -5196,7 +5618,9 @@ function registerWorkerEvents() {
   on(recalcEvents.join(" "), () => {
     recomputeAll(() => {
       syncCombatWeaponPools(() => {
-        syncRepeatingSkillTotals();
+        syncRiggingVehicleProbes(() => {
+          syncRepeatingSkillTotals();
+        });
       });
     });
   });
@@ -5268,6 +5692,29 @@ function registerWorkerEvents() {
       }, eventInfo);
     }
   );
+  on(
+    [
+      "change:repeating_sr6riggingfahrzeuge:sr6_rigging_fahrzeug_probe",
+      "change:repeating_sr6riggingfahrzeuge:sr6_rigging_fahrzeug_modus",
+      "change:repeating_sr6riggingfahrzeuge:sr6_rigging_fahrzeug_rumpf",
+      "change:repeating_sr6riggingfahrzeuge:sr6_rigging_fahrzeug_panzerung",
+      "change:repeating_sr6riggingfahrzeuge:sr6_rigging_fahrzeug_pilot",
+      "change:repeating_sr6riggingfahrzeuge:sr6_rigging_fahrzeug_sensor",
+      "change:repeating_sr6riggingfahrzeuge:sr6_rigging_fahrzeug_agentenstufe",
+      "change:repeating_sr6riggingfahrzeuge:sr6_rigging_fahrzeug_riggerkontrolle",
+      "change:repeating_sr6riggingfahrzeuge:sr6_rigging_fahrzeug_manoevrieren",
+      "change:repeating_sr6riggingfahrzeuge:sr6_rigging_fahrzeug_zielerfassung",
+      "change:repeating_sr6riggingfahrzeuge:sr6_rigging_fahrzeug_ausweichen",
+      "change:repeating_sr6riggingfahrzeuge:sr6_rigging_fahrzeug_stealth",
+      "change:repeating_sr6riggingfahrzeuge:sr6_rigging_fahrzeug_clearsight",
+      "change:sr6_skill_mechanik_spezialisierung",
+      "change:sr6_skill_mechanik_expertise",
+      "remove:repeating_sr6riggingfahrzeuge",
+    ].join(" "),
+    () => {
+      syncRiggingVehicleProbes();
+    }
+  );
   registerSuccessProbeRollEvents();
   registerEdgeTokenEvents();
   registerNumberStepperEvents();
@@ -5280,7 +5727,9 @@ function registerWorkerEvents() {
       syncCombatPrimaryWeapons(() => {
         recomputeAll(() => {
           syncCombatWeaponPools(() => {
-            syncRepeatingSkillTotals();
+            syncRiggingVehicleProbes(() => {
+              syncRepeatingSkillTotals();
+            });
           });
         });
       });

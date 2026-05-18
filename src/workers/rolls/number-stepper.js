@@ -21,9 +21,18 @@ const SR6_NUMBER_STEPPER_REPEATING_SKILL_PREFIXES = [
   "repeating_sr6wissenssprachsofts_",
 ];
 
+const SR6_NUMBER_STEPPER_RIGGING_VEHICLE_PREFIXES = [
+  "repeating_sr6riggingfahrzeuge_",
+];
+
 function shouldSyncRepeatingSkillTotalsAfterStepper(repeatingRowPrefix) {
   if (!repeatingRowPrefix) return false;
   return SR6_NUMBER_STEPPER_REPEATING_SKILL_PREFIXES.some((prefix) => repeatingRowPrefix.startsWith(prefix));
+}
+
+function shouldSyncRiggingVehicleProbesAfterStepper(repeatingRowPrefix) {
+  if (!repeatingRowPrefix) return false;
+  return SR6_NUMBER_STEPPER_RIGGING_VEHICLE_PREFIXES.some((prefix) => repeatingRowPrefix.startsWith(prefix));
 }
 
 function resolveRepeatingRowPrefixForStepper(eventInfo, callback) {
@@ -131,6 +140,10 @@ function runNumberStepperAdjust(eventInfo) {
       setAttrsSilent({
         [scopedTargetAttr]: String(currentValue + delta),
       }, () => {
+        if (shouldSyncRiggingVehicleProbesAfterStepper(repeatingRowPrefix) && typeof syncRiggingVehicleProbes === "function") {
+          syncRiggingVehicleProbes();
+          return;
+        }
         if (shouldSyncRepeatingSkillTotalsAfterStepper(repeatingRowPrefix) && typeof syncRepeatingSkillTotals === "function") {
           syncRepeatingSkillTotals();
           return;

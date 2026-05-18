@@ -4,6 +4,7 @@ const SR6_ROLL_TITLE_PREFIXES = [
   { prefix: "sr6_fernkampf_", title: "Fernkampfwaffen" },
   { prefix: "sr6_nahkampf_", title: "Nahkampfwaffen" },
   { prefix: "sr6_matrix_handlung_", title: "Matrix-Handlungen" },
+  { prefix: "sr6_rigging_fahrzeug_", title: "Rigging-Fahrzeuge" },
   { prefix: "sr6_attrprobe_", title: "Attributsproben" },
   { prefix: "sr6_matrix_", title: "Matrix: Kernwerte" },
   { prefix: "sr6_rigging_manoever_", title: "Manöver" },
@@ -36,6 +37,45 @@ const SR6_DEFAULT_ROLL_ROW_ORDER = [
 ];
 
 const SR6_POPUP_FIELD_SLOT_COUNT = 8;
+
+const SR6_RIGGING_VEHICLE_ROLL_ATTRIBUTES = [
+  "sr6_attr_reaktion_gesamtwert",
+  "sr6_attr_geschicklichkeit_gesamtwert",
+  "sr6_attr_intuition_gesamtwert",
+  "sr6_attr_logik_gesamtwert",
+  "sr6_skill_steuern_gesamtwert",
+  "sr6_skill_mechanik_gesamtwert",
+  "sr6_skill_mechanik_spezialisierung",
+  "sr6_skill_mechanik_expertise",
+  "sr6_skill_heimlichkeit_gesamtwert",
+  "sr6_skill_wahrnehmung_gesamtwert",
+  "sr6_rigging_fahrzeug_probe",
+  "sr6_rigging_fahrzeug_modus",
+  "sr6_rigging_fahrzeug_rumpf",
+  "sr6_rigging_fahrzeug_panzerung",
+  "sr6_rigging_fahrzeug_pilot",
+  "sr6_rigging_fahrzeug_sensor",
+  "sr6_rigging_fahrzeug_agentenstufe",
+  "sr6_rigging_fahrzeug_riggerkontrolle",
+  "sr6_rigging_fahrzeug_manoevrieren",
+  "sr6_rigging_fahrzeug_zielerfassung",
+  "sr6_rigging_fahrzeug_ausweichen",
+  "sr6_rigging_fahrzeug_stealth",
+  "sr6_rigging_fahrzeug_clearsight",
+  "sr6_rigging_fahrzeug_angriffswert",
+  "sr6_rigging_fahrzeug_verteidigungswert",
+  "sr6_rigging_fahrzeug_zustandsmonitor",
+  "sr6_rigging_fahrzeug_waffe_probe_wert",
+  "sr6_rigging_fahrzeug_waffe_name",
+  "sr6_rigging_fahrzeug_waffe",
+  "sr6_rigging_fahrzeug_waffe_schaden",
+  "sr6_rigging_fahrzeug_waffe_modus",
+  "sr6_rigging_fahrzeug_waffe_s_nah",
+  "sr6_rigging_fahrzeug_waffe_nah",
+  "sr6_rigging_fahrzeug_waffe_mittel",
+  "sr6_rigging_fahrzeug_waffe_weit",
+  "sr6_rigging_fahrzeug_waffe_s_weit",
+];
 
 const SR6_EQUIPMENT_SOURCE_OPTIONS = {
   "attr:konstitution": { label: "Konstitution", type: "Attribut", attr: "sr6_attr_konstitution_gesamtwert" },
@@ -1148,6 +1188,19 @@ const SR6_ROLL_DEFINITIONS = [
     }),
   },
   {
+    id: "rigging_vehicle",
+    probeModel: "rigging_vehicle_probe",
+    matchField: "Fahrzeug",
+    matchPoolPrefix: "sr6_rigging_fahrzeug_",
+    titleMode: "field-short",
+    titleField: "Probe",
+    primaryFields: ["Fahrzeug", "Probe"],
+    extraFields: ["Modus"],
+    popupFields: SR6_DEFAULT_POPUP_FIELDS,
+    internalFields: ["Probe"],
+    titleFallback: "Rigging-Fahrzeugprobe",
+  },
+  {
     id: "rigging_value",
     ...createValueProbeDefinition({
       matchPoolPrefix: "sr6_rigging_",
@@ -1539,6 +1592,9 @@ function getRollAdditionalAttributes(definition) {
   });
   if (definition && definition.id === "equipment") {
     attributes.push(...getEquipmentSourceAttributeRefs());
+  }
+  if (definition && definition.id === "rigging_vehicle") {
+    attributes.push(...SR6_RIGGING_VEHICLE_ROLL_ATTRIBUTES);
   }
   if (definition && definition.id === "matrix_action") {
     return [...new Set([...attributes, ...getMatrixActionRuleAttributeRefs(), ...getMatrixActionSelectionAttributeRefs()])];
