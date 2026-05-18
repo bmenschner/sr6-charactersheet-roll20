@@ -290,6 +290,25 @@ const SR6_DEFAULT_POPUP_FIELDS = [
   },
 ];
 
+function createRiggingVehiclePopupFields() {
+  return [
+    ...SR6_DEFAULT_POPUP_FIELDS,
+    {
+      id: "ammo_context",
+      slot: 2,
+      label: "Munition",
+      type: "select",
+      optionSet: "ammo",
+      sourceAttr: "sr6_rigging_fahrzeug_waffe_munition",
+      affects: ["attack_value", "damage"],
+      includeInTemplate: true,
+      defaultValue: "Standard",
+      visibleWhenField: "Probe",
+      visibleWhenValue: "weapon_attack",
+    },
+  ];
+}
+
 const SR6_SKILL_ATTRIBUTE_CONFIGS = {
   astral: {
     optionSet: "skill_attr_intuition_willenskraft",
@@ -1196,7 +1215,7 @@ const SR6_ROLL_DEFINITIONS = [
     titleField: "Probe",
     primaryFields: ["Fahrzeug", "Probe"],
     extraFields: ["Modus"],
-    popupFields: SR6_DEFAULT_POPUP_FIELDS,
+    popupFields: createRiggingVehiclePopupFields(),
     internalFields: ["Probe"],
     titleFallback: "Rigging-Fahrzeugprobe",
   },
@@ -1399,7 +1418,7 @@ const SR6_ROLL_DEFINITIONS = [
     titleMode: "field-short",
     titleField: "Fertigkeit",
     primaryFields: ["Waffe"],
-    extraFields: ["Fertigkeit", "Schadenswert", "Munition", "Reichweite"],
+    extraFields: ["Fertigkeit", "Schadenswert", "Munition", "Modus", "Reichweite"],
     templateVariant: "weapon",
     fixedTitle: "Fernkampfangriff",
     popupFields: SR6_COMBAT_TAB_POPUP_FIELDS,

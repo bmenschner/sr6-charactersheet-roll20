@@ -122,9 +122,13 @@ function buildWeaponProbePresentation(payload) {
   const finalDamage = findLastRowValue(rows, "Schaden") || `${resolvedFields.Schadenswert || ""}`;
   const baseDamage = `${resolvedFields.Schadenswert || ""}`;
   const attackValueMod = findLastRowValue(rows, "Angriffswert-Modifikator");
-  const damageMod = findLastRowValue(rows, "Schadens-Modifikator");
+  const damageMod = findLastRowValue(rows, "Schadens-Modifikator") || findLastRowValue(rows, "Schaden-Modifikator");
   const attackValueBase = findLastRowValue(rows, "Angriffswert-Basis");
   const damageBase = findLastRowValue(rows, "Schaden-Basis") || baseDamage;
+  const fireMode = findLastRowValue(rows, "Feuermodus");
+  const fireModeShots = findLastRowValue(rows, "Feuermodus-Schuss");
+  const fireModeAttackValueMod = findLastRowValue(rows, "Feuermodus-Angriffswert");
+  const fireModeDamageMod = findLastRowValue(rows, "Feuermodus-Schaden");
   const attributeFallback = findLastRowValue(rows, "Attribut-Fallback");
   const extraNotes = [];
   const calcParts = [];
@@ -137,6 +141,11 @@ function buildWeaponProbePresentation(payload) {
     }
     extraNotes.push(hint);
   });
+  findAllRowValues(rows, "Feuermodus-Hinweis").forEach((hint) => {
+    if (hint) {
+      extraNotes.push(hint);
+    }
+  });
 
   if (specialization) {
     calcParts.push(`Spezialisierung: ${specialization}`);
@@ -146,6 +155,18 @@ function buildWeaponProbePresentation(payload) {
   }
   if (attributeFallback) {
     calcParts.push(`Attribut-Fallback: ${attributeFallback}`);
+  }
+  if (fireMode) {
+    calcParts.push(`Feuermodus: ${fireMode}`);
+  }
+  if (fireModeShots) {
+    calcParts.push(`Schuss: ${fireModeShots}`);
+  }
+  if (fireModeAttackValueMod) {
+    calcParts.push(`Feuermodus-Angriffswert: ${fireModeAttackValueMod}`);
+  }
+  if (fireModeDamageMod) {
+    calcParts.push(`Feuermodus-Schaden: ${fireModeDamageMod}`);
   }
   if (attackValueMod) {
     calcParts.push(`Angriffswert-Modifikator: ${attackValueMod}`);
@@ -299,11 +320,17 @@ function buildSr6ProbeMessage(payload) {
   const rows = Array.isArray(payload.rows) ? payload.rows : [];
   const deferredExtraLabels = new Set([
     "Munitionshinweis",
+    "Feuermodus",
+    "Feuermodus-Schuss",
+    "Feuermodus-Hinweis",
+    "Feuermodus-Angriffswert",
+    "Feuermodus-Schaden",
     "Angriffswert-Basis",
     "Angriffswert-Modifikator",
     "Angriffswert",
     "Schaden-Basis",
     "Schadens-Modifikator",
+    "Schaden-Modifikator",
     "Schaden",
   ]);
   const primaryCandidateRows = rows.filter((row) => !deferredExtraLabels.has(row.label));
