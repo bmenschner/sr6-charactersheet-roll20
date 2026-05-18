@@ -16,7 +16,7 @@ function recomputeAll(callback) {
   getAttrs(requestKeys, (values) => {
     computeAttributeTotals(values, updates, totals);
     computeSkillTotals(values, updates, skillTotals);
-    computeMatrixTotals(values, totals, updates);
+    computeMatrixTotals(values, totals, skillTotals, updates);
     computeCombatDerivedFromAttributes(totals, values, updates, skillTotals);
     computeHeaderMonitorDerivedFromAttributes(totals, values, updates);
     computeMagicDerived(values, totals, skillTotals, updates);
@@ -37,11 +37,14 @@ function buildRecalcEvents() {
   SR6_SKILLS.forEach((skillName) => {
     events.push(`change:sr6_skill_${skillName}_grundwert`);
     events.push(`change:sr6_skill_${skillName}_modifikator`);
+    events.push(`change:sr6_skill_${skillName}_spezialisierung`);
+    events.push(`change:sr6_skill_${skillName}_expertise`);
   });
 
   SR6_MATRIX_ACTIONS.forEach((actionName) => {
     events.push(`change:sr6_matrix_handlung_${actionName}_grundwert`);
     events.push(`change:sr6_matrix_handlung_${actionName}_modifikator`);
+    events.push(`change:sr6_matrix_handlung_${actionName}_verteidigung_auswahl`);
   });
 
   events.push("change:sr6_combat_verteidigungswert_modifikator");
@@ -62,12 +65,11 @@ function buildRecalcEvents() {
   events.push("change:sr6_derived_initiative_basis_modifikator");
 
   events.push("change:sr6_magic_traditionsattribut_1");
-  events.push("change:sr6_magic_traditionsattribut_2");
   events.push("change:sr6_magic_traditionsattribut_1_modifikator");
-  events.push("change:sr6_magic_traditionsattribut_2_modifikator");
   events.push("change:sr6_magic_magie_modifikator");
   events.push("change:sr6_magic_zauberpool_modifikator");
   events.push("change:sr6_magic_spruchzauberei_modifikator");
+  events.push("change:sr6_magic_beschwoeren_modifikator");
   events.push("change:sr6_magic_entzug_widerstand_modifikator");
   events.push("change:sr6_magic_waffenloser_kampf_modifikator");
   events.push("change:sr6_magic_astrale_initiative_modifikator");
@@ -76,7 +78,10 @@ function buildRecalcEvents() {
   events.push("change:sr6_magic_astralkampf_angriffswert_modifikator");
   events.push("change:sr6_magic_astralkampf_verteidigungswert_modifikator");
   events.push("change:sr6_matrix_modus");
+  events.push("change:sr6_matrix_angriff");
+  events.push("change:sr6_matrix_schleicher");
   events.push("change:sr6_matrix_datenverarbeitung");
+  events.push("change:sr6_matrix_firewall");
   events.push("change:sr6_rigging_modus");
   events.push("change:sr6_rigging_datenverarbeitung");
 
@@ -90,20 +95,26 @@ function buildRecalcEvents() {
 
 function registerWorkerEvents() {
   const recalcEvents = buildRecalcEvents();
-  on(recalcEvents.join(" "), recomputeAll);
+  on(recalcEvents.join(" "), () => {
+    recomputeAll(() => {
+      syncCombatWeaponPools(() => {
+        syncRiggingVehicleProbes(() => {
+          syncRepeatingSkillTotals();
+        });
+      });
+    });
+  });
   on(
     [
-      "change:repeating_sr6wissensfertigkeiten:sr6_wissensfertigkeit_grundwert",
-      "change:repeating_sr6wissensfertigkeiten:sr6_wissensfertigkeit_modifikator",
+      "change:repeating_sr6wissensfertigkeiten:sr6_wissensfertigkeit_name",
       "remove:repeating_sr6wissensfertigkeiten",
-      "change:repeating_sr6sprachfertigkeiten:sr6_sprachfertigkeit_grundwert",
-      "change:repeating_sr6sprachfertigkeiten:sr6_sprachfertigkeit_modifikator",
+      "change:repeating_sr6sprachfertigkeiten:sr6_sprachfertigkeit_name",
       "remove:repeating_sr6sprachfertigkeiten",
+      "change:repeating_sr6talentsofts:sr6_talentsoft_attribut",
       "change:repeating_sr6talentsofts:sr6_talentsoft_grundwert",
       "change:repeating_sr6talentsofts:sr6_talentsoft_modifikator",
       "remove:repeating_sr6talentsofts",
-      "change:repeating_sr6wissenssprachsofts:sr6_wissenssprachsoft_grundwert",
-      "change:repeating_sr6wissenssprachsofts:sr6_wissenssprachsoft_modifikator",
+      "change:repeating_sr6wissenssprachsofts:sr6_wissenssprachsoft_name",
       "remove:repeating_sr6wissenssprachsofts",
     ].join(" "),
     () => {
@@ -129,6 +140,7 @@ function registerWorkerEvents() {
       "change:repeating_sr6fernkampfwaffen:sr6_fernkampf_ist_primaer",
       "change:repeating_sr6fernkampfwaffen:sr6_fernkampfwaffe",
       "change:repeating_sr6fernkampfwaffen:sr6_fernkampf_fertigkeit",
+      "change:repeating_sr6fernkampfwaffen:sr6_fernkampf_waffentyp",
       "change:repeating_sr6fernkampfwaffen:sr6_fernkampf_schaden",
       "change:repeating_sr6fernkampfwaffen:sr6_fernkampf_munition",
       "change:repeating_sr6fernkampfwaffen:sr6_fernkampf_modus",
@@ -142,6 +154,7 @@ function registerWorkerEvents() {
       "change:repeating_sr6nahkampfwaffen:sr6_nahkampfwaffe",
       "change:repeating_sr6nahkampfwaffen:sr6_nahkampf_fertigkeit",
       "change:repeating_sr6nahkampfwaffen:sr6_nahkampf_attribut",
+      "change:repeating_sr6nahkampfwaffen:sr6_nahkampf_waffentyp",
       "change:repeating_sr6nahkampfwaffen:sr6_nahkampf_schaden",
       "change:repeating_sr6nahkampfwaffen:sr6_nahkampf_schadentyp",
       "change:repeating_sr6nahkampfwaffen:sr6_nahkampf_s_nah",
@@ -152,7 +165,34 @@ function registerWorkerEvents() {
       "remove:repeating_sr6nahkampfwaffen",
     ].join(" "),
     (eventInfo) => {
-      syncCombatPrimaryWeapons(recomputeAll, eventInfo);
+      syncCombatPrimaryWeapons(() => {
+        recomputeAll(() => {
+          syncCombatWeaponPools();
+        });
+      }, eventInfo);
+    }
+  );
+  on(
+    [
+      "change:repeating_sr6riggingfahrzeuge:sr6_rigging_fahrzeug_probe",
+      "change:repeating_sr6riggingfahrzeuge:sr6_rigging_fahrzeug_modus",
+      "change:repeating_sr6riggingfahrzeuge:sr6_rigging_fahrzeug_rumpf",
+      "change:repeating_sr6riggingfahrzeuge:sr6_rigging_fahrzeug_panzerung",
+      "change:repeating_sr6riggingfahrzeuge:sr6_rigging_fahrzeug_pilot",
+      "change:repeating_sr6riggingfahrzeuge:sr6_rigging_fahrzeug_sensor",
+      "change:repeating_sr6riggingfahrzeuge:sr6_rigging_fahrzeug_agentenstufe",
+      "change:repeating_sr6riggingfahrzeuge:sr6_rigging_fahrzeug_riggerkontrolle",
+      "change:repeating_sr6riggingfahrzeuge:sr6_rigging_fahrzeug_manoevrieren",
+      "change:repeating_sr6riggingfahrzeuge:sr6_rigging_fahrzeug_zielerfassung",
+      "change:repeating_sr6riggingfahrzeuge:sr6_rigging_fahrzeug_ausweichen",
+      "change:repeating_sr6riggingfahrzeuge:sr6_rigging_fahrzeug_stealth",
+      "change:repeating_sr6riggingfahrzeuge:sr6_rigging_fahrzeug_clearsight",
+      "change:sr6_skill_mechanik_spezialisierung",
+      "change:sr6_skill_mechanik_expertise",
+      "remove:repeating_sr6riggingfahrzeuge",
+    ].join(" "),
+    () => {
+      syncRiggingVehicleProbes();
     }
   );
   registerSuccessProbeRollEvents();
@@ -166,7 +206,11 @@ function registerWorkerEvents() {
     syncCombatArmorSelections(() => {
       syncCombatPrimaryWeapons(() => {
         recomputeAll(() => {
-          syncRepeatingSkillTotals();
+          syncCombatWeaponPools(() => {
+            syncRiggingVehicleProbes(() => {
+              syncRepeatingSkillTotals();
+            });
+          });
         });
       });
     });

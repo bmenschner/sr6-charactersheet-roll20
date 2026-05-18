@@ -22,12 +22,12 @@
         <span data-i18n="field.typ">Typ</span>
         <span data-i18n="field.stufe">Stufe</span>
         <span data-i18n="field.dienste">Dienste</span>
-        <span data-i18n="field.kraefte">Kräfte</span>
+        <span data-i18n="skill.beschwoeren">Beschwören</span>
       </div>
       <fieldset class="repeating_sr6geister">
         <div class="sr6-foundry-item">
           <div class="sr6-editable-item-fields">
-          <div class="sr6-foundry-item-head sr6-charactersheet-row sr6-charactersheet-row-4">
+          <div class="sr6-foundry-item-head sr6-charactersheet-row sr6-charactersheet-row-5">
             <div class="sr6-charactersheet-field">
               <span data-i18n="field.name">Name</span>
               <input type="text" name="attr_sr6_geist_name" />
@@ -43,6 +43,18 @@
             <div class="sr6-charactersheet-field">
               <span data-i18n="field.dienste">Dienste</span>
               <div class="sr6-number-stepper"><button type="action" class="sr6-number-stepper-button sr6-number-stepper-button--minus" name="act_sr6_number_step" value="sr6_geist_dienste::-1" aria-label="Verringern">-</button><input type="number" name="attr_sr6_geist_dienste" /><button type="action" class="sr6-number-stepper-button sr6-number-stepper-button--plus" name="act_sr6_number_step" value="sr6_geist_dienste::1" aria-label="Erhoehen">+</button></div>
+            </div>
+            <div class="sr6-charactersheet-field">
+              <span data-i18n="skill.beschwoeren">Beschwören</span>
+              <div class="sr6-charactersheet-field-input-with-dice sr6-charactersheet-field-input-with-dice--compact">
+                <span aria-hidden="true"></span>
+                <button
+                  type="action"
+                  class="sr6-charactersheet-field-dice-button"
+                  name="act_probe"
+                  value="&{template:default} {{name=Beschwören}} {{Geist=@{sr6_geist_name}}} {{Typ=@{sr6_geist_typ}}} {{Stufe=@{sr6_geist_stufe}}} {{Pool=[[@{sr6_magic_beschwoeren}]]}} {{Erfolge=[[@{sr6_magic_beschwoeren}d6&gt;5]]}}"
+                  aria-label="Wuerfeln"></button>
+              </div>
             </div>
           </div>
           <div class="sr6-foundry-item-footer sr6-charactersheet-row sr6-charactersheet-row-1">

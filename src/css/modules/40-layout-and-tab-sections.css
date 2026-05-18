@@ -84,6 +84,10 @@
 }
 
 #sr6_daten_panel_2 .sr6-charactersheet-box-attribute > .sr6-charactersheet-box-content {
+  display: block;
+}
+
+#sr6_daten_panel_2 .sr6-charactersheet-box-attribute .sr6-charactersheet-attribute-grid {
   display: grid;
   grid-auto-flow: column;
   grid-template-columns: repeat(2, minmax(0, 1fr));
@@ -91,8 +95,29 @@
   gap: 0.5rem 1.5rem;
 }
 
-#sr6_daten_panel_2 .sr6-charactersheet-box-attribute > .sr6-charactersheet-box-content > .sr6-charactersheet-row-2 {
+#sr6_daten_panel_2 .sr6-charactersheet-box-attribute .sr6-charactersheet-attribute-grid > .sr6-charactersheet-row-2 {
   display: contents;
+}
+
+#sr6_daten_panel_2 .sr6-charactersheet-box-attribute .sr6-charactersheet-attribute-probes {
+  border-top: 0.0625rem solid rgba(0, 0, 0, 0.18);
+  margin-top: 0.875rem;
+  padding-top: 0.875rem;
+}
+
+#sr6_daten_panel_2 .sr6-charactersheet-box-attribute .sr6-charactersheet-attribute-probe-row {
+  display: grid;
+  grid-template-columns: repeat(4, max-content);
+  justify-content: space-between;
+  align-items: center;
+  gap: 1rem;
+}
+
+#sr6_daten_panel_2 .sr6-charactersheet-box-attribute .sr6-charactersheet-attribute-probe-row .sr6-charactersheet-field {
+  display: grid;
+  grid-template-columns: max-content max-content;
+  align-items: center;
+  column-gap: 0.375rem;
 }
 
 #sr6_daten_panel_2 .sr6-charactersheet-box-fertigkeiten-allgemein .sr6-charactersheet-skills-overview-grid {
@@ -295,130 +320,153 @@ fieldset.repeating_sr6matrixgeraete,
 }
 
 .sr6-matrix-handlungen-list-header {
-  display: none;
+  display: grid;
+  grid-template-columns: minmax(10rem, 1.1fr) minmax(12rem, 1.35fr) minmax(4rem, 0.45fr) minmax(14rem, 1.5fr) minmax(4rem, 0.45fr);
+  gap: 0.5rem;
+  align-items: end;
+  margin-bottom: 0.375rem;
 }
 
 .sr6-matrix-handlungen-list-header span {
-  font-size: 10px;
+  font-size: 0.75rem;
   font-weight: 700;
   color: var(--sr6-text);
   letter-spacing: 0.01rem;
 }
 
-.sr6-matrix-handlungen-section:has(.sr6-editable-section-mode:not(:checked)) .sr6-matrix-handlungen-list-header {
+.sr6-matrix-handlungen-list {
   display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 1.5rem;
-  margin-bottom: 0.25rem;
+  gap: 0.25rem;
 }
 
-.sr6-matrix-handlungen-list-header-group {
+.sr6-matrix-handlung {
   display: grid;
-  grid-template-columns: minmax(0, 1.75fr) repeat(3, minmax(0, 1fr));
-  gap: 0.375rem;
-}
-
-.sr6-matrix-handlungen-section:has(.sr6-editable-section-mode:not(:checked)) .sr6-charactersheet-skills-overview-grid {
-  grid-auto-flow: column;
-  grid-template-rows: repeat(23, auto);
-  gap: 0.375rem 1.5rem;
-}
-
-.sr6-matrix-handlungen-section:has(.sr6-editable-section-mode:not(:checked)) .sr6-matrix-handlung {
-  display: grid;
-  grid-template-columns: minmax(0, 1.75fr) repeat(3, minmax(0, 1fr));
-  gap: 0.375rem;
+  grid-template-columns: minmax(10rem, 1.1fr) minmax(12rem, 1.35fr) minmax(4rem, 0.45fr) minmax(14rem, 1.5fr) minmax(4rem, 0.45fr);
+  gap: 0.5rem;
   align-items: center;
+  min-height: 2rem;
+  padding: 0.125rem 0;
+  border-bottom: 0.0625rem solid rgba(0, 0, 0, 0.06);
+  opacity: 0.35;
+  pointer-events: none;
 }
 
-.sr6-matrix-handlungen-section:has(.sr6-editable-section-mode:not(:checked)) .sr6-matrix-handlung > span {
+.sr6-matrix-handlung-name {
   font-size: 0.82rem;
-  font-weight: 600;
+  font-weight: 700;
 }
 
-.sr6-matrix-handlungen-section:has(.sr6-editable-section-mode:not(:checked)) .sr6-matrix-handlung .sr6-charactersheet-attr-values {
-  display: contents;
+.sr6-matrix-handlung-formula {
+  min-width: 0;
+  color: var(--sr6-text);
+  font-size: 0.8rem;
 }
 
-.sr6-matrix-handlungen-section:has(.sr6-editable-section-mode:not(:checked)) .sr6-matrix-handlung .sr6-charactersheet-attr-value {
-  min-height: 1.875rem;
-  display: flex;
+.sr6-matrix-handlung-formula--select {
+  width: 100%;
+  max-width: 100%;
+  height: var(--sr6-field-height);
+  padding: 0.125rem 0.25rem;
+  border: none;
+  border-bottom: 0.0625rem solid var(--sr6-line-soft);
+  border-radius: 0;
+  background: transparent;
+  color: var(--sr6-text);
+  font-size: 0.86rem;
+  margin-bottom: 0;
+}
+
+.sr6-matrix-handlung-value {
+  display: grid;
+  grid-template-columns: minmax(2.75rem, 1fr) 1.75rem;
+  gap: 0.125rem;
   align-items: center;
 }
 
-.sr6-matrix-handlungen-section:has(.sr6-editable-section-mode:not(:checked)) .sr6-matrix-handlung .sr6-charactersheet-attr-value > span {
-  display: none;
+.sr6-matrix-handlung-value input[type="number"] {
+  width: 100%;
+  height: var(--sr6-field-height);
+  padding: 0.125rem 0.25rem;
+  border: none;
+  border-bottom: 0.0625rem solid var(--sr6-line-soft);
+  border-radius: 0;
+  background: transparent;
+  color: var(--sr6-text);
+  font-size: 0.86rem;
+  margin-bottom: 0;
 }
 
-.sr6-matrix-handlungen-section:has(.sr6-editable-section-mode:not(:checked)) .sr6-matrix-handlung .sr6-charactersheet-field-input-with-dice {
-  grid-template-columns: minmax(0, 1fr) 1.75rem;
+.sr6-matrix-handlung-value input[type="number"][readonly] {
+  background: transparent;
+  cursor: default;
 }
 
-.sr6-matrix-handlungen-section:has(.sr6-editable-section-mode:not(:checked))
-  .sr6-matrix-handlung
-  .sr6-charactersheet-attr-value:first-child
-  .sr6-charactersheet-field-input-with-dice {
-  grid-template-columns: minmax(0, 1fr);
-}
-
-.sr6-matrix-handlungen-section:has(.sr6-editable-section-mode:not(:checked))
-  .sr6-matrix-handlung
-  .sr6-charactersheet-attr-value:first-child
-  .sr6-charactersheet-field-dice-button {
-  display: none !important;
-}
-
-.sr6-matrix-handlungen-section:has(.sr6-editable-section-mode:not(:checked)) .sr6-matrix-handlung .sr6-charactersheet-field-dice-button {
-  display: flex !important;
+.sr6-matrix-handlung-no-roll {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--sr6-title);
+  font-weight: 700;
 }
 
 .sr6-matrix-handlungen-section .sr6-matrix-handlung .sr6-charactersheet-field-dice-button {
+  display: flex !important;
+  border: none;
+  outline: none;
+  background-color: transparent;
   opacity: 0.3;
   pointer-events: none;
 }
 
 .sr6-matrix-handlungen-section .sr6-matrix-handlung {
-  order: 99;
-}
-
-/* Sortierung nach aktivem Zugriff + alphabetischer DOM-Reihenfolge */
-.sr6-matrix-handlungen-section:has(#sr6-matrix-zugriff-gast:checked) .sr6-matrix-handlung[data-zugriff="gast"] {
-  order: 1;
-}
-
-.sr6-matrix-handlungen-section:has(#sr6-matrix-zugriff-gast:checked) .sr6-matrix-handlung[data-zugriff="user"] {
   order: 2;
 }
 
-.sr6-matrix-handlungen-section:has(#sr6-matrix-zugriff-gast:checked) .sr6-matrix-handlung[data-zugriff="admin"] {
-  order: 3;
+/* Aktive Zugriffsstufen zuerst, innerhalb aktiv/inaktiv bleibt die alphabetische DOM-Reihenfolge erhalten. */
+.sr6-matrix-handlungen-section:has(#sr6-matrix-zugriff-az:checked) .sr6-matrix-handlung {
+  order: 1;
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.sr6-matrix-handlungen-section:has(#sr6-matrix-zugriff-gast:checked) .sr6-matrix-handlung[data-zugriff="gast"] {
+  order: 1;
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.sr6-matrix-handlungen-section:has(#sr6-matrix-zugriff-user:checked) .sr6-matrix-handlung[data-zugriff="gast"] {
+  order: 1;
+  opacity: 1;
+  pointer-events: auto;
 }
 
 .sr6-matrix-handlungen-section:has(#sr6-matrix-zugriff-user:checked) .sr6-matrix-handlung[data-zugriff="user"] {
   order: 1;
+  opacity: 1;
+  pointer-events: auto;
 }
 
-.sr6-matrix-handlungen-section:has(#sr6-matrix-zugriff-user:checked) .sr6-matrix-handlung[data-zugriff="gast"] {
-  order: 2;
+.sr6-matrix-handlungen-section:has(#sr6-matrix-zugriff-admin:checked) .sr6-matrix-handlung[data-zugriff="gast"] {
+  order: 1;
+  opacity: 1;
+  pointer-events: auto;
 }
 
-.sr6-matrix-handlungen-section:has(#sr6-matrix-zugriff-user:checked) .sr6-matrix-handlung[data-zugriff="admin"] {
-  order: 3;
+.sr6-matrix-handlungen-section:has(#sr6-matrix-zugriff-admin:checked) .sr6-matrix-handlung[data-zugriff="user"] {
+  order: 1;
+  opacity: 1;
+  pointer-events: auto;
 }
 
 .sr6-matrix-handlungen-section:has(#sr6-matrix-zugriff-admin:checked) .sr6-matrix-handlung[data-zugriff="admin"] {
   order: 1;
-}
-
-.sr6-matrix-handlungen-section:has(#sr6-matrix-zugriff-admin:checked) .sr6-matrix-handlung[data-zugriff="user"] {
-  order: 2;
-}
-
-.sr6-matrix-handlungen-section:has(#sr6-matrix-zugriff-admin:checked) .sr6-matrix-handlung[data-zugriff="gast"] {
-  order: 3;
+  opacity: 1;
+  pointer-events: auto;
 }
 
 .sr6-matrix-handlungen-section:has(#sr6-matrix-zugriff-gast:checked) .sr6-matrix-handlung[data-zugriff="gast"] .sr6-charactersheet-field-dice-button,
+.sr6-matrix-handlungen-section:has(#sr6-matrix-zugriff-az:checked) .sr6-matrix-handlung .sr6-charactersheet-field-dice-button,
 .sr6-matrix-handlungen-section:has(#sr6-matrix-zugriff-user:checked) .sr6-matrix-handlung[data-zugriff="gast"] .sr6-charactersheet-field-dice-button,
 .sr6-matrix-handlungen-section:has(#sr6-matrix-zugriff-user:checked) .sr6-matrix-handlung[data-zugriff="user"] .sr6-charactersheet-field-dice-button,
 .sr6-matrix-handlungen-section:has(#sr6-matrix-zugriff-admin:checked) .sr6-matrix-handlung[data-zugriff="gast"] .sr6-charactersheet-field-dice-button,
@@ -443,15 +491,15 @@ fieldset.repeating_sr6matrixgeraete,
   display: none;
 }
 
-.sr6-rigging-fahrzeuge-list-header-group--9 {
+.sr6-rigging-fahrzeuge-list-header-group--5 {
   display: grid;
-  grid-template-columns: repeat(9, minmax(0, 1fr));
+  grid-template-columns: repeat(5, minmax(0, 1fr));
   gap: 0.375rem;
 }
 
 .sr6-rigging-fahrzeuge-section:has(.sr6-editable-section-mode:not(:checked)) .sr6-editable-item-fields {
   display: grid;
-  grid-template-columns: repeat(9, minmax(0, 1fr));
+  grid-template-columns: repeat(5, minmax(0, 1fr));
   gap: 0.375rem;
   align-items: center;
   width: 100%;
@@ -459,7 +507,7 @@ fieldset.repeating_sr6matrixgeraete,
 
 .sr6-rigging-fahrzeuge-section:has(.sr6-editable-section-mode:not(:checked)) .sr6-rigging-fahrzeug-fields-main {
   display: grid !important;
-  grid-template-columns: repeat(9, minmax(0, 1fr));
+  grid-template-columns: repeat(5, minmax(0, 1fr));
   grid-column: 1 / -1;
   grid-row: 1;
   order: 1;
@@ -469,10 +517,54 @@ fieldset.repeating_sr6matrixgeraete,
 
 .sr6-rigging-fahrzeuge-section:has(.sr6-editable-section-mode:not(:checked)) .sr6-rigging-fahrzeug-fields-links {
   display: grid !important;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
-  grid-column: 1 / span 6;
-  grid-row: 2;
-  order: 2;
+  grid-template-columns: minmax(0, 1fr);
+  grid-column: 1 / -1;
+  grid-row: 5;
+  order: 6;
+  gap: 0.375rem;
+  border-top: none;
+  padding-top: 0;
+  margin-top: 0;
+}
+
+.sr6-rigging-fahrzeug-waffe-block {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: 0.375rem;
+}
+
+.sr6-rigging-fahrzeug-waffe-main {
+  display: grid;
+  grid-template-columns: minmax(10rem, 1.4fr) minmax(9rem, 1fr) minmax(6rem, 0.7fr) minmax(6rem, 0.7fr);
+  gap: 0.375rem;
+  align-items: end;
+}
+
+.sr6-rigging-fahrzeug-waffe-ranges {
+  display: grid;
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+  gap: 0.375rem;
+  align-items: end;
+}
+
+.sr6-rigging-fahrzeuge-section:has(.sr6-editable-section-mode:not(:checked)) .sr6-rigging-fahrzeug-autosoft-row {
+  display: grid !important;
+  grid-template-columns: repeat(6, minmax(0, 1fr));
+  grid-column: 1 / -1;
+  grid-row: 3;
+  order: 4;
+  gap: 0.375rem;
+  border-top: none;
+  padding-top: 0;
+  margin-top: 0;
+}
+
+.sr6-rigging-fahrzeuge-section:has(.sr6-editable-section-mode:not(:checked)) .sr6-rigging-fahrzeug-probe-row {
+  display: grid !important;
+  grid-template-columns: minmax(9rem, 1.2fr) minmax(8rem, 1fr) minmax(5rem, 0.65fr) minmax(5rem, 0.65fr) repeat(3, minmax(5rem, 0.65fr));
+  grid-column: 1 / -1;
+  grid-row: 4;
+  order: 5;
   gap: 0.375rem;
   border-top: none;
   padding-top: 0;
@@ -481,8 +573,8 @@ fieldset.repeating_sr6matrixgeraete,
 
 .sr6-rigging-fahrzeuge-section:has(.sr6-editable-section-mode:not(:checked)) .sr6-rigging-fahrzeug-fields-secondary {
   display: grid !important;
-  grid-template-columns: minmax(0, 1fr);
-  grid-column: 7 / -1;
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+  grid-column: 1 / -1;
   grid-row: 2;
   order: 3;
   gap: 0.375rem;
@@ -491,19 +583,19 @@ fieldset.repeating_sr6matrixgeraete,
   margin-top: 0;
 }
 
-.sr6-rigging-fahrzeuge-section:has(.sr6-editable-section-mode:not(:checked)) .sr6-rigging-fahrzeug-fields-secondary .sr6-charactersheet-field:first-child {
-  display: none;
-}
-
 .sr6-rigging-fahrzeuge-section:has(.sr6-editable-section-mode:not(:checked)) .sr6-rigging-fahrzeug-fields-main .sr6-charactersheet-field > span,
 .sr6-rigging-fahrzeuge-section:has(.sr6-editable-section-mode:not(:checked)) .sr6-rigging-fahrzeug-fields-secondary .sr6-charactersheet-field > span,
-.sr6-rigging-fahrzeuge-section:has(.sr6-editable-section-mode:not(:checked)) .sr6-rigging-fahrzeug-fields-links .sr6-charactersheet-field > span {
+.sr6-rigging-fahrzeuge-section:has(.sr6-editable-section-mode:not(:checked)) .sr6-rigging-fahrzeug-fields-links .sr6-charactersheet-field > span,
+.sr6-rigging-fahrzeuge-section:has(.sr6-editable-section-mode:not(:checked)) .sr6-rigging-fahrzeug-autosoft-row .sr6-charactersheet-field > span,
+.sr6-rigging-fahrzeuge-section:has(.sr6-editable-section-mode:not(:checked)) .sr6-rigging-fahrzeug-probe-row .sr6-charactersheet-field > span {
   display: none;
 }
 
 .sr6-rigging-fahrzeuge-section:has(.sr6-editable-section-mode:not(:checked)) .sr6-rigging-fahrzeug-fields-main .sr6-charactersheet-field,
 .sr6-rigging-fahrzeuge-section:has(.sr6-editable-section-mode:not(:checked)) .sr6-rigging-fahrzeug-fields-secondary .sr6-charactersheet-field,
-.sr6-rigging-fahrzeuge-section:has(.sr6-editable-section-mode:not(:checked)) .sr6-rigging-fahrzeug-fields-links .sr6-charactersheet-field {
+.sr6-rigging-fahrzeuge-section:has(.sr6-editable-section-mode:not(:checked)) .sr6-rigging-fahrzeug-fields-links .sr6-charactersheet-field,
+.sr6-rigging-fahrzeuge-section:has(.sr6-editable-section-mode:not(:checked)) .sr6-rigging-fahrzeug-autosoft-row .sr6-charactersheet-field,
+.sr6-rigging-fahrzeuge-section:has(.sr6-editable-section-mode:not(:checked)) .sr6-rigging-fahrzeug-probe-row .sr6-charactersheet-field {
   display: grid;
   grid-template-columns: minmax(0, 1fr);
   gap: 0.125rem;
@@ -512,7 +604,9 @@ fieldset.repeating_sr6matrixgeraete,
 
 .sr6-rigging-fahrzeuge-section:has(.sr6-editable-section-mode:not(:checked)) .sr6-rigging-fahrzeug-fields-main .sr6-charactersheet-field > span,
 .sr6-rigging-fahrzeuge-section:has(.sr6-editable-section-mode:not(:checked)) .sr6-rigging-fahrzeug-fields-secondary .sr6-charactersheet-field > span,
-.sr6-rigging-fahrzeuge-section:has(.sr6-editable-section-mode:not(:checked)) .sr6-rigging-fahrzeug-fields-links .sr6-charactersheet-field > span {
+.sr6-rigging-fahrzeuge-section:has(.sr6-editable-section-mode:not(:checked)) .sr6-rigging-fahrzeug-fields-links .sr6-charactersheet-field > span,
+.sr6-rigging-fahrzeuge-section:has(.sr6-editable-section-mode:not(:checked)) .sr6-rigging-fahrzeug-autosoft-row .sr6-charactersheet-field > span,
+.sr6-rigging-fahrzeuge-section:has(.sr6-editable-section-mode:not(:checked)) .sr6-rigging-fahrzeug-probe-row .sr6-charactersheet-field > span {
   display: block !important;
   font-size: 10px;
   font-weight: 700;
@@ -525,7 +619,11 @@ fieldset.repeating_sr6matrixgeraete,
 .sr6-rigging-fahrzeuge-section:has(.sr6-editable-section-mode:not(:checked)) .sr6-rigging-fahrzeug-fields-secondary input,
 .sr6-rigging-fahrzeuge-section:has(.sr6-editable-section-mode:not(:checked)) .sr6-rigging-fahrzeug-fields-secondary select,
 .sr6-rigging-fahrzeuge-section:has(.sr6-editable-section-mode:not(:checked)) .sr6-rigging-fahrzeug-fields-links input,
-.sr6-rigging-fahrzeuge-section:has(.sr6-editable-section-mode:not(:checked)) .sr6-rigging-fahrzeug-fields-links select {
+.sr6-rigging-fahrzeuge-section:has(.sr6-editable-section-mode:not(:checked)) .sr6-rigging-fahrzeug-fields-links select,
+.sr6-rigging-fahrzeuge-section:has(.sr6-editable-section-mode:not(:checked)) .sr6-rigging-fahrzeug-autosoft-row input,
+.sr6-rigging-fahrzeuge-section:has(.sr6-editable-section-mode:not(:checked)) .sr6-rigging-fahrzeug-autosoft-row select,
+.sr6-rigging-fahrzeuge-section:has(.sr6-editable-section-mode:not(:checked)) .sr6-rigging-fahrzeug-probe-row input,
+.sr6-rigging-fahrzeuge-section:has(.sr6-editable-section-mode:not(:checked)) .sr6-rigging-fahrzeug-probe-row select {
   pointer-events: none;
   user-select: none;
   border-bottom: none;

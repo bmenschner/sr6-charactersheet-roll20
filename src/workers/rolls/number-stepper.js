@@ -3,6 +3,7 @@ const SR6_NUMBER_STEPPER_COMPUTED_TARGETS = [
   "sr6_magic_magie",
   "sr6_magic_zauberpool",
   "sr6_magic_spruchzauberei",
+  "sr6_magic_beschwoeren",
   "sr6_magic_entzug_widerstand",
   "sr6_magic_waffenloser_kampf",
   "sr6_magic_astrale_initiative",
@@ -12,6 +13,27 @@ const SR6_NUMBER_STEPPER_COMPUTED_TARGETS = [
   "sr6_magic_astralkampf_verteidigungswert",
   "sr6_derived_initiative_basis",
 ];
+
+const SR6_NUMBER_STEPPER_REPEATING_SKILL_PREFIXES = [
+  "repeating_sr6wissensfertigkeiten_",
+  "repeating_sr6sprachfertigkeiten_",
+  "repeating_sr6talentsofts_",
+  "repeating_sr6wissenssprachsofts_",
+];
+
+const SR6_NUMBER_STEPPER_RIGGING_VEHICLE_PREFIXES = [
+  "repeating_sr6riggingfahrzeuge_",
+];
+
+function shouldSyncRepeatingSkillTotalsAfterStepper(repeatingRowPrefix) {
+  if (!repeatingRowPrefix) return false;
+  return SR6_NUMBER_STEPPER_REPEATING_SKILL_PREFIXES.some((prefix) => repeatingRowPrefix.startsWith(prefix));
+}
+
+function shouldSyncRiggingVehicleProbesAfterStepper(repeatingRowPrefix) {
+  if (!repeatingRowPrefix) return false;
+  return SR6_NUMBER_STEPPER_RIGGING_VEHICLE_PREFIXES.some((prefix) => repeatingRowPrefix.startsWith(prefix));
+}
 
 function resolveRepeatingRowPrefixForStepper(eventInfo, callback) {
   const fallbackPrefix = extractRepeatingRowPrefix(eventInfo);
@@ -118,6 +140,14 @@ function runNumberStepperAdjust(eventInfo) {
       setAttrsSilent({
         [scopedTargetAttr]: String(currentValue + delta),
       }, () => {
+        if (shouldSyncRiggingVehicleProbesAfterStepper(repeatingRowPrefix) && typeof syncRiggingVehicleProbes === "function") {
+          syncRiggingVehicleProbes();
+          return;
+        }
+        if (shouldSyncRepeatingSkillTotalsAfterStepper(repeatingRowPrefix) && typeof syncRepeatingSkillTotals === "function") {
+          syncRepeatingSkillTotals();
+          return;
+        }
         if (!repeatingRowPrefix && typeof recomputeAll === "function") {
           recomputeAll();
         }

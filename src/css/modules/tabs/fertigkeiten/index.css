@@ -34,6 +34,28 @@
   flex: 1 1 0;
 }
 
+.sr6-generic-list-header--memory-probe,
+.sr6-fertigkeiten-extra-section .sr6-fertigkeiten-memory-probe-row,
+.sr6-fertigkeiten-extra-section:has(.sr6-editable-section-mode:not(:checked)) .sr6-editable-item-fields .sr6-fertigkeiten-memory-probe-row {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) max-content;
+}
+
+.sr6-talentsofts-section:has(.sr6-editable-section-mode:not(:checked)) .sr6-editable-item-fields .sr6-foundry-item-head {
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+}
+
+.sr6-fertigkeiten-memory-probe-row .sr6-charactersheet-field-input-with-dice {
+  width: max-content;
+  justify-self: start;
+}
+
+.sr6-fertigkeiten-memory-probe-row input[readonly] {
+  width: 3rem;
+  min-width: 3rem;
+  pointer-events: none;
+}
+
 .sr6-fertigkeiten-extra-section:has(.sr6-editable-section-mode:not(:checked)) .sr6-editable-item-fields .sr6-charactersheet-field {
   min-height: var(--sr6-list-single-line-height);
   display: flex;

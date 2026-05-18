@@ -82,7 +82,9 @@ function runGlobalPopupProbeConfirm() {
     const definition = getRollDefinitionById(values.sr6_roll_popup_definition || "");
     const rawTemplate = values.sr6_roll_popup_template || "";
     const repeatingRowPrefix = values.sr6_roll_popup_row_prefix || "";
-    const popupState = buildPopupStateFromValues(values, definition);
+    const parsedFields = parseTemplateFields(rawTemplate);
+    const poolAttribute = parsePoolAttributeFromFields(parsedFields);
+    const popupState = buildPopupStateFromValues(values, definition, poolAttribute);
 
     setAttrsSilent({ sr6_roll_popup_open: "0" });
     runSuccessProbeFromContext(rawTemplate, repeatingRowPrefix, popupState);

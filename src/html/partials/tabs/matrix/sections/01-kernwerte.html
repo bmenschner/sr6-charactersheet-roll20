@@ -110,27 +110,13 @@
       <span class="sr6-charactersheet-kernwerte-subtitle" data-i18n="field.matrix_angriff_verteidigung">Angriff & Verteidgung</span>
       <div class="sr6-charactersheet-row sr6-charactersheet-row-5">
         <div class="sr6-charactersheet-field">
-          <span>Angriffswert</span>
-          <div class="sr6-charactersheet-field-input-with-dice">
-            <div class="sr6-number-stepper"><button type="action" class="sr6-number-stepper-button sr6-number-stepper-button--minus" name="act_sr6_number_step" value="sr6_matrix_angriffswert::-1" aria-label="Verringern">-</button><input type="number" name="attr_sr6_matrix_angriffswert" /><button type="action" class="sr6-number-stepper-button sr6-number-stepper-button--plus" name="act_sr6_number_step" value="sr6_matrix_angriffswert::1" aria-label="Erhoehen">+</button></div><button
-              type="action"
-              class="sr6-charactersheet-field-dice-button"
-              name="act_probe"
-              value="&{template:default} {{name=Matrix-Kernwert}} {{Wert=Angriffswert}} {{Pool=[[@{sr6_matrix_angriffswert}]]}} {{Erfolge=[[@{sr6_matrix_angriffswert}d6>5]]}}"
-              aria-label="Wuerfeln"></button>
-          </div>
+          <span data-i18n="field.angriffswert">Angriffswert</span>
+          <div class="sr6-number-stepper"><button type="action" class="sr6-number-stepper-button sr6-number-stepper-button--minus" name="act_sr6_number_step" value="sr6_matrix_angriffswert::-1" aria-label="Verringern">-</button><input type="number" name="attr_sr6_matrix_angriffswert" /><button type="action" class="sr6-number-stepper-button sr6-number-stepper-button--plus" name="act_sr6_number_step" value="sr6_matrix_angriffswert::1" aria-label="Erhoehen">+</button></div>
         </div>
 
         <div class="sr6-charactersheet-field">
-          <span>Verteidigungswert</span>
-          <div class="sr6-charactersheet-field-input-with-dice">
-            <div class="sr6-number-stepper"><button type="action" class="sr6-number-stepper-button sr6-number-stepper-button--minus" name="act_sr6_number_step" value="sr6_matrix_verteidigungswert::-1" aria-label="Verringern">-</button><input type="number" name="attr_sr6_matrix_verteidigungswert" /><button type="action" class="sr6-number-stepper-button sr6-number-stepper-button--plus" name="act_sr6_number_step" value="sr6_matrix_verteidigungswert::1" aria-label="Erhoehen">+</button></div><button
-              type="action"
-              class="sr6-charactersheet-field-dice-button"
-              name="act_probe"
-              value="&{template:default} {{name=Matrix-Kernwert}} {{Wert=Verteidigungswert}} {{Pool=[[@{sr6_matrix_verteidigungswert}]]}} {{Erfolge=[[@{sr6_matrix_verteidigungswert}d6>5]]}}"
-              aria-label="Wuerfeln"></button>
-          </div>
+          <span data-i18n="field.verteidigungswert">Verteidigungswert</span>
+          <div class="sr6-number-stepper"><button type="action" class="sr6-number-stepper-button sr6-number-stepper-button--minus" name="act_sr6_number_step" value="sr6_matrix_verteidigungswert::-1" aria-label="Verringern">-</button><input type="number" name="attr_sr6_matrix_verteidigungswert" /><button type="action" class="sr6-number-stepper-button sr6-number-stepper-button--plus" name="act_sr6_number_step" value="sr6_matrix_verteidigungswert::1" aria-label="Erhoehen">+</button></div>
         </div>
 
         <div class="sr6-charactersheet-field">

@@ -1,5 +1,19 @@
 # Refactor Data Fields Todos
 
+## Status vor Issue 12
+
+Der grosse Datenfeld-Refactor ist funktional weitgehend abgeschlossen.
+Die offenen Punkte werden nicht mehr als ein einzelner grosser Refactor-Block behandelt, sondern in Folgeissues weitergefuehrt.
+
+Aktueller Folgeblock:
+
+- GitHub Issue 12: Attributszuordnung und Berechnungen
+  - Attributszuordnung fuer sichtbare Felder pruefen
+  - gleichnamige / gleiche Attributsfelder ueber Tabs vereinheitlichen
+  - Berechnungen pruefen
+  - Berechnungsindikator an berechnete Felder anfuegen
+  - Indikator fuer manuell bearbeitete Berechnungsfelder planen
+
 ## Abschlussphase fuer diesen Refactor
 
 - [x] `combat_attack_probe` als klares Referenzmodell kurz final dokumentieren
@@ -18,10 +32,12 @@
   6. Matrix- und Rigging-Kernwerte
   7. Rituale ohne Wuerfel
 
+  Hinweis: Dieser Sammeltest bleibt als Sicherheitsnetz bestehen. Inhaltliche Folgearbeiten laufen ab jetzt ueber dedizierte Issues wie Issue 12.
+
 ## Fuer diesen Refactor erreicht
 
 - [x] `attribute_probe` als explizites Modell verankert
-  Stand: eigener Modellpfad vorhanden; `Attribut x2` ist als erster echter Pilot in `Allgemein > Attribute > Gesamtwert` umgesetzt und in Roll20 bestaetigt.
+  Stand: eigener Modellpfad vorhanden; `Attribut x2` ist als erster echter Pilot in `Attribute & Fertigkeiten > Attribute > Gesamtwert` umgesetzt und in Roll20 bestaetigt.
 - [x] `initiative_probe` als explizites Modell verankert
   Stand: Initiativwuerfe mit `Basis / W6 / Gesamt` laufen ueber ein eigenes Modell; physische, astrale, Matrix- und Rigging-Initiative nutzen getrennte Basisfelder; Matrix und Rigging werden aus dem Modus abgeleitet.
 - [x] `skill_probe` fuer Basis- und Repeating-Skill-Faelle stabilisiert
@@ -39,6 +55,8 @@
 - [x] Generische Altpfade deutlich reduziert
   Stand: `magic_value`, `matrix_value` und `rigging_value` greifen als explizite `value_probe`-Pfade; zusaetzliche Matrix-/Rigging-Vergleichswerte sind vor den breiteren Sammelpfaden explizit gefasst.
 - [x] Rituale fuer diesen Refactor bewusst auf reine Datenfelder ohne Wuerfel zurueckgefuehrt
+- [x] `Allgemein` als primaere Pflegeflaeche fuer Attribute, Fertigkeiten und Kampfwerte zurueckgebaut
+  Stand: Die operative Pflege liegt in den Fach-Tabs, insbesondere `Attribute & Fertigkeiten`; `Allgemein` bleibt Uebersicht/Spiegel.
 
 ## Bewusst spaeter, nicht Blocker fuer den Abschluss
 

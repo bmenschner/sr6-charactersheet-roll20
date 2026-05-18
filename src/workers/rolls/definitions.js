@@ -4,6 +4,8 @@ const SR6_ROLL_TITLE_PREFIXES = [
   { prefix: "sr6_fernkampf_", title: "Fernkampfwaffen" },
   { prefix: "sr6_nahkampf_", title: "Nahkampfwaffen" },
   { prefix: "sr6_matrix_handlung_", title: "Matrix-Handlungen" },
+  { prefix: "sr6_rigging_fahrzeug_", title: "Rigging-Fahrzeuge" },
+  { prefix: "sr6_attrprobe_", title: "Attributsproben" },
   { prefix: "sr6_matrix_", title: "Matrix: Kernwerte" },
   { prefix: "sr6_rigging_manoever_", title: "Manöver" },
   { prefix: "sr6_rigging_", title: "Rigging: Kernwerte" },
@@ -17,6 +19,7 @@ const SR6_ROLL_TITLE_PREFIXES = [
   { prefix: "sr6_sprachfertigkeit_", title: "Sprachfertigkeiten" },
   { prefix: "sr6_talentsoft_", title: "Talentsofts" },
   { prefix: "sr6_wissenssprachsoft_", title: "Wissens-/Sprachsofts" },
+  { prefix: "sr6_ausruestung_", title: "Ausrüstung" },
 ];
 
 const SR6_DEFAULT_ROLL_ROW_ORDER = [
@@ -34,6 +37,87 @@ const SR6_DEFAULT_ROLL_ROW_ORDER = [
 ];
 
 const SR6_POPUP_FIELD_SLOT_COUNT = 8;
+
+const SR6_RIGGING_VEHICLE_ROLL_ATTRIBUTES = [
+  "sr6_attr_reaktion_gesamtwert",
+  "sr6_attr_geschicklichkeit_gesamtwert",
+  "sr6_attr_intuition_gesamtwert",
+  "sr6_attr_logik_gesamtwert",
+  "sr6_skill_steuern_gesamtwert",
+  "sr6_skill_mechanik_gesamtwert",
+  "sr6_skill_mechanik_spezialisierung",
+  "sr6_skill_mechanik_expertise",
+  "sr6_skill_heimlichkeit_gesamtwert",
+  "sr6_skill_wahrnehmung_gesamtwert",
+  "sr6_rigging_fahrzeug_probe",
+  "sr6_rigging_fahrzeug_modus",
+  "sr6_rigging_fahrzeug_rumpf",
+  "sr6_rigging_fahrzeug_panzerung",
+  "sr6_rigging_fahrzeug_pilot",
+  "sr6_rigging_fahrzeug_sensor",
+  "sr6_rigging_fahrzeug_agentenstufe",
+  "sr6_rigging_fahrzeug_riggerkontrolle",
+  "sr6_rigging_fahrzeug_manoevrieren",
+  "sr6_rigging_fahrzeug_zielerfassung",
+  "sr6_rigging_fahrzeug_ausweichen",
+  "sr6_rigging_fahrzeug_stealth",
+  "sr6_rigging_fahrzeug_clearsight",
+  "sr6_rigging_fahrzeug_angriffswert",
+  "sr6_rigging_fahrzeug_verteidigungswert",
+  "sr6_rigging_fahrzeug_zustandsmonitor",
+  "sr6_rigging_fahrzeug_waffe_probe_wert",
+  "sr6_rigging_fahrzeug_waffe_name",
+  "sr6_rigging_fahrzeug_waffe",
+  "sr6_rigging_fahrzeug_waffe_schaden",
+  "sr6_rigging_fahrzeug_waffe_modus",
+  "sr6_rigging_fahrzeug_waffe_s_nah",
+  "sr6_rigging_fahrzeug_waffe_nah",
+  "sr6_rigging_fahrzeug_waffe_mittel",
+  "sr6_rigging_fahrzeug_waffe_weit",
+  "sr6_rigging_fahrzeug_waffe_s_weit",
+];
+
+const SR6_EQUIPMENT_SOURCE_OPTIONS = {
+  "attr:konstitution": { label: "Konstitution", type: "Attribut", attr: "sr6_attr_konstitution_gesamtwert" },
+  "attr:geschicklichkeit": { label: "Geschicklichkeit", type: "Attribut", attr: "sr6_attr_geschicklichkeit_gesamtwert" },
+  "attr:reaktion": { label: "Reaktion", type: "Attribut", attr: "sr6_attr_reaktion_gesamtwert" },
+  "attr:staerke": { label: "Stärke", type: "Attribut", attr: "sr6_attr_staerke_gesamtwert" },
+  "attr:willenskraft": { label: "Willenskraft", type: "Attribut", attr: "sr6_attr_willenskraft_gesamtwert" },
+  "attr:logik": { label: "Logik", type: "Attribut", attr: "sr6_attr_logik_gesamtwert" },
+  "attr:intuition": { label: "Intuition", type: "Attribut", attr: "sr6_attr_intuition_gesamtwert" },
+  "attr:charisma": { label: "Charisma", type: "Attribut", attr: "sr6_attr_charisma_gesamtwert" },
+  "attr:edge": { label: "Edge", type: "Attribut", attr: "sr6_attr_edge_gesamtwert" },
+  "attr:magie_resonanz": { label: "Magie/Resonanz", type: "Attribut", attr: "sr6_attr_magie_resonanz_gesamtwert" },
+  "skill:astral": { label: "Astral", type: "Fertigkeit", attr: "sr6_skill_astral_gesamtwert" },
+  "skill:athletik": { label: "Athletik", type: "Fertigkeit", attr: "sr6_skill_athletik_gesamtwert" },
+  "skill:beschwoeren": { label: "Beschwören", type: "Fertigkeit", attr: "sr6_skill_beschwoeren_gesamtwert" },
+  "skill:biotech": { label: "Biotech", type: "Fertigkeit", attr: "sr6_skill_biotech_gesamtwert" },
+  "skill:cracken": { label: "Cracken", type: "Fertigkeit", attr: "sr6_skill_cracken_gesamtwert" },
+  "skill:einfluss": { label: "Einfluss", type: "Fertigkeit", attr: "sr6_skill_einfluss_gesamtwert" },
+  "skill:elektronik": { label: "Elektronik", type: "Fertigkeit", attr: "sr6_skill_elektronik_gesamtwert" },
+  "skill:exotische_waffen": { label: "Exotische Waffen", type: "Fertigkeit", attr: "sr6_skill_exotische_waffen_gesamtwert" },
+  "skill:feuerwaffen": { label: "Feuerwaffen", type: "Fertigkeit", attr: "sr6_skill_feuerwaffen_gesamtwert" },
+  "skill:heimlichkeit": { label: "Heimlichkeit", type: "Fertigkeit", attr: "sr6_skill_heimlichkeit_gesamtwert" },
+  "skill:hexerei": { label: "Hexerei", type: "Fertigkeit", attr: "sr6_skill_hexerei_gesamtwert" },
+  "skill:mechanik": { label: "Mechanik", type: "Fertigkeit", attr: "sr6_skill_mechanik_gesamtwert" },
+  "skill:nahkampf": { label: "Nahkampf", type: "Fertigkeit", attr: "sr6_skill_nahkampf_gesamtwert" },
+  "skill:natur": { label: "Natur", type: "Fertigkeit", attr: "sr6_skill_natur_gesamtwert" },
+  "skill:steuern": { label: "Steuern", type: "Fertigkeit", attr: "sr6_skill_steuern_gesamtwert" },
+  "skill:tasken": { label: "Tasken", type: "Fertigkeit", attr: "sr6_skill_tasken_gesamtwert" },
+  "skill:ueberreden": { label: "Überreden", type: "Fertigkeit", attr: "sr6_skill_ueberreden_gesamtwert" },
+  "skill:verzaubern": { label: "Verzaubern", type: "Fertigkeit", attr: "sr6_skill_verzaubern_gesamtwert" },
+  "skill:wahrnehmung": { label: "Wahrnehmung", type: "Fertigkeit", attr: "sr6_skill_wahrnehmung_gesamtwert" },
+};
+
+function getEquipmentSourceOption(sourceKey) {
+  return SR6_EQUIPMENT_SOURCE_OPTIONS[`${sourceKey || ""}`.trim()] || null;
+}
+
+function getEquipmentSourceAttributeRefs() {
+  return Object.keys(SR6_EQUIPMENT_SOURCE_OPTIONS)
+    .map((sourceKey) => SR6_EQUIPMENT_SOURCE_OPTIONS[sourceKey].attr)
+    .filter((attr) => !!attr);
+}
 
 const SR6_POPUP_SELECT_OPTION_SETS = {
   visibility: [
@@ -53,6 +137,18 @@ const SR6_POPUP_SELECT_OPTION_SETS = {
     { value: "Sicht", label: "Sicht", rowValue: "Sicht" },
     { value: "Spezial", label: "Spezial", rowValue: "Spezial" },
   ],
+  spirit_type: [
+    { value: "Erdgeister", label: "Erdgeister", rowValue: "Erdgeister" },
+    { value: "Feuergeister", label: "Feuergeister", rowValue: "Feuergeister" },
+    { value: "Luftgeister", label: "Luftgeister", rowValue: "Luftgeister" },
+    { value: "Geister des Menschen", label: "Geister des Menschen", rowValue: "Geister des Menschen" },
+    { value: "Geister des Tieres", label: "Geister des Tieres", rowValue: "Geister des Tieres" },
+    { value: "Wassergeister", label: "Wassergeister", rowValue: "Wassergeister" },
+    { value: "Beschützergeister", label: "Beschützergeister", rowValue: "Beschützergeister" },
+    { value: "Helfergeister", label: "Helfergeister", rowValue: "Helfergeister" },
+    { value: "Pflanzengeister", label: "Pflanzengeister", rowValue: "Pflanzengeister" },
+    { value: "Ratgebergeister", label: "Ratgebergeister", rowValue: "Ratgebergeister" },
+  ],
   matrix_access: [
     { value: "Benutzer", label: "Benutzer", rowValue: "Benutzer" },
     { value: "Admin", label: "Admin", rowValue: "Admin" },
@@ -61,6 +157,52 @@ const SR6_POPUP_SELECT_OPTION_SETS = {
   melee_attribute: [
     { value: "Geschicklichkeit", label: "Geschicklichkeit", rowValue: "Geschicklichkeit" },
     { value: "Stärke", label: "Stärke", rowValue: "Stärke" },
+  ],
+  skill_attr_intuition_willenskraft: [
+    { value: "Intuition", label: "Intuition", rowValue: "Intuition" },
+    { value: "Willenskraft", label: "Willenskraft", rowValue: "Willenskraft" },
+  ],
+  skill_attr_geschicklichkeit_staerke: [
+    { value: "Geschicklichkeit", label: "Geschicklichkeit", rowValue: "Geschicklichkeit" },
+    { value: "Stärke", label: "Stärke", rowValue: "Stärke" },
+  ],
+  skill_attr_magie: [
+    { value: "Magie", label: "Magie", rowValue: "Magie" },
+  ],
+  skill_attr_logik_intuition: [
+    { value: "Logik", label: "Logik", rowValue: "Logik" },
+    { value: "Intuition", label: "Intuition", rowValue: "Intuition" },
+  ],
+  skill_attr_logik: [
+    { value: "Logik", label: "Logik", rowValue: "Logik" },
+  ],
+  skill_attr_charisma_logik: [
+    { value: "Charisma", label: "Charisma", rowValue: "Charisma" },
+    { value: "Logik", label: "Logik", rowValue: "Logik" },
+  ],
+  skill_attr_geschicklichkeit: [
+    { value: "Geschicklichkeit", label: "Geschicklichkeit", rowValue: "Geschicklichkeit" },
+  ],
+  skill_attr_logik_geschicklichkeit_intuition: [
+    { value: "Logik", label: "Logik", rowValue: "Logik" },
+    { value: "Geschicklichkeit", label: "Geschicklichkeit", rowValue: "Geschicklichkeit" },
+    { value: "Intuition", label: "Intuition", rowValue: "Intuition" },
+  ],
+  skill_attr_intuition: [
+    { value: "Intuition", label: "Intuition", rowValue: "Intuition" },
+  ],
+  skill_attr_intuition_logik: [
+    { value: "Intuition", label: "Intuition", rowValue: "Intuition" },
+    { value: "Logik", label: "Logik", rowValue: "Logik" },
+  ],
+  skill_attr_reaktion: [
+    { value: "Reaktion", label: "Reaktion", rowValue: "Reaktion" },
+  ],
+  skill_attr_resonanz: [
+    { value: "Resonanz", label: "Resonanz", rowValue: "Resonanz" },
+  ],
+  skill_attr_charisma: [
+    { value: "Charisma", label: "Charisma", rowValue: "Charisma" },
   ],
   ammo: [
     { value: "Standard", label: "Standard", rowValue: "Standard" },
@@ -148,6 +290,150 @@ const SR6_DEFAULT_POPUP_FIELDS = [
   },
 ];
 
+const SR6_SKILL_ATTRIBUTE_CONFIGS = {
+  astral: {
+    optionSet: "skill_attr_intuition_willenskraft",
+    defaultValue: "Intuition",
+    options: [
+      { value: "Intuition", attr: "sr6_attr_intuition_gesamtwert" },
+      { value: "Willenskraft", attr: "sr6_attr_willenskraft_gesamtwert" },
+    ],
+  },
+  athletik: {
+    optionSet: "skill_attr_geschicklichkeit_staerke",
+    defaultValue: "Geschicklichkeit",
+    options: [
+      { value: "Geschicklichkeit", attr: "sr6_attr_geschicklichkeit_gesamtwert" },
+      { value: "Stärke", attr: "sr6_attr_staerke_gesamtwert" },
+    ],
+  },
+  beschwoeren: {
+    optionSet: "skill_attr_magie",
+    defaultValue: "Magie",
+    options: [
+      { value: "Magie", attr: "sr6_attr_magie_resonanz_gesamtwert" },
+    ],
+  },
+  biotech: {
+    optionSet: "skill_attr_logik_intuition",
+    defaultValue: "Logik",
+    options: [
+      { value: "Logik", attr: "sr6_attr_logik_gesamtwert" },
+      { value: "Intuition", attr: "sr6_attr_intuition_gesamtwert" },
+    ],
+  },
+  cracken: {
+    optionSet: "skill_attr_logik",
+    defaultValue: "Logik",
+    options: [
+      { value: "Logik", attr: "sr6_attr_logik_gesamtwert" },
+    ],
+  },
+  einfluss: {
+    optionSet: "skill_attr_charisma_logik",
+    defaultValue: "Charisma",
+    options: [
+      { value: "Charisma", attr: "sr6_attr_charisma_gesamtwert" },
+      { value: "Logik", attr: "sr6_attr_logik_gesamtwert" },
+    ],
+  },
+  elektronik: {
+    optionSet: "skill_attr_logik_intuition",
+    defaultValue: "Logik",
+    options: [
+      { value: "Logik", attr: "sr6_attr_logik_gesamtwert" },
+      { value: "Intuition", attr: "sr6_attr_intuition_gesamtwert" },
+    ],
+  },
+  exotische_waffen: {
+    optionSet: "skill_attr_geschicklichkeit",
+    defaultValue: "Geschicklichkeit",
+    options: [
+      { value: "Geschicklichkeit", attr: "sr6_attr_geschicklichkeit_gesamtwert" },
+    ],
+  },
+  feuerwaffen: {
+    optionSet: "skill_attr_geschicklichkeit",
+    defaultValue: "Geschicklichkeit",
+    options: [
+      { value: "Geschicklichkeit", attr: "sr6_attr_geschicklichkeit_gesamtwert" },
+    ],
+  },
+  heimlichkeit: {
+    optionSet: "skill_attr_geschicklichkeit",
+    defaultValue: "Geschicklichkeit",
+    options: [
+      { value: "Geschicklichkeit", attr: "sr6_attr_geschicklichkeit_gesamtwert" },
+    ],
+  },
+  hexerei: {
+    optionSet: "skill_attr_magie",
+    defaultValue: "Magie",
+    options: [
+      { value: "Magie", attr: "sr6_attr_magie_resonanz_gesamtwert" },
+    ],
+  },
+  mechanik: {
+    optionSet: "skill_attr_logik_geschicklichkeit_intuition",
+    defaultValue: "Logik",
+    options: [
+      { value: "Logik", attr: "sr6_attr_logik_gesamtwert" },
+      { value: "Geschicklichkeit", attr: "sr6_attr_geschicklichkeit_gesamtwert" },
+      { value: "Intuition", attr: "sr6_attr_intuition_gesamtwert" },
+    ],
+  },
+  nahkampf: {
+    optionSet: "skill_attr_geschicklichkeit",
+    defaultValue: "Geschicklichkeit",
+    options: [
+      { value: "Geschicklichkeit", attr: "sr6_attr_geschicklichkeit_gesamtwert" },
+    ],
+  },
+  natur: {
+    optionSet: "skill_attr_intuition",
+    defaultValue: "Intuition",
+    options: [
+      { value: "Intuition", attr: "sr6_attr_intuition_gesamtwert" },
+    ],
+  },
+  steuern: {
+    optionSet: "skill_attr_reaktion",
+    defaultValue: "Reaktion",
+    options: [
+      { value: "Reaktion", attr: "sr6_attr_reaktion_gesamtwert" },
+    ],
+  },
+  tasken: {
+    optionSet: "skill_attr_resonanz",
+    defaultValue: "Resonanz",
+    options: [
+      { value: "Resonanz", attr: "sr6_attr_magie_resonanz_gesamtwert" },
+    ],
+  },
+  ueberreden: {
+    optionSet: "skill_attr_charisma",
+    defaultValue: "Charisma",
+    options: [
+      { value: "Charisma", attr: "sr6_attr_charisma_gesamtwert" },
+    ],
+  },
+  verzaubern: {
+    optionSet: "skill_attr_magie",
+    defaultValue: "Magie",
+    options: [
+      { value: "Magie", attr: "sr6_attr_magie_resonanz_gesamtwert" },
+    ],
+  },
+  wahrnehmung: {
+    optionSet: "skill_attr_intuition_logik",
+    defaultValue: "Intuition",
+    options: [
+      { value: "Intuition", attr: "sr6_attr_intuition_gesamtwert" },
+      { value: "Logik", attr: "sr6_attr_logik_gesamtwert" },
+    ],
+  },
+};
+
 function createPopupField(config) {
   return {
     affects: "display",
@@ -176,11 +462,10 @@ function createSpecializationPopupFields(startSlot = 2) {
       label: "Expertise",
       type: "checkbox",
       affects: "pool",
-      checkedValue: 1,
-      checkedDisplayValue: "+1 (gesamt +3)",
+      checkedValue: 3,
+      checkedDisplayValue: "+3",
       includeInTemplate: true,
       defaultValue: "0",
-      requiresCheckedSlot: startSlot,
     },
   ];
 }
@@ -235,7 +520,29 @@ function createSkillProbePopupFields() {
   ];
 }
 
+function createMappedSkillProbePopupFields(attributeConfig) {
+  if (!attributeConfig || !attributeConfig.optionSet) {
+    return createSkillProbePopupFields();
+  }
+
+  return [
+    SR6_DEFAULT_POPUP_FIELDS[0],
+    {
+      id: "skill_attribute",
+      slot: 2,
+      label: "Attribut",
+      type: "select",
+      optionSet: attributeConfig.optionSet,
+      affects: "display",
+      includeInTemplate: false,
+      defaultValue: attributeConfig.defaultValue || "",
+    },
+    ...createSpecializationPopupFields(3),
+  ];
+}
+
 function createSkillProbeDefinition(config = {}) {
+  const attributeConfig = config.skillAttributeConfig || null;
   return {
     probeModel: "skill_probe",
     matchField: config.matchField || "Fertigkeit",
@@ -244,10 +551,30 @@ function createSkillProbeDefinition(config = {}) {
     titleField: config.titleField || "",
     primaryFields: config.primaryFields || ["Fertigkeit"],
     extraFields: config.extraFields || [],
-    popupFields: config.popupFields || SR6_SKILL_PROBE_POPUP_FIELDS,
+    popupFields: config.popupFields || createMappedSkillProbePopupFields(attributeConfig),
+    skillKey: config.skillKey || "",
+    skillAttributeConfig: attributeConfig,
+    internalFields: config.internalFields || ["Spezialisierung Aktiv", "Expertise Aktiv"],
     fixedTitle: config.fixedTitle || "",
     titleFallback: config.titleFallback || "Fertigkeiten",
   };
+}
+
+function createEquipmentPopupFields() {
+  return [
+    SR6_DEFAULT_POPUP_FIELDS[0],
+    {
+      id: "equipment_rating_x2",
+      slot: 2,
+      label: "Stufe x2",
+      type: "checkbox",
+      affects: "display",
+      checkedValue: 1,
+      checkedDisplayValue: "x2",
+      defaultValue: "0",
+      includeInTemplate: false,
+    },
+  ];
 }
 
 function createAttackValueSourceByRange(prefix) {
@@ -380,6 +707,7 @@ function createSpellPopupFields() {
       defaultValue: "0",
       visibleWhenField: "Art",
       visibleWhenValue: "Kampf",
+      visibleWhenFieldMissing: true,
     },
     {
       id: "area_increase",
@@ -404,6 +732,7 @@ function createSpellPopupFields() {
       defaultValue: "0",
       visibleWhenField: "Art",
       visibleWhenValue: "Kampf",
+      visibleWhenFieldMissing: true,
     },
     ...createSpecializationPopupFields(6),
     {
@@ -416,6 +745,77 @@ function createSpellPopupFields() {
       defaultValue: "0",
     },
   ];
+}
+
+function createSummoningPopupFields() {
+  return [
+    {
+      id: "spirit_type",
+      slot: 1,
+      label: "Geistertyp",
+      type: "select",
+      optionSet: "spirit_type",
+      affects: "display",
+      includeInTemplate: true,
+      defaultValue: "Luftgeister",
+    },
+    {
+      id: "spirit_force",
+      slot: 2,
+      label: "Kraftstufe",
+      type: "number",
+      affects: "display",
+      includeInTemplate: true,
+      defaultValue: "0",
+      sourceField: "Stufe",
+    },
+    {
+      id: "pool_mod",
+      slot: 3,
+      label: "Beschwören-Modifikator",
+      type: "number",
+      affects: "pool",
+      includeInTemplate: true,
+      defaultValue: "0",
+    },
+    {
+      id: "drain_mod",
+      slot: 4,
+      label: "Entzug-Modifikator",
+      type: "number",
+      affects: "drain",
+      includeInTemplate: true,
+      defaultValue: "0",
+    },
+    {
+      id: "possession",
+      slot: 5,
+      label: "Besessenheit",
+      type: "checkbox",
+      affects: "display",
+      checkedDisplayValue: "Ja",
+      includeInTemplate: true,
+      defaultValue: "0",
+    },
+    {
+      id: "object_resistance",
+      slot: 6,
+      label: "Objektwiderstand",
+      type: "number",
+      affects: "display",
+      includeInTemplate: true,
+      defaultValue: "0",
+      requiresCheckedSlot: 5,
+    },
+  ];
+}
+
+function getMagicRollAdditionalAttributes(definition) {
+  if (!definition) return [];
+  if (definition.id === "spell" || definition.id === "summoning") {
+    return ["sr6_magic_magie", "sr6_magic_entzug_widerstand"];
+  }
+  return [];
 }
 
 function createDefenseProbePopupFields(config) {
@@ -517,6 +917,18 @@ const SR6_ROLL_DEFINITIONS = [
     }),
   },
   {
+    id: "attribute_pair",
+    ...createAttributeProbeDefinition({
+      matchField: "Attributsprobe",
+      matchPoolPrefix: "sr6_attrprobe_",
+      titleField: "Attributsprobe",
+      primaryFields: ["Attributsprobe"],
+      extraFields: ["Formel", "Fertigkeit"],
+      popupFields: SR6_DEFAULT_POPUP_FIELDS,
+      titleFallback: "Attributsproben",
+    }),
+  },
+  {
     id: "attribute",
     ...createAttributeProbeDefinition({
       matchField: "Attribut",
@@ -547,6 +959,7 @@ const SR6_ROLL_DEFINITIONS = [
     id: "talentsoft_skill",
     ...createSkillProbeDefinition({
       matchPoolPrefix: "sr6_talentsoft_",
+      extraFields: ["Attribut", "Stufe", "Modifikator", "Hinweis"],
       titleFallback: "Talentsofts",
     }),
   },
@@ -558,12 +971,27 @@ const SR6_ROLL_DEFINITIONS = [
     }),
   },
   {
-    id: "skill",
+    id: "equipment",
+    probeModel: "equipment_probe",
+    matchField: "Ausrüstung",
+    matchPoolPrefix: "sr6_ausruestung_",
+    titleMode: "field-short",
+    titleField: "Ausrüstung",
+    primaryFields: ["Ausrüstung"],
+    extraFields: ["Stufe"],
+    popupFields: createEquipmentPopupFields(),
+    internalFields: ["Auswahl"],
+    titleFallback: "Ausrüstung",
+  },
+  ...SR6_SKILLS.map((skillKey) => ({
+    id: `skill_${skillKey}`,
     ...createSkillProbeDefinition({
-      matchPoolPrefix: "sr6_skill_",
+      matchPoolPrefix: `sr6_skill_${skillKey}_`,
+      skillKey: skillKey,
+      skillAttributeConfig: SR6_SKILL_ATTRIBUTE_CONFIGS[skillKey],
       titleFallback: "Fertigkeiten",
     }),
-  },
+  })),
   {
     id: "generic_skill",
     ...createSkillProbeDefinition({
@@ -573,7 +1001,7 @@ const SR6_ROLL_DEFINITIONS = [
   {
     id: "spell",
     probeModel: "spell_probe",
-    matchField: "Zauber",
+    matchField: "",
     matchPoolPrefix: "sr6_magic_spruchzauberei",
     titleMode: "fixed",
     primaryFields: ["Zauber"],
@@ -585,6 +1013,18 @@ const SR6_ROLL_DEFINITIONS = [
     fixedTitle: "Spruchzauberei",
     popupFields: createSpellPopupFields(),
     titleFallback: "Zauber",
+  },
+  {
+    id: "summoning",
+    probeModel: "summoning_probe",
+    matchField: "",
+    matchPoolPrefix: "sr6_magic_beschwoeren",
+    titleMode: "fixed",
+    primaryFields: ["Geist"],
+    extraFields: ["Typ", "Stufe"],
+    fixedTitle: "Beschwören",
+    popupFields: createSummoningPopupFields(),
+    titleFallback: "Geister",
   },
   {
     id: "astral_defense",
@@ -746,6 +1186,19 @@ const SR6_ROLL_DEFINITIONS = [
       fixedTitle: "Rigging: Kernwerte",
       titleFallback: "Rigging: Kernwerte",
     }),
+  },
+  {
+    id: "rigging_vehicle",
+    probeModel: "rigging_vehicle_probe",
+    matchField: "Fahrzeug",
+    matchPoolPrefix: "sr6_rigging_fahrzeug_",
+    titleMode: "field-short",
+    titleField: "Probe",
+    primaryFields: ["Fahrzeug", "Probe"],
+    extraFields: ["Modus"],
+    popupFields: SR6_DEFAULT_POPUP_FIELDS,
+    internalFields: ["Probe"],
+    titleFallback: "Rigging-Fahrzeugprobe",
   },
   {
     id: "rigging_value",
@@ -1109,12 +1562,110 @@ function getInternalRollFields(definition) {
   return Array.isArray(resolvedDefinition.internalFields) ? resolvedDefinition.internalFields : [];
 }
 
-function getRollPopupFields(definition) {
+function getRollPopupFields(definition, poolAttribute) {
   const resolvedDefinition = definition || resolveRollDefinition({});
-  if (Array.isArray(resolvedDefinition.popupFields) && resolvedDefinition.popupFields.length > 0) {
-    return resolvedDefinition.popupFields;
+  const baseFields = Array.isArray(resolvedDefinition.popupFields) && resolvedDefinition.popupFields.length > 0
+    ? resolvedDefinition.popupFields
+    : SR6_DEFAULT_POPUP_FIELDS;
+
+  return baseFields;
+}
+
+function getSkillProbeAttributeOptions(definition) {
+  const resolvedDefinition = definition || resolveRollDefinition({});
+  const config = resolvedDefinition.skillAttributeConfig || {};
+  return Array.isArray(config.options) ? config.options : [];
+}
+
+function resolveSkillProbeAttributeOption(definition, selectedValue) {
+  const options = getSkillProbeAttributeOptions(definition);
+  if (options.length === 0) return null;
+
+  const normalizedValue = `${selectedValue || ""}`.trim();
+  return options.find((option) => option.value === normalizedValue) || options[0];
+}
+
+function getRollAdditionalAttributes(definition) {
+  const attributes = getMagicRollAdditionalAttributes(definition);
+  getSkillProbeAttributeOptions(definition).forEach((option) => {
+    if (option && option.attr) attributes.push(option.attr);
+  });
+  if (definition && definition.id === "equipment") {
+    attributes.push(...getEquipmentSourceAttributeRefs());
   }
-  return SR6_DEFAULT_POPUP_FIELDS;
+  if (definition && definition.id === "rigging_vehicle") {
+    attributes.push(...SR6_RIGGING_VEHICLE_ROLL_ATTRIBUTES);
+  }
+  if (definition && definition.id === "matrix_action") {
+    return [...new Set([...attributes, ...getMatrixActionRuleAttributeRefs(), ...getMatrixActionSelectionAttributeRefs()])];
+  }
+  return [...new Set(attributes)];
+}
+
+function getMatrixActionKeyFromPoolAttribute(poolAttribute) {
+  const prefix = "sr6_matrix_handlung_";
+  const suffixes = ["_grundwert", "_modifikator", "_gesamtwert", "_probe_wert", "_verteidigung_wert"];
+  if (!poolAttribute || !poolAttribute.startsWith(prefix)) return "";
+
+  const actionPart = poolAttribute.slice(prefix.length);
+  for (let index = 0; index < suffixes.length; index += 1) {
+    const suffix = suffixes[index];
+    if (actionPart.endsWith(suffix)) {
+      return actionPart.slice(0, -suffix.length);
+    }
+  }
+  return actionPart;
+}
+
+function getMatrixActionRollModeFromPoolAttribute(poolAttribute) {
+  if (!poolAttribute) return "probe";
+  if (poolAttribute.endsWith("_verteidigung_wert")) return "defense";
+  return "probe";
+}
+
+function getMatrixActionRule(actionKey) {
+  return (SR6_MATRIX_ACTION_RULES && SR6_MATRIX_ACTION_RULES[actionKey]) || null;
+}
+
+function getMatrixRuleComponentAttr(component) {
+  if (!component) return "";
+  if (component.attribute) {
+    return `sr6_attr_${component.attribute}_gesamtwert`;
+  }
+  if (component.skill) {
+    return `sr6_skill_${component.skill}_gesamtwert`;
+  }
+  if (component.matrix) {
+    return `sr6_matrix_${component.matrix}`;
+  }
+  return "";
+}
+
+function collectMatrixRuleComponentAttrs(component, attributes) {
+  const directAttr = getMatrixRuleComponentAttr(component);
+  if (directAttr) attributes.push(directAttr);
+  if (component && component.matrixSecond) {
+    attributes.push(`sr6_matrix_${component.matrixSecond}`);
+  }
+}
+
+function getMatrixActionRuleAttributeRefs() {
+  const attributes = [];
+  Object.keys(SR6_MATRIX_ACTION_RULES || {}).forEach((actionKey) => {
+    const rule = SR6_MATRIX_ACTION_RULES[actionKey] || {};
+    collectMatrixRuleComponentAttrs(rule.probe, attributes);
+    const defense = rule.defense || {};
+    if (Array.isArray(defense.options)) {
+      defense.options.forEach((option) => collectMatrixRuleComponentAttrs(option, attributes));
+    } else {
+      collectMatrixRuleComponentAttrs(defense, attributes);
+    }
+  });
+  return [...new Set(attributes)];
+}
+
+function getMatrixActionSelectionAttributeRefs() {
+  return SR6_MATRIX_ACTIONS.map((actionKey) => `sr6_matrix_handlung_${actionKey}_verteidigung_auswahl`);
 }
 
 function getRollContextFields(definition) {
@@ -1172,8 +1723,8 @@ function getPopupSelectOptions(field) {
   return SR6_POPUP_SELECT_OPTION_SETS[field.optionSet] || [];
 }
 
-function buildPopupStateFromValues(values, definition) {
-  const popupFields = getRollPopupFields(definition);
+function buildPopupStateFromValues(values, definition, poolAttribute) {
+  const popupFields = getRollPopupFields(definition, poolAttribute);
   const popupRows = [];
   const selectedValues = {};
   let poolMod = 0;
@@ -1181,6 +1732,11 @@ function buildPopupStateFromValues(values, definition) {
   let damageMod = 0;
   let drainMod = 0;
   let poolMultiplier = 1;
+  const expertiseFieldIndex = popupFields.findIndex((field) => field && field.id === "expertise");
+  const expertiseField = expertiseFieldIndex >= 0 ? popupFields[expertiseFieldIndex] : null;
+  const expertiseChecked = expertiseField
+    ? isCheckedValue(values[getPopupFieldValueAttr(expertiseField, expertiseFieldIndex)])
+    : false;
 
   popupFields.forEach((field, index) => {
     const rawValue = values[getPopupFieldValueAttr(field, index)];
@@ -1188,7 +1744,12 @@ function buildPopupStateFromValues(values, definition) {
     const isTextField = field.type === "text";
     const isCheckboxField = field.type === "checkbox";
     const dependencySatisfied = !field.requiresCheckedSlot || isCheckedValue(values[`sr6_roll_popup_value_${field.requiresCheckedSlot}_checkbox`]);
-    const checkboxChecked = dependencySatisfied && isCheckboxField ? isCheckedValue(rawValue) : false;
+    const checkboxChecked =
+      dependencySatisfied &&
+      isCheckboxField &&
+      !(field.id === "specialization" && expertiseChecked)
+        ? isCheckedValue(rawValue)
+        : false;
     const normalizedValue = isNumberField
       ? parseNumber(rawValue)
       : isCheckboxField
@@ -1303,6 +1864,8 @@ function buildPopupStateFromValues(values, definition) {
 
 function fieldMatchesPopupVisibility(field, templateFields) {
   if (!field || !field.visibleWhenField) return true;
+  const hasVisibilityField = !!(templateFields && templateFields[field.visibleWhenField] !== undefined);
+  if (!hasVisibilityField && field.visibleWhenFieldMissing) return true;
   return `${(templateFields && templateFields[field.visibleWhenField]) || ""}`.trim() === `${field.visibleWhenValue || ""}`.trim();
 }
 
@@ -1330,8 +1893,8 @@ function buildPopupResetPayload() {
   return payload;
 }
 
-function buildPopupFormPayload(definition, templateFields = {}) {
-  const popupFields = getRollPopupFields(definition);
+function buildPopupFormPayload(definition, templateFields = {}, poolAttribute) {
+  const popupFields = getRollPopupFields(definition, poolAttribute);
   const payload = buildPopupResetPayload();
 
   popupFields.forEach((field, index) => {
@@ -1369,7 +1932,7 @@ function getPopupSourceAttrName(field, poolAttribute) {
 }
 
 function buildPopupRequestedAttributes(definition, poolAttribute, repeatingRowPrefix) {
-  const popupFields = getRollPopupFields(definition);
+  const popupFields = getRollPopupFields(definition, poolAttribute);
   const requestedAttributes = [];
 
   popupFields.forEach((field) => {
@@ -1385,10 +1948,10 @@ function buildPopupRequestedAttributes(definition, poolAttribute, repeatingRowPr
 }
 
 function buildPopupPrefillPayload(definition, poolAttribute, repeatingRowPrefix, values, templateFields = {}) {
-  const popupFields = getRollPopupFields(definition);
+  const popupFields = getRollPopupFields(definition, poolAttribute);
   const lookupAttr = buildAttrLookup(values || {}, repeatingRowPrefix);
   const resolvedTemplateFields = buildResolvedFields(templateFields || {}, lookupAttr);
-  const payload = buildPopupFormPayload(definition, resolvedTemplateFields);
+  const payload = buildPopupFormPayload(definition, resolvedTemplateFields, poolAttribute);
 
   popupFields.forEach((field, index) => {
     if (!fieldMatchesPopupVisibility(field, resolvedTemplateFields)) return;
@@ -1396,6 +1959,24 @@ function buildPopupPrefillPayload(definition, poolAttribute, repeatingRowPrefix,
     const resolvedValue = sourceAttr ? lookupAttr(sourceAttr) : "";
     if (resolvedValue === undefined || resolvedValue === null || `${resolvedValue}` === "") return;
     payload[getPopupFieldValueAttr(field, index)] = `${resolvedValue}`;
+  });
+
+  popupFields.forEach((field, index) => {
+    if (!fieldMatchesPopupVisibility(field, resolvedTemplateFields)) return;
+    if (!field.sourceField) return;
+    const resolvedValue = resolvedTemplateFields[field.sourceField];
+    if (resolvedValue === undefined || resolvedValue === null || `${resolvedValue}` === "") return;
+    payload[getPopupFieldValueAttr(field, index)] = `${resolvedValue}`;
+  });
+
+  popupFields.forEach((field, index) => {
+    if (!fieldMatchesPopupVisibility(field, resolvedTemplateFields)) return;
+    if (field.id === "specialization" && resolvedTemplateFields["Spezialisierung Aktiv"] === "1" && resolvedTemplateFields.Spezialisierung) {
+      payload[getPopupFieldValueAttr(field, index)] = "1";
+    }
+    if (field.id === "expertise" && resolvedTemplateFields["Expertise Aktiv"] === "1" && resolvedTemplateFields.Expertise) {
+      payload[getPopupFieldValueAttr(field, index)] = "1";
+    }
   });
 
   return payload;

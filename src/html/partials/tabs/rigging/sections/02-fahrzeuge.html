@@ -16,23 +16,19 @@
     </div>
     <div class="sr6-charactersheet-box-content">
       <div class="sr6-rigging-fahrzeuge-list-header" aria-hidden="true">
-        <div class="sr6-rigging-fahrzeuge-list-header-group sr6-rigging-fahrzeuge-list-header-group--9">
+        <div class="sr6-rigging-fahrzeuge-list-header-group sr6-rigging-fahrzeuge-list-header-group--5">
           <span data-i18n="field.name">Name</span>
           <span data-i18n="field.handling">Handling</span>
           <span data-i18n="field.beschleunigung">Beschleunigung</span>
           <span data-i18n="field.intervall">Intervall</span>
           <span data-i18n="field.geschwindigkeit">Geschwindigkeit</span>
-          <span data-i18n="field.rumpf">Rumpf</span>
-          <span data-i18n="field.panzerung">Panzerung</span>
-          <span data-i18n="field.pilot">Pilot</span>
-          <span data-i18n="field.sensor">Sensor</span>
         </div>
       </div>
 
       <fieldset class="repeating_sr6riggingfahrzeuge">
         <div class="sr6-foundry-item">
           <div class="sr6-editable-item-fields">
-            <div class="sr6-foundry-item-head sr6-rigging-fahrzeug-fields-main sr6-charactersheet-row sr6-charactersheet-row-9">
+            <div class="sr6-foundry-item-head sr6-rigging-fahrzeug-fields-main sr6-charactersheet-row sr6-charactersheet-row-5">
               <div class="sr6-charactersheet-field">
                 <span data-i18n="field.name">Name</span>
                 <input type="text" name="attr_sr6_rigging_fahrzeug_name" />
@@ -53,6 +49,9 @@
                 <span data-i18n="field.geschwindigkeit">Geschwindigkeit</span>
                 <div class="sr6-number-stepper"><button type="action" class="sr6-number-stepper-button sr6-number-stepper-button--minus" name="act_sr6_number_step" value="sr6_rigging_fahrzeug_geschwindigkeit::-1" aria-label="Verringern">-</button><input type="number" name="attr_sr6_rigging_fahrzeug_geschwindigkeit" /><button type="action" class="sr6-number-stepper-button sr6-number-stepper-button--plus" name="act_sr6_number_step" value="sr6_rigging_fahrzeug_geschwindigkeit::1" aria-label="Erhoehen">+</button></div>
               </div>
+            </div>
+
+            <div class="sr6-foundry-item-row sr6-rigging-fahrzeug-fields-secondary sr6-charactersheet-row sr6-charactersheet-row-5">
               <div class="sr6-charactersheet-field">
                 <span data-i18n="field.rumpf">Rumpf</span>
                 <div class="sr6-number-stepper"><button type="action" class="sr6-number-stepper-button sr6-number-stepper-button--minus" name="act_sr6_number_step" value="sr6_rigging_fahrzeug_rumpf::-1" aria-label="Verringern">-</button><input type="number" name="attr_sr6_rigging_fahrzeug_rumpf" /><button type="action" class="sr6-number-stepper-button sr6-number-stepper-button--plus" name="act_sr6_number_step" value="sr6_rigging_fahrzeug_rumpf::1" aria-label="Erhoehen">+</button></div>
@@ -69,46 +68,172 @@
                 <span data-i18n="field.sensor">Sensor</span>
                 <div class="sr6-number-stepper"><button type="action" class="sr6-number-stepper-button sr6-number-stepper-button--minus" name="act_sr6_number_step" value="sr6_rigging_fahrzeug_sensor::-1" aria-label="Verringern">-</button><input type="number" name="attr_sr6_rigging_fahrzeug_sensor" /><button type="action" class="sr6-number-stepper-button sr6-number-stepper-button--plus" name="act_sr6_number_step" value="sr6_rigging_fahrzeug_sensor::1" aria-label="Erhoehen">+</button></div>
               </div>
-            </div>
-
-            <div class="sr6-foundry-item-row sr6-rigging-fahrzeug-fields-secondary sr6-charactersheet-row sr6-charactersheet-row-2">
               <div class="sr6-charactersheet-field">
                 <span data-i18n="field.sitze">Sitze</span>
                 <div class="sr6-number-stepper"><button type="action" class="sr6-number-stepper-button sr6-number-stepper-button--minus" name="act_sr6_number_step" value="sr6_rigging_fahrzeug_sitze::-1" aria-label="Verringern">-</button><input type="number" name="attr_sr6_rigging_fahrzeug_sitze" /><button type="action" class="sr6-number-stepper-button sr6-number-stepper-button--plus" name="act_sr6_number_step" value="sr6_rigging_fahrzeug_sitze::1" aria-label="Erhoehen">+</button></div>
               </div>
-              <div class="sr6-charactersheet-field">
-                <span data-i18n="field.notiz">Notiz</span>
-                <input type="text" name="attr_sr6_rigging_fahrzeug_notiz" />
-              </div>
             </div>
 
-            <div class="sr6-foundry-item-footer sr6-rigging-fahrzeug-fields-links sr6-charactersheet-row sr6-charactersheet-row-2">
+            <div class="sr6-foundry-item-footer sr6-rigging-fahrzeug-autosoft-row sr6-charactersheet-row sr6-charactersheet-row-6">
               <div class="sr6-charactersheet-field">
-                <span data-i18n="field.waffen">Waffen</span>
-                <select name="attr_sr6_rigging_fahrzeug_waffe">
-                  <option value="" data-i18n="field.keine">Keine</option>
-                  <option value="Pistole" data-i18n="field.waffentyp_pistole">Pistole</option>
-                  <option value="Maschinenpistole" data-i18n="field.waffentyp_maschinenpistole">Maschinenpistole</option>
-                  <option value="Sturmgewehr" data-i18n="field.waffentyp_sturmgewehr">Sturmgewehr</option>
-                  <option value="Schrotflinte" data-i18n="field.waffentyp_schrotflinte">Schrotflinte</option>
-                  <option value="Scharfschuetzengewehr" data-i18n="field.waffentyp_scharfschuetzengewehr">Scharfschützengewehr</option>
-                  <option value="Schwere Waffe" data-i18n="field.waffentyp_schwere_waffe">Schwere Waffe</option>
-                  <option value="Werfer" data-i18n="field.waffentyp_werfer">Werfer</option>
-                  <option value="Bogen/Armbrust" data-i18n="field.waffentyp_bogen_armbrust">Bogen/Armbrust</option>
-                  <option value="Nahkampfwaffe" data-i18n="field.nahkampfwaffe">Nahkampfwaffe</option>
-                  <option value="Exotisch" data-i18n="field.waffentyp_exotisch">Exotisch</option>
+                <span data-i18n="field.riggerkontrolle">Riggerkontrolle</span>
+                <div class="sr6-number-stepper"><button type="action" class="sr6-number-stepper-button sr6-number-stepper-button--minus" name="act_sr6_number_step" value="sr6_rigging_fahrzeug_riggerkontrolle::-1" aria-label="Verringern">-</button><input type="number" name="attr_sr6_rigging_fahrzeug_riggerkontrolle" /><button type="action" class="sr6-number-stepper-button sr6-number-stepper-button--plus" name="act_sr6_number_step" value="sr6_rigging_fahrzeug_riggerkontrolle::1" aria-label="Erhoehen">+</button></div>
+              </div>
+              <div class="sr6-charactersheet-field">
+                <span data-i18n="field.manoevrieren">Manövrieren</span>
+                <div class="sr6-number-stepper"><button type="action" class="sr6-number-stepper-button sr6-number-stepper-button--minus" name="act_sr6_number_step" value="sr6_rigging_fahrzeug_manoevrieren::-1" aria-label="Verringern">-</button><input type="number" name="attr_sr6_rigging_fahrzeug_manoevrieren" /><button type="action" class="sr6-number-stepper-button sr6-number-stepper-button--plus" name="act_sr6_number_step" value="sr6_rigging_fahrzeug_manoevrieren::1" aria-label="Erhoehen">+</button></div>
+              </div>
+              <div class="sr6-charactersheet-field">
+                <span data-i18n="field.zielerfassung">Zielerfassung</span>
+                <div class="sr6-number-stepper"><button type="action" class="sr6-number-stepper-button sr6-number-stepper-button--minus" name="act_sr6_number_step" value="sr6_rigging_fahrzeug_zielerfassung::-1" aria-label="Verringern">-</button><input type="number" name="attr_sr6_rigging_fahrzeug_zielerfassung" /><button type="action" class="sr6-number-stepper-button sr6-number-stepper-button--plus" name="act_sr6_number_step" value="sr6_rigging_fahrzeug_zielerfassung::1" aria-label="Erhoehen">+</button></div>
+              </div>
+              <div class="sr6-charactersheet-field">
+                <span data-i18n="field.ausweichen">Ausweichen</span>
+                <div class="sr6-number-stepper"><button type="action" class="sr6-number-stepper-button sr6-number-stepper-button--minus" name="act_sr6_number_step" value="sr6_rigging_fahrzeug_ausweichen::-1" aria-label="Verringern">-</button><input type="number" name="attr_sr6_rigging_fahrzeug_ausweichen" /><button type="action" class="sr6-number-stepper-button sr6-number-stepper-button--plus" name="act_sr6_number_step" value="sr6_rigging_fahrzeug_ausweichen::1" aria-label="Erhoehen">+</button></div>
+              </div>
+              <div class="sr6-charactersheet-field">
+                <span data-i18n="field.stealth">Stealth</span>
+                <div class="sr6-number-stepper"><button type="action" class="sr6-number-stepper-button sr6-number-stepper-button--minus" name="act_sr6_number_step" value="sr6_rigging_fahrzeug_stealth::-1" aria-label="Verringern">-</button><input type="number" name="attr_sr6_rigging_fahrzeug_stealth" /><button type="action" class="sr6-number-stepper-button sr6-number-stepper-button--plus" name="act_sr6_number_step" value="sr6_rigging_fahrzeug_stealth::1" aria-label="Erhoehen">+</button></div>
+              </div>
+              <div class="sr6-charactersheet-field">
+                <span data-i18n="field.clearsight">Clearsight</span>
+                <div class="sr6-number-stepper"><button type="action" class="sr6-number-stepper-button sr6-number-stepper-button--minus" name="act_sr6_number_step" value="sr6_rigging_fahrzeug_clearsight::-1" aria-label="Verringern">-</button><input type="number" name="attr_sr6_rigging_fahrzeug_clearsight" /><button type="action" class="sr6-number-stepper-button sr6-number-stepper-button--plus" name="act_sr6_number_step" value="sr6_rigging_fahrzeug_clearsight::1" aria-label="Erhoehen">+</button></div>
+              </div>
+            </div>
+            <div class="sr6-foundry-item-footer sr6-rigging-fahrzeug-probe-row sr6-charactersheet-row sr6-charactersheet-row-7">
+              <div class="sr6-charactersheet-field">
+                <span data-i18n="field.probe">Probe</span>
+                <select name="attr_sr6_rigging_fahrzeug_probe">
+                  <option value="handling" data-i18n="field.rigging_probe_handling">Handlingprobe</option>
+                  <option value="ramming_attack" data-i18n="field.rigging_probe_fahrzeug_als_waffe">Fahrzeug als Waffe</option>
+                  <option value="weapon_attack" data-i18n="field.rigging_probe_fahrzeugwaffe">Fahrzeugwaffe</option>
+                  <option value="defense" data-i18n="field.rigging_probe_verteidigung">Verteidigungsprobe</option>
+                  <option value="stealth" data-i18n="field.rigging_probe_heimlichkeit">Heimlichkeit</option>
+                  <option value="perception" data-i18n="field.rigging_probe_wahrnehmung">Wahrnehmung</option>
+                  <option value="damage_resistance" data-i18n="field.rigging_probe_schadenswiderstand">Schadenswiderstand</option>
                 </select>
               </div>
               <div class="sr6-charactersheet-field">
                 <span data-i18n="field.modus">Modus</span>
                 <select name="attr_sr6_rigging_fahrzeug_modus">
                   <option value="Autonom" data-i18n="field.fahrzeug_modus_autonom">Autonom</option>
-                  <option value="Remote" data-i18n="field.fahrzeug_modus_remote">Remote</option>
+                  <option value="Remote" data-i18n="field.fahrzeug_modus_remote">Remote/AR</option>
                   <option value="Manuell" data-i18n="field.fahrzeug_modus_manuell">Manuell</option>
                   <option value="Eingesprungen (VR)" data-i18n="field.fahrzeug_modus_eingesprungen_vr">Eingesprungen (VR)</option>
-                  <option value="Eingesprungen (AR)" data-i18n="field.fahrzeug_modus_eingesprungen_ar">Eingesprungen (AR)</option>
                   <option value="Agent" data-i18n="field.fahrzeug_modus_agent">Agent</option>
                 </select>
+              </div>
+              <div class="sr6-charactersheet-field">
+                <span data-i18n="field.agentenstufe">Agentenstufe</span>
+                <div class="sr6-number-stepper"><button type="action" class="sr6-number-stepper-button sr6-number-stepper-button--minus" name="act_sr6_number_step" value="sr6_rigging_fahrzeug_agentenstufe::-1" aria-label="Verringern">-</button><input type="number" name="attr_sr6_rigging_fahrzeug_agentenstufe" min="0" max="6" /><button type="action" class="sr6-number-stepper-button sr6-number-stepper-button--plus" name="act_sr6_number_step" value="sr6_rigging_fahrzeug_agentenstufe::1" aria-label="Erhoehen">+</button></div>
+              </div>
+              <div class="sr6-charactersheet-field">
+                <span data-i18n="field.wert">Wert</span>
+                <div class="sr6-charactersheet-field-input-with-dice sr6-charactersheet-field-input-with-dice--compact">
+                  <input type="number" name="attr_sr6_rigging_fahrzeug_probe_wert" readonly />
+                  <button
+                    type="action"
+                    class="sr6-charactersheet-field-dice-button"
+                    name="act_probe"
+                    value="&{template:default} {{name=Rigging-Fahrzeugprobe}} {{Fahrzeug=@{sr6_rigging_fahrzeug_name}}} {{Probe=@{sr6_rigging_fahrzeug_probe}}} {{Modus=@{sr6_rigging_fahrzeug_modus}}} {{Pool=[[@{sr6_rigging_fahrzeug_probe_wert}]]}} {{Erfolge=[[@{sr6_rigging_fahrzeug_probe_wert}d6&gt;5]]}}"
+                    aria-label="Wuerfeln"></button>
+                </div>
+              </div>
+              <div class="sr6-charactersheet-field">
+                <span data-i18n="field.angriffswert">Angriffswert</span>
+                <input type="number" name="attr_sr6_rigging_fahrzeug_angriffswert" readonly />
+              </div>
+              <div class="sr6-charactersheet-field">
+                <span data-i18n="field.verteidigungswert">Verteidigungswert</span>
+                <input type="number" name="attr_sr6_rigging_fahrzeug_verteidigungswert" readonly />
+              </div>
+              <div class="sr6-charactersheet-field">
+                <span data-i18n="field.zustandsmonitor">Zustandsmonitor</span>
+                <input type="number" name="attr_sr6_rigging_fahrzeug_zustandsmonitor" readonly />
+              </div>
+            </div>
+            <div class="sr6-foundry-item-footer sr6-rigging-fahrzeug-fields-links sr6-rigging-fahrzeug-waffe-block">
+              <input type="hidden" name="attr_sr6_rigging_fahrzeug_waffe_probe_wert" value="0" />
+              <div class="sr6-foundry-item-row sr6-rigging-fahrzeug-waffe-main sr6-charactersheet-row sr6-charactersheet-row-4">
+                <div class="sr6-charactersheet-field">
+                  <span data-i18n="field.waffenname">Waffenname</span>
+                  <input type="text" name="attr_sr6_rigging_fahrzeug_waffe_name" />
+                </div>
+                <div class="sr6-charactersheet-field">
+                  <span data-i18n="field.waffentyp">Waffentyp</span>
+                  <input type="text" name="attr_sr6_rigging_fahrzeug_waffe" value="Geschütze" readonly />
+                </div>
+                <div class="sr6-charactersheet-field">
+                  <span data-i18n="field.schaden">Schaden</span>
+                  <input type="text" name="attr_sr6_rigging_fahrzeug_waffe_schaden" />
+                </div>
+                <div class="sr6-charactersheet-field">
+                  <span data-i18n="field.modus">Modus</span>
+                  <select name="attr_sr6_rigging_fahrzeug_waffe_modus">
+                    <option value="EM">EM</option>
+                    <option value="HM">HM</option>
+                    <option value="SM - Eng">SM - Eng</option>
+                    <option value="SM - Breit">SM - Breit</option>
+                    <option value="AM">AM</option>
+                  </select>
+                </div>
+              </div>
+              <div class="sr6-foundry-item-row sr6-rigging-fahrzeug-waffe-ranges sr6-charactersheet-row sr6-charactersheet-row-5">
+                <div class="sr6-charactersheet-field">
+                  <span data-i18n="field.s_nah">S. Nah</span>
+                  <div class="sr6-charactersheet-field-input-with-dice">
+                    <div class="sr6-number-stepper"><button type="action" class="sr6-number-stepper-button sr6-number-stepper-button--minus" name="act_sr6_number_step" value="sr6_rigging_fahrzeug_waffe_s_nah::-1" aria-label="Verringern">-</button><input type="number" name="attr_sr6_rigging_fahrzeug_waffe_s_nah" /><button type="action" class="sr6-number-stepper-button sr6-number-stepper-button--plus" name="act_sr6_number_step" value="sr6_rigging_fahrzeug_waffe_s_nah::1" aria-label="Erhoehen">+</button></div><button
+                      type="action"
+                      class="sr6-charactersheet-field-dice-button"
+                      name="act_probe"
+                      value="&{template:default} {{name=Rigging-Fahrzeugprobe}} {{Fahrzeug=@{sr6_rigging_fahrzeug_name}}} {{Probe=weapon_attack}} {{Modus=@{sr6_rigging_fahrzeug_modus}}} {{Waffe=@{sr6_rigging_fahrzeug_waffe_name}}} {{Waffentyp=@{sr6_rigging_fahrzeug_waffe}}} {{Schadenswert=@{sr6_rigging_fahrzeug_waffe_schaden}}} {{Waffenmodus=@{sr6_rigging_fahrzeug_waffe_modus}}} {{Reichweite=S. Nah}} {{Angriffswert=@{sr6_rigging_fahrzeug_waffe_s_nah}}} {{Pool=[[@{sr6_rigging_fahrzeug_waffe_probe_wert}]]}} {{Erfolge=[[@{sr6_rigging_fahrzeug_waffe_probe_wert}d6&gt;5]]}}"
+                      aria-label="Wuerfeln"></button>
+                  </div>
+                </div>
+                <div class="sr6-charactersheet-field">
+                  <span data-i18n="field.nah">Nah</span>
+                  <div class="sr6-charactersheet-field-input-with-dice">
+                    <div class="sr6-number-stepper"><button type="action" class="sr6-number-stepper-button sr6-number-stepper-button--minus" name="act_sr6_number_step" value="sr6_rigging_fahrzeug_waffe_nah::-1" aria-label="Verringern">-</button><input type="number" name="attr_sr6_rigging_fahrzeug_waffe_nah" /><button type="action" class="sr6-number-stepper-button sr6-number-stepper-button--plus" name="act_sr6_number_step" value="sr6_rigging_fahrzeug_waffe_nah::1" aria-label="Erhoehen">+</button></div><button
+                      type="action"
+                      class="sr6-charactersheet-field-dice-button"
+                      name="act_probe"
+                      value="&{template:default} {{name=Rigging-Fahrzeugprobe}} {{Fahrzeug=@{sr6_rigging_fahrzeug_name}}} {{Probe=weapon_attack}} {{Modus=@{sr6_rigging_fahrzeug_modus}}} {{Waffe=@{sr6_rigging_fahrzeug_waffe_name}}} {{Waffentyp=@{sr6_rigging_fahrzeug_waffe}}} {{Schadenswert=@{sr6_rigging_fahrzeug_waffe_schaden}}} {{Waffenmodus=@{sr6_rigging_fahrzeug_waffe_modus}}} {{Reichweite=Nah}} {{Angriffswert=@{sr6_rigging_fahrzeug_waffe_nah}}} {{Pool=[[@{sr6_rigging_fahrzeug_waffe_probe_wert}]]}} {{Erfolge=[[@{sr6_rigging_fahrzeug_waffe_probe_wert}d6&gt;5]]}}"
+                      aria-label="Wuerfeln"></button>
+                  </div>
+                </div>
+                <div class="sr6-charactersheet-field">
+                  <span data-i18n="field.mittel">Mittel</span>
+                  <div class="sr6-charactersheet-field-input-with-dice">
+                    <div class="sr6-number-stepper"><button type="action" class="sr6-number-stepper-button sr6-number-stepper-button--minus" name="act_sr6_number_step" value="sr6_rigging_fahrzeug_waffe_mittel::-1" aria-label="Verringern">-</button><input type="number" name="attr_sr6_rigging_fahrzeug_waffe_mittel" /><button type="action" class="sr6-number-stepper-button sr6-number-stepper-button--plus" name="act_sr6_number_step" value="sr6_rigging_fahrzeug_waffe_mittel::1" aria-label="Erhoehen">+</button></div><button
+                      type="action"
+                      class="sr6-charactersheet-field-dice-button"
+                      name="act_probe"
+                      value="&{template:default} {{name=Rigging-Fahrzeugprobe}} {{Fahrzeug=@{sr6_rigging_fahrzeug_name}}} {{Probe=weapon_attack}} {{Modus=@{sr6_rigging_fahrzeug_modus}}} {{Waffe=@{sr6_rigging_fahrzeug_waffe_name}}} {{Waffentyp=@{sr6_rigging_fahrzeug_waffe}}} {{Schadenswert=@{sr6_rigging_fahrzeug_waffe_schaden}}} {{Waffenmodus=@{sr6_rigging_fahrzeug_waffe_modus}}} {{Reichweite=Mittel}} {{Angriffswert=@{sr6_rigging_fahrzeug_waffe_mittel}}} {{Pool=[[@{sr6_rigging_fahrzeug_waffe_probe_wert}]]}} {{Erfolge=[[@{sr6_rigging_fahrzeug_waffe_probe_wert}d6&gt;5]]}}"
+                      aria-label="Wuerfeln"></button>
+                  </div>
+                </div>
+                <div class="sr6-charactersheet-field">
+                  <span data-i18n="field.weit">Weit</span>
+                  <div class="sr6-charactersheet-field-input-with-dice">
+                    <div class="sr6-number-stepper"><button type="action" class="sr6-number-stepper-button sr6-number-stepper-button--minus" name="act_sr6_number_step" value="sr6_rigging_fahrzeug_waffe_weit::-1" aria-label="Verringern">-</button><input type="number" name="attr_sr6_rigging_fahrzeug_waffe_weit" /><button type="action" class="sr6-number-stepper-button sr6-number-stepper-button--plus" name="act_sr6_number_step" value="sr6_rigging_fahrzeug_waffe_weit::1" aria-label="Erhoehen">+</button></div><button
+                      type="action"
+                      class="sr6-charactersheet-field-dice-button"
+                      name="act_probe"
+                      value="&{template:default} {{name=Rigging-Fahrzeugprobe}} {{Fahrzeug=@{sr6_rigging_fahrzeug_name}}} {{Probe=weapon_attack}} {{Modus=@{sr6_rigging_fahrzeug_modus}}} {{Waffe=@{sr6_rigging_fahrzeug_waffe_name}}} {{Waffentyp=@{sr6_rigging_fahrzeug_waffe}}} {{Schadenswert=@{sr6_rigging_fahrzeug_waffe_schaden}}} {{Waffenmodus=@{sr6_rigging_fahrzeug_waffe_modus}}} {{Reichweite=Weit}} {{Angriffswert=@{sr6_rigging_fahrzeug_waffe_weit}}} {{Pool=[[@{sr6_rigging_fahrzeug_waffe_probe_wert}]]}} {{Erfolge=[[@{sr6_rigging_fahrzeug_waffe_probe_wert}d6&gt;5]]}}"
+                      aria-label="Wuerfeln"></button>
+                  </div>
+                </div>
+                <div class="sr6-charactersheet-field">
+                  <span data-i18n="field.s_weit">S. Weit</span>
+                  <div class="sr6-charactersheet-field-input-with-dice">
+                    <div class="sr6-number-stepper"><button type="action" class="sr6-number-stepper-button sr6-number-stepper-button--minus" name="act_sr6_number_step" value="sr6_rigging_fahrzeug_waffe_s_weit::-1" aria-label="Verringern">-</button><input type="number" name="attr_sr6_rigging_fahrzeug_waffe_s_weit" /><button type="action" class="sr6-number-stepper-button sr6-number-stepper-button--plus" name="act_sr6_number_step" value="sr6_rigging_fahrzeug_waffe_s_weit::1" aria-label="Erhoehen">+</button></div><button
+                      type="action"
+                      class="sr6-charactersheet-field-dice-button"
+                      name="act_probe"
+                      value="&{template:default} {{name=Rigging-Fahrzeugprobe}} {{Fahrzeug=@{sr6_rigging_fahrzeug_name}}} {{Probe=weapon_attack}} {{Modus=@{sr6_rigging_fahrzeug_modus}}} {{Waffe=@{sr6_rigging_fahrzeug_waffe_name}}} {{Waffentyp=@{sr6_rigging_fahrzeug_waffe}}} {{Schadenswert=@{sr6_rigging_fahrzeug_waffe_schaden}}} {{Waffenmodus=@{sr6_rigging_fahrzeug_waffe_modus}}} {{Reichweite=S. Weit}} {{Angriffswert=@{sr6_rigging_fahrzeug_waffe_s_weit}}} {{Pool=[[@{sr6_rigging_fahrzeug_waffe_probe_wert}]]}} {{Erfolge=[[@{sr6_rigging_fahrzeug_waffe_probe_wert}d6&gt;5]]}}"
+                      aria-label="Wuerfeln"></button>
+                  </div>
+                </div>
               </div>
             </div>
             <div class="sr6-foundry-item-footer sr6-charactersheet-row sr6-charactersheet-row-1 sr6-repeater-notes-mod-row">

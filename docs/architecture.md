@@ -15,6 +15,9 @@
   - DE/EN/FR Quelle
 - `output/`
   - generierte Upload-Dateien fuer Roll20 Sandbox
+- `docs/`
+  - operative Projekt-, Pfad- und Refactor-Dokumentation
+  - historische Dokumente unter `docs/archive/`
 
 ## Build-Pipeline
 1. Include-Lint (`npm run lint:includes`)
@@ -34,3 +37,7 @@ Include-Dateien duerfen nur in diesen Roots liegen:
 - Roll20 braucht weiterhin eine finale Einzel-CSS/HTML im Output.
 - Im Source arbeiten wir modular; der Build fuegt zusammen.
 - Kopfbereich-Dateien bleiben bewusst flach im Shell-Ordner (`kopfbereich-*.html`), damit Tickets ohne Include-Navigation schnell auffindbar sind.
+- `Allgemein` ist nur noch eine reduzierte Uebersicht/Spiegel-Ansicht; operative Pflege passiert in den Fach-Tabs.
+- Nicht inkludierte Alt-Partial-Dateien koennen noch im Tree liegen, sind aber keine aktive UI, solange sie nicht ueber `@include` eingebunden sind.
+- Ehemalige Root-Dokumente wie `CONTRIBUTING.md` liegen im Archiv, wenn sie nicht mehr operative Arbeitsgrundlage sind.
+- Historische Dokumente liegen unter `docs/archive/` und gelten nicht als operative Arbeitsgrundlage.

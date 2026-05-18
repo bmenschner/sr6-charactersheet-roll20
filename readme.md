@@ -68,12 +68,14 @@ Für die Roll20-Sandbox verwende bevorzugt:
 4. Bauen: `npm run build`
 
 ## Architektur-Doku
-- `CONTRIBUTING.md`
 - `docs/architecture.md`
-- `docs/adding-a-box.md`
 - `docs/path-map.md`
-- `docs/worker-flow.md`
-- `docs/ui-patterns.md`
+- `docs/refactoring/refactor-data-fields-matrix.md`
+- `docs/refactoring/popup-logic-audit.md`
+- `docs/archive/` (historische, nicht mehr operative Dokumente)
+
+Hinweis:
+- Aeltere Detaildokus wie `adding-a-box`, `worker-flow` oder `ui-patterns` existieren aktuell nicht als eigene Dateien. Die relevanten Informationen sind derzeit in `readme.md`, `docs/architecture.md`, `docs/path-map.md`, `src/css/modules/README.md` und `src/workers/README.md` verteilt.
 
 Hinweis: Dieses Repository aktualisiert Roll20 nicht über Git-Sync, sondern nur lokal über Upload.
 

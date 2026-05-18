@@ -121,6 +121,21 @@
   display: flex;
 }
 
+.sr6-charactersheet-box-attribute.sr6-editable-overview-section:has(.sr6-editable-section-mode:not(:checked)) .sr6-charactersheet-attribute-probes .sr6-charactersheet-field-input-with-dice {
+  grid-template-columns: 2rem 1.75rem;
+  height: var(--sr6-list-single-line-height);
+  align-items: center;
+  width: max-content;
+}
+
+.sr6-charactersheet-box-attribute.sr6-editable-overview-section:has(.sr6-editable-section-mode:not(:checked)) .sr6-charactersheet-attribute-probes .sr6-charactersheet-field-dice-button {
+  display: flex;
+}
+
+.sr6-charactersheet-box-attribute.sr6-editable-overview-section:has(.sr6-editable-section-mode:not(:checked)) .sr6-charactersheet-attribute-probes .sr6-charactersheet-field > span {
+  display: block;
+}
+
 .sr6-charactersheet-box-attribute.sr6-editable-overview-section:has(.sr6-editable-section-mode:not(:checked)) .sr6-charactersheet-attr-value:last-child .sr6-charactersheet-field-input-with-2dice {
   grid-template-columns: 2rem 1.75rem 1.75rem;
 }
@@ -148,4 +163,73 @@
   width: 2rem;
   padding: 0;
   text-align: center;
+}
+
+.sr6-charactersheet-skill-specialization-row {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0.375rem;
+  margin-top: 0.375rem;
+}
+
+.sr6-charactersheet-skill-select-with-dice {
+  grid-template-columns: minmax(0, 1fr) 1.75rem;
+}
+
+.sr6-charactersheet-skill-select-with-dice select {
+  width: 100%;
+}
+
+.sr6-charactersheet-box-fertigkeiten-allgemein.sr6-editable-overview-section:has(.sr6-editable-section-mode:not(:checked)) .sr6-charactersheet-field.sr6-charactersheet-skill-field {
+  grid-template-columns: minmax(7.5rem, 1fr) max-content minmax(9rem, 1.35fr) minmax(9rem, 1.35fr);
+}
+
+.sr6-charactersheet-box-fertigkeiten-allgemein.sr6-editable-overview-section:has(.sr6-editable-section-mode:not(:checked)) .sr6-charactersheet-skill-specialization-row {
+  display: contents;
+}
+
+.sr6-charactersheet-box-fertigkeiten-allgemein.sr6-editable-overview-section:has(.sr6-editable-section-mode:not(:checked)) .sr6-skill-base-value,
+.sr6-charactersheet-box-fertigkeiten-allgemein.sr6-editable-overview-section:has(.sr6-editable-section-mode:not(:checked)) .sr6-skill-modifier-value {
+  display: none;
+}
+
+.sr6-charactersheet-box-fertigkeiten-allgemein.sr6-editable-overview-section:has(.sr6-editable-section-mode:not(:checked)) .sr6-skill-total-value,
+.sr6-charactersheet-box-fertigkeiten-allgemein.sr6-editable-overview-section:has(.sr6-editable-section-mode:not(:checked)) .sr6-skill-specialization-value,
+.sr6-charactersheet-box-fertigkeiten-allgemein.sr6-editable-overview-section:has(.sr6-editable-section-mode:not(:checked)) .sr6-skill-expertise-value {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  height: var(--sr6-list-single-line-height);
+  min-width: 0;
+  width: 100%;
+}
+
+.sr6-charactersheet-box-fertigkeiten-allgemein.sr6-editable-overview-section:has(.sr6-editable-section-mode:not(:checked)) .sr6-skill-total-value > span,
+.sr6-charactersheet-box-fertigkeiten-allgemein.sr6-editable-overview-section:has(.sr6-editable-section-mode:not(:checked)) .sr6-skill-specialization-value > span,
+.sr6-charactersheet-box-fertigkeiten-allgemein.sr6-editable-overview-section:has(.sr6-editable-section-mode:not(:checked)) .sr6-skill-expertise-value > span {
+  display: none;
+}
+
+.sr6-charactersheet-box-fertigkeiten-allgemein.sr6-editable-overview-section:has(.sr6-editable-section-mode:not(:checked)) .sr6-skill-total-value .sr6-charactersheet-field-input-with-dice,
+.sr6-charactersheet-box-fertigkeiten-allgemein.sr6-editable-overview-section:has(.sr6-editable-section-mode:not(:checked)) .sr6-skill-specialization-value .sr6-charactersheet-field-input-with-dice,
+.sr6-charactersheet-box-fertigkeiten-allgemein.sr6-editable-overview-section:has(.sr6-editable-section-mode:not(:checked)) .sr6-skill-expertise-value .sr6-charactersheet-field-input-with-dice {
+  grid-template-columns: minmax(0, 1fr) 1.75rem;
+  height: var(--sr6-list-single-line-height);
+  align-items: center;
+  width: 100%;
+}
+
+.sr6-charactersheet-box-fertigkeiten-allgemein.sr6-editable-overview-section:has(.sr6-editable-section-mode:not(:checked)) .sr6-charactersheet-field.sr6-charactersheet-skill-field .sr6-skill-expertise-value.sr6-charactersheet-attr-value:last-child .sr6-charactersheet-field-input-with-dice,
+.sr6-charactersheet-box-fertigkeiten-allgemein.sr6-editable-overview-section:has(.sr6-editable-section-mode:not(:checked)) .sr6-charactersheet-field.sr6-charactersheet-skill-field .sr6-skill-specialization-value.sr6-charactersheet-attr-value .sr6-charactersheet-field-input-with-dice {
+  grid-template-columns: minmax(0, 1fr) 1.75rem;
+  width: 100%;
+}
+
+.sr6-charactersheet-box-fertigkeiten-allgemein.sr6-editable-overview-section:has(.sr6-editable-section-mode:not(:checked)) .sr6-skill-total-value .sr6-number-stepper {
+  width: 2rem;
+}
+
+.sr6-charactersheet-box-fertigkeiten-allgemein.sr6-editable-overview-section:has(.sr6-editable-section-mode:not(:checked)) .sr6-skill-total-value .sr6-charactersheet-field-dice-button,
+.sr6-charactersheet-box-fertigkeiten-allgemein.sr6-editable-overview-section:has(.sr6-editable-section-mode:not(:checked)) .sr6-skill-specialization-value .sr6-charactersheet-field-dice-button,
+.sr6-charactersheet-box-fertigkeiten-allgemein.sr6-editable-overview-section:has(.sr6-editable-section-mode:not(:checked)) .sr6-skill-expertise-value .sr6-charactersheet-field-dice-button {
+  display: flex;
 }

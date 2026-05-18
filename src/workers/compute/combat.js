@@ -22,24 +22,31 @@ const SR6_COMBAT_ARMOR_SELECTION_FIELDS = [
   },
 ];
 
-function getCombatMeleeSkillTotal(skillTotals, values) {
-  const selectedSkill = `${(values && values.sr6_combat_nahkampf_fertigkeit) || "Nahkampf"}`.trim();
+function getCombatMeleeSkillTotalByName(skillTotals, selectedSkill) {
   if (selectedSkill === "Exotische Waffen") {
     return (skillTotals && skillTotals.exotische_waffen) || 0;
   }
   return (skillTotals && skillTotals.nahkampf) || 0;
 }
 
-function getCombatMeleeAttributeTotal(totals, values) {
-  const selectedAttribute = `${(values && values.sr6_combat_nahkampf_attribut) || "Geschicklichkeit"}`.trim();
+function getCombatMeleeSkillTotal(skillTotals, values) {
+  const selectedSkill = `${(values && values.sr6_combat_nahkampf_fertigkeit) || "Nahkampf"}`.trim();
+  return getCombatMeleeSkillTotalByName(skillTotals, selectedSkill);
+}
+
+function getCombatMeleeAttributeTotalByName(totals, selectedAttribute) {
   if (selectedAttribute === "Stärke") {
     return (totals && totals.staerke) || 0;
   }
   return (totals && totals.geschicklichkeit) || 0;
 }
 
-function getCombatRangedSkillTotal(skillTotals, values) {
-  const selectedSkill = `${(values && values.sr6_combat_fernkampf_fertigkeit) || "Feuerwaffen"}`.trim();
+function getCombatMeleeAttributeTotal(totals, values) {
+  const selectedAttribute = `${(values && values.sr6_combat_nahkampf_attribut) || "Geschicklichkeit"}`.trim();
+  return getCombatMeleeAttributeTotalByName(totals, selectedAttribute);
+}
+
+function getCombatRangedSkillTotalByName(skillTotals, selectedSkill) {
   if (selectedSkill === "Projektilwaffen") {
     return (skillTotals && skillTotals.athletik) || 0;
   }
@@ -47,6 +54,66 @@ function getCombatRangedSkillTotal(skillTotals, values) {
     return (skillTotals && skillTotals.exotische_waffen) || 0;
   }
   return (skillTotals && skillTotals.feuerwaffen) || 0;
+}
+
+function getCombatRangedSkillTotal(skillTotals, values) {
+  const selectedSkill = `${(values && values.sr6_combat_fernkampf_fertigkeit) || "Feuerwaffen"}`.trim();
+  return getCombatRangedSkillTotalByName(skillTotals, selectedSkill);
+}
+
+function normalizeCombatSpecializationName(value) {
+  return `${value || ""}`
+    .trim()
+    .toLowerCase()
+    .replace(/ä/g, "ae")
+    .replace(/ö/g, "oe")
+    .replace(/ü/g, "ue")
+    .replace(/ß/g, "ss")
+    .replace(/[^a-z0-9]+/g, "");
+}
+
+function getCombatSpecializationBonus(selectedSpecialization, selectedExpertise, matchingNames) {
+  const matches = new Set((matchingNames || []).map(normalizeCombatSpecializationName).filter(Boolean));
+
+  if (matches.size === 0) {
+    return 0;
+  }
+
+  if (matches.has(normalizeCombatSpecializationName(selectedExpertise))) {
+    return 3;
+  }
+
+  if (matches.has(normalizeCombatSpecializationName(selectedSpecialization))) {
+    return 2;
+  }
+
+  return 0;
+}
+
+function getCombatRangedSpecializationMatches(selectedSkill, weaponType) {
+  const type = `${weaponType || ""}`.trim();
+
+  if (selectedSkill === "Projektilwaffen") {
+    return ["Projektilwaffen"];
+  }
+
+  if (selectedSkill === "Exotische Waffen") {
+    return ["Werfer", "Druckluftwaffen", "Sprühwaffen", "Laserwaffen", "Energiewaffen"].filter((name) => name === type);
+  }
+
+  return [type];
+}
+
+function getCombatMeleeSpecializationMatches(selectedSkill, weaponType) {
+  const type = `${weaponType || ""}`.trim();
+
+  if (selectedSkill === "Exotische Waffen") {
+    return ["Cyberimplantwaffen", "Handgemenge-Waffen", "Kettensägen", "Natürliche Waffen", "Peitschen"].filter(
+      (name) => name === type
+    );
+  }
+
+  return [type];
 }
 
 const SR6_COMBAT_CALCULATED_FIELDS = [
@@ -340,4 +407,109 @@ function syncCombatPrimaryWeapons(callback, eventInfo) {
   syncCombatPrimaryWeaponSelection(SR6_COMBAT_PRIMARY_WEAPON_SELECTIONS[0], () => {
     syncCombatPrimaryWeaponSelection(SR6_COMBAT_PRIMARY_WEAPON_SELECTIONS[1], callback, eventInfo);
   }, eventInfo);
+}
+
+function syncCombatWeaponPools(callback) {
+  const requestKeys = [
+    "sr6_attr_geschicklichkeit_gesamtwert",
+    "sr6_attr_staerke_gesamtwert",
+    "sr6_skill_athletik_gesamtwert",
+    "sr6_skill_athletik_spezialisierung",
+    "sr6_skill_athletik_expertise",
+    "sr6_skill_exotische_waffen_gesamtwert",
+    "sr6_skill_exotische_waffen_spezialisierung",
+    "sr6_skill_exotische_waffen_expertise",
+    "sr6_skill_feuerwaffen_gesamtwert",
+    "sr6_skill_feuerwaffen_spezialisierung",
+    "sr6_skill_feuerwaffen_expertise",
+    "sr6_skill_nahkampf_gesamtwert",
+    "sr6_skill_nahkampf_spezialisierung",
+    "sr6_skill_nahkampf_expertise",
+  ];
+
+  getSectionIDs("repeating_sr6fernkampfwaffen", (rangedIds) => {
+    getSectionIDs("repeating_sr6nahkampfwaffen", (meleeIds) => {
+      const rangedRowIds = rangedIds || [];
+      const meleeRowIds = meleeIds || [];
+
+      rangedRowIds.forEach((rowId) => {
+        requestKeys.push(`repeating_sr6fernkampfwaffen_${rowId}_sr6_fernkampf_fertigkeit`);
+        requestKeys.push(`repeating_sr6fernkampfwaffen_${rowId}_sr6_fernkampf_waffentyp`);
+      });
+      meleeRowIds.forEach((rowId) => {
+        requestKeys.push(`repeating_sr6nahkampfwaffen_${rowId}_sr6_nahkampf_fertigkeit`);
+        requestKeys.push(`repeating_sr6nahkampfwaffen_${rowId}_sr6_nahkampf_attribut`);
+        requestKeys.push(`repeating_sr6nahkampfwaffen_${rowId}_sr6_nahkampf_waffentyp`);
+      });
+
+      getAttrs(requestKeys, (values) => {
+        const totals = {
+          geschicklichkeit: parseNumber(values.sr6_attr_geschicklichkeit_gesamtwert),
+          staerke: parseNumber(values.sr6_attr_staerke_gesamtwert),
+        };
+        const skillTotals = {
+          athletik: parseNumber(values.sr6_skill_athletik_gesamtwert),
+          exotische_waffen: parseNumber(values.sr6_skill_exotische_waffen_gesamtwert),
+          feuerwaffen: parseNumber(values.sr6_skill_feuerwaffen_gesamtwert),
+          nahkampf: parseNumber(values.sr6_skill_nahkampf_gesamtwert),
+        };
+        const specializationSelections = {
+          athletik: {
+            specialization: values.sr6_skill_athletik_spezialisierung,
+            expertise: values.sr6_skill_athletik_expertise,
+          },
+          exotische_waffen: {
+            specialization: values.sr6_skill_exotische_waffen_spezialisierung,
+            expertise: values.sr6_skill_exotische_waffen_expertise,
+          },
+          feuerwaffen: {
+            specialization: values.sr6_skill_feuerwaffen_spezialisierung,
+            expertise: values.sr6_skill_feuerwaffen_expertise,
+          },
+          nahkampf: {
+            specialization: values.sr6_skill_nahkampf_spezialisierung,
+            expertise: values.sr6_skill_nahkampf_expertise,
+          },
+        };
+        const updates = {};
+
+        rangedRowIds.forEach((rowId) => {
+          const skill = `${values[`repeating_sr6fernkampfwaffen_${rowId}_sr6_fernkampf_fertigkeit`] || "Feuerwaffen"}`.trim();
+          const weaponType = `${values[`repeating_sr6fernkampfwaffen_${rowId}_sr6_fernkampf_waffentyp`] || ""}`.trim();
+          const specializationKey =
+            skill === "Projektilwaffen" ? "athletik" : skill === "Exotische Waffen" ? "exotische_waffen" : "feuerwaffen";
+          const specializationBonus = getCombatSpecializationBonus(
+            specializationSelections[specializationKey].specialization,
+            specializationSelections[specializationKey].expertise,
+            getCombatRangedSpecializationMatches(skill, weaponType)
+          );
+          const pool = getCombatRangedSkillTotalByName(skillTotals, skill) + (totals.geschicklichkeit || 0) + specializationBonus;
+          updates[`repeating_sr6fernkampfwaffen_${rowId}_sr6_fernkampf_pool`] = String(pool);
+        });
+
+        meleeRowIds.forEach((rowId) => {
+          const skill = `${values[`repeating_sr6nahkampfwaffen_${rowId}_sr6_nahkampf_fertigkeit`] || "Nahkampf"}`.trim();
+          const attribute = `${values[`repeating_sr6nahkampfwaffen_${rowId}_sr6_nahkampf_attribut`] || "Geschicklichkeit"}`.trim();
+          const weaponType = `${values[`repeating_sr6nahkampfwaffen_${rowId}_sr6_nahkampf_waffentyp`] || ""}`.trim();
+          const specializationKey = skill === "Exotische Waffen" ? "exotische_waffen" : "nahkampf";
+          const specializationBonus = getCombatSpecializationBonus(
+            specializationSelections[specializationKey].specialization,
+            specializationSelections[specializationKey].expertise,
+            getCombatMeleeSpecializationMatches(skill, weaponType)
+          );
+          const pool =
+            getCombatMeleeSkillTotalByName(skillTotals, skill) +
+            getCombatMeleeAttributeTotalByName(totals, attribute) +
+            specializationBonus;
+          updates[`repeating_sr6nahkampfwaffen_${rowId}_sr6_nahkampf_pool`] = String(pool);
+        });
+
+        if (Object.keys(updates).length === 0 && typeof callback === "function") {
+          callback();
+          return;
+        }
+        setAttrsSilent(updates, callback);
+      });
+    });
+  });
 }

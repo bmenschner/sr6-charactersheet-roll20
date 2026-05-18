@@ -19,36 +19,26 @@
     </label>
   </div>
   <div class="sr6-charactersheet-box-content">
-    <div class="sr6-generic-list-header sr6-generic-list-header--4">
+    <div class="sr6-generic-list-header sr6-generic-list-header--memory-probe">
       <span data-i18n="field.name">Name</span>
-      <span data-i18n="field.grundwert">Grundwert</span>
-      <span data-i18n="field.modifikator">Modifikator</span>
-      <span data-i18n="field.gesamtwert">Gesamtwert</span>
+      <span data-i18n="field.wert">Wert</span>
     </div>
     <fieldset class="repeating_sr6wissensfertigkeiten">
       <div class="sr6-foundry-item">
         <div class="sr6-editable-item-fields">
-          <div class="sr6-foundry-item-head sr6-charactersheet-row sr6-charactersheet-row-4">
+          <div class="sr6-foundry-item-head sr6-charactersheet-row sr6-fertigkeiten-memory-probe-row">
             <div class="sr6-charactersheet-field">
               <span data-i18n="field.name">Name</span>
               <input type="text" name="attr_sr6_wissensfertigkeit_name" />
             </div>
             <div class="sr6-charactersheet-field">
-              <span data-i18n="field.grundwert">Grundwert</span>
-              <div class="sr6-number-stepper"><button type="action" class="sr6-number-stepper-button sr6-number-stepper-button--minus" name="act_sr6_number_step" value="sr6_wissensfertigkeit_grundwert::-1" aria-label="Verringern">-</button><input type="number" name="attr_sr6_wissensfertigkeit_grundwert" /><button type="action" class="sr6-number-stepper-button sr6-number-stepper-button--plus" name="act_sr6_number_step" value="sr6_wissensfertigkeit_grundwert::1" aria-label="Erhoehen">+</button></div>
-            </div>
-            <div class="sr6-charactersheet-field">
-              <span data-i18n="field.modifikator">Modifikator</span>
-              <div class="sr6-number-stepper"><button type="action" class="sr6-number-stepper-button sr6-number-stepper-button--minus" name="act_sr6_number_step" value="sr6_wissensfertigkeit_modifikator::-1" aria-label="Verringern">-</button><input type="number" name="attr_sr6_wissensfertigkeit_modifikator" /><button type="action" class="sr6-number-stepper-button sr6-number-stepper-button--plus" name="act_sr6_number_step" value="sr6_wissensfertigkeit_modifikator::1" aria-label="Erhoehen">+</button></div>
-            </div>
-            <div class="sr6-charactersheet-field">
-              <span data-i18n="field.gesamtwert">Gesamtwert</span>
+              <span data-i18n="field.wert">Wert</span>
               <div class="sr6-charactersheet-field-input-with-dice">
-                <div class="sr6-number-stepper"><button type="action" class="sr6-number-stepper-button sr6-number-stepper-button--minus" name="act_sr6_number_step" value="sr6_wissensfertigkeit_gesamtwert::-1" aria-label="Verringern">-</button><input type="number" name="attr_sr6_wissensfertigkeit_gesamtwert" /><button type="action" class="sr6-number-stepper-button sr6-number-stepper-button--plus" name="act_sr6_number_step" value="sr6_wissensfertigkeit_gesamtwert::1" aria-label="Erhoehen">+</button></div><button
+                <input type="number" name="attr_sr6_wissensfertigkeit_gesamtwert" readonly /><button
                   type="action"
                   class="sr6-charactersheet-field-dice-button"
                   name="act_probe"
-                  value="&{template:default} {{name=Fertigkeits-Test}} {{Fertigkeit=@{sr6_wissensfertigkeit_name} (Gesamtwert)}} {{Pool=[[@{sr6_wissensfertigkeit_gesamtwert}]]}} {{Erfolge=[[@{sr6_wissensfertigkeit_gesamtwert}d6>5]]}}"
+                  value="&{template:default} {{name=Erinnerungsvermögen}} {{Fertigkeit=@{sr6_wissensfertigkeit_name}}} {{Attributsprobe=Erinnerungsvermögen}} {{Formel=Logik + Intuition}} {{Pool=[[@{sr6_attrprobe_erinnerungsvermoegen}]]}} {{Erfolge=[[@{sr6_attrprobe_erinnerungsvermoegen}d6>5]]}}"
                   aria-label="Wuerfeln"></button>
               </div>
             </div>

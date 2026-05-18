@@ -1470,6 +1470,21 @@ fieldset.repeating_sr6riggingmanoever .repcontrol {
   display: flex;
 }
 
+.sr6-charactersheet-box-attribute.sr6-editable-overview-section:has(.sr6-editable-section-mode:not(:checked)) .sr6-charactersheet-attribute-probes .sr6-charactersheet-field-input-with-dice {
+  grid-template-columns: 2rem 1.75rem;
+  height: var(--sr6-list-single-line-height);
+  align-items: center;
+  width: max-content;
+}
+
+.sr6-charactersheet-box-attribute.sr6-editable-overview-section:has(.sr6-editable-section-mode:not(:checked)) .sr6-charactersheet-attribute-probes .sr6-charactersheet-field-dice-button {
+  display: flex;
+}
+
+.sr6-charactersheet-box-attribute.sr6-editable-overview-section:has(.sr6-editable-section-mode:not(:checked)) .sr6-charactersheet-attribute-probes .sr6-charactersheet-field > span {
+  display: block;
+}
+
 .sr6-charactersheet-box-attribute.sr6-editable-overview-section:has(.sr6-editable-section-mode:not(:checked)) .sr6-charactersheet-attr-value:last-child .sr6-charactersheet-field-input-with-2dice {
   grid-template-columns: 2rem 1.75rem 1.75rem;
 }
@@ -1497,6 +1512,75 @@ fieldset.repeating_sr6riggingmanoever .repcontrol {
   width: 2rem;
   padding: 0;
   text-align: center;
+}
+
+.sr6-charactersheet-skill-specialization-row {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0.375rem;
+  margin-top: 0.375rem;
+}
+
+.sr6-charactersheet-skill-select-with-dice {
+  grid-template-columns: minmax(0, 1fr) 1.75rem;
+}
+
+.sr6-charactersheet-skill-select-with-dice select {
+  width: 100%;
+}
+
+.sr6-charactersheet-box-fertigkeiten-allgemein.sr6-editable-overview-section:has(.sr6-editable-section-mode:not(:checked)) .sr6-charactersheet-field.sr6-charactersheet-skill-field {
+  grid-template-columns: minmax(7.5rem, 1fr) max-content minmax(9rem, 1.35fr) minmax(9rem, 1.35fr);
+}
+
+.sr6-charactersheet-box-fertigkeiten-allgemein.sr6-editable-overview-section:has(.sr6-editable-section-mode:not(:checked)) .sr6-charactersheet-skill-specialization-row {
+  display: contents;
+}
+
+.sr6-charactersheet-box-fertigkeiten-allgemein.sr6-editable-overview-section:has(.sr6-editable-section-mode:not(:checked)) .sr6-skill-base-value,
+.sr6-charactersheet-box-fertigkeiten-allgemein.sr6-editable-overview-section:has(.sr6-editable-section-mode:not(:checked)) .sr6-skill-modifier-value {
+  display: none;
+}
+
+.sr6-charactersheet-box-fertigkeiten-allgemein.sr6-editable-overview-section:has(.sr6-editable-section-mode:not(:checked)) .sr6-skill-total-value,
+.sr6-charactersheet-box-fertigkeiten-allgemein.sr6-editable-overview-section:has(.sr6-editable-section-mode:not(:checked)) .sr6-skill-specialization-value,
+.sr6-charactersheet-box-fertigkeiten-allgemein.sr6-editable-overview-section:has(.sr6-editable-section-mode:not(:checked)) .sr6-skill-expertise-value {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  height: var(--sr6-list-single-line-height);
+  min-width: 0;
+  width: 100%;
+}
+
+.sr6-charactersheet-box-fertigkeiten-allgemein.sr6-editable-overview-section:has(.sr6-editable-section-mode:not(:checked)) .sr6-skill-total-value > span,
+.sr6-charactersheet-box-fertigkeiten-allgemein.sr6-editable-overview-section:has(.sr6-editable-section-mode:not(:checked)) .sr6-skill-specialization-value > span,
+.sr6-charactersheet-box-fertigkeiten-allgemein.sr6-editable-overview-section:has(.sr6-editable-section-mode:not(:checked)) .sr6-skill-expertise-value > span {
+  display: none;
+}
+
+.sr6-charactersheet-box-fertigkeiten-allgemein.sr6-editable-overview-section:has(.sr6-editable-section-mode:not(:checked)) .sr6-skill-total-value .sr6-charactersheet-field-input-with-dice,
+.sr6-charactersheet-box-fertigkeiten-allgemein.sr6-editable-overview-section:has(.sr6-editable-section-mode:not(:checked)) .sr6-skill-specialization-value .sr6-charactersheet-field-input-with-dice,
+.sr6-charactersheet-box-fertigkeiten-allgemein.sr6-editable-overview-section:has(.sr6-editable-section-mode:not(:checked)) .sr6-skill-expertise-value .sr6-charactersheet-field-input-with-dice {
+  grid-template-columns: minmax(0, 1fr) 1.75rem;
+  height: var(--sr6-list-single-line-height);
+  align-items: center;
+  width: 100%;
+}
+
+.sr6-charactersheet-box-fertigkeiten-allgemein.sr6-editable-overview-section:has(.sr6-editable-section-mode:not(:checked)) .sr6-charactersheet-field.sr6-charactersheet-skill-field .sr6-skill-expertise-value.sr6-charactersheet-attr-value:last-child .sr6-charactersheet-field-input-with-dice,
+.sr6-charactersheet-box-fertigkeiten-allgemein.sr6-editable-overview-section:has(.sr6-editable-section-mode:not(:checked)) .sr6-charactersheet-field.sr6-charactersheet-skill-field .sr6-skill-specialization-value.sr6-charactersheet-attr-value .sr6-charactersheet-field-input-with-dice {
+  grid-template-columns: minmax(0, 1fr) 1.75rem;
+  width: 100%;
+}
+
+.sr6-charactersheet-box-fertigkeiten-allgemein.sr6-editable-overview-section:has(.sr6-editable-section-mode:not(:checked)) .sr6-skill-total-value .sr6-number-stepper {
+  width: 2rem;
+}
+
+.sr6-charactersheet-box-fertigkeiten-allgemein.sr6-editable-overview-section:has(.sr6-editable-section-mode:not(:checked)) .sr6-skill-total-value .sr6-charactersheet-field-dice-button,
+.sr6-charactersheet-box-fertigkeiten-allgemein.sr6-editable-overview-section:has(.sr6-editable-section-mode:not(:checked)) .sr6-skill-specialization-value .sr6-charactersheet-field-dice-button,
+.sr6-charactersheet-box-fertigkeiten-allgemein.sr6-editable-overview-section:has(.sr6-editable-section-mode:not(:checked)) .sr6-skill-expertise-value .sr6-charactersheet-field-dice-button {
+  display: flex;
 }
 /* END MODULE: src/css/modules/30-list-overview.css */
 
@@ -1744,12 +1828,12 @@ fieldset.repeating_sr6riggingmanoever .repcontrol {
 }
 
 .sr6-geister-section:has(.sr6-editable-section-mode:not(:checked)) .sr6-editable-item-fields .sr6-foundry-item-head {
-  grid-template-columns: repeat(4, minmax(0, 1fr));
+  grid-template-columns: repeat(5, minmax(0, 1fr));
 }
 
 .sr6-ausruestung-section:has(.sr6-editable-section-mode:not(:checked)) .sr6-editable-item-fields .sr6-foundry-item-head {
   display: grid;
-  grid-template-columns: repeat(4, minmax(0, 1fr));
+  grid-template-columns: repeat(6, minmax(0, 1fr));
   gap: 0.375rem;
   flex: 1 1 0;
 }
@@ -1848,8 +1932,8 @@ fieldset.repeating_sr6riggingmanoever .repcontrol {
 }
 
 .sr6-geister-section:has(.sr6-editable-section-mode:not(:checked)) .sr6-editable-item-fields .sr6-foundry-item-head {
-  grid-template-columns: repeat(4, minmax(0, 1fr));
-  flex: 4 1 0;
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+  flex: 5 1 0;
 }
 
 .sr6-geister-section:has(.sr6-editable-section-mode:not(:checked)) .sr6-editable-item-fields .sr6-foundry-item-footer {
@@ -1982,11 +2066,6 @@ fieldset.repeating_sr6riggingmanoever .repcontrol {
   display: none;
 }
 
-.sr6-geister-section:has(.sr6-editable-section-mode:not(:checked)) .sr6-generic-list-header {
-  grid-template-columns: repeat(4, minmax(0, 1fr));
-}
-
-.sr6-geister-section:has(.sr6-editable-section-mode:not(:checked)) .sr6-generic-list-header > span:nth-child(5),
 .sr6-geister-section:has(.sr6-editable-section-mode:not(:checked)) .sr6-editable-item-fields .sr6-foundry-item-footer {
   display: none;
 }
@@ -2080,6 +2159,10 @@ fieldset.repeating_sr6riggingmanoever .repcontrol {
 }
 
 #sr6_daten_panel_2 .sr6-charactersheet-box-attribute > .sr6-charactersheet-box-content {
+  display: block;
+}
+
+#sr6_daten_panel_2 .sr6-charactersheet-box-attribute .sr6-charactersheet-attribute-grid {
   display: grid;
   grid-auto-flow: column;
   grid-template-columns: repeat(2, minmax(0, 1fr));
@@ -2087,8 +2170,29 @@ fieldset.repeating_sr6riggingmanoever .repcontrol {
   gap: 0.5rem 1.5rem;
 }
 
-#sr6_daten_panel_2 .sr6-charactersheet-box-attribute > .sr6-charactersheet-box-content > .sr6-charactersheet-row-2 {
+#sr6_daten_panel_2 .sr6-charactersheet-box-attribute .sr6-charactersheet-attribute-grid > .sr6-charactersheet-row-2 {
   display: contents;
+}
+
+#sr6_daten_panel_2 .sr6-charactersheet-box-attribute .sr6-charactersheet-attribute-probes {
+  border-top: 0.0625rem solid rgba(0, 0, 0, 0.18);
+  margin-top: 0.875rem;
+  padding-top: 0.875rem;
+}
+
+#sr6_daten_panel_2 .sr6-charactersheet-box-attribute .sr6-charactersheet-attribute-probe-row {
+  display: grid;
+  grid-template-columns: repeat(4, max-content);
+  justify-content: space-between;
+  align-items: center;
+  gap: 1rem;
+}
+
+#sr6_daten_panel_2 .sr6-charactersheet-box-attribute .sr6-charactersheet-attribute-probe-row .sr6-charactersheet-field {
+  display: grid;
+  grid-template-columns: max-content max-content;
+  align-items: center;
+  column-gap: 0.375rem;
 }
 
 #sr6_daten_panel_2 .sr6-charactersheet-box-fertigkeiten-allgemein .sr6-charactersheet-skills-overview-grid {
@@ -2291,130 +2395,153 @@ fieldset.repeating_sr6matrixgeraete,
 }
 
 .sr6-matrix-handlungen-list-header {
-  display: none;
+  display: grid;
+  grid-template-columns: minmax(10rem, 1.1fr) minmax(12rem, 1.35fr) minmax(4rem, 0.45fr) minmax(14rem, 1.5fr) minmax(4rem, 0.45fr);
+  gap: 0.5rem;
+  align-items: end;
+  margin-bottom: 0.375rem;
 }
 
 .sr6-matrix-handlungen-list-header span {
-  font-size: 10px;
+  font-size: 0.75rem;
   font-weight: 700;
   color: var(--sr6-text);
   letter-spacing: 0.01rem;
 }
 
-.sr6-matrix-handlungen-section:has(.sr6-editable-section-mode:not(:checked)) .sr6-matrix-handlungen-list-header {
+.sr6-matrix-handlungen-list {
   display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 1.5rem;
-  margin-bottom: 0.25rem;
+  gap: 0.25rem;
 }
 
-.sr6-matrix-handlungen-list-header-group {
+.sr6-matrix-handlung {
   display: grid;
-  grid-template-columns: minmax(0, 1.75fr) repeat(3, minmax(0, 1fr));
-  gap: 0.375rem;
-}
-
-.sr6-matrix-handlungen-section:has(.sr6-editable-section-mode:not(:checked)) .sr6-charactersheet-skills-overview-grid {
-  grid-auto-flow: column;
-  grid-template-rows: repeat(23, auto);
-  gap: 0.375rem 1.5rem;
-}
-
-.sr6-matrix-handlungen-section:has(.sr6-editable-section-mode:not(:checked)) .sr6-matrix-handlung {
-  display: grid;
-  grid-template-columns: minmax(0, 1.75fr) repeat(3, minmax(0, 1fr));
-  gap: 0.375rem;
+  grid-template-columns: minmax(10rem, 1.1fr) minmax(12rem, 1.35fr) minmax(4rem, 0.45fr) minmax(14rem, 1.5fr) minmax(4rem, 0.45fr);
+  gap: 0.5rem;
   align-items: center;
+  min-height: 2rem;
+  padding: 0.125rem 0;
+  border-bottom: 0.0625rem solid rgba(0, 0, 0, 0.06);
+  opacity: 0.35;
+  pointer-events: none;
 }
 
-.sr6-matrix-handlungen-section:has(.sr6-editable-section-mode:not(:checked)) .sr6-matrix-handlung > span {
+.sr6-matrix-handlung-name {
   font-size: 0.82rem;
-  font-weight: 600;
+  font-weight: 700;
 }
 
-.sr6-matrix-handlungen-section:has(.sr6-editable-section-mode:not(:checked)) .sr6-matrix-handlung .sr6-charactersheet-attr-values {
-  display: contents;
+.sr6-matrix-handlung-formula {
+  min-width: 0;
+  color: var(--sr6-text);
+  font-size: 0.8rem;
 }
 
-.sr6-matrix-handlungen-section:has(.sr6-editable-section-mode:not(:checked)) .sr6-matrix-handlung .sr6-charactersheet-attr-value {
-  min-height: 1.875rem;
-  display: flex;
+.sr6-matrix-handlung-formula--select {
+  width: 100%;
+  max-width: 100%;
+  height: var(--sr6-field-height);
+  padding: 0.125rem 0.25rem;
+  border: none;
+  border-bottom: 0.0625rem solid var(--sr6-line-soft);
+  border-radius: 0;
+  background: transparent;
+  color: var(--sr6-text);
+  font-size: 0.86rem;
+  margin-bottom: 0;
+}
+
+.sr6-matrix-handlung-value {
+  display: grid;
+  grid-template-columns: minmax(2.75rem, 1fr) 1.75rem;
+  gap: 0.125rem;
   align-items: center;
 }
 
-.sr6-matrix-handlungen-section:has(.sr6-editable-section-mode:not(:checked)) .sr6-matrix-handlung .sr6-charactersheet-attr-value > span {
-  display: none;
+.sr6-matrix-handlung-value input[type="number"] {
+  width: 100%;
+  height: var(--sr6-field-height);
+  padding: 0.125rem 0.25rem;
+  border: none;
+  border-bottom: 0.0625rem solid var(--sr6-line-soft);
+  border-radius: 0;
+  background: transparent;
+  color: var(--sr6-text);
+  font-size: 0.86rem;
+  margin-bottom: 0;
 }
 
-.sr6-matrix-handlungen-section:has(.sr6-editable-section-mode:not(:checked)) .sr6-matrix-handlung .sr6-charactersheet-field-input-with-dice {
-  grid-template-columns: minmax(0, 1fr) 1.75rem;
+.sr6-matrix-handlung-value input[type="number"][readonly] {
+  background: transparent;
+  cursor: default;
 }
 
-.sr6-matrix-handlungen-section:has(.sr6-editable-section-mode:not(:checked))
-  .sr6-matrix-handlung
-  .sr6-charactersheet-attr-value:first-child
-  .sr6-charactersheet-field-input-with-dice {
-  grid-template-columns: minmax(0, 1fr);
-}
-
-.sr6-matrix-handlungen-section:has(.sr6-editable-section-mode:not(:checked))
-  .sr6-matrix-handlung
-  .sr6-charactersheet-attr-value:first-child
-  .sr6-charactersheet-field-dice-button {
-  display: none !important;
-}
-
-.sr6-matrix-handlungen-section:has(.sr6-editable-section-mode:not(:checked)) .sr6-matrix-handlung .sr6-charactersheet-field-dice-button {
-  display: flex !important;
+.sr6-matrix-handlung-no-roll {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--sr6-title);
+  font-weight: 700;
 }
 
 .sr6-matrix-handlungen-section .sr6-matrix-handlung .sr6-charactersheet-field-dice-button {
+  display: flex !important;
+  border: none;
+  outline: none;
+  background-color: transparent;
   opacity: 0.3;
   pointer-events: none;
 }
 
 .sr6-matrix-handlungen-section .sr6-matrix-handlung {
-  order: 99;
-}
-
-/* Sortierung nach aktivem Zugriff + alphabetischer DOM-Reihenfolge */
-.sr6-matrix-handlungen-section:has(#sr6-matrix-zugriff-gast:checked) .sr6-matrix-handlung[data-zugriff="gast"] {
-  order: 1;
-}
-
-.sr6-matrix-handlungen-section:has(#sr6-matrix-zugriff-gast:checked) .sr6-matrix-handlung[data-zugriff="user"] {
   order: 2;
 }
 
-.sr6-matrix-handlungen-section:has(#sr6-matrix-zugriff-gast:checked) .sr6-matrix-handlung[data-zugriff="admin"] {
-  order: 3;
+/* Aktive Zugriffsstufen zuerst, innerhalb aktiv/inaktiv bleibt die alphabetische DOM-Reihenfolge erhalten. */
+.sr6-matrix-handlungen-section:has(#sr6-matrix-zugriff-az:checked) .sr6-matrix-handlung {
+  order: 1;
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.sr6-matrix-handlungen-section:has(#sr6-matrix-zugriff-gast:checked) .sr6-matrix-handlung[data-zugriff="gast"] {
+  order: 1;
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.sr6-matrix-handlungen-section:has(#sr6-matrix-zugriff-user:checked) .sr6-matrix-handlung[data-zugriff="gast"] {
+  order: 1;
+  opacity: 1;
+  pointer-events: auto;
 }
 
 .sr6-matrix-handlungen-section:has(#sr6-matrix-zugriff-user:checked) .sr6-matrix-handlung[data-zugriff="user"] {
   order: 1;
+  opacity: 1;
+  pointer-events: auto;
 }
 
-.sr6-matrix-handlungen-section:has(#sr6-matrix-zugriff-user:checked) .sr6-matrix-handlung[data-zugriff="gast"] {
-  order: 2;
+.sr6-matrix-handlungen-section:has(#sr6-matrix-zugriff-admin:checked) .sr6-matrix-handlung[data-zugriff="gast"] {
+  order: 1;
+  opacity: 1;
+  pointer-events: auto;
 }
 
-.sr6-matrix-handlungen-section:has(#sr6-matrix-zugriff-user:checked) .sr6-matrix-handlung[data-zugriff="admin"] {
-  order: 3;
+.sr6-matrix-handlungen-section:has(#sr6-matrix-zugriff-admin:checked) .sr6-matrix-handlung[data-zugriff="user"] {
+  order: 1;
+  opacity: 1;
+  pointer-events: auto;
 }
 
 .sr6-matrix-handlungen-section:has(#sr6-matrix-zugriff-admin:checked) .sr6-matrix-handlung[data-zugriff="admin"] {
   order: 1;
-}
-
-.sr6-matrix-handlungen-section:has(#sr6-matrix-zugriff-admin:checked) .sr6-matrix-handlung[data-zugriff="user"] {
-  order: 2;
-}
-
-.sr6-matrix-handlungen-section:has(#sr6-matrix-zugriff-admin:checked) .sr6-matrix-handlung[data-zugriff="gast"] {
-  order: 3;
+  opacity: 1;
+  pointer-events: auto;
 }
 
 .sr6-matrix-handlungen-section:has(#sr6-matrix-zugriff-gast:checked) .sr6-matrix-handlung[data-zugriff="gast"] .sr6-charactersheet-field-dice-button,
+.sr6-matrix-handlungen-section:has(#sr6-matrix-zugriff-az:checked) .sr6-matrix-handlung .sr6-charactersheet-field-dice-button,
 .sr6-matrix-handlungen-section:has(#sr6-matrix-zugriff-user:checked) .sr6-matrix-handlung[data-zugriff="gast"] .sr6-charactersheet-field-dice-button,
 .sr6-matrix-handlungen-section:has(#sr6-matrix-zugriff-user:checked) .sr6-matrix-handlung[data-zugriff="user"] .sr6-charactersheet-field-dice-button,
 .sr6-matrix-handlungen-section:has(#sr6-matrix-zugriff-admin:checked) .sr6-matrix-handlung[data-zugriff="gast"] .sr6-charactersheet-field-dice-button,
@@ -2439,15 +2566,15 @@ fieldset.repeating_sr6matrixgeraete,
   display: none;
 }
 
-.sr6-rigging-fahrzeuge-list-header-group--9 {
+.sr6-rigging-fahrzeuge-list-header-group--5 {
   display: grid;
-  grid-template-columns: repeat(9, minmax(0, 1fr));
+  grid-template-columns: repeat(5, minmax(0, 1fr));
   gap: 0.375rem;
 }
 
 .sr6-rigging-fahrzeuge-section:has(.sr6-editable-section-mode:not(:checked)) .sr6-editable-item-fields {
   display: grid;
-  grid-template-columns: repeat(9, minmax(0, 1fr));
+  grid-template-columns: repeat(5, minmax(0, 1fr));
   gap: 0.375rem;
   align-items: center;
   width: 100%;
@@ -2455,7 +2582,7 @@ fieldset.repeating_sr6matrixgeraete,
 
 .sr6-rigging-fahrzeuge-section:has(.sr6-editable-section-mode:not(:checked)) .sr6-rigging-fahrzeug-fields-main {
   display: grid !important;
-  grid-template-columns: repeat(9, minmax(0, 1fr));
+  grid-template-columns: repeat(5, minmax(0, 1fr));
   grid-column: 1 / -1;
   grid-row: 1;
   order: 1;
@@ -2465,10 +2592,54 @@ fieldset.repeating_sr6matrixgeraete,
 
 .sr6-rigging-fahrzeuge-section:has(.sr6-editable-section-mode:not(:checked)) .sr6-rigging-fahrzeug-fields-links {
   display: grid !important;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
-  grid-column: 1 / span 6;
-  grid-row: 2;
-  order: 2;
+  grid-template-columns: minmax(0, 1fr);
+  grid-column: 1 / -1;
+  grid-row: 5;
+  order: 6;
+  gap: 0.375rem;
+  border-top: none;
+  padding-top: 0;
+  margin-top: 0;
+}
+
+.sr6-rigging-fahrzeug-waffe-block {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: 0.375rem;
+}
+
+.sr6-rigging-fahrzeug-waffe-main {
+  display: grid;
+  grid-template-columns: minmax(10rem, 1.4fr) minmax(9rem, 1fr) minmax(6rem, 0.7fr) minmax(6rem, 0.7fr);
+  gap: 0.375rem;
+  align-items: end;
+}
+
+.sr6-rigging-fahrzeug-waffe-ranges {
+  display: grid;
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+  gap: 0.375rem;
+  align-items: end;
+}
+
+.sr6-rigging-fahrzeuge-section:has(.sr6-editable-section-mode:not(:checked)) .sr6-rigging-fahrzeug-autosoft-row {
+  display: grid !important;
+  grid-template-columns: repeat(6, minmax(0, 1fr));
+  grid-column: 1 / -1;
+  grid-row: 3;
+  order: 4;
+  gap: 0.375rem;
+  border-top: none;
+  padding-top: 0;
+  margin-top: 0;
+}
+
+.sr6-rigging-fahrzeuge-section:has(.sr6-editable-section-mode:not(:checked)) .sr6-rigging-fahrzeug-probe-row {
+  display: grid !important;
+  grid-template-columns: minmax(9rem, 1.2fr) minmax(8rem, 1fr) minmax(5rem, 0.65fr) minmax(5rem, 0.65fr) repeat(3, minmax(5rem, 0.65fr));
+  grid-column: 1 / -1;
+  grid-row: 4;
+  order: 5;
   gap: 0.375rem;
   border-top: none;
   padding-top: 0;
@@ -2477,8 +2648,8 @@ fieldset.repeating_sr6matrixgeraete,
 
 .sr6-rigging-fahrzeuge-section:has(.sr6-editable-section-mode:not(:checked)) .sr6-rigging-fahrzeug-fields-secondary {
   display: grid !important;
-  grid-template-columns: minmax(0, 1fr);
-  grid-column: 7 / -1;
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+  grid-column: 1 / -1;
   grid-row: 2;
   order: 3;
   gap: 0.375rem;
@@ -2487,19 +2658,19 @@ fieldset.repeating_sr6matrixgeraete,
   margin-top: 0;
 }
 
-.sr6-rigging-fahrzeuge-section:has(.sr6-editable-section-mode:not(:checked)) .sr6-rigging-fahrzeug-fields-secondary .sr6-charactersheet-field:first-child {
-  display: none;
-}
-
 .sr6-rigging-fahrzeuge-section:has(.sr6-editable-section-mode:not(:checked)) .sr6-rigging-fahrzeug-fields-main .sr6-charactersheet-field > span,
 .sr6-rigging-fahrzeuge-section:has(.sr6-editable-section-mode:not(:checked)) .sr6-rigging-fahrzeug-fields-secondary .sr6-charactersheet-field > span,
-.sr6-rigging-fahrzeuge-section:has(.sr6-editable-section-mode:not(:checked)) .sr6-rigging-fahrzeug-fields-links .sr6-charactersheet-field > span {
+.sr6-rigging-fahrzeuge-section:has(.sr6-editable-section-mode:not(:checked)) .sr6-rigging-fahrzeug-fields-links .sr6-charactersheet-field > span,
+.sr6-rigging-fahrzeuge-section:has(.sr6-editable-section-mode:not(:checked)) .sr6-rigging-fahrzeug-autosoft-row .sr6-charactersheet-field > span,
+.sr6-rigging-fahrzeuge-section:has(.sr6-editable-section-mode:not(:checked)) .sr6-rigging-fahrzeug-probe-row .sr6-charactersheet-field > span {
   display: none;
 }
 
 .sr6-rigging-fahrzeuge-section:has(.sr6-editable-section-mode:not(:checked)) .sr6-rigging-fahrzeug-fields-main .sr6-charactersheet-field,
 .sr6-rigging-fahrzeuge-section:has(.sr6-editable-section-mode:not(:checked)) .sr6-rigging-fahrzeug-fields-secondary .sr6-charactersheet-field,
-.sr6-rigging-fahrzeuge-section:has(.sr6-editable-section-mode:not(:checked)) .sr6-rigging-fahrzeug-fields-links .sr6-charactersheet-field {
+.sr6-rigging-fahrzeuge-section:has(.sr6-editable-section-mode:not(:checked)) .sr6-rigging-fahrzeug-fields-links .sr6-charactersheet-field,
+.sr6-rigging-fahrzeuge-section:has(.sr6-editable-section-mode:not(:checked)) .sr6-rigging-fahrzeug-autosoft-row .sr6-charactersheet-field,
+.sr6-rigging-fahrzeuge-section:has(.sr6-editable-section-mode:not(:checked)) .sr6-rigging-fahrzeug-probe-row .sr6-charactersheet-field {
   display: grid;
   grid-template-columns: minmax(0, 1fr);
   gap: 0.125rem;
@@ -2508,7 +2679,9 @@ fieldset.repeating_sr6matrixgeraete,
 
 .sr6-rigging-fahrzeuge-section:has(.sr6-editable-section-mode:not(:checked)) .sr6-rigging-fahrzeug-fields-main .sr6-charactersheet-field > span,
 .sr6-rigging-fahrzeuge-section:has(.sr6-editable-section-mode:not(:checked)) .sr6-rigging-fahrzeug-fields-secondary .sr6-charactersheet-field > span,
-.sr6-rigging-fahrzeuge-section:has(.sr6-editable-section-mode:not(:checked)) .sr6-rigging-fahrzeug-fields-links .sr6-charactersheet-field > span {
+.sr6-rigging-fahrzeuge-section:has(.sr6-editable-section-mode:not(:checked)) .sr6-rigging-fahrzeug-fields-links .sr6-charactersheet-field > span,
+.sr6-rigging-fahrzeuge-section:has(.sr6-editable-section-mode:not(:checked)) .sr6-rigging-fahrzeug-autosoft-row .sr6-charactersheet-field > span,
+.sr6-rigging-fahrzeuge-section:has(.sr6-editable-section-mode:not(:checked)) .sr6-rigging-fahrzeug-probe-row .sr6-charactersheet-field > span {
   display: block !important;
   font-size: 10px;
   font-weight: 700;
@@ -2521,7 +2694,11 @@ fieldset.repeating_sr6matrixgeraete,
 .sr6-rigging-fahrzeuge-section:has(.sr6-editable-section-mode:not(:checked)) .sr6-rigging-fahrzeug-fields-secondary input,
 .sr6-rigging-fahrzeuge-section:has(.sr6-editable-section-mode:not(:checked)) .sr6-rigging-fahrzeug-fields-secondary select,
 .sr6-rigging-fahrzeuge-section:has(.sr6-editable-section-mode:not(:checked)) .sr6-rigging-fahrzeug-fields-links input,
-.sr6-rigging-fahrzeuge-section:has(.sr6-editable-section-mode:not(:checked)) .sr6-rigging-fahrzeug-fields-links select {
+.sr6-rigging-fahrzeuge-section:has(.sr6-editable-section-mode:not(:checked)) .sr6-rigging-fahrzeug-fields-links select,
+.sr6-rigging-fahrzeuge-section:has(.sr6-editable-section-mode:not(:checked)) .sr6-rigging-fahrzeug-autosoft-row input,
+.sr6-rigging-fahrzeuge-section:has(.sr6-editable-section-mode:not(:checked)) .sr6-rigging-fahrzeug-autosoft-row select,
+.sr6-rigging-fahrzeuge-section:has(.sr6-editable-section-mode:not(:checked)) .sr6-rigging-fahrzeug-probe-row input,
+.sr6-rigging-fahrzeuge-section:has(.sr6-editable-section-mode:not(:checked)) .sr6-rigging-fahrzeug-probe-row select {
   pointer-events: none;
   user-select: none;
   border-bottom: none;
@@ -2765,6 +2942,28 @@ fieldset.repeating_sr6riggingfahrzeuge {
   grid-template-columns: repeat(4, minmax(0, 1fr));
   gap: 0.375rem;
   flex: 1 1 0;
+}
+
+.sr6-generic-list-header--memory-probe,
+.sr6-fertigkeiten-extra-section .sr6-fertigkeiten-memory-probe-row,
+.sr6-fertigkeiten-extra-section:has(.sr6-editable-section-mode:not(:checked)) .sr6-editable-item-fields .sr6-fertigkeiten-memory-probe-row {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) max-content;
+}
+
+.sr6-talentsofts-section:has(.sr6-editable-section-mode:not(:checked)) .sr6-editable-item-fields .sr6-foundry-item-head {
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+}
+
+.sr6-fertigkeiten-memory-probe-row .sr6-charactersheet-field-input-with-dice {
+  width: max-content;
+  justify-self: start;
+}
+
+.sr6-fertigkeiten-memory-probe-row input[readonly] {
+  width: 3rem;
+  min-width: 3rem;
+  pointer-events: none;
 }
 
 .sr6-fertigkeiten-extra-section:has(.sr6-editable-section-mode:not(:checked)) .sr6-editable-item-fields .sr6-charactersheet-field {
@@ -3406,7 +3605,28 @@ body:has(.sr6-tabs-toggle-input:checked) #tab-content.tab-content,
 .sr6-roll-popup-slot-kind-toggle--5-select:checked ~ .sr6-roll-popup-slot-option-toggle--5-melee-attribute:checked ~ .sr6-roll-popup-overlay .sr6-roll-popup-field--5 .sr6-roll-popup-field-input--select-melee-attribute,
 .sr6-roll-popup-slot-kind-toggle--6-select:checked ~ .sr6-roll-popup-slot-option-toggle--6-melee-attribute:checked ~ .sr6-roll-popup-overlay .sr6-roll-popup-field--6 .sr6-roll-popup-field-input--select-melee-attribute,
 .sr6-roll-popup-slot-kind-toggle--7-select:checked ~ .sr6-roll-popup-slot-option-toggle--7-melee-attribute:checked ~ .sr6-roll-popup-overlay .sr6-roll-popup-field--7 .sr6-roll-popup-field-input--select-melee-attribute,
-.sr6-roll-popup-slot-kind-toggle--8-select:checked ~ .sr6-roll-popup-slot-option-toggle--8-melee-attribute:checked ~ .sr6-roll-popup-overlay .sr6-roll-popup-field--8 .sr6-roll-popup-field-input--select-melee-attribute {
+.sr6-roll-popup-slot-kind-toggle--8-select:checked ~ .sr6-roll-popup-slot-option-toggle--8-melee-attribute:checked ~ .sr6-roll-popup-overlay .sr6-roll-popup-field--8 .sr6-roll-popup-field-input--select-melee-attribute,
+.sr6-roll-popup-slot-kind-toggle--1-select:checked ~ .sr6-roll-popup-slot-option-toggle--1-spirit-type:checked ~ .sr6-roll-popup-overlay .sr6-roll-popup-field--1 .sr6-roll-popup-field-input--select-spirit-type,
+.sr6-roll-popup-slot-kind-toggle--2-select:checked ~ .sr6-roll-popup-slot-option-toggle--2-spirit-type:checked ~ .sr6-roll-popup-overlay .sr6-roll-popup-field--2 .sr6-roll-popup-field-input--select-spirit-type,
+.sr6-roll-popup-slot-kind-toggle--3-select:checked ~ .sr6-roll-popup-slot-option-toggle--3-spirit-type:checked ~ .sr6-roll-popup-overlay .sr6-roll-popup-field--3 .sr6-roll-popup-field-input--select-spirit-type,
+.sr6-roll-popup-slot-kind-toggle--4-select:checked ~ .sr6-roll-popup-slot-option-toggle--4-spirit-type:checked ~ .sr6-roll-popup-overlay .sr6-roll-popup-field--4 .sr6-roll-popup-field-input--select-spirit-type,
+.sr6-roll-popup-slot-kind-toggle--5-select:checked ~ .sr6-roll-popup-slot-option-toggle--5-spirit-type:checked ~ .sr6-roll-popup-overlay .sr6-roll-popup-field--5 .sr6-roll-popup-field-input--select-spirit-type,
+.sr6-roll-popup-slot-kind-toggle--6-select:checked ~ .sr6-roll-popup-slot-option-toggle--6-spirit-type:checked ~ .sr6-roll-popup-overlay .sr6-roll-popup-field--6 .sr6-roll-popup-field-input--select-spirit-type,
+.sr6-roll-popup-slot-kind-toggle--7-select:checked ~ .sr6-roll-popup-slot-option-toggle--7-spirit-type:checked ~ .sr6-roll-popup-overlay .sr6-roll-popup-field--7 .sr6-roll-popup-field-input--select-spirit-type,
+.sr6-roll-popup-slot-kind-toggle--8-select:checked ~ .sr6-roll-popup-slot-option-toggle--8-spirit-type:checked ~ .sr6-roll-popup-overlay .sr6-roll-popup-field--8 .sr6-roll-popup-field-input--select-spirit-type,
+.sr6-roll-popup-slot-kind-toggle--2-select:checked ~ .sr6-roll-popup-slot-option-toggle--2-skill-attr-intuition-willenskraft:checked ~ .sr6-roll-popup-overlay .sr6-roll-popup-field--2 .sr6-roll-popup-field-input--select-skill-attr-intuition-willenskraft,
+.sr6-roll-popup-slot-kind-toggle--2-select:checked ~ .sr6-roll-popup-slot-option-toggle--2-skill-attr-geschicklichkeit-staerke:checked ~ .sr6-roll-popup-overlay .sr6-roll-popup-field--2 .sr6-roll-popup-field-input--select-skill-attr-geschicklichkeit-staerke,
+.sr6-roll-popup-slot-kind-toggle--2-select:checked ~ .sr6-roll-popup-slot-option-toggle--2-skill-attr-magie:checked ~ .sr6-roll-popup-overlay .sr6-roll-popup-field--2 .sr6-roll-popup-field-input--select-skill-attr-magie,
+.sr6-roll-popup-slot-kind-toggle--2-select:checked ~ .sr6-roll-popup-slot-option-toggle--2-skill-attr-logik-intuition:checked ~ .sr6-roll-popup-overlay .sr6-roll-popup-field--2 .sr6-roll-popup-field-input--select-skill-attr-logik-intuition,
+.sr6-roll-popup-slot-kind-toggle--2-select:checked ~ .sr6-roll-popup-slot-option-toggle--2-skill-attr-logik:checked ~ .sr6-roll-popup-overlay .sr6-roll-popup-field--2 .sr6-roll-popup-field-input--select-skill-attr-logik,
+.sr6-roll-popup-slot-kind-toggle--2-select:checked ~ .sr6-roll-popup-slot-option-toggle--2-skill-attr-charisma-logik:checked ~ .sr6-roll-popup-overlay .sr6-roll-popup-field--2 .sr6-roll-popup-field-input--select-skill-attr-charisma-logik,
+.sr6-roll-popup-slot-kind-toggle--2-select:checked ~ .sr6-roll-popup-slot-option-toggle--2-skill-attr-geschicklichkeit:checked ~ .sr6-roll-popup-overlay .sr6-roll-popup-field--2 .sr6-roll-popup-field-input--select-skill-attr-geschicklichkeit,
+.sr6-roll-popup-slot-kind-toggle--2-select:checked ~ .sr6-roll-popup-slot-option-toggle--2-skill-attr-logik-geschicklichkeit-intuition:checked ~ .sr6-roll-popup-overlay .sr6-roll-popup-field--2 .sr6-roll-popup-field-input--select-skill-attr-logik-geschicklichkeit-intuition,
+.sr6-roll-popup-slot-kind-toggle--2-select:checked ~ .sr6-roll-popup-slot-option-toggle--2-skill-attr-intuition:checked ~ .sr6-roll-popup-overlay .sr6-roll-popup-field--2 .sr6-roll-popup-field-input--select-skill-attr-intuition,
+.sr6-roll-popup-slot-kind-toggle--2-select:checked ~ .sr6-roll-popup-slot-option-toggle--2-skill-attr-intuition-logik:checked ~ .sr6-roll-popup-overlay .sr6-roll-popup-field--2 .sr6-roll-popup-field-input--select-skill-attr-intuition-logik,
+.sr6-roll-popup-slot-kind-toggle--2-select:checked ~ .sr6-roll-popup-slot-option-toggle--2-skill-attr-reaktion:checked ~ .sr6-roll-popup-overlay .sr6-roll-popup-field--2 .sr6-roll-popup-field-input--select-skill-attr-reaktion,
+.sr6-roll-popup-slot-kind-toggle--2-select:checked ~ .sr6-roll-popup-slot-option-toggle--2-skill-attr-resonanz:checked ~ .sr6-roll-popup-overlay .sr6-roll-popup-field--2 .sr6-roll-popup-field-input--select-skill-attr-resonanz,
+.sr6-roll-popup-slot-kind-toggle--2-select:checked ~ .sr6-roll-popup-slot-option-toggle--2-skill-attr-charisma:checked ~ .sr6-roll-popup-overlay .sr6-roll-popup-field--2 .sr6-roll-popup-field-input--select-skill-attr-charisma {
   display: block !important;
 }
 

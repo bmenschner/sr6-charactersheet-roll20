@@ -185,7 +185,7 @@ function buildSpellProbePresentation(payload) {
 
   return {
     spell: `${resolvedFields.Zauber || ""}`,
-    attackValue: isCombatSpell ? `${resolvedFields.Angriffswert || ""}` : "",
+    attackValue: isCombatSpell ? `${payload.spellAttackValue || resolvedFields.Angriffswert || ""}` : "",
     art: spellType,
     range: `${resolvedFields.Reichweite || ""}`,
     duration: `${resolvedFields.Dauer || ""}`,
@@ -193,6 +193,7 @@ function buildSpellProbePresentation(payload) {
     notes: `${resolvedFields.Notiz || ""}`,
     drainValue: `${payload.drainValue || ""}`,
     drainDamage: `${payload.drainDamage || ""}`,
+    drainDamageType: `${payload.drainDamageType || ""}`,
   };
 }
 
@@ -203,6 +204,20 @@ function buildSr6ProbeMessage(payload) {
 
   if (hasSpellTemplateVariant(payload.definition)) {
     const presentation = buildSpellProbePresentation(payload);
+    const rows = Array.isArray(payload.rows) ? payload.rows : [];
+    const spellBaseLabels = new Set([
+      "Zauber",
+      "Art",
+      "Reichweite",
+      "Dauer",
+      "Entzug",
+      "Schaden",
+      "Notiz",
+      "Entzugwiderstand",
+    ]);
+    const spellExtraRows = rows
+      .filter((row) => row && row.label && !spellBaseLabels.has(row.label))
+      .filter((row) => !(row.label === "Popup-Modifikator" && parseNumber(row.value) === 0));
 
     parts.push("{{spell_layout=1}}");
     if (presentation.spell) parts.push(`{{spell=${presentation.spell}}}`);
@@ -224,13 +239,21 @@ function buildSr6ProbeMessage(payload) {
     appendDetailsDiceTemplateFields(parts, detailsDice);
 
     if (presentation.drainValue) parts.push(`{{drain_value=${presentation.drainValue}}}`);
-    if (presentation.drainDamage) parts.push(`{{drain_damage=${presentation.drainDamage}}}`);
+    if (presentation.drainDamage) {
+      const drainDamageSummary = presentation.drainDamageType
+        ? `${presentation.drainDamage} (${presentation.drainDamageType})`
+        : presentation.drainDamage;
+      parts.push(`{{drain_damage=${drainDamageSummary}}}`);
+    }
     if (payload.drainDetails) parts.push(`{{drain_details=${payload.drainDetails}}}`);
     if (presentation.art) parts.push(`{{description_art=${presentation.art}}}`);
     if (presentation.range) parts.push(`{{description_range=${presentation.range}}}`);
     if (presentation.duration) parts.push(`{{description_duration=${presentation.duration}}}`);
     if (presentation.damage) parts.push(`{{description_damage=${presentation.damage}}}`);
     if (presentation.notes) parts.push(`{{description_notes=${presentation.notes}}}`);
+    if (spellExtraRows.length > 0) {
+      parts.push(`{{extra_rows=${spellExtraRows.map((row) => `${row.label}: ${row.value}`).join(" | ")}}}`);
+    }
 
     if (payload.isGlitch) {
       parts.push("{{is_glitch=1}}");

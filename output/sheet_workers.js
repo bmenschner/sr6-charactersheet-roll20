@@ -40,12 +40,14 @@ const SR6_MATRIX_ACTIONS = [
   "befehl_vortaeuschen",
   "bedrohungsanalyse",
   "brute_force",
+  "cyberware_kontrollieren",
   "datei_cracken",
   "datei_editieren",
   "datei_verschluesseln",
   "datenbombe_entschaerfen",
   "datenbombe_legen",
   "datenspike",
+  "dienstverweigerung",
   "ersticken",
   "garbage_in_garbage_out",
   "geraet_formatieren",
@@ -76,6 +78,8 @@ const SR6_MATRIX_ACTIONS = [
   "signal_stoeren",
   "sondieren",
   "stalking",
+  "stoersender_lokalisieren",
+  "suendenbock",
   "teergrube",
   "uebertragung_abfangen",
   "verstecken",
@@ -83,6 +87,383 @@ const SR6_MATRIX_ACTIONS = [
   "virtuelles_zielen",
   "volle_matrixabwehr"
 ];
+
+const SR6_MATRIX_ACTION_RULES = {
+  ausstoepseln: {
+    probe: { label: "Elektronik + Willenskraft", skill: "elektronik", attribute: "willenskraft" },
+    defense: {
+      type: "choice",
+      options: [
+        { label: "Charisma + Datenverarbeitung", attribute: "charisma", matrix: "datenverarbeitung" },
+        { label: "Angriff + Datenverarbeitung", matrix: "angriff", matrixSecond: "datenverarbeitung" },
+      ],
+    },
+  },
+  bedrohungsanalyse: {
+    probe: { label: "Elektronik + Logik", skill: "elektronik", attribute: "logik" },
+    defense: { type: "none" },
+  },
+  befehl_vortaeuschen: {
+    probe: { label: "Cracken + Logik", skill: "cracken", attribute: "logik" },
+    defense: {
+      type: "choice",
+      options: [
+        { label: "Datenverarbeitung + Firewall", matrix: "datenverarbeitung", matrixSecond: "firewall" },
+        { label: "Pilot + Firewall", target: "pilot", matrix: "firewall" },
+      ],
+    },
+  },
+  brute_force: {
+    probe: { label: "Cracken + Logik", skill: "cracken", attribute: "logik", linkedMatrixAttribute: "angriff" },
+    defense: {
+      type: "choice",
+      options: [
+        { label: "Willenskraft + Firewall", attribute: "willenskraft", matrix: "firewall" },
+        { label: "Firewall x2", matrix: "firewall", multiplier: 2 },
+      ],
+    },
+  },
+  cyberware_kontrollieren: {
+    probe: { label: "Cracken + Logik", skill: "cracken", attribute: "logik" },
+    defense: { type: "fixed_formula", label: "Willenskraft + Firewall + Cyberware-Geraetestufe" },
+  },
+  datei_cracken: {
+    probe: { label: "Cracken + Logik", skill: "cracken", attribute: "logik" },
+    defense: { type: "none" },
+  },
+  datei_editieren: {
+    probe: { label: "Elektronik + Logik", skill: "elektronik", attribute: "logik" },
+    defense: {
+      type: "choice",
+      options: [
+        { label: "Intuition + Firewall", attribute: "intuition", matrix: "firewall" },
+        { label: "Schleicher + Firewall", matrix: "schleicher", matrixSecond: "firewall" },
+      ],
+    },
+  },
+  datei_verschluesseln: {
+    probe: { label: "Elektronik + Logik", skill: "elektronik", attribute: "logik" },
+    defense: { type: "none" },
+  },
+  datenbombe_entschaerfen: {
+    probe: { label: "Elektronik + Logik", skill: "elektronik", attribute: "logik" },
+    defense: { type: "none" },
+  },
+  datenbombe_legen: {
+    probe: { label: "Cracken + Logik", skill: "cracken", attribute: "logik" },
+    defense: { type: "none" },
+  },
+  datenspike: {
+    probe: { label: "Cracken + Logik", skill: "cracken", attribute: "logik", linkedMatrixAttribute: "angriff" },
+    defense: {
+      type: "choice",
+      options: [
+        { label: "Datenverarbeitung + Firewall", matrix: "datenverarbeitung", matrixSecond: "firewall" },
+        { label: "Logik + Firewall", attribute: "logik", matrix: "firewall" },
+      ],
+    },
+  },
+  dienstverweigerung: {
+    probe: { label: "Cracken + Logik", skill: "cracken", attribute: "logik" },
+    defense: {
+      type: "choice",
+      options: [
+        { label: "Willenskraft + Firewall", attribute: "willenskraft", matrix: "firewall" },
+        { label: "Firewall x2", matrix: "firewall", multiplier: 2 },
+      ],
+    },
+  },
+  ersticken: {
+    probe: { label: "Cracken + Logik", skill: "cracken", attribute: "logik" },
+    defense: {
+      type: "choice",
+      options: [
+        { label: "Intuition + Schleicher", attribute: "intuition", matrix: "schleicher" },
+        { label: "Schleicher x2", matrix: "schleicher", multiplier: 2 },
+      ],
+    },
+  },
+  garbage_in_garbage_out: {
+    probe: { label: "Cracken + Logik", skill: "cracken", attribute: "logik" },
+    defense: {
+      type: "choice",
+      options: [
+        { label: "Willenskraft + Firewall", attribute: "willenskraft", matrix: "firewall" },
+        { label: "Firewall x2", matrix: "firewall", multiplier: 2 },
+      ],
+    },
+  },
+  geraet_formatieren: {
+    probe: { label: "Elektronik + Logik", skill: "elektronik", attribute: "logik" },
+    defense: {
+      type: "choice",
+      options: [
+        { label: "Willenskraft + Firewall", attribute: "willenskraft", matrix: "firewall" },
+        { label: "Firewall x2", matrix: "firewall", multiplier: 2 },
+      ],
+    },
+  },
+  geraet_neu_starten: {
+    probe: { label: "Elektronik + Logik", skill: "elektronik", attribute: "logik" },
+    defense: {
+      type: "choice",
+      options: [
+        { label: "Willenskraft + Firewall", attribute: "willenskraft", matrix: "firewall" },
+        { label: "Firewall x2", matrix: "firewall", multiplier: 2 },
+      ],
+    },
+  },
+  geraet_steuern: {
+    probe: { label: "Elektronik + Logik", skill: "elektronik", attribute: "logik" },
+    defense: {
+      type: "choice",
+      options: [
+        { label: "Willenskraft + Firewall", attribute: "willenskraft", matrix: "firewall" },
+        { label: "Firewall x2", matrix: "firewall", multiplier: 2 },
+      ],
+    },
+  },
+  geraetesperre: {
+    probe: { label: "Cracken + Logik", skill: "cracken", attribute: "logik" },
+    defense: {
+      type: "choice",
+      options: [
+        { label: "Willenskraft + Firewall", attribute: "willenskraft", matrix: "firewall" },
+        { label: "Firewall x2", matrix: "firewall", multiplier: 2 },
+      ],
+    },
+  },
+  hineinspringen: {
+    probe: { label: "Elektronik + Logik", skill: "elektronik", attribute: "logik" },
+    defense: {
+      type: "choice",
+      options: [
+        { label: "Willenskraft + Firewall", attribute: "willenskraft", matrix: "firewall" },
+        { label: "Firewall x2", matrix: "firewall", multiplier: 2 },
+      ],
+    },
+  },
+  hintertuer_benutzen: {
+    probe: { label: "Cracken + Logik", skill: "cracken", attribute: "logik", linkedMatrixAttribute: "schleicher" },
+    defense: {
+      type: "choice",
+      options: [
+        { label: "Willenskraft + Firewall", attribute: "willenskraft", matrix: "firewall" },
+        { label: "Firewall x2", matrix: "firewall", multiplier: 2 },
+      ],
+    },
+  },
+  hintertuer_mit_bekanntem_exploit_benutzen: {
+    probe: { label: "Cracken + Logik", skill: "cracken", attribute: "logik", linkedMatrixAttribute: "schleicher" },
+    defense: {
+      type: "choice",
+      options: [
+        { label: "Willenskraft + Firewall", attribute: "willenskraft", matrix: "firewall" },
+        { label: "Firewall x2", matrix: "firewall", multiplier: 2 },
+      ],
+    },
+  },
+  host_betreten_verlassen: {
+    probe: { type: "none" },
+    defense: { type: "none" },
+  },
+  icon_aufspueren: {
+    probe: { label: "Cracken + Intuition", skill: "cracken", attribute: "intuition", linkedMatrixAttribute: "schleicher" },
+    defense: {
+      type: "choice",
+      options: [
+        { label: "Willenskraft + Schleicher", attribute: "willenskraft", matrix: "schleicher" },
+        { label: "Firewall + Schleicher", matrix: "firewall", matrixSecond: "schleicher" },
+      ],
+    },
+  },
+  icon_modifizieren: {
+    probe: { label: "Cracken + Logik", skill: "cracken", attribute: "logik" },
+    defense: {
+      type: "choice",
+      options: [
+        { label: "Intuition + Datenverarbeitung", attribute: "intuition", matrix: "datenverarbeitung" },
+        { label: "Schleicher + Datenverarbeitung", matrix: "schleicher", matrixSecond: "datenverarbeitung" },
+      ],
+    },
+  },
+  icon_veraendern: {
+    probe: { type: "none" },
+    defense: { type: "none" },
+  },
+  infrastruktur_unterwandern: {
+    probe: { label: "Cracken + Intuition", skill: "cracken", attribute: "intuition" },
+    defense: {
+      type: "choice",
+      options: [
+        { label: "Intuition + Firewall", attribute: "intuition", matrix: "firewall" },
+        { label: "Schleicher + Firewall", matrix: "schleicher", matrixSecond: "firewall" },
+      ],
+    },
+  },
+  interfacemodus_wechseln: {
+    probe: { type: "none" },
+    defense: { type: "none" },
+  },
+  kalibrierung: {
+    probe: { label: "Elektronik + Logik", skill: "elektronik", attribute: "logik" },
+    defense: { type: "none" },
+  },
+  maskerade: {
+    probe: { label: "Cracken + Logik", skill: "cracken", attribute: "logik" },
+    defense: {
+      type: "choice",
+      options: [
+        { label: "Intuition + Datenverarbeitung", attribute: "intuition", matrix: "datenverarbeitung" },
+        { label: "Schleicher + Datenverarbeitung", matrix: "schleicher", matrixSecond: "datenverarbeitung" },
+      ],
+    },
+  },
+  matrixattribute_austauschen: {
+    probe: { type: "none" },
+    defense: { type: "none" },
+  },
+  matrixsignatur_loeschen: {
+    probe: { label: "Cracken + Logik", skill: "cracken", attribute: "logik" },
+    defense: {
+      type: "choice",
+      options: [
+        { label: "Willenskraft + Firewall", attribute: "willenskraft", matrix: "firewall" },
+        { label: "Firewall x2", matrix: "firewall", multiplier: 2 },
+      ],
+    },
+  },
+  matrixsuche: {
+    probe: { label: "Elektronik + Intuition", skill: "elektronik", attribute: "intuition" },
+    defense: { type: "none" },
+  },
+  matrixwahrnehmung: {
+    probe: { label: "Elektronik + Intuition", skill: "elektronik", attribute: "intuition" },
+    defense: {
+      type: "choice",
+      options: [
+        { label: "Willenskraft + Schleicher", attribute: "willenskraft", matrix: "schleicher" },
+        { label: "Firewall + Schleicher", matrix: "firewall", matrixSecond: "schleicher" },
+      ],
+    },
+  },
+  mittelsmetamensch: {
+    probe: { label: "Cracken + Logik", skill: "cracken", attribute: "logik" },
+    defense: {
+      type: "choice",
+      options: [
+        { label: "Intuition + Datenverarbeitung", attribute: "intuition", matrix: "datenverarbeitung" },
+        { label: "Schleicher + Datenverarbeitung", matrix: "schleicher", matrixSecond: "datenverarbeitung" },
+      ],
+    },
+  },
+  nachricht_uebermitteln: {
+    probe: { type: "none" },
+    defense: { type: "none" },
+  },
+  overwatch_wert_bestimmen: {
+    probe: { label: "Cracken + Logik", skill: "cracken", attribute: "logik" },
+    defense: { type: "none" },
+  },
+  pop_up: {
+    probe: { label: "Cracken + Logik", skill: "cracken", attribute: "logik" },
+    defense: {
+      type: "choice",
+      options: [
+        { label: "Intuition + Datenverarbeitung", attribute: "intuition", matrix: "datenverarbeitung" },
+        { label: "Schleicher + Datenverarbeitung", matrix: "schleicher", matrixSecond: "datenverarbeitung" },
+      ],
+    },
+  },
+  programm_abstuerzen_lassen: {
+    probe: { label: "Cracken + Logik", skill: "cracken", attribute: "logik" },
+    defense: { type: "fixed_formula", label: "Datenverarbeitung + Geraetestufe" },
+  },
+  pruefsummensuche: {
+    probe: { label: "Cracken + Logik", skill: "cracken", attribute: "logik" },
+    defense: { type: "none" },
+  },
+  signal_stoeren: {
+    probe: { label: "Cracken + Logik", skill: "cracken", attribute: "logik" },
+    defense: { type: "none" },
+  },
+  sondieren: {
+    probe: { label: "Cracken + Logik", skill: "cracken", attribute: "logik", linkedMatrixAttribute: "schleicher" },
+    defense: {
+      type: "choice",
+      options: [
+        { label: "Willenskraft + Firewall", attribute: "willenskraft", matrix: "firewall" },
+        { label: "Firewall x2", matrix: "firewall", multiplier: 2 },
+      ],
+    },
+  },
+  stalking: {
+    probe: { label: "Cracken + Logik", skill: "cracken", attribute: "logik" },
+    defense: {
+      type: "choice",
+      options: [
+        { label: "Willenskraft + Firewall", attribute: "willenskraft", matrix: "firewall" },
+        { label: "Firewall x2", matrix: "firewall", multiplier: 2 },
+      ],
+    },
+  },
+  stoersender_lokalisieren: {
+    probe: { label: "Cracken (Elektronische Kriegsfuehrung) + Logik", skill: "cracken", attribute: "logik", specialization: "Elektronische Kriegsfuehrung" },
+    defense: { type: "description" },
+  },
+  suendenbock: {
+    probe: { label: "Cracken + Schleicher", skill: "cracken", matrix: "schleicher" },
+    defense: { type: "fixed_formula", label: "Willenskraft + Firewall", attribute: "willenskraft", matrix: "firewall" },
+  },
+  teergrube: {
+    probe: { label: "Cracken + Logik", skill: "cracken", attribute: "logik", linkedMatrixAttribute: "angriff" },
+    defense: {
+      type: "choice",
+      options: [
+        { label: "Datenverarbeitung + Firewall", matrix: "datenverarbeitung", matrixSecond: "firewall" },
+        { label: "Logik + Firewall", attribute: "logik", matrix: "firewall" },
+      ],
+    },
+  },
+  uebertragung_abfangen: {
+    probe: { label: "Cracken + Logik", skill: "cracken", attribute: "logik" },
+    defense: {
+      type: "choice",
+      options: [
+        { label: "Logik + Firewall", attribute: "logik", matrix: "firewall" },
+        { label: "Datenverarbeitung + Firewall", matrix: "datenverarbeitung", matrixSecond: "firewall" },
+      ],
+    },
+  },
+  verstecken: {
+    probe: { label: "Cracken + Intuition", skill: "cracken", attribute: "intuition", linkedMatrixAttribute: "schleicher" },
+    defense: {
+      type: "choice",
+      options: [
+        { label: "Intuition + Datenverarbeitung", attribute: "intuition", matrix: "datenverarbeitung" },
+        { label: "Schleicher + Datenverarbeitung", matrix: "schleicher", matrixSecond: "datenverarbeitung" },
+      ],
+    },
+  },
+  verzoegerter_befehl: {
+    probe: { label: "Cracken + Logik", skill: "cracken", attribute: "logik" },
+    defense: {
+      type: "choice",
+      options: [
+        { label: "Datenverarbeitung + Firewall", matrix: "datenverarbeitung", matrixSecond: "firewall" },
+        { label: "Pilot + Firewall", target: "pilot", matrix: "firewall" },
+      ],
+    },
+  },
+  virtuelles_zielen: {
+    probe: { type: "none" },
+    defense: { type: "none" },
+  },
+  volle_matrixabwehr: {
+    probe: { type: "description" },
+    defense: { type: "none" },
+  },
+};
 // END MODULE: workers/core/constants
 
 // BEGIN MODULE: workers/core/helpers
@@ -136,6 +517,8 @@ const SR6_ROLL_TITLE_PREFIXES = [
   { prefix: "sr6_fernkampf_", title: "Fernkampfwaffen" },
   { prefix: "sr6_nahkampf_", title: "Nahkampfwaffen" },
   { prefix: "sr6_matrix_handlung_", title: "Matrix-Handlungen" },
+  { prefix: "sr6_rigging_fahrzeug_", title: "Rigging-Fahrzeuge" },
+  { prefix: "sr6_attrprobe_", title: "Attributsproben" },
   { prefix: "sr6_matrix_", title: "Matrix: Kernwerte" },
   { prefix: "sr6_rigging_manoever_", title: "Manöver" },
   { prefix: "sr6_rigging_", title: "Rigging: Kernwerte" },
@@ -149,6 +532,7 @@ const SR6_ROLL_TITLE_PREFIXES = [
   { prefix: "sr6_sprachfertigkeit_", title: "Sprachfertigkeiten" },
   { prefix: "sr6_talentsoft_", title: "Talentsofts" },
   { prefix: "sr6_wissenssprachsoft_", title: "Wissens-/Sprachsofts" },
+  { prefix: "sr6_ausruestung_", title: "Ausrüstung" },
 ];
 
 const SR6_DEFAULT_ROLL_ROW_ORDER = [
@@ -166,6 +550,87 @@ const SR6_DEFAULT_ROLL_ROW_ORDER = [
 ];
 
 const SR6_POPUP_FIELD_SLOT_COUNT = 8;
+
+const SR6_RIGGING_VEHICLE_ROLL_ATTRIBUTES = [
+  "sr6_attr_reaktion_gesamtwert",
+  "sr6_attr_geschicklichkeit_gesamtwert",
+  "sr6_attr_intuition_gesamtwert",
+  "sr6_attr_logik_gesamtwert",
+  "sr6_skill_steuern_gesamtwert",
+  "sr6_skill_mechanik_gesamtwert",
+  "sr6_skill_mechanik_spezialisierung",
+  "sr6_skill_mechanik_expertise",
+  "sr6_skill_heimlichkeit_gesamtwert",
+  "sr6_skill_wahrnehmung_gesamtwert",
+  "sr6_rigging_fahrzeug_probe",
+  "sr6_rigging_fahrzeug_modus",
+  "sr6_rigging_fahrzeug_rumpf",
+  "sr6_rigging_fahrzeug_panzerung",
+  "sr6_rigging_fahrzeug_pilot",
+  "sr6_rigging_fahrzeug_sensor",
+  "sr6_rigging_fahrzeug_agentenstufe",
+  "sr6_rigging_fahrzeug_riggerkontrolle",
+  "sr6_rigging_fahrzeug_manoevrieren",
+  "sr6_rigging_fahrzeug_zielerfassung",
+  "sr6_rigging_fahrzeug_ausweichen",
+  "sr6_rigging_fahrzeug_stealth",
+  "sr6_rigging_fahrzeug_clearsight",
+  "sr6_rigging_fahrzeug_angriffswert",
+  "sr6_rigging_fahrzeug_verteidigungswert",
+  "sr6_rigging_fahrzeug_zustandsmonitor",
+  "sr6_rigging_fahrzeug_waffe_probe_wert",
+  "sr6_rigging_fahrzeug_waffe_name",
+  "sr6_rigging_fahrzeug_waffe",
+  "sr6_rigging_fahrzeug_waffe_schaden",
+  "sr6_rigging_fahrzeug_waffe_modus",
+  "sr6_rigging_fahrzeug_waffe_s_nah",
+  "sr6_rigging_fahrzeug_waffe_nah",
+  "sr6_rigging_fahrzeug_waffe_mittel",
+  "sr6_rigging_fahrzeug_waffe_weit",
+  "sr6_rigging_fahrzeug_waffe_s_weit",
+];
+
+const SR6_EQUIPMENT_SOURCE_OPTIONS = {
+  "attr:konstitution": { label: "Konstitution", type: "Attribut", attr: "sr6_attr_konstitution_gesamtwert" },
+  "attr:geschicklichkeit": { label: "Geschicklichkeit", type: "Attribut", attr: "sr6_attr_geschicklichkeit_gesamtwert" },
+  "attr:reaktion": { label: "Reaktion", type: "Attribut", attr: "sr6_attr_reaktion_gesamtwert" },
+  "attr:staerke": { label: "Stärke", type: "Attribut", attr: "sr6_attr_staerke_gesamtwert" },
+  "attr:willenskraft": { label: "Willenskraft", type: "Attribut", attr: "sr6_attr_willenskraft_gesamtwert" },
+  "attr:logik": { label: "Logik", type: "Attribut", attr: "sr6_attr_logik_gesamtwert" },
+  "attr:intuition": { label: "Intuition", type: "Attribut", attr: "sr6_attr_intuition_gesamtwert" },
+  "attr:charisma": { label: "Charisma", type: "Attribut", attr: "sr6_attr_charisma_gesamtwert" },
+  "attr:edge": { label: "Edge", type: "Attribut", attr: "sr6_attr_edge_gesamtwert" },
+  "attr:magie_resonanz": { label: "Magie/Resonanz", type: "Attribut", attr: "sr6_attr_magie_resonanz_gesamtwert" },
+  "skill:astral": { label: "Astral", type: "Fertigkeit", attr: "sr6_skill_astral_gesamtwert" },
+  "skill:athletik": { label: "Athletik", type: "Fertigkeit", attr: "sr6_skill_athletik_gesamtwert" },
+  "skill:beschwoeren": { label: "Beschwören", type: "Fertigkeit", attr: "sr6_skill_beschwoeren_gesamtwert" },
+  "skill:biotech": { label: "Biotech", type: "Fertigkeit", attr: "sr6_skill_biotech_gesamtwert" },
+  "skill:cracken": { label: "Cracken", type: "Fertigkeit", attr: "sr6_skill_cracken_gesamtwert" },
+  "skill:einfluss": { label: "Einfluss", type: "Fertigkeit", attr: "sr6_skill_einfluss_gesamtwert" },
+  "skill:elektronik": { label: "Elektronik", type: "Fertigkeit", attr: "sr6_skill_elektronik_gesamtwert" },
+  "skill:exotische_waffen": { label: "Exotische Waffen", type: "Fertigkeit", attr: "sr6_skill_exotische_waffen_gesamtwert" },
+  "skill:feuerwaffen": { label: "Feuerwaffen", type: "Fertigkeit", attr: "sr6_skill_feuerwaffen_gesamtwert" },
+  "skill:heimlichkeit": { label: "Heimlichkeit", type: "Fertigkeit", attr: "sr6_skill_heimlichkeit_gesamtwert" },
+  "skill:hexerei": { label: "Hexerei", type: "Fertigkeit", attr: "sr6_skill_hexerei_gesamtwert" },
+  "skill:mechanik": { label: "Mechanik", type: "Fertigkeit", attr: "sr6_skill_mechanik_gesamtwert" },
+  "skill:nahkampf": { label: "Nahkampf", type: "Fertigkeit", attr: "sr6_skill_nahkampf_gesamtwert" },
+  "skill:natur": { label: "Natur", type: "Fertigkeit", attr: "sr6_skill_natur_gesamtwert" },
+  "skill:steuern": { label: "Steuern", type: "Fertigkeit", attr: "sr6_skill_steuern_gesamtwert" },
+  "skill:tasken": { label: "Tasken", type: "Fertigkeit", attr: "sr6_skill_tasken_gesamtwert" },
+  "skill:ueberreden": { label: "Überreden", type: "Fertigkeit", attr: "sr6_skill_ueberreden_gesamtwert" },
+  "skill:verzaubern": { label: "Verzaubern", type: "Fertigkeit", attr: "sr6_skill_verzaubern_gesamtwert" },
+  "skill:wahrnehmung": { label: "Wahrnehmung", type: "Fertigkeit", attr: "sr6_skill_wahrnehmung_gesamtwert" },
+};
+
+function getEquipmentSourceOption(sourceKey) {
+  return SR6_EQUIPMENT_SOURCE_OPTIONS[`${sourceKey || ""}`.trim()] || null;
+}
+
+function getEquipmentSourceAttributeRefs() {
+  return Object.keys(SR6_EQUIPMENT_SOURCE_OPTIONS)
+    .map((sourceKey) => SR6_EQUIPMENT_SOURCE_OPTIONS[sourceKey].attr)
+    .filter((attr) => !!attr);
+}
 
 const SR6_POPUP_SELECT_OPTION_SETS = {
   visibility: [
@@ -185,6 +650,18 @@ const SR6_POPUP_SELECT_OPTION_SETS = {
     { value: "Sicht", label: "Sicht", rowValue: "Sicht" },
     { value: "Spezial", label: "Spezial", rowValue: "Spezial" },
   ],
+  spirit_type: [
+    { value: "Erdgeister", label: "Erdgeister", rowValue: "Erdgeister" },
+    { value: "Feuergeister", label: "Feuergeister", rowValue: "Feuergeister" },
+    { value: "Luftgeister", label: "Luftgeister", rowValue: "Luftgeister" },
+    { value: "Geister des Menschen", label: "Geister des Menschen", rowValue: "Geister des Menschen" },
+    { value: "Geister des Tieres", label: "Geister des Tieres", rowValue: "Geister des Tieres" },
+    { value: "Wassergeister", label: "Wassergeister", rowValue: "Wassergeister" },
+    { value: "Beschützergeister", label: "Beschützergeister", rowValue: "Beschützergeister" },
+    { value: "Helfergeister", label: "Helfergeister", rowValue: "Helfergeister" },
+    { value: "Pflanzengeister", label: "Pflanzengeister", rowValue: "Pflanzengeister" },
+    { value: "Ratgebergeister", label: "Ratgebergeister", rowValue: "Ratgebergeister" },
+  ],
   matrix_access: [
     { value: "Benutzer", label: "Benutzer", rowValue: "Benutzer" },
     { value: "Admin", label: "Admin", rowValue: "Admin" },
@@ -193,6 +670,52 @@ const SR6_POPUP_SELECT_OPTION_SETS = {
   melee_attribute: [
     { value: "Geschicklichkeit", label: "Geschicklichkeit", rowValue: "Geschicklichkeit" },
     { value: "Stärke", label: "Stärke", rowValue: "Stärke" },
+  ],
+  skill_attr_intuition_willenskraft: [
+    { value: "Intuition", label: "Intuition", rowValue: "Intuition" },
+    { value: "Willenskraft", label: "Willenskraft", rowValue: "Willenskraft" },
+  ],
+  skill_attr_geschicklichkeit_staerke: [
+    { value: "Geschicklichkeit", label: "Geschicklichkeit", rowValue: "Geschicklichkeit" },
+    { value: "Stärke", label: "Stärke", rowValue: "Stärke" },
+  ],
+  skill_attr_magie: [
+    { value: "Magie", label: "Magie", rowValue: "Magie" },
+  ],
+  skill_attr_logik_intuition: [
+    { value: "Logik", label: "Logik", rowValue: "Logik" },
+    { value: "Intuition", label: "Intuition", rowValue: "Intuition" },
+  ],
+  skill_attr_logik: [
+    { value: "Logik", label: "Logik", rowValue: "Logik" },
+  ],
+  skill_attr_charisma_logik: [
+    { value: "Charisma", label: "Charisma", rowValue: "Charisma" },
+    { value: "Logik", label: "Logik", rowValue: "Logik" },
+  ],
+  skill_attr_geschicklichkeit: [
+    { value: "Geschicklichkeit", label: "Geschicklichkeit", rowValue: "Geschicklichkeit" },
+  ],
+  skill_attr_logik_geschicklichkeit_intuition: [
+    { value: "Logik", label: "Logik", rowValue: "Logik" },
+    { value: "Geschicklichkeit", label: "Geschicklichkeit", rowValue: "Geschicklichkeit" },
+    { value: "Intuition", label: "Intuition", rowValue: "Intuition" },
+  ],
+  skill_attr_intuition: [
+    { value: "Intuition", label: "Intuition", rowValue: "Intuition" },
+  ],
+  skill_attr_intuition_logik: [
+    { value: "Intuition", label: "Intuition", rowValue: "Intuition" },
+    { value: "Logik", label: "Logik", rowValue: "Logik" },
+  ],
+  skill_attr_reaktion: [
+    { value: "Reaktion", label: "Reaktion", rowValue: "Reaktion" },
+  ],
+  skill_attr_resonanz: [
+    { value: "Resonanz", label: "Resonanz", rowValue: "Resonanz" },
+  ],
+  skill_attr_charisma: [
+    { value: "Charisma", label: "Charisma", rowValue: "Charisma" },
   ],
   ammo: [
     { value: "Standard", label: "Standard", rowValue: "Standard" },
@@ -280,6 +803,150 @@ const SR6_DEFAULT_POPUP_FIELDS = [
   },
 ];
 
+const SR6_SKILL_ATTRIBUTE_CONFIGS = {
+  astral: {
+    optionSet: "skill_attr_intuition_willenskraft",
+    defaultValue: "Intuition",
+    options: [
+      { value: "Intuition", attr: "sr6_attr_intuition_gesamtwert" },
+      { value: "Willenskraft", attr: "sr6_attr_willenskraft_gesamtwert" },
+    ],
+  },
+  athletik: {
+    optionSet: "skill_attr_geschicklichkeit_staerke",
+    defaultValue: "Geschicklichkeit",
+    options: [
+      { value: "Geschicklichkeit", attr: "sr6_attr_geschicklichkeit_gesamtwert" },
+      { value: "Stärke", attr: "sr6_attr_staerke_gesamtwert" },
+    ],
+  },
+  beschwoeren: {
+    optionSet: "skill_attr_magie",
+    defaultValue: "Magie",
+    options: [
+      { value: "Magie", attr: "sr6_attr_magie_resonanz_gesamtwert" },
+    ],
+  },
+  biotech: {
+    optionSet: "skill_attr_logik_intuition",
+    defaultValue: "Logik",
+    options: [
+      { value: "Logik", attr: "sr6_attr_logik_gesamtwert" },
+      { value: "Intuition", attr: "sr6_attr_intuition_gesamtwert" },
+    ],
+  },
+  cracken: {
+    optionSet: "skill_attr_logik",
+    defaultValue: "Logik",
+    options: [
+      { value: "Logik", attr: "sr6_attr_logik_gesamtwert" },
+    ],
+  },
+  einfluss: {
+    optionSet: "skill_attr_charisma_logik",
+    defaultValue: "Charisma",
+    options: [
+      { value: "Charisma", attr: "sr6_attr_charisma_gesamtwert" },
+      { value: "Logik", attr: "sr6_attr_logik_gesamtwert" },
+    ],
+  },
+  elektronik: {
+    optionSet: "skill_attr_logik_intuition",
+    defaultValue: "Logik",
+    options: [
+      { value: "Logik", attr: "sr6_attr_logik_gesamtwert" },
+      { value: "Intuition", attr: "sr6_attr_intuition_gesamtwert" },
+    ],
+  },
+  exotische_waffen: {
+    optionSet: "skill_attr_geschicklichkeit",
+    defaultValue: "Geschicklichkeit",
+    options: [
+      { value: "Geschicklichkeit", attr: "sr6_attr_geschicklichkeit_gesamtwert" },
+    ],
+  },
+  feuerwaffen: {
+    optionSet: "skill_attr_geschicklichkeit",
+    defaultValue: "Geschicklichkeit",
+    options: [
+      { value: "Geschicklichkeit", attr: "sr6_attr_geschicklichkeit_gesamtwert" },
+    ],
+  },
+  heimlichkeit: {
+    optionSet: "skill_attr_geschicklichkeit",
+    defaultValue: "Geschicklichkeit",
+    options: [
+      { value: "Geschicklichkeit", attr: "sr6_attr_geschicklichkeit_gesamtwert" },
+    ],
+  },
+  hexerei: {
+    optionSet: "skill_attr_magie",
+    defaultValue: "Magie",
+    options: [
+      { value: "Magie", attr: "sr6_attr_magie_resonanz_gesamtwert" },
+    ],
+  },
+  mechanik: {
+    optionSet: "skill_attr_logik_geschicklichkeit_intuition",
+    defaultValue: "Logik",
+    options: [
+      { value: "Logik", attr: "sr6_attr_logik_gesamtwert" },
+      { value: "Geschicklichkeit", attr: "sr6_attr_geschicklichkeit_gesamtwert" },
+      { value: "Intuition", attr: "sr6_attr_intuition_gesamtwert" },
+    ],
+  },
+  nahkampf: {
+    optionSet: "skill_attr_geschicklichkeit",
+    defaultValue: "Geschicklichkeit",
+    options: [
+      { value: "Geschicklichkeit", attr: "sr6_attr_geschicklichkeit_gesamtwert" },
+    ],
+  },
+  natur: {
+    optionSet: "skill_attr_intuition",
+    defaultValue: "Intuition",
+    options: [
+      { value: "Intuition", attr: "sr6_attr_intuition_gesamtwert" },
+    ],
+  },
+  steuern: {
+    optionSet: "skill_attr_reaktion",
+    defaultValue: "Reaktion",
+    options: [
+      { value: "Reaktion", attr: "sr6_attr_reaktion_gesamtwert" },
+    ],
+  },
+  tasken: {
+    optionSet: "skill_attr_resonanz",
+    defaultValue: "Resonanz",
+    options: [
+      { value: "Resonanz", attr: "sr6_attr_magie_resonanz_gesamtwert" },
+    ],
+  },
+  ueberreden: {
+    optionSet: "skill_attr_charisma",
+    defaultValue: "Charisma",
+    options: [
+      { value: "Charisma", attr: "sr6_attr_charisma_gesamtwert" },
+    ],
+  },
+  verzaubern: {
+    optionSet: "skill_attr_magie",
+    defaultValue: "Magie",
+    options: [
+      { value: "Magie", attr: "sr6_attr_magie_resonanz_gesamtwert" },
+    ],
+  },
+  wahrnehmung: {
+    optionSet: "skill_attr_intuition_logik",
+    defaultValue: "Intuition",
+    options: [
+      { value: "Intuition", attr: "sr6_attr_intuition_gesamtwert" },
+      { value: "Logik", attr: "sr6_attr_logik_gesamtwert" },
+    ],
+  },
+};
+
 function createPopupField(config) {
   return {
     affects: "display",
@@ -308,11 +975,10 @@ function createSpecializationPopupFields(startSlot = 2) {
       label: "Expertise",
       type: "checkbox",
       affects: "pool",
-      checkedValue: 1,
-      checkedDisplayValue: "+1 (gesamt +3)",
+      checkedValue: 3,
+      checkedDisplayValue: "+3",
       includeInTemplate: true,
       defaultValue: "0",
-      requiresCheckedSlot: startSlot,
     },
   ];
 }
@@ -367,7 +1033,29 @@ function createSkillProbePopupFields() {
   ];
 }
 
+function createMappedSkillProbePopupFields(attributeConfig) {
+  if (!attributeConfig || !attributeConfig.optionSet) {
+    return createSkillProbePopupFields();
+  }
+
+  return [
+    SR6_DEFAULT_POPUP_FIELDS[0],
+    {
+      id: "skill_attribute",
+      slot: 2,
+      label: "Attribut",
+      type: "select",
+      optionSet: attributeConfig.optionSet,
+      affects: "display",
+      includeInTemplate: false,
+      defaultValue: attributeConfig.defaultValue || "",
+    },
+    ...createSpecializationPopupFields(3),
+  ];
+}
+
 function createSkillProbeDefinition(config = {}) {
+  const attributeConfig = config.skillAttributeConfig || null;
   return {
     probeModel: "skill_probe",
     matchField: config.matchField || "Fertigkeit",
@@ -376,10 +1064,30 @@ function createSkillProbeDefinition(config = {}) {
     titleField: config.titleField || "",
     primaryFields: config.primaryFields || ["Fertigkeit"],
     extraFields: config.extraFields || [],
-    popupFields: config.popupFields || SR6_SKILL_PROBE_POPUP_FIELDS,
+    popupFields: config.popupFields || createMappedSkillProbePopupFields(attributeConfig),
+    skillKey: config.skillKey || "",
+    skillAttributeConfig: attributeConfig,
+    internalFields: config.internalFields || ["Spezialisierung Aktiv", "Expertise Aktiv"],
     fixedTitle: config.fixedTitle || "",
     titleFallback: config.titleFallback || "Fertigkeiten",
   };
+}
+
+function createEquipmentPopupFields() {
+  return [
+    SR6_DEFAULT_POPUP_FIELDS[0],
+    {
+      id: "equipment_rating_x2",
+      slot: 2,
+      label: "Stufe x2",
+      type: "checkbox",
+      affects: "display",
+      checkedValue: 1,
+      checkedDisplayValue: "x2",
+      defaultValue: "0",
+      includeInTemplate: false,
+    },
+  ];
 }
 
 function createAttackValueSourceByRange(prefix) {
@@ -512,6 +1220,7 @@ function createSpellPopupFields() {
       defaultValue: "0",
       visibleWhenField: "Art",
       visibleWhenValue: "Kampf",
+      visibleWhenFieldMissing: true,
     },
     {
       id: "area_increase",
@@ -536,6 +1245,7 @@ function createSpellPopupFields() {
       defaultValue: "0",
       visibleWhenField: "Art",
       visibleWhenValue: "Kampf",
+      visibleWhenFieldMissing: true,
     },
     ...createSpecializationPopupFields(6),
     {
@@ -548,6 +1258,77 @@ function createSpellPopupFields() {
       defaultValue: "0",
     },
   ];
+}
+
+function createSummoningPopupFields() {
+  return [
+    {
+      id: "spirit_type",
+      slot: 1,
+      label: "Geistertyp",
+      type: "select",
+      optionSet: "spirit_type",
+      affects: "display",
+      includeInTemplate: true,
+      defaultValue: "Luftgeister",
+    },
+    {
+      id: "spirit_force",
+      slot: 2,
+      label: "Kraftstufe",
+      type: "number",
+      affects: "display",
+      includeInTemplate: true,
+      defaultValue: "0",
+      sourceField: "Stufe",
+    },
+    {
+      id: "pool_mod",
+      slot: 3,
+      label: "Beschwören-Modifikator",
+      type: "number",
+      affects: "pool",
+      includeInTemplate: true,
+      defaultValue: "0",
+    },
+    {
+      id: "drain_mod",
+      slot: 4,
+      label: "Entzug-Modifikator",
+      type: "number",
+      affects: "drain",
+      includeInTemplate: true,
+      defaultValue: "0",
+    },
+    {
+      id: "possession",
+      slot: 5,
+      label: "Besessenheit",
+      type: "checkbox",
+      affects: "display",
+      checkedDisplayValue: "Ja",
+      includeInTemplate: true,
+      defaultValue: "0",
+    },
+    {
+      id: "object_resistance",
+      slot: 6,
+      label: "Objektwiderstand",
+      type: "number",
+      affects: "display",
+      includeInTemplate: true,
+      defaultValue: "0",
+      requiresCheckedSlot: 5,
+    },
+  ];
+}
+
+function getMagicRollAdditionalAttributes(definition) {
+  if (!definition) return [];
+  if (definition.id === "spell" || definition.id === "summoning") {
+    return ["sr6_magic_magie", "sr6_magic_entzug_widerstand"];
+  }
+  return [];
 }
 
 function createDefenseProbePopupFields(config) {
@@ -649,6 +1430,18 @@ const SR6_ROLL_DEFINITIONS = [
     }),
   },
   {
+    id: "attribute_pair",
+    ...createAttributeProbeDefinition({
+      matchField: "Attributsprobe",
+      matchPoolPrefix: "sr6_attrprobe_",
+      titleField: "Attributsprobe",
+      primaryFields: ["Attributsprobe"],
+      extraFields: ["Formel", "Fertigkeit"],
+      popupFields: SR6_DEFAULT_POPUP_FIELDS,
+      titleFallback: "Attributsproben",
+    }),
+  },
+  {
     id: "attribute",
     ...createAttributeProbeDefinition({
       matchField: "Attribut",
@@ -679,6 +1472,7 @@ const SR6_ROLL_DEFINITIONS = [
     id: "talentsoft_skill",
     ...createSkillProbeDefinition({
       matchPoolPrefix: "sr6_talentsoft_",
+      extraFields: ["Attribut", "Stufe", "Modifikator", "Hinweis"],
       titleFallback: "Talentsofts",
     }),
   },
@@ -690,12 +1484,27 @@ const SR6_ROLL_DEFINITIONS = [
     }),
   },
   {
-    id: "skill",
+    id: "equipment",
+    probeModel: "equipment_probe",
+    matchField: "Ausrüstung",
+    matchPoolPrefix: "sr6_ausruestung_",
+    titleMode: "field-short",
+    titleField: "Ausrüstung",
+    primaryFields: ["Ausrüstung"],
+    extraFields: ["Stufe"],
+    popupFields: createEquipmentPopupFields(),
+    internalFields: ["Auswahl"],
+    titleFallback: "Ausrüstung",
+  },
+  ...SR6_SKILLS.map((skillKey) => ({
+    id: `skill_${skillKey}`,
     ...createSkillProbeDefinition({
-      matchPoolPrefix: "sr6_skill_",
+      matchPoolPrefix: `sr6_skill_${skillKey}_`,
+      skillKey: skillKey,
+      skillAttributeConfig: SR6_SKILL_ATTRIBUTE_CONFIGS[skillKey],
       titleFallback: "Fertigkeiten",
     }),
-  },
+  })),
   {
     id: "generic_skill",
     ...createSkillProbeDefinition({
@@ -705,7 +1514,7 @@ const SR6_ROLL_DEFINITIONS = [
   {
     id: "spell",
     probeModel: "spell_probe",
-    matchField: "Zauber",
+    matchField: "",
     matchPoolPrefix: "sr6_magic_spruchzauberei",
     titleMode: "fixed",
     primaryFields: ["Zauber"],
@@ -717,6 +1526,18 @@ const SR6_ROLL_DEFINITIONS = [
     fixedTitle: "Spruchzauberei",
     popupFields: createSpellPopupFields(),
     titleFallback: "Zauber",
+  },
+  {
+    id: "summoning",
+    probeModel: "summoning_probe",
+    matchField: "",
+    matchPoolPrefix: "sr6_magic_beschwoeren",
+    titleMode: "fixed",
+    primaryFields: ["Geist"],
+    extraFields: ["Typ", "Stufe"],
+    fixedTitle: "Beschwören",
+    popupFields: createSummoningPopupFields(),
+    titleFallback: "Geister",
   },
   {
     id: "astral_defense",
@@ -878,6 +1699,19 @@ const SR6_ROLL_DEFINITIONS = [
       fixedTitle: "Rigging: Kernwerte",
       titleFallback: "Rigging: Kernwerte",
     }),
+  },
+  {
+    id: "rigging_vehicle",
+    probeModel: "rigging_vehicle_probe",
+    matchField: "Fahrzeug",
+    matchPoolPrefix: "sr6_rigging_fahrzeug_",
+    titleMode: "field-short",
+    titleField: "Probe",
+    primaryFields: ["Fahrzeug", "Probe"],
+    extraFields: ["Modus"],
+    popupFields: SR6_DEFAULT_POPUP_FIELDS,
+    internalFields: ["Probe"],
+    titleFallback: "Rigging-Fahrzeugprobe",
   },
   {
     id: "rigging_value",
@@ -1241,12 +2075,110 @@ function getInternalRollFields(definition) {
   return Array.isArray(resolvedDefinition.internalFields) ? resolvedDefinition.internalFields : [];
 }
 
-function getRollPopupFields(definition) {
+function getRollPopupFields(definition, poolAttribute) {
   const resolvedDefinition = definition || resolveRollDefinition({});
-  if (Array.isArray(resolvedDefinition.popupFields) && resolvedDefinition.popupFields.length > 0) {
-    return resolvedDefinition.popupFields;
+  const baseFields = Array.isArray(resolvedDefinition.popupFields) && resolvedDefinition.popupFields.length > 0
+    ? resolvedDefinition.popupFields
+    : SR6_DEFAULT_POPUP_FIELDS;
+
+  return baseFields;
+}
+
+function getSkillProbeAttributeOptions(definition) {
+  const resolvedDefinition = definition || resolveRollDefinition({});
+  const config = resolvedDefinition.skillAttributeConfig || {};
+  return Array.isArray(config.options) ? config.options : [];
+}
+
+function resolveSkillProbeAttributeOption(definition, selectedValue) {
+  const options = getSkillProbeAttributeOptions(definition);
+  if (options.length === 0) return null;
+
+  const normalizedValue = `${selectedValue || ""}`.trim();
+  return options.find((option) => option.value === normalizedValue) || options[0];
+}
+
+function getRollAdditionalAttributes(definition) {
+  const attributes = getMagicRollAdditionalAttributes(definition);
+  getSkillProbeAttributeOptions(definition).forEach((option) => {
+    if (option && option.attr) attributes.push(option.attr);
+  });
+  if (definition && definition.id === "equipment") {
+    attributes.push(...getEquipmentSourceAttributeRefs());
   }
-  return SR6_DEFAULT_POPUP_FIELDS;
+  if (definition && definition.id === "rigging_vehicle") {
+    attributes.push(...SR6_RIGGING_VEHICLE_ROLL_ATTRIBUTES);
+  }
+  if (definition && definition.id === "matrix_action") {
+    return [...new Set([...attributes, ...getMatrixActionRuleAttributeRefs(), ...getMatrixActionSelectionAttributeRefs()])];
+  }
+  return [...new Set(attributes)];
+}
+
+function getMatrixActionKeyFromPoolAttribute(poolAttribute) {
+  const prefix = "sr6_matrix_handlung_";
+  const suffixes = ["_grundwert", "_modifikator", "_gesamtwert", "_probe_wert", "_verteidigung_wert"];
+  if (!poolAttribute || !poolAttribute.startsWith(prefix)) return "";
+
+  const actionPart = poolAttribute.slice(prefix.length);
+  for (let index = 0; index < suffixes.length; index += 1) {
+    const suffix = suffixes[index];
+    if (actionPart.endsWith(suffix)) {
+      return actionPart.slice(0, -suffix.length);
+    }
+  }
+  return actionPart;
+}
+
+function getMatrixActionRollModeFromPoolAttribute(poolAttribute) {
+  if (!poolAttribute) return "probe";
+  if (poolAttribute.endsWith("_verteidigung_wert")) return "defense";
+  return "probe";
+}
+
+function getMatrixActionRule(actionKey) {
+  return (SR6_MATRIX_ACTION_RULES && SR6_MATRIX_ACTION_RULES[actionKey]) || null;
+}
+
+function getMatrixRuleComponentAttr(component) {
+  if (!component) return "";
+  if (component.attribute) {
+    return `sr6_attr_${component.attribute}_gesamtwert`;
+  }
+  if (component.skill) {
+    return `sr6_skill_${component.skill}_gesamtwert`;
+  }
+  if (component.matrix) {
+    return `sr6_matrix_${component.matrix}`;
+  }
+  return "";
+}
+
+function collectMatrixRuleComponentAttrs(component, attributes) {
+  const directAttr = getMatrixRuleComponentAttr(component);
+  if (directAttr) attributes.push(directAttr);
+  if (component && component.matrixSecond) {
+    attributes.push(`sr6_matrix_${component.matrixSecond}`);
+  }
+}
+
+function getMatrixActionRuleAttributeRefs() {
+  const attributes = [];
+  Object.keys(SR6_MATRIX_ACTION_RULES || {}).forEach((actionKey) => {
+    const rule = SR6_MATRIX_ACTION_RULES[actionKey] || {};
+    collectMatrixRuleComponentAttrs(rule.probe, attributes);
+    const defense = rule.defense || {};
+    if (Array.isArray(defense.options)) {
+      defense.options.forEach((option) => collectMatrixRuleComponentAttrs(option, attributes));
+    } else {
+      collectMatrixRuleComponentAttrs(defense, attributes);
+    }
+  });
+  return [...new Set(attributes)];
+}
+
+function getMatrixActionSelectionAttributeRefs() {
+  return SR6_MATRIX_ACTIONS.map((actionKey) => `sr6_matrix_handlung_${actionKey}_verteidigung_auswahl`);
 }
 
 function getRollContextFields(definition) {
@@ -1304,8 +2236,8 @@ function getPopupSelectOptions(field) {
   return SR6_POPUP_SELECT_OPTION_SETS[field.optionSet] || [];
 }
 
-function buildPopupStateFromValues(values, definition) {
-  const popupFields = getRollPopupFields(definition);
+function buildPopupStateFromValues(values, definition, poolAttribute) {
+  const popupFields = getRollPopupFields(definition, poolAttribute);
   const popupRows = [];
   const selectedValues = {};
   let poolMod = 0;
@@ -1313,6 +2245,11 @@ function buildPopupStateFromValues(values, definition) {
   let damageMod = 0;
   let drainMod = 0;
   let poolMultiplier = 1;
+  const expertiseFieldIndex = popupFields.findIndex((field) => field && field.id === "expertise");
+  const expertiseField = expertiseFieldIndex >= 0 ? popupFields[expertiseFieldIndex] : null;
+  const expertiseChecked = expertiseField
+    ? isCheckedValue(values[getPopupFieldValueAttr(expertiseField, expertiseFieldIndex)])
+    : false;
 
   popupFields.forEach((field, index) => {
     const rawValue = values[getPopupFieldValueAttr(field, index)];
@@ -1320,7 +2257,12 @@ function buildPopupStateFromValues(values, definition) {
     const isTextField = field.type === "text";
     const isCheckboxField = field.type === "checkbox";
     const dependencySatisfied = !field.requiresCheckedSlot || isCheckedValue(values[`sr6_roll_popup_value_${field.requiresCheckedSlot}_checkbox`]);
-    const checkboxChecked = dependencySatisfied && isCheckboxField ? isCheckedValue(rawValue) : false;
+    const checkboxChecked =
+      dependencySatisfied &&
+      isCheckboxField &&
+      !(field.id === "specialization" && expertiseChecked)
+        ? isCheckedValue(rawValue)
+        : false;
     const normalizedValue = isNumberField
       ? parseNumber(rawValue)
       : isCheckboxField
@@ -1435,6 +2377,8 @@ function buildPopupStateFromValues(values, definition) {
 
 function fieldMatchesPopupVisibility(field, templateFields) {
   if (!field || !field.visibleWhenField) return true;
+  const hasVisibilityField = !!(templateFields && templateFields[field.visibleWhenField] !== undefined);
+  if (!hasVisibilityField && field.visibleWhenFieldMissing) return true;
   return `${(templateFields && templateFields[field.visibleWhenField]) || ""}`.trim() === `${field.visibleWhenValue || ""}`.trim();
 }
 
@@ -1462,8 +2406,8 @@ function buildPopupResetPayload() {
   return payload;
 }
 
-function buildPopupFormPayload(definition, templateFields = {}) {
-  const popupFields = getRollPopupFields(definition);
+function buildPopupFormPayload(definition, templateFields = {}, poolAttribute) {
+  const popupFields = getRollPopupFields(definition, poolAttribute);
   const payload = buildPopupResetPayload();
 
   popupFields.forEach((field, index) => {
@@ -1501,7 +2445,7 @@ function getPopupSourceAttrName(field, poolAttribute) {
 }
 
 function buildPopupRequestedAttributes(definition, poolAttribute, repeatingRowPrefix) {
-  const popupFields = getRollPopupFields(definition);
+  const popupFields = getRollPopupFields(definition, poolAttribute);
   const requestedAttributes = [];
 
   popupFields.forEach((field) => {
@@ -1517,10 +2461,10 @@ function buildPopupRequestedAttributes(definition, poolAttribute, repeatingRowPr
 }
 
 function buildPopupPrefillPayload(definition, poolAttribute, repeatingRowPrefix, values, templateFields = {}) {
-  const popupFields = getRollPopupFields(definition);
+  const popupFields = getRollPopupFields(definition, poolAttribute);
   const lookupAttr = buildAttrLookup(values || {}, repeatingRowPrefix);
   const resolvedTemplateFields = buildResolvedFields(templateFields || {}, lookupAttr);
-  const payload = buildPopupFormPayload(definition, resolvedTemplateFields);
+  const payload = buildPopupFormPayload(definition, resolvedTemplateFields, poolAttribute);
 
   popupFields.forEach((field, index) => {
     if (!fieldMatchesPopupVisibility(field, resolvedTemplateFields)) return;
@@ -1528,6 +2472,24 @@ function buildPopupPrefillPayload(definition, poolAttribute, repeatingRowPrefix,
     const resolvedValue = sourceAttr ? lookupAttr(sourceAttr) : "";
     if (resolvedValue === undefined || resolvedValue === null || `${resolvedValue}` === "") return;
     payload[getPopupFieldValueAttr(field, index)] = `${resolvedValue}`;
+  });
+
+  popupFields.forEach((field, index) => {
+    if (!fieldMatchesPopupVisibility(field, resolvedTemplateFields)) return;
+    if (!field.sourceField) return;
+    const resolvedValue = resolvedTemplateFields[field.sourceField];
+    if (resolvedValue === undefined || resolvedValue === null || `${resolvedValue}` === "") return;
+    payload[getPopupFieldValueAttr(field, index)] = `${resolvedValue}`;
+  });
+
+  popupFields.forEach((field, index) => {
+    if (!fieldMatchesPopupVisibility(field, resolvedTemplateFields)) return;
+    if (field.id === "specialization" && resolvedTemplateFields["Spezialisierung Aktiv"] === "1" && resolvedTemplateFields.Spezialisierung) {
+      payload[getPopupFieldValueAttr(field, index)] = "1";
+    }
+    if (field.id === "expertise" && resolvedTemplateFields["Expertise Aktiv"] === "1" && resolvedTemplateFields.Expertise) {
+      payload[getPopupFieldValueAttr(field, index)] = "1";
+    }
   });
 
   return payload;
@@ -1693,6 +2655,13 @@ function buildRequestedAttributes(rawTemplate, repeatingRowPrefix) {
     requestedAttributes.push(field.attr);
     if (repeatingRowPrefix) {
       requestedAttributes.push(`${repeatingRowPrefix}_${field.attr}`);
+    }
+  });
+
+  getRollAdditionalAttributes(definition).forEach((attributeRef) => {
+    requestedAttributes.push(attributeRef);
+    if (repeatingRowPrefix) {
+      requestedAttributes.push(`${repeatingRowPrefix}_${attributeRef}`);
     }
   });
 
@@ -1892,7 +2861,7 @@ function buildSpellProbePresentation(payload) {
 
   return {
     spell: `${resolvedFields.Zauber || ""}`,
-    attackValue: isCombatSpell ? `${resolvedFields.Angriffswert || ""}` : "",
+    attackValue: isCombatSpell ? `${payload.spellAttackValue || resolvedFields.Angriffswert || ""}` : "",
     art: spellType,
     range: `${resolvedFields.Reichweite || ""}`,
     duration: `${resolvedFields.Dauer || ""}`,
@@ -1900,6 +2869,7 @@ function buildSpellProbePresentation(payload) {
     notes: `${resolvedFields.Notiz || ""}`,
     drainValue: `${payload.drainValue || ""}`,
     drainDamage: `${payload.drainDamage || ""}`,
+    drainDamageType: `${payload.drainDamageType || ""}`,
   };
 }
 
@@ -1910,6 +2880,20 @@ function buildSr6ProbeMessage(payload) {
 
   if (hasSpellTemplateVariant(payload.definition)) {
     const presentation = buildSpellProbePresentation(payload);
+    const rows = Array.isArray(payload.rows) ? payload.rows : [];
+    const spellBaseLabels = new Set([
+      "Zauber",
+      "Art",
+      "Reichweite",
+      "Dauer",
+      "Entzug",
+      "Schaden",
+      "Notiz",
+      "Entzugwiderstand",
+    ]);
+    const spellExtraRows = rows
+      .filter((row) => row && row.label && !spellBaseLabels.has(row.label))
+      .filter((row) => !(row.label === "Popup-Modifikator" && parseNumber(row.value) === 0));
 
     parts.push("{{spell_layout=1}}");
     if (presentation.spell) parts.push(`{{spell=${presentation.spell}}}`);
@@ -1931,13 +2915,21 @@ function buildSr6ProbeMessage(payload) {
     appendDetailsDiceTemplateFields(parts, detailsDice);
 
     if (presentation.drainValue) parts.push(`{{drain_value=${presentation.drainValue}}}`);
-    if (presentation.drainDamage) parts.push(`{{drain_damage=${presentation.drainDamage}}}`);
+    if (presentation.drainDamage) {
+      const drainDamageSummary = presentation.drainDamageType
+        ? `${presentation.drainDamage} (${presentation.drainDamageType})`
+        : presentation.drainDamage;
+      parts.push(`{{drain_damage=${drainDamageSummary}}}`);
+    }
     if (payload.drainDetails) parts.push(`{{drain_details=${payload.drainDetails}}}`);
     if (presentation.art) parts.push(`{{description_art=${presentation.art}}}`);
     if (presentation.range) parts.push(`{{description_range=${presentation.range}}}`);
     if (presentation.duration) parts.push(`{{description_duration=${presentation.duration}}}`);
     if (presentation.damage) parts.push(`{{description_damage=${presentation.damage}}}`);
     if (presentation.notes) parts.push(`{{description_notes=${presentation.notes}}}`);
+    if (spellExtraRows.length > 0) {
+      parts.push(`{{extra_rows=${spellExtraRows.map((row) => `${row.label}: ${row.value}`).join(" | ")}}}`);
+    }
 
     if (payload.isGlitch) {
       parts.push("{{is_glitch=1}}");
@@ -2100,6 +3092,26 @@ function buildProbeComputation(lookupAttr, poolAttribute, popupPoolMod, poolMult
     isCriticalGlitch: glitchState.isCriticalGlitch,
   };
 }
+
+function buildFixedPoolComputation(poolValue) {
+  const pool = Math.max(0, parseNumber(poolValue));
+  const diceResults = [];
+
+  for (let index = 0; index < pool; index += 1) {
+    diceResults.push(rollD6());
+  }
+
+  const successCount = diceResults.filter((die) => die >= 5).length;
+  const glitchState = evaluateGlitch(diceResults, successCount);
+
+  return {
+    pool: pool,
+    diceResults: diceResults,
+    successCount: successCount,
+    isGlitch: glitchState.isGlitch,
+    isCriticalGlitch: glitchState.isCriticalGlitch,
+  };
+}
 // END MODULE: workers/rolls/compute
 
 // BEGIN MODULE: workers/rolls/probe
@@ -2120,6 +3132,41 @@ function normalizePopupState(popupState) {
     poolMultiplier: Math.max(1, parseNumber(popupState.poolMultiplier) || 1),
     selectedValues: popupState.selectedValues && typeof popupState.selectedValues === "object" ? popupState.selectedValues : {},
     rows: Array.isArray(popupState.rows) ? popupState.rows : [],
+  };
+}
+
+function applyTemplateSkillBonusToPopupState(popupState, resolvedFields) {
+  const state = normalizePopupState(popupState);
+  const rows = Array.isArray(state.rows) ? [...state.rows] : [];
+  const hasPopupBonusRow = (label, value) => rows.some((row) => (
+    row &&
+    row.label === label &&
+    `${row.value || ""}`.trim() === value
+  ));
+  const expertiseName = `${(resolvedFields && resolvedFields.Expertise) || ""}`.trim();
+  const specializationName = `${(resolvedFields && resolvedFields.Spezialisierung) || ""}`.trim();
+  const expertiseRequested = `${(resolvedFields && resolvedFields["Expertise Aktiv"]) || ""}`.trim() === "1" && expertiseName !== "";
+  const specializationRequested = `${(resolvedFields && resolvedFields["Spezialisierung Aktiv"]) || ""}`.trim() === "1" && specializationName !== "";
+
+  if (expertiseRequested && !hasPopupBonusRow("Expertise", "+3")) {
+    return {
+      ...state,
+      poolMod: state.poolMod + 3,
+      rows: [...rows, { label: "Expertise", value: "+3" }],
+    };
+  }
+
+  if (specializationRequested && !expertiseRequested && !hasPopupBonusRow("Spezialisierung", "+2")) {
+    return {
+      ...state,
+      poolMod: state.poolMod + 2,
+      rows: [...rows, { label: "Spezialisierung", value: "+2" }],
+    };
+  }
+
+  return {
+    ...state,
+    rows: rows,
   };
 }
 
@@ -2146,6 +3193,165 @@ function resolveMeleePopupAttributePoolOverride(definition, resolvedFields, popu
     currentAttribute: currentAttribute,
     poolBasisOverride: currentPoolBasis - currentAttributeValue + selectedAttributeValue,
   };
+}
+
+function resolveSkillProbeAttributePoolOverride(definition, popupState, lookupAttr, poolAttribute) {
+  if (!definition || definition.probeModel !== "skill_probe") {
+    return null;
+  }
+
+  const attributeOption = resolveSkillProbeAttributeOption(
+    definition,
+    (((popupState || {}).selectedValues || {}).skill_attribute) || ""
+  );
+
+  if (!attributeOption || !attributeOption.attr) {
+    return null;
+  }
+
+  const skillValue = parseNumber(lookupAttr(poolAttribute));
+  const attributeValue = parseNumber(lookupAttr(attributeOption.attr));
+
+  return {
+    selectedAttribute: attributeOption.value,
+    skillValue: skillValue,
+    attributeValue: attributeValue,
+    poolBasisOverride: skillValue + attributeValue,
+  };
+}
+
+function resolveMatrixActionComponentValue(component, lookupAttr) {
+  if (!component || component.type === "none" || component.type === "description") {
+    return null;
+  }
+
+  if (component.multiplier && component.matrix) {
+    const matrixValue = parseNumber(lookupAttr(`sr6_matrix_${component.matrix}`));
+    return {
+      label: component.label || component.matrix,
+      value: matrixValue * parseNumber(component.multiplier),
+      parts: [{ label: component.matrix, value: matrixValue }],
+    };
+  }
+
+  if (component.target) {
+    return {
+      label: component.label || component.target,
+      value: null,
+      parts: [],
+    };
+  }
+
+  const parts = [];
+  let total = 0;
+
+  if (component.skill) {
+    const value = parseNumber(lookupAttr(`sr6_skill_${component.skill}_gesamtwert`));
+    parts.push({ label: component.skill, value: value });
+    total += value;
+  }
+  if (component.attribute) {
+    const value = parseNumber(lookupAttr(`sr6_attr_${component.attribute}_gesamtwert`));
+    parts.push({ label: component.attribute, value: value });
+    total += value;
+  }
+  if (component.matrix) {
+    const value = parseNumber(lookupAttr(`sr6_matrix_${component.matrix}`));
+    parts.push({ label: component.matrix, value: value });
+    total += value;
+  }
+  if (component.matrixSecond) {
+    const value = parseNumber(lookupAttr(`sr6_matrix_${component.matrixSecond}`));
+    parts.push({ label: component.matrixSecond, value: value });
+    total += value;
+  }
+
+  if (parts.length === 0) {
+    return null;
+  }
+
+  return {
+    label: component.label || parts.map((part) => part.label).join(" + "),
+    value: total,
+    parts: parts,
+  };
+}
+
+function resolveMatrixActionRuleContext(definition, popupState, lookupAttr, poolAttribute) {
+  if (!definition || definition.id !== "matrix_action") {
+    return null;
+  }
+
+  const actionKey = getMatrixActionKeyFromPoolAttribute(poolAttribute);
+  const rollMode = getMatrixActionRollModeFromPoolAttribute(poolAttribute);
+  const rule = getMatrixActionRule(actionKey);
+  if (!actionKey || !rule) {
+    return null;
+  }
+
+  const probe = resolveMatrixActionComponentValue(rule.probe, lookupAttr);
+  const defense = rule.defense || {};
+  const selectedDefense = `${(((popupState || {}).selectedValues || {}).matrix_defense) || lookupAttr(`sr6_matrix_handlung_${actionKey}_verteidigung_auswahl`) || ""}`.trim();
+  const defenseOption = Array.isArray(defense.options)
+    ? (defense.options.find((option) => `${option.label || ""}`.trim() === selectedDefense) || defense.options[0])
+    : defense;
+  const defenseValue = resolveMatrixActionComponentValue(defenseOption, lookupAttr);
+  const poolBasisOverride = rollMode === "defense"
+    ? (defenseValue && defenseValue.value !== null ? defenseValue.value : null)
+    : (probe ? probe.value : null);
+
+  return {
+    actionKey: actionKey,
+    rollMode: rollMode,
+    rule: rule,
+    probe: probe,
+    defense: defense,
+    defenseOption: defenseOption,
+    defenseValue: defenseValue,
+    poolBasisOverride: poolBasisOverride,
+  };
+}
+
+function appendMatrixActionRows(rows, matrixActionContext) {
+  if (!matrixActionContext) return;
+
+  const rule = matrixActionContext.rule || {};
+  const probe = matrixActionContext.probe;
+  const defense = matrixActionContext.defense || {};
+  const defenseValue = matrixActionContext.defenseValue;
+  const defenseOption = matrixActionContext.defenseOption || {};
+
+  if (rule.probe && rule.probe.type === "none") {
+    rows.push({ label: "Probe", value: "Keine Probe" });
+  } else if (rule.probe && rule.probe.type === "description") {
+    rows.push({ label: "Probe", value: "Siehe Beschreibung" });
+  } else if (probe) {
+    rows.push({ label: "Probe", value: probe.label });
+    rows.push({ label: "Probe-Wert", value: `${probe.value}` });
+  }
+
+  if (rule.probe && rule.probe.linkedMatrixAttribute) {
+    rows.push({ label: "Matrixattribut", value: rule.probe.linkedMatrixAttribute });
+  }
+  if (rule.probe && rule.probe.specialization) {
+    rows.push({ label: "Spezialisierung", value: rule.probe.specialization });
+  }
+
+  if (defense.type === "none") {
+    rows.push({ label: "Verteidigung", value: "Keine Verteidigungsprobe" });
+  } else if (defense.type === "description") {
+    rows.push({ label: "Verteidigung", value: "Siehe Beschreibung" });
+  } else if (defense.type === "fixed_formula" && defenseValue && defenseValue.value !== null) {
+    rows.push({ label: "Verteidigung", value: defenseValue.label });
+    rows.push({ label: "Verteidigungswert", value: `${defenseValue.value}` });
+  } else if (defense.type === "fixed_formula") {
+    rows.push({ label: "Verteidigung", value: defense.label || "Zielwert" });
+  } else if (defenseValue && defenseValue.value !== null) {
+    rows.push({ label: "Verteidigung", value: defenseValue.label });
+    rows.push({ label: "Verteidigungswert", value: `${defenseValue.value}` });
+  } else if (defenseOption && defenseOption.label) {
+    rows.push({ label: "Verteidigung", value: defenseOption.label });
+  }
 }
 
 function resolvePopupDerivedSourceAttr(result, resolvedFields) {
@@ -2195,6 +3401,179 @@ function isCombatSpell(resolvedFields) {
   return `${(resolvedFields && resolvedFields.Art) || ""}`.trim() === "Kampf";
 }
 
+function resolveDrainDamageType(remainingDrainDamage, magicValue) {
+  if (parseNumber(remainingDrainDamage) <= 0) return "";
+  return parseNumber(remainingDrainDamage) > parseNumber(magicValue) ? "Körperlich" : "Betäubung";
+}
+
+function resolveSummoningSpiritType(resolvedFields, popupState) {
+  const selectedSpiritType = `${(((popupState || {}).selectedValues || {}).spirit_type) || ""}`.trim();
+  if (selectedSpiritType) return selectedSpiritType;
+  return `${(resolvedFields && resolvedFields.Typ) || ""}`.trim();
+}
+
+function resolveSummoningSpiritForce(resolvedFields, popupState) {
+  const selectedSpiritForce = parseNumber(((popupState || {}).selectedValues || {}).spirit_force);
+  if (selectedSpiritForce > 0) return selectedSpiritForce;
+  return parseNumber(resolvedFields.Stufe);
+}
+
+function isSummoningPossessionCheckEnabled(popupState) {
+  return `${(((popupState || {}).selectedValues || {}).possession) || ""}`.trim() === "1";
+}
+
+function appendRowIfMissing(rows, label, value) {
+  const normalizedValue = `${value || ""}`.trim();
+  if (!normalizedValue) return;
+  if (rows.some((row) => row && row.label === label && `${row.value || ""}`.trim() === normalizedValue)) return;
+  rows.push({ label: label, value: normalizedValue });
+}
+
+function runEquipmentProbeFromContext(context, lookupAttr, resolvedFields, popupState) {
+  const rows = buildProbeRows(resolvedFields, context.definition);
+  const name = deriveProbeTitle(resolvedFields, context.poolAttribute, context.definition);
+  const sourceKey = `${(resolvedFields && resolvedFields.Auswahl) || ""}`.trim();
+  const sourceOption = getEquipmentSourceOption(sourceKey);
+  const sourceValue = sourceOption ? parseNumber(lookupAttr(sourceOption.attr)) : 0;
+  const rating = parseNumber((resolvedFields && resolvedFields.Stufe) || lookupAttr(context.poolAttribute));
+  const ratingMultiplier = `${((popupState.selectedValues || {}).equipment_rating_x2) || ""}`.trim() === "1" ? 2 : 1;
+  const ratingValue = rating * ratingMultiplier;
+  const poolBasisOverride = sourceValue + ratingValue;
+  const computation = buildProbeComputation(
+    lookupAttr,
+    context.poolAttribute,
+    popupState.poolMod,
+    1,
+    poolBasisOverride
+  );
+  const glitchText = computation.isCriticalGlitch ? "!! Kritischer Patzer !!" : "!! Patzer !!";
+  const erfolgeValue = computation.isGlitch ? glitchText : `${computation.successCount}`;
+
+  rows.push({ label: "Bezug", value: sourceOption ? sourceOption.label : "Keine Auswahl" });
+  if (sourceOption) {
+    rows.push({ label: sourceOption.type, value: `${sourceOption.label} (${sourceValue})` });
+  }
+  rows.push({ label: ratingMultiplier === 2 ? "Stufe x2" : "Stufe", value: `${ratingValue}` });
+  if (computation.monitorPoolMod !== 0) {
+    rows.push({ label: "Pool-Basis", value: `${computation.poolBasis}` });
+    rows.push({ label: "Zustandsmodifikator", value: `${computation.monitorPoolMod}` });
+  }
+  popupState.rows.forEach((popupRow) => rows.push(popupRow));
+
+  const chatMessage = buildSr6ProbeMessage({
+    name: name,
+    rows: rows,
+    resolvedFields: resolvedFields,
+    definition: context.definition,
+    definitionId: context.definition && context.definition.id,
+    pool: `${computation.pool}`,
+    erfolge: erfolgeValue,
+    details: buildDiceDetails(computation.diceResults),
+    detailsDice: buildDetailsDice(computation.diceResults),
+    isGlitch: computation.isGlitch,
+  });
+
+  startRoll(chatMessage, (rollResult) => {
+    finishRoll(rollResult.rollId);
+  });
+}
+
+function buildRiggingVehicleRollDataFromLookup(lookupAttr) {
+  return {
+    reaktion: parseNumber(lookupAttr("sr6_attr_reaktion_gesamtwert")),
+    geschicklichkeit: parseNumber(lookupAttr("sr6_attr_geschicklichkeit_gesamtwert")),
+    intuition: parseNumber(lookupAttr("sr6_attr_intuition_gesamtwert")),
+    logik: parseNumber(lookupAttr("sr6_attr_logik_gesamtwert")),
+    steuern: parseNumber(lookupAttr("sr6_skill_steuern_gesamtwert")),
+    mechanik: parseNumber(lookupAttr("sr6_skill_mechanik_gesamtwert")),
+    mechanikSpezialisierung: lookupAttr("sr6_skill_mechanik_spezialisierung"),
+    mechanikExpertise: lookupAttr("sr6_skill_mechanik_expertise"),
+    heimlichkeit: parseNumber(lookupAttr("sr6_skill_heimlichkeit_gesamtwert")),
+    wahrnehmung: parseNumber(lookupAttr("sr6_skill_wahrnehmung_gesamtwert")),
+    rumpf: parseNumber(lookupAttr("sr6_rigging_fahrzeug_rumpf")),
+    panzerung: parseNumber(lookupAttr("sr6_rigging_fahrzeug_panzerung")),
+    pilot: parseNumber(lookupAttr("sr6_rigging_fahrzeug_pilot")),
+    sensor: parseNumber(lookupAttr("sr6_rigging_fahrzeug_sensor")),
+    agentenstufe: parseNumber(lookupAttr("sr6_rigging_fahrzeug_agentenstufe")),
+    riggerkontrolle: parseNumber(lookupAttr("sr6_rigging_fahrzeug_riggerkontrolle")),
+    manoevrieren: parseNumber(lookupAttr("sr6_rigging_fahrzeug_manoevrieren")),
+    zielerfassung: parseNumber(lookupAttr("sr6_rigging_fahrzeug_zielerfassung")),
+    ausweichen: parseNumber(lookupAttr("sr6_rigging_fahrzeug_ausweichen")),
+    stealth: parseNumber(lookupAttr("sr6_rigging_fahrzeug_stealth")),
+    clearsight: parseNumber(lookupAttr("sr6_rigging_fahrzeug_clearsight")),
+  };
+}
+
+function buildRiggingVehicleWeaponRangeText(lookupAttr) {
+  const rangeValues = [
+    ["S. Nah", lookupAttr("sr6_rigging_fahrzeug_waffe_s_nah")],
+    ["Nah", lookupAttr("sr6_rigging_fahrzeug_waffe_nah")],
+    ["Mittel", lookupAttr("sr6_rigging_fahrzeug_waffe_mittel")],
+    ["Weit", lookupAttr("sr6_rigging_fahrzeug_waffe_weit")],
+    ["S. Weit", lookupAttr("sr6_rigging_fahrzeug_waffe_s_weit")],
+  ];
+  return rangeValues
+    .map(([label, value]) => `${label}: ${parseNumber(value)}`)
+    .join(" / ");
+}
+
+function runRiggingVehicleProbeFromContext(context, lookupAttr, resolvedFields, popupState) {
+  const rows = buildProbeRows(resolvedFields, context.definition);
+  const probeKey = `${resolvedFields.Probe || lookupAttr("sr6_rigging_fahrzeug_probe") || "handling"}`.trim();
+  const mode = lookupAttr("sr6_rigging_fahrzeug_modus") || resolvedFields.Modus || "Autonom";
+  const data = buildRiggingVehicleRollDataFromLookup(lookupAttr);
+  const probe = getRiggingVehicleProbeValue(probeKey, mode, data);
+  const attackValue = probeKey === "weapon_attack" && resolvedFields.Angriffswert
+    ? resolvedFields.Angriffswert
+    : `${getRiggingVehicleAttackValue(mode, data)}`;
+  const computation = buildProbeComputation(
+    lookupAttr,
+    context.poolAttribute,
+    popupState.poolMod,
+    1,
+    probe.value
+  );
+  const glitchText = computation.isCriticalGlitch ? "!! Kritischer Patzer !!" : "!! Patzer !!";
+  const erfolgeValue = computation.isGlitch ? glitchText : `${computation.successCount}`;
+
+  rows.push({ label: "Probe", value: getRiggingVehicleProbeLabel(probeKey) });
+  rows.push({ label: "Formel", value: probe.formula });
+  rows.push({ label: "Modus", value: mode });
+  rows.push({ label: "Angriffswert", value: `${attackValue}` });
+  rows.push({ label: "Verteidigungswert", value: `${getRiggingVehicleDefenseValue(mode, data)}` });
+  rows.push({ label: "Zustandsmonitor", value: `${getRiggingVehicleMonitorValue(data)}` });
+  if (probeKey === "weapon_attack") {
+    rows.push({ label: "Installierte Waffe", value: lookupAttr("sr6_rigging_fahrzeug_waffe_name") || "-" });
+    rows.push({ label: "Waffentyp", value: lookupAttr("sr6_rigging_fahrzeug_waffe") || "-" });
+    rows.push({ label: "Schaden", value: lookupAttr("sr6_rigging_fahrzeug_waffe_schaden") || "-" });
+    rows.push({ label: "Waffenmodus", value: lookupAttr("sr6_rigging_fahrzeug_waffe_modus") || "-" });
+    rows.push({ label: "Angriffswerte (Reichweite)", value: buildRiggingVehicleWeaponRangeText(lookupAttr) });
+  }
+  if (normalizeRiggingVehicleMode(mode) === "jumped_in_vr") {
+    rows.push({ label: "Riggerkontrolle", value: `${data.riggerkontrolle}` });
+  }
+  if (normalizeRiggingVehicleMode(mode) === "agent") {
+    rows.push({ label: "Agentenstufe", value: `${data.agentenstufe}` });
+  }
+  popupState.rows.forEach((popupRow) => rows.push(popupRow));
+
+  const chatMessage = buildSr6ProbeMessage({
+    name: "Rigging-Fahrzeugprobe",
+    rows: rows,
+    resolvedFields: resolvedFields,
+    definition: context.definition,
+    definitionId: context.definition && context.definition.id,
+    pool: `${computation.pool}`,
+    erfolge: erfolgeValue,
+    details: buildDiceDetails(computation.diceResults),
+    detailsDice: buildDetailsDice(computation.diceResults),
+    isGlitch: computation.isGlitch,
+  });
+  startRoll(chatMessage, (rollResult) => {
+    finishRoll(rollResult.rollId);
+  });
+}
+
 function runSpellProbeFromContext(context, lookupAttr, resolvedFields, popupState) {
   const rows = buildProbeRows(resolvedFields, context.definition);
   const name = deriveProbeTitle(resolvedFields, context.poolAttribute, context.definition);
@@ -2209,11 +3588,26 @@ function runSpellProbeFromContext(context, lookupAttr, resolvedFields, popupStat
     0
   );
   const baseDamage = parseNumber(resolvedFields.Schaden);
+  const baseAttackValue = parseNumber(resolvedFields.Angriffswert);
+  const finalAttackValue = isCombatSpell(resolvedFields)
+    ? Math.max(0, baseAttackValue + popupState.attackValueMod)
+    : "";
   const finalDamage = isCombatSpell(resolvedFields) || baseDamage || popupState.damageMod
     ? `${baseDamage + popupState.damageMod}`
     : "";
   const modifiedDrain = Math.max(0, parseNumber(resolvedFields.Entzug) + popupState.drainMod);
   const drainDamage = Math.max(0, modifiedDrain - drainComputation.successCount);
+  const drainDamageType = resolveDrainDamageType(drainDamage, lookupAttr("sr6_magic_magie"));
+
+  popupState.rows.forEach((popupRow) => {
+    if (!popupRow || !popupRow.label) return;
+    appendRowIfMissing(rows, popupRow.label, popupRow.value);
+  });
+  if (isCombatSpell(resolvedFields) && popupState.attackValueMod !== 0) {
+    rows.push({ label: "Angriffswert-Basis", value: `${baseAttackValue}` });
+    rows.push({ label: "Angriffswert-Modifikator", value: `${popupState.attackValueMod}` });
+    rows.push({ label: "Angriffswert", value: `${finalAttackValue}` });
+  }
 
   const chatMessage = buildSr6ProbeMessage({
     name: name,
@@ -2226,11 +3620,89 @@ function runSpellProbeFromContext(context, lookupAttr, resolvedFields, popupStat
     details: buildDiceDetails(spellComputation.diceResults),
     detailsDice: buildDetailsDice(spellComputation.diceResults),
     isGlitch: spellComputation.isGlitch,
+    spellAttackValue: `${finalAttackValue}`,
     spellDamage: finalDamage,
     drainValue: `${modifiedDrain}`,
     drainDamage: `${drainDamage}`,
+    drainDamageType: drainDamageType,
     drainDetails: buildDiceDetails(drainComputation.diceResults),
     drainDetailsDice: buildDetailsDice(drainComputation.diceResults),
+  });
+
+  startRoll(chatMessage, (rollResult) => {
+    finishRoll(rollResult.rollId);
+  });
+}
+
+function runSummoningProbeFromContext(context, lookupAttr, resolvedFields, popupState) {
+  const rows = buildProbeRows(resolvedFields, context.definition);
+  const name = deriveProbeTitle(resolvedFields, context.poolAttribute, context.definition);
+  const spiritType = resolveSummoningSpiritType(resolvedFields, popupState);
+  const spiritForce = resolveSummoningSpiritForce(resolvedFields, popupState);
+  const summonerComputation = buildProbeComputation(
+    lookupAttr,
+    context.poolAttribute,
+    popupState.poolMod
+  );
+  const spiritComputation = buildFixedPoolComputation(spiritForce * 2);
+  const netHits = summonerComputation.successCount - spiritComputation.successCount;
+  const services = Math.max(0, netHits);
+  const modifiedDrain = Math.max(0, spiritComputation.successCount + popupState.drainMod);
+  const drainComputation = buildProbeComputation(
+    lookupAttr,
+    "sr6_magic_entzug_widerstand",
+    0
+  );
+  const drainDamage = Math.max(0, modifiedDrain - drainComputation.successCount);
+  const drainDamageType = resolveDrainDamageType(drainDamage, lookupAttr("sr6_magic_magie"));
+  const objectResistancePool = parseNumber((popupState.selectedValues || {}).object_resistance);
+  const objectResistanceComputation = isSummoningPossessionCheckEnabled(popupState)
+    ? buildFixedPoolComputation(objectResistancePool)
+    : null;
+  const objectResistanceNetHits = objectResistanceComputation
+    ? Math.max(0, spiritComputation.successCount - objectResistanceComputation.successCount)
+    : null;
+
+  appendRowIfMissing(rows, "Geistertyp", spiritType);
+  appendRowIfMissing(rows, "Kraftstufe", `${spiritForce}`);
+  popupState.rows.forEach((popupRow) => {
+    if (!popupRow || !popupRow.label) return;
+    appendRowIfMissing(rows, popupRow.label, popupRow.value);
+  });
+  rows.push({ label: "Beschwören-Pool", value: `${summonerComputation.pool}` });
+  rows.push({ label: "Beschwören-Erfolge", value: `${summonerComputation.successCount}` });
+  rows.push({ label: "Geist-Pool", value: `${spiritComputation.pool}` });
+  rows.push({ label: "Geist-Erfolge", value: `${spiritComputation.successCount}` });
+  if (objectResistanceNetHits !== null) {
+    rows.push({ label: "Objektwiderstand-Pool", value: `${objectResistancePool}` });
+    rows.push({ label: "Objektwiderstand-Erfolge", value: `${objectResistanceComputation.successCount}` });
+    rows.push({ label: "Objektwiderstand-Nettoerfolge", value: `${objectResistanceNetHits}` });
+    rows.push({ label: "Objektwiderstand-Details", value: buildDiceDetails(objectResistanceComputation.diceResults) });
+  }
+  rows.push({ label: "Nettoerfolge", value: `${netHits}` });
+  rows.push({
+    label: "Erhaltene Dienste",
+    value: services > 0 ? `${services}` : "0 (nicht herbeigerufen)",
+  });
+  rows.push({ label: "Entstandener Entzug", value: `${modifiedDrain}` });
+  rows.push({
+    label: "Entzugsschaden",
+    value: drainDamageType ? `${drainDamage} (${drainDamageType})` : `${drainDamage}`,
+  });
+  rows.push({ label: "Geist-Details", value: buildDiceDetails(spiritComputation.diceResults) });
+  rows.push({ label: "Entzug-Details", value: buildDiceDetails(drainComputation.diceResults) });
+
+  const chatMessage = buildSr6ProbeMessage({
+    name: name,
+    rows: rows,
+    resolvedFields: resolvedFields,
+    definition: context.definition,
+    definitionId: context.definition && context.definition.id,
+    pool: `${summonerComputation.pool}`,
+    erfolge: `${summonerComputation.successCount}`,
+    details: buildDiceDetails(summonerComputation.diceResults),
+    detailsDice: buildDetailsDice(summonerComputation.diceResults),
+    isGlitch: summonerComputation.isGlitch,
   });
 
   startRoll(chatMessage, (rollResult) => {
@@ -2257,6 +3729,20 @@ function runSuccessProbeFromContext(rawTemplate, repeatingRowPrefix, popupState 
       runSpellProbeFromContext(context, lookupAttr, resolvedFields, normalizedPopupState);
       return;
     }
+    if (context.definition && context.definition.probeModel === "summoning_probe") {
+      runSummoningProbeFromContext(context, lookupAttr, resolvedFields, normalizedPopupState);
+      return;
+    }
+    if (context.definition && context.definition.probeModel === "equipment_probe") {
+      runEquipmentProbeFromContext(context, lookupAttr, resolvedFields, normalizedPopupState);
+      return;
+    }
+    if (context.definition && context.definition.probeModel === "rigging_vehicle_probe") {
+      runRiggingVehicleProbeFromContext(context, lookupAttr, resolvedFields, normalizedPopupState);
+      return;
+    }
+
+    const effectivePopupState = applyTemplateSkillBonusToPopupState(normalizedPopupState, resolvedFields);
 
     const rows = buildProbeRows(resolvedFields, context.definition);
     const name = deriveProbeTitle(resolvedFields, context.poolAttribute, context.definition);
@@ -2281,21 +3767,40 @@ function runSuccessProbeFromContext(rawTemplate, repeatingRowPrefix, popupState 
 
     const poolMultiplier = Math.max(
       getRollPoolMultiplier(context.definition, resolvedFields),
-      normalizedPopupState.poolMultiplier
+      effectivePopupState.poolMultiplier
     );
     const meleeAttributeOverride = resolveMeleePopupAttributePoolOverride(
       context.definition,
       resolvedFields,
-      normalizedPopupState,
+      effectivePopupState,
       lookupAttr,
       context.poolAttribute
     );
+    const skillAttributeOverride = resolveSkillProbeAttributePoolOverride(
+      context.definition,
+      effectivePopupState,
+      lookupAttr,
+      context.poolAttribute
+    );
+    const matrixActionContext = resolveMatrixActionRuleContext(
+      context.definition,
+      effectivePopupState,
+      lookupAttr,
+      context.poolAttribute
+    );
+    const poolBasisOverride = meleeAttributeOverride
+      ? meleeAttributeOverride.poolBasisOverride
+      : skillAttributeOverride
+        ? skillAttributeOverride.poolBasisOverride
+        : matrixActionContext && matrixActionContext.poolBasisOverride !== null
+          ? matrixActionContext.poolBasisOverride
+          : null;
     const computation = buildProbeComputation(
       lookupAttr,
       context.poolAttribute,
-      normalizedPopupState.poolMod,
+      effectivePopupState.poolMod,
       poolMultiplier,
-      meleeAttributeOverride ? meleeAttributeOverride.poolBasisOverride : null
+      poolBasisOverride
     );
 
     if (meleeAttributeOverride) {
@@ -2304,6 +3809,12 @@ function runSuccessProbeFromContext(rawTemplate, repeatingRowPrefix, popupState 
         value: `${meleeAttributeOverride.currentAttribute} -> ${meleeAttributeOverride.selectedAttribute}`,
       });
     }
+    if (skillAttributeOverride) {
+      rows.push({ label: "Attribut", value: skillAttributeOverride.selectedAttribute });
+      rows.push({ label: "Attribut-Wert", value: `${skillAttributeOverride.attributeValue}` });
+      rows.push({ label: "Fertigkeitswert", value: `${skillAttributeOverride.skillValue}` });
+    }
+    appendMatrixActionRows(rows, matrixActionContext);
     const glitchText = computation.isCriticalGlitch ? "!! Kritischer Patzer !!" : "!! Patzer !!";
     const erfolgeValue = computation.isGlitch ? glitchText : `${computation.successCount}`;
 
@@ -2318,8 +3829,8 @@ function runSuccessProbeFromContext(rawTemplate, repeatingRowPrefix, popupState 
       });
       rows.push({ label: "Zustandsmodifikator", value: `${computation.monitorPoolMod}` });
     }
-    normalizedPopupState.rows.forEach((popupRow) => rows.push(popupRow));
-    buildPopupDerivedResultRows(context.definition, lookupAttr, context.poolAttribute, resolvedFields, normalizedPopupState)
+    effectivePopupState.rows.forEach((popupRow) => rows.push(popupRow));
+    buildPopupDerivedResultRows(context.definition, lookupAttr, context.poolAttribute, resolvedFields, effectivePopupState)
       .forEach((popupRow) => rows.push(popupRow));
 
     const chatMessage = buildSr6ProbeMessage({
@@ -2425,7 +3936,9 @@ function runGlobalPopupProbeConfirm() {
     const definition = getRollDefinitionById(values.sr6_roll_popup_definition || "");
     const rawTemplate = values.sr6_roll_popup_template || "";
     const repeatingRowPrefix = values.sr6_roll_popup_row_prefix || "";
-    const popupState = buildPopupStateFromValues(values, definition);
+    const parsedFields = parseTemplateFields(rawTemplate);
+    const poolAttribute = parsePoolAttributeFromFields(parsedFields);
+    const popupState = buildPopupStateFromValues(values, definition, poolAttribute);
 
     setAttrsSilent({ sr6_roll_popup_open: "0" });
     runSuccessProbeFromContext(rawTemplate, repeatingRowPrefix, popupState);
@@ -2465,6 +3978,7 @@ const SR6_NUMBER_STEPPER_COMPUTED_TARGETS = [
   "sr6_magic_magie",
   "sr6_magic_zauberpool",
   "sr6_magic_spruchzauberei",
+  "sr6_magic_beschwoeren",
   "sr6_magic_entzug_widerstand",
   "sr6_magic_waffenloser_kampf",
   "sr6_magic_astrale_initiative",
@@ -2474,6 +3988,27 @@ const SR6_NUMBER_STEPPER_COMPUTED_TARGETS = [
   "sr6_magic_astralkampf_verteidigungswert",
   "sr6_derived_initiative_basis",
 ];
+
+const SR6_NUMBER_STEPPER_REPEATING_SKILL_PREFIXES = [
+  "repeating_sr6wissensfertigkeiten_",
+  "repeating_sr6sprachfertigkeiten_",
+  "repeating_sr6talentsofts_",
+  "repeating_sr6wissenssprachsofts_",
+];
+
+const SR6_NUMBER_STEPPER_RIGGING_VEHICLE_PREFIXES = [
+  "repeating_sr6riggingfahrzeuge_",
+];
+
+function shouldSyncRepeatingSkillTotalsAfterStepper(repeatingRowPrefix) {
+  if (!repeatingRowPrefix) return false;
+  return SR6_NUMBER_STEPPER_REPEATING_SKILL_PREFIXES.some((prefix) => repeatingRowPrefix.startsWith(prefix));
+}
+
+function shouldSyncRiggingVehicleProbesAfterStepper(repeatingRowPrefix) {
+  if (!repeatingRowPrefix) return false;
+  return SR6_NUMBER_STEPPER_RIGGING_VEHICLE_PREFIXES.some((prefix) => repeatingRowPrefix.startsWith(prefix));
+}
 
 function resolveRepeatingRowPrefixForStepper(eventInfo, callback) {
   const fallbackPrefix = extractRepeatingRowPrefix(eventInfo);
@@ -2580,6 +4115,14 @@ function runNumberStepperAdjust(eventInfo) {
       setAttrsSilent({
         [scopedTargetAttr]: String(currentValue + delta),
       }, () => {
+        if (shouldSyncRiggingVehicleProbesAfterStepper(repeatingRowPrefix) && typeof syncRiggingVehicleProbes === "function") {
+          syncRiggingVehicleProbes();
+          return;
+        }
+        if (shouldSyncRepeatingSkillTotalsAfterStepper(repeatingRowPrefix) && typeof syncRepeatingSkillTotals === "function") {
+          syncRepeatingSkillTotals();
+          return;
+        }
         if (!repeatingRowPrefix && typeof recomputeAll === "function") {
           recomputeAll();
         }
@@ -2595,6 +4138,9 @@ function registerSuccessProbeRollEvents() {
   on("clicked:repeating_sr6fernkampfwaffen:probe", runSuccessProbeRoll);
   on("clicked:repeating_sr6nahkampfwaffen:probe", runSuccessProbeRoll);
   on("clicked:repeating_sr6zauber:probe", runSuccessProbeRoll);
+  on("clicked:repeating_sr6geister:probe", runSuccessProbeRoll);
+  on("clicked:repeating_sr6ausruestung:probe", runSuccessProbeRoll);
+  on("clicked:repeating_sr6riggingfahrzeuge:probe", runSuccessProbeRoll);
   on("clicked:repeating_sr6wissensfertigkeiten:probe", runSuccessProbeRoll);
   on("clicked:repeating_sr6sprachfertigkeiten:probe", runSuccessProbeRoll);
   on("clicked:repeating_sr6talentsofts:probe", runSuccessProbeRoll);
@@ -2670,6 +4216,11 @@ function computeAttributeTotals(values, updates, totals) {
     totals[attributeName] = total;
     updates[totalKey] = String(total);
   });
+
+  updates.sr6_attrprobe_erinnerungsvermoegen = String(parseNumber(totals.logik) + parseNumber(totals.intuition));
+  updates.sr6_attrprobe_heben_tragen = String(parseNumber(totals.konstitution) + parseNumber(totals.willenskraft));
+  updates.sr6_attrprobe_menschenkenntnis = String(parseNumber(totals.willenskraft) + parseNumber(totals.intuition));
+  updates.sr6_attrprobe_selbstbeherrschung = String(parseNumber(totals.willenskraft) + parseNumber(totals.charisma));
 }
 // END MODULE: workers/compute/attributes
 
@@ -2697,20 +4248,44 @@ const SR6_REPEATING_SKILL_TOTAL_SECTIONS = [
   {
     section: "repeating_sr6wissensfertigkeiten",
     prefix: "sr6_wissensfertigkeit_",
+    totalSource: "memory",
   },
   {
     section: "repeating_sr6sprachfertigkeiten",
     prefix: "sr6_sprachfertigkeit_",
+    totalSource: "memory",
   },
   {
     section: "repeating_sr6talentsofts",
     prefix: "sr6_talentsoft_",
+    totalSource: "talentsoft",
   },
   {
     section: "repeating_sr6wissenssprachsofts",
     prefix: "sr6_wissenssprachsoft_",
+    totalSource: "memory",
   },
 ];
+
+const SR6_TALENTSOFT_ATTRIBUTE_SOURCES = {
+  "Geschicklichkeit": "sr6_attr_geschicklichkeit_gesamtwert",
+  "Konstitution": "sr6_attr_konstitution_gesamtwert",
+  "Reaktion": "sr6_attr_reaktion_gesamtwert",
+  "Stärke": "sr6_attr_staerke_gesamtwert",
+  "Willenskraft": "sr6_attr_willenskraft_gesamtwert",
+  "Logik": "sr6_attr_logik_gesamtwert",
+  "Intuition": "sr6_attr_intuition_gesamtwert",
+  "Charisma": "sr6_attr_charisma_gesamtwert",
+  "Magie/Resonanz": "sr6_attr_magie_resonanz_gesamtwert",
+};
+
+function getTalentsoftAttributeTotal(values, selectedAttribute) {
+  const attrKey =
+    SR6_TALENTSOFT_ATTRIBUTE_SOURCES[`${selectedAttribute || ""}`.trim()] ||
+    SR6_TALENTSOFT_ATTRIBUTE_SOURCES["Geschicklichkeit"];
+  if (!attrKey) return 0;
+  return parseNumber(values[attrKey]);
+}
 
 function syncRepeatingSkillTotals(callback) {
   const pendingSections = SR6_REPEATING_SKILL_TOTAL_SECTIONS.length;
@@ -2736,10 +4311,18 @@ function syncRepeatingSkillTotals(callback) {
       SR6_REPEATING_SKILL_TOTAL_SECTIONS.forEach((sectionConfig) => {
         const sectionIds = sectionIdsByName[sectionConfig.section] || [];
         sectionIds.forEach((rowId) => {
-          requestKeys.push(`${sectionConfig.section}_${rowId}_${sectionConfig.prefix}grundwert`);
-          requestKeys.push(`${sectionConfig.section}_${rowId}_${sectionConfig.prefix}modifikator`);
+          if (sectionConfig.totalSource === "talentsoft") {
+            requestKeys.push(`${sectionConfig.section}_${rowId}_${sectionConfig.prefix}grundwert`);
+            requestKeys.push(`${sectionConfig.section}_${rowId}_${sectionConfig.prefix}modifikator`);
+            requestKeys.push(`${sectionConfig.section}_${rowId}_${sectionConfig.prefix}attribut`);
+          }
         });
       });
+
+      Object.keys(SR6_TALENTSOFT_ATTRIBUTE_SOURCES).forEach((attributeName) => {
+        requestKeys.push(SR6_TALENTSOFT_ATTRIBUTE_SOURCES[attributeName]);
+      });
+      requestKeys.push("sr6_attrprobe_erinnerungsvermoegen");
 
       if (requestKeys.length === 0) {
         if (typeof callback === "function") callback();
@@ -2753,7 +4336,16 @@ function syncRepeatingSkillTotals(callback) {
           const sectionIds = sectionIdsByName[sectionConfig.section] || [];
           sectionIds.forEach((rowId) => {
             const rowPrefix = `${sectionConfig.section}_${rowId}_${sectionConfig.prefix}`;
+            if (sectionConfig.totalSource === "memory") {
+              updates[`${rowPrefix}gesamtwert`] = String(parseNumber(values.sr6_attrprobe_erinnerungsvermoegen));
+              return;
+            }
+            const attributeTotal =
+              sectionConfig.totalSource === "talentsoft"
+                ? getTalentsoftAttributeTotal(values, values[`${rowPrefix}attribut`])
+                : 0;
             const total =
+              attributeTotal +
               parseNumber(values[`${rowPrefix}grundwert`]) +
               parseNumber(values[`${rowPrefix}modifikator`]);
 
@@ -2842,24 +4434,31 @@ const SR6_COMBAT_ARMOR_SELECTION_FIELDS = [
   },
 ];
 
-function getCombatMeleeSkillTotal(skillTotals, values) {
-  const selectedSkill = `${(values && values.sr6_combat_nahkampf_fertigkeit) || "Nahkampf"}`.trim();
+function getCombatMeleeSkillTotalByName(skillTotals, selectedSkill) {
   if (selectedSkill === "Exotische Waffen") {
     return (skillTotals && skillTotals.exotische_waffen) || 0;
   }
   return (skillTotals && skillTotals.nahkampf) || 0;
 }
 
-function getCombatMeleeAttributeTotal(totals, values) {
-  const selectedAttribute = `${(values && values.sr6_combat_nahkampf_attribut) || "Geschicklichkeit"}`.trim();
+function getCombatMeleeSkillTotal(skillTotals, values) {
+  const selectedSkill = `${(values && values.sr6_combat_nahkampf_fertigkeit) || "Nahkampf"}`.trim();
+  return getCombatMeleeSkillTotalByName(skillTotals, selectedSkill);
+}
+
+function getCombatMeleeAttributeTotalByName(totals, selectedAttribute) {
   if (selectedAttribute === "Stärke") {
     return (totals && totals.staerke) || 0;
   }
   return (totals && totals.geschicklichkeit) || 0;
 }
 
-function getCombatRangedSkillTotal(skillTotals, values) {
-  const selectedSkill = `${(values && values.sr6_combat_fernkampf_fertigkeit) || "Feuerwaffen"}`.trim();
+function getCombatMeleeAttributeTotal(totals, values) {
+  const selectedAttribute = `${(values && values.sr6_combat_nahkampf_attribut) || "Geschicklichkeit"}`.trim();
+  return getCombatMeleeAttributeTotalByName(totals, selectedAttribute);
+}
+
+function getCombatRangedSkillTotalByName(skillTotals, selectedSkill) {
   if (selectedSkill === "Projektilwaffen") {
     return (skillTotals && skillTotals.athletik) || 0;
   }
@@ -2867,6 +4466,66 @@ function getCombatRangedSkillTotal(skillTotals, values) {
     return (skillTotals && skillTotals.exotische_waffen) || 0;
   }
   return (skillTotals && skillTotals.feuerwaffen) || 0;
+}
+
+function getCombatRangedSkillTotal(skillTotals, values) {
+  const selectedSkill = `${(values && values.sr6_combat_fernkampf_fertigkeit) || "Feuerwaffen"}`.trim();
+  return getCombatRangedSkillTotalByName(skillTotals, selectedSkill);
+}
+
+function normalizeCombatSpecializationName(value) {
+  return `${value || ""}`
+    .trim()
+    .toLowerCase()
+    .replace(/ä/g, "ae")
+    .replace(/ö/g, "oe")
+    .replace(/ü/g, "ue")
+    .replace(/ß/g, "ss")
+    .replace(/[^a-z0-9]+/g, "");
+}
+
+function getCombatSpecializationBonus(selectedSpecialization, selectedExpertise, matchingNames) {
+  const matches = new Set((matchingNames || []).map(normalizeCombatSpecializationName).filter(Boolean));
+
+  if (matches.size === 0) {
+    return 0;
+  }
+
+  if (matches.has(normalizeCombatSpecializationName(selectedExpertise))) {
+    return 3;
+  }
+
+  if (matches.has(normalizeCombatSpecializationName(selectedSpecialization))) {
+    return 2;
+  }
+
+  return 0;
+}
+
+function getCombatRangedSpecializationMatches(selectedSkill, weaponType) {
+  const type = `${weaponType || ""}`.trim();
+
+  if (selectedSkill === "Projektilwaffen") {
+    return ["Projektilwaffen"];
+  }
+
+  if (selectedSkill === "Exotische Waffen") {
+    return ["Werfer", "Druckluftwaffen", "Sprühwaffen", "Laserwaffen", "Energiewaffen"].filter((name) => name === type);
+  }
+
+  return [type];
+}
+
+function getCombatMeleeSpecializationMatches(selectedSkill, weaponType) {
+  const type = `${weaponType || ""}`.trim();
+
+  if (selectedSkill === "Exotische Waffen") {
+    return ["Cyberimplantwaffen", "Handgemenge-Waffen", "Kettensägen", "Natürliche Waffen", "Peitschen"].filter(
+      (name) => name === type
+    );
+  }
+
+  return [type];
 }
 
 const SR6_COMBAT_CALCULATED_FIELDS = [
@@ -3162,15 +4821,119 @@ function syncCombatPrimaryWeapons(callback, eventInfo) {
   }, eventInfo);
 }
 
+function syncCombatWeaponPools(callback) {
+  const requestKeys = [
+    "sr6_attr_geschicklichkeit_gesamtwert",
+    "sr6_attr_staerke_gesamtwert",
+    "sr6_skill_athletik_gesamtwert",
+    "sr6_skill_athletik_spezialisierung",
+    "sr6_skill_athletik_expertise",
+    "sr6_skill_exotische_waffen_gesamtwert",
+    "sr6_skill_exotische_waffen_spezialisierung",
+    "sr6_skill_exotische_waffen_expertise",
+    "sr6_skill_feuerwaffen_gesamtwert",
+    "sr6_skill_feuerwaffen_spezialisierung",
+    "sr6_skill_feuerwaffen_expertise",
+    "sr6_skill_nahkampf_gesamtwert",
+    "sr6_skill_nahkampf_spezialisierung",
+    "sr6_skill_nahkampf_expertise",
+  ];
+
+  getSectionIDs("repeating_sr6fernkampfwaffen", (rangedIds) => {
+    getSectionIDs("repeating_sr6nahkampfwaffen", (meleeIds) => {
+      const rangedRowIds = rangedIds || [];
+      const meleeRowIds = meleeIds || [];
+
+      rangedRowIds.forEach((rowId) => {
+        requestKeys.push(`repeating_sr6fernkampfwaffen_${rowId}_sr6_fernkampf_fertigkeit`);
+        requestKeys.push(`repeating_sr6fernkampfwaffen_${rowId}_sr6_fernkampf_waffentyp`);
+      });
+      meleeRowIds.forEach((rowId) => {
+        requestKeys.push(`repeating_sr6nahkampfwaffen_${rowId}_sr6_nahkampf_fertigkeit`);
+        requestKeys.push(`repeating_sr6nahkampfwaffen_${rowId}_sr6_nahkampf_attribut`);
+        requestKeys.push(`repeating_sr6nahkampfwaffen_${rowId}_sr6_nahkampf_waffentyp`);
+      });
+
+      getAttrs(requestKeys, (values) => {
+        const totals = {
+          geschicklichkeit: parseNumber(values.sr6_attr_geschicklichkeit_gesamtwert),
+          staerke: parseNumber(values.sr6_attr_staerke_gesamtwert),
+        };
+        const skillTotals = {
+          athletik: parseNumber(values.sr6_skill_athletik_gesamtwert),
+          exotische_waffen: parseNumber(values.sr6_skill_exotische_waffen_gesamtwert),
+          feuerwaffen: parseNumber(values.sr6_skill_feuerwaffen_gesamtwert),
+          nahkampf: parseNumber(values.sr6_skill_nahkampf_gesamtwert),
+        };
+        const specializationSelections = {
+          athletik: {
+            specialization: values.sr6_skill_athletik_spezialisierung,
+            expertise: values.sr6_skill_athletik_expertise,
+          },
+          exotische_waffen: {
+            specialization: values.sr6_skill_exotische_waffen_spezialisierung,
+            expertise: values.sr6_skill_exotische_waffen_expertise,
+          },
+          feuerwaffen: {
+            specialization: values.sr6_skill_feuerwaffen_spezialisierung,
+            expertise: values.sr6_skill_feuerwaffen_expertise,
+          },
+          nahkampf: {
+            specialization: values.sr6_skill_nahkampf_spezialisierung,
+            expertise: values.sr6_skill_nahkampf_expertise,
+          },
+        };
+        const updates = {};
+
+        rangedRowIds.forEach((rowId) => {
+          const skill = `${values[`repeating_sr6fernkampfwaffen_${rowId}_sr6_fernkampf_fertigkeit`] || "Feuerwaffen"}`.trim();
+          const weaponType = `${values[`repeating_sr6fernkampfwaffen_${rowId}_sr6_fernkampf_waffentyp`] || ""}`.trim();
+          const specializationKey =
+            skill === "Projektilwaffen" ? "athletik" : skill === "Exotische Waffen" ? "exotische_waffen" : "feuerwaffen";
+          const specializationBonus = getCombatSpecializationBonus(
+            specializationSelections[specializationKey].specialization,
+            specializationSelections[specializationKey].expertise,
+            getCombatRangedSpecializationMatches(skill, weaponType)
+          );
+          const pool = getCombatRangedSkillTotalByName(skillTotals, skill) + (totals.geschicklichkeit || 0) + specializationBonus;
+          updates[`repeating_sr6fernkampfwaffen_${rowId}_sr6_fernkampf_pool`] = String(pool);
+        });
+
+        meleeRowIds.forEach((rowId) => {
+          const skill = `${values[`repeating_sr6nahkampfwaffen_${rowId}_sr6_nahkampf_fertigkeit`] || "Nahkampf"}`.trim();
+          const attribute = `${values[`repeating_sr6nahkampfwaffen_${rowId}_sr6_nahkampf_attribut`] || "Geschicklichkeit"}`.trim();
+          const weaponType = `${values[`repeating_sr6nahkampfwaffen_${rowId}_sr6_nahkampf_waffentyp`] || ""}`.trim();
+          const specializationKey = skill === "Exotische Waffen" ? "exotische_waffen" : "nahkampf";
+          const specializationBonus = getCombatSpecializationBonus(
+            specializationSelections[specializationKey].specialization,
+            specializationSelections[specializationKey].expertise,
+            getCombatMeleeSpecializationMatches(skill, weaponType)
+          );
+          const pool =
+            getCombatMeleeSkillTotalByName(skillTotals, skill) +
+            getCombatMeleeAttributeTotalByName(totals, attribute) +
+            specializationBonus;
+          updates[`repeating_sr6nahkampfwaffen_${rowId}_sr6_nahkampf_pool`] = String(pool);
+        });
+
+        if (Object.keys(updates).length === 0 && typeof callback === "function") {
+          callback();
+          return;
+        }
+        setAttrsSilent(updates, callback);
+      });
+    });
+  });
+}
+
 // BEGIN MODULE: workers/compute/magic
 function appendMagicRequestKeys(requestKeys) {
   requestKeys.push("sr6_magic_traditionsattribut_1");
-  requestKeys.push("sr6_magic_traditionsattribut_2");
   requestKeys.push("sr6_magic_traditionsattribut_1_modifikator");
-  requestKeys.push("sr6_magic_traditionsattribut_2_modifikator");
   requestKeys.push("sr6_magic_magie_modifikator");
   requestKeys.push("sr6_magic_zauberpool_modifikator");
   requestKeys.push("sr6_magic_spruchzauberei_modifikator");
+  requestKeys.push("sr6_magic_beschwoeren_modifikator");
   requestKeys.push("sr6_magic_entzug_widerstand_modifikator");
   requestKeys.push("sr6_magic_waffenloser_kampf_modifikator");
   requestKeys.push("sr6_magic_astrale_initiative_modifikator");
@@ -3191,6 +4954,11 @@ function computeMagicDerived(values, totals, skillTotals, updates) {
     parseNumber(updates.sr6_magic_magie) +
       parseNumber(updates.sr6_magic_zauberpool) +
       parseNumber(values.sr6_magic_spruchzauberei_modifikator)
+  );
+  updates.sr6_magic_beschwoeren = String(
+    (skillTotals.beschwoeren || 0) +
+      parseNumber(updates.sr6_magic_magie) +
+      parseNumber(values.sr6_magic_beschwoeren_modifikator)
   );
   updates.sr6_magic_waffenloser_kampf = String(
     (skillTotals.astral || 0) +
@@ -3213,16 +4981,14 @@ function computeMagicDerived(values, totals, skillTotals, updates) {
   );
 
   const traditionKey1 = mapTraditionsattributToKey(values.sr6_magic_traditionsattribut_1);
-  const traditionKey2 = mapTraditionsattributToKey(values.sr6_magic_traditionsattribut_2);
   const traditionValue1 =
     (traditionKey1 ? (totals[traditionKey1] || 0) : 0) +
     parseNumber(values.sr6_magic_traditionsattribut_1_modifikator);
-  const traditionValue2 =
-    (traditionKey2 ? (totals[traditionKey2] || 0) : 0) +
-    parseNumber(values.sr6_magic_traditionsattribut_2_modifikator);
 
   updates.sr6_magic_entzug_widerstand = String(
-    traditionValue1 + traditionValue2 + parseNumber(values.sr6_magic_entzug_widerstand_modifikator)
+    traditionValue1 +
+      (totals.willenskraft || 0) +
+      parseNumber(values.sr6_magic_entzug_widerstand_modifikator)
   );
   updates.sr6_magic_astralkampf_angriffswert = String(
     (totals.magie_resonanz || 0) +
@@ -3238,11 +5004,14 @@ function computeMagicDerived(values, totals, skillTotals, updates) {
 // BEGIN MODULE: workers/compute/matrix
 function appendMatrixRequestKeys(requestKeys) {
   requestKeys.push("sr6_matrix_modus");
+  requestKeys.push("sr6_matrix_angriff");
+  requestKeys.push("sr6_matrix_schleicher");
   requestKeys.push("sr6_matrix_datenverarbeitung");
   requestKeys.push("sr6_matrix_firewall");
   SR6_MATRIX_ACTIONS.forEach((actionName) => {
     requestKeys.push(`sr6_matrix_handlung_${actionName}_grundwert`);
     requestKeys.push(`sr6_matrix_handlung_${actionName}_modifikator`);
+    requestKeys.push(`sr6_matrix_handlung_${actionName}_verteidigung_auswahl`);
   });
 }
 
@@ -3258,7 +5027,48 @@ function resolveMatrixInitiativeMode(mode) {
   return { basisSource: "physical", w6: 1 };
 }
 
-function computeMatrixTotals(values, totals, updates) {
+function resolveMatrixActionComponentTotal(component, values, totals, skillTotals) {
+  if (!component || component.type === "none" || component.type === "description" || component.target) {
+    return "";
+  }
+
+  if (component.multiplier && component.matrix) {
+    return String(parseNumber(values[`sr6_matrix_${component.matrix}`]) * parseNumber(component.multiplier));
+  }
+
+  let total = 0;
+  let hasParts = false;
+
+  if (component.skill) {
+    total += parseNumber(skillTotals[component.skill]);
+    hasParts = true;
+  }
+  if (component.attribute) {
+    total += parseNumber(totals[component.attribute]);
+    hasParts = true;
+  }
+  if (component.matrix) {
+    total += parseNumber(values[`sr6_matrix_${component.matrix}`]);
+    hasParts = true;
+  }
+  if (component.matrixSecond) {
+    total += parseNumber(values[`sr6_matrix_${component.matrixSecond}`]);
+    hasParts = true;
+  }
+
+  return hasParts ? String(total) : "";
+}
+
+function resolveMatrixActionDefenseComponent(rule, selectedDefense) {
+  const defense = (rule && rule.defense) || {};
+  if (Array.isArray(defense.options)) {
+    const normalizedSelection = `${selectedDefense || ""}`.trim();
+    return defense.options.find((option) => `${option.label || ""}`.trim() === normalizedSelection) || defense.options[0];
+  }
+  return defense;
+}
+
+function computeMatrixTotals(values, totals, skillTotals, updates) {
   const matrixInitiativeMode = resolveMatrixInitiativeMode(values.sr6_matrix_modus);
   const matrixBasis =
     matrixInitiativeMode.basisSource === "matrix"
@@ -3269,12 +5079,19 @@ function computeMatrixTotals(values, totals, updates) {
   updates.sr6_matrix_initiative_w6 = String(matrixInitiativeMode.w6);
 
   SR6_MATRIX_ACTIONS.forEach((actionName) => {
+    const rule = SR6_MATRIX_ACTION_RULES[actionName] || {};
     const baseKey = `sr6_matrix_handlung_${actionName}_grundwert`;
     const modifierKey = `sr6_matrix_handlung_${actionName}_modifikator`;
     const totalKey = `sr6_matrix_handlung_${actionName}_gesamtwert`;
     const total = parseNumber(values[baseKey]) + parseNumber(values[modifierKey]);
+    const defenseSelectionKey = `sr6_matrix_handlung_${actionName}_verteidigung_auswahl`;
+    const probeTotalKey = `sr6_matrix_handlung_${actionName}_probe_wert`;
+    const defenseTotalKey = `sr6_matrix_handlung_${actionName}_verteidigung_wert`;
+    const defenseComponent = resolveMatrixActionDefenseComponent(rule, values[defenseSelectionKey]);
 
     updates[totalKey] = String(total);
+    updates[probeTotalKey] = resolveMatrixActionComponentTotal(rule.probe, values, totals, skillTotals);
+    updates[defenseTotalKey] = resolveMatrixActionComponentTotal(defenseComponent, values, totals, skillTotals);
   });
 }
 // END MODULE: workers/compute/matrix
@@ -3284,6 +5101,16 @@ function appendRiggingRequestKeys(requestKeys) {
   requestKeys.push("sr6_rigging_modus");
   requestKeys.push("sr6_rigging_datenverarbeitung");
 }
+
+const SR6_RIGGING_VEHICLE_PROBE_LABELS = {
+  handling: "Handlingprobe",
+  ramming_attack: "Fahrzeug als Waffe",
+  weapon_attack: "Fahrzeugwaffe",
+  defense: "Verteidigungsprobe",
+  stealth: "Heimlichkeit",
+  perception: "Wahrnehmung",
+  damage_resistance: "Schadenswiderstand",
+};
 
 function resolveRiggingInitiativeMode(mode) {
   if (mode === "VR Heiss") {
@@ -3306,6 +5133,248 @@ function computeRiggingDerived(values, totals, _skillTotals, updates) {
 
   updates.sr6_rigging_initiative = String(riggingBasis);
   updates.sr6_rigging_initiative_w6 = String(riggingInitiativeMode.w6);
+}
+
+function normalizeRiggingVehicleMode(mode) {
+  const normalizedMode = `${mode || ""}`.trim();
+  if (normalizedMode === "Agent") return "agent";
+  if (normalizedMode === "Autonom") return "autonomous";
+  if (normalizedMode === "Eingesprungen (VR)") return "jumped_in_vr";
+  return "manual_ar";
+}
+
+function getRiggingVehicleProbeLabel(probeKey) {
+  return SR6_RIGGING_VEHICLE_PROBE_LABELS[probeKey] || SR6_RIGGING_VEHICLE_PROBE_LABELS.handling;
+}
+
+function getRiggingVehicleGunneryBonus(mode, data) {
+  if (normalizeRiggingVehicleMode(mode) === "autonomous") {
+    return 0;
+  }
+  return getCombatSpecializationBonus(data.mechanikSpezialisierung, data.mechanikExpertise, ["Geschuetze", "Geschütze"]);
+}
+
+function getRiggingVehicleProbeValue(probeKey, mode, data) {
+  const modeKey = normalizeRiggingVehicleMode(mode);
+  const riggerControl = modeKey === "jumped_in_vr" ? data.riggerkontrolle : 0;
+  const gunneryBonus = getRiggingVehicleGunneryBonus(mode, data);
+  const gunneryFormulaBonus = gunneryBonus ? " + Geschütze" : "";
+
+  if (probeKey === "damage_resistance") {
+    return {
+      value: data.rumpf,
+      formula: "Rumpf",
+    };
+  }
+
+  if (modeKey === "autonomous") {
+    if (probeKey === "weapon_attack" || probeKey === "ramming_attack") {
+      return {
+        value: data.zielerfassung + data.sensor,
+        formula: "Zielerfassung + Sensor",
+      };
+    }
+    if (probeKey === "defense" || probeKey === "handling") {
+      return {
+        value: data.ausweichen + data.pilot,
+        formula: "Ausweichen + Pilot",
+      };
+    }
+    if (probeKey === "stealth") {
+      return {
+        value: data.stealth + data.pilot,
+        formula: "Stealth + Pilot",
+      };
+    }
+    if (probeKey === "perception") {
+      return {
+        value: data.clearsight + data.sensor,
+        formula: "Clearsight + Sensor",
+      };
+    }
+  }
+
+  if (modeKey === "agent") {
+    if (probeKey === "weapon_attack" || probeKey === "ramming_attack") {
+      return {
+        value: data.agentenstufe + data.sensor,
+        formula: "Agentenstufe + Sensor",
+      };
+    }
+    if (probeKey === "perception") {
+      return {
+        value: data.agentenstufe + data.sensor,
+        formula: "Agentenstufe + Sensor",
+      };
+    }
+    if (probeKey === "defense" || probeKey === "handling" || probeKey === "stealth") {
+      return {
+        value: data.agentenstufe + data.pilot,
+        formula: "Agentenstufe + Pilot",
+      };
+    }
+  }
+
+  if (modeKey === "jumped_in_vr") {
+    if (probeKey === "weapon_attack") {
+      return {
+        value: data.mechanik + data.logik + riggerControl + gunneryBonus,
+        formula: `Mechanik + Logik + Riggerkontrolle${gunneryFormulaBonus}`,
+      };
+    }
+    if (probeKey === "stealth") {
+      return {
+        value: data.heimlichkeit + data.logik + riggerControl,
+        formula: "Heimlichkeit + Logik + Riggerkontrolle",
+      };
+    }
+    if (probeKey === "perception") {
+      return {
+        value: data.wahrnehmung + data.sensor + riggerControl,
+        formula: "Wahrnehmung + Sensor + Riggerkontrolle",
+      };
+    }
+    return {
+      value: data.steuern + data.intuition + riggerControl,
+      formula: "Steuern + Intuition + Riggerkontrolle",
+    };
+  }
+
+  if (probeKey === "weapon_attack") {
+    return {
+      value: data.mechanik + data.logik + gunneryBonus,
+      formula: `Mechanik + Logik${gunneryFormulaBonus}`,
+    };
+  }
+  if (probeKey === "stealth") {
+    return {
+      value: data.heimlichkeit + data.geschicklichkeit,
+      formula: "Heimlichkeit + Geschicklichkeit",
+    };
+  }
+  if (probeKey === "perception") {
+    return {
+      value: data.wahrnehmung + data.intuition,
+      formula: "Wahrnehmung + Intuition",
+    };
+  }
+
+  return {
+    value: data.steuern + data.reaktion,
+    formula: "Steuern + Reaktion",
+  };
+}
+
+function getRiggingVehicleAttackValue(mode, data) {
+  if (normalizeRiggingVehicleMode(mode) === "agent") {
+    return data.agentenstufe + data.sensor;
+  }
+  if (normalizeRiggingVehicleMode(mode) === "autonomous") {
+    return data.manoevrieren + data.sensor;
+  }
+  return data.steuern + data.sensor;
+}
+
+function getRiggingVehicleDefenseValue(mode, data) {
+  if (normalizeRiggingVehicleMode(mode) === "agent") {
+    return data.agentenstufe + data.panzerung;
+  }
+  if (normalizeRiggingVehicleMode(mode) === "autonomous") {
+    return data.manoevrieren + data.panzerung;
+  }
+  return data.steuern + data.panzerung;
+}
+
+function getRiggingVehicleMonitorValue(data) {
+  return Math.ceil(data.rumpf / 2) + 8;
+}
+
+function buildRiggingVehicleData(values, rowPrefix) {
+  return {
+    reaktion: parseNumber(values.sr6_attr_reaktion_gesamtwert),
+    geschicklichkeit: parseNumber(values.sr6_attr_geschicklichkeit_gesamtwert),
+    intuition: parseNumber(values.sr6_attr_intuition_gesamtwert),
+    logik: parseNumber(values.sr6_attr_logik_gesamtwert),
+    steuern: parseNumber(values.sr6_skill_steuern_gesamtwert),
+    mechanik: parseNumber(values.sr6_skill_mechanik_gesamtwert),
+    mechanikSpezialisierung: values.sr6_skill_mechanik_spezialisierung,
+    mechanikExpertise: values.sr6_skill_mechanik_expertise,
+    heimlichkeit: parseNumber(values.sr6_skill_heimlichkeit_gesamtwert),
+    wahrnehmung: parseNumber(values.sr6_skill_wahrnehmung_gesamtwert),
+    rumpf: parseNumber(values[`${rowPrefix}_sr6_rigging_fahrzeug_rumpf`]),
+    panzerung: parseNumber(values[`${rowPrefix}_sr6_rigging_fahrzeug_panzerung`]),
+    pilot: parseNumber(values[`${rowPrefix}_sr6_rigging_fahrzeug_pilot`]),
+    sensor: parseNumber(values[`${rowPrefix}_sr6_rigging_fahrzeug_sensor`]),
+    agentenstufe: parseNumber(values[`${rowPrefix}_sr6_rigging_fahrzeug_agentenstufe`]),
+    riggerkontrolle: parseNumber(values[`${rowPrefix}_sr6_rigging_fahrzeug_riggerkontrolle`]),
+    manoevrieren: parseNumber(values[`${rowPrefix}_sr6_rigging_fahrzeug_manoevrieren`]),
+    zielerfassung: parseNumber(values[`${rowPrefix}_sr6_rigging_fahrzeug_zielerfassung`]),
+    ausweichen: parseNumber(values[`${rowPrefix}_sr6_rigging_fahrzeug_ausweichen`]),
+    stealth: parseNumber(values[`${rowPrefix}_sr6_rigging_fahrzeug_stealth`]),
+    clearsight: parseNumber(values[`${rowPrefix}_sr6_rigging_fahrzeug_clearsight`]),
+  };
+}
+
+function appendRiggingVehicleRequestKeys(requestKeys, rowPrefix) {
+  requestKeys.push(`${rowPrefix}_sr6_rigging_fahrzeug_probe`);
+  requestKeys.push(`${rowPrefix}_sr6_rigging_fahrzeug_modus`);
+  requestKeys.push(`${rowPrefix}_sr6_rigging_fahrzeug_rumpf`);
+  requestKeys.push(`${rowPrefix}_sr6_rigging_fahrzeug_panzerung`);
+  requestKeys.push(`${rowPrefix}_sr6_rigging_fahrzeug_pilot`);
+  requestKeys.push(`${rowPrefix}_sr6_rigging_fahrzeug_sensor`);
+  requestKeys.push(`${rowPrefix}_sr6_rigging_fahrzeug_agentenstufe`);
+  requestKeys.push(`${rowPrefix}_sr6_rigging_fahrzeug_riggerkontrolle`);
+  requestKeys.push(`${rowPrefix}_sr6_rigging_fahrzeug_manoevrieren`);
+  requestKeys.push(`${rowPrefix}_sr6_rigging_fahrzeug_zielerfassung`);
+  requestKeys.push(`${rowPrefix}_sr6_rigging_fahrzeug_ausweichen`);
+  requestKeys.push(`${rowPrefix}_sr6_rigging_fahrzeug_stealth`);
+  requestKeys.push(`${rowPrefix}_sr6_rigging_fahrzeug_clearsight`);
+}
+
+function syncRiggingVehicleProbes(callback) {
+  const requestKeys = [
+    "sr6_attr_reaktion_gesamtwert",
+    "sr6_attr_geschicklichkeit_gesamtwert",
+    "sr6_attr_intuition_gesamtwert",
+    "sr6_attr_logik_gesamtwert",
+    "sr6_skill_steuern_gesamtwert",
+    "sr6_skill_mechanik_gesamtwert",
+    "sr6_skill_mechanik_spezialisierung",
+    "sr6_skill_mechanik_expertise",
+    "sr6_skill_heimlichkeit_gesamtwert",
+    "sr6_skill_wahrnehmung_gesamtwert",
+  ];
+
+  getSectionIDs("repeating_sr6riggingfahrzeuge", (sectionIds) => {
+    const rowIds = sectionIds || [];
+    rowIds.forEach((rowId) => appendRiggingVehicleRequestKeys(requestKeys, `repeating_sr6riggingfahrzeuge_${rowId}`));
+
+    getAttrs(requestKeys, (values) => {
+      const updates = {};
+
+      rowIds.forEach((rowId) => {
+        const rowPrefix = `repeating_sr6riggingfahrzeuge_${rowId}`;
+        const probeKey = values[`${rowPrefix}_sr6_rigging_fahrzeug_probe`] || "handling";
+        const mode = values[`${rowPrefix}_sr6_rigging_fahrzeug_modus`] || "Autonom";
+        const data = buildRiggingVehicleData(values, rowPrefix);
+        const probe = getRiggingVehicleProbeValue(probeKey, mode, data);
+        const weaponProbe = getRiggingVehicleProbeValue("weapon_attack", mode, data);
+
+        updates[`${rowPrefix}_sr6_rigging_fahrzeug_waffe`] = "Geschütze";
+        updates[`${rowPrefix}_sr6_rigging_fahrzeug_probe_wert`] = String(probe.value);
+        updates[`${rowPrefix}_sr6_rigging_fahrzeug_waffe_probe_wert`] = String(weaponProbe.value);
+        updates[`${rowPrefix}_sr6_rigging_fahrzeug_angriffswert`] = String(getRiggingVehicleAttackValue(mode, data));
+        updates[`${rowPrefix}_sr6_rigging_fahrzeug_verteidigungswert`] = String(getRiggingVehicleDefenseValue(mode, data));
+        updates[`${rowPrefix}_sr6_rigging_fahrzeug_zustandsmonitor`] = String(getRiggingVehicleMonitorValue(data));
+      });
+
+      if (Object.keys(updates).length === 0) {
+        if (typeof callback === "function") callback();
+        return;
+      }
+      setAttrsSilent(updates, callback);
+    });
+  });
 }
 // END MODULE: workers/compute/rigging
 
@@ -3467,7 +5536,7 @@ function recomputeAll(callback) {
   getAttrs(requestKeys, (values) => {
     computeAttributeTotals(values, updates, totals);
     computeSkillTotals(values, updates, skillTotals);
-    computeMatrixTotals(values, totals, updates);
+    computeMatrixTotals(values, totals, skillTotals, updates);
     computeCombatDerivedFromAttributes(totals, values, updates, skillTotals);
     computeHeaderMonitorDerivedFromAttributes(totals, values, updates);
     computeMagicDerived(values, totals, skillTotals, updates);
@@ -3488,11 +5557,14 @@ function buildRecalcEvents() {
   SR6_SKILLS.forEach((skillName) => {
     events.push(`change:sr6_skill_${skillName}_grundwert`);
     events.push(`change:sr6_skill_${skillName}_modifikator`);
+    events.push(`change:sr6_skill_${skillName}_spezialisierung`);
+    events.push(`change:sr6_skill_${skillName}_expertise`);
   });
 
   SR6_MATRIX_ACTIONS.forEach((actionName) => {
     events.push(`change:sr6_matrix_handlung_${actionName}_grundwert`);
     events.push(`change:sr6_matrix_handlung_${actionName}_modifikator`);
+    events.push(`change:sr6_matrix_handlung_${actionName}_verteidigung_auswahl`);
   });
 
   events.push("change:sr6_combat_verteidigungswert_modifikator");
@@ -3513,12 +5585,11 @@ function buildRecalcEvents() {
   events.push("change:sr6_derived_initiative_basis_modifikator");
 
   events.push("change:sr6_magic_traditionsattribut_1");
-  events.push("change:sr6_magic_traditionsattribut_2");
   events.push("change:sr6_magic_traditionsattribut_1_modifikator");
-  events.push("change:sr6_magic_traditionsattribut_2_modifikator");
   events.push("change:sr6_magic_magie_modifikator");
   events.push("change:sr6_magic_zauberpool_modifikator");
   events.push("change:sr6_magic_spruchzauberei_modifikator");
+  events.push("change:sr6_magic_beschwoeren_modifikator");
   events.push("change:sr6_magic_entzug_widerstand_modifikator");
   events.push("change:sr6_magic_waffenloser_kampf_modifikator");
   events.push("change:sr6_magic_astrale_initiative_modifikator");
@@ -3527,7 +5598,10 @@ function buildRecalcEvents() {
   events.push("change:sr6_magic_astralkampf_angriffswert_modifikator");
   events.push("change:sr6_magic_astralkampf_verteidigungswert_modifikator");
   events.push("change:sr6_matrix_modus");
+  events.push("change:sr6_matrix_angriff");
+  events.push("change:sr6_matrix_schleicher");
   events.push("change:sr6_matrix_datenverarbeitung");
+  events.push("change:sr6_matrix_firewall");
   events.push("change:sr6_rigging_modus");
   events.push("change:sr6_rigging_datenverarbeitung");
 
@@ -3541,20 +5615,26 @@ function buildRecalcEvents() {
 
 function registerWorkerEvents() {
   const recalcEvents = buildRecalcEvents();
-  on(recalcEvents.join(" "), recomputeAll);
+  on(recalcEvents.join(" "), () => {
+    recomputeAll(() => {
+      syncCombatWeaponPools(() => {
+        syncRiggingVehicleProbes(() => {
+          syncRepeatingSkillTotals();
+        });
+      });
+    });
+  });
   on(
     [
-      "change:repeating_sr6wissensfertigkeiten:sr6_wissensfertigkeit_grundwert",
-      "change:repeating_sr6wissensfertigkeiten:sr6_wissensfertigkeit_modifikator",
+      "change:repeating_sr6wissensfertigkeiten:sr6_wissensfertigkeit_name",
       "remove:repeating_sr6wissensfertigkeiten",
-      "change:repeating_sr6sprachfertigkeiten:sr6_sprachfertigkeit_grundwert",
-      "change:repeating_sr6sprachfertigkeiten:sr6_sprachfertigkeit_modifikator",
+      "change:repeating_sr6sprachfertigkeiten:sr6_sprachfertigkeit_name",
       "remove:repeating_sr6sprachfertigkeiten",
+      "change:repeating_sr6talentsofts:sr6_talentsoft_attribut",
       "change:repeating_sr6talentsofts:sr6_talentsoft_grundwert",
       "change:repeating_sr6talentsofts:sr6_talentsoft_modifikator",
       "remove:repeating_sr6talentsofts",
-      "change:repeating_sr6wissenssprachsofts:sr6_wissenssprachsoft_grundwert",
-      "change:repeating_sr6wissenssprachsofts:sr6_wissenssprachsoft_modifikator",
+      "change:repeating_sr6wissenssprachsofts:sr6_wissenssprachsoft_name",
       "remove:repeating_sr6wissenssprachsofts",
     ].join(" "),
     () => {
@@ -3580,6 +5660,7 @@ function registerWorkerEvents() {
       "change:repeating_sr6fernkampfwaffen:sr6_fernkampf_ist_primaer",
       "change:repeating_sr6fernkampfwaffen:sr6_fernkampfwaffe",
       "change:repeating_sr6fernkampfwaffen:sr6_fernkampf_fertigkeit",
+      "change:repeating_sr6fernkampfwaffen:sr6_fernkampf_waffentyp",
       "change:repeating_sr6fernkampfwaffen:sr6_fernkampf_schaden",
       "change:repeating_sr6fernkampfwaffen:sr6_fernkampf_munition",
       "change:repeating_sr6fernkampfwaffen:sr6_fernkampf_modus",
@@ -3593,6 +5674,7 @@ function registerWorkerEvents() {
       "change:repeating_sr6nahkampfwaffen:sr6_nahkampfwaffe",
       "change:repeating_sr6nahkampfwaffen:sr6_nahkampf_fertigkeit",
       "change:repeating_sr6nahkampfwaffen:sr6_nahkampf_attribut",
+      "change:repeating_sr6nahkampfwaffen:sr6_nahkampf_waffentyp",
       "change:repeating_sr6nahkampfwaffen:sr6_nahkampf_schaden",
       "change:repeating_sr6nahkampfwaffen:sr6_nahkampf_schadentyp",
       "change:repeating_sr6nahkampfwaffen:sr6_nahkampf_s_nah",
@@ -3603,7 +5685,34 @@ function registerWorkerEvents() {
       "remove:repeating_sr6nahkampfwaffen",
     ].join(" "),
     (eventInfo) => {
-      syncCombatPrimaryWeapons(recomputeAll, eventInfo);
+      syncCombatPrimaryWeapons(() => {
+        recomputeAll(() => {
+          syncCombatWeaponPools();
+        });
+      }, eventInfo);
+    }
+  );
+  on(
+    [
+      "change:repeating_sr6riggingfahrzeuge:sr6_rigging_fahrzeug_probe",
+      "change:repeating_sr6riggingfahrzeuge:sr6_rigging_fahrzeug_modus",
+      "change:repeating_sr6riggingfahrzeuge:sr6_rigging_fahrzeug_rumpf",
+      "change:repeating_sr6riggingfahrzeuge:sr6_rigging_fahrzeug_panzerung",
+      "change:repeating_sr6riggingfahrzeuge:sr6_rigging_fahrzeug_pilot",
+      "change:repeating_sr6riggingfahrzeuge:sr6_rigging_fahrzeug_sensor",
+      "change:repeating_sr6riggingfahrzeuge:sr6_rigging_fahrzeug_agentenstufe",
+      "change:repeating_sr6riggingfahrzeuge:sr6_rigging_fahrzeug_riggerkontrolle",
+      "change:repeating_sr6riggingfahrzeuge:sr6_rigging_fahrzeug_manoevrieren",
+      "change:repeating_sr6riggingfahrzeuge:sr6_rigging_fahrzeug_zielerfassung",
+      "change:repeating_sr6riggingfahrzeuge:sr6_rigging_fahrzeug_ausweichen",
+      "change:repeating_sr6riggingfahrzeuge:sr6_rigging_fahrzeug_stealth",
+      "change:repeating_sr6riggingfahrzeuge:sr6_rigging_fahrzeug_clearsight",
+      "change:sr6_skill_mechanik_spezialisierung",
+      "change:sr6_skill_mechanik_expertise",
+      "remove:repeating_sr6riggingfahrzeuge",
+    ].join(" "),
+    () => {
+      syncRiggingVehicleProbes();
     }
   );
   registerSuccessProbeRollEvents();
@@ -3617,7 +5726,11 @@ function registerWorkerEvents() {
     syncCombatArmorSelections(() => {
       syncCombatPrimaryWeapons(() => {
         recomputeAll(() => {
-          syncRepeatingSkillTotals();
+          syncCombatWeaponPools(() => {
+            syncRiggingVehicleProbes(() => {
+              syncRepeatingSkillTotals();
+            });
+          });
         });
       });
     });

@@ -19,22 +19,37 @@
     </label>
   </div>
   <div class="sr6-charactersheet-box-content">
-    <div class="sr6-generic-list-header sr6-generic-list-header--4">
+    <div class="sr6-generic-list-header sr6-generic-list-header--5">
       <span data-i18n="field.name">Name</span>
-      <span data-i18n="field.grundwert">Grundwert</span>
+      <span data-i18n="field.attribut">Attribut</span>
+      <span data-i18n="field.stufe">Stufe</span>
       <span data-i18n="field.modifikator">Modifikator</span>
       <span data-i18n="field.gesamtwert">Gesamtwert</span>
     </div>
     <fieldset class="repeating_sr6talentsofts">
       <div class="sr6-foundry-item">
         <div class="sr6-editable-item-fields">
-          <div class="sr6-foundry-item-head sr6-charactersheet-row sr6-charactersheet-row-4">
+          <div class="sr6-foundry-item-head sr6-charactersheet-row sr6-charactersheet-row-5">
             <div class="sr6-charactersheet-field">
               <span data-i18n="field.name">Name</span>
               <input type="text" name="attr_sr6_talentsoft_name" />
             </div>
             <div class="sr6-charactersheet-field">
-              <span data-i18n="field.grundwert">Grundwert</span>
+              <span data-i18n="field.attribut">Attribut</span>
+              <select name="attr_sr6_talentsoft_attribut">
+                <option value="Geschicklichkeit" data-i18n="field.geschicklichkeit" selected>Geschicklichkeit</option>
+                <option value="Konstitution" data-i18n="field.konstitution">Konstitution</option>
+                <option value="Reaktion" data-i18n="field.reaktion">Reaktion</option>
+                <option value="Stärke" data-i18n="field.staerke">Stärke</option>
+                <option value="Willenskraft" data-i18n="field.willenskraft">Willenskraft</option>
+                <option value="Logik" data-i18n="field.logik">Logik</option>
+                <option value="Intuition" data-i18n="field.intuition">Intuition</option>
+                <option value="Charisma" data-i18n="field.charisma">Charisma</option>
+                <option value="Magie/Resonanz" data-i18n="field.magie_resonanz">Magie/Resonanz</option>
+              </select>
+            </div>
+            <div class="sr6-charactersheet-field">
+              <span data-i18n="field.stufe">Stufe</span>
               <div class="sr6-number-stepper"><button type="action" class="sr6-number-stepper-button sr6-number-stepper-button--minus" name="act_sr6_number_step" value="sr6_talentsoft_grundwert::-1" aria-label="Verringern">-</button><input type="number" name="attr_sr6_talentsoft_grundwert" /><button type="action" class="sr6-number-stepper-button sr6-number-stepper-button--plus" name="act_sr6_number_step" value="sr6_talentsoft_grundwert::1" aria-label="Erhoehen">+</button></div>
             </div>
             <div class="sr6-charactersheet-field">
@@ -44,11 +59,11 @@
             <div class="sr6-charactersheet-field">
               <span data-i18n="field.gesamtwert">Gesamtwert</span>
               <div class="sr6-charactersheet-field-input-with-dice">
-                <div class="sr6-number-stepper"><button type="action" class="sr6-number-stepper-button sr6-number-stepper-button--minus" name="act_sr6_number_step" value="sr6_talentsoft_gesamtwert::-1" aria-label="Verringern">-</button><input type="number" name="attr_sr6_talentsoft_gesamtwert" /><button type="action" class="sr6-number-stepper-button sr6-number-stepper-button--plus" name="act_sr6_number_step" value="sr6_talentsoft_gesamtwert::1" aria-label="Erhoehen">+</button></div><button
+                <input type="number" name="attr_sr6_talentsoft_gesamtwert" readonly /><button
                   type="action"
                   class="sr6-charactersheet-field-dice-button"
                   name="act_probe"
-                  value="&{template:default} {{name=Fertigkeits-Test}} {{Fertigkeit=@{sr6_talentsoft_name} (Gesamtwert)}} {{Pool=[[@{sr6_talentsoft_gesamtwert}]]}} {{Erfolge=[[@{sr6_talentsoft_gesamtwert}d6>5]]}}"
+                  value="&{template:default} {{name=Talentsoft}} {{Fertigkeit=@{sr6_talentsoft_name}}} {{Attribut=@{sr6_talentsoft_attribut}}} {{Stufe=@{sr6_talentsoft_grundwert}}} {{Modifikator=@{sr6_talentsoft_modifikator}}} {{Hinweis=Keine Edge-Verbesserung mit Talentsoft}} {{Pool=[[@{sr6_talentsoft_gesamtwert}]]}} {{Erfolge=[[@{sr6_talentsoft_gesamtwert}d6>5]]}}"
                   aria-label="Wuerfeln"></button>
               </div>
             </div>

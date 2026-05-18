@@ -155,6 +155,13 @@ function buildRequestedAttributes(rawTemplate, repeatingRowPrefix) {
     }
   });
 
+  getRollAdditionalAttributes(definition).forEach((attributeRef) => {
+    requestedAttributes.push(attributeRef);
+    if (repeatingRowPrefix) {
+      requestedAttributes.push(`${repeatingRowPrefix}_${attributeRef}`);
+    }
+  });
+
   return {
     definition: definition,
     fields: fields,
