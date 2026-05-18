@@ -803,6 +803,25 @@ const SR6_DEFAULT_POPUP_FIELDS = [
   },
 ];
 
+function createRiggingVehiclePopupFields() {
+  return [
+    ...SR6_DEFAULT_POPUP_FIELDS,
+    {
+      id: "ammo_context",
+      slot: 2,
+      label: "Munition",
+      type: "select",
+      optionSet: "ammo",
+      sourceAttr: "sr6_rigging_fahrzeug_waffe_munition",
+      affects: ["attack_value", "damage"],
+      includeInTemplate: true,
+      defaultValue: "Standard",
+      visibleWhenField: "Probe",
+      visibleWhenValue: "weapon_attack",
+    },
+  ];
+}
+
 const SR6_SKILL_ATTRIBUTE_CONFIGS = {
   astral: {
     optionSet: "skill_attr_intuition_willenskraft",
@@ -1709,7 +1728,7 @@ const SR6_ROLL_DEFINITIONS = [
     titleField: "Probe",
     primaryFields: ["Fahrzeug", "Probe"],
     extraFields: ["Modus"],
-    popupFields: SR6_DEFAULT_POPUP_FIELDS,
+    popupFields: createRiggingVehiclePopupFields(),
     internalFields: ["Probe"],
     titleFallback: "Rigging-Fahrzeugprobe",
   },
@@ -1912,7 +1931,7 @@ const SR6_ROLL_DEFINITIONS = [
     titleMode: "field-short",
     titleField: "Fertigkeit",
     primaryFields: ["Waffe"],
-    extraFields: ["Fertigkeit", "Schadenswert", "Munition", "Reichweite"],
+    extraFields: ["Fertigkeit", "Schadenswert", "Munition", "Modus", "Reichweite"],
     templateVariant: "weapon",
     fixedTitle: "Fernkampfangriff",
     popupFields: SR6_COMBAT_TAB_POPUP_FIELDS,
@@ -2798,9 +2817,13 @@ function buildWeaponProbePresentation(payload) {
   const finalDamage = findLastRowValue(rows, "Schaden") || `${resolvedFields.Schadenswert || ""}`;
   const baseDamage = `${resolvedFields.Schadenswert || ""}`;
   const attackValueMod = findLastRowValue(rows, "Angriffswert-Modifikator");
-  const damageMod = findLastRowValue(rows, "Schadens-Modifikator");
+  const damageMod = findLastRowValue(rows, "Schadens-Modifikator") || findLastRowValue(rows, "Schaden-Modifikator");
   const attackValueBase = findLastRowValue(rows, "Angriffswert-Basis");
   const damageBase = findLastRowValue(rows, "Schaden-Basis") || baseDamage;
+  const fireMode = findLastRowValue(rows, "Feuermodus");
+  const fireModeShots = findLastRowValue(rows, "Feuermodus-Schuss");
+  const fireModeAttackValueMod = findLastRowValue(rows, "Feuermodus-Angriffswert");
+  const fireModeDamageMod = findLastRowValue(rows, "Feuermodus-Schaden");
   const attributeFallback = findLastRowValue(rows, "Attribut-Fallback");
   const extraNotes = [];
   const calcParts = [];
@@ -2813,6 +2836,11 @@ function buildWeaponProbePresentation(payload) {
     }
     extraNotes.push(hint);
   });
+  findAllRowValues(rows, "Feuermodus-Hinweis").forEach((hint) => {
+    if (hint) {
+      extraNotes.push(hint);
+    }
+  });
 
   if (specialization) {
     calcParts.push(`Spezialisierung: ${specialization}`);
@@ -2822,6 +2850,18 @@ function buildWeaponProbePresentation(payload) {
   }
   if (attributeFallback) {
     calcParts.push(`Attribut-Fallback: ${attributeFallback}`);
+  }
+  if (fireMode) {
+    calcParts.push(`Feuermodus: ${fireMode}`);
+  }
+  if (fireModeShots) {
+    calcParts.push(`Schuss: ${fireModeShots}`);
+  }
+  if (fireModeAttackValueMod) {
+    calcParts.push(`Feuermodus-Angriffswert: ${fireModeAttackValueMod}`);
+  }
+  if (fireModeDamageMod) {
+    calcParts.push(`Feuermodus-Schaden: ${fireModeDamageMod}`);
   }
   if (attackValueMod) {
     calcParts.push(`Angriffswert-Modifikator: ${attackValueMod}`);
@@ -2975,11 +3015,17 @@ function buildSr6ProbeMessage(payload) {
   const rows = Array.isArray(payload.rows) ? payload.rows : [];
   const deferredExtraLabels = new Set([
     "Munitionshinweis",
+    "Feuermodus",
+    "Feuermodus-Schuss",
+    "Feuermodus-Hinweis",
+    "Feuermodus-Angriffswert",
+    "Feuermodus-Schaden",
     "Angriffswert-Basis",
     "Angriffswert-Modifikator",
     "Angriffswert",
     "Schaden-Basis",
     "Schadens-Modifikator",
+    "Schaden-Modifikator",
     "Schaden",
   ]);
   const primaryCandidateRows = rows.filter((row) => !deferredExtraLabels.has(row.label));
@@ -3366,17 +3412,99 @@ function resolvePopupDerivedSourceAttr(result, resolvedFields) {
   return result.sourceAttr || "";
 }
 
+function normalizeFireMode(mode) {
+  const normalizedMode = `${mode || ""}`.trim().toLowerCase();
+  if (normalizedMode === "hm") return "HM";
+  if (normalizedMode === "sm - eng" || normalizedMode === "sm eng" || normalizedMode === "sm-eng") return "SM - Eng";
+  if (normalizedMode === "sm - breit" || normalizedMode === "sm breit" || normalizedMode === "sm-breit") return "SM - Breit";
+  if (normalizedMode === "am") return "AM";
+  return "EM";
+}
+
+function getFireModeModifier(mode) {
+  const normalizedMode = normalizeFireMode(mode);
+  const modifiers = {
+    EM: {
+      label: "EM",
+      attackValueMod: 0,
+      damageMod: 0,
+      shots: 1,
+      note: "",
+    },
+    HM: {
+      label: "HM",
+      attackValueMod: -2,
+      damageMod: 1,
+      shots: 2,
+      note: "",
+    },
+    "SM - Eng": {
+      label: "SM - Eng",
+      attackValueMod: -4,
+      damageMod: 2,
+      shots: 4,
+      note: "",
+    },
+    "SM - Breit": {
+      label: "SM - Breit",
+      attackValueMod: -2,
+      damageMod: 1,
+      shots: 4,
+      note: "Breite Salve: Pool auf zwei Ziele aufteilen; je Ziel wie Halbautomatischer Modus.",
+    },
+    AM: {
+      label: "AM",
+      attackValueMod: -6,
+      damageMod: 0,
+      shots: 10,
+      note: "Vollautomatik: ein Angriffswurf gegen alle gueltigen Ziele im 1-m-Radius.",
+    },
+  };
+
+  return modifiers[normalizedMode] || modifiers.EM;
+}
+
+function shouldApplyFireMode(definition, resolvedFields) {
+  if (!definition || definition.id !== "ranged_weapon") {
+    return false;
+  }
+
+  return !!(resolvedFields && resolvedFields.Modus);
+}
+
+function formatSignedModifier(value) {
+  const numberValue = parseNumber(value);
+  return numberValue > 0 ? `+${numberValue}` : `${numberValue}`;
+}
+
 function buildPopupDerivedResultRows(definition, lookupAttr, poolAttribute, resolvedFields, popupState) {
   const derivedResults = getPopupDerivedResults(definition);
   const rows = [];
+  const fireMode = shouldApplyFireMode(definition, resolvedFields)
+    ? getFireModeModifier(resolvedFields.Modus)
+    : null;
+
+  if (fireMode) {
+    rows.push({ label: "Feuermodus", value: fireMode.label });
+    rows.push({ label: "Feuermodus-Schuss", value: `${fireMode.shots}` });
+    if (fireMode.note) {
+      rows.push({ label: "Feuermodus-Hinweis", value: fireMode.note });
+    }
+  }
 
   derivedResults.forEach((result) => {
     const resultKind = result.kind || "";
-    const modifier = resultKind === "attack_value"
+    const popupModifier = resultKind === "attack_value"
       ? parseNumber(popupState.attackValueMod)
       : resultKind === "damage"
         ? parseNumber(popupState.damageMod)
         : 0;
+    const fireModeModifier = fireMode && resultKind === "attack_value"
+      ? fireMode.attackValueMod
+      : fireMode && resultKind === "damage"
+        ? fireMode.damageMod
+        : 0;
+    const modifier = popupModifier + fireModeModifier;
 
     if (modifier === 0) {
       return;
@@ -3390,7 +3518,13 @@ function buildPopupDerivedResultRows(definition, lookupAttr, poolAttribute, reso
     const labelBase = result.label || "Wert";
 
     rows.push({ label: `${labelBase}-Basis`, value: `${baseValue}` });
-    rows.push({ label: `${labelBase}-Modifikator`, value: `${modifier}` });
+    if (fireModeModifier !== 0) {
+      rows.push({
+        label: resultKind === "attack_value" ? "Feuermodus-Angriffswert" : "Feuermodus-Schaden",
+        value: formatSignedModifier(fireModeModifier),
+      });
+    }
+    rows.push({ label: `${labelBase}-Modifikator`, value: formatSignedModifier(modifier) });
     rows.push({ label: `${labelBase}`, value: `${totalValue}` });
   });
 
@@ -3523,9 +3657,21 @@ function runRiggingVehicleProbeFromContext(context, lookupAttr, resolvedFields, 
   const mode = lookupAttr("sr6_rigging_fahrzeug_modus") || resolvedFields.Modus || "Autonom";
   const data = buildRiggingVehicleRollDataFromLookup(lookupAttr);
   const probe = getRiggingVehicleProbeValue(probeKey, mode, data);
-  const attackValue = probeKey === "weapon_attack" && resolvedFields.Angriffswert
+  const baseAttackValue = probeKey === "weapon_attack" && resolvedFields.Angriffswert
     ? resolvedFields.Angriffswert
     : `${getRiggingVehicleAttackValue(mode, data)}`;
+  const fireMode = probeKey === "weapon_attack"
+    ? getFireModeModifier(resolvedFields.Waffenmodus || lookupAttr("sr6_rigging_fahrzeug_waffe_modus"))
+    : null;
+  const attackValueModifier = (fireMode ? fireMode.attackValueMod : 0) + parseNumber(popupState.attackValueMod);
+  const damageModifier = (fireMode ? fireMode.damageMod : 0) + parseNumber(popupState.damageMod);
+  const finalAttackValue = fireMode
+    ? Math.max(0, parseNumber(baseAttackValue) + attackValueModifier)
+    : parseNumber(baseAttackValue);
+  const baseDamage = lookupAttr("sr6_rigging_fahrzeug_waffe_schaden") || resolvedFields.Schadenswert || "";
+  const finalDamage = fireMode && baseDamage !== ""
+    ? `${Math.max(0, parseNumber(baseDamage) + damageModifier)}`
+    : `${baseDamage}`;
   const computation = buildProbeComputation(
     lookupAttr,
     context.poolAttribute,
@@ -3539,14 +3685,36 @@ function runRiggingVehicleProbeFromContext(context, lookupAttr, resolvedFields, 
   rows.push({ label: "Probe", value: getRiggingVehicleProbeLabel(probeKey) });
   rows.push({ label: "Formel", value: probe.formula });
   rows.push({ label: "Modus", value: mode });
-  rows.push({ label: "Angriffswert", value: `${attackValue}` });
+  if (fireMode && attackValueModifier !== 0) {
+    rows.push({ label: "Angriffswert-Basis", value: `${parseNumber(baseAttackValue)}` });
+    if (fireMode.attackValueMod !== 0) {
+      rows.push({ label: "Feuermodus-Angriffswert", value: formatSignedModifier(fireMode.attackValueMod) });
+    }
+    if (popupState.attackValueMod !== 0) {
+      rows.push({ label: "Angriffswert-Modifikator", value: formatSignedModifier(popupState.attackValueMod) });
+    }
+  }
+  rows.push({ label: "Angriffswert", value: `${finalAttackValue}` });
   rows.push({ label: "Verteidigungswert", value: `${getRiggingVehicleDefenseValue(mode, data)}` });
   rows.push({ label: "Zustandsmonitor", value: `${getRiggingVehicleMonitorValue(data)}` });
   if (probeKey === "weapon_attack") {
     rows.push({ label: "Installierte Waffe", value: lookupAttr("sr6_rigging_fahrzeug_waffe_name") || "-" });
     rows.push({ label: "Waffentyp", value: lookupAttr("sr6_rigging_fahrzeug_waffe") || "-" });
-    rows.push({ label: "Schaden", value: lookupAttr("sr6_rigging_fahrzeug_waffe_schaden") || "-" });
-    rows.push({ label: "Waffenmodus", value: lookupAttr("sr6_rigging_fahrzeug_waffe_modus") || "-" });
+    rows.push({ label: "Feuermodus", value: fireMode ? fireMode.label : "-" });
+    rows.push({ label: "Feuermodus-Schuss", value: fireMode ? `${fireMode.shots}` : "-" });
+    if (fireMode && damageModifier !== 0) {
+      rows.push({ label: "Schaden-Basis", value: `${parseNumber(baseDamage)}` });
+      if (fireMode.damageMod !== 0) {
+        rows.push({ label: "Feuermodus-Schaden", value: formatSignedModifier(fireMode.damageMod) });
+      }
+      if (popupState.damageMod !== 0) {
+        rows.push({ label: "Schadens-Modifikator", value: formatSignedModifier(popupState.damageMod) });
+      }
+    }
+    rows.push({ label: "Schaden", value: finalDamage || "-" });
+    if (fireMode && fireMode.note) {
+      rows.push({ label: "Feuermodus-Hinweis", value: fireMode.note });
+    }
     rows.push({ label: "Angriffswerte (Reichweite)", value: buildRiggingVehicleWeaponRangeText(lookupAttr) });
   }
   if (normalizeRiggingVehicleMode(mode) === "jumped_in_vr") {

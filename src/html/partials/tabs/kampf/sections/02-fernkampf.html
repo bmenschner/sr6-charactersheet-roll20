@@ -76,17 +76,26 @@
           </div>
 
           <div class="sr6-charactersheet-field">
-            <span data-i18n="field.magazin">Magazin</span>
-            <div class="sr6-number-stepper"><button type="action" class="sr6-number-stepper-button sr6-number-stepper-button--minus" name="act_sr6_number_step" value="sr6_fernkampf_magazin::-1" aria-label="Verringern">-</button><input type="number" name="attr_sr6_fernkampf_magazin" /><button type="action" class="sr6-number-stepper-button sr6-number-stepper-button--plus" name="act_sr6_number_step" value="sr6_fernkampf_magazin::1" aria-label="Erhoehen">+</button></div>
+            <span data-i18n="field.munition">Munition</span>
+            <select name="attr_sr6_fernkampf_munition">
+              <option value="Standard" data-i18n="field.munition_standard">Standard</option>
+              <option value="Huelsenlos" data-i18n="field.munition_huelsenlos">Hülsenlos</option>
+              <option value="APDS" data-i18n="field.munition_apds">APDS</option>
+              <option value="Explosiv" data-i18n="field.munition_explosiv">Explosiv</option>
+              <option value="Flechette" data-i18n="field.munition_flechette">Flechette</option>
+              <option value="Gel" data-i18n="field.munition_gel">Gel</option>
+              <option value="Injektionspfeil" data-i18n="field.munition_injektionspfeil">Injektionspfeil</option>
+              <option value="Schocker" data-i18n="field.munition_schocker">Schocker</option>
+              <option value="DMSO-Gelpack" data-i18n="field.munition_dmso_gelpack">DMSO-Gelpack</option>
+            </select>
           </div>
 
           <div class="sr6-charactersheet-field">
-            <span data-i18n="field.ersatzmagazine">Ersatzmagazine</span>
-            <div class="sr6-number-stepper"><button type="action" class="sr6-number-stepper-button sr6-number-stepper-button--minus" name="act_sr6_number_step" value="sr6_fernkampf_ersatzmagazine::-1" aria-label="Verringern">-</button><input type="number" name="attr_sr6_fernkampf_ersatzmagazine" /><button type="action" class="sr6-number-stepper-button sr6-number-stepper-button--plus" name="act_sr6_number_step" value="sr6_fernkampf_ersatzmagazine::1" aria-label="Erhoehen">+</button></div>
+            <span data-i18n="field.magazin">Magazin</span>
+            <div class="sr6-number-stepper"><button type="action" class="sr6-number-stepper-button sr6-number-stepper-button--minus" name="act_sr6_number_step" value="sr6_fernkampf_magazin::-1" aria-label="Verringern">-</button><input type="number" name="attr_sr6_fernkampf_magazin" /><button type="action" class="sr6-number-stepper-button sr6-number-stepper-button--plus" name="act_sr6_number_step" value="sr6_fernkampf_magazin::1" aria-label="Erhoehen">+</button></div>
           </div>
         </div>
 
-        <input type="hidden" name="attr_sr6_fernkampf_munition" value="Standard" />
         <input type="hidden" name="attr_sr6_fernkampf_pool" value="0" />
 
         <div class="sr6-foundry-item-range sr6-charactersheet-row sr6-charactersheet-row-5 sr6-kampf-fernkampf-range-row">
@@ -97,7 +106,7 @@
                 type="action"
                 class="sr6-charactersheet-field-dice-button"
                 name="act_probe"
-                value="&{template:default} {{name=Fernkampf-Test}} {{Waffe=@{sr6_fernkampfwaffe}}} {{Fertigkeit=@{sr6_fernkampf_fertigkeit}}} {{Schadenswert=@{sr6_fernkampf_schaden}}} {{Munition=@{sr6_fernkampf_munition}}} {{Reichweite=S. Nah}} {{Angriffswert=@{sr6_fernkampf_s_nah}}} {{Pool=[[@{sr6_fernkampf_pool}]]}} {{Erfolge=[[@{sr6_fernkampf_pool}d6>5]]}}"
+                value="&{template:default} {{name=Fernkampf-Test}} {{Waffe=@{sr6_fernkampfwaffe}}} {{Fertigkeit=@{sr6_fernkampf_fertigkeit}}} {{Schadenswert=@{sr6_fernkampf_schaden}}} {{Munition=@{sr6_fernkampf_munition}}} {{Modus=@{sr6_fernkampf_modus}}} {{Reichweite=S. Nah}} {{Angriffswert=@{sr6_fernkampf_s_nah}}} {{Pool=[[@{sr6_fernkampf_pool}]]}} {{Erfolge=[[@{sr6_fernkampf_pool}d6>5]]}}"
                 aria-label="Wuerfeln"></button>
             </div>
           </div>
@@ -109,7 +118,7 @@
                 type="action"
                 class="sr6-charactersheet-field-dice-button"
                 name="act_probe"
-                value="&{template:default} {{name=Fernkampf-Test}} {{Waffe=@{sr6_fernkampfwaffe}}} {{Fertigkeit=@{sr6_fernkampf_fertigkeit}}} {{Schadenswert=@{sr6_fernkampf_schaden}}} {{Munition=@{sr6_fernkampf_munition}}} {{Reichweite=Nah}} {{Angriffswert=@{sr6_fernkampf_nah}}} {{Pool=[[@{sr6_fernkampf_pool}]]}} {{Erfolge=[[@{sr6_fernkampf_pool}d6>5]]}}"
+                value="&{template:default} {{name=Fernkampf-Test}} {{Waffe=@{sr6_fernkampfwaffe}}} {{Fertigkeit=@{sr6_fernkampf_fertigkeit}}} {{Schadenswert=@{sr6_fernkampf_schaden}}} {{Munition=@{sr6_fernkampf_munition}}} {{Modus=@{sr6_fernkampf_modus}}} {{Reichweite=Nah}} {{Angriffswert=@{sr6_fernkampf_nah}}} {{Pool=[[@{sr6_fernkampf_pool}]]}} {{Erfolge=[[@{sr6_fernkampf_pool}d6>5]]}}"
                 aria-label="Wuerfeln"></button>
             </div>
           </div>
@@ -121,7 +130,7 @@
                 type="action"
                 class="sr6-charactersheet-field-dice-button"
                 name="act_probe"
-                value="&{template:default} {{name=Fernkampf-Test}} {{Waffe=@{sr6_fernkampfwaffe}}} {{Fertigkeit=@{sr6_fernkampf_fertigkeit}}} {{Schadenswert=@{sr6_fernkampf_schaden}}} {{Munition=@{sr6_fernkampf_munition}}} {{Reichweite=Mittel}} {{Angriffswert=@{sr6_fernkampf_mittel}}} {{Pool=[[@{sr6_fernkampf_pool}]]}} {{Erfolge=[[@{sr6_fernkampf_pool}d6>5]]}}"
+                value="&{template:default} {{name=Fernkampf-Test}} {{Waffe=@{sr6_fernkampfwaffe}}} {{Fertigkeit=@{sr6_fernkampf_fertigkeit}}} {{Schadenswert=@{sr6_fernkampf_schaden}}} {{Munition=@{sr6_fernkampf_munition}}} {{Modus=@{sr6_fernkampf_modus}}} {{Reichweite=Mittel}} {{Angriffswert=@{sr6_fernkampf_mittel}}} {{Pool=[[@{sr6_fernkampf_pool}]]}} {{Erfolge=[[@{sr6_fernkampf_pool}d6>5]]}}"
                 aria-label="Wuerfeln"></button>
             </div>
           </div>
@@ -133,7 +142,7 @@
                 type="action"
                 class="sr6-charactersheet-field-dice-button"
                 name="act_probe"
-                value="&{template:default} {{name=Fernkampf-Test}} {{Waffe=@{sr6_fernkampfwaffe}}} {{Fertigkeit=@{sr6_fernkampf_fertigkeit}}} {{Schadenswert=@{sr6_fernkampf_schaden}}} {{Munition=@{sr6_fernkampf_munition}}} {{Reichweite=Weit}} {{Angriffswert=@{sr6_fernkampf_weit}}} {{Pool=[[@{sr6_fernkampf_pool}]]}} {{Erfolge=[[@{sr6_fernkampf_pool}d6>5]]}}"
+                value="&{template:default} {{name=Fernkampf-Test}} {{Waffe=@{sr6_fernkampfwaffe}}} {{Fertigkeit=@{sr6_fernkampf_fertigkeit}}} {{Schadenswert=@{sr6_fernkampf_schaden}}} {{Munition=@{sr6_fernkampf_munition}}} {{Modus=@{sr6_fernkampf_modus}}} {{Reichweite=Weit}} {{Angriffswert=@{sr6_fernkampf_weit}}} {{Pool=[[@{sr6_fernkampf_pool}]]}} {{Erfolge=[[@{sr6_fernkampf_pool}d6>5]]}}"
                 aria-label="Wuerfeln"></button>
             </div>
           </div>
@@ -145,7 +154,7 @@
                 type="action"
                 class="sr6-charactersheet-field-dice-button"
                 name="act_probe"
-                value="&{template:default} {{name=Fernkampf-Test}} {{Waffe=@{sr6_fernkampfwaffe}}} {{Fertigkeit=@{sr6_fernkampf_fertigkeit}}} {{Schadenswert=@{sr6_fernkampf_schaden}}} {{Munition=@{sr6_fernkampf_munition}}} {{Reichweite=S. Weit}} {{Angriffswert=@{sr6_fernkampf_s_weit}}} {{Pool=[[@{sr6_fernkampf_pool}]]}} {{Erfolge=[[@{sr6_fernkampf_pool}d6>5]]}}"
+                value="&{template:default} {{name=Fernkampf-Test}} {{Waffe=@{sr6_fernkampfwaffe}}} {{Fertigkeit=@{sr6_fernkampf_fertigkeit}}} {{Schadenswert=@{sr6_fernkampf_schaden}}} {{Munition=@{sr6_fernkampf_munition}}} {{Modus=@{sr6_fernkampf_modus}}} {{Reichweite=S. Weit}} {{Angriffswert=@{sr6_fernkampf_s_weit}}} {{Pool=[[@{sr6_fernkampf_pool}]]}} {{Erfolge=[[@{sr6_fernkampf_pool}d6>5]]}}"
                 aria-label="Wuerfeln"></button>
             </div>
           </div>
