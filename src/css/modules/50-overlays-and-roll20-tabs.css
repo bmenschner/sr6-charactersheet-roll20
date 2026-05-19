@@ -231,6 +231,7 @@ body:has(.sr6-tabs-toggle-input:checked) #tab-content.tab-content,
 }
 
 .sr6-roll-popup-open-toggle,
+.sr6-roll-popup-hidden-action,
 .sr6-roll-popup-slot-active-toggle,
 .sr6-roll-popup-slot-toggle,
 .sr6-roll-popup-slot-kind-toggle,
@@ -535,4 +536,66 @@ body:has(.sr6-tabs-toggle-input:checked) #tab-content.tab-content,
   justify-self: start;
   align-self: center;
   min-height: 0;
+}
+
+.sr6-roll-popup-slot-toggle--9:checked ~ .sr6-roll-popup-slot-kind-toggle--9-number:checked ~ .sr6-roll-popup-overlay .sr6-roll-popup-field--9,
+.sr6-roll-popup-slot-toggle--9:checked ~ .sr6-roll-popup-slot-kind-toggle--9-text:checked ~ .sr6-roll-popup-overlay .sr6-roll-popup-field--9,
+.sr6-roll-popup-slot-toggle--9:checked ~ .sr6-roll-popup-slot-kind-toggle--9-select:checked ~ .sr6-roll-popup-overlay .sr6-roll-popup-field--9,
+.sr6-roll-popup-slot-toggle--9:checked ~ .sr6-roll-popup-slot-kind-toggle--9-checkbox:checked ~ .sr6-roll-popup-overlay .sr6-roll-popup-field--9,
+.sr6-roll-popup-slot-active-toggle--9:checked ~ .sr6-roll-popup-overlay .sr6-roll-popup-field--9 {
+  display: grid;
+}
+
+.sr6-roll-popup-slot-active-toggle--9:not(:checked) ~ .sr6-roll-popup-overlay .sr6-roll-popup-field--9 {
+  display: none !important;
+}
+
+.sr6-roll-popup-slot-toggle--9:checked ~ .sr6-roll-popup-slot-kind-toggle--9-select:checked ~ .sr6-roll-popup-overlay .sr6-roll-popup-field--9 {
+  grid-template-columns: 1fr;
+}
+
+.sr6-roll-popup-slot-kind-toggle--9-number:checked ~ .sr6-roll-popup-overlay .sr6-roll-popup-field--9 .sr6-roll-popup-field-input--number,
+.sr6-roll-popup-slot-kind-toggle--9-text:checked ~ .sr6-roll-popup-overlay .sr6-roll-popup-field--9 .sr6-roll-popup-field-input--text,
+.sr6-roll-popup-slot-kind-toggle--9-checkbox:checked ~ .sr6-roll-popup-overlay .sr6-roll-popup-field--9 .sr6-roll-popup-field-input--checkbox {
+  display: block !important;
+}
+
+.sr6-roll-popup-slot-kind-toggle--9-select:checked ~ .sr6-roll-popup-slot-option-toggle--9-edge-boost:checked ~ .sr6-roll-popup-overlay .sr6-roll-popup-field--9 .sr6-roll-popup-field-input--select-edge-boost {
+  display: block !important;
+}
+
+.sr6-roll-popup-slot-kind-toggle--9-select:checked ~ .sr6-roll-popup-slot-option-toggle--9-edge-after-boost:checked ~ .sr6-roll-popup-overlay .sr6-roll-popup-field--9 .sr6-roll-popup-field-input--select-edge-after-boost {
+  display: block !important;
+}
+
+.sr6-roll-popup-slot-toggle--10:checked ~ .sr6-roll-popup-slot-kind-toggle--10-number:checked ~ .sr6-roll-popup-overlay .sr6-roll-popup-field--10,
+.sr6-roll-popup-slot-toggle--10:checked ~ .sr6-roll-popup-slot-kind-toggle--10-text:checked ~ .sr6-roll-popup-overlay .sr6-roll-popup-field--10,
+.sr6-roll-popup-slot-toggle--10:checked ~ .sr6-roll-popup-slot-kind-toggle--10-select:checked ~ .sr6-roll-popup-overlay .sr6-roll-popup-field--10,
+.sr6-roll-popup-slot-toggle--10:checked ~ .sr6-roll-popup-slot-kind-toggle--10-checkbox:checked ~ .sr6-roll-popup-overlay .sr6-roll-popup-field--10,
+.sr6-roll-popup-slot-active-toggle--10:checked ~ .sr6-roll-popup-overlay .sr6-roll-popup-field--10,
+.sr6-roll-popup-slot-toggle--11:checked ~ .sr6-roll-popup-slot-kind-toggle--11-number:checked ~ .sr6-roll-popup-overlay .sr6-roll-popup-field--11,
+.sr6-roll-popup-slot-toggle--11:checked ~ .sr6-roll-popup-slot-kind-toggle--11-text:checked ~ .sr6-roll-popup-overlay .sr6-roll-popup-field--11,
+.sr6-roll-popup-slot-toggle--11:checked ~ .sr6-roll-popup-slot-kind-toggle--11-select:checked ~ .sr6-roll-popup-overlay .sr6-roll-popup-field--11,
+.sr6-roll-popup-slot-toggle--11:checked ~ .sr6-roll-popup-slot-kind-toggle--11-checkbox:checked ~ .sr6-roll-popup-overlay .sr6-roll-popup-field--11,
+.sr6-roll-popup-slot-active-toggle--11:checked ~ .sr6-roll-popup-overlay .sr6-roll-popup-field--11 {
+  display: grid;
+}
+
+.sr6-roll-popup-slot-active-toggle--10:not(:checked) ~ .sr6-roll-popup-overlay .sr6-roll-popup-field--10,
+.sr6-roll-popup-slot-active-toggle--11:not(:checked) ~ .sr6-roll-popup-overlay .sr6-roll-popup-field--11 {
+  display: none !important;
+}
+
+.sr6-roll-popup-slot-toggle--10:checked ~ .sr6-roll-popup-slot-kind-toggle--10-select:checked ~ .sr6-roll-popup-overlay .sr6-roll-popup-field--10,
+.sr6-roll-popup-slot-toggle--11:checked ~ .sr6-roll-popup-slot-kind-toggle--11-select:checked ~ .sr6-roll-popup-overlay .sr6-roll-popup-field--11 {
+  grid-template-columns: 1fr;
+}
+
+.sr6-roll-popup-slot-kind-toggle--10-number:checked ~ .sr6-roll-popup-overlay .sr6-roll-popup-field--10 .sr6-roll-popup-field-input--number,
+.sr6-roll-popup-slot-kind-toggle--10-text:checked ~ .sr6-roll-popup-overlay .sr6-roll-popup-field--10 .sr6-roll-popup-field-input--text,
+.sr6-roll-popup-slot-kind-toggle--10-checkbox:checked ~ .sr6-roll-popup-overlay .sr6-roll-popup-field--10 .sr6-roll-popup-field-input--checkbox,
+.sr6-roll-popup-slot-kind-toggle--11-number:checked ~ .sr6-roll-popup-overlay .sr6-roll-popup-field--11 .sr6-roll-popup-field-input--number,
+.sr6-roll-popup-slot-kind-toggle--11-text:checked ~ .sr6-roll-popup-overlay .sr6-roll-popup-field--11 .sr6-roll-popup-field-input--text,
+.sr6-roll-popup-slot-kind-toggle--11-checkbox:checked ~ .sr6-roll-popup-overlay .sr6-roll-popup-field--11 .sr6-roll-popup-field-input--checkbox {
+  display: block !important;
 }

@@ -79,6 +79,12 @@ function runGlobalPopupProbeConfirm() {
   }
 
   getAttrs(requestAttrs, (values) => {
+    if ((values.sr6_roll_popup_definition || "") === "edge_after_roll") {
+      setAttrsSilent({ sr6_roll_popup_open: "0" });
+      runEdgeAfterRollConfirm(values);
+      return;
+    }
+
     const definition = getRollDefinitionById(values.sr6_roll_popup_definition || "");
     const rawTemplate = values.sr6_roll_popup_template || "";
     const repeatingRowPrefix = values.sr6_roll_popup_row_prefix || "";

@@ -1,30 +1,63 @@
 // BEGIN MODULE: workers/rolls/display
 function buildDiceDetails(diceResults) {
-  return diceResults.join(" + ");
+  return Array.isArray(diceResults) ? diceResults.join(" + ") : "";
 }
 
-function buildDetailsDice(diceResults, maxDice = 20) {
-  return diceResults.slice(0, maxDice).map((die) => {
+function buildDetailsDice(diceResults, fateDiceResults = [], maxDice = 20) {
+  if (!Array.isArray(diceResults)) return [];
+
+  const fateCount = Array.isArray(fateDiceResults) ? fateDiceResults.length : 0;
+  const fateStartIndex = Math.max(0, diceResults.length - fateCount);
+
+  return diceResults.slice(0, maxDice).map((die, index) => {
     let tone = "neutral";
     if (die === 1) tone = "fail";
     if (die >= 5) tone = "success";
-    return { value: `${die}`, tone: tone };
+    return {
+      value: `${die}`,
+      tone: tone,
+      isFate: fateCount > 0 && index >= fateStartIndex,
+    };
   });
 }
 
 function appendDetailsDiceTemplateFields(parts, detailsDice) {
   if (!Array.isArray(detailsDice) || detailsDice.length === 0) return;
 
-  parts.push("{{details_dice=1}}");
   detailsDice.forEach((die, index) => {
     const dieIndex = index + 1;
     const tone = die.tone || "neutral";
     parts.push(`{{d${dieIndex}_v=${die.value}}}`);
-    parts.push(`{{d${dieIndex}_${tone}=1}}`);
+    if (die.isFate) {
+      parts.push(`{{d${dieIndex}_fate=1}}`);
+    } else {
+      parts.push(`{{d${dieIndex}_${tone}=1}}`);
+    }
     if (index < detailsDice.length - 1) {
       parts.push(`{{d${dieIndex}_plus=1}}`);
     }
   });
+}
+
+function appendDetailsTemplateFields(parts, payload) {
+  const detailsDice = Array.isArray(payload.detailsDice) ? payload.detailsDice : [];
+  if (detailsDice.length > 0) {
+    parts.push("{{details=1}}");
+    appendDetailsDiceTemplateFields(parts, detailsDice);
+    return;
+  }
+
+  if (payload.details) {
+    parts.push("{{details=1}}");
+    parts.push(`{{details_text=${payload.details}}}`);
+  }
+}
+
+function appendEdgeActionTemplateField(parts, payload) {
+  if (payload && payload.edgeAction === false) return;
+  const characterId = `${(payload && payload.characterId) || ""}`.trim();
+  if (!characterId) return;
+  parts.push(`{{edge_action=[Edge einsetzen](~${characterId}|sr6_edge_after_roll)}}`);
 }
 
 function buildProbeRows(resolvedFields, definition) {
@@ -130,6 +163,15 @@ function buildWeaponProbePresentation(payload) {
   const fireModeAttackValueMod = findLastRowValue(rows, "Feuermodus-Angriffswert");
   const fireModeDamageMod = findLastRowValue(rows, "Feuermodus-Schaden");
   const attributeFallback = findLastRowValue(rows, "Attribut-Fallback");
+  const edgeBoost = findLastRowValue(rows, "Edge-Boost");
+  const edgeCost = findLastRowValue(rows, "Edge-Kosten");
+  const edgePoolBonus = findLastRowValue(rows, "Edge-Poolbonus");
+  const fateDice = findLastRowValue(rows, "Schicksalswürfel");
+  const fateDiceRoll = findLastRowValue(rows, "Schicksalswürfel-Wurf");
+  const fateDiceSource = findLastRowValue(rows, "Schicksalswürfel-Quelle");
+  const canceledFives = findLastRowValue(rows, "Normale 5en annulliert");
+  const matrixLoner = findLastRowValue(rows, "Einzelgänger");
+  const edgeReaction = findLastRowValue(rows, "Edge-Reaktion");
   const extraNotes = [];
   const calcParts = [];
   const specialization = findLastRowValue(rows, "Spezialisierung");
@@ -142,6 +184,16 @@ function buildWeaponProbePresentation(payload) {
     extraNotes.push(hint);
   });
   findAllRowValues(rows, "Feuermodus-Hinweis").forEach((hint) => {
+    if (hint) {
+      extraNotes.push(hint);
+    }
+  });
+  findAllRowValues(rows, "Edge-Hinweis").forEach((hint) => {
+    if (hint) {
+      extraNotes.push(hint);
+    }
+  });
+  findAllRowValues(rows, "Schicksalswürfel-Hinweis").forEach((hint) => {
     if (hint) {
       extraNotes.push(hint);
     }
@@ -179,6 +231,33 @@ function buildWeaponProbePresentation(payload) {
   }
   if (damageBase) {
     calcParts.push(`Schaden-Basis: ${damageBase}`);
+  }
+  if (edgeBoost) {
+    calcParts.push(`Edge-Boost: ${edgeBoost}`);
+  }
+  if (edgeCost) {
+    calcParts.push(`Edge-Kosten: ${edgeCost}`);
+  }
+  if (edgePoolBonus) {
+    calcParts.push(`Edge-Poolbonus: ${edgePoolBonus}`);
+  }
+  if (fateDice) {
+    calcParts.push(`Schicksalswürfel: ${fateDice}`);
+  }
+  if (fateDiceRoll) {
+    calcParts.push(`Schicksalswürfel-Wurf: ${fateDiceRoll}`);
+  }
+  if (fateDiceSource) {
+    calcParts.push(`Schicksalswürfel-Quelle: ${fateDiceSource}`);
+  }
+  if (canceledFives) {
+    calcParts.push(`Normale 5en annulliert: ${canceledFives}`);
+  }
+  if (matrixLoner) {
+    calcParts.push(`Einzelgänger: ${matrixLoner}`);
+  }
+  if (edgeReaction) {
+    calcParts.push(`Edge-Reaktion: ${edgeReaction}`);
   }
 
   return {
@@ -252,12 +331,8 @@ function buildSr6ProbeMessage(payload) {
     if (presentation.damage) {
       parts.push(`{{spell_damage=${presentation.damage}}}`);
     }
-    if (payload.details) {
-      parts.push(`{{details=${payload.details}}}`);
-    }
-
-    const detailsDice = Array.isArray(payload.detailsDice) ? payload.detailsDice : [];
-    appendDetailsDiceTemplateFields(parts, detailsDice);
+    appendDetailsTemplateFields(parts, payload);
+    appendEdgeActionTemplateField(parts, payload);
 
     if (presentation.drainValue) parts.push(`{{drain_value=${presentation.drainValue}}}`);
     if (presentation.drainDamage) {
@@ -303,12 +378,8 @@ function buildSr6ProbeMessage(payload) {
       parts.push(`{{erfolge=${payload.erfolge}}}`);
     }
 
-    if (payload.details) {
-      parts.push(`{{details=${payload.details}}}`);
-    }
-
-    const detailsDice = Array.isArray(payload.detailsDice) ? payload.detailsDice : [];
-    appendDetailsDiceTemplateFields(parts, detailsDice);
+    appendDetailsTemplateFields(parts, payload);
+    appendEdgeActionTemplateField(parts, payload);
 
     if (payload.isGlitch) {
       parts.push("{{is_glitch=1}}");
@@ -381,12 +452,8 @@ function buildSr6ProbeMessage(payload) {
     parts.push(`{{erfolge=${payload.erfolge}}}`);
   }
 
-  if (payload.details) {
-    parts.push(`{{details=${payload.details}}}`);
-  }
-
-  const detailsDice = Array.isArray(payload.detailsDice) ? payload.detailsDice : [];
-  appendDetailsDiceTemplateFields(parts, detailsDice);
+  appendDetailsTemplateFields(parts, payload);
+  appendEdgeActionTemplateField(parts, payload);
 
   if (payload.isGlitch) {
     parts.push("{{is_glitch=1}}");

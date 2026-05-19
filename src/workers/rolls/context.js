@@ -131,6 +131,8 @@ function buildRequestedAttributes(rawTemplate, repeatingRowPrefix) {
   const definition = resolveRollDefinition(fields, poolAttribute);
   const attributeRefs = collectAttributeReferences(rawTemplate);
 
+  attributeRefs.push("character_id");
+
   if (poolAttribute && !attributeRefs.includes(poolAttribute)) {
     attributeRefs.push(poolAttribute);
   }

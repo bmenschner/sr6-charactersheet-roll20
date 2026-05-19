@@ -19,6 +19,7 @@ function registerSuccessProbeRollEvents() {
 function registerEdgeTokenEvents() {
   on("clicked:sr6_edge_token_plus", runEdgeTokenPlus);
   on("clicked:sr6_edge_token_minus", runEdgeTokenMinus);
+  on("clicked:sr6_edge_after_roll", runEdgeAfterRollOpen);
 }
 
 function registerNumberStepperEvents() {
