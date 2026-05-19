@@ -36,7 +36,10 @@ const SR6_DEFAULT_ROLL_ROW_ORDER = [
   "Gesamt",
 ];
 
-const SR6_POPUP_FIELD_SLOT_COUNT = 8;
+const SR6_POPUP_FIELD_SLOT_COUNT = 11;
+const SR6_EDGE_BOOST_POPUP_SLOT = 9;
+const SR6_FATE_DICE_POPUP_SLOT = 10;
+const SR6_MATRIX_LONER_POPUP_SLOT = 11;
 
 const SR6_RIGGING_VEHICLE_ROLL_ATTRIBUTES = [
   "sr6_attr_reaktion_gesamtwert",
@@ -203,6 +206,18 @@ const SR6_POPUP_SELECT_OPTION_SETS = {
   ],
   skill_attr_charisma: [
     { value: "Charisma", label: "Charisma", rowValue: "Charisma" },
+  ],
+  edge_boost: [
+    { value: "none", label: "Kein Edge-Boost", rowValue: "Kein Edge-Boost" },
+    { value: "edge_attribute", label: "Edge-Attribut zum Pool (4 Edge)", rowValue: "Edge-Attribut zum Pool (4 Edge)" },
+    { value: "fate_1", label: "Jetzt erst recht: 1 Schicksalswürfel (2 Edge)", rowValue: "Jetzt erst recht: 1 Schicksalswürfel (2 Edge)" },
+    { value: "fate_2", label: "Jetzt erst recht: 2 Schicksalswürfel (4 Edge)", rowValue: "Jetzt erst recht: 2 Schicksalswürfel (4 Edge)" },
+    { value: "fate_3", label: "Jetzt erst recht: 3 Schicksalswürfel (6 Edge)", rowValue: "Jetzt erst recht: 3 Schicksalswürfel (6 Edge)" },
+  ],
+  edge_after_boost: [
+    { value: "reroll_1", label: "Nach dem Wurf: 1 Würfel neu (1 Edge)", rowValue: "Nach dem Wurf: 1 Würfel neu (1 Edge)" },
+    { value: "add_1", label: "Nach dem Wurf: +1 auf einen Würfel (2 Edge)", rowValue: "Nach dem Wurf: +1 auf einen Würfel (2 Edge)" },
+    { value: "reroll_failures", label: "Nach dem Wurf: Misserfolge neu (4 Edge)", rowValue: "Nach dem Wurf: Misserfolge neu (4 Edge)" },
   ],
   ammo: [
     { value: "Standard", label: "Standard", rowValue: "Standard" },
@@ -460,6 +475,62 @@ function createPopupField(config) {
     defaultValue: "",
     ...config,
   };
+}
+
+function createEdgeBoostPopupField() {
+  return {
+    id: "edge_boost",
+    slot: SR6_EDGE_BOOST_POPUP_SLOT,
+    label: "Edge-Boost",
+    type: "select",
+    optionSet: "edge_boost",
+    affects: "display",
+    includeInTemplate: false,
+    defaultValue: "none",
+  };
+}
+
+function createFateDicePopupField() {
+  return {
+    id: "fate_dice",
+    slot: SR6_FATE_DICE_POPUP_SLOT,
+    label: "Schicksalswürfel",
+    type: "number",
+    affects: "display",
+    includeInTemplate: false,
+    defaultValue: "0",
+  };
+}
+
+function createMatrixLonerPopupField() {
+  return {
+    id: "matrix_loner",
+    slot: SR6_MATRIX_LONER_POPUP_SLOT,
+    label: "Einzelgänger",
+    type: "checkbox",
+    affects: "display",
+    checkedDisplayValue: "Ja",
+    includeInTemplate: false,
+    defaultValue: "0",
+  };
+}
+
+function addSharedPopupFields(popupFields, definition) {
+  const fields = Array.isArray(popupFields) ? popupFields : [];
+  const sharedFields = [
+    ...fields.filter((field) => !(field && field.id === "edge_boost")),
+    createFateDicePopupField(),
+    createEdgeBoostPopupField(),
+  ];
+
+  if (definition && definition.id === "matrix_action") {
+    return [
+      ...sharedFields.filter((field) => !(field && field.id === "matrix_loner")),
+      createMatrixLonerPopupField(),
+    ];
+  }
+
+  return sharedFields;
 }
 
 function createSpecializationPopupFields(startSlot = 2) {
@@ -1587,7 +1658,7 @@ function getRollPopupFields(definition, poolAttribute) {
     ? resolvedDefinition.popupFields
     : SR6_DEFAULT_POPUP_FIELDS;
 
-  return baseFields;
+  return addSharedPopupFields(baseFields, resolvedDefinition);
 }
 
 function getSkillProbeAttributeOptions(definition) {
@@ -1605,7 +1676,7 @@ function resolveSkillProbeAttributeOption(definition, selectedValue) {
 }
 
 function getRollAdditionalAttributes(definition) {
-  const attributes = getMagicRollAdditionalAttributes(definition);
+  const attributes = ["sr6_attr_edge_gesamtwert", ...getMagicRollAdditionalAttributes(definition)];
   getSkillProbeAttributeOptions(definition).forEach((option) => {
     if (option && option.attr) attributes.push(option.attr);
   });

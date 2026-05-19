@@ -169,6 +169,13 @@ body.sheet-darkmode .sheet-rolltemplate-sr6probe .sheet-sr6probe__value {
   color: #7a0f1b;
 }
 
+.sheet-rolltemplate-sr6probe .sheet-sr6probe__die--fate,
+.sheet-sr6probe__die--fate {
+  border-color: #4d8dff;
+  background: #dceaff;
+  color: #114f9f;
+}
+
 .sheet-rolltemplate-sr6probe .sheet-sr6probe__die-plus,
 .sheet-sr6probe__die-plus {
   color: #840763;

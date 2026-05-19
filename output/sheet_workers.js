@@ -549,7 +549,10 @@ const SR6_DEFAULT_ROLL_ROW_ORDER = [
   "Gesamt",
 ];
 
-const SR6_POPUP_FIELD_SLOT_COUNT = 8;
+const SR6_POPUP_FIELD_SLOT_COUNT = 11;
+const SR6_EDGE_BOOST_POPUP_SLOT = 9;
+const SR6_FATE_DICE_POPUP_SLOT = 10;
+const SR6_MATRIX_LONER_POPUP_SLOT = 11;
 
 const SR6_RIGGING_VEHICLE_ROLL_ATTRIBUTES = [
   "sr6_attr_reaktion_gesamtwert",
@@ -716,6 +719,18 @@ const SR6_POPUP_SELECT_OPTION_SETS = {
   ],
   skill_attr_charisma: [
     { value: "Charisma", label: "Charisma", rowValue: "Charisma" },
+  ],
+  edge_boost: [
+    { value: "none", label: "Kein Edge-Boost", rowValue: "Kein Edge-Boost" },
+    { value: "edge_attribute", label: "Edge-Attribut zum Pool (4 Edge)", rowValue: "Edge-Attribut zum Pool (4 Edge)" },
+    { value: "fate_1", label: "Jetzt erst recht: 1 Schicksalswürfel (2 Edge)", rowValue: "Jetzt erst recht: 1 Schicksalswürfel (2 Edge)" },
+    { value: "fate_2", label: "Jetzt erst recht: 2 Schicksalswürfel (4 Edge)", rowValue: "Jetzt erst recht: 2 Schicksalswürfel (4 Edge)" },
+    { value: "fate_3", label: "Jetzt erst recht: 3 Schicksalswürfel (6 Edge)", rowValue: "Jetzt erst recht: 3 Schicksalswürfel (6 Edge)" },
+  ],
+  edge_after_boost: [
+    { value: "reroll_1", label: "Nach dem Wurf: 1 Würfel neu (1 Edge)", rowValue: "Nach dem Wurf: 1 Würfel neu (1 Edge)" },
+    { value: "add_1", label: "Nach dem Wurf: +1 auf einen Würfel (2 Edge)", rowValue: "Nach dem Wurf: +1 auf einen Würfel (2 Edge)" },
+    { value: "reroll_failures", label: "Nach dem Wurf: Misserfolge neu (4 Edge)", rowValue: "Nach dem Wurf: Misserfolge neu (4 Edge)" },
   ],
   ammo: [
     { value: "Standard", label: "Standard", rowValue: "Standard" },
@@ -973,6 +988,62 @@ function createPopupField(config) {
     defaultValue: "",
     ...config,
   };
+}
+
+function createEdgeBoostPopupField() {
+  return {
+    id: "edge_boost",
+    slot: SR6_EDGE_BOOST_POPUP_SLOT,
+    label: "Edge-Boost",
+    type: "select",
+    optionSet: "edge_boost",
+    affects: "display",
+    includeInTemplate: false,
+    defaultValue: "none",
+  };
+}
+
+function createFateDicePopupField() {
+  return {
+    id: "fate_dice",
+    slot: SR6_FATE_DICE_POPUP_SLOT,
+    label: "Schicksalswürfel",
+    type: "number",
+    affects: "display",
+    includeInTemplate: false,
+    defaultValue: "0",
+  };
+}
+
+function createMatrixLonerPopupField() {
+  return {
+    id: "matrix_loner",
+    slot: SR6_MATRIX_LONER_POPUP_SLOT,
+    label: "Einzelgänger",
+    type: "checkbox",
+    affects: "display",
+    checkedDisplayValue: "Ja",
+    includeInTemplate: false,
+    defaultValue: "0",
+  };
+}
+
+function addSharedPopupFields(popupFields, definition) {
+  const fields = Array.isArray(popupFields) ? popupFields : [];
+  const sharedFields = [
+    ...fields.filter((field) => !(field && field.id === "edge_boost")),
+    createFateDicePopupField(),
+    createEdgeBoostPopupField(),
+  ];
+
+  if (definition && definition.id === "matrix_action") {
+    return [
+      ...sharedFields.filter((field) => !(field && field.id === "matrix_loner")),
+      createMatrixLonerPopupField(),
+    ];
+  }
+
+  return sharedFields;
 }
 
 function createSpecializationPopupFields(startSlot = 2) {
@@ -2100,7 +2171,7 @@ function getRollPopupFields(definition, poolAttribute) {
     ? resolvedDefinition.popupFields
     : SR6_DEFAULT_POPUP_FIELDS;
 
-  return baseFields;
+  return addSharedPopupFields(baseFields, resolvedDefinition);
 }
 
 function getSkillProbeAttributeOptions(definition) {
@@ -2118,7 +2189,7 @@ function resolveSkillProbeAttributeOption(definition, selectedValue) {
 }
 
 function getRollAdditionalAttributes(definition) {
-  const attributes = getMagicRollAdditionalAttributes(definition);
+  const attributes = ["sr6_attr_edge_gesamtwert", ...getMagicRollAdditionalAttributes(definition)];
   getSkillProbeAttributeOptions(definition).forEach((option) => {
     if (option && option.attr) attributes.push(option.attr);
   });
@@ -2653,6 +2724,8 @@ function buildRequestedAttributes(rawTemplate, repeatingRowPrefix) {
   const definition = resolveRollDefinition(fields, poolAttribute);
   const attributeRefs = collectAttributeReferences(rawTemplate);
 
+  attributeRefs.push("character_id");
+
   if (poolAttribute && !attributeRefs.includes(poolAttribute)) {
     attributeRefs.push(poolAttribute);
   }
@@ -2695,31 +2768,64 @@ function buildRequestedAttributes(rawTemplate, repeatingRowPrefix) {
 
 // BEGIN MODULE: workers/rolls/display
 function buildDiceDetails(diceResults) {
-  return diceResults.join(" + ");
+  return Array.isArray(diceResults) ? diceResults.join(" + ") : "";
 }
 
-function buildDetailsDice(diceResults, maxDice = 20) {
-  return diceResults.slice(0, maxDice).map((die) => {
+function buildDetailsDice(diceResults, fateDiceResults = [], maxDice = 20) {
+  if (!Array.isArray(diceResults)) return [];
+
+  const fateCount = Array.isArray(fateDiceResults) ? fateDiceResults.length : 0;
+  const fateStartIndex = Math.max(0, diceResults.length - fateCount);
+
+  return diceResults.slice(0, maxDice).map((die, index) => {
     let tone = "neutral";
     if (die === 1) tone = "fail";
     if (die >= 5) tone = "success";
-    return { value: `${die}`, tone: tone };
+    return {
+      value: `${die}`,
+      tone: tone,
+      isFate: fateCount > 0 && index >= fateStartIndex,
+    };
   });
 }
 
 function appendDetailsDiceTemplateFields(parts, detailsDice) {
   if (!Array.isArray(detailsDice) || detailsDice.length === 0) return;
 
-  parts.push("{{details_dice=1}}");
   detailsDice.forEach((die, index) => {
     const dieIndex = index + 1;
     const tone = die.tone || "neutral";
     parts.push(`{{d${dieIndex}_v=${die.value}}}`);
-    parts.push(`{{d${dieIndex}_${tone}=1}}`);
+    if (die.isFate) {
+      parts.push(`{{d${dieIndex}_fate=1}}`);
+    } else {
+      parts.push(`{{d${dieIndex}_${tone}=1}}`);
+    }
     if (index < detailsDice.length - 1) {
       parts.push(`{{d${dieIndex}_plus=1}}`);
     }
   });
+}
+
+function appendDetailsTemplateFields(parts, payload) {
+  const detailsDice = Array.isArray(payload.detailsDice) ? payload.detailsDice : [];
+  if (detailsDice.length > 0) {
+    parts.push("{{details=1}}");
+    appendDetailsDiceTemplateFields(parts, detailsDice);
+    return;
+  }
+
+  if (payload.details) {
+    parts.push("{{details=1}}");
+    parts.push(`{{details_text=${payload.details}}}`);
+  }
+}
+
+function appendEdgeActionTemplateField(parts, payload) {
+  if (payload && payload.edgeAction === false) return;
+  const characterId = `${(payload && payload.characterId) || ""}`.trim();
+  if (!characterId) return;
+  parts.push(`{{edge_action=[Edge einsetzen](~${characterId}|sr6_edge_after_roll)}}`);
 }
 
 function buildProbeRows(resolvedFields, definition) {
@@ -2825,6 +2931,15 @@ function buildWeaponProbePresentation(payload) {
   const fireModeAttackValueMod = findLastRowValue(rows, "Feuermodus-Angriffswert");
   const fireModeDamageMod = findLastRowValue(rows, "Feuermodus-Schaden");
   const attributeFallback = findLastRowValue(rows, "Attribut-Fallback");
+  const edgeBoost = findLastRowValue(rows, "Edge-Boost");
+  const edgeCost = findLastRowValue(rows, "Edge-Kosten");
+  const edgePoolBonus = findLastRowValue(rows, "Edge-Poolbonus");
+  const fateDice = findLastRowValue(rows, "Schicksalswürfel");
+  const fateDiceRoll = findLastRowValue(rows, "Schicksalswürfel-Wurf");
+  const fateDiceSource = findLastRowValue(rows, "Schicksalswürfel-Quelle");
+  const canceledFives = findLastRowValue(rows, "Normale 5en annulliert");
+  const matrixLoner = findLastRowValue(rows, "Einzelgänger");
+  const edgeReaction = findLastRowValue(rows, "Edge-Reaktion");
   const extraNotes = [];
   const calcParts = [];
   const specialization = findLastRowValue(rows, "Spezialisierung");
@@ -2837,6 +2952,16 @@ function buildWeaponProbePresentation(payload) {
     extraNotes.push(hint);
   });
   findAllRowValues(rows, "Feuermodus-Hinweis").forEach((hint) => {
+    if (hint) {
+      extraNotes.push(hint);
+    }
+  });
+  findAllRowValues(rows, "Edge-Hinweis").forEach((hint) => {
+    if (hint) {
+      extraNotes.push(hint);
+    }
+  });
+  findAllRowValues(rows, "Schicksalswürfel-Hinweis").forEach((hint) => {
     if (hint) {
       extraNotes.push(hint);
     }
@@ -2874,6 +2999,33 @@ function buildWeaponProbePresentation(payload) {
   }
   if (damageBase) {
     calcParts.push(`Schaden-Basis: ${damageBase}`);
+  }
+  if (edgeBoost) {
+    calcParts.push(`Edge-Boost: ${edgeBoost}`);
+  }
+  if (edgeCost) {
+    calcParts.push(`Edge-Kosten: ${edgeCost}`);
+  }
+  if (edgePoolBonus) {
+    calcParts.push(`Edge-Poolbonus: ${edgePoolBonus}`);
+  }
+  if (fateDice) {
+    calcParts.push(`Schicksalswürfel: ${fateDice}`);
+  }
+  if (fateDiceRoll) {
+    calcParts.push(`Schicksalswürfel-Wurf: ${fateDiceRoll}`);
+  }
+  if (fateDiceSource) {
+    calcParts.push(`Schicksalswürfel-Quelle: ${fateDiceSource}`);
+  }
+  if (canceledFives) {
+    calcParts.push(`Normale 5en annulliert: ${canceledFives}`);
+  }
+  if (matrixLoner) {
+    calcParts.push(`Einzelgänger: ${matrixLoner}`);
+  }
+  if (edgeReaction) {
+    calcParts.push(`Edge-Reaktion: ${edgeReaction}`);
   }
 
   return {
@@ -2947,12 +3099,8 @@ function buildSr6ProbeMessage(payload) {
     if (presentation.damage) {
       parts.push(`{{spell_damage=${presentation.damage}}}`);
     }
-    if (payload.details) {
-      parts.push(`{{details=${payload.details}}}`);
-    }
-
-    const detailsDice = Array.isArray(payload.detailsDice) ? payload.detailsDice : [];
-    appendDetailsDiceTemplateFields(parts, detailsDice);
+    appendDetailsTemplateFields(parts, payload);
+    appendEdgeActionTemplateField(parts, payload);
 
     if (presentation.drainValue) parts.push(`{{drain_value=${presentation.drainValue}}}`);
     if (presentation.drainDamage) {
@@ -2998,12 +3146,8 @@ function buildSr6ProbeMessage(payload) {
       parts.push(`{{erfolge=${payload.erfolge}}}`);
     }
 
-    if (payload.details) {
-      parts.push(`{{details=${payload.details}}}`);
-    }
-
-    const detailsDice = Array.isArray(payload.detailsDice) ? payload.detailsDice : [];
-    appendDetailsDiceTemplateFields(parts, detailsDice);
+    appendDetailsTemplateFields(parts, payload);
+    appendEdgeActionTemplateField(parts, payload);
 
     if (payload.isGlitch) {
       parts.push("{{is_glitch=1}}");
@@ -3076,12 +3220,8 @@ function buildSr6ProbeMessage(payload) {
     parts.push(`{{erfolge=${payload.erfolge}}}`);
   }
 
-  if (payload.details) {
-    parts.push(`{{details=${payload.details}}}`);
-  }
-
-  const detailsDice = Array.isArray(payload.detailsDice) ? payload.detailsDice : [];
-  appendDetailsDiceTemplateFields(parts, detailsDice);
+  appendDetailsTemplateFields(parts, payload);
+  appendEdgeActionTemplateField(parts, payload);
 
   if (payload.isGlitch) {
     parts.push("{{is_glitch=1}}");
@@ -3100,6 +3240,74 @@ function rollD6() {
   return Math.floor(Math.random() * 6) + 1;
 }
 
+function rollRegularDice(pool, explodingSixes) {
+  const diceResults = [];
+  const initialDiceResults = [];
+
+  for (let index = 0; index < pool; index += 1) {
+    let die = rollD6();
+    diceResults.push(die);
+    initialDiceResults.push(die);
+
+    while (explodingSixes && die === 6) {
+      die = rollD6();
+      diceResults.push(die);
+    }
+  }
+
+  return {
+    diceResults: diceResults,
+    initialDiceResults: initialDiceResults,
+  };
+}
+
+function rollFateDice(fateDiceCount, matrixLonerFateDiceCount, explodingSixes) {
+  const diceResults = [];
+  const initialDiceResults = [];
+  let successCount = 0;
+  let cancelingOnes = 0;
+  let ignoredLonerOnes = 0;
+
+  const rollSingleFateDie = (ignoreCancellationOnOne) => {
+    let die = rollD6();
+    diceResults.push(die);
+    initialDiceResults.push(die);
+
+    if (die === 1 && ignoreCancellationOnOne) {
+      ignoredLonerOnes += 1;
+    } else if (die === 1) {
+      cancelingOnes += 1;
+    } else if (die >= 5) {
+      successCount += 3;
+    }
+
+    while (explodingSixes && die === 6) {
+      die = rollD6();
+      diceResults.push(die);
+      if (die >= 5) {
+        successCount += 1;
+      }
+    }
+  };
+
+  for (let index = 0; index < matrixLonerFateDiceCount; index += 1) {
+    rollSingleFateDie(true);
+  }
+
+  for (let index = 0; index < fateDiceCount; index += 1) {
+    rollSingleFateDie(false);
+  }
+
+  return {
+    diceResults: diceResults,
+    initialDiceResults: initialDiceResults,
+    successCount: successCount,
+    cancelsNormalFives: cancelingOnes > 0,
+    cancelingOnes: cancelingOnes,
+    ignoredLonerOnes: ignoredLonerOnes,
+  };
+}
+
 function evaluateGlitch(diceResults, successCount) {
   const ones = diceResults.filter((die) => die === 1).length;
   const isGlitch = ones > diceResults.length / 2;
@@ -3107,7 +3315,7 @@ function evaluateGlitch(diceResults, successCount) {
   return { isGlitch, isCriticalGlitch };
 }
 
-function buildProbeComputation(lookupAttr, poolAttribute, popupPoolMod, poolMultiplier = 1, poolBasisOverride = null) {
+function buildProbeComputation(lookupAttr, poolAttribute, popupPoolMod, poolMultiplier = 1, poolBasisOverride = null, edgeOptions = {}) {
   const poolBasisRaw = poolBasisOverride === null
     ? parseNumber(lookupAttr(poolAttribute))
     : parseNumber(poolBasisOverride);
@@ -3115,15 +3323,23 @@ function buildProbeComputation(lookupAttr, poolAttribute, popupPoolMod, poolMult
   const poolBasis = poolBasisRaw * normalizedPoolMultiplier;
   const monitorPoolMod = parseNumber(lookupAttr("sr6_monitor_pool_mod"));
   const poolPopupMod = parseNumber(popupPoolMod);
-  const pool = Math.max(0, poolBasis + monitorPoolMod + poolPopupMod);
-  const diceResults = [];
-
-  for (let index = 0; index < pool; index += 1) {
-    diceResults.push(rollD6());
-  }
-
-  const successCount = diceResults.filter((die) => die >= 5).length;
-  const glitchState = evaluateGlitch(diceResults, successCount);
+  const edgePoolBonus = Math.max(0, parseNumber(edgeOptions && edgeOptions.poolBonus));
+  const standardFateDiceCount = Math.max(0, parseNumber(edgeOptions && edgeOptions.fateDiceCount));
+  const matrixLonerFateDiceCount = Math.max(0, parseNumber(edgeOptions && edgeOptions.matrixLonerFateDiceCount));
+  const fateDiceCount = standardFateDiceCount + matrixLonerFateDiceCount;
+  const explodingSixes = !!(edgeOptions && edgeOptions.explodingSixes);
+  const regularPool = Math.max(0, poolBasis + monitorPoolMod + poolPopupMod + edgePoolBonus);
+  const pool = regularPool + fateDiceCount;
+  const regularRoll = rollRegularDice(regularPool, explodingSixes);
+  const fateRoll = rollFateDice(standardFateDiceCount, matrixLonerFateDiceCount, explodingSixes);
+  const canceledNormalFives = fateRoll.cancelsNormalFives
+    ? regularRoll.diceResults.filter((die) => die === 5).length
+    : 0;
+  const regularSuccessCount = regularRoll.diceResults.filter((die) => die >= 5).length;
+  const successCount = Math.max(0, regularSuccessCount - canceledNormalFives + fateRoll.successCount);
+  const diceResults = [...regularRoll.diceResults, ...fateRoll.diceResults];
+  const glitchDiceResults = [...regularRoll.initialDiceResults, ...fateRoll.initialDiceResults];
+  const glitchState = evaluateGlitch(glitchDiceResults, successCount);
 
   return {
     poolBasisRaw: poolBasisRaw,
@@ -3131,8 +3347,19 @@ function buildProbeComputation(lookupAttr, poolAttribute, popupPoolMod, poolMult
     poolBasis: poolBasis,
     monitorPoolMod: monitorPoolMod,
     poolPopupMod: poolPopupMod,
+    edgePoolBonus: edgePoolBonus,
+    fateDiceCount: fateDiceCount,
+    standardFateDiceCount: standardFateDiceCount,
+    matrixLonerFateDiceCount: matrixLonerFateDiceCount,
+    explodingSixes: explodingSixes,
+    canceledNormalFives: canceledNormalFives,
+    cancelingFateOnes: fateRoll.cancelingOnes,
+    ignoredLonerFateOnes: fateRoll.ignoredLonerOnes,
+    regularPool: regularPool,
     pool: pool,
     diceResults: diceResults,
+    regularDiceResults: regularRoll.diceResults,
+    fateDiceResults: fateRoll.diceResults,
     successCount: successCount,
     isGlitch: glitchState.isGlitch,
     isCriticalGlitch: glitchState.isCriticalGlitch,
@@ -3563,6 +3790,105 @@ function appendRowIfMissing(rows, label, value) {
   rows.push({ label: label, value: normalizedValue });
 }
 
+function resolveEdgeBoostOptions(popupState, lookupAttr) {
+  const boost = `${(((popupState || {}).selectedValues || {}).edge_boost) || "none"}`.trim();
+  const edgeValue = Math.max(0, parseNumber(lookupAttr("sr6_attr_edge_gesamtwert")));
+  const popupFateDiceCount = Math.max(0, parseNumber(((popupState || {}).selectedValues || {}).fate_dice));
+  const matrixLonerActive = `${(((popupState || {}).selectedValues || {}).matrix_loner) || ""}`.trim() === "1";
+  const matrixLonerFateDiceCount = matrixLonerActive ? 1 : 0;
+  const baseOptions = {
+    boost: boost,
+    label: "",
+    cost: 0,
+    fateDiceCount: popupFateDiceCount,
+    popupFateDiceCount: popupFateDiceCount,
+    matrixLonerFateDiceCount: matrixLonerFateDiceCount,
+    matrixLonerActive: matrixLonerActive,
+  };
+
+  switch (boost) {
+    case "edge_attribute":
+      return {
+        ...baseOptions,
+        boost: boost,
+        label: "Edge-Attribut zum Pool",
+        cost: 4,
+        poolBonus: edgeValue,
+        explodingSixes: true,
+      };
+    case "fate_1":
+      return { ...baseOptions, boost: boost, label: "Jetzt erst recht", cost: 2, fateDiceCount: popupFateDiceCount + 1, edgeFateDiceCount: 1 };
+    case "fate_2":
+      return { ...baseOptions, boost: boost, label: "Jetzt erst recht", cost: 4, fateDiceCount: popupFateDiceCount + 2, edgeFateDiceCount: 2 };
+    case "fate_3":
+      return { ...baseOptions, boost: boost, label: "Jetzt erst recht", cost: 6, fateDiceCount: popupFateDiceCount + 3, edgeFateDiceCount: 3 };
+    default:
+      return { ...baseOptions, boost: "none" };
+  }
+}
+
+function appendEdgeBoostRows(rows, edgeOptions, computation) {
+  if (!edgeOptions || (edgeOptions.boost === "none" && parseNumber(edgeOptions.fateDiceCount) === 0 && !edgeOptions.matrixLonerActive)) return;
+  const totalFateDiceCount = parseNumber(edgeOptions.fateDiceCount) + parseNumber(edgeOptions.matrixLonerFateDiceCount);
+
+  if (edgeOptions.boost !== "none") {
+    appendRowIfMissing(rows, "Edge-Boost", edgeOptions.label);
+    appendRowIfMissing(rows, "Edge-Kosten", `${edgeOptions.cost}`);
+  }
+
+  if (parseNumber(edgeOptions.poolBonus) > 0) {
+    appendRowIfMissing(rows, "Edge-Poolbonus", `+${edgeOptions.poolBonus}`);
+  }
+  if (edgeOptions.explodingSixes) {
+    appendRowIfMissing(rows, "Edge-Hinweis", "6en explodieren");
+  }
+  if (totalFateDiceCount > 0) {
+    appendRowIfMissing(rows, "Schicksalswürfel", `${totalFateDiceCount}`);
+    if (computation && Array.isArray(computation.fateDiceResults) && computation.fateDiceResults.length > 0) {
+      appendRowIfMissing(rows, "Schicksalswürfel-Wurf", computation.fateDiceResults.join(" + "));
+    }
+    const fateDiceSources = [];
+    if (parseNumber(edgeOptions.popupFateDiceCount) > 0) fateDiceSources.push(`Popup ${edgeOptions.popupFateDiceCount}`);
+    if (parseNumber(edgeOptions.edgeFateDiceCount) > 0) fateDiceSources.push(`Edge ${edgeOptions.edgeFateDiceCount}`);
+    if (parseNumber(edgeOptions.matrixLonerFateDiceCount) > 0) fateDiceSources.push(`Einzelgänger ${edgeOptions.matrixLonerFateDiceCount}`);
+    if (fateDiceSources.length > 1) {
+      appendRowIfMissing(rows, "Schicksalswürfel-Quelle", fateDiceSources.join(" + "));
+    }
+    appendRowIfMissing(
+      rows,
+      "Schicksalswürfel-Hinweis",
+      "Erfolg auf Schicksalswürfel zählt als 3 Erfolge; eine 1 annulliert normale 5en."
+    );
+  }
+  if (computation && parseNumber(computation.ignoredLonerFateOnes) > 0) {
+    appendRowIfMissing(rows, "Einzelgänger-1 ignoriert", `${computation.ignoredLonerFateOnes}`);
+  }
+  if (computation && parseNumber(computation.cancelingFateOnes) > 0) {
+    appendRowIfMissing(rows, "Annullierende Schicksalswürfel-1en", `${computation.cancelingFateOnes}`);
+  }
+  if (computation && parseNumber(computation.canceledNormalFives) > 0) {
+    appendRowIfMissing(rows, "Normale 5en annulliert", `${computation.canceledNormalFives}`);
+  }
+  if (edgeOptions.matrixLonerActive) {
+    appendRowIfMissing(rows, "Einzelgänger", "Aktiv (+1 Schicksalswürfel; nur dessen 1 annulliert keine normalen 5en)");
+  }
+  if (edgeOptions.postRollOnly) {
+    appendRowIfMissing(rows, "Edge-Reaktion", "Nach dem Wurf manuell anwenden.");
+  }
+}
+
+function saveEdgeLastRollContext(name, computation) {
+  if (!computation || !Array.isArray(computation.diceResults) || computation.diceResults.length === 0) return;
+
+  setAttrsSilent({
+    sr6_edge_last_roll_name: name || "Probe",
+    sr6_edge_last_roll_dice: computation.diceResults.join(","),
+    sr6_edge_last_roll_successes: `${parseNumber(computation.successCount)}`,
+    sr6_edge_last_roll_is_glitch: computation.isGlitch ? "1" : "0",
+    sr6_edge_last_roll_is_critical_glitch: computation.isCriticalGlitch ? "1" : "0",
+  });
+}
+
 function runEquipmentProbeFromContext(context, lookupAttr, resolvedFields, popupState) {
   const rows = buildProbeRows(resolvedFields, context.definition);
   const name = deriveProbeTitle(resolvedFields, context.poolAttribute, context.definition);
@@ -3573,12 +3899,14 @@ function runEquipmentProbeFromContext(context, lookupAttr, resolvedFields, popup
   const ratingMultiplier = `${((popupState.selectedValues || {}).equipment_rating_x2) || ""}`.trim() === "1" ? 2 : 1;
   const ratingValue = rating * ratingMultiplier;
   const poolBasisOverride = sourceValue + ratingValue;
+  const edgeOptions = resolveEdgeBoostOptions(popupState, lookupAttr);
   const computation = buildProbeComputation(
     lookupAttr,
     context.poolAttribute,
     popupState.poolMod,
     1,
-    poolBasisOverride
+    poolBasisOverride,
+    edgeOptions
   );
   const glitchText = computation.isCriticalGlitch ? "!! Kritischer Patzer !!" : "!! Patzer !!";
   const erfolgeValue = computation.isGlitch ? glitchText : `${computation.successCount}`;
@@ -3593,6 +3921,7 @@ function runEquipmentProbeFromContext(context, lookupAttr, resolvedFields, popup
     rows.push({ label: "Zustandsmodifikator", value: `${computation.monitorPoolMod}` });
   }
   popupState.rows.forEach((popupRow) => rows.push(popupRow));
+  appendEdgeBoostRows(rows, edgeOptions, computation);
 
   const chatMessage = buildSr6ProbeMessage({
     name: name,
@@ -3602,11 +3931,13 @@ function runEquipmentProbeFromContext(context, lookupAttr, resolvedFields, popup
     definitionId: context.definition && context.definition.id,
     pool: `${computation.pool}`,
     erfolge: erfolgeValue,
-    details: buildDiceDetails(computation.diceResults),
-    detailsDice: buildDetailsDice(computation.diceResults),
+    details: buildDiceDetails(computation.diceResults, computation.fateDiceResults),
+    detailsDice: buildDetailsDice(computation.diceResults, computation.fateDiceResults),
     isGlitch: computation.isGlitch,
+    characterId: lookupAttr("character_id"),
   });
 
+  saveEdgeLastRollContext(name, computation);
   startRoll(chatMessage, (rollResult) => {
     finishRoll(rollResult.rollId);
   });
@@ -3672,12 +4003,14 @@ function runRiggingVehicleProbeFromContext(context, lookupAttr, resolvedFields, 
   const finalDamage = fireMode && baseDamage !== ""
     ? `${Math.max(0, parseNumber(baseDamage) + damageModifier)}`
     : `${baseDamage}`;
+  const edgeOptions = resolveEdgeBoostOptions(popupState, lookupAttr);
   const computation = buildProbeComputation(
     lookupAttr,
     context.poolAttribute,
     popupState.poolMod,
     1,
-    probe.value
+    probe.value,
+    edgeOptions
   );
   const glitchText = computation.isCriticalGlitch ? "!! Kritischer Patzer !!" : "!! Patzer !!";
   const erfolgeValue = computation.isGlitch ? glitchText : `${computation.successCount}`;
@@ -3724,6 +4057,7 @@ function runRiggingVehicleProbeFromContext(context, lookupAttr, resolvedFields, 
     rows.push({ label: "Agentenstufe", value: `${data.agentenstufe}` });
   }
   popupState.rows.forEach((popupRow) => rows.push(popupRow));
+  appendEdgeBoostRows(rows, edgeOptions, computation);
 
   const chatMessage = buildSr6ProbeMessage({
     name: "Rigging-Fahrzeugprobe",
@@ -3733,10 +4067,12 @@ function runRiggingVehicleProbeFromContext(context, lookupAttr, resolvedFields, 
     definitionId: context.definition && context.definition.id,
     pool: `${computation.pool}`,
     erfolge: erfolgeValue,
-    details: buildDiceDetails(computation.diceResults),
-    detailsDice: buildDetailsDice(computation.diceResults),
+    details: buildDiceDetails(computation.diceResults, computation.fateDiceResults),
+    detailsDice: buildDetailsDice(computation.diceResults, computation.fateDiceResults),
     isGlitch: computation.isGlitch,
+    characterId: lookupAttr("character_id"),
   });
+  saveEdgeLastRollContext("Rigging-Fahrzeugprobe", computation);
   startRoll(chatMessage, (rollResult) => {
     finishRoll(rollResult.rollId);
   });
@@ -3745,10 +4081,14 @@ function runRiggingVehicleProbeFromContext(context, lookupAttr, resolvedFields, 
 function runSpellProbeFromContext(context, lookupAttr, resolvedFields, popupState) {
   const rows = buildProbeRows(resolvedFields, context.definition);
   const name = deriveProbeTitle(resolvedFields, context.poolAttribute, context.definition);
+  const edgeOptions = resolveEdgeBoostOptions(popupState, lookupAttr);
   const spellComputation = buildProbeComputation(
     lookupAttr,
     context.poolAttribute,
-    popupState.poolMod
+    popupState.poolMod,
+    1,
+    null,
+    edgeOptions
   );
   const drainComputation = buildProbeComputation(
     lookupAttr,
@@ -3776,6 +4116,7 @@ function runSpellProbeFromContext(context, lookupAttr, resolvedFields, popupStat
     rows.push({ label: "Angriffswert-Modifikator", value: `${popupState.attackValueMod}` });
     rows.push({ label: "Angriffswert", value: `${finalAttackValue}` });
   }
+  appendEdgeBoostRows(rows, edgeOptions, spellComputation);
 
   const chatMessage = buildSr6ProbeMessage({
     name: name,
@@ -3785,8 +4126,8 @@ function runSpellProbeFromContext(context, lookupAttr, resolvedFields, popupStat
     definitionId: context.definition && context.definition.id,
     pool: `${spellComputation.pool}`,
     erfolge: `${spellComputation.successCount}`,
-    details: buildDiceDetails(spellComputation.diceResults),
-    detailsDice: buildDetailsDice(spellComputation.diceResults),
+    details: buildDiceDetails(spellComputation.diceResults, spellComputation.fateDiceResults),
+    detailsDice: buildDetailsDice(spellComputation.diceResults, spellComputation.fateDiceResults),
     isGlitch: spellComputation.isGlitch,
     spellAttackValue: `${finalAttackValue}`,
     spellDamage: finalDamage,
@@ -3795,8 +4136,10 @@ function runSpellProbeFromContext(context, lookupAttr, resolvedFields, popupStat
     drainDamageType: drainDamageType,
     drainDetails: buildDiceDetails(drainComputation.diceResults),
     drainDetailsDice: buildDetailsDice(drainComputation.diceResults),
+    characterId: lookupAttr("character_id"),
   });
 
+  saveEdgeLastRollContext(name, spellComputation);
   startRoll(chatMessage, (rollResult) => {
     finishRoll(rollResult.rollId);
   });
@@ -3807,10 +4150,14 @@ function runSummoningProbeFromContext(context, lookupAttr, resolvedFields, popup
   const name = deriveProbeTitle(resolvedFields, context.poolAttribute, context.definition);
   const spiritType = resolveSummoningSpiritType(resolvedFields, popupState);
   const spiritForce = resolveSummoningSpiritForce(resolvedFields, popupState);
+  const edgeOptions = resolveEdgeBoostOptions(popupState, lookupAttr);
   const summonerComputation = buildProbeComputation(
     lookupAttr,
     context.poolAttribute,
-    popupState.poolMod
+    popupState.poolMod,
+    1,
+    null,
+    edgeOptions
   );
   const spiritComputation = buildFixedPoolComputation(spiritForce * 2);
   const netHits = summonerComputation.successCount - spiritComputation.successCount;
@@ -3837,6 +4184,7 @@ function runSummoningProbeFromContext(context, lookupAttr, resolvedFields, popup
     if (!popupRow || !popupRow.label) return;
     appendRowIfMissing(rows, popupRow.label, popupRow.value);
   });
+  appendEdgeBoostRows(rows, edgeOptions, summonerComputation);
   rows.push({ label: "Beschwören-Pool", value: `${summonerComputation.pool}` });
   rows.push({ label: "Beschwören-Erfolge", value: `${summonerComputation.successCount}` });
   rows.push({ label: "Geist-Pool", value: `${spiritComputation.pool}` });
@@ -3868,11 +4216,13 @@ function runSummoningProbeFromContext(context, lookupAttr, resolvedFields, popup
     definitionId: context.definition && context.definition.id,
     pool: `${summonerComputation.pool}`,
     erfolge: `${summonerComputation.successCount}`,
-    details: buildDiceDetails(summonerComputation.diceResults),
-    detailsDice: buildDetailsDice(summonerComputation.diceResults),
+    details: buildDiceDetails(summonerComputation.diceResults, summonerComputation.fateDiceResults),
+    detailsDice: buildDetailsDice(summonerComputation.diceResults, summonerComputation.fateDiceResults),
     isGlitch: summonerComputation.isGlitch,
+    characterId: lookupAttr("character_id"),
   });
 
+  saveEdgeLastRollContext(name, summonerComputation);
   startRoll(chatMessage, (rollResult) => {
     finishRoll(rollResult.rollId);
   });
@@ -3926,6 +4276,7 @@ function runSuccessProbeFromContext(rawTemplate, repeatingRowPrefix, popupState 
         erfolge: resolvedFields.Erfolge || "",
         details: resolvedFields.Details || "",
         isGlitch: false,
+        characterId: lookupAttr("character_id"),
       });
       startRoll(chatMessage, (rollResult) => {
         finishRoll(rollResult.rollId);
@@ -3963,12 +4314,14 @@ function runSuccessProbeFromContext(rawTemplate, repeatingRowPrefix, popupState 
         : matrixActionContext && matrixActionContext.poolBasisOverride !== null
           ? matrixActionContext.poolBasisOverride
           : null;
+    const edgeOptions = resolveEdgeBoostOptions(effectivePopupState, lookupAttr);
     const computation = buildProbeComputation(
       lookupAttr,
       context.poolAttribute,
       effectivePopupState.poolMod,
       poolMultiplier,
-      poolBasisOverride
+      poolBasisOverride,
+      edgeOptions
     );
 
     if (meleeAttributeOverride) {
@@ -4000,6 +4353,7 @@ function runSuccessProbeFromContext(rawTemplate, repeatingRowPrefix, popupState 
     effectivePopupState.rows.forEach((popupRow) => rows.push(popupRow));
     buildPopupDerivedResultRows(context.definition, lookupAttr, context.poolAttribute, resolvedFields, effectivePopupState)
       .forEach((popupRow) => rows.push(popupRow));
+    appendEdgeBoostRows(rows, edgeOptions, computation);
 
     const chatMessage = buildSr6ProbeMessage({
       name: name,
@@ -4009,10 +4363,12 @@ function runSuccessProbeFromContext(rawTemplate, repeatingRowPrefix, popupState 
       definitionId: context.definition && context.definition.id,
       pool: `${computation.pool}`,
       erfolge: erfolgeValue,
-      details: buildDiceDetails(computation.diceResults),
-      detailsDice: buildDetailsDice(computation.diceResults),
+      details: buildDiceDetails(computation.diceResults, computation.fateDiceResults),
+      detailsDice: buildDetailsDice(computation.diceResults, computation.fateDiceResults),
       isGlitch: computation.isGlitch,
+      characterId: lookupAttr("character_id"),
     });
+    saveEdgeLastRollContext(name, computation);
     startRoll(chatMessage, (rollResult) => {
       finishRoll(rollResult.rollId);
     });
@@ -4101,6 +4457,12 @@ function runGlobalPopupProbeConfirm() {
   }
 
   getAttrs(requestAttrs, (values) => {
+    if ((values.sr6_roll_popup_definition || "") === "edge_after_roll") {
+      setAttrsSilent({ sr6_roll_popup_open: "0" });
+      runEdgeAfterRollConfirm(values);
+      return;
+    }
+
     const definition = getRollDefinitionById(values.sr6_roll_popup_definition || "");
     const rawTemplate = values.sr6_roll_popup_template || "";
     const repeatingRowPrefix = values.sr6_roll_popup_row_prefix || "";
@@ -4138,6 +4500,141 @@ function runEdgeTokenPlus() {
 
 function runEdgeTokenMinus() {
   runEdgeTokenChange(-1);
+}
+
+function buildEdgeAfterRollPopupPayload() {
+  const payload = buildPopupResetPayload();
+  payload.sr6_roll_popup_definition = "edge_after_roll";
+  payload.sr6_roll_popup_template = "";
+  payload.sr6_roll_popup_row_prefix = "";
+
+  payload.sr6_roll_popup_slot_9_active = "1";
+  payload.sr6_roll_popup_slot_9_visible = "1";
+  payload.sr6_roll_popup_slot_9_label = "Edge einsetzen";
+  payload.sr6_roll_popup_slot_9_is_select = "1";
+  payload.sr6_roll_popup_slot_9_option_edge_after_boost = "1";
+  payload.sr6_roll_popup_value_9_select_edge_after_boost = "reroll_1";
+
+  payload.sr6_roll_popup_slot_10_active = "1";
+  payload.sr6_roll_popup_slot_10_visible = "1";
+  payload.sr6_roll_popup_slot_10_label = "Anzahl";
+  payload.sr6_roll_popup_slot_10_is_number = "1";
+  payload.sr6_roll_popup_value_10_number = "1";
+
+  return payload;
+}
+
+function runEdgeAfterRollOpen() {
+  setAttrsSilent({
+    ...buildEdgeAfterRollPopupPayload(),
+    sr6_roll_popup_open: "1",
+  });
+}
+
+function parseEdgeLastRollDice(value) {
+  return `${value || ""}`
+    .split(",")
+    .map((die) => parseNumber(die))
+    .filter((die) => die >= 1 && die <= 6);
+}
+
+function buildEdgeAfterRollRows(boostLabel, lastRollName, rows) {
+  return [
+    { label: "Ursprünglicher Wurf", value: lastRollName || "Letzter Wurf" },
+    { label: "Edge-Boost", value: boostLabel },
+    ...rows,
+  ];
+}
+
+function runEdgeAfterRollConfirm(values) {
+  const boost = `${values.sr6_roll_popup_value_9_select_edge_after_boost || "reroll_1"}`.trim();
+  const requestedAmount = Math.max(1, parseNumber(values.sr6_roll_popup_value_10_number) || 1);
+  const attrs = [
+    "sr6_edge_last_roll_name",
+    "sr6_edge_last_roll_dice",
+    "sr6_edge_last_roll_successes",
+    "sr6_edge_last_roll_is_glitch",
+    "sr6_edge_last_roll_is_critical_glitch",
+  ];
+
+  getAttrs(attrs, (lastValues) => {
+    const lastRollName = lastValues.sr6_edge_last_roll_name || "Letzter Wurf";
+    const diceResults = parseEdgeLastRollDice(lastValues.sr6_edge_last_roll_dice);
+    const previousSuccesses = parseNumber(lastValues.sr6_edge_last_roll_successes);
+    const isGlitch = `${lastValues.sr6_edge_last_roll_is_glitch || ""}` === "1";
+    const isCriticalGlitch = `${lastValues.sr6_edge_last_roll_is_critical_glitch || ""}` === "1";
+    const rows = [];
+    let pool = "";
+    let successes = "";
+    let detailsDice = [];
+
+    if (diceResults.length === 0) {
+      rows.push({ label: "Hinweis", value: "Kein letzter Würfelwurf gespeichert." });
+      const chatMessage = buildSr6ProbeMessage({
+        name: "Edge einsetzen",
+        rows: buildEdgeAfterRollRows("Nicht möglich", lastRollName, rows),
+        edgeAction: false,
+      });
+      startRoll(chatMessage, (rollResult) => finishRoll(rollResult.rollId));
+      return;
+    }
+
+    if (boost === "reroll_failures") {
+      const failures = diceResults.filter((die) => die < 5);
+      if (isGlitch || isCriticalGlitch) {
+        rows.push({ label: "Hinweis", value: "Misserfolge neu würfeln ist bei Patzer/Kritischem Patzer nicht erlaubt." });
+        successes = `${previousSuccesses}`;
+      } else {
+        const rerolledDice = failures.map(() => rollD6());
+        const newSuccesses = rerolledDice.filter((die) => die >= 5).length;
+        pool = `${rerolledDice.length}`;
+        successes = `${previousSuccesses + newSuccesses}`;
+        detailsDice = buildDetailsDice(rerolledDice);
+        rows.push({ label: "Misserfolge", value: `${failures.length}` });
+        rows.push({ label: "Neue Erfolge", value: `${newSuccesses}` });
+        rows.push({ label: "Gesamterfolge", value: `${previousSuccesses + newSuccesses}` });
+      }
+    } else if (boost === "add_1") {
+      const fours = diceResults.filter((die) => die === 4).length;
+      const appliedAmount = Math.min(requestedAmount, fours);
+      const newTotal = previousSuccesses + appliedAmount;
+      successes = `${newTotal}`;
+      rows.push({ label: "Gewählte Anwendung", value: `${requestedAmount}` });
+      rows.push({ label: "Vorhandene 4en", value: `${fours}` });
+      rows.push({
+        label: "Hinweis",
+        value: appliedAmount > 0
+          ? `${appliedAmount} Würfel wurde um +1 erhöht.`
+          : "Keine 4 vorhanden, die zu einem Erfolg erhöht werden kann.",
+      });
+      rows.push({ label: "Gesamterfolge", value: `${newTotal}` });
+    } else {
+      const rerolledDice = Array.from({ length: requestedAmount }, () => rollD6());
+      const newSuccesses = rerolledDice.filter((die) => die >= 5).length;
+      pool = `${requestedAmount}`;
+      successes = `${newSuccesses}`;
+      detailsDice = buildDetailsDice(rerolledDice);
+      rows.push({ label: "Neu gewürfelte Würfel", value: `${requestedAmount}` });
+      rows.push({ label: "Neue Erfolge", value: `${newSuccesses}` });
+      rows.push({ label: "Hinweis", value: "Ersetze damit manuell entsprechend viele Würfel aus dem ursprünglichen Wurf." });
+    }
+
+    const boostLabels = {
+      reroll_1: "1 Würfel neu würfeln",
+      add_1: "+1 auf einen Würfel",
+      reroll_failures: "Misserfolge neu würfeln",
+    };
+    const chatMessage = buildSr6ProbeMessage({
+      name: "Edge einsetzen",
+      rows: buildEdgeAfterRollRows(boostLabels[boost] || "Edge-Boost", lastRollName, rows),
+      pool: pool,
+      erfolge: successes,
+      detailsDice: detailsDice,
+      edgeAction: false,
+    });
+
+    startRoll(chatMessage, (rollResult) => finishRoll(rollResult.rollId));
+  });
 }
 // END MODULE: workers/rolls/edge
 
@@ -4321,6 +4818,7 @@ function registerSuccessProbeRollEvents() {
 function registerEdgeTokenEvents() {
   on("clicked:sr6_edge_token_plus", runEdgeTokenPlus);
   on("clicked:sr6_edge_token_minus", runEdgeTokenMinus);
+  on("clicked:sr6_edge_after_roll", runEdgeAfterRollOpen);
 }
 
 function registerNumberStepperEvents() {
