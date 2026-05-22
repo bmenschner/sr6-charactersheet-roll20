@@ -1,18 +1,12 @@
 // BEGIN MODULE: workers/ui/defaults
-function resetTabToAllgemeinOnOpen() {
-  setAttrsSilent({ sr6_daten_tab: "allgemein" });
+function resetTabToDefaultOnOpen() {
+  setAttrsSilent({ sr6_daten_tab: "fertigkeiten" });
 }
 
 function getEditModeResetPayload() {
   const payload = {
-    sr6_allgemein_attribute_edit_mode: "0",
     sr6_fertigkeiten_attribute_edit_mode: "0",
-    sr6_allgemein_initiative_edit_mode: "0",
-    sr6_allgemein_fertigkeiten_view: "fertigkeiten",
     sr6_fertigkeiten_edit_mode: "0",
-    sr6_allgemein_kampf_edit_mode: "0",
-    sr6_allgemein_verteidigung_edit_mode: "0",
-    sr6_allgemein_schadenswiderstand_edit_mode: "0",
     sr6_magic_zauber_edit_mode: "0",
     sr6_magic_adeptenkraefte_edit_mode: "0",
     sr6_magic_foki_edit_mode: "0",

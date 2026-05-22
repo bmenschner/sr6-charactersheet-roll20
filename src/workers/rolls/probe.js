@@ -104,6 +104,24 @@ function resolveSkillProbeAttributePoolOverride(definition, popupState, lookupAt
   };
 }
 
+function resolveRollAttributeTotal(attributeKey, lookupAttr) {
+  const base = lookupAttr(`sr6_attr_${attributeKey}_grundwert`);
+  const modifier = lookupAttr(`sr6_attr_${attributeKey}_modifikator`);
+  if (`${base}`.trim() !== "" || `${modifier}`.trim() !== "") {
+    return parseNumber(base) + parseNumber(modifier);
+  }
+  return parseNumber(lookupAttr(`sr6_attr_${attributeKey}_gesamtwert`));
+}
+
+function resolveRollSkillTotal(skillKey, lookupAttr) {
+  const base = lookupAttr(`sr6_skill_${skillKey}_grundwert`);
+  const modifier = lookupAttr(`sr6_skill_${skillKey}_modifikator`);
+  if (`${base}`.trim() !== "" || `${modifier}`.trim() !== "") {
+    return parseNumber(base) + parseNumber(modifier);
+  }
+  return parseNumber(lookupAttr(`sr6_skill_${skillKey}_gesamtwert`));
+}
+
 function resolveMatrixActionComponentValue(component, lookupAttr) {
   if (!component || component.type === "none" || component.type === "description") {
     return null;
@@ -130,12 +148,12 @@ function resolveMatrixActionComponentValue(component, lookupAttr) {
   let total = 0;
 
   if (component.skill) {
-    const value = parseNumber(lookupAttr(`sr6_skill_${component.skill}_gesamtwert`));
+    const value = resolveRollSkillTotal(component.skill, lookupAttr);
     parts.push({ label: component.skill, value: value });
     total += value;
   }
   if (component.attribute) {
-    const value = parseNumber(lookupAttr(`sr6_attr_${component.attribute}_gesamtwert`));
+    const value = resolveRollAttributeTotal(component.attribute, lookupAttr);
     parts.push({ label: component.attribute, value: value });
     total += value;
   }

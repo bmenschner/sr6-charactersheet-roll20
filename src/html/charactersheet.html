@@ -1,123 +1,113 @@
 <div class="charsheet">
-    <!-- Globales Roll20-Tabs-Toggle für CharSheet/Bio/Abilities -->
-    <!-- BEGIN BLOCK: Tabs Toggle -->
-    <!-- @include partials/shell/tabs-toggle.html -->
-    <!-- END BLOCK: Tabs Toggle -->
+  <!-- Globales Roll20-Tabs-Toggle für CharSheet/Bio/Abilities -->
+  <!-- BEGIN BLOCK: Tabs Toggle -->
+  <!-- @include partials/shell/tabs-toggle.html -->
+  <!-- END BLOCK: Tabs Toggle -->
 
-    <div class="sr6-charactersheet">
-      <!-- Oberer Kopfbereich mit Logo, Header und Zustandsinfos -->
-      <!-- BEGIN BLOCK: Kopfbereich -->
-      <!-- @include partials/shell/kopfbereich.html -->
-      <!-- END BLOCK: Kopfbereich -->
+  <div class="sr6-charactersheet">
+    <!-- Oberer Kopfbereich mit Logo, Header und Zustandsinfos -->
+    <!-- BEGIN BLOCK: Kopfbereich -->
+    <!-- @include partials/shell/kopfbereich.html -->
+    <!-- END BLOCK: Kopfbereich -->
 
-      <section
-        class="sr6-charactersheet-box sr6-charactersheet-menu"
-        aria-label="Datenumschaltung">
-        <!-- BEGIN BLOCK: Menue Tabs -->
-        <!-- @include partials/shell/menu-tabs.html -->
-        <!-- END BLOCK: Menue Tabs -->
+    <section
+      class="sr6-charactersheet-box sr6-charactersheet-menu"
+      aria-label="Datenumschaltung">
+      <!-- BEGIN BLOCK: Menue Tabs -->
+      <!-- @include partials/shell/menu-tabs.html -->
+      <!-- END BLOCK: Menue Tabs -->
 
-        <!-- Inhaltscontainer aller internen Daten-Panels -->
-        <div class="sr6-charactersheet-menu-content">
-          <!-- Panel 1: Allgemein -->
-          <div
-            id="sr6_daten_panel_1"
-            class="sr6-charactersheet-tabpanel"
-            role="tabpanel">
-            <!-- BEGIN BLOCK: Allgemein Tab -->
-            <!-- @include partials/tabs/allgemein/index.html -->
-            <!-- END BLOCK: Allgemein Tab -->
-          </div>
-          <!-- Panel 2: Fertigkeiten -->
-          <div
-            id="sr6_daten_panel_2"
-            class="sr6-charactersheet-tabpanel"
-            role="tabpanel">
-            <!-- BEGIN BLOCK: Fertigkeiten -->
-            <!-- @include partials/tabs/fertigkeiten/index.html -->
-            <!-- END BLOCK: Fertigkeiten -->
-          </div>
-          <!-- Panel 3: Kampf -->
-          <div
-            id="sr6_daten_panel_3"
-            class="sr6-charactersheet-tabpanel"
-            role="tabpanel">
-            <!-- BEGIN BLOCK: Kampf Tab -->
-            <!-- @include partials/tabs/kampf/index.html -->
-            <!-- END BLOCK: Kampf Tab -->
-          </div>
-          <!-- Panel 4: Magie -->
-          <div
-            id="sr6_daten_panel_4"
-            class="sr6-charactersheet-tabpanel"
-            role="tabpanel">
-            <!-- BEGIN BLOCK: Magie Kernwerte -->
-            <!-- @include partials/tabs/magie/index.html -->
-            <!-- END BLOCK: Magie Kernwerte -->
-          </div>
-          <!-- Panel 5: Matrix -->
-          <div
-            id="sr6_daten_panel_5"
-            class="sr6-charactersheet-tabpanel"
-            role="tabpanel">
-            <!-- BEGIN BLOCK: Matrix Kernwerte -->
-            <!-- @include partials/tabs/matrix/index.html -->
-            <!-- END BLOCK: Matrix Kernwerte -->
-          </div>
-          <!-- Panel 6: Rigging -->
-          <div
-            id="sr6_daten_panel_6"
-            class="sr6-charactersheet-tabpanel"
-            role="tabpanel">
-            <!-- BEGIN BLOCK: Rigging Kernwerte -->
-            <!-- @include partials/tabs/rigging/index.html -->
-            <!-- END BLOCK: Rigging Kernwerte -->
-          </div>
-          <!-- Panel 7: Ausruestung -->
-          <div
-            id="sr6_daten_panel_7"
-            class="sr6-charactersheet-tabpanel"
-            role="tabpanel">
-            <!-- BEGIN BLOCK: Ausruestung Kernwerte -->
-            <!-- @include partials/tabs/ausruestung/index.html -->
-            <!-- END BLOCK: Ausruestung Kernwerte -->
-          </div>
-          <!-- Panel 8: Biographie -->
-          <div
-            id="sr6_daten_panel_8"
-            class="sr6-charactersheet-tabpanel"
-            role="tabpanel">
-            <!-- BEGIN BLOCK: Biographie Persönliche Daten -->
-            <!-- @include partials/tabs/biographie/index.html -->
-            <!-- END BLOCK: Biographie Persönliche Daten -->
-          </div>
-          <!-- Panel 9: Einstellungen -->
-          <div
-            id="sr6_daten_panel_9"
-            class="sr6-charactersheet-tabpanel"
-            role="tabpanel">
-            <!-- BEGIN BLOCK: Einstellungen -->
-            <!-- @include partials/tabs/einstellungen/index.html -->
-            <!-- END BLOCK: Einstellungen -->
-          </div>
+      <!-- Inhaltscontainer aller internen Daten-Panels -->
+      <div class="sr6-charactersheet-menu-content">
+        <!-- Panel 2: Fertigkeiten -->
+        <div
+          id="sr6_daten_panel_2"
+          class="sr6-charactersheet-tabpanel"
+          role="tabpanel">
+          <!-- BEGIN BLOCK: Fertigkeiten -->
+          <!-- @include partials/tabs/fertigkeiten/index.html -->
+          <!-- END BLOCK: Fertigkeiten -->
         </div>
-      </section>
+        <!-- Panel 3: Kampf -->
+        <div
+          id="sr6_daten_panel_3"
+          class="sr6-charactersheet-tabpanel"
+          role="tabpanel">
+          <!-- BEGIN BLOCK: Kampf Tab -->
+          <!-- @include partials/tabs/kampf/index.html -->
+          <!-- END BLOCK: Kampf Tab -->
+        </div>
+        <!-- Panel 4: Magie -->
+        <div
+          id="sr6_daten_panel_4"
+          class="sr6-charactersheet-tabpanel"
+          role="tabpanel">
+          <!-- BEGIN BLOCK: Magie Kernwerte -->
+          <!-- @include partials/tabs/magie/index.html -->
+          <!-- END BLOCK: Magie Kernwerte -->
+        </div>
+        <!-- Panel 5: Matrix -->
+        <div
+          id="sr6_daten_panel_5"
+          class="sr6-charactersheet-tabpanel"
+          role="tabpanel">
+          <!-- BEGIN BLOCK: Matrix Kernwerte -->
+          <!-- @include partials/tabs/matrix/index.html -->
+          <!-- END BLOCK: Matrix Kernwerte -->
+        </div>
+        <!-- Panel 6: Rigging -->
+        <div
+          id="sr6_daten_panel_6"
+          class="sr6-charactersheet-tabpanel"
+          role="tabpanel">
+          <!-- BEGIN BLOCK: Rigging Kernwerte -->
+          <!-- @include partials/tabs/rigging/index.html -->
+          <!-- END BLOCK: Rigging Kernwerte -->
+        </div>
+        <!-- Panel 7: Ausruestung -->
+        <div
+          id="sr6_daten_panel_7"
+          class="sr6-charactersheet-tabpanel"
+          role="tabpanel">
+          <!-- BEGIN BLOCK: Ausruestung Kernwerte -->
+          <!-- @include partials/tabs/ausruestung/index.html -->
+          <!-- END BLOCK: Ausruestung Kernwerte -->
+        </div>
+        <!-- Panel 8: Biographie -->
+        <div
+          id="sr6_daten_panel_8"
+          class="sr6-charactersheet-tabpanel"
+          role="tabpanel">
+          <!-- BEGIN BLOCK: Biographie Persönliche Daten -->
+          <!-- @include partials/tabs/biographie/index.html -->
+          <!-- END BLOCK: Biographie Persönliche Daten -->
+        </div>
+        <!-- Panel 9: Einstellungen -->
+        <div
+          id="sr6_daten_panel_9"
+          class="sr6-charactersheet-tabpanel"
+          role="tabpanel">
+          <!-- BEGIN BLOCK: Einstellungen -->
+          <!-- @include partials/tabs/einstellungen/index.html -->
+          <!-- END BLOCK: Einstellungen -->
+        </div>
+      </div>
+    </section>
+  </div>
 
-    </div>
+  <!-- BEGIN BLOCK: Roll20 Sheet Worker -->
+  <!-- @include partials/workers/sheet-worker.html -->
+  <!-- END BLOCK: Roll20 Sheet Worker -->
 
-    <!-- BEGIN BLOCK: Roll20 Sheet Worker -->
-    <!-- @include partials/workers/sheet-worker.html -->
-    <!-- END BLOCK: Roll20 Sheet Worker -->
+  <!-- BEGIN BLOCK: Runtime-i18n -->
+  <!-- @include partials/runtime/runtime-i18n.html -->
+  <!-- END BLOCK: Runtime-i18n -->
 
-    <!-- BEGIN BLOCK: Runtime-i18n -->
-    <!-- @include partials/runtime/runtime-i18n.html -->
-    <!-- END BLOCK: Runtime-i18n -->
+  <!-- BEGIN BLOCK: Runtime Roll Popup -->
+  <!-- @include partials/runtime/roll-popup-global.html -->
+  <!-- END BLOCK: Runtime Roll Popup -->
 
-    <!-- BEGIN BLOCK: Runtime Roll Popup -->
-    <!-- @include partials/runtime/roll-popup-global.html -->
-    <!-- END BLOCK: Runtime Roll Popup -->
-
-    <!-- BEGIN BLOCK: Rolltemplate SR6 Probe -->
-    <!-- @include partials/runtime/rolltemplate-sr6probe.html -->
-    <!-- END BLOCK: Rolltemplate SR6 Probe -->
+  <!-- BEGIN BLOCK: Rolltemplate SR6 Probe -->
+  <!-- @include partials/runtime/rolltemplate-sr6probe.html -->
+  <!-- END BLOCK: Rolltemplate SR6 Probe -->
 </div>
