@@ -1,208 +1,892 @@
 <!-- Runtime Global Roll Popup -->
-<button type="action" name="act_sr6_edge_after_roll" class="sr6-roll-popup-hidden-action" aria-hidden="true" tabindex="-1"></button>
-<input type="checkbox" name="attr_sr6_roll_popup_open" value="1" class="sr6-roll-popup-open-toggle" />
-<input type="checkbox" name="attr_sr6_roll_popup_slot_1_active" value="1" class="sr6-roll-popup-slot-active-toggle sr6-roll-popup-slot-active-toggle--1" />
-<input type="checkbox" name="attr_sr6_roll_popup_slot_2_active" value="1" class="sr6-roll-popup-slot-active-toggle sr6-roll-popup-slot-active-toggle--2" />
-<input type="checkbox" name="attr_sr6_roll_popup_slot_3_active" value="1" class="sr6-roll-popup-slot-active-toggle sr6-roll-popup-slot-active-toggle--3" />
-<input type="checkbox" name="attr_sr6_roll_popup_slot_4_active" value="1" class="sr6-roll-popup-slot-active-toggle sr6-roll-popup-slot-active-toggle--4" />
-<input type="checkbox" name="attr_sr6_roll_popup_slot_5_active" value="1" class="sr6-roll-popup-slot-active-toggle sr6-roll-popup-slot-active-toggle--5" />
-<input type="checkbox" name="attr_sr6_roll_popup_slot_6_active" value="1" class="sr6-roll-popup-slot-active-toggle sr6-roll-popup-slot-active-toggle--6" />
-<input type="checkbox" name="attr_sr6_roll_popup_slot_7_active" value="1" class="sr6-roll-popup-slot-active-toggle sr6-roll-popup-slot-active-toggle--7" />
-<input type="checkbox" name="attr_sr6_roll_popup_slot_8_active" value="1" class="sr6-roll-popup-slot-active-toggle sr6-roll-popup-slot-active-toggle--8" />
-<input type="checkbox" name="attr_sr6_roll_popup_slot_9_active" value="1" class="sr6-roll-popup-slot-active-toggle sr6-roll-popup-slot-active-toggle--9" />
-<input type="checkbox" name="attr_sr6_roll_popup_slot_10_active" value="1" class="sr6-roll-popup-slot-active-toggle sr6-roll-popup-slot-active-toggle--10" />
-<input type="checkbox" name="attr_sr6_roll_popup_slot_11_active" value="1" class="sr6-roll-popup-slot-active-toggle sr6-roll-popup-slot-active-toggle--11" />
-<input type="checkbox" name="attr_sr6_roll_popup_slot_1_visible" value="1" class="sr6-roll-popup-slot-toggle sr6-roll-popup-slot-toggle--1" />
-<input type="checkbox" name="attr_sr6_roll_popup_slot_2_visible" value="1" class="sr6-roll-popup-slot-toggle sr6-roll-popup-slot-toggle--2" />
-<input type="checkbox" name="attr_sr6_roll_popup_slot_3_visible" value="1" class="sr6-roll-popup-slot-toggle sr6-roll-popup-slot-toggle--3" />
-<input type="checkbox" name="attr_sr6_roll_popup_slot_4_visible" value="1" class="sr6-roll-popup-slot-toggle sr6-roll-popup-slot-toggle--4" />
-<input type="checkbox" name="attr_sr6_roll_popup_slot_5_visible" value="1" class="sr6-roll-popup-slot-toggle sr6-roll-popup-slot-toggle--5" />
-<input type="checkbox" name="attr_sr6_roll_popup_slot_6_visible" value="1" class="sr6-roll-popup-slot-toggle sr6-roll-popup-slot-toggle--6" />
-<input type="checkbox" name="attr_sr6_roll_popup_slot_7_visible" value="1" class="sr6-roll-popup-slot-toggle sr6-roll-popup-slot-toggle--7" />
-<input type="checkbox" name="attr_sr6_roll_popup_slot_8_visible" value="1" class="sr6-roll-popup-slot-toggle sr6-roll-popup-slot-toggle--8" />
-<input type="checkbox" name="attr_sr6_roll_popup_slot_9_visible" value="1" class="sr6-roll-popup-slot-toggle sr6-roll-popup-slot-toggle--9" />
-<input type="checkbox" name="attr_sr6_roll_popup_slot_10_visible" value="1" class="sr6-roll-popup-slot-toggle sr6-roll-popup-slot-toggle--10" />
-<input type="checkbox" name="attr_sr6_roll_popup_slot_11_visible" value="1" class="sr6-roll-popup-slot-toggle sr6-roll-popup-slot-toggle--11" />
-<input type="checkbox" name="attr_sr6_roll_popup_slot_1_is_number" value="1" class="sr6-roll-popup-slot-kind-toggle sr6-roll-popup-slot-kind-toggle--1-number" />
-<input type="checkbox" name="attr_sr6_roll_popup_slot_2_is_number" value="1" class="sr6-roll-popup-slot-kind-toggle sr6-roll-popup-slot-kind-toggle--2-number" />
-<input type="checkbox" name="attr_sr6_roll_popup_slot_3_is_number" value="1" class="sr6-roll-popup-slot-kind-toggle sr6-roll-popup-slot-kind-toggle--3-number" />
-<input type="checkbox" name="attr_sr6_roll_popup_slot_4_is_number" value="1" class="sr6-roll-popup-slot-kind-toggle sr6-roll-popup-slot-kind-toggle--4-number" />
-<input type="checkbox" name="attr_sr6_roll_popup_slot_5_is_number" value="1" class="sr6-roll-popup-slot-kind-toggle sr6-roll-popup-slot-kind-toggle--5-number" />
-<input type="checkbox" name="attr_sr6_roll_popup_slot_6_is_number" value="1" class="sr6-roll-popup-slot-kind-toggle sr6-roll-popup-slot-kind-toggle--6-number" />
-<input type="checkbox" name="attr_sr6_roll_popup_slot_7_is_number" value="1" class="sr6-roll-popup-slot-kind-toggle sr6-roll-popup-slot-kind-toggle--7-number" />
-<input type="checkbox" name="attr_sr6_roll_popup_slot_8_is_number" value="1" class="sr6-roll-popup-slot-kind-toggle sr6-roll-popup-slot-kind-toggle--8-number" />
-<input type="checkbox" name="attr_sr6_roll_popup_slot_9_is_number" value="1" class="sr6-roll-popup-slot-kind-toggle sr6-roll-popup-slot-kind-toggle--9-number" />
-<input type="checkbox" name="attr_sr6_roll_popup_slot_10_is_number" value="1" class="sr6-roll-popup-slot-kind-toggle sr6-roll-popup-slot-kind-toggle--10-number" />
-<input type="checkbox" name="attr_sr6_roll_popup_slot_11_is_number" value="1" class="sr6-roll-popup-slot-kind-toggle sr6-roll-popup-slot-kind-toggle--11-number" />
-<input type="checkbox" name="attr_sr6_roll_popup_slot_1_is_text" value="1" class="sr6-roll-popup-slot-kind-toggle sr6-roll-popup-slot-kind-toggle--1-text" />
-<input type="checkbox" name="attr_sr6_roll_popup_slot_2_is_text" value="1" class="sr6-roll-popup-slot-kind-toggle sr6-roll-popup-slot-kind-toggle--2-text" />
-<input type="checkbox" name="attr_sr6_roll_popup_slot_3_is_text" value="1" class="sr6-roll-popup-slot-kind-toggle sr6-roll-popup-slot-kind-toggle--3-text" />
-<input type="checkbox" name="attr_sr6_roll_popup_slot_4_is_text" value="1" class="sr6-roll-popup-slot-kind-toggle sr6-roll-popup-slot-kind-toggle--4-text" />
-<input type="checkbox" name="attr_sr6_roll_popup_slot_5_is_text" value="1" class="sr6-roll-popup-slot-kind-toggle sr6-roll-popup-slot-kind-toggle--5-text" />
-<input type="checkbox" name="attr_sr6_roll_popup_slot_6_is_text" value="1" class="sr6-roll-popup-slot-kind-toggle sr6-roll-popup-slot-kind-toggle--6-text" />
-<input type="checkbox" name="attr_sr6_roll_popup_slot_7_is_text" value="1" class="sr6-roll-popup-slot-kind-toggle sr6-roll-popup-slot-kind-toggle--7-text" />
-<input type="checkbox" name="attr_sr6_roll_popup_slot_8_is_text" value="1" class="sr6-roll-popup-slot-kind-toggle sr6-roll-popup-slot-kind-toggle--8-text" />
-<input type="checkbox" name="attr_sr6_roll_popup_slot_9_is_text" value="1" class="sr6-roll-popup-slot-kind-toggle sr6-roll-popup-slot-kind-toggle--9-text" />
-<input type="checkbox" name="attr_sr6_roll_popup_slot_10_is_text" value="1" class="sr6-roll-popup-slot-kind-toggle sr6-roll-popup-slot-kind-toggle--10-text" />
-<input type="checkbox" name="attr_sr6_roll_popup_slot_11_is_text" value="1" class="sr6-roll-popup-slot-kind-toggle sr6-roll-popup-slot-kind-toggle--11-text" />
-<input type="checkbox" name="attr_sr6_roll_popup_slot_1_is_select" value="1" class="sr6-roll-popup-slot-kind-toggle sr6-roll-popup-slot-kind-toggle--1-select" />
-<input type="checkbox" name="attr_sr6_roll_popup_slot_2_is_select" value="1" class="sr6-roll-popup-slot-kind-toggle sr6-roll-popup-slot-kind-toggle--2-select" />
-<input type="checkbox" name="attr_sr6_roll_popup_slot_3_is_select" value="1" class="sr6-roll-popup-slot-kind-toggle sr6-roll-popup-slot-kind-toggle--3-select" />
-<input type="checkbox" name="attr_sr6_roll_popup_slot_4_is_select" value="1" class="sr6-roll-popup-slot-kind-toggle sr6-roll-popup-slot-kind-toggle--4-select" />
-<input type="checkbox" name="attr_sr6_roll_popup_slot_5_is_select" value="1" class="sr6-roll-popup-slot-kind-toggle sr6-roll-popup-slot-kind-toggle--5-select" />
-<input type="checkbox" name="attr_sr6_roll_popup_slot_6_is_select" value="1" class="sr6-roll-popup-slot-kind-toggle sr6-roll-popup-slot-kind-toggle--6-select" />
-<input type="checkbox" name="attr_sr6_roll_popup_slot_7_is_select" value="1" class="sr6-roll-popup-slot-kind-toggle sr6-roll-popup-slot-kind-toggle--7-select" />
-<input type="checkbox" name="attr_sr6_roll_popup_slot_8_is_select" value="1" class="sr6-roll-popup-slot-kind-toggle sr6-roll-popup-slot-kind-toggle--8-select" />
-<input type="checkbox" name="attr_sr6_roll_popup_slot_9_is_select" value="1" class="sr6-roll-popup-slot-kind-toggle sr6-roll-popup-slot-kind-toggle--9-select" />
-<input type="checkbox" name="attr_sr6_roll_popup_slot_10_is_select" value="1" class="sr6-roll-popup-slot-kind-toggle sr6-roll-popup-slot-kind-toggle--10-select" />
-<input type="checkbox" name="attr_sr6_roll_popup_slot_11_is_select" value="1" class="sr6-roll-popup-slot-kind-toggle sr6-roll-popup-slot-kind-toggle--11-select" />
-<input type="checkbox" name="attr_sr6_roll_popup_slot_1_is_checkbox" value="1" class="sr6-roll-popup-slot-kind-toggle sr6-roll-popup-slot-kind-toggle--1-checkbox" />
-<input type="checkbox" name="attr_sr6_roll_popup_slot_2_is_checkbox" value="1" class="sr6-roll-popup-slot-kind-toggle sr6-roll-popup-slot-kind-toggle--2-checkbox" />
-<input type="checkbox" name="attr_sr6_roll_popup_slot_3_is_checkbox" value="1" class="sr6-roll-popup-slot-kind-toggle sr6-roll-popup-slot-kind-toggle--3-checkbox" />
-<input type="checkbox" name="attr_sr6_roll_popup_slot_4_is_checkbox" value="1" class="sr6-roll-popup-slot-kind-toggle sr6-roll-popup-slot-kind-toggle--4-checkbox" />
-<input type="checkbox" name="attr_sr6_roll_popup_slot_5_is_checkbox" value="1" class="sr6-roll-popup-slot-kind-toggle sr6-roll-popup-slot-kind-toggle--5-checkbox" />
-<input type="checkbox" name="attr_sr6_roll_popup_slot_6_is_checkbox" value="1" class="sr6-roll-popup-slot-kind-toggle sr6-roll-popup-slot-kind-toggle--6-checkbox" />
-<input type="checkbox" name="attr_sr6_roll_popup_slot_7_is_checkbox" value="1" class="sr6-roll-popup-slot-kind-toggle sr6-roll-popup-slot-kind-toggle--7-checkbox" />
-<input type="checkbox" name="attr_sr6_roll_popup_slot_8_is_checkbox" value="1" class="sr6-roll-popup-slot-kind-toggle sr6-roll-popup-slot-kind-toggle--8-checkbox" />
-<input type="checkbox" name="attr_sr6_roll_popup_slot_9_is_checkbox" value="1" class="sr6-roll-popup-slot-kind-toggle sr6-roll-popup-slot-kind-toggle--9-checkbox" />
-<input type="checkbox" name="attr_sr6_roll_popup_slot_10_is_checkbox" value="1" class="sr6-roll-popup-slot-kind-toggle sr6-roll-popup-slot-kind-toggle--10-checkbox" />
-<input type="checkbox" name="attr_sr6_roll_popup_slot_11_is_checkbox" value="1" class="sr6-roll-popup-slot-kind-toggle sr6-roll-popup-slot-kind-toggle--11-checkbox" />
-<input type="checkbox" name="attr_sr6_roll_popup_slot_1_requires_previous_checkbox" value="1" class="sr6-roll-popup-slot-dependency-toggle sr6-roll-popup-slot-dependency-toggle--1" />
-<input type="checkbox" name="attr_sr6_roll_popup_slot_2_requires_previous_checkbox" value="1" class="sr6-roll-popup-slot-dependency-toggle sr6-roll-popup-slot-dependency-toggle--2" />
-<input type="checkbox" name="attr_sr6_roll_popup_slot_3_requires_previous_checkbox" value="1" class="sr6-roll-popup-slot-dependency-toggle sr6-roll-popup-slot-dependency-toggle--3" />
-<input type="checkbox" name="attr_sr6_roll_popup_slot_4_requires_previous_checkbox" value="1" class="sr6-roll-popup-slot-dependency-toggle sr6-roll-popup-slot-dependency-toggle--4" />
-<input type="checkbox" name="attr_sr6_roll_popup_slot_5_requires_previous_checkbox" value="1" class="sr6-roll-popup-slot-dependency-toggle sr6-roll-popup-slot-dependency-toggle--5" />
-<input type="checkbox" name="attr_sr6_roll_popup_slot_6_requires_previous_checkbox" value="1" class="sr6-roll-popup-slot-dependency-toggle sr6-roll-popup-slot-dependency-toggle--6" />
-<input type="checkbox" name="attr_sr6_roll_popup_slot_7_requires_previous_checkbox" value="1" class="sr6-roll-popup-slot-dependency-toggle sr6-roll-popup-slot-dependency-toggle--7" />
-<input type="checkbox" name="attr_sr6_roll_popup_slot_8_requires_previous_checkbox" value="1" class="sr6-roll-popup-slot-dependency-toggle sr6-roll-popup-slot-dependency-toggle--8" />
-<input type="checkbox" name="attr_sr6_roll_popup_slot_9_requires_previous_checkbox" value="1" class="sr6-roll-popup-slot-dependency-toggle sr6-roll-popup-slot-dependency-toggle--9" />
-<input type="checkbox" name="attr_sr6_roll_popup_slot_10_requires_previous_checkbox" value="1" class="sr6-roll-popup-slot-dependency-toggle sr6-roll-popup-slot-dependency-toggle--10" />
-<input type="checkbox" name="attr_sr6_roll_popup_slot_11_requires_previous_checkbox" value="1" class="sr6-roll-popup-slot-dependency-toggle sr6-roll-popup-slot-dependency-toggle--11" />
-<input type="checkbox" name="attr_sr6_roll_popup_slot_1_option_visibility" value="1" class="sr6-roll-popup-slot-option-toggle sr6-roll-popup-slot-option-toggle--1-visibility" />
-<input type="checkbox" name="attr_sr6_roll_popup_slot_2_option_visibility" value="1" class="sr6-roll-popup-slot-option-toggle sr6-roll-popup-slot-option-toggle--2-visibility" />
-<input type="checkbox" name="attr_sr6_roll_popup_slot_3_option_visibility" value="1" class="sr6-roll-popup-slot-option-toggle sr6-roll-popup-slot-option-toggle--3-visibility" />
-<input type="checkbox" name="attr_sr6_roll_popup_slot_4_option_visibility" value="1" class="sr6-roll-popup-slot-option-toggle sr6-roll-popup-slot-option-toggle--4-visibility" />
-<input type="checkbox" name="attr_sr6_roll_popup_slot_5_option_visibility" value="1" class="sr6-roll-popup-slot-option-toggle sr6-roll-popup-slot-option-toggle--5-visibility" />
-<input type="checkbox" name="attr_sr6_roll_popup_slot_6_option_visibility" value="1" class="sr6-roll-popup-slot-option-toggle sr6-roll-popup-slot-option-toggle--6-visibility" />
-<input type="checkbox" name="attr_sr6_roll_popup_slot_7_option_visibility" value="1" class="sr6-roll-popup-slot-option-toggle sr6-roll-popup-slot-option-toggle--7-visibility" />
-<input type="checkbox" name="attr_sr6_roll_popup_slot_8_option_visibility" value="1" class="sr6-roll-popup-slot-option-toggle sr6-roll-popup-slot-option-toggle--8-visibility" />
-<input type="checkbox" name="attr_sr6_roll_popup_slot_1_option_movement" value="1" class="sr6-roll-popup-slot-option-toggle sr6-roll-popup-slot-option-toggle--1-movement" />
-<input type="checkbox" name="attr_sr6_roll_popup_slot_2_option_movement" value="1" class="sr6-roll-popup-slot-option-toggle sr6-roll-popup-slot-option-toggle--2-movement" />
-<input type="checkbox" name="attr_sr6_roll_popup_slot_3_option_movement" value="1" class="sr6-roll-popup-slot-option-toggle sr6-roll-popup-slot-option-toggle--3-movement" />
-<input type="checkbox" name="attr_sr6_roll_popup_slot_4_option_movement" value="1" class="sr6-roll-popup-slot-option-toggle sr6-roll-popup-slot-option-toggle--4-movement" />
-<input type="checkbox" name="attr_sr6_roll_popup_slot_5_option_movement" value="1" class="sr6-roll-popup-slot-option-toggle sr6-roll-popup-slot-option-toggle--5-movement" />
-<input type="checkbox" name="attr_sr6_roll_popup_slot_6_option_movement" value="1" class="sr6-roll-popup-slot-option-toggle sr6-roll-popup-slot-option-toggle--6-movement" />
-<input type="checkbox" name="attr_sr6_roll_popup_slot_7_option_movement" value="1" class="sr6-roll-popup-slot-option-toggle sr6-roll-popup-slot-option-toggle--7-movement" />
-<input type="checkbox" name="attr_sr6_roll_popup_slot_8_option_movement" value="1" class="sr6-roll-popup-slot-option-toggle sr6-roll-popup-slot-option-toggle--8-movement" />
-<input type="checkbox" name="attr_sr6_roll_popup_slot_1_option_spell_range" value="1" class="sr6-roll-popup-slot-option-toggle sr6-roll-popup-slot-option-toggle--1-spell-range" />
-<input type="checkbox" name="attr_sr6_roll_popup_slot_2_option_spell_range" value="1" class="sr6-roll-popup-slot-option-toggle sr6-roll-popup-slot-option-toggle--2-spell-range" />
-<input type="checkbox" name="attr_sr6_roll_popup_slot_3_option_spell_range" value="1" class="sr6-roll-popup-slot-option-toggle sr6-roll-popup-slot-option-toggle--3-spell-range" />
-<input type="checkbox" name="attr_sr6_roll_popup_slot_4_option_spell_range" value="1" class="sr6-roll-popup-slot-option-toggle sr6-roll-popup-slot-option-toggle--4-spell-range" />
-<input type="checkbox" name="attr_sr6_roll_popup_slot_5_option_spell_range" value="1" class="sr6-roll-popup-slot-option-toggle sr6-roll-popup-slot-option-toggle--5-spell-range" />
-<input type="checkbox" name="attr_sr6_roll_popup_slot_6_option_spell_range" value="1" class="sr6-roll-popup-slot-option-toggle sr6-roll-popup-slot-option-toggle--6-spell-range" />
-<input type="checkbox" name="attr_sr6_roll_popup_slot_7_option_spell_range" value="1" class="sr6-roll-popup-slot-option-toggle sr6-roll-popup-slot-option-toggle--7-spell-range" />
-<input type="checkbox" name="attr_sr6_roll_popup_slot_8_option_spell_range" value="1" class="sr6-roll-popup-slot-option-toggle sr6-roll-popup-slot-option-toggle--8-spell-range" />
-<input type="checkbox" name="attr_sr6_roll_popup_slot_1_option_matrix_access" value="1" class="sr6-roll-popup-slot-option-toggle sr6-roll-popup-slot-option-toggle--1-matrix-access" />
-<input type="checkbox" name="attr_sr6_roll_popup_slot_2_option_matrix_access" value="1" class="sr6-roll-popup-slot-option-toggle sr6-roll-popup-slot-option-toggle--2-matrix-access" />
-<input type="checkbox" name="attr_sr6_roll_popup_slot_3_option_matrix_access" value="1" class="sr6-roll-popup-slot-option-toggle sr6-roll-popup-slot-option-toggle--3-matrix-access" />
-<input type="checkbox" name="attr_sr6_roll_popup_slot_4_option_matrix_access" value="1" class="sr6-roll-popup-slot-option-toggle sr6-roll-popup-slot-option-toggle--4-matrix-access" />
-<input type="checkbox" name="attr_sr6_roll_popup_slot_5_option_matrix_access" value="1" class="sr6-roll-popup-slot-option-toggle sr6-roll-popup-slot-option-toggle--5-matrix-access" />
-<input type="checkbox" name="attr_sr6_roll_popup_slot_6_option_matrix_access" value="1" class="sr6-roll-popup-slot-option-toggle sr6-roll-popup-slot-option-toggle--6-matrix-access" />
-<input type="checkbox" name="attr_sr6_roll_popup_slot_7_option_matrix_access" value="1" class="sr6-roll-popup-slot-option-toggle sr6-roll-popup-slot-option-toggle--7-matrix-access" />
-<input type="checkbox" name="attr_sr6_roll_popup_slot_8_option_matrix_access" value="1" class="sr6-roll-popup-slot-option-toggle sr6-roll-popup-slot-option-toggle--8-matrix-access" />
-<input type="checkbox" name="attr_sr6_roll_popup_slot_1_option_ammo" value="1" class="sr6-roll-popup-slot-option-toggle sr6-roll-popup-slot-option-toggle--1-ammo" />
-<input type="checkbox" name="attr_sr6_roll_popup_slot_2_option_ammo" value="1" class="sr6-roll-popup-slot-option-toggle sr6-roll-popup-slot-option-toggle--2-ammo" />
-<input type="checkbox" name="attr_sr6_roll_popup_slot_3_option_ammo" value="1" class="sr6-roll-popup-slot-option-toggle sr6-roll-popup-slot-option-toggle--3-ammo" />
-<input type="checkbox" name="attr_sr6_roll_popup_slot_4_option_ammo" value="1" class="sr6-roll-popup-slot-option-toggle sr6-roll-popup-slot-option-toggle--4-ammo" />
-<input type="checkbox" name="attr_sr6_roll_popup_slot_5_option_ammo" value="1" class="sr6-roll-popup-slot-option-toggle sr6-roll-popup-slot-option-toggle--5-ammo" />
-<input type="checkbox" name="attr_sr6_roll_popup_slot_6_option_ammo" value="1" class="sr6-roll-popup-slot-option-toggle sr6-roll-popup-slot-option-toggle--6-ammo" />
-<input type="checkbox" name="attr_sr6_roll_popup_slot_7_option_ammo" value="1" class="sr6-roll-popup-slot-option-toggle sr6-roll-popup-slot-option-toggle--7-ammo" />
-<input type="checkbox" name="attr_sr6_roll_popup_slot_8_option_ammo" value="1" class="sr6-roll-popup-slot-option-toggle sr6-roll-popup-slot-option-toggle--8-ammo" />
-<input type="checkbox" name="attr_sr6_roll_popup_slot_1_option_melee_attribute" value="1" class="sr6-roll-popup-slot-option-toggle sr6-roll-popup-slot-option-toggle--1-melee-attribute" />
-<input type="checkbox" name="attr_sr6_roll_popup_slot_2_option_melee_attribute" value="1" class="sr6-roll-popup-slot-option-toggle sr6-roll-popup-slot-option-toggle--2-melee-attribute" />
-<input type="checkbox" name="attr_sr6_roll_popup_slot_3_option_melee_attribute" value="1" class="sr6-roll-popup-slot-option-toggle sr6-roll-popup-slot-option-toggle--3-melee-attribute" />
-<input type="checkbox" name="attr_sr6_roll_popup_slot_4_option_melee_attribute" value="1" class="sr6-roll-popup-slot-option-toggle sr6-roll-popup-slot-option-toggle--4-melee-attribute" />
-<input type="checkbox" name="attr_sr6_roll_popup_slot_5_option_melee_attribute" value="1" class="sr6-roll-popup-slot-option-toggle sr6-roll-popup-slot-option-toggle--5-melee-attribute" />
-<input type="checkbox" name="attr_sr6_roll_popup_slot_6_option_melee_attribute" value="1" class="sr6-roll-popup-slot-option-toggle sr6-roll-popup-slot-option-toggle--6-melee-attribute" />
-<input type="checkbox" name="attr_sr6_roll_popup_slot_7_option_melee_attribute" value="1" class="sr6-roll-popup-slot-option-toggle sr6-roll-popup-slot-option-toggle--7-melee-attribute" />
-<input type="checkbox" name="attr_sr6_roll_popup_slot_8_option_melee_attribute" value="1" class="sr6-roll-popup-slot-option-toggle sr6-roll-popup-slot-option-toggle--8-melee-attribute" />
-<input type="checkbox" name="attr_sr6_roll_popup_slot_1_option_spirit_type" value="1" class="sr6-roll-popup-slot-option-toggle sr6-roll-popup-slot-option-toggle--1-spirit-type" />
-<input type="checkbox" name="attr_sr6_roll_popup_slot_2_option_spirit_type" value="1" class="sr6-roll-popup-slot-option-toggle sr6-roll-popup-slot-option-toggle--2-spirit-type" />
-<input type="checkbox" name="attr_sr6_roll_popup_slot_3_option_spirit_type" value="1" class="sr6-roll-popup-slot-option-toggle sr6-roll-popup-slot-option-toggle--3-spirit-type" />
-<input type="checkbox" name="attr_sr6_roll_popup_slot_4_option_spirit_type" value="1" class="sr6-roll-popup-slot-option-toggle sr6-roll-popup-slot-option-toggle--4-spirit-type" />
-<input type="checkbox" name="attr_sr6_roll_popup_slot_5_option_spirit_type" value="1" class="sr6-roll-popup-slot-option-toggle sr6-roll-popup-slot-option-toggle--5-spirit-type" />
-<input type="checkbox" name="attr_sr6_roll_popup_slot_6_option_spirit_type" value="1" class="sr6-roll-popup-slot-option-toggle sr6-roll-popup-slot-option-toggle--6-spirit-type" />
-<input type="checkbox" name="attr_sr6_roll_popup_slot_7_option_spirit_type" value="1" class="sr6-roll-popup-slot-option-toggle sr6-roll-popup-slot-option-toggle--7-spirit-type" />
-<input type="checkbox" name="attr_sr6_roll_popup_slot_8_option_spirit_type" value="1" class="sr6-roll-popup-slot-option-toggle sr6-roll-popup-slot-option-toggle--8-spirit-type" />
-<input type="checkbox" name="attr_sr6_roll_popup_slot_2_option_skill_attr_intuition_willenskraft" value="1" class="sr6-roll-popup-slot-option-toggle sr6-roll-popup-slot-option-toggle--2-skill-attr-intuition-willenskraft" />
-<input type="checkbox" name="attr_sr6_roll_popup_slot_2_option_skill_attr_geschicklichkeit_staerke" value="1" class="sr6-roll-popup-slot-option-toggle sr6-roll-popup-slot-option-toggle--2-skill-attr-geschicklichkeit-staerke" />
-<input type="checkbox" name="attr_sr6_roll_popup_slot_2_option_skill_attr_magie" value="1" class="sr6-roll-popup-slot-option-toggle sr6-roll-popup-slot-option-toggle--2-skill-attr-magie" />
-<input type="checkbox" name="attr_sr6_roll_popup_slot_2_option_skill_attr_logik_intuition" value="1" class="sr6-roll-popup-slot-option-toggle sr6-roll-popup-slot-option-toggle--2-skill-attr-logik-intuition" />
-<input type="checkbox" name="attr_sr6_roll_popup_slot_2_option_skill_attr_logik" value="1" class="sr6-roll-popup-slot-option-toggle sr6-roll-popup-slot-option-toggle--2-skill-attr-logik" />
-<input type="checkbox" name="attr_sr6_roll_popup_slot_2_option_skill_attr_charisma_logik" value="1" class="sr6-roll-popup-slot-option-toggle sr6-roll-popup-slot-option-toggle--2-skill-attr-charisma-logik" />
-<input type="checkbox" name="attr_sr6_roll_popup_slot_2_option_skill_attr_geschicklichkeit" value="1" class="sr6-roll-popup-slot-option-toggle sr6-roll-popup-slot-option-toggle--2-skill-attr-geschicklichkeit" />
-<input type="checkbox" name="attr_sr6_roll_popup_slot_2_option_skill_attr_logik_geschicklichkeit_intuition" value="1" class="sr6-roll-popup-slot-option-toggle sr6-roll-popup-slot-option-toggle--2-skill-attr-logik-geschicklichkeit-intuition" />
-<input type="checkbox" name="attr_sr6_roll_popup_slot_2_option_skill_attr_intuition" value="1" class="sr6-roll-popup-slot-option-toggle sr6-roll-popup-slot-option-toggle--2-skill-attr-intuition" />
-<input type="checkbox" name="attr_sr6_roll_popup_slot_2_option_skill_attr_intuition_logik" value="1" class="sr6-roll-popup-slot-option-toggle sr6-roll-popup-slot-option-toggle--2-skill-attr-intuition-logik" />
-<input type="checkbox" name="attr_sr6_roll_popup_slot_2_option_skill_attr_reaktion" value="1" class="sr6-roll-popup-slot-option-toggle sr6-roll-popup-slot-option-toggle--2-skill-attr-reaktion" />
-<input type="checkbox" name="attr_sr6_roll_popup_slot_2_option_skill_attr_resonanz" value="1" class="sr6-roll-popup-slot-option-toggle sr6-roll-popup-slot-option-toggle--2-skill-attr-resonanz" />
-<input type="checkbox" name="attr_sr6_roll_popup_slot_2_option_skill_attr_charisma" value="1" class="sr6-roll-popup-slot-option-toggle sr6-roll-popup-slot-option-toggle--2-skill-attr-charisma" />
-<input type="checkbox" name="attr_sr6_roll_popup_slot_9_option_edge_boost" value="1" class="sr6-roll-popup-slot-option-toggle sr6-roll-popup-slot-option-toggle--9-edge-boost" />
-<input type="checkbox" name="attr_sr6_roll_popup_slot_9_option_edge_after_boost" value="1" class="sr6-roll-popup-slot-option-toggle sr6-roll-popup-slot-option-toggle--9-edge-after-boost" />
+<button
+  type="action"
+  name="act_sr6_edge_after_roll"
+  class="sr6-roll-popup-hidden-action"
+  aria-hidden="true"
+  tabindex="-1"></button>
+<input
+  type="checkbox"
+  name="attr_sr6_roll_popup_open"
+  value="1"
+  class="sr6-roll-popup-open-toggle" />
+<input
+  type="checkbox"
+  name="attr_sr6_roll_popup_slot_1_active"
+  value="1"
+  class="sr6-roll-popup-slot-active-toggle sr6-roll-popup-slot-active-toggle--1" />
+<input
+  type="checkbox"
+  name="attr_sr6_roll_popup_slot_2_active"
+  value="1"
+  class="sr6-roll-popup-slot-active-toggle sr6-roll-popup-slot-active-toggle--2" />
+<input
+  type="checkbox"
+  name="attr_sr6_roll_popup_slot_3_active"
+  value="1"
+  class="sr6-roll-popup-slot-active-toggle sr6-roll-popup-slot-active-toggle--3" />
+<input
+  type="checkbox"
+  name="attr_sr6_roll_popup_slot_4_active"
+  value="1"
+  class="sr6-roll-popup-slot-active-toggle sr6-roll-popup-slot-active-toggle--4" />
+<input
+  type="checkbox"
+  name="attr_sr6_roll_popup_slot_5_active"
+  value="1"
+  class="sr6-roll-popup-slot-active-toggle sr6-roll-popup-slot-active-toggle--5" />
+<input
+  type="checkbox"
+  name="attr_sr6_roll_popup_slot_6_active"
+  value="1"
+  class="sr6-roll-popup-slot-active-toggle sr6-roll-popup-slot-active-toggle--6" />
+<input
+  type="checkbox"
+  name="attr_sr6_roll_popup_slot_7_active"
+  value="1"
+  class="sr6-roll-popup-slot-active-toggle sr6-roll-popup-slot-active-toggle--7" />
+<input
+  type="checkbox"
+  name="attr_sr6_roll_popup_slot_8_active"
+  value="1"
+  class="sr6-roll-popup-slot-active-toggle sr6-roll-popup-slot-active-toggle--8" />
+<input
+  type="checkbox"
+  name="attr_sr6_roll_popup_slot_9_active"
+  value="1"
+  class="sr6-roll-popup-slot-active-toggle sr6-roll-popup-slot-active-toggle--9" />
+<input
+  type="checkbox"
+  name="attr_sr6_roll_popup_slot_10_active"
+  value="1"
+  class="sr6-roll-popup-slot-active-toggle sr6-roll-popup-slot-active-toggle--10" />
+<input
+  type="checkbox"
+  name="attr_sr6_roll_popup_slot_11_active"
+  value="1"
+  class="sr6-roll-popup-slot-active-toggle sr6-roll-popup-slot-active-toggle--11" />
+<input
+  type="checkbox"
+  name="attr_sr6_roll_popup_slot_1_visible"
+  value="1"
+  class="sr6-roll-popup-slot-toggle sr6-roll-popup-slot-toggle--1" />
+<input
+  type="checkbox"
+  name="attr_sr6_roll_popup_slot_2_visible"
+  value="1"
+  class="sr6-roll-popup-slot-toggle sr6-roll-popup-slot-toggle--2" />
+<input
+  type="checkbox"
+  name="attr_sr6_roll_popup_slot_3_visible"
+  value="1"
+  class="sr6-roll-popup-slot-toggle sr6-roll-popup-slot-toggle--3" />
+<input
+  type="checkbox"
+  name="attr_sr6_roll_popup_slot_4_visible"
+  value="1"
+  class="sr6-roll-popup-slot-toggle sr6-roll-popup-slot-toggle--4" />
+<input
+  type="checkbox"
+  name="attr_sr6_roll_popup_slot_5_visible"
+  value="1"
+  class="sr6-roll-popup-slot-toggle sr6-roll-popup-slot-toggle--5" />
+<input
+  type="checkbox"
+  name="attr_sr6_roll_popup_slot_6_visible"
+  value="1"
+  class="sr6-roll-popup-slot-toggle sr6-roll-popup-slot-toggle--6" />
+<input
+  type="checkbox"
+  name="attr_sr6_roll_popup_slot_7_visible"
+  value="1"
+  class="sr6-roll-popup-slot-toggle sr6-roll-popup-slot-toggle--7" />
+<input
+  type="checkbox"
+  name="attr_sr6_roll_popup_slot_8_visible"
+  value="1"
+  class="sr6-roll-popup-slot-toggle sr6-roll-popup-slot-toggle--8" />
+<input
+  type="checkbox"
+  name="attr_sr6_roll_popup_slot_9_visible"
+  value="1"
+  class="sr6-roll-popup-slot-toggle sr6-roll-popup-slot-toggle--9" />
+<input
+  type="checkbox"
+  name="attr_sr6_roll_popup_slot_10_visible"
+  value="1"
+  class="sr6-roll-popup-slot-toggle sr6-roll-popup-slot-toggle--10" />
+<input
+  type="checkbox"
+  name="attr_sr6_roll_popup_slot_11_visible"
+  value="1"
+  class="sr6-roll-popup-slot-toggle sr6-roll-popup-slot-toggle--11" />
+<input
+  type="checkbox"
+  name="attr_sr6_roll_popup_slot_1_is_number"
+  value="1"
+  class="sr6-roll-popup-slot-kind-toggle sr6-roll-popup-slot-kind-toggle--1-number" />
+<input
+  type="checkbox"
+  name="attr_sr6_roll_popup_slot_2_is_number"
+  value="1"
+  class="sr6-roll-popup-slot-kind-toggle sr6-roll-popup-slot-kind-toggle--2-number" />
+<input
+  type="checkbox"
+  name="attr_sr6_roll_popup_slot_3_is_number"
+  value="1"
+  class="sr6-roll-popup-slot-kind-toggle sr6-roll-popup-slot-kind-toggle--3-number" />
+<input
+  type="checkbox"
+  name="attr_sr6_roll_popup_slot_4_is_number"
+  value="1"
+  class="sr6-roll-popup-slot-kind-toggle sr6-roll-popup-slot-kind-toggle--4-number" />
+<input
+  type="checkbox"
+  name="attr_sr6_roll_popup_slot_5_is_number"
+  value="1"
+  class="sr6-roll-popup-slot-kind-toggle sr6-roll-popup-slot-kind-toggle--5-number" />
+<input
+  type="checkbox"
+  name="attr_sr6_roll_popup_slot_6_is_number"
+  value="1"
+  class="sr6-roll-popup-slot-kind-toggle sr6-roll-popup-slot-kind-toggle--6-number" />
+<input
+  type="checkbox"
+  name="attr_sr6_roll_popup_slot_7_is_number"
+  value="1"
+  class="sr6-roll-popup-slot-kind-toggle sr6-roll-popup-slot-kind-toggle--7-number" />
+<input
+  type="checkbox"
+  name="attr_sr6_roll_popup_slot_8_is_number"
+  value="1"
+  class="sr6-roll-popup-slot-kind-toggle sr6-roll-popup-slot-kind-toggle--8-number" />
+<input
+  type="checkbox"
+  name="attr_sr6_roll_popup_slot_9_is_number"
+  value="1"
+  class="sr6-roll-popup-slot-kind-toggle sr6-roll-popup-slot-kind-toggle--9-number" />
+<input
+  type="checkbox"
+  name="attr_sr6_roll_popup_slot_10_is_number"
+  value="1"
+  class="sr6-roll-popup-slot-kind-toggle sr6-roll-popup-slot-kind-toggle--10-number" />
+<input
+  type="checkbox"
+  name="attr_sr6_roll_popup_slot_11_is_number"
+  value="1"
+  class="sr6-roll-popup-slot-kind-toggle sr6-roll-popup-slot-kind-toggle--11-number" />
+<input
+  type="checkbox"
+  name="attr_sr6_roll_popup_slot_1_is_text"
+  value="1"
+  class="sr6-roll-popup-slot-kind-toggle sr6-roll-popup-slot-kind-toggle--1-text" />
+<input
+  type="checkbox"
+  name="attr_sr6_roll_popup_slot_2_is_text"
+  value="1"
+  class="sr6-roll-popup-slot-kind-toggle sr6-roll-popup-slot-kind-toggle--2-text" />
+<input
+  type="checkbox"
+  name="attr_sr6_roll_popup_slot_3_is_text"
+  value="1"
+  class="sr6-roll-popup-slot-kind-toggle sr6-roll-popup-slot-kind-toggle--3-text" />
+<input
+  type="checkbox"
+  name="attr_sr6_roll_popup_slot_4_is_text"
+  value="1"
+  class="sr6-roll-popup-slot-kind-toggle sr6-roll-popup-slot-kind-toggle--4-text" />
+<input
+  type="checkbox"
+  name="attr_sr6_roll_popup_slot_5_is_text"
+  value="1"
+  class="sr6-roll-popup-slot-kind-toggle sr6-roll-popup-slot-kind-toggle--5-text" />
+<input
+  type="checkbox"
+  name="attr_sr6_roll_popup_slot_6_is_text"
+  value="1"
+  class="sr6-roll-popup-slot-kind-toggle sr6-roll-popup-slot-kind-toggle--6-text" />
+<input
+  type="checkbox"
+  name="attr_sr6_roll_popup_slot_7_is_text"
+  value="1"
+  class="sr6-roll-popup-slot-kind-toggle sr6-roll-popup-slot-kind-toggle--7-text" />
+<input
+  type="checkbox"
+  name="attr_sr6_roll_popup_slot_8_is_text"
+  value="1"
+  class="sr6-roll-popup-slot-kind-toggle sr6-roll-popup-slot-kind-toggle--8-text" />
+<input
+  type="checkbox"
+  name="attr_sr6_roll_popup_slot_9_is_text"
+  value="1"
+  class="sr6-roll-popup-slot-kind-toggle sr6-roll-popup-slot-kind-toggle--9-text" />
+<input
+  type="checkbox"
+  name="attr_sr6_roll_popup_slot_10_is_text"
+  value="1"
+  class="sr6-roll-popup-slot-kind-toggle sr6-roll-popup-slot-kind-toggle--10-text" />
+<input
+  type="checkbox"
+  name="attr_sr6_roll_popup_slot_11_is_text"
+  value="1"
+  class="sr6-roll-popup-slot-kind-toggle sr6-roll-popup-slot-kind-toggle--11-text" />
+<input
+  type="checkbox"
+  name="attr_sr6_roll_popup_slot_1_is_select"
+  value="1"
+  class="sr6-roll-popup-slot-kind-toggle sr6-roll-popup-slot-kind-toggle--1-select" />
+<input
+  type="checkbox"
+  name="attr_sr6_roll_popup_slot_2_is_select"
+  value="1"
+  class="sr6-roll-popup-slot-kind-toggle sr6-roll-popup-slot-kind-toggle--2-select" />
+<input
+  type="checkbox"
+  name="attr_sr6_roll_popup_slot_3_is_select"
+  value="1"
+  class="sr6-roll-popup-slot-kind-toggle sr6-roll-popup-slot-kind-toggle--3-select" />
+<input
+  type="checkbox"
+  name="attr_sr6_roll_popup_slot_4_is_select"
+  value="1"
+  class="sr6-roll-popup-slot-kind-toggle sr6-roll-popup-slot-kind-toggle--4-select" />
+<input
+  type="checkbox"
+  name="attr_sr6_roll_popup_slot_5_is_select"
+  value="1"
+  class="sr6-roll-popup-slot-kind-toggle sr6-roll-popup-slot-kind-toggle--5-select" />
+<input
+  type="checkbox"
+  name="attr_sr6_roll_popup_slot_6_is_select"
+  value="1"
+  class="sr6-roll-popup-slot-kind-toggle sr6-roll-popup-slot-kind-toggle--6-select" />
+<input
+  type="checkbox"
+  name="attr_sr6_roll_popup_slot_7_is_select"
+  value="1"
+  class="sr6-roll-popup-slot-kind-toggle sr6-roll-popup-slot-kind-toggle--7-select" />
+<input
+  type="checkbox"
+  name="attr_sr6_roll_popup_slot_8_is_select"
+  value="1"
+  class="sr6-roll-popup-slot-kind-toggle sr6-roll-popup-slot-kind-toggle--8-select" />
+<input
+  type="checkbox"
+  name="attr_sr6_roll_popup_slot_9_is_select"
+  value="1"
+  class="sr6-roll-popup-slot-kind-toggle sr6-roll-popup-slot-kind-toggle--9-select" />
+<input
+  type="checkbox"
+  name="attr_sr6_roll_popup_slot_10_is_select"
+  value="1"
+  class="sr6-roll-popup-slot-kind-toggle sr6-roll-popup-slot-kind-toggle--10-select" />
+<input
+  type="checkbox"
+  name="attr_sr6_roll_popup_slot_11_is_select"
+  value="1"
+  class="sr6-roll-popup-slot-kind-toggle sr6-roll-popup-slot-kind-toggle--11-select" />
+<input
+  type="checkbox"
+  name="attr_sr6_roll_popup_slot_1_is_checkbox"
+  value="1"
+  class="sr6-roll-popup-slot-kind-toggle sr6-roll-popup-slot-kind-toggle--1-checkbox" />
+<input
+  type="checkbox"
+  name="attr_sr6_roll_popup_slot_2_is_checkbox"
+  value="1"
+  class="sr6-roll-popup-slot-kind-toggle sr6-roll-popup-slot-kind-toggle--2-checkbox" />
+<input
+  type="checkbox"
+  name="attr_sr6_roll_popup_slot_3_is_checkbox"
+  value="1"
+  class="sr6-roll-popup-slot-kind-toggle sr6-roll-popup-slot-kind-toggle--3-checkbox" />
+<input
+  type="checkbox"
+  name="attr_sr6_roll_popup_slot_4_is_checkbox"
+  value="1"
+  class="sr6-roll-popup-slot-kind-toggle sr6-roll-popup-slot-kind-toggle--4-checkbox" />
+<input
+  type="checkbox"
+  name="attr_sr6_roll_popup_slot_5_is_checkbox"
+  value="1"
+  class="sr6-roll-popup-slot-kind-toggle sr6-roll-popup-slot-kind-toggle--5-checkbox" />
+<input
+  type="checkbox"
+  name="attr_sr6_roll_popup_slot_6_is_checkbox"
+  value="1"
+  class="sr6-roll-popup-slot-kind-toggle sr6-roll-popup-slot-kind-toggle--6-checkbox" />
+<input
+  type="checkbox"
+  name="attr_sr6_roll_popup_slot_7_is_checkbox"
+  value="1"
+  class="sr6-roll-popup-slot-kind-toggle sr6-roll-popup-slot-kind-toggle--7-checkbox" />
+<input
+  type="checkbox"
+  name="attr_sr6_roll_popup_slot_8_is_checkbox"
+  value="1"
+  class="sr6-roll-popup-slot-kind-toggle sr6-roll-popup-slot-kind-toggle--8-checkbox" />
+<input
+  type="checkbox"
+  name="attr_sr6_roll_popup_slot_9_is_checkbox"
+  value="1"
+  class="sr6-roll-popup-slot-kind-toggle sr6-roll-popup-slot-kind-toggle--9-checkbox" />
+<input
+  type="checkbox"
+  name="attr_sr6_roll_popup_slot_10_is_checkbox"
+  value="1"
+  class="sr6-roll-popup-slot-kind-toggle sr6-roll-popup-slot-kind-toggle--10-checkbox" />
+<input
+  type="checkbox"
+  name="attr_sr6_roll_popup_slot_11_is_checkbox"
+  value="1"
+  class="sr6-roll-popup-slot-kind-toggle sr6-roll-popup-slot-kind-toggle--11-checkbox" />
+<input
+  type="checkbox"
+  name="attr_sr6_roll_popup_slot_1_requires_previous_checkbox"
+  value="1"
+  class="sr6-roll-popup-slot-dependency-toggle sr6-roll-popup-slot-dependency-toggle--1" />
+<input
+  type="checkbox"
+  name="attr_sr6_roll_popup_slot_2_requires_previous_checkbox"
+  value="1"
+  class="sr6-roll-popup-slot-dependency-toggle sr6-roll-popup-slot-dependency-toggle--2" />
+<input
+  type="checkbox"
+  name="attr_sr6_roll_popup_slot_3_requires_previous_checkbox"
+  value="1"
+  class="sr6-roll-popup-slot-dependency-toggle sr6-roll-popup-slot-dependency-toggle--3" />
+<input
+  type="checkbox"
+  name="attr_sr6_roll_popup_slot_4_requires_previous_checkbox"
+  value="1"
+  class="sr6-roll-popup-slot-dependency-toggle sr6-roll-popup-slot-dependency-toggle--4" />
+<input
+  type="checkbox"
+  name="attr_sr6_roll_popup_slot_5_requires_previous_checkbox"
+  value="1"
+  class="sr6-roll-popup-slot-dependency-toggle sr6-roll-popup-slot-dependency-toggle--5" />
+<input
+  type="checkbox"
+  name="attr_sr6_roll_popup_slot_6_requires_previous_checkbox"
+  value="1"
+  class="sr6-roll-popup-slot-dependency-toggle sr6-roll-popup-slot-dependency-toggle--6" />
+<input
+  type="checkbox"
+  name="attr_sr6_roll_popup_slot_7_requires_previous_checkbox"
+  value="1"
+  class="sr6-roll-popup-slot-dependency-toggle sr6-roll-popup-slot-dependency-toggle--7" />
+<input
+  type="checkbox"
+  name="attr_sr6_roll_popup_slot_8_requires_previous_checkbox"
+  value="1"
+  class="sr6-roll-popup-slot-dependency-toggle sr6-roll-popup-slot-dependency-toggle--8" />
+<input
+  type="checkbox"
+  name="attr_sr6_roll_popup_slot_9_requires_previous_checkbox"
+  value="1"
+  class="sr6-roll-popup-slot-dependency-toggle sr6-roll-popup-slot-dependency-toggle--9" />
+<input
+  type="checkbox"
+  name="attr_sr6_roll_popup_slot_10_requires_previous_checkbox"
+  value="1"
+  class="sr6-roll-popup-slot-dependency-toggle sr6-roll-popup-slot-dependency-toggle--10" />
+<input
+  type="checkbox"
+  name="attr_sr6_roll_popup_slot_11_requires_previous_checkbox"
+  value="1"
+  class="sr6-roll-popup-slot-dependency-toggle sr6-roll-popup-slot-dependency-toggle--11" />
+<input
+  type="checkbox"
+  name="attr_sr6_roll_popup_slot_1_option_visibility"
+  value="1"
+  class="sr6-roll-popup-slot-option-toggle sr6-roll-popup-slot-option-toggle--1-visibility" />
+<input
+  type="checkbox"
+  name="attr_sr6_roll_popup_slot_2_option_visibility"
+  value="1"
+  class="sr6-roll-popup-slot-option-toggle sr6-roll-popup-slot-option-toggle--2-visibility" />
+<input
+  type="checkbox"
+  name="attr_sr6_roll_popup_slot_3_option_visibility"
+  value="1"
+  class="sr6-roll-popup-slot-option-toggle sr6-roll-popup-slot-option-toggle--3-visibility" />
+<input
+  type="checkbox"
+  name="attr_sr6_roll_popup_slot_4_option_visibility"
+  value="1"
+  class="sr6-roll-popup-slot-option-toggle sr6-roll-popup-slot-option-toggle--4-visibility" />
+<input
+  type="checkbox"
+  name="attr_sr6_roll_popup_slot_5_option_visibility"
+  value="1"
+  class="sr6-roll-popup-slot-option-toggle sr6-roll-popup-slot-option-toggle--5-visibility" />
+<input
+  type="checkbox"
+  name="attr_sr6_roll_popup_slot_6_option_visibility"
+  value="1"
+  class="sr6-roll-popup-slot-option-toggle sr6-roll-popup-slot-option-toggle--6-visibility" />
+<input
+  type="checkbox"
+  name="attr_sr6_roll_popup_slot_7_option_visibility"
+  value="1"
+  class="sr6-roll-popup-slot-option-toggle sr6-roll-popup-slot-option-toggle--7-visibility" />
+<input
+  type="checkbox"
+  name="attr_sr6_roll_popup_slot_8_option_visibility"
+  value="1"
+  class="sr6-roll-popup-slot-option-toggle sr6-roll-popup-slot-option-toggle--8-visibility" />
+<input
+  type="checkbox"
+  name="attr_sr6_roll_popup_slot_1_option_movement"
+  value="1"
+  class="sr6-roll-popup-slot-option-toggle sr6-roll-popup-slot-option-toggle--1-movement" />
+<input
+  type="checkbox"
+  name="attr_sr6_roll_popup_slot_2_option_movement"
+  value="1"
+  class="sr6-roll-popup-slot-option-toggle sr6-roll-popup-slot-option-toggle--2-movement" />
+<input
+  type="checkbox"
+  name="attr_sr6_roll_popup_slot_3_option_movement"
+  value="1"
+  class="sr6-roll-popup-slot-option-toggle sr6-roll-popup-slot-option-toggle--3-movement" />
+<input
+  type="checkbox"
+  name="attr_sr6_roll_popup_slot_4_option_movement"
+  value="1"
+  class="sr6-roll-popup-slot-option-toggle sr6-roll-popup-slot-option-toggle--4-movement" />
+<input
+  type="checkbox"
+  name="attr_sr6_roll_popup_slot_5_option_movement"
+  value="1"
+  class="sr6-roll-popup-slot-option-toggle sr6-roll-popup-slot-option-toggle--5-movement" />
+<input
+  type="checkbox"
+  name="attr_sr6_roll_popup_slot_6_option_movement"
+  value="1"
+  class="sr6-roll-popup-slot-option-toggle sr6-roll-popup-slot-option-toggle--6-movement" />
+<input
+  type="checkbox"
+  name="attr_sr6_roll_popup_slot_7_option_movement"
+  value="1"
+  class="sr6-roll-popup-slot-option-toggle sr6-roll-popup-slot-option-toggle--7-movement" />
+<input
+  type="checkbox"
+  name="attr_sr6_roll_popup_slot_8_option_movement"
+  value="1"
+  class="sr6-roll-popup-slot-option-toggle sr6-roll-popup-slot-option-toggle--8-movement" />
+<input
+  type="checkbox"
+  name="attr_sr6_roll_popup_slot_1_option_spell_range"
+  value="1"
+  class="sr6-roll-popup-slot-option-toggle sr6-roll-popup-slot-option-toggle--1-spell-range" />
+<input
+  type="checkbox"
+  name="attr_sr6_roll_popup_slot_2_option_spell_range"
+  value="1"
+  class="sr6-roll-popup-slot-option-toggle sr6-roll-popup-slot-option-toggle--2-spell-range" />
+<input
+  type="checkbox"
+  name="attr_sr6_roll_popup_slot_3_option_spell_range"
+  value="1"
+  class="sr6-roll-popup-slot-option-toggle sr6-roll-popup-slot-option-toggle--3-spell-range" />
+<input
+  type="checkbox"
+  name="attr_sr6_roll_popup_slot_4_option_spell_range"
+  value="1"
+  class="sr6-roll-popup-slot-option-toggle sr6-roll-popup-slot-option-toggle--4-spell-range" />
+<input
+  type="checkbox"
+  name="attr_sr6_roll_popup_slot_5_option_spell_range"
+  value="1"
+  class="sr6-roll-popup-slot-option-toggle sr6-roll-popup-slot-option-toggle--5-spell-range" />
+<input
+  type="checkbox"
+  name="attr_sr6_roll_popup_slot_6_option_spell_range"
+  value="1"
+  class="sr6-roll-popup-slot-option-toggle sr6-roll-popup-slot-option-toggle--6-spell-range" />
+<input
+  type="checkbox"
+  name="attr_sr6_roll_popup_slot_7_option_spell_range"
+  value="1"
+  class="sr6-roll-popup-slot-option-toggle sr6-roll-popup-slot-option-toggle--7-spell-range" />
+<input
+  type="checkbox"
+  name="attr_sr6_roll_popup_slot_8_option_spell_range"
+  value="1"
+  class="sr6-roll-popup-slot-option-toggle sr6-roll-popup-slot-option-toggle--8-spell-range" />
+<input
+  type="checkbox"
+  name="attr_sr6_roll_popup_slot_1_option_matrix_access"
+  value="1"
+  class="sr6-roll-popup-slot-option-toggle sr6-roll-popup-slot-option-toggle--1-matrix-access" />
+<input
+  type="checkbox"
+  name="attr_sr6_roll_popup_slot_2_option_matrix_access"
+  value="1"
+  class="sr6-roll-popup-slot-option-toggle sr6-roll-popup-slot-option-toggle--2-matrix-access" />
+<input
+  type="checkbox"
+  name="attr_sr6_roll_popup_slot_3_option_matrix_access"
+  value="1"
+  class="sr6-roll-popup-slot-option-toggle sr6-roll-popup-slot-option-toggle--3-matrix-access" />
+<input
+  type="checkbox"
+  name="attr_sr6_roll_popup_slot_4_option_matrix_access"
+  value="1"
+  class="sr6-roll-popup-slot-option-toggle sr6-roll-popup-slot-option-toggle--4-matrix-access" />
+<input
+  type="checkbox"
+  name="attr_sr6_roll_popup_slot_5_option_matrix_access"
+  value="1"
+  class="sr6-roll-popup-slot-option-toggle sr6-roll-popup-slot-option-toggle--5-matrix-access" />
+<input
+  type="checkbox"
+  name="attr_sr6_roll_popup_slot_6_option_matrix_access"
+  value="1"
+  class="sr6-roll-popup-slot-option-toggle sr6-roll-popup-slot-option-toggle--6-matrix-access" />
+<input
+  type="checkbox"
+  name="attr_sr6_roll_popup_slot_7_option_matrix_access"
+  value="1"
+  class="sr6-roll-popup-slot-option-toggle sr6-roll-popup-slot-option-toggle--7-matrix-access" />
+<input
+  type="checkbox"
+  name="attr_sr6_roll_popup_slot_8_option_matrix_access"
+  value="1"
+  class="sr6-roll-popup-slot-option-toggle sr6-roll-popup-slot-option-toggle--8-matrix-access" />
+<input
+  type="checkbox"
+  name="attr_sr6_roll_popup_slot_1_option_ammo"
+  value="1"
+  class="sr6-roll-popup-slot-option-toggle sr6-roll-popup-slot-option-toggle--1-ammo" />
+<input
+  type="checkbox"
+  name="attr_sr6_roll_popup_slot_2_option_ammo"
+  value="1"
+  class="sr6-roll-popup-slot-option-toggle sr6-roll-popup-slot-option-toggle--2-ammo" />
+<input
+  type="checkbox"
+  name="attr_sr6_roll_popup_slot_3_option_ammo"
+  value="1"
+  class="sr6-roll-popup-slot-option-toggle sr6-roll-popup-slot-option-toggle--3-ammo" />
+<input
+  type="checkbox"
+  name="attr_sr6_roll_popup_slot_4_option_ammo"
+  value="1"
+  class="sr6-roll-popup-slot-option-toggle sr6-roll-popup-slot-option-toggle--4-ammo" />
+<input
+  type="checkbox"
+  name="attr_sr6_roll_popup_slot_5_option_ammo"
+  value="1"
+  class="sr6-roll-popup-slot-option-toggle sr6-roll-popup-slot-option-toggle--5-ammo" />
+<input
+  type="checkbox"
+  name="attr_sr6_roll_popup_slot_6_option_ammo"
+  value="1"
+  class="sr6-roll-popup-slot-option-toggle sr6-roll-popup-slot-option-toggle--6-ammo" />
+<input
+  type="checkbox"
+  name="attr_sr6_roll_popup_slot_7_option_ammo"
+  value="1"
+  class="sr6-roll-popup-slot-option-toggle sr6-roll-popup-slot-option-toggle--7-ammo" />
+<input
+  type="checkbox"
+  name="attr_sr6_roll_popup_slot_8_option_ammo"
+  value="1"
+  class="sr6-roll-popup-slot-option-toggle sr6-roll-popup-slot-option-toggle--8-ammo" />
+<input
+  type="checkbox"
+  name="attr_sr6_roll_popup_slot_1_option_melee_attribute"
+  value="1"
+  class="sr6-roll-popup-slot-option-toggle sr6-roll-popup-slot-option-toggle--1-melee-attribute" />
+<input
+  type="checkbox"
+  name="attr_sr6_roll_popup_slot_2_option_melee_attribute"
+  value="1"
+  class="sr6-roll-popup-slot-option-toggle sr6-roll-popup-slot-option-toggle--2-melee-attribute" />
+<input
+  type="checkbox"
+  name="attr_sr6_roll_popup_slot_3_option_melee_attribute"
+  value="1"
+  class="sr6-roll-popup-slot-option-toggle sr6-roll-popup-slot-option-toggle--3-melee-attribute" />
+<input
+  type="checkbox"
+  name="attr_sr6_roll_popup_slot_4_option_melee_attribute"
+  value="1"
+  class="sr6-roll-popup-slot-option-toggle sr6-roll-popup-slot-option-toggle--4-melee-attribute" />
+<input
+  type="checkbox"
+  name="attr_sr6_roll_popup_slot_5_option_melee_attribute"
+  value="1"
+  class="sr6-roll-popup-slot-option-toggle sr6-roll-popup-slot-option-toggle--5-melee-attribute" />
+<input
+  type="checkbox"
+  name="attr_sr6_roll_popup_slot_6_option_melee_attribute"
+  value="1"
+  class="sr6-roll-popup-slot-option-toggle sr6-roll-popup-slot-option-toggle--6-melee-attribute" />
+<input
+  type="checkbox"
+  name="attr_sr6_roll_popup_slot_7_option_melee_attribute"
+  value="1"
+  class="sr6-roll-popup-slot-option-toggle sr6-roll-popup-slot-option-toggle--7-melee-attribute" />
+<input
+  type="checkbox"
+  name="attr_sr6_roll_popup_slot_8_option_melee_attribute"
+  value="1"
+  class="sr6-roll-popup-slot-option-toggle sr6-roll-popup-slot-option-toggle--8-melee-attribute" />
+<input
+  type="checkbox"
+  name="attr_sr6_roll_popup_slot_1_option_spirit_type"
+  value="1"
+  class="sr6-roll-popup-slot-option-toggle sr6-roll-popup-slot-option-toggle--1-spirit-type" />
+<input
+  type="checkbox"
+  name="attr_sr6_roll_popup_slot_2_option_spirit_type"
+  value="1"
+  class="sr6-roll-popup-slot-option-toggle sr6-roll-popup-slot-option-toggle--2-spirit-type" />
+<input
+  type="checkbox"
+  name="attr_sr6_roll_popup_slot_3_option_spirit_type"
+  value="1"
+  class="sr6-roll-popup-slot-option-toggle sr6-roll-popup-slot-option-toggle--3-spirit-type" />
+<input
+  type="checkbox"
+  name="attr_sr6_roll_popup_slot_4_option_spirit_type"
+  value="1"
+  class="sr6-roll-popup-slot-option-toggle sr6-roll-popup-slot-option-toggle--4-spirit-type" />
+<input
+  type="checkbox"
+  name="attr_sr6_roll_popup_slot_5_option_spirit_type"
+  value="1"
+  class="sr6-roll-popup-slot-option-toggle sr6-roll-popup-slot-option-toggle--5-spirit-type" />
+<input
+  type="checkbox"
+  name="attr_sr6_roll_popup_slot_6_option_spirit_type"
+  value="1"
+  class="sr6-roll-popup-slot-option-toggle sr6-roll-popup-slot-option-toggle--6-spirit-type" />
+<input
+  type="checkbox"
+  name="attr_sr6_roll_popup_slot_7_option_spirit_type"
+  value="1"
+  class="sr6-roll-popup-slot-option-toggle sr6-roll-popup-slot-option-toggle--7-spirit-type" />
+<input
+  type="checkbox"
+  name="attr_sr6_roll_popup_slot_8_option_spirit_type"
+  value="1"
+  class="sr6-roll-popup-slot-option-toggle sr6-roll-popup-slot-option-toggle--8-spirit-type" />
+<input
+  type="checkbox"
+  name="attr_sr6_roll_popup_slot_2_option_skill_attr_intuition_willenskraft"
+  value="1"
+  class="sr6-roll-popup-slot-option-toggle sr6-roll-popup-slot-option-toggle--2-skill-attr-intuition-willenskraft" />
+<input
+  type="checkbox"
+  name="attr_sr6_roll_popup_slot_2_option_skill_attr_geschicklichkeit_staerke"
+  value="1"
+  class="sr6-roll-popup-slot-option-toggle sr6-roll-popup-slot-option-toggle--2-skill-attr-geschicklichkeit-staerke" />
+<input
+  type="checkbox"
+  name="attr_sr6_roll_popup_slot_2_option_skill_attr_magie"
+  value="1"
+  class="sr6-roll-popup-slot-option-toggle sr6-roll-popup-slot-option-toggle--2-skill-attr-magie" />
+<input
+  type="checkbox"
+  name="attr_sr6_roll_popup_slot_2_option_skill_attr_logik_intuition"
+  value="1"
+  class="sr6-roll-popup-slot-option-toggle sr6-roll-popup-slot-option-toggle--2-skill-attr-logik-intuition" />
+<input
+  type="checkbox"
+  name="attr_sr6_roll_popup_slot_2_option_skill_attr_logik"
+  value="1"
+  class="sr6-roll-popup-slot-option-toggle sr6-roll-popup-slot-option-toggle--2-skill-attr-logik" />
+<input
+  type="checkbox"
+  name="attr_sr6_roll_popup_slot_2_option_skill_attr_charisma_logik"
+  value="1"
+  class="sr6-roll-popup-slot-option-toggle sr6-roll-popup-slot-option-toggle--2-skill-attr-charisma-logik" />
+<input
+  type="checkbox"
+  name="attr_sr6_roll_popup_slot_2_option_skill_attr_geschicklichkeit"
+  value="1"
+  class="sr6-roll-popup-slot-option-toggle sr6-roll-popup-slot-option-toggle--2-skill-attr-geschicklichkeit" />
+<input
+  type="checkbox"
+  name="attr_sr6_roll_popup_slot_2_option_skill_attr_logik_geschicklichkeit_intuition"
+  value="1"
+  class="sr6-roll-popup-slot-option-toggle sr6-roll-popup-slot-option-toggle--2-skill-attr-logik-geschicklichkeit-intuition" />
+<input
+  type="checkbox"
+  name="attr_sr6_roll_popup_slot_2_option_skill_attr_intuition"
+  value="1"
+  class="sr6-roll-popup-slot-option-toggle sr6-roll-popup-slot-option-toggle--2-skill-attr-intuition" />
+<input
+  type="checkbox"
+  name="attr_sr6_roll_popup_slot_2_option_skill_attr_intuition_logik"
+  value="1"
+  class="sr6-roll-popup-slot-option-toggle sr6-roll-popup-slot-option-toggle--2-skill-attr-intuition-logik" />
+<input
+  type="checkbox"
+  name="attr_sr6_roll_popup_slot_2_option_skill_attr_reaktion"
+  value="1"
+  class="sr6-roll-popup-slot-option-toggle sr6-roll-popup-slot-option-toggle--2-skill-attr-reaktion" />
+<input
+  type="checkbox"
+  name="attr_sr6_roll_popup_slot_2_option_skill_attr_resonanz"
+  value="1"
+  class="sr6-roll-popup-slot-option-toggle sr6-roll-popup-slot-option-toggle--2-skill-attr-resonanz" />
+<input
+  type="checkbox"
+  name="attr_sr6_roll_popup_slot_2_option_skill_attr_charisma"
+  value="1"
+  class="sr6-roll-popup-slot-option-toggle sr6-roll-popup-slot-option-toggle--2-skill-attr-charisma" />
+<input
+  type="checkbox"
+  name="attr_sr6_roll_popup_slot_9_option_edge_boost"
+  value="1"
+  class="sr6-roll-popup-slot-option-toggle sr6-roll-popup-slot-option-toggle--9-edge-boost" />
+<input
+  type="checkbox"
+  name="attr_sr6_roll_popup_slot_9_option_edge_after_boost"
+  value="1"
+  class="sr6-roll-popup-slot-option-toggle sr6-roll-popup-slot-option-toggle--9-edge-after-boost" />
 <input type="hidden" name="attr_sr6_roll_popup_definition" value="" />
 <input type="hidden" name="attr_sr6_roll_popup_template" value="" />
 <input type="hidden" name="attr_sr6_roll_popup_row_prefix" value="" />
 
 <div class="sr6-roll-popup-overlay" aria-hidden="true">
-  <div class="sr6-roll-popup-dialog" role="dialog" aria-modal="true" aria-labelledby="sr6-roll-popup-title">
+  <div
+    class="sr6-roll-popup-dialog"
+    role="dialog"
+    aria-modal="true"
+    aria-labelledby="sr6-roll-popup-title">
     <div class="sr6-roll-popup-header">
-      <h3 id="sr6-roll-popup-title" data-i18n="ui.roll_popup_title">Wurf-Modifikator</h3>
+      <h3 id="sr6-roll-popup-title" data-i18n="ui.roll_popup_title">
+        Wurf-Modifikator
+      </h3>
     </div>
 
     <div class="sr6-roll-popup-content">
       <label class="sr6-roll-popup-field sr6-roll-popup-field--1">
-        <input type="text" name="attr_sr6_roll_popup_slot_1_label" value="" readonly class="sr6-roll-popup-field-label" />
-        <input type="number" name="attr_sr6_roll_popup_value_1_number" value="0" class="sr6-roll-popup-field-input sr6-roll-popup-field-input--number" />
-        <input type="text" name="attr_sr6_roll_popup_value_1_text" value="" class="sr6-roll-popup-field-input sr6-roll-popup-field-input--text" />
-        <input type="checkbox" name="attr_sr6_roll_popup_value_1_checkbox" value="1" class="sr6-roll-popup-field-input sr6-roll-popup-field-input--checkbox" />
-        <select name="attr_sr6_roll_popup_value_1_select_visibility" class="sr6-roll-popup-field-input sr6-roll-popup-field-input--select sr6-roll-popup-field-input--select-visibility">
-          <option value="clear" data-i18n="field.popup_sicht_klar">Klare Sicht</option>
-          <option value="partial" data-i18n="field.popup_sicht_leicht">Leicht verdeckt</option>
-          <option value="heavy" data-i18n="field.popup_sicht_stark">Stark verdeckt</option>
-          <option value="blind" data-i18n="field.popup_sicht_blind">Blindes Feuer</option>
+        <input
+          type="text"
+          name="attr_sr6_roll_popup_slot_1_label"
+          value=""
+          readonly
+          class="sr6-roll-popup-field-label" />
+        <input
+          type="number"
+          name="attr_sr6_roll_popup_value_1_number"
+          value="0"
+          class="sr6-roll-popup-field-input sr6-roll-popup-field-input--number" />
+        <input
+          type="text"
+          name="attr_sr6_roll_popup_value_1_text"
+          value=""
+          class="sr6-roll-popup-field-input sr6-roll-popup-field-input--text" />
+        <input
+          type="checkbox"
+          name="attr_sr6_roll_popup_value_1_checkbox"
+          value="1"
+          class="sr6-roll-popup-field-input sr6-roll-popup-field-input--checkbox" />
+        <select
+          name="attr_sr6_roll_popup_value_1_select_visibility"
+          class="sr6-roll-popup-field-input sr6-roll-popup-field-input--select sr6-roll-popup-field-input--select-visibility">
+          <option value="clear" data-i18n="field.popup_sicht_klar">
+            Klare Sicht
+          </option>
+          <option value="partial" data-i18n="field.popup_sicht_leicht">
+            Leicht verdeckt
+          </option>
+          <option value="heavy" data-i18n="field.popup_sicht_stark">
+            Stark verdeckt
+          </option>
+          <option value="blind" data-i18n="field.popup_sicht_blind">
+            Blindes Feuer
+          </option>
         </select>
-        <select name="attr_sr6_roll_popup_value_1_select_movement" class="sr6-roll-popup-field-input sr6-roll-popup-field-input--select sr6-roll-popup-field-input--select-movement">
-          <option value="steady" data-i18n="field.popup_bewegung_ruhig">Ruhiges Ziel</option>
-          <option value="walking" data-i18n="field.popup_bewegung_leicht">Leichte Bewegung</option>
-          <option value="running" data-i18n="field.popup_bewegung_schnell">Schnelle Bewegung</option>
+        <select
+          name="attr_sr6_roll_popup_value_1_select_movement"
+          class="sr6-roll-popup-field-input sr6-roll-popup-field-input--select sr6-roll-popup-field-input--select-movement">
+          <option value="steady" data-i18n="field.popup_bewegung_ruhig">
+            Ruhiges Ziel
+          </option>
+          <option value="walking" data-i18n="field.popup_bewegung_leicht">
+            Leichte Bewegung
+          </option>
+          <option value="running" data-i18n="field.popup_bewegung_schnell">
+            Schnelle Bewegung
+          </option>
         </select>
-        <select name="attr_sr6_roll_popup_value_1_select_spell_range" class="sr6-roll-popup-field-input sr6-roll-popup-field-input--select sr6-roll-popup-field-input--select-spell-range">
-          <option value="Selbst" data-i18n="field.reichweite_selbst">Selbst</option>
-          <option value="Beruehrung" data-i18n="field.reichweite_beruehrung">Berührung</option>
-          <option value="Sicht" data-i18n="field.reichweite_sicht">Sicht</option>
-          <option value="Spezial" data-i18n="field.reichweite_spezial">Spezial</option>
+        <select
+          name="attr_sr6_roll_popup_value_1_select_spell_range"
+          class="sr6-roll-popup-field-input sr6-roll-popup-field-input--select sr6-roll-popup-field-input--select-spell-range">
+          <option value="Selbst" data-i18n="field.reichweite_selbst">
+            Selbst
+          </option>
+          <option value="Beruehrung" data-i18n="field.reichweite_beruehrung">
+            Berührung
+          </option>
+          <option value="Sicht" data-i18n="field.reichweite_sicht">
+            Sicht
+          </option>
+          <option value="Spezial" data-i18n="field.reichweite_spezial">
+            Spezial
+          </option>
         </select>
-        <select name="attr_sr6_roll_popup_value_1_select_matrix_access" class="sr6-roll-popup-field-input sr6-roll-popup-field-input--select sr6-roll-popup-field-input--select-matrix-access">
-          <option value="Benutzer" data-i18n="field.matrix_zugriff_benutzer">Benutzer</option>
-          <option value="Admin" data-i18n="field.matrix_zugriff_admin">Admin</option>
-          <option value="Root" data-i18n="field.matrix_zugriff_root">Root</option>
+        <select
+          name="attr_sr6_roll_popup_value_1_select_matrix_access"
+          class="sr6-roll-popup-field-input sr6-roll-popup-field-input--select sr6-roll-popup-field-input--select-matrix-access">
+          <option value="Benutzer" data-i18n="field.matrix_zugriff_benutzer">
+            Benutzer
+          </option>
+          <option value="Admin" data-i18n="field.matrix_zugriff_admin">
+            Admin
+          </option>
+          <option value="Root" data-i18n="field.matrix_zugriff_root">
+            Root
+          </option>
         </select>
-        <select name="attr_sr6_roll_popup_value_1_select_ammo" class="sr6-roll-popup-field-input sr6-roll-popup-field-input--select sr6-roll-popup-field-input--select-ammo">
-          <option value="Standard" data-i18n="field.munition_standard">Standard</option>
-          <option value="Huelsenlos" data-i18n="field.munition_huelsenlos">Hülsenlos</option>
+        <select
+          name="attr_sr6_roll_popup_value_1_select_ammo"
+          class="sr6-roll-popup-field-input sr6-roll-popup-field-input--select sr6-roll-popup-field-input--select-ammo">
+          <option value="Standard" data-i18n="field.munition_standard">
+            Standard
+          </option>
+          <option value="Huelsenlos" data-i18n="field.munition_huelsenlos">
+            Hülsenlos
+          </option>
           <option value="APDS" data-i18n="field.munition_apds">APDS</option>
-          <option value="Explosiv" data-i18n="field.munition_explosiv">Explosiv</option>
-          <option value="Flechette" data-i18n="field.munition_flechette">Flechette</option>
+          <option value="Explosiv" data-i18n="field.munition_explosiv">
+            Explosiv
+          </option>
+          <option value="Flechette" data-i18n="field.munition_flechette">
+            Flechette
+          </option>
           <option value="Gel" data-i18n="field.munition_gel">Gel</option>
-          <option value="Injektionspfeil" data-i18n="field.munition_injektionspfeil">Injektionspfeil</option>
-          <option value="Schocker" data-i18n="field.munition_schocker">Schocker</option>
-          <option value="DMSO-Gelpack" data-i18n="field.munition_dmso_gelpack">DMSO-Gelpack</option>
+          <option
+            value="Injektionspfeil"
+            data-i18n="field.munition_injektionspfeil">
+            Injektionspfeil
+          </option>
+          <option value="Schocker" data-i18n="field.munition_schocker">
+            Schocker
+          </option>
+          <option value="DMSO-Gelpack" data-i18n="field.munition_dmso_gelpack">
+            DMSO-Gelpack
+          </option>
         </select>
-        <select name="attr_sr6_roll_popup_value_1_select_melee_attribute" class="sr6-roll-popup-field-input sr6-roll-popup-field-input--select sr6-roll-popup-field-input--select-melee-attribute">
-          <option value="Geschicklichkeit" data-i18n="field.geschicklichkeit">Geschicklichkeit</option>
+        <select
+          name="attr_sr6_roll_popup_value_1_select_melee_attribute"
+          class="sr6-roll-popup-field-input sr6-roll-popup-field-input--select sr6-roll-popup-field-input--select-melee-attribute">
+          <option value="Geschicklichkeit" data-i18n="field.geschicklichkeit">
+            Geschicklichkeit
+          </option>
           <option value="Stärke" data-i18n="field.staerke">Stärke</option>
         </select>
-        <select name="attr_sr6_roll_popup_value_1_select_spirit_type" class="sr6-roll-popup-field-input sr6-roll-popup-field-input--select sr6-roll-popup-field-input--select-spirit-type">
+        <select
+          name="attr_sr6_roll_popup_value_1_select_spirit_type"
+          class="sr6-roll-popup-field-input sr6-roll-popup-field-input--select sr6-roll-popup-field-input--select-spirit-type">
           <option value="Erdgeister">Erdgeister</option>
           <option value="Feuergeister">Feuergeister</option>
           <option value="Luftgeister">Luftgeister</option>
@@ -216,48 +900,125 @@
         </select>
       </label>
       <label class="sr6-roll-popup-field sr6-roll-popup-field--2">
-        <input type="text" name="attr_sr6_roll_popup_slot_2_label" value="" readonly class="sr6-roll-popup-field-label" />
-        <input type="number" name="attr_sr6_roll_popup_value_2_number" value="0" class="sr6-roll-popup-field-input sr6-roll-popup-field-input--number" />
-        <input type="text" name="attr_sr6_roll_popup_value_2_text" value="" class="sr6-roll-popup-field-input sr6-roll-popup-field-input--text" />
-        <input type="checkbox" name="attr_sr6_roll_popup_value_2_checkbox" value="1" class="sr6-roll-popup-field-input sr6-roll-popup-field-input--checkbox" />
-        <select name="attr_sr6_roll_popup_value_2_select_visibility" class="sr6-roll-popup-field-input sr6-roll-popup-field-input--select sr6-roll-popup-field-input--select-visibility">
-          <option value="clear" data-i18n="field.popup_sicht_klar">Klare Sicht</option>
-          <option value="partial" data-i18n="field.popup_sicht_leicht">Leicht verdeckt</option>
-          <option value="heavy" data-i18n="field.popup_sicht_stark">Stark verdeckt</option>
-          <option value="blind" data-i18n="field.popup_sicht_blind">Blindes Feuer</option>
+        <input
+          type="text"
+          name="attr_sr6_roll_popup_slot_2_label"
+          value=""
+          readonly
+          class="sr6-roll-popup-field-label" />
+        <input
+          type="number"
+          name="attr_sr6_roll_popup_value_2_number"
+          value="0"
+          class="sr6-roll-popup-field-input sr6-roll-popup-field-input--number" />
+        <input
+          type="text"
+          name="attr_sr6_roll_popup_value_2_text"
+          value=""
+          class="sr6-roll-popup-field-input sr6-roll-popup-field-input--text" />
+        <input
+          type="checkbox"
+          name="attr_sr6_roll_popup_value_2_checkbox"
+          value="1"
+          class="sr6-roll-popup-field-input sr6-roll-popup-field-input--checkbox" />
+        <select
+          name="attr_sr6_roll_popup_value_2_select_visibility"
+          class="sr6-roll-popup-field-input sr6-roll-popup-field-input--select sr6-roll-popup-field-input--select-visibility">
+          <option value="clear" data-i18n="field.popup_sicht_klar">
+            Klare Sicht
+          </option>
+          <option value="partial" data-i18n="field.popup_sicht_leicht">
+            Leicht verdeckt
+          </option>
+          <option value="heavy" data-i18n="field.popup_sicht_stark">
+            Stark verdeckt
+          </option>
+          <option value="blind" data-i18n="field.popup_sicht_blind">
+            Blindes Feuer
+          </option>
         </select>
-        <select name="attr_sr6_roll_popup_value_2_select_movement" class="sr6-roll-popup-field-input sr6-roll-popup-field-input--select sr6-roll-popup-field-input--select-movement">
-          <option value="steady" data-i18n="field.popup_bewegung_ruhig">Ruhiges Ziel</option>
-          <option value="walking" data-i18n="field.popup_bewegung_leicht">Leichte Bewegung</option>
-          <option value="running" data-i18n="field.popup_bewegung_schnell">Schnelle Bewegung</option>
+        <select
+          name="attr_sr6_roll_popup_value_2_select_movement"
+          class="sr6-roll-popup-field-input sr6-roll-popup-field-input--select sr6-roll-popup-field-input--select-movement">
+          <option value="steady" data-i18n="field.popup_bewegung_ruhig">
+            Ruhiges Ziel
+          </option>
+          <option value="walking" data-i18n="field.popup_bewegung_leicht">
+            Leichte Bewegung
+          </option>
+          <option value="running" data-i18n="field.popup_bewegung_schnell">
+            Schnelle Bewegung
+          </option>
         </select>
-        <select name="attr_sr6_roll_popup_value_2_select_spell_range" class="sr6-roll-popup-field-input sr6-roll-popup-field-input--select sr6-roll-popup-field-input--select-spell-range">
-          <option value="Selbst" data-i18n="field.reichweite_selbst">Selbst</option>
-          <option value="Beruehrung" data-i18n="field.reichweite_beruehrung">Berührung</option>
-          <option value="Sicht" data-i18n="field.reichweite_sicht">Sicht</option>
-          <option value="Spezial" data-i18n="field.reichweite_spezial">Spezial</option>
+        <select
+          name="attr_sr6_roll_popup_value_2_select_spell_range"
+          class="sr6-roll-popup-field-input sr6-roll-popup-field-input--select sr6-roll-popup-field-input--select-spell-range">
+          <option value="Selbst" data-i18n="field.reichweite_selbst">
+            Selbst
+          </option>
+          <option value="Beruehrung" data-i18n="field.reichweite_beruehrung">
+            Berührung
+          </option>
+          <option value="Sicht" data-i18n="field.reichweite_sicht">
+            Sicht
+          </option>
+          <option value="Spezial" data-i18n="field.reichweite_spezial">
+            Spezial
+          </option>
         </select>
-        <select name="attr_sr6_roll_popup_value_2_select_matrix_access" class="sr6-roll-popup-field-input sr6-roll-popup-field-input--select sr6-roll-popup-field-input--select-matrix-access">
-          <option value="Benutzer" data-i18n="field.matrix_zugriff_benutzer">Benutzer</option>
-          <option value="Admin" data-i18n="field.matrix_zugriff_admin">Admin</option>
-          <option value="Root" data-i18n="field.matrix_zugriff_root">Root</option>
+        <select
+          name="attr_sr6_roll_popup_value_2_select_matrix_access"
+          class="sr6-roll-popup-field-input sr6-roll-popup-field-input--select sr6-roll-popup-field-input--select-matrix-access">
+          <option value="Benutzer" data-i18n="field.matrix_zugriff_benutzer">
+            Benutzer
+          </option>
+          <option value="Admin" data-i18n="field.matrix_zugriff_admin">
+            Admin
+          </option>
+          <option value="Root" data-i18n="field.matrix_zugriff_root">
+            Root
+          </option>
         </select>
-        <select name="attr_sr6_roll_popup_value_2_select_ammo" class="sr6-roll-popup-field-input sr6-roll-popup-field-input--select sr6-roll-popup-field-input--select-ammo">
-          <option value="Standard" data-i18n="field.munition_standard">Standard</option>
-          <option value="Huelsenlos" data-i18n="field.munition_huelsenlos">Hülsenlos</option>
+        <select
+          name="attr_sr6_roll_popup_value_2_select_ammo"
+          class="sr6-roll-popup-field-input sr6-roll-popup-field-input--select sr6-roll-popup-field-input--select-ammo">
+          <option value="Standard" data-i18n="field.munition_standard">
+            Standard
+          </option>
+          <option value="Huelsenlos" data-i18n="field.munition_huelsenlos">
+            Hülsenlos
+          </option>
           <option value="APDS" data-i18n="field.munition_apds">APDS</option>
-          <option value="Explosiv" data-i18n="field.munition_explosiv">Explosiv</option>
-          <option value="Flechette" data-i18n="field.munition_flechette">Flechette</option>
+          <option value="Explosiv" data-i18n="field.munition_explosiv">
+            Explosiv
+          </option>
+          <option value="Flechette" data-i18n="field.munition_flechette">
+            Flechette
+          </option>
           <option value="Gel" data-i18n="field.munition_gel">Gel</option>
-          <option value="Injektionspfeil" data-i18n="field.munition_injektionspfeil">Injektionspfeil</option>
-          <option value="Schocker" data-i18n="field.munition_schocker">Schocker</option>
-          <option value="DMSO-Gelpack" data-i18n="field.munition_dmso_gelpack">DMSO-Gelpack</option>
+          <option
+            value="Injektionspfeil"
+            data-i18n="field.munition_injektionspfeil">
+            Injektionspfeil
+          </option>
+          <option value="Schocker" data-i18n="field.munition_schocker">
+            Schocker
+          </option>
+          <option value="DMSO-Gelpack" data-i18n="field.munition_dmso_gelpack">
+            DMSO-Gelpack
+          </option>
         </select>
-        <select name="attr_sr6_roll_popup_value_2_select_melee_attribute" class="sr6-roll-popup-field-input sr6-roll-popup-field-input--select sr6-roll-popup-field-input--select-melee-attribute">
-          <option value="Geschicklichkeit" data-i18n="field.geschicklichkeit">Geschicklichkeit</option>
+        <select
+          name="attr_sr6_roll_popup_value_2_select_melee_attribute"
+          class="sr6-roll-popup-field-input sr6-roll-popup-field-input--select sr6-roll-popup-field-input--select-melee-attribute">
+          <option value="Geschicklichkeit" data-i18n="field.geschicklichkeit">
+            Geschicklichkeit
+          </option>
           <option value="Stärke" data-i18n="field.staerke">Stärke</option>
         </select>
-        <select name="attr_sr6_roll_popup_value_2_select_spirit_type" class="sr6-roll-popup-field-input sr6-roll-popup-field-input--select sr6-roll-popup-field-input--select-spirit-type">
+        <select
+          name="attr_sr6_roll_popup_value_2_select_spirit_type"
+          class="sr6-roll-popup-field-input sr6-roll-popup-field-input--select sr6-roll-popup-field-input--select-spirit-type">
           <option value="Erdgeister">Erdgeister</option>
           <option value="Feuergeister">Feuergeister</option>
           <option value="Luftgeister">Luftgeister</option>
@@ -269,96 +1030,217 @@
           <option value="Pflanzengeister">Pflanzengeister</option>
           <option value="Ratgebergeister">Ratgebergeister</option>
         </select>
-        <select name="attr_sr6_roll_popup_value_2_select_skill_attr_intuition_willenskraft" class="sr6-roll-popup-field-input sr6-roll-popup-field-input--select sr6-roll-popup-field-input--select-skill-attr-intuition-willenskraft">
-          <option value="Intuition" data-i18n="field.intuition">Intuition</option>
-          <option value="Willenskraft" data-i18n="field.willenskraft">Willenskraft</option>
+        <select
+          name="attr_sr6_roll_popup_value_2_select_skill_attr_intuition_willenskraft"
+          class="sr6-roll-popup-field-input sr6-roll-popup-field-input--select sr6-roll-popup-field-input--select-skill-attr-intuition-willenskraft">
+          <option value="Intuition" data-i18n="field.intuition">
+            Intuition
+          </option>
+          <option value="Willenskraft" data-i18n="field.willenskraft">
+            Willenskraft
+          </option>
         </select>
-        <select name="attr_sr6_roll_popup_value_2_select_skill_attr_geschicklichkeit_staerke" class="sr6-roll-popup-field-input sr6-roll-popup-field-input--select sr6-roll-popup-field-input--select-skill-attr-geschicklichkeit-staerke">
-          <option value="Geschicklichkeit" data-i18n="field.geschicklichkeit">Geschicklichkeit</option>
+        <select
+          name="attr_sr6_roll_popup_value_2_select_skill_attr_geschicklichkeit_staerke"
+          class="sr6-roll-popup-field-input sr6-roll-popup-field-input--select sr6-roll-popup-field-input--select-skill-attr-geschicklichkeit-staerke">
+          <option value="Geschicklichkeit" data-i18n="field.geschicklichkeit">
+            Geschicklichkeit
+          </option>
           <option value="Stärke" data-i18n="field.staerke">Stärke</option>
         </select>
-        <select name="attr_sr6_roll_popup_value_2_select_skill_attr_magie" class="sr6-roll-popup-field-input sr6-roll-popup-field-input--select sr6-roll-popup-field-input--select-skill-attr-magie">
+        <select
+          name="attr_sr6_roll_popup_value_2_select_skill_attr_magie"
+          class="sr6-roll-popup-field-input sr6-roll-popup-field-input--select sr6-roll-popup-field-input--select-skill-attr-magie">
           <option value="Magie" data-i18n="field.magie">Magie</option>
         </select>
-        <select name="attr_sr6_roll_popup_value_2_select_skill_attr_logik_intuition" class="sr6-roll-popup-field-input sr6-roll-popup-field-input--select sr6-roll-popup-field-input--select-skill-attr-logik-intuition">
+        <select
+          name="attr_sr6_roll_popup_value_2_select_skill_attr_logik_intuition"
+          class="sr6-roll-popup-field-input sr6-roll-popup-field-input--select sr6-roll-popup-field-input--select-skill-attr-logik-intuition">
           <option value="Logik" data-i18n="field.logik">Logik</option>
-          <option value="Intuition" data-i18n="field.intuition">Intuition</option>
+          <option value="Intuition" data-i18n="field.intuition">
+            Intuition
+          </option>
         </select>
-        <select name="attr_sr6_roll_popup_value_2_select_skill_attr_logik" class="sr6-roll-popup-field-input sr6-roll-popup-field-input--select sr6-roll-popup-field-input--select-skill-attr-logik">
+        <select
+          name="attr_sr6_roll_popup_value_2_select_skill_attr_logik"
+          class="sr6-roll-popup-field-input sr6-roll-popup-field-input--select sr6-roll-popup-field-input--select-skill-attr-logik">
           <option value="Logik" data-i18n="field.logik">Logik</option>
         </select>
-        <select name="attr_sr6_roll_popup_value_2_select_skill_attr_charisma_logik" class="sr6-roll-popup-field-input sr6-roll-popup-field-input--select sr6-roll-popup-field-input--select-skill-attr-charisma-logik">
+        <select
+          name="attr_sr6_roll_popup_value_2_select_skill_attr_charisma_logik"
+          class="sr6-roll-popup-field-input sr6-roll-popup-field-input--select sr6-roll-popup-field-input--select-skill-attr-charisma-logik">
           <option value="Charisma" data-i18n="field.charisma">Charisma</option>
           <option value="Logik" data-i18n="field.logik">Logik</option>
         </select>
-        <select name="attr_sr6_roll_popup_value_2_select_skill_attr_geschicklichkeit" class="sr6-roll-popup-field-input sr6-roll-popup-field-input--select sr6-roll-popup-field-input--select-skill-attr-geschicklichkeit">
-          <option value="Geschicklichkeit" data-i18n="field.geschicklichkeit">Geschicklichkeit</option>
+        <select
+          name="attr_sr6_roll_popup_value_2_select_skill_attr_geschicklichkeit"
+          class="sr6-roll-popup-field-input sr6-roll-popup-field-input--select sr6-roll-popup-field-input--select-skill-attr-geschicklichkeit">
+          <option value="Geschicklichkeit" data-i18n="field.geschicklichkeit">
+            Geschicklichkeit
+          </option>
         </select>
-        <select name="attr_sr6_roll_popup_value_2_select_skill_attr_logik_geschicklichkeit_intuition" class="sr6-roll-popup-field-input sr6-roll-popup-field-input--select sr6-roll-popup-field-input--select-skill-attr-logik-geschicklichkeit-intuition">
+        <select
+          name="attr_sr6_roll_popup_value_2_select_skill_attr_logik_geschicklichkeit_intuition"
+          class="sr6-roll-popup-field-input sr6-roll-popup-field-input--select sr6-roll-popup-field-input--select-skill-attr-logik-geschicklichkeit-intuition">
           <option value="Logik" data-i18n="field.logik">Logik</option>
-          <option value="Geschicklichkeit" data-i18n="field.geschicklichkeit">Geschicklichkeit</option>
-          <option value="Intuition" data-i18n="field.intuition">Intuition</option>
+          <option value="Geschicklichkeit" data-i18n="field.geschicklichkeit">
+            Geschicklichkeit
+          </option>
+          <option value="Intuition" data-i18n="field.intuition">
+            Intuition
+          </option>
         </select>
-        <select name="attr_sr6_roll_popup_value_2_select_skill_attr_intuition" class="sr6-roll-popup-field-input sr6-roll-popup-field-input--select sr6-roll-popup-field-input--select-skill-attr-intuition">
-          <option value="Intuition" data-i18n="field.intuition">Intuition</option>
+        <select
+          name="attr_sr6_roll_popup_value_2_select_skill_attr_intuition"
+          class="sr6-roll-popup-field-input sr6-roll-popup-field-input--select sr6-roll-popup-field-input--select-skill-attr-intuition">
+          <option value="Intuition" data-i18n="field.intuition">
+            Intuition
+          </option>
         </select>
-        <select name="attr_sr6_roll_popup_value_2_select_skill_attr_intuition_logik" class="sr6-roll-popup-field-input sr6-roll-popup-field-input--select sr6-roll-popup-field-input--select-skill-attr-intuition-logik">
-          <option value="Intuition" data-i18n="field.intuition">Intuition</option>
+        <select
+          name="attr_sr6_roll_popup_value_2_select_skill_attr_intuition_logik"
+          class="sr6-roll-popup-field-input sr6-roll-popup-field-input--select sr6-roll-popup-field-input--select-skill-attr-intuition-logik">
+          <option value="Intuition" data-i18n="field.intuition">
+            Intuition
+          </option>
           <option value="Logik" data-i18n="field.logik">Logik</option>
         </select>
-        <select name="attr_sr6_roll_popup_value_2_select_skill_attr_reaktion" class="sr6-roll-popup-field-input sr6-roll-popup-field-input--select sr6-roll-popup-field-input--select-skill-attr-reaktion">
+        <select
+          name="attr_sr6_roll_popup_value_2_select_skill_attr_reaktion"
+          class="sr6-roll-popup-field-input sr6-roll-popup-field-input--select sr6-roll-popup-field-input--select-skill-attr-reaktion">
           <option value="Reaktion" data-i18n="field.reaktion">Reaktion</option>
         </select>
-        <select name="attr_sr6_roll_popup_value_2_select_skill_attr_resonanz" class="sr6-roll-popup-field-input sr6-roll-popup-field-input--select sr6-roll-popup-field-input--select-skill-attr-resonanz">
+        <select
+          name="attr_sr6_roll_popup_value_2_select_skill_attr_resonanz"
+          class="sr6-roll-popup-field-input sr6-roll-popup-field-input--select sr6-roll-popup-field-input--select-skill-attr-resonanz">
           <option value="Resonanz" data-i18n="field.resonanz">Resonanz</option>
         </select>
-        <select name="attr_sr6_roll_popup_value_2_select_skill_attr_charisma" class="sr6-roll-popup-field-input sr6-roll-popup-field-input--select sr6-roll-popup-field-input--select-skill-attr-charisma">
+        <select
+          name="attr_sr6_roll_popup_value_2_select_skill_attr_charisma"
+          class="sr6-roll-popup-field-input sr6-roll-popup-field-input--select sr6-roll-popup-field-input--select-skill-attr-charisma">
           <option value="Charisma" data-i18n="field.charisma">Charisma</option>
         </select>
       </label>
       <label class="sr6-roll-popup-field sr6-roll-popup-field--3">
-        <input type="text" name="attr_sr6_roll_popup_slot_3_label" value="" readonly class="sr6-roll-popup-field-label" />
-        <input type="number" name="attr_sr6_roll_popup_value_3_number" value="0" class="sr6-roll-popup-field-input sr6-roll-popup-field-input--number" />
-        <input type="text" name="attr_sr6_roll_popup_value_3_text" value="" class="sr6-roll-popup-field-input sr6-roll-popup-field-input--text" />
-        <input type="checkbox" name="attr_sr6_roll_popup_value_3_checkbox" value="1" class="sr6-roll-popup-field-input sr6-roll-popup-field-input--checkbox" />
-        <select name="attr_sr6_roll_popup_value_3_select_visibility" class="sr6-roll-popup-field-input sr6-roll-popup-field-input--select sr6-roll-popup-field-input--select-visibility">
-          <option value="clear" data-i18n="field.popup_sicht_klar">Klare Sicht</option>
-          <option value="partial" data-i18n="field.popup_sicht_leicht">Leicht verdeckt</option>
-          <option value="heavy" data-i18n="field.popup_sicht_stark">Stark verdeckt</option>
-          <option value="blind" data-i18n="field.popup_sicht_blind">Blindes Feuer</option>
+        <input
+          type="text"
+          name="attr_sr6_roll_popup_slot_3_label"
+          value=""
+          readonly
+          class="sr6-roll-popup-field-label" />
+        <input
+          type="number"
+          name="attr_sr6_roll_popup_value_3_number"
+          value="0"
+          class="sr6-roll-popup-field-input sr6-roll-popup-field-input--number" />
+        <input
+          type="text"
+          name="attr_sr6_roll_popup_value_3_text"
+          value=""
+          class="sr6-roll-popup-field-input sr6-roll-popup-field-input--text" />
+        <input
+          type="checkbox"
+          name="attr_sr6_roll_popup_value_3_checkbox"
+          value="1"
+          class="sr6-roll-popup-field-input sr6-roll-popup-field-input--checkbox" />
+        <select
+          name="attr_sr6_roll_popup_value_3_select_visibility"
+          class="sr6-roll-popup-field-input sr6-roll-popup-field-input--select sr6-roll-popup-field-input--select-visibility">
+          <option value="clear" data-i18n="field.popup_sicht_klar">
+            Klare Sicht
+          </option>
+          <option value="partial" data-i18n="field.popup_sicht_leicht">
+            Leicht verdeckt
+          </option>
+          <option value="heavy" data-i18n="field.popup_sicht_stark">
+            Stark verdeckt
+          </option>
+          <option value="blind" data-i18n="field.popup_sicht_blind">
+            Blindes Feuer
+          </option>
         </select>
-        <select name="attr_sr6_roll_popup_value_3_select_movement" class="sr6-roll-popup-field-input sr6-roll-popup-field-input--select sr6-roll-popup-field-input--select-movement">
-          <option value="steady" data-i18n="field.popup_bewegung_ruhig">Ruhiges Ziel</option>
-          <option value="walking" data-i18n="field.popup_bewegung_leicht">Leichte Bewegung</option>
-          <option value="running" data-i18n="field.popup_bewegung_schnell">Schnelle Bewegung</option>
+        <select
+          name="attr_sr6_roll_popup_value_3_select_movement"
+          class="sr6-roll-popup-field-input sr6-roll-popup-field-input--select sr6-roll-popup-field-input--select-movement">
+          <option value="steady" data-i18n="field.popup_bewegung_ruhig">
+            Ruhiges Ziel
+          </option>
+          <option value="walking" data-i18n="field.popup_bewegung_leicht">
+            Leichte Bewegung
+          </option>
+          <option value="running" data-i18n="field.popup_bewegung_schnell">
+            Schnelle Bewegung
+          </option>
         </select>
-        <select name="attr_sr6_roll_popup_value_3_select_spell_range" class="sr6-roll-popup-field-input sr6-roll-popup-field-input--select sr6-roll-popup-field-input--select-spell-range">
-          <option value="Selbst" data-i18n="field.reichweite_selbst">Selbst</option>
-          <option value="Beruehrung" data-i18n="field.reichweite_beruehrung">Berührung</option>
-          <option value="Sicht" data-i18n="field.reichweite_sicht">Sicht</option>
-          <option value="Spezial" data-i18n="field.reichweite_spezial">Spezial</option>
+        <select
+          name="attr_sr6_roll_popup_value_3_select_spell_range"
+          class="sr6-roll-popup-field-input sr6-roll-popup-field-input--select sr6-roll-popup-field-input--select-spell-range">
+          <option value="Selbst" data-i18n="field.reichweite_selbst">
+            Selbst
+          </option>
+          <option value="Beruehrung" data-i18n="field.reichweite_beruehrung">
+            Berührung
+          </option>
+          <option value="Sicht" data-i18n="field.reichweite_sicht">
+            Sicht
+          </option>
+          <option value="Spezial" data-i18n="field.reichweite_spezial">
+            Spezial
+          </option>
         </select>
-        <select name="attr_sr6_roll_popup_value_3_select_matrix_access" class="sr6-roll-popup-field-input sr6-roll-popup-field-input--select sr6-roll-popup-field-input--select-matrix-access">
-          <option value="Benutzer" data-i18n="field.matrix_zugriff_benutzer">Benutzer</option>
-          <option value="Admin" data-i18n="field.matrix_zugriff_admin">Admin</option>
-          <option value="Root" data-i18n="field.matrix_zugriff_root">Root</option>
+        <select
+          name="attr_sr6_roll_popup_value_3_select_matrix_access"
+          class="sr6-roll-popup-field-input sr6-roll-popup-field-input--select sr6-roll-popup-field-input--select-matrix-access">
+          <option value="Benutzer" data-i18n="field.matrix_zugriff_benutzer">
+            Benutzer
+          </option>
+          <option value="Admin" data-i18n="field.matrix_zugriff_admin">
+            Admin
+          </option>
+          <option value="Root" data-i18n="field.matrix_zugriff_root">
+            Root
+          </option>
         </select>
-        <select name="attr_sr6_roll_popup_value_3_select_ammo" class="sr6-roll-popup-field-input sr6-roll-popup-field-input--select sr6-roll-popup-field-input--select-ammo">
-          <option value="Standard" data-i18n="field.munition_standard">Standard</option>
-          <option value="Huelsenlos" data-i18n="field.munition_huelsenlos">Hülsenlos</option>
+        <select
+          name="attr_sr6_roll_popup_value_3_select_ammo"
+          class="sr6-roll-popup-field-input sr6-roll-popup-field-input--select sr6-roll-popup-field-input--select-ammo">
+          <option value="Standard" data-i18n="field.munition_standard">
+            Standard
+          </option>
+          <option value="Huelsenlos" data-i18n="field.munition_huelsenlos">
+            Hülsenlos
+          </option>
           <option value="APDS" data-i18n="field.munition_apds">APDS</option>
-          <option value="Explosiv" data-i18n="field.munition_explosiv">Explosiv</option>
-          <option value="Flechette" data-i18n="field.munition_flechette">Flechette</option>
+          <option value="Explosiv" data-i18n="field.munition_explosiv">
+            Explosiv
+          </option>
+          <option value="Flechette" data-i18n="field.munition_flechette">
+            Flechette
+          </option>
           <option value="Gel" data-i18n="field.munition_gel">Gel</option>
-          <option value="Injektionspfeil" data-i18n="field.munition_injektionspfeil">Injektionspfeil</option>
-          <option value="Schocker" data-i18n="field.munition_schocker">Schocker</option>
-          <option value="DMSO-Gelpack" data-i18n="field.munition_dmso_gelpack">DMSO-Gelpack</option>
+          <option
+            value="Injektionspfeil"
+            data-i18n="field.munition_injektionspfeil">
+            Injektionspfeil
+          </option>
+          <option value="Schocker" data-i18n="field.munition_schocker">
+            Schocker
+          </option>
+          <option value="DMSO-Gelpack" data-i18n="field.munition_dmso_gelpack">
+            DMSO-Gelpack
+          </option>
         </select>
-        <select name="attr_sr6_roll_popup_value_3_select_melee_attribute" class="sr6-roll-popup-field-input sr6-roll-popup-field-input--select sr6-roll-popup-field-input--select-melee-attribute">
-          <option value="Geschicklichkeit" data-i18n="field.geschicklichkeit">Geschicklichkeit</option>
+        <select
+          name="attr_sr6_roll_popup_value_3_select_melee_attribute"
+          class="sr6-roll-popup-field-input sr6-roll-popup-field-input--select sr6-roll-popup-field-input--select-melee-attribute">
+          <option value="Geschicklichkeit" data-i18n="field.geschicklichkeit">
+            Geschicklichkeit
+          </option>
           <option value="Stärke" data-i18n="field.staerke">Stärke</option>
         </select>
-        <select name="attr_sr6_roll_popup_value_3_select_spirit_type" class="sr6-roll-popup-field-input sr6-roll-popup-field-input--select sr6-roll-popup-field-input--select-spirit-type">
+        <select
+          name="attr_sr6_roll_popup_value_3_select_spirit_type"
+          class="sr6-roll-popup-field-input sr6-roll-popup-field-input--select sr6-roll-popup-field-input--select-spirit-type">
           <option value="Erdgeister">Erdgeister</option>
           <option value="Feuergeister">Feuergeister</option>
           <option value="Luftgeister">Luftgeister</option>
@@ -372,48 +1254,125 @@
         </select>
       </label>
       <label class="sr6-roll-popup-field sr6-roll-popup-field--4">
-        <input type="text" name="attr_sr6_roll_popup_slot_4_label" value="" readonly class="sr6-roll-popup-field-label" />
-        <input type="number" name="attr_sr6_roll_popup_value_4_number" value="0" class="sr6-roll-popup-field-input sr6-roll-popup-field-input--number" />
-        <input type="text" name="attr_sr6_roll_popup_value_4_text" value="" class="sr6-roll-popup-field-input sr6-roll-popup-field-input--text" />
-        <input type="checkbox" name="attr_sr6_roll_popup_value_4_checkbox" value="1" class="sr6-roll-popup-field-input sr6-roll-popup-field-input--checkbox" />
-        <select name="attr_sr6_roll_popup_value_4_select_visibility" class="sr6-roll-popup-field-input sr6-roll-popup-field-input--select sr6-roll-popup-field-input--select-visibility">
-          <option value="clear" data-i18n="field.popup_sicht_klar">Klare Sicht</option>
-          <option value="partial" data-i18n="field.popup_sicht_leicht">Leicht verdeckt</option>
-          <option value="heavy" data-i18n="field.popup_sicht_stark">Stark verdeckt</option>
-          <option value="blind" data-i18n="field.popup_sicht_blind">Blindes Feuer</option>
+        <input
+          type="text"
+          name="attr_sr6_roll_popup_slot_4_label"
+          value=""
+          readonly
+          class="sr6-roll-popup-field-label" />
+        <input
+          type="number"
+          name="attr_sr6_roll_popup_value_4_number"
+          value="0"
+          class="sr6-roll-popup-field-input sr6-roll-popup-field-input--number" />
+        <input
+          type="text"
+          name="attr_sr6_roll_popup_value_4_text"
+          value=""
+          class="sr6-roll-popup-field-input sr6-roll-popup-field-input--text" />
+        <input
+          type="checkbox"
+          name="attr_sr6_roll_popup_value_4_checkbox"
+          value="1"
+          class="sr6-roll-popup-field-input sr6-roll-popup-field-input--checkbox" />
+        <select
+          name="attr_sr6_roll_popup_value_4_select_visibility"
+          class="sr6-roll-popup-field-input sr6-roll-popup-field-input--select sr6-roll-popup-field-input--select-visibility">
+          <option value="clear" data-i18n="field.popup_sicht_klar">
+            Klare Sicht
+          </option>
+          <option value="partial" data-i18n="field.popup_sicht_leicht">
+            Leicht verdeckt
+          </option>
+          <option value="heavy" data-i18n="field.popup_sicht_stark">
+            Stark verdeckt
+          </option>
+          <option value="blind" data-i18n="field.popup_sicht_blind">
+            Blindes Feuer
+          </option>
         </select>
-        <select name="attr_sr6_roll_popup_value_4_select_movement" class="sr6-roll-popup-field-input sr6-roll-popup-field-input--select sr6-roll-popup-field-input--select-movement">
-          <option value="steady" data-i18n="field.popup_bewegung_ruhig">Ruhiges Ziel</option>
-          <option value="walking" data-i18n="field.popup_bewegung_leicht">Leichte Bewegung</option>
-          <option value="running" data-i18n="field.popup_bewegung_schnell">Schnelle Bewegung</option>
+        <select
+          name="attr_sr6_roll_popup_value_4_select_movement"
+          class="sr6-roll-popup-field-input sr6-roll-popup-field-input--select sr6-roll-popup-field-input--select-movement">
+          <option value="steady" data-i18n="field.popup_bewegung_ruhig">
+            Ruhiges Ziel
+          </option>
+          <option value="walking" data-i18n="field.popup_bewegung_leicht">
+            Leichte Bewegung
+          </option>
+          <option value="running" data-i18n="field.popup_bewegung_schnell">
+            Schnelle Bewegung
+          </option>
         </select>
-        <select name="attr_sr6_roll_popup_value_4_select_spell_range" class="sr6-roll-popup-field-input sr6-roll-popup-field-input--select sr6-roll-popup-field-input--select-spell-range">
-          <option value="Selbst" data-i18n="field.reichweite_selbst">Selbst</option>
-          <option value="Beruehrung" data-i18n="field.reichweite_beruehrung">Berührung</option>
-          <option value="Sicht" data-i18n="field.reichweite_sicht">Sicht</option>
-          <option value="Spezial" data-i18n="field.reichweite_spezial">Spezial</option>
+        <select
+          name="attr_sr6_roll_popup_value_4_select_spell_range"
+          class="sr6-roll-popup-field-input sr6-roll-popup-field-input--select sr6-roll-popup-field-input--select-spell-range">
+          <option value="Selbst" data-i18n="field.reichweite_selbst">
+            Selbst
+          </option>
+          <option value="Beruehrung" data-i18n="field.reichweite_beruehrung">
+            Berührung
+          </option>
+          <option value="Sicht" data-i18n="field.reichweite_sicht">
+            Sicht
+          </option>
+          <option value="Spezial" data-i18n="field.reichweite_spezial">
+            Spezial
+          </option>
         </select>
-        <select name="attr_sr6_roll_popup_value_4_select_matrix_access" class="sr6-roll-popup-field-input sr6-roll-popup-field-input--select sr6-roll-popup-field-input--select-matrix-access">
-          <option value="Benutzer" data-i18n="field.matrix_zugriff_benutzer">Benutzer</option>
-          <option value="Admin" data-i18n="field.matrix_zugriff_admin">Admin</option>
-          <option value="Root" data-i18n="field.matrix_zugriff_root">Root</option>
+        <select
+          name="attr_sr6_roll_popup_value_4_select_matrix_access"
+          class="sr6-roll-popup-field-input sr6-roll-popup-field-input--select sr6-roll-popup-field-input--select-matrix-access">
+          <option value="Benutzer" data-i18n="field.matrix_zugriff_benutzer">
+            Benutzer
+          </option>
+          <option value="Admin" data-i18n="field.matrix_zugriff_admin">
+            Admin
+          </option>
+          <option value="Root" data-i18n="field.matrix_zugriff_root">
+            Root
+          </option>
         </select>
-        <select name="attr_sr6_roll_popup_value_4_select_ammo" class="sr6-roll-popup-field-input sr6-roll-popup-field-input--select sr6-roll-popup-field-input--select-ammo">
-          <option value="Standard" data-i18n="field.munition_standard">Standard</option>
-          <option value="Huelsenlos" data-i18n="field.munition_huelsenlos">Hülsenlos</option>
+        <select
+          name="attr_sr6_roll_popup_value_4_select_ammo"
+          class="sr6-roll-popup-field-input sr6-roll-popup-field-input--select sr6-roll-popup-field-input--select-ammo">
+          <option value="Standard" data-i18n="field.munition_standard">
+            Standard
+          </option>
+          <option value="Huelsenlos" data-i18n="field.munition_huelsenlos">
+            Hülsenlos
+          </option>
           <option value="APDS" data-i18n="field.munition_apds">APDS</option>
-          <option value="Explosiv" data-i18n="field.munition_explosiv">Explosiv</option>
-          <option value="Flechette" data-i18n="field.munition_flechette">Flechette</option>
+          <option value="Explosiv" data-i18n="field.munition_explosiv">
+            Explosiv
+          </option>
+          <option value="Flechette" data-i18n="field.munition_flechette">
+            Flechette
+          </option>
           <option value="Gel" data-i18n="field.munition_gel">Gel</option>
-          <option value="Injektionspfeil" data-i18n="field.munition_injektionspfeil">Injektionspfeil</option>
-          <option value="Schocker" data-i18n="field.munition_schocker">Schocker</option>
-          <option value="DMSO-Gelpack" data-i18n="field.munition_dmso_gelpack">DMSO-Gelpack</option>
+          <option
+            value="Injektionspfeil"
+            data-i18n="field.munition_injektionspfeil">
+            Injektionspfeil
+          </option>
+          <option value="Schocker" data-i18n="field.munition_schocker">
+            Schocker
+          </option>
+          <option value="DMSO-Gelpack" data-i18n="field.munition_dmso_gelpack">
+            DMSO-Gelpack
+          </option>
         </select>
-        <select name="attr_sr6_roll_popup_value_4_select_melee_attribute" class="sr6-roll-popup-field-input sr6-roll-popup-field-input--select sr6-roll-popup-field-input--select-melee-attribute">
-          <option value="Geschicklichkeit" data-i18n="field.geschicklichkeit">Geschicklichkeit</option>
+        <select
+          name="attr_sr6_roll_popup_value_4_select_melee_attribute"
+          class="sr6-roll-popup-field-input sr6-roll-popup-field-input--select sr6-roll-popup-field-input--select-melee-attribute">
+          <option value="Geschicklichkeit" data-i18n="field.geschicklichkeit">
+            Geschicklichkeit
+          </option>
           <option value="Stärke" data-i18n="field.staerke">Stärke</option>
         </select>
-        <select name="attr_sr6_roll_popup_value_4_select_spirit_type" class="sr6-roll-popup-field-input sr6-roll-popup-field-input--select sr6-roll-popup-field-input--select-spirit-type">
+        <select
+          name="attr_sr6_roll_popup_value_4_select_spirit_type"
+          class="sr6-roll-popup-field-input sr6-roll-popup-field-input--select sr6-roll-popup-field-input--select-spirit-type">
           <option value="Erdgeister">Erdgeister</option>
           <option value="Feuergeister">Feuergeister</option>
           <option value="Luftgeister">Luftgeister</option>
@@ -427,48 +1386,125 @@
         </select>
       </label>
       <label class="sr6-roll-popup-field sr6-roll-popup-field--5">
-        <input type="text" name="attr_sr6_roll_popup_slot_5_label" value="" readonly class="sr6-roll-popup-field-label" />
-        <input type="number" name="attr_sr6_roll_popup_value_5_number" value="0" class="sr6-roll-popup-field-input sr6-roll-popup-field-input--number" />
-        <input type="text" name="attr_sr6_roll_popup_value_5_text" value="" class="sr6-roll-popup-field-input sr6-roll-popup-field-input--text" />
-        <input type="checkbox" name="attr_sr6_roll_popup_value_5_checkbox" value="1" class="sr6-roll-popup-field-input sr6-roll-popup-field-input--checkbox" />
-        <select name="attr_sr6_roll_popup_value_5_select_visibility" class="sr6-roll-popup-field-input sr6-roll-popup-field-input--select sr6-roll-popup-field-input--select-visibility">
-          <option value="clear" data-i18n="field.popup_sicht_klar">Klare Sicht</option>
-          <option value="partial" data-i18n="field.popup_sicht_leicht">Leicht verdeckt</option>
-          <option value="heavy" data-i18n="field.popup_sicht_stark">Stark verdeckt</option>
-          <option value="blind" data-i18n="field.popup_sicht_blind">Blindes Feuer</option>
+        <input
+          type="text"
+          name="attr_sr6_roll_popup_slot_5_label"
+          value=""
+          readonly
+          class="sr6-roll-popup-field-label" />
+        <input
+          type="number"
+          name="attr_sr6_roll_popup_value_5_number"
+          value="0"
+          class="sr6-roll-popup-field-input sr6-roll-popup-field-input--number" />
+        <input
+          type="text"
+          name="attr_sr6_roll_popup_value_5_text"
+          value=""
+          class="sr6-roll-popup-field-input sr6-roll-popup-field-input--text" />
+        <input
+          type="checkbox"
+          name="attr_sr6_roll_popup_value_5_checkbox"
+          value="1"
+          class="sr6-roll-popup-field-input sr6-roll-popup-field-input--checkbox" />
+        <select
+          name="attr_sr6_roll_popup_value_5_select_visibility"
+          class="sr6-roll-popup-field-input sr6-roll-popup-field-input--select sr6-roll-popup-field-input--select-visibility">
+          <option value="clear" data-i18n="field.popup_sicht_klar">
+            Klare Sicht
+          </option>
+          <option value="partial" data-i18n="field.popup_sicht_leicht">
+            Leicht verdeckt
+          </option>
+          <option value="heavy" data-i18n="field.popup_sicht_stark">
+            Stark verdeckt
+          </option>
+          <option value="blind" data-i18n="field.popup_sicht_blind">
+            Blindes Feuer
+          </option>
         </select>
-        <select name="attr_sr6_roll_popup_value_5_select_movement" class="sr6-roll-popup-field-input sr6-roll-popup-field-input--select sr6-roll-popup-field-input--select-movement">
-          <option value="steady" data-i18n="field.popup_bewegung_ruhig">Ruhiges Ziel</option>
-          <option value="walking" data-i18n="field.popup_bewegung_leicht">Leichte Bewegung</option>
-          <option value="running" data-i18n="field.popup_bewegung_schnell">Schnelle Bewegung</option>
+        <select
+          name="attr_sr6_roll_popup_value_5_select_movement"
+          class="sr6-roll-popup-field-input sr6-roll-popup-field-input--select sr6-roll-popup-field-input--select-movement">
+          <option value="steady" data-i18n="field.popup_bewegung_ruhig">
+            Ruhiges Ziel
+          </option>
+          <option value="walking" data-i18n="field.popup_bewegung_leicht">
+            Leichte Bewegung
+          </option>
+          <option value="running" data-i18n="field.popup_bewegung_schnell">
+            Schnelle Bewegung
+          </option>
         </select>
-        <select name="attr_sr6_roll_popup_value_5_select_spell_range" class="sr6-roll-popup-field-input sr6-roll-popup-field-input--select sr6-roll-popup-field-input--select-spell-range">
-          <option value="Selbst" data-i18n="field.reichweite_selbst">Selbst</option>
-          <option value="Beruehrung" data-i18n="field.reichweite_beruehrung">Berührung</option>
-          <option value="Sicht" data-i18n="field.reichweite_sicht">Sicht</option>
-          <option value="Spezial" data-i18n="field.reichweite_spezial">Spezial</option>
+        <select
+          name="attr_sr6_roll_popup_value_5_select_spell_range"
+          class="sr6-roll-popup-field-input sr6-roll-popup-field-input--select sr6-roll-popup-field-input--select-spell-range">
+          <option value="Selbst" data-i18n="field.reichweite_selbst">
+            Selbst
+          </option>
+          <option value="Beruehrung" data-i18n="field.reichweite_beruehrung">
+            Berührung
+          </option>
+          <option value="Sicht" data-i18n="field.reichweite_sicht">
+            Sicht
+          </option>
+          <option value="Spezial" data-i18n="field.reichweite_spezial">
+            Spezial
+          </option>
         </select>
-        <select name="attr_sr6_roll_popup_value_5_select_matrix_access" class="sr6-roll-popup-field-input sr6-roll-popup-field-input--select sr6-roll-popup-field-input--select-matrix-access">
-          <option value="Benutzer" data-i18n="field.matrix_zugriff_benutzer">Benutzer</option>
-          <option value="Admin" data-i18n="field.matrix_zugriff_admin">Admin</option>
-          <option value="Root" data-i18n="field.matrix_zugriff_root">Root</option>
+        <select
+          name="attr_sr6_roll_popup_value_5_select_matrix_access"
+          class="sr6-roll-popup-field-input sr6-roll-popup-field-input--select sr6-roll-popup-field-input--select-matrix-access">
+          <option value="Benutzer" data-i18n="field.matrix_zugriff_benutzer">
+            Benutzer
+          </option>
+          <option value="Admin" data-i18n="field.matrix_zugriff_admin">
+            Admin
+          </option>
+          <option value="Root" data-i18n="field.matrix_zugriff_root">
+            Root
+          </option>
         </select>
-        <select name="attr_sr6_roll_popup_value_5_select_ammo" class="sr6-roll-popup-field-input sr6-roll-popup-field-input--select sr6-roll-popup-field-input--select-ammo">
-          <option value="Standard" data-i18n="field.munition_standard">Standard</option>
-          <option value="Huelsenlos" data-i18n="field.munition_huelsenlos">Hülsenlos</option>
+        <select
+          name="attr_sr6_roll_popup_value_5_select_ammo"
+          class="sr6-roll-popup-field-input sr6-roll-popup-field-input--select sr6-roll-popup-field-input--select-ammo">
+          <option value="Standard" data-i18n="field.munition_standard">
+            Standard
+          </option>
+          <option value="Huelsenlos" data-i18n="field.munition_huelsenlos">
+            Hülsenlos
+          </option>
           <option value="APDS" data-i18n="field.munition_apds">APDS</option>
-          <option value="Explosiv" data-i18n="field.munition_explosiv">Explosiv</option>
-          <option value="Flechette" data-i18n="field.munition_flechette">Flechette</option>
+          <option value="Explosiv" data-i18n="field.munition_explosiv">
+            Explosiv
+          </option>
+          <option value="Flechette" data-i18n="field.munition_flechette">
+            Flechette
+          </option>
           <option value="Gel" data-i18n="field.munition_gel">Gel</option>
-          <option value="Injektionspfeil" data-i18n="field.munition_injektionspfeil">Injektionspfeil</option>
-          <option value="Schocker" data-i18n="field.munition_schocker">Schocker</option>
-          <option value="DMSO-Gelpack" data-i18n="field.munition_dmso_gelpack">DMSO-Gelpack</option>
+          <option
+            value="Injektionspfeil"
+            data-i18n="field.munition_injektionspfeil">
+            Injektionspfeil
+          </option>
+          <option value="Schocker" data-i18n="field.munition_schocker">
+            Schocker
+          </option>
+          <option value="DMSO-Gelpack" data-i18n="field.munition_dmso_gelpack">
+            DMSO-Gelpack
+          </option>
         </select>
-        <select name="attr_sr6_roll_popup_value_5_select_melee_attribute" class="sr6-roll-popup-field-input sr6-roll-popup-field-input--select sr6-roll-popup-field-input--select-melee-attribute">
-          <option value="Geschicklichkeit" data-i18n="field.geschicklichkeit">Geschicklichkeit</option>
+        <select
+          name="attr_sr6_roll_popup_value_5_select_melee_attribute"
+          class="sr6-roll-popup-field-input sr6-roll-popup-field-input--select sr6-roll-popup-field-input--select-melee-attribute">
+          <option value="Geschicklichkeit" data-i18n="field.geschicklichkeit">
+            Geschicklichkeit
+          </option>
           <option value="Stärke" data-i18n="field.staerke">Stärke</option>
         </select>
-        <select name="attr_sr6_roll_popup_value_5_select_spirit_type" class="sr6-roll-popup-field-input sr6-roll-popup-field-input--select sr6-roll-popup-field-input--select-spirit-type">
+        <select
+          name="attr_sr6_roll_popup_value_5_select_spirit_type"
+          class="sr6-roll-popup-field-input sr6-roll-popup-field-input--select sr6-roll-popup-field-input--select-spirit-type">
           <option value="Erdgeister">Erdgeister</option>
           <option value="Feuergeister">Feuergeister</option>
           <option value="Luftgeister">Luftgeister</option>
@@ -482,48 +1518,125 @@
         </select>
       </label>
       <label class="sr6-roll-popup-field sr6-roll-popup-field--6">
-        <input type="text" name="attr_sr6_roll_popup_slot_6_label" value="" readonly class="sr6-roll-popup-field-label" />
-        <input type="number" name="attr_sr6_roll_popup_value_6_number" value="0" class="sr6-roll-popup-field-input sr6-roll-popup-field-input--number" />
-        <input type="text" name="attr_sr6_roll_popup_value_6_text" value="" class="sr6-roll-popup-field-input sr6-roll-popup-field-input--text" />
-        <input type="checkbox" name="attr_sr6_roll_popup_value_6_checkbox" value="1" class="sr6-roll-popup-field-input sr6-roll-popup-field-input--checkbox" />
-        <select name="attr_sr6_roll_popup_value_6_select_visibility" class="sr6-roll-popup-field-input sr6-roll-popup-field-input--select sr6-roll-popup-field-input--select-visibility">
-          <option value="clear" data-i18n="field.popup_sicht_klar">Klare Sicht</option>
-          <option value="partial" data-i18n="field.popup_sicht_leicht">Leicht verdeckt</option>
-          <option value="heavy" data-i18n="field.popup_sicht_stark">Stark verdeckt</option>
-          <option value="blind" data-i18n="field.popup_sicht_blind">Blindes Feuer</option>
+        <input
+          type="text"
+          name="attr_sr6_roll_popup_slot_6_label"
+          value=""
+          readonly
+          class="sr6-roll-popup-field-label" />
+        <input
+          type="number"
+          name="attr_sr6_roll_popup_value_6_number"
+          value="0"
+          class="sr6-roll-popup-field-input sr6-roll-popup-field-input--number" />
+        <input
+          type="text"
+          name="attr_sr6_roll_popup_value_6_text"
+          value=""
+          class="sr6-roll-popup-field-input sr6-roll-popup-field-input--text" />
+        <input
+          type="checkbox"
+          name="attr_sr6_roll_popup_value_6_checkbox"
+          value="1"
+          class="sr6-roll-popup-field-input sr6-roll-popup-field-input--checkbox" />
+        <select
+          name="attr_sr6_roll_popup_value_6_select_visibility"
+          class="sr6-roll-popup-field-input sr6-roll-popup-field-input--select sr6-roll-popup-field-input--select-visibility">
+          <option value="clear" data-i18n="field.popup_sicht_klar">
+            Klare Sicht
+          </option>
+          <option value="partial" data-i18n="field.popup_sicht_leicht">
+            Leicht verdeckt
+          </option>
+          <option value="heavy" data-i18n="field.popup_sicht_stark">
+            Stark verdeckt
+          </option>
+          <option value="blind" data-i18n="field.popup_sicht_blind">
+            Blindes Feuer
+          </option>
         </select>
-        <select name="attr_sr6_roll_popup_value_6_select_movement" class="sr6-roll-popup-field-input sr6-roll-popup-field-input--select sr6-roll-popup-field-input--select-movement">
-          <option value="steady" data-i18n="field.popup_bewegung_ruhig">Ruhiges Ziel</option>
-          <option value="walking" data-i18n="field.popup_bewegung_leicht">Leichte Bewegung</option>
-          <option value="running" data-i18n="field.popup_bewegung_schnell">Schnelle Bewegung</option>
+        <select
+          name="attr_sr6_roll_popup_value_6_select_movement"
+          class="sr6-roll-popup-field-input sr6-roll-popup-field-input--select sr6-roll-popup-field-input--select-movement">
+          <option value="steady" data-i18n="field.popup_bewegung_ruhig">
+            Ruhiges Ziel
+          </option>
+          <option value="walking" data-i18n="field.popup_bewegung_leicht">
+            Leichte Bewegung
+          </option>
+          <option value="running" data-i18n="field.popup_bewegung_schnell">
+            Schnelle Bewegung
+          </option>
         </select>
-        <select name="attr_sr6_roll_popup_value_6_select_spell_range" class="sr6-roll-popup-field-input sr6-roll-popup-field-input--select sr6-roll-popup-field-input--select-spell-range">
-          <option value="Selbst" data-i18n="field.reichweite_selbst">Selbst</option>
-          <option value="Beruehrung" data-i18n="field.reichweite_beruehrung">Berührung</option>
-          <option value="Sicht" data-i18n="field.reichweite_sicht">Sicht</option>
-          <option value="Spezial" data-i18n="field.reichweite_spezial">Spezial</option>
+        <select
+          name="attr_sr6_roll_popup_value_6_select_spell_range"
+          class="sr6-roll-popup-field-input sr6-roll-popup-field-input--select sr6-roll-popup-field-input--select-spell-range">
+          <option value="Selbst" data-i18n="field.reichweite_selbst">
+            Selbst
+          </option>
+          <option value="Beruehrung" data-i18n="field.reichweite_beruehrung">
+            Berührung
+          </option>
+          <option value="Sicht" data-i18n="field.reichweite_sicht">
+            Sicht
+          </option>
+          <option value="Spezial" data-i18n="field.reichweite_spezial">
+            Spezial
+          </option>
         </select>
-        <select name="attr_sr6_roll_popup_value_6_select_matrix_access" class="sr6-roll-popup-field-input sr6-roll-popup-field-input--select sr6-roll-popup-field-input--select-matrix-access">
-          <option value="Benutzer" data-i18n="field.matrix_zugriff_benutzer">Benutzer</option>
-          <option value="Admin" data-i18n="field.matrix_zugriff_admin">Admin</option>
-          <option value="Root" data-i18n="field.matrix_zugriff_root">Root</option>
+        <select
+          name="attr_sr6_roll_popup_value_6_select_matrix_access"
+          class="sr6-roll-popup-field-input sr6-roll-popup-field-input--select sr6-roll-popup-field-input--select-matrix-access">
+          <option value="Benutzer" data-i18n="field.matrix_zugriff_benutzer">
+            Benutzer
+          </option>
+          <option value="Admin" data-i18n="field.matrix_zugriff_admin">
+            Admin
+          </option>
+          <option value="Root" data-i18n="field.matrix_zugriff_root">
+            Root
+          </option>
         </select>
-        <select name="attr_sr6_roll_popup_value_6_select_ammo" class="sr6-roll-popup-field-input sr6-roll-popup-field-input--select sr6-roll-popup-field-input--select-ammo">
-          <option value="Standard" data-i18n="field.munition_standard">Standard</option>
-          <option value="Huelsenlos" data-i18n="field.munition_huelsenlos">Hülsenlos</option>
+        <select
+          name="attr_sr6_roll_popup_value_6_select_ammo"
+          class="sr6-roll-popup-field-input sr6-roll-popup-field-input--select sr6-roll-popup-field-input--select-ammo">
+          <option value="Standard" data-i18n="field.munition_standard">
+            Standard
+          </option>
+          <option value="Huelsenlos" data-i18n="field.munition_huelsenlos">
+            Hülsenlos
+          </option>
           <option value="APDS" data-i18n="field.munition_apds">APDS</option>
-          <option value="Explosiv" data-i18n="field.munition_explosiv">Explosiv</option>
-          <option value="Flechette" data-i18n="field.munition_flechette">Flechette</option>
+          <option value="Explosiv" data-i18n="field.munition_explosiv">
+            Explosiv
+          </option>
+          <option value="Flechette" data-i18n="field.munition_flechette">
+            Flechette
+          </option>
           <option value="Gel" data-i18n="field.munition_gel">Gel</option>
-          <option value="Injektionspfeil" data-i18n="field.munition_injektionspfeil">Injektionspfeil</option>
-          <option value="Schocker" data-i18n="field.munition_schocker">Schocker</option>
-          <option value="DMSO-Gelpack" data-i18n="field.munition_dmso_gelpack">DMSO-Gelpack</option>
+          <option
+            value="Injektionspfeil"
+            data-i18n="field.munition_injektionspfeil">
+            Injektionspfeil
+          </option>
+          <option value="Schocker" data-i18n="field.munition_schocker">
+            Schocker
+          </option>
+          <option value="DMSO-Gelpack" data-i18n="field.munition_dmso_gelpack">
+            DMSO-Gelpack
+          </option>
         </select>
-        <select name="attr_sr6_roll_popup_value_6_select_melee_attribute" class="sr6-roll-popup-field-input sr6-roll-popup-field-input--select sr6-roll-popup-field-input--select-melee-attribute">
-          <option value="Geschicklichkeit" data-i18n="field.geschicklichkeit">Geschicklichkeit</option>
+        <select
+          name="attr_sr6_roll_popup_value_6_select_melee_attribute"
+          class="sr6-roll-popup-field-input sr6-roll-popup-field-input--select sr6-roll-popup-field-input--select-melee-attribute">
+          <option value="Geschicklichkeit" data-i18n="field.geschicklichkeit">
+            Geschicklichkeit
+          </option>
           <option value="Stärke" data-i18n="field.staerke">Stärke</option>
         </select>
-        <select name="attr_sr6_roll_popup_value_6_select_spirit_type" class="sr6-roll-popup-field-input sr6-roll-popup-field-input--select sr6-roll-popup-field-input--select-spirit-type">
+        <select
+          name="attr_sr6_roll_popup_value_6_select_spirit_type"
+          class="sr6-roll-popup-field-input sr6-roll-popup-field-input--select sr6-roll-popup-field-input--select-spirit-type">
           <option value="Erdgeister">Erdgeister</option>
           <option value="Feuergeister">Feuergeister</option>
           <option value="Luftgeister">Luftgeister</option>
@@ -537,48 +1650,125 @@
         </select>
       </label>
       <label class="sr6-roll-popup-field sr6-roll-popup-field--7">
-        <input type="text" name="attr_sr6_roll_popup_slot_7_label" value="" readonly class="sr6-roll-popup-field-label" />
-        <input type="number" name="attr_sr6_roll_popup_value_7_number" value="0" class="sr6-roll-popup-field-input sr6-roll-popup-field-input--number" />
-        <input type="text" name="attr_sr6_roll_popup_value_7_text" value="" class="sr6-roll-popup-field-input sr6-roll-popup-field-input--text" />
-        <input type="checkbox" name="attr_sr6_roll_popup_value_7_checkbox" value="1" class="sr6-roll-popup-field-input sr6-roll-popup-field-input--checkbox" />
-        <select name="attr_sr6_roll_popup_value_7_select_visibility" class="sr6-roll-popup-field-input sr6-roll-popup-field-input--select sr6-roll-popup-field-input--select-visibility">
-          <option value="clear" data-i18n="field.popup_sicht_klar">Klare Sicht</option>
-          <option value="partial" data-i18n="field.popup_sicht_leicht">Leicht verdeckt</option>
-          <option value="heavy" data-i18n="field.popup_sicht_stark">Stark verdeckt</option>
-          <option value="blind" data-i18n="field.popup_sicht_blind">Blindes Feuer</option>
+        <input
+          type="text"
+          name="attr_sr6_roll_popup_slot_7_label"
+          value=""
+          readonly
+          class="sr6-roll-popup-field-label" />
+        <input
+          type="number"
+          name="attr_sr6_roll_popup_value_7_number"
+          value="0"
+          class="sr6-roll-popup-field-input sr6-roll-popup-field-input--number" />
+        <input
+          type="text"
+          name="attr_sr6_roll_popup_value_7_text"
+          value=""
+          class="sr6-roll-popup-field-input sr6-roll-popup-field-input--text" />
+        <input
+          type="checkbox"
+          name="attr_sr6_roll_popup_value_7_checkbox"
+          value="1"
+          class="sr6-roll-popup-field-input sr6-roll-popup-field-input--checkbox" />
+        <select
+          name="attr_sr6_roll_popup_value_7_select_visibility"
+          class="sr6-roll-popup-field-input sr6-roll-popup-field-input--select sr6-roll-popup-field-input--select-visibility">
+          <option value="clear" data-i18n="field.popup_sicht_klar">
+            Klare Sicht
+          </option>
+          <option value="partial" data-i18n="field.popup_sicht_leicht">
+            Leicht verdeckt
+          </option>
+          <option value="heavy" data-i18n="field.popup_sicht_stark">
+            Stark verdeckt
+          </option>
+          <option value="blind" data-i18n="field.popup_sicht_blind">
+            Blindes Feuer
+          </option>
         </select>
-        <select name="attr_sr6_roll_popup_value_7_select_movement" class="sr6-roll-popup-field-input sr6-roll-popup-field-input--select sr6-roll-popup-field-input--select-movement">
-          <option value="steady" data-i18n="field.popup_bewegung_ruhig">Ruhiges Ziel</option>
-          <option value="walking" data-i18n="field.popup_bewegung_leicht">Leichte Bewegung</option>
-          <option value="running" data-i18n="field.popup_bewegung_schnell">Schnelle Bewegung</option>
+        <select
+          name="attr_sr6_roll_popup_value_7_select_movement"
+          class="sr6-roll-popup-field-input sr6-roll-popup-field-input--select sr6-roll-popup-field-input--select-movement">
+          <option value="steady" data-i18n="field.popup_bewegung_ruhig">
+            Ruhiges Ziel
+          </option>
+          <option value="walking" data-i18n="field.popup_bewegung_leicht">
+            Leichte Bewegung
+          </option>
+          <option value="running" data-i18n="field.popup_bewegung_schnell">
+            Schnelle Bewegung
+          </option>
         </select>
-        <select name="attr_sr6_roll_popup_value_7_select_spell_range" class="sr6-roll-popup-field-input sr6-roll-popup-field-input--select sr6-roll-popup-field-input--select-spell-range">
-          <option value="Selbst" data-i18n="field.reichweite_selbst">Selbst</option>
-          <option value="Beruehrung" data-i18n="field.reichweite_beruehrung">Berührung</option>
-          <option value="Sicht" data-i18n="field.reichweite_sicht">Sicht</option>
-          <option value="Spezial" data-i18n="field.reichweite_spezial">Spezial</option>
+        <select
+          name="attr_sr6_roll_popup_value_7_select_spell_range"
+          class="sr6-roll-popup-field-input sr6-roll-popup-field-input--select sr6-roll-popup-field-input--select-spell-range">
+          <option value="Selbst" data-i18n="field.reichweite_selbst">
+            Selbst
+          </option>
+          <option value="Beruehrung" data-i18n="field.reichweite_beruehrung">
+            Berührung
+          </option>
+          <option value="Sicht" data-i18n="field.reichweite_sicht">
+            Sicht
+          </option>
+          <option value="Spezial" data-i18n="field.reichweite_spezial">
+            Spezial
+          </option>
         </select>
-        <select name="attr_sr6_roll_popup_value_7_select_matrix_access" class="sr6-roll-popup-field-input sr6-roll-popup-field-input--select sr6-roll-popup-field-input--select-matrix-access">
-          <option value="Benutzer" data-i18n="field.matrix_zugriff_benutzer">Benutzer</option>
-          <option value="Admin" data-i18n="field.matrix_zugriff_admin">Admin</option>
-          <option value="Root" data-i18n="field.matrix_zugriff_root">Root</option>
+        <select
+          name="attr_sr6_roll_popup_value_7_select_matrix_access"
+          class="sr6-roll-popup-field-input sr6-roll-popup-field-input--select sr6-roll-popup-field-input--select-matrix-access">
+          <option value="Benutzer" data-i18n="field.matrix_zugriff_benutzer">
+            Benutzer
+          </option>
+          <option value="Admin" data-i18n="field.matrix_zugriff_admin">
+            Admin
+          </option>
+          <option value="Root" data-i18n="field.matrix_zugriff_root">
+            Root
+          </option>
         </select>
-        <select name="attr_sr6_roll_popup_value_7_select_ammo" class="sr6-roll-popup-field-input sr6-roll-popup-field-input--select sr6-roll-popup-field-input--select-ammo">
-          <option value="Standard" data-i18n="field.munition_standard">Standard</option>
-          <option value="Huelsenlos" data-i18n="field.munition_huelsenlos">Hülsenlos</option>
+        <select
+          name="attr_sr6_roll_popup_value_7_select_ammo"
+          class="sr6-roll-popup-field-input sr6-roll-popup-field-input--select sr6-roll-popup-field-input--select-ammo">
+          <option value="Standard" data-i18n="field.munition_standard">
+            Standard
+          </option>
+          <option value="Huelsenlos" data-i18n="field.munition_huelsenlos">
+            Hülsenlos
+          </option>
           <option value="APDS" data-i18n="field.munition_apds">APDS</option>
-          <option value="Explosiv" data-i18n="field.munition_explosiv">Explosiv</option>
-          <option value="Flechette" data-i18n="field.munition_flechette">Flechette</option>
+          <option value="Explosiv" data-i18n="field.munition_explosiv">
+            Explosiv
+          </option>
+          <option value="Flechette" data-i18n="field.munition_flechette">
+            Flechette
+          </option>
           <option value="Gel" data-i18n="field.munition_gel">Gel</option>
-          <option value="Injektionspfeil" data-i18n="field.munition_injektionspfeil">Injektionspfeil</option>
-          <option value="Schocker" data-i18n="field.munition_schocker">Schocker</option>
-          <option value="DMSO-Gelpack" data-i18n="field.munition_dmso_gelpack">DMSO-Gelpack</option>
+          <option
+            value="Injektionspfeil"
+            data-i18n="field.munition_injektionspfeil">
+            Injektionspfeil
+          </option>
+          <option value="Schocker" data-i18n="field.munition_schocker">
+            Schocker
+          </option>
+          <option value="DMSO-Gelpack" data-i18n="field.munition_dmso_gelpack">
+            DMSO-Gelpack
+          </option>
         </select>
-        <select name="attr_sr6_roll_popup_value_7_select_melee_attribute" class="sr6-roll-popup-field-input sr6-roll-popup-field-input--select sr6-roll-popup-field-input--select-melee-attribute">
-          <option value="Geschicklichkeit" data-i18n="field.geschicklichkeit">Geschicklichkeit</option>
+        <select
+          name="attr_sr6_roll_popup_value_7_select_melee_attribute"
+          class="sr6-roll-popup-field-input sr6-roll-popup-field-input--select sr6-roll-popup-field-input--select-melee-attribute">
+          <option value="Geschicklichkeit" data-i18n="field.geschicklichkeit">
+            Geschicklichkeit
+          </option>
           <option value="Stärke" data-i18n="field.staerke">Stärke</option>
         </select>
-        <select name="attr_sr6_roll_popup_value_7_select_spirit_type" class="sr6-roll-popup-field-input sr6-roll-popup-field-input--select sr6-roll-popup-field-input--select-spirit-type">
+        <select
+          name="attr_sr6_roll_popup_value_7_select_spirit_type"
+          class="sr6-roll-popup-field-input sr6-roll-popup-field-input--select sr6-roll-popup-field-input--select-spirit-type">
           <option value="Erdgeister">Erdgeister</option>
           <option value="Feuergeister">Feuergeister</option>
           <option value="Luftgeister">Luftgeister</option>
@@ -592,48 +1782,125 @@
         </select>
       </label>
       <label class="sr6-roll-popup-field sr6-roll-popup-field--8">
-        <input type="text" name="attr_sr6_roll_popup_slot_8_label" value="" readonly class="sr6-roll-popup-field-label" />
-        <input type="number" name="attr_sr6_roll_popup_value_8_number" value="0" class="sr6-roll-popup-field-input sr6-roll-popup-field-input--number" />
-        <input type="text" name="attr_sr6_roll_popup_value_8_text" value="" class="sr6-roll-popup-field-input sr6-roll-popup-field-input--text" />
-        <input type="checkbox" name="attr_sr6_roll_popup_value_8_checkbox" value="1" class="sr6-roll-popup-field-input sr6-roll-popup-field-input--checkbox" />
-        <select name="attr_sr6_roll_popup_value_8_select_visibility" class="sr6-roll-popup-field-input sr6-roll-popup-field-input--select sr6-roll-popup-field-input--select-visibility">
-          <option value="clear" data-i18n="field.popup_sicht_klar">Klare Sicht</option>
-          <option value="partial" data-i18n="field.popup_sicht_leicht">Leicht verdeckt</option>
-          <option value="heavy" data-i18n="field.popup_sicht_stark">Stark verdeckt</option>
-          <option value="blind" data-i18n="field.popup_sicht_blind">Blindes Feuer</option>
+        <input
+          type="text"
+          name="attr_sr6_roll_popup_slot_8_label"
+          value=""
+          readonly
+          class="sr6-roll-popup-field-label" />
+        <input
+          type="number"
+          name="attr_sr6_roll_popup_value_8_number"
+          value="0"
+          class="sr6-roll-popup-field-input sr6-roll-popup-field-input--number" />
+        <input
+          type="text"
+          name="attr_sr6_roll_popup_value_8_text"
+          value=""
+          class="sr6-roll-popup-field-input sr6-roll-popup-field-input--text" />
+        <input
+          type="checkbox"
+          name="attr_sr6_roll_popup_value_8_checkbox"
+          value="1"
+          class="sr6-roll-popup-field-input sr6-roll-popup-field-input--checkbox" />
+        <select
+          name="attr_sr6_roll_popup_value_8_select_visibility"
+          class="sr6-roll-popup-field-input sr6-roll-popup-field-input--select sr6-roll-popup-field-input--select-visibility">
+          <option value="clear" data-i18n="field.popup_sicht_klar">
+            Klare Sicht
+          </option>
+          <option value="partial" data-i18n="field.popup_sicht_leicht">
+            Leicht verdeckt
+          </option>
+          <option value="heavy" data-i18n="field.popup_sicht_stark">
+            Stark verdeckt
+          </option>
+          <option value="blind" data-i18n="field.popup_sicht_blind">
+            Blindes Feuer
+          </option>
         </select>
-        <select name="attr_sr6_roll_popup_value_8_select_movement" class="sr6-roll-popup-field-input sr6-roll-popup-field-input--select sr6-roll-popup-field-input--select-movement">
-          <option value="steady" data-i18n="field.popup_bewegung_ruhig">Ruhiges Ziel</option>
-          <option value="walking" data-i18n="field.popup_bewegung_leicht">Leichte Bewegung</option>
-          <option value="running" data-i18n="field.popup_bewegung_schnell">Schnelle Bewegung</option>
+        <select
+          name="attr_sr6_roll_popup_value_8_select_movement"
+          class="sr6-roll-popup-field-input sr6-roll-popup-field-input--select sr6-roll-popup-field-input--select-movement">
+          <option value="steady" data-i18n="field.popup_bewegung_ruhig">
+            Ruhiges Ziel
+          </option>
+          <option value="walking" data-i18n="field.popup_bewegung_leicht">
+            Leichte Bewegung
+          </option>
+          <option value="running" data-i18n="field.popup_bewegung_schnell">
+            Schnelle Bewegung
+          </option>
         </select>
-        <select name="attr_sr6_roll_popup_value_8_select_spell_range" class="sr6-roll-popup-field-input sr6-roll-popup-field-input--select sr6-roll-popup-field-input--select-spell-range">
-          <option value="Selbst" data-i18n="field.reichweite_selbst">Selbst</option>
-          <option value="Beruehrung" data-i18n="field.reichweite_beruehrung">Berührung</option>
-          <option value="Sicht" data-i18n="field.reichweite_sicht">Sicht</option>
-          <option value="Spezial" data-i18n="field.reichweite_spezial">Spezial</option>
+        <select
+          name="attr_sr6_roll_popup_value_8_select_spell_range"
+          class="sr6-roll-popup-field-input sr6-roll-popup-field-input--select sr6-roll-popup-field-input--select-spell-range">
+          <option value="Selbst" data-i18n="field.reichweite_selbst">
+            Selbst
+          </option>
+          <option value="Beruehrung" data-i18n="field.reichweite_beruehrung">
+            Berührung
+          </option>
+          <option value="Sicht" data-i18n="field.reichweite_sicht">
+            Sicht
+          </option>
+          <option value="Spezial" data-i18n="field.reichweite_spezial">
+            Spezial
+          </option>
         </select>
-        <select name="attr_sr6_roll_popup_value_8_select_matrix_access" class="sr6-roll-popup-field-input sr6-roll-popup-field-input--select sr6-roll-popup-field-input--select-matrix-access">
-          <option value="Benutzer" data-i18n="field.matrix_zugriff_benutzer">Benutzer</option>
-          <option value="Admin" data-i18n="field.matrix_zugriff_admin">Admin</option>
-          <option value="Root" data-i18n="field.matrix_zugriff_root">Root</option>
+        <select
+          name="attr_sr6_roll_popup_value_8_select_matrix_access"
+          class="sr6-roll-popup-field-input sr6-roll-popup-field-input--select sr6-roll-popup-field-input--select-matrix-access">
+          <option value="Benutzer" data-i18n="field.matrix_zugriff_benutzer">
+            Benutzer
+          </option>
+          <option value="Admin" data-i18n="field.matrix_zugriff_admin">
+            Admin
+          </option>
+          <option value="Root" data-i18n="field.matrix_zugriff_root">
+            Root
+          </option>
         </select>
-        <select name="attr_sr6_roll_popup_value_8_select_ammo" class="sr6-roll-popup-field-input sr6-roll-popup-field-input--select sr6-roll-popup-field-input--select-ammo">
-          <option value="Standard" data-i18n="field.munition_standard">Standard</option>
-          <option value="Huelsenlos" data-i18n="field.munition_huelsenlos">Hülsenlos</option>
+        <select
+          name="attr_sr6_roll_popup_value_8_select_ammo"
+          class="sr6-roll-popup-field-input sr6-roll-popup-field-input--select sr6-roll-popup-field-input--select-ammo">
+          <option value="Standard" data-i18n="field.munition_standard">
+            Standard
+          </option>
+          <option value="Huelsenlos" data-i18n="field.munition_huelsenlos">
+            Hülsenlos
+          </option>
           <option value="APDS" data-i18n="field.munition_apds">APDS</option>
-          <option value="Explosiv" data-i18n="field.munition_explosiv">Explosiv</option>
-          <option value="Flechette" data-i18n="field.munition_flechette">Flechette</option>
+          <option value="Explosiv" data-i18n="field.munition_explosiv">
+            Explosiv
+          </option>
+          <option value="Flechette" data-i18n="field.munition_flechette">
+            Flechette
+          </option>
           <option value="Gel" data-i18n="field.munition_gel">Gel</option>
-          <option value="Injektionspfeil" data-i18n="field.munition_injektionspfeil">Injektionspfeil</option>
-          <option value="Schocker" data-i18n="field.munition_schocker">Schocker</option>
-          <option value="DMSO-Gelpack" data-i18n="field.munition_dmso_gelpack">DMSO-Gelpack</option>
+          <option
+            value="Injektionspfeil"
+            data-i18n="field.munition_injektionspfeil">
+            Injektionspfeil
+          </option>
+          <option value="Schocker" data-i18n="field.munition_schocker">
+            Schocker
+          </option>
+          <option value="DMSO-Gelpack" data-i18n="field.munition_dmso_gelpack">
+            DMSO-Gelpack
+          </option>
         </select>
-        <select name="attr_sr6_roll_popup_value_8_select_melee_attribute" class="sr6-roll-popup-field-input sr6-roll-popup-field-input--select sr6-roll-popup-field-input--select-melee-attribute">
-          <option value="Geschicklichkeit" data-i18n="field.geschicklichkeit">Geschicklichkeit</option>
+        <select
+          name="attr_sr6_roll_popup_value_8_select_melee_attribute"
+          class="sr6-roll-popup-field-input sr6-roll-popup-field-input--select sr6-roll-popup-field-input--select-melee-attribute">
+          <option value="Geschicklichkeit" data-i18n="field.geschicklichkeit">
+            Geschicklichkeit
+          </option>
           <option value="Stärke" data-i18n="field.staerke">Stärke</option>
         </select>
-        <select name="attr_sr6_roll_popup_value_8_select_spirit_type" class="sr6-roll-popup-field-input sr6-roll-popup-field-input--select sr6-roll-popup-field-input--select-spirit-type">
+        <select
+          name="attr_sr6_roll_popup_value_8_select_spirit_type"
+          class="sr6-roll-popup-field-input sr6-roll-popup-field-input--select sr6-roll-popup-field-input--select-spirit-type">
           <option value="Erdgeister">Erdgeister</option>
           <option value="Feuergeister">Feuergeister</option>
           <option value="Luftgeister">Luftgeister</option>
@@ -647,31 +1914,78 @@
         </select>
       </label>
     </div>
-      <label class="sr6-roll-popup-field sr6-roll-popup-field--9">
-        <input type="text" name="attr_sr6_roll_popup_slot_9_label" value="" readonly class="sr6-roll-popup-field-label" />
-        <select name="attr_sr6_roll_popup_value_9_select_edge_boost" class="sr6-roll-popup-field-input sr6-roll-popup-field-input--select sr6-roll-popup-field-input--select-edge-boost">
-          <option value="none" data-i18n="field.edge_boost_none">Kein Edge-Boost</option>
-          <option value="edge_attribute" data-i18n="field.edge_boost_edge_attribute">Edge-Attribut zum Pool (4 Edge)</option>
-          <option value="fate_1" data-i18n="field.edge_boost_fate_1">Jetzt erst recht: 1 Schicksalswürfel (2 Edge)</option>
-          <option value="fate_2" data-i18n="field.edge_boost_fate_2">Jetzt erst recht: 2 Schicksalswürfel (4 Edge)</option>
-          <option value="fate_3" data-i18n="field.edge_boost_fate_3">Jetzt erst recht: 3 Schicksalswürfel (6 Edge)</option>
-        </select>
-        <select name="attr_sr6_roll_popup_value_9_select_edge_after_boost" class="sr6-roll-popup-field-input sr6-roll-popup-field-input--select sr6-roll-popup-field-input--select-edge-after-boost">
-          <option value="reroll_1" data-i18n="field.edge_after_boost_reroll_1">Nach dem Wurf: 1 Würfel neu (1 Edge)</option>
-          <option value="add_1" data-i18n="field.edge_after_boost_add_1">Nach dem Wurf: +1 auf einen Würfel (2 Edge)</option>
-          <option value="reroll_failures" data-i18n="field.edge_after_boost_reroll_failures">Nach dem Wurf: Misserfolge neu (4 Edge)</option>
-        </select>
-      </label>
+    <label class="sr6-roll-popup-field sr6-roll-popup-field--9">
+      <input
+        type="text"
+        name="attr_sr6_roll_popup_slot_9_label"
+        value=""
+        readonly
+        class="sr6-roll-popup-field-label" />
+      <select
+        name="attr_sr6_roll_popup_value_9_select_edge_boost"
+        class="sr6-roll-popup-field-input sr6-roll-popup-field-input--select sr6-roll-popup-field-input--select-edge-boost">
+        <option value="none" data-i18n="field.edge_boost_none">
+          Kein Edge-Boost
+        </option>
+        <option
+          value="edge_attribute"
+          data-i18n="field.edge_boost_edge_attribute">
+          Edge-Attribut zum Pool (4 Edge)
+        </option>
+        <option value="fate_1" data-i18n="field.edge_boost_fate_1">
+          Jetzt erst recht: 1 Schicksalswürfel (2 Edge)
+        </option>
+        <option value="fate_2" data-i18n="field.edge_boost_fate_2">
+          Jetzt erst recht: 2 Schicksalswürfel (4 Edge)
+        </option>
+        <option value="fate_3" data-i18n="field.edge_boost_fate_3">
+          Jetzt erst recht: 3 Schicksalswürfel (6 Edge)
+        </option>
+      </select>
+      <select
+        name="attr_sr6_roll_popup_value_9_select_edge_after_boost"
+        class="sr6-roll-popup-field-input sr6-roll-popup-field-input--select sr6-roll-popup-field-input--select-edge-after-boost">
+        <option value="reroll_1" data-i18n="field.edge_after_boost_reroll_1">
+          Nach dem Wurf: 1 Würfel neu (1 Edge)
+        </option>
+        <option value="add_1" data-i18n="field.edge_after_boost_add_1">
+          Nach dem Wurf: +1 auf einen Würfel (2 Edge)
+        </option>
+        <option
+          value="reroll_failures"
+          data-i18n="field.edge_after_boost_reroll_failures">
+          Nach dem Wurf: Misserfolge neu (4 Edge)
+        </option>
+      </select>
+    </label>
 
-      <label class="sr6-roll-popup-field sr6-roll-popup-field--10">
-        <input type="text" name="attr_sr6_roll_popup_slot_10_label" value="" readonly class="sr6-roll-popup-field-label" />
-        <input type="number" name="attr_sr6_roll_popup_value_10_number" value="0" class="sr6-roll-popup-field-input sr6-roll-popup-field-input--number" />
-      </label>
+    <label class="sr6-roll-popup-field sr6-roll-popup-field--10">
+      <input
+        type="text"
+        name="attr_sr6_roll_popup_slot_10_label"
+        value=""
+        readonly
+        class="sr6-roll-popup-field-label" />
+      <input
+        type="number"
+        name="attr_sr6_roll_popup_value_10_number"
+        value="0"
+        class="sr6-roll-popup-field-input sr6-roll-popup-field-input--number" />
+    </label>
 
-      <label class="sr6-roll-popup-field sr6-roll-popup-field--11">
-        <input type="text" name="attr_sr6_roll_popup_slot_11_label" value="" readonly class="sr6-roll-popup-field-label" />
-        <input type="checkbox" name="attr_sr6_roll_popup_value_11_checkbox" value="1" class="sr6-roll-popup-field-input sr6-roll-popup-field-input--checkbox" />
-      </label>
+    <label class="sr6-roll-popup-field sr6-roll-popup-field--11">
+      <input
+        type="text"
+        name="attr_sr6_roll_popup_slot_11_label"
+        value=""
+        readonly
+        class="sr6-roll-popup-field-label" />
+      <input
+        type="checkbox"
+        name="attr_sr6_roll_popup_value_11_checkbox"
+        value="1"
+        class="sr6-roll-popup-field-input sr6-roll-popup-field-input--checkbox" />
+    </label>
 
     <div class="sr6-roll-popup-actions">
       <button

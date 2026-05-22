@@ -1,8 +1,4 @@
 @media (max-width: 50rem) {
-  .sr6-charactersheet-tab-allgemein-grid {
-    grid-template-columns: minmax(0, 1fr);
-  }
-
   .sr6-charactersheet-tab-kampf-grid {
     grid-template-columns: minmax(0, 1fr);
   }
@@ -61,7 +57,6 @@
   }
 }
 
-.sr6-charactersheet-menu:has(#sr6_daten_tab_1:checked) #sr6_daten_panel_1,
 .sr6-charactersheet-menu:has(#sr6_daten_tab_2:checked) #sr6_daten_panel_2,
 .sr6-charactersheet-menu:has(#sr6_daten_tab_3:checked) #sr6_daten_panel_3,
 .sr6-charactersheet-menu:has(#sr6_daten_tab_4:checked) #sr6_daten_panel_4,

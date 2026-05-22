@@ -201,7 +201,7 @@ function registerWorkerEvents() {
   registerMonitorCascadeEvents();
 
   on("sheet:opened", () => {
-    resetTabToAllgemeinOnOpen();
+    resetTabToDefaultOnOpen();
     resetEditModesOnOpen();
     syncCombatArmorSelections(() => {
       syncCombatPrimaryWeapons(() => {

@@ -2247,6 +2247,14 @@ function getMatrixRuleComponentAttr(component) {
 function collectMatrixRuleComponentAttrs(component, attributes) {
   const directAttr = getMatrixRuleComponentAttr(component);
   if (directAttr) attributes.push(directAttr);
+  if (component && component.attribute) {
+    attributes.push(`sr6_attr_${component.attribute}_grundwert`);
+    attributes.push(`sr6_attr_${component.attribute}_modifikator`);
+  }
+  if (component && component.skill) {
+    attributes.push(`sr6_skill_${component.skill}_grundwert`);
+    attributes.push(`sr6_skill_${component.skill}_modifikator`);
+  }
   if (component && component.matrixSecond) {
     attributes.push(`sr6_matrix_${component.matrixSecond}`);
   }
@@ -3493,6 +3501,24 @@ function resolveSkillProbeAttributePoolOverride(definition, popupState, lookupAt
   };
 }
 
+function resolveRollAttributeTotal(attributeKey, lookupAttr) {
+  const base = lookupAttr(`sr6_attr_${attributeKey}_grundwert`);
+  const modifier = lookupAttr(`sr6_attr_${attributeKey}_modifikator`);
+  if (`${base}`.trim() !== "" || `${modifier}`.trim() !== "") {
+    return parseNumber(base) + parseNumber(modifier);
+  }
+  return parseNumber(lookupAttr(`sr6_attr_${attributeKey}_gesamtwert`));
+}
+
+function resolveRollSkillTotal(skillKey, lookupAttr) {
+  const base = lookupAttr(`sr6_skill_${skillKey}_grundwert`);
+  const modifier = lookupAttr(`sr6_skill_${skillKey}_modifikator`);
+  if (`${base}`.trim() !== "" || `${modifier}`.trim() !== "") {
+    return parseNumber(base) + parseNumber(modifier);
+  }
+  return parseNumber(lookupAttr(`sr6_skill_${skillKey}_gesamtwert`));
+}
+
 function resolveMatrixActionComponentValue(component, lookupAttr) {
   if (!component || component.type === "none" || component.type === "description") {
     return null;
@@ -3519,12 +3545,12 @@ function resolveMatrixActionComponentValue(component, lookupAttr) {
   let total = 0;
 
   if (component.skill) {
-    const value = parseNumber(lookupAttr(`sr6_skill_${component.skill}_gesamtwert`));
+    const value = resolveRollSkillTotal(component.skill, lookupAttr);
     parts.push({ label: component.skill, value: value });
     total += value;
   }
   if (component.attribute) {
-    const value = parseNumber(lookupAttr(`sr6_attr_${component.attribute}_gesamtwert`));
+    const value = resolveRollAttributeTotal(component.attribute, lookupAttr);
     parts.push({ label: component.attribute, value: value });
     total += value;
   }
@@ -6048,20 +6074,14 @@ function syncRiggingVehicleProbes(callback) {
 
 // BEGIN BLOCK: Worker Includes (ui)
 // BEGIN MODULE: workers/ui/defaults
-function resetTabToAllgemeinOnOpen() {
-  setAttrsSilent({ sr6_daten_tab: "allgemein" });
+function resetTabToDefaultOnOpen() {
+  setAttrsSilent({ sr6_daten_tab: "fertigkeiten" });
 }
 
 function getEditModeResetPayload() {
   const payload = {
-    sr6_allgemein_attribute_edit_mode: "0",
     sr6_fertigkeiten_attribute_edit_mode: "0",
-    sr6_allgemein_initiative_edit_mode: "0",
-    sr6_allgemein_fertigkeiten_view: "fertigkeiten",
     sr6_fertigkeiten_edit_mode: "0",
-    sr6_allgemein_kampf_edit_mode: "0",
-    sr6_allgemein_verteidigung_edit_mode: "0",
-    sr6_allgemein_schadenswiderstand_edit_mode: "0",
     sr6_magic_zauber_edit_mode: "0",
     sr6_magic_adeptenkraefte_edit_mode: "0",
     sr6_magic_foki_edit_mode: "0",
@@ -6387,7 +6407,7 @@ function registerWorkerEvents() {
   registerMonitorCascadeEvents();
 
   on("sheet:opened", () => {
-    resetTabToAllgemeinOnOpen();
+    resetTabToDefaultOnOpen();
     resetEditModesOnOpen();
     syncCombatArmorSelections(() => {
       syncCombatPrimaryWeapons(() => {

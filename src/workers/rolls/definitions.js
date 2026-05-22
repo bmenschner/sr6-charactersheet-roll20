@@ -1734,6 +1734,14 @@ function getMatrixRuleComponentAttr(component) {
 function collectMatrixRuleComponentAttrs(component, attributes) {
   const directAttr = getMatrixRuleComponentAttr(component);
   if (directAttr) attributes.push(directAttr);
+  if (component && component.attribute) {
+    attributes.push(`sr6_attr_${component.attribute}_grundwert`);
+    attributes.push(`sr6_attr_${component.attribute}_modifikator`);
+  }
+  if (component && component.skill) {
+    attributes.push(`sr6_skill_${component.skill}_grundwert`);
+    attributes.push(`sr6_skill_${component.skill}_modifikator`);
+  }
   if (component && component.matrixSecond) {
     attributes.push(`sr6_matrix_${component.matrixSecond}`);
   }
