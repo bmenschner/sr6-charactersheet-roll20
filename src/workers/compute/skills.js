@@ -53,6 +53,19 @@ const SR6_TALENTSOFT_ATTRIBUTE_SOURCES = {
   "Magie/Resonanz": "sr6_attr_magie_resonanz_gesamtwert",
 };
 
+function getLanguageLevelBonus(selectedLevel) {
+  const normalizedLevel = `${selectedLevel || ""}`.trim();
+  if (normalizedLevel === "Fortgeschritten (+2)") return 2;
+  if (normalizedLevel === "Experte (+3)") return 3;
+  return 0;
+}
+
+function getLanguageLevelHint(selectedLevel) {
+  return `${selectedLevel || ""}`.trim() === "Muttersprache"
+    ? "Muttersprache: keine Probe zum Verstehen notwendig."
+    : "";
+}
+
 function getTalentsoftAttributeTotal(values, selectedAttribute) {
   const attrKey =
     SR6_TALENTSOFT_ATTRIBUTE_SOURCES[`${selectedAttribute || ""}`.trim()] ||
@@ -85,6 +98,9 @@ function syncRepeatingSkillTotals(callback) {
       SR6_REPEATING_SKILL_TOTAL_SECTIONS.forEach((sectionConfig) => {
         const sectionIds = sectionIdsByName[sectionConfig.section] || [];
         sectionIds.forEach((rowId) => {
+          if (sectionConfig.totalSource === "memory" && sectionConfig.prefix === "sr6_sprachfertigkeit_") {
+            requestKeys.push(`${sectionConfig.section}_${rowId}_${sectionConfig.prefix}niveau`);
+          }
           if (sectionConfig.totalSource === "talentsoft") {
             requestKeys.push(`${sectionConfig.section}_${rowId}_${sectionConfig.prefix}grundwert`);
             requestKeys.push(`${sectionConfig.section}_${rowId}_${sectionConfig.prefix}modifikator`);
@@ -111,7 +127,14 @@ function syncRepeatingSkillTotals(callback) {
           sectionIds.forEach((rowId) => {
             const rowPrefix = `${sectionConfig.section}_${rowId}_${sectionConfig.prefix}`;
             if (sectionConfig.totalSource === "memory") {
-              updates[`${rowPrefix}gesamtwert`] = String(parseNumber(values.sr6_attrprobe_erinnerungsvermoegen));
+              const isLanguage = sectionConfig.prefix === "sr6_sprachfertigkeit_";
+              const languageLevel = values[`${rowPrefix}niveau`];
+              const languageBonus = isLanguage ? getLanguageLevelBonus(languageLevel) : 0;
+              updates[`${rowPrefix}gesamtwert`] = String(parseNumber(values.sr6_attrprobe_erinnerungsvermoegen) + languageBonus);
+              if (isLanguage) {
+                updates[`${rowPrefix}bonus`] = String(languageBonus);
+                updates[`${rowPrefix}hinweis`] = getLanguageLevelHint(languageLevel);
+              }
               return;
             }
             const attributeTotal =

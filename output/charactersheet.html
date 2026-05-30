@@ -2258,7 +2258,7 @@
   <div class="sr6-charactersheet-box-content">
     <div class="sr6-generic-list-header sr6-generic-list-header--memory-probe">
       <span data-i18n="field.name">Name</span>
-      <span data-i18n="field.wert">Wert</span>
+      <span data-i18n="field.pool">Pool</span>
     </div>
     <fieldset class="repeating_sr6wissensfertigkeiten">
       <div class="sr6-foundry-item">
@@ -2269,7 +2269,7 @@
               <input type="text" name="attr_sr6_wissensfertigkeit_name" />
             </div>
             <div class="sr6-charactersheet-field">
-              <span data-i18n="field.wert">Wert</span>
+              <span data-i18n="field.pool">Pool</span>
               <div class="sr6-charactersheet-field-input-with-dice">
                 <input type="number" name="attr_sr6_wissensfertigkeit_gesamtwert" readonly /><button
                   type="action"
@@ -2319,9 +2319,10 @@
     </label>
   </div>
   <div class="sr6-charactersheet-box-content">
-    <div class="sr6-generic-list-header sr6-generic-list-header--memory-probe">
+    <div class="sr6-generic-list-header sr6-generic-list-header--memory-probe sr6-generic-list-header--language-probe">
       <span data-i18n="field.name">Name</span>
-      <span data-i18n="field.wert">Wert</span>
+      <span data-i18n="field.niveau">Niveau</span>
+      <span data-i18n="field.pool">Pool</span>
     </div>
     <fieldset class="repeating_sr6sprachfertigkeiten">
       <div class="sr6-foundry-item">
@@ -2332,14 +2333,25 @@
               <input type="text" name="attr_sr6_sprachfertigkeit_name" />
             </div>
             <div class="sr6-charactersheet-field">
-              <span data-i18n="field.wert">Wert</span>
+              <span data-i18n="field.niveau">Niveau</span>
+              <select name="attr_sr6_sprachfertigkeit_niveau">
+                <option value="Erlernt" data-i18n="field.sprach_niveau_erlernt">Erlernt</option>
+                <option value="Fortgeschritten (+2)" data-i18n="field.sprach_niveau_fortgeschritten">Fortgeschritten (+2)</option>
+                <option value="Experte (+3)" data-i18n="field.sprach_niveau_experte">Experte (+3)</option>
+                <option value="Muttersprache" data-i18n="field.sprach_niveau_muttersprache">Muttersprache</option>
+              </select>
+            </div>
+            <div class="sr6-charactersheet-field">
+              <span data-i18n="field.pool">Pool</span>
               <div class="sr6-charactersheet-field-input-with-dice">
                 <input type="number" name="attr_sr6_sprachfertigkeit_gesamtwert" readonly /><button
                   type="action"
                   class="sr6-charactersheet-field-dice-button"
                   name="act_probe"
-                  value="&{template:default} {{name=Erinnerungsvermögen}} {{Fertigkeit=@{sr6_sprachfertigkeit_name}}} {{Attributsprobe=Erinnerungsvermögen}} {{Formel=Logik + Intuition}} {{Pool=[[@{sr6_attrprobe_erinnerungsvermoegen}]]}} {{Erfolge=[[@{sr6_attrprobe_erinnerungsvermoegen}d6>5]]}}"
+                  value="&{template:default} {{name=Erinnerungsvermögen}} {{Fertigkeit=@{sr6_sprachfertigkeit_name}}} {{Sprachniveau=@{sr6_sprachfertigkeit_niveau}}} {{Sprachbonus=[[@{sr6_sprachfertigkeit_bonus}]]}} {{Hinweis=@{sr6_sprachfertigkeit_hinweis}}} {{Attributsprobe=Erinnerungsvermögen}} {{Formel=Logik + Intuition}} {{Pool=[[@{sr6_sprachfertigkeit_gesamtwert}]]}} {{Erfolge=[[@{sr6_sprachfertigkeit_gesamtwert}d6>5]]}}"
                   aria-label="Wuerfeln"></button>
+                <input type="hidden" name="attr_sr6_sprachfertigkeit_bonus" value="0" />
+                <input type="hidden" name="attr_sr6_sprachfertigkeit_hinweis" value="" />
               </div>
             </div>
           </div>
@@ -2472,7 +2484,7 @@
   <div class="sr6-charactersheet-box-content">
     <div class="sr6-generic-list-header sr6-generic-list-header--memory-probe">
       <span data-i18n="field.name">Name</span>
-      <span data-i18n="field.wert">Wert</span>
+      <span data-i18n="field.pool">Pool</span>
     </div>
     <fieldset class="repeating_sr6wissenssprachsofts">
       <div class="sr6-foundry-item">
@@ -2483,7 +2495,7 @@
               <input type="text" name="attr_sr6_wissenssprachsoft_name" />
             </div>
             <div class="sr6-charactersheet-field">
-              <span data-i18n="field.wert">Wert</span>
+              <span data-i18n="field.pool">Pool</span>
               <div class="sr6-charactersheet-field-input-with-dice">
                 <input type="number" name="attr_sr6_wissenssprachsoft_gesamtwert" readonly /><button
                   type="action"
@@ -6635,6 +6647,8 @@
   // BEGIN BLOCK: Worker Bundle (single source)
   // BEGIN BLOCK: Worker Includes (core)
 // BEGIN MODULE: workers/core/constants
+// Attribute keys are the canonical worker-side identifiers.
+// Each key maps to sr6_attr_<key>_{grundwert,modifikator,gesamtwert}.
 const SR6_ATTRIBUTES = [
   "konstitution",
   "geschicklichkeit",
@@ -6648,6 +6662,8 @@ const SR6_ATTRIBUTES = [
   "magie_resonanz"
 ];
 
+// Skill keys drive automatic skill total calculation and generic skill roll definitions.
+// Keep these in sync with the static skill fields in the Attribute & Fertigkeiten tab.
 const SR6_SKILLS = [
   "astral",
   "athletik",
@@ -6670,6 +6686,8 @@ const SR6_SKILLS = [
   "wahrnehmung"
 ];
 
+// Matrix action keys are used to generate derived probe/defense attributes and change listeners.
+// The order here is the canonical processing order; the visual order can still be handled in HTML/CSS.
 const SR6_MATRIX_ACTIONS = [
   "ausstoepseln",
   "befehl_vortaeuschen",
@@ -6723,6 +6741,22 @@ const SR6_MATRIX_ACTIONS = [
   "volle_matrixabwehr"
 ];
 
+// Rule mapping for Matrix actions.
+//
+// Supported component fields:
+// - skill: key from SR6_SKILLS, resolved as Grundwert + Modifikator during rolls.
+// - attribute: key from SR6_ATTRIBUTES, resolved as Grundwert + Modifikator during rolls.
+// - matrix/matrixSecond: Matrix core values such as Angriff, Schleicher, Datenverarbeitung, Firewall.
+// - multiplier: multiplies the referenced matrix value, e.g. Firewall x2.
+// - linkedMatrixAttribute: informational Matrix attribute used by the action, shown in roll output.
+// - specialization: informational specialization requirement/hint for roll output.
+// - target: external value that is not stored on the acting character, e.g. a target device Pilot.
+//
+// Defense type notes:
+// - choice: player can select one calculated defense option.
+// - none: no rollable defense.
+// - description: rule needs text/context rather than an automatic pool.
+// - fixed_formula: formula is known, but at least one part may not be automatically resolvable yet.
 const SR6_MATRIX_ACTION_RULES = {
   ausstoepseln: {
     probe: { label: "Elektronik + Willenskraft", skill: "elektronik", attribute: "willenskraft" },
@@ -7173,6 +7207,9 @@ const SR6_ROLL_TITLE_PREFIXES = [
 const SR6_DEFAULT_ROLL_ROW_ORDER = [
   "Attribut",
   "Fertigkeit",
+  "Sprachniveau",
+  "Sprachbonus",
+  "Hinweis",
   "Wert",
   "Waffe",
   "Schadenswert",
@@ -8190,6 +8227,7 @@ const SR6_ROLL_DEFINITIONS = [
     id: "language_skill",
     ...createSkillProbeDefinition({
       matchPoolPrefix: "sr6_sprachfertigkeit_",
+      extraFields: ["Sprachniveau", "Sprachbonus", "Hinweis"],
       titleFallback: "Sprachfertigkeiten",
     }),
   },
@@ -11606,6 +11644,19 @@ const SR6_TALENTSOFT_ATTRIBUTE_SOURCES = {
   "Magie/Resonanz": "sr6_attr_magie_resonanz_gesamtwert",
 };
 
+function getLanguageLevelBonus(selectedLevel) {
+  const normalizedLevel = `${selectedLevel || ""}`.trim();
+  if (normalizedLevel === "Fortgeschritten (+2)") return 2;
+  if (normalizedLevel === "Experte (+3)") return 3;
+  return 0;
+}
+
+function getLanguageLevelHint(selectedLevel) {
+  return `${selectedLevel || ""}`.trim() === "Muttersprache"
+    ? "Muttersprache: keine Probe zum Verstehen notwendig."
+    : "";
+}
+
 function getTalentsoftAttributeTotal(values, selectedAttribute) {
   const attrKey =
     SR6_TALENTSOFT_ATTRIBUTE_SOURCES[`${selectedAttribute || ""}`.trim()] ||
@@ -11638,6 +11689,9 @@ function syncRepeatingSkillTotals(callback) {
       SR6_REPEATING_SKILL_TOTAL_SECTIONS.forEach((sectionConfig) => {
         const sectionIds = sectionIdsByName[sectionConfig.section] || [];
         sectionIds.forEach((rowId) => {
+          if (sectionConfig.totalSource === "memory" && sectionConfig.prefix === "sr6_sprachfertigkeit_") {
+            requestKeys.push(`${sectionConfig.section}_${rowId}_${sectionConfig.prefix}niveau`);
+          }
           if (sectionConfig.totalSource === "talentsoft") {
             requestKeys.push(`${sectionConfig.section}_${rowId}_${sectionConfig.prefix}grundwert`);
             requestKeys.push(`${sectionConfig.section}_${rowId}_${sectionConfig.prefix}modifikator`);
@@ -11664,7 +11718,14 @@ function syncRepeatingSkillTotals(callback) {
           sectionIds.forEach((rowId) => {
             const rowPrefix = `${sectionConfig.section}_${rowId}_${sectionConfig.prefix}`;
             if (sectionConfig.totalSource === "memory") {
-              updates[`${rowPrefix}gesamtwert`] = String(parseNumber(values.sr6_attrprobe_erinnerungsvermoegen));
+              const isLanguage = sectionConfig.prefix === "sr6_sprachfertigkeit_";
+              const languageLevel = values[`${rowPrefix}niveau`];
+              const languageBonus = isLanguage ? getLanguageLevelBonus(languageLevel) : 0;
+              updates[`${rowPrefix}gesamtwert`] = String(parseNumber(values.sr6_attrprobe_erinnerungsvermoegen) + languageBonus);
+              if (isLanguage) {
+                updates[`${rowPrefix}bonus`] = String(languageBonus);
+                updates[`${rowPrefix}hinweis`] = getLanguageLevelHint(languageLevel);
+              }
               return;
             }
             const attributeTotal =
@@ -12950,6 +13011,7 @@ function registerWorkerEvents() {
       "change:repeating_sr6wissensfertigkeiten:sr6_wissensfertigkeit_name",
       "remove:repeating_sr6wissensfertigkeiten",
       "change:repeating_sr6sprachfertigkeiten:sr6_sprachfertigkeit_name",
+      "change:repeating_sr6sprachfertigkeiten:sr6_sprachfertigkeit_niveau",
       "remove:repeating_sr6sprachfertigkeiten",
       "change:repeating_sr6talentsofts:sr6_talentsoft_attribut",
       "change:repeating_sr6talentsofts:sr6_talentsoft_grundwert",
@@ -13174,6 +13236,12 @@ registerWorkerEvents();
   "field.heben_tragen": "Heben/Tragen",
   "field.menschenkenntnis": "Menschenkenntnis",
   "field.selbstbeherrschung": "Selbstbeherrschung",
+  "field.niveau": "Niveau",
+  "field.sprach_niveau_erlernt": "Erlernt",
+  "field.sprach_niveau_fortgeschritten": "Fortgeschritten (+2)",
+  "field.sprach_niveau_experte": "Experte (+3)",
+  "field.sprach_niveau_muttersprache": "Muttersprache",
+  "field.pool": "Pool",
   "field.wert": "Wert",
   "field.spezialisierung": "Spezialisierung",
   "field.expertise": "Expertise",

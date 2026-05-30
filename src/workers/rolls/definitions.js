@@ -25,6 +25,9 @@ const SR6_ROLL_TITLE_PREFIXES = [
 const SR6_DEFAULT_ROLL_ROW_ORDER = [
   "Attribut",
   "Fertigkeit",
+  "Sprachniveau",
+  "Sprachbonus",
+  "Hinweis",
   "Wert",
   "Waffe",
   "Schadenswert",
@@ -1042,6 +1045,7 @@ const SR6_ROLL_DEFINITIONS = [
     id: "language_skill",
     ...createSkillProbeDefinition({
       matchPoolPrefix: "sr6_sprachfertigkeit_",
+      extraFields: ["Sprachniveau", "Sprachbonus", "Hinweis"],
       titleFallback: "Sprachfertigkeiten",
     }),
   },
