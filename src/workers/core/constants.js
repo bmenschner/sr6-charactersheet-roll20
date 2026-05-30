@@ -1,4 +1,6 @@
 // BEGIN MODULE: workers/core/constants
+// Attribute keys are the canonical worker-side identifiers.
+// Each key maps to sr6_attr_<key>_{grundwert,modifikator,gesamtwert}.
 const SR6_ATTRIBUTES = [
   "konstitution",
   "geschicklichkeit",
@@ -12,6 +14,8 @@ const SR6_ATTRIBUTES = [
   "magie_resonanz"
 ];
 
+// Skill keys drive automatic skill total calculation and generic skill roll definitions.
+// Keep these in sync with the static skill fields in the Attribute & Fertigkeiten tab.
 const SR6_SKILLS = [
   "astral",
   "athletik",
@@ -34,6 +38,8 @@ const SR6_SKILLS = [
   "wahrnehmung"
 ];
 
+// Matrix action keys are used to generate derived probe/defense attributes and change listeners.
+// The order here is the canonical processing order; the visual order can still be handled in HTML/CSS.
 const SR6_MATRIX_ACTIONS = [
   "ausstoepseln",
   "befehl_vortaeuschen",
@@ -87,6 +93,22 @@ const SR6_MATRIX_ACTIONS = [
   "volle_matrixabwehr"
 ];
 
+// Rule mapping for Matrix actions.
+//
+// Supported component fields:
+// - skill: key from SR6_SKILLS, resolved as Grundwert + Modifikator during rolls.
+// - attribute: key from SR6_ATTRIBUTES, resolved as Grundwert + Modifikator during rolls.
+// - matrix/matrixSecond: Matrix core values such as Angriff, Schleicher, Datenverarbeitung, Firewall.
+// - multiplier: multiplies the referenced matrix value, e.g. Firewall x2.
+// - linkedMatrixAttribute: informational Matrix attribute used by the action, shown in roll output.
+// - specialization: informational specialization requirement/hint for roll output.
+// - target: external value that is not stored on the acting character, e.g. a target device Pilot.
+//
+// Defense type notes:
+// - choice: player can select one calculated defense option.
+// - none: no rollable defense.
+// - description: rule needs text/context rather than an automatic pool.
+// - fixed_formula: formula is known, but at least one part may not be automatically resolvable yet.
 const SR6_MATRIX_ACTION_RULES = {
   ausstoepseln: {
     probe: { label: "Elektronik + Willenskraft", skill: "elektronik", attribute: "willenskraft" },

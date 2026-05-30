@@ -41,6 +41,12 @@
   grid-template-columns: minmax(0, 1fr) max-content;
 }
 
+.sr6-generic-list-header--language-probe,
+.sr6-sprachfertigkeiten-section .sr6-fertigkeiten-memory-probe-row,
+.sr6-sprachfertigkeiten-section:has(.sr6-editable-section-mode:not(:checked)) .sr6-editable-item-fields .sr6-fertigkeiten-memory-probe-row {
+  grid-template-columns: minmax(0, 1fr) minmax(9rem, max-content) max-content;
+}
+
 .sr6-talentsofts-section:has(.sr6-editable-section-mode:not(:checked)) .sr6-editable-item-fields .sr6-foundry-item-head {
   grid-template-columns: repeat(5, minmax(0, 1fr));
 }

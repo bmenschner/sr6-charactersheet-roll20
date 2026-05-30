@@ -19,9 +19,10 @@
     </label>
   </div>
   <div class="sr6-charactersheet-box-content">
-    <div class="sr6-generic-list-header sr6-generic-list-header--memory-probe">
+    <div class="sr6-generic-list-header sr6-generic-list-header--memory-probe sr6-generic-list-header--language-probe">
       <span data-i18n="field.name">Name</span>
-      <span data-i18n="field.wert">Wert</span>
+      <span data-i18n="field.niveau">Niveau</span>
+      <span data-i18n="field.pool">Pool</span>
     </div>
     <fieldset class="repeating_sr6sprachfertigkeiten">
       <div class="sr6-foundry-item">
@@ -32,14 +33,25 @@
               <input type="text" name="attr_sr6_sprachfertigkeit_name" />
             </div>
             <div class="sr6-charactersheet-field">
-              <span data-i18n="field.wert">Wert</span>
+              <span data-i18n="field.niveau">Niveau</span>
+              <select name="attr_sr6_sprachfertigkeit_niveau">
+                <option value="Erlernt" data-i18n="field.sprach_niveau_erlernt">Erlernt</option>
+                <option value="Fortgeschritten (+2)" data-i18n="field.sprach_niveau_fortgeschritten">Fortgeschritten (+2)</option>
+                <option value="Experte (+3)" data-i18n="field.sprach_niveau_experte">Experte (+3)</option>
+                <option value="Muttersprache" data-i18n="field.sprach_niveau_muttersprache">Muttersprache</option>
+              </select>
+            </div>
+            <div class="sr6-charactersheet-field">
+              <span data-i18n="field.pool">Pool</span>
               <div class="sr6-charactersheet-field-input-with-dice">
                 <input type="number" name="attr_sr6_sprachfertigkeit_gesamtwert" readonly /><button
                   type="action"
                   class="sr6-charactersheet-field-dice-button"
                   name="act_probe"
-                  value="&{template:default} {{name=Erinnerungsvermögen}} {{Fertigkeit=@{sr6_sprachfertigkeit_name}}} {{Attributsprobe=Erinnerungsvermögen}} {{Formel=Logik + Intuition}} {{Pool=[[@{sr6_attrprobe_erinnerungsvermoegen}]]}} {{Erfolge=[[@{sr6_attrprobe_erinnerungsvermoegen}d6>5]]}}"
+                  value="&{template:default} {{name=Erinnerungsvermögen}} {{Fertigkeit=@{sr6_sprachfertigkeit_name}}} {{Sprachniveau=@{sr6_sprachfertigkeit_niveau}}} {{Sprachbonus=[[@{sr6_sprachfertigkeit_bonus}]]}} {{Hinweis=@{sr6_sprachfertigkeit_hinweis}}} {{Attributsprobe=Erinnerungsvermögen}} {{Formel=Logik + Intuition}} {{Pool=[[@{sr6_sprachfertigkeit_gesamtwert}]]}} {{Erfolge=[[@{sr6_sprachfertigkeit_gesamtwert}d6>5]]}}"
                   aria-label="Wuerfeln"></button>
+                <input type="hidden" name="attr_sr6_sprachfertigkeit_bonus" value="0" />
+                <input type="hidden" name="attr_sr6_sprachfertigkeit_hinweis" value="" />
               </div>
             </div>
           </div>

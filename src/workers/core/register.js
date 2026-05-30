@@ -109,6 +109,7 @@ function registerWorkerEvents() {
       "change:repeating_sr6wissensfertigkeiten:sr6_wissensfertigkeit_name",
       "remove:repeating_sr6wissensfertigkeiten",
       "change:repeating_sr6sprachfertigkeiten:sr6_sprachfertigkeit_name",
+      "change:repeating_sr6sprachfertigkeiten:sr6_sprachfertigkeit_niveau",
       "remove:repeating_sr6sprachfertigkeiten",
       "change:repeating_sr6talentsofts:sr6_talentsoft_attribut",
       "change:repeating_sr6talentsofts:sr6_talentsoft_grundwert",
