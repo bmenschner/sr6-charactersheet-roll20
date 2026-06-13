@@ -533,7 +533,8 @@ function setAttrsSilent(payload, callback) {
 // END BLOCK: Worker Includes (core)
 
 // BEGIN BLOCK: Worker Includes (rolls)
-// BEGIN MODULE: workers/rolls/definitions
+// BEGIN MODULE: workers/rolls/definitions/shared.js
+// Geteilte Konstanten fuer Rolltitel, Standard-Reihenfolge und Popup-Slots.
 const SR6_ROLL_TITLE_PREFIXES = [
   { prefix: "sr6_combat_", title: "Kampf" },
   { prefix: "sr6_fernkampf_", title: "Fernkampfwaffen" },
@@ -578,88 +579,10 @@ const SR6_POPUP_FIELD_SLOT_COUNT = 11;
 const SR6_EDGE_BOOST_POPUP_SLOT = 9;
 const SR6_FATE_DICE_POPUP_SLOT = 10;
 const SR6_MATRIX_LONER_POPUP_SLOT = 11;
+// END MODULE: workers/rolls/definitions/shared.js
 
-const SR6_RIGGING_VEHICLE_ROLL_ATTRIBUTES = [
-  "sr6_attr_reaktion_gesamtwert",
-  "sr6_attr_geschicklichkeit_gesamtwert",
-  "sr6_attr_intuition_gesamtwert",
-  "sr6_attr_logik_gesamtwert",
-  "sr6_skill_steuern_gesamtwert",
-  "sr6_skill_mechanik_gesamtwert",
-  "sr6_skill_mechanik_spezialisierung",
-  "sr6_skill_mechanik_expertise",
-  "sr6_skill_heimlichkeit_gesamtwert",
-  "sr6_skill_wahrnehmung_gesamtwert",
-  "sr6_rigging_fahrzeug_probe",
-  "sr6_rigging_fahrzeug_modus",
-  "sr6_rigging_fahrzeug_rumpf",
-  "sr6_rigging_fahrzeug_panzerung",
-  "sr6_rigging_fahrzeug_pilot",
-  "sr6_rigging_fahrzeug_sensor",
-  "sr6_rigging_fahrzeug_agentenstufe",
-  "sr6_rigging_fahrzeug_riggerkontrolle",
-  "sr6_rigging_fahrzeug_manoevrieren",
-  "sr6_rigging_fahrzeug_zielerfassung",
-  "sr6_rigging_fahrzeug_ausweichen",
-  "sr6_rigging_fahrzeug_stealth",
-  "sr6_rigging_fahrzeug_clearsight",
-  "sr6_rigging_fahrzeug_angriffswert",
-  "sr6_rigging_fahrzeug_verteidigungswert",
-  "sr6_rigging_fahrzeug_zustandsmonitor",
-  "sr6_rigging_fahrzeug_waffe_probe_wert",
-  "sr6_rigging_fahrzeug_waffe_name",
-  "sr6_rigging_fahrzeug_waffe",
-  "sr6_rigging_fahrzeug_waffe_schaden",
-  "sr6_rigging_fahrzeug_waffe_modus",
-  "sr6_rigging_fahrzeug_waffe_s_nah",
-  "sr6_rigging_fahrzeug_waffe_nah",
-  "sr6_rigging_fahrzeug_waffe_mittel",
-  "sr6_rigging_fahrzeug_waffe_weit",
-  "sr6_rigging_fahrzeug_waffe_s_weit",
-];
-
-const SR6_EQUIPMENT_SOURCE_OPTIONS = {
-  "attr:konstitution": { label: "Konstitution", type: "Attribut", attr: "sr6_attr_konstitution_gesamtwert" },
-  "attr:geschicklichkeit": { label: "Geschicklichkeit", type: "Attribut", attr: "sr6_attr_geschicklichkeit_gesamtwert" },
-  "attr:reaktion": { label: "Reaktion", type: "Attribut", attr: "sr6_attr_reaktion_gesamtwert" },
-  "attr:staerke": { label: "Stärke", type: "Attribut", attr: "sr6_attr_staerke_gesamtwert" },
-  "attr:willenskraft": { label: "Willenskraft", type: "Attribut", attr: "sr6_attr_willenskraft_gesamtwert" },
-  "attr:logik": { label: "Logik", type: "Attribut", attr: "sr6_attr_logik_gesamtwert" },
-  "attr:intuition": { label: "Intuition", type: "Attribut", attr: "sr6_attr_intuition_gesamtwert" },
-  "attr:charisma": { label: "Charisma", type: "Attribut", attr: "sr6_attr_charisma_gesamtwert" },
-  "attr:edge": { label: "Edge", type: "Attribut", attr: "sr6_attr_edge_gesamtwert" },
-  "attr:magie_resonanz": { label: "Magie/Resonanz", type: "Attribut", attr: "sr6_attr_magie_resonanz_gesamtwert" },
-  "skill:astral": { label: "Astral", type: "Fertigkeit", attr: "sr6_skill_astral_gesamtwert" },
-  "skill:athletik": { label: "Athletik", type: "Fertigkeit", attr: "sr6_skill_athletik_gesamtwert" },
-  "skill:beschwoeren": { label: "Beschwören", type: "Fertigkeit", attr: "sr6_skill_beschwoeren_gesamtwert" },
-  "skill:biotech": { label: "Biotech", type: "Fertigkeit", attr: "sr6_skill_biotech_gesamtwert" },
-  "skill:cracken": { label: "Cracken", type: "Fertigkeit", attr: "sr6_skill_cracken_gesamtwert" },
-  "skill:einfluss": { label: "Einfluss", type: "Fertigkeit", attr: "sr6_skill_einfluss_gesamtwert" },
-  "skill:elektronik": { label: "Elektronik", type: "Fertigkeit", attr: "sr6_skill_elektronik_gesamtwert" },
-  "skill:exotische_waffen": { label: "Exotische Waffen", type: "Fertigkeit", attr: "sr6_skill_exotische_waffen_gesamtwert" },
-  "skill:feuerwaffen": { label: "Feuerwaffen", type: "Fertigkeit", attr: "sr6_skill_feuerwaffen_gesamtwert" },
-  "skill:heimlichkeit": { label: "Heimlichkeit", type: "Fertigkeit", attr: "sr6_skill_heimlichkeit_gesamtwert" },
-  "skill:hexerei": { label: "Hexerei", type: "Fertigkeit", attr: "sr6_skill_hexerei_gesamtwert" },
-  "skill:mechanik": { label: "Mechanik", type: "Fertigkeit", attr: "sr6_skill_mechanik_gesamtwert" },
-  "skill:nahkampf": { label: "Nahkampf", type: "Fertigkeit", attr: "sr6_skill_nahkampf_gesamtwert" },
-  "skill:natur": { label: "Natur", type: "Fertigkeit", attr: "sr6_skill_natur_gesamtwert" },
-  "skill:steuern": { label: "Steuern", type: "Fertigkeit", attr: "sr6_skill_steuern_gesamtwert" },
-  "skill:tasken": { label: "Tasken", type: "Fertigkeit", attr: "sr6_skill_tasken_gesamtwert" },
-  "skill:ueberreden": { label: "Überreden", type: "Fertigkeit", attr: "sr6_skill_ueberreden_gesamtwert" },
-  "skill:verzaubern": { label: "Verzaubern", type: "Fertigkeit", attr: "sr6_skill_verzaubern_gesamtwert" },
-  "skill:wahrnehmung": { label: "Wahrnehmung", type: "Fertigkeit", attr: "sr6_skill_wahrnehmung_gesamtwert" },
-};
-
-function getEquipmentSourceOption(sourceKey) {
-  return SR6_EQUIPMENT_SOURCE_OPTIONS[`${sourceKey || ""}`.trim()] || null;
-}
-
-function getEquipmentSourceAttributeRefs() {
-  return Object.keys(SR6_EQUIPMENT_SOURCE_OPTIONS)
-    .map((sourceKey) => SR6_EQUIPMENT_SOURCE_OPTIONS[sourceKey].attr)
-    .filter((attr) => !!attr);
-}
-
+// BEGIN MODULE: workers/rolls/definitions/popup-options.js
+// Dropdown-Optionen fuer das Roll-Popup, inklusive Modifikatoren, Munition, Matrixzugriff, Geistertypen und Edge-Boosts.
 const SR6_POPUP_SELECT_OPTION_SETS = {
   visibility: [
     { value: "clear", label: "Klare Sicht", poolMod: 0, rowValue: "Klare Sicht" },
@@ -830,38 +753,97 @@ const SR6_POPUP_SELECT_OPTION_SETS = {
     },
   ],
 };
+// END MODULE: workers/rolls/definitions/popup-options.js
 
-const SR6_DEFAULT_POPUP_FIELDS = [
-  {
-    id: "pool_mod",
-    slot: 1,
-    label: "Popup-Modifikator",
-    type: "number",
-    affects: "pool",
-    defaultValue: "0",
-    includeInTemplate: true,
-  },
-];
+// BEGIN MODULE: workers/rolls/definitions/equipment.js
+// Datenquellen fuer Ausruestungsbezug: welche Attribute und Fertigkeiten im Ausruestungs-Dropdown ausgewaehlt werden koennen.
+const SR6_EQUIPMENT_SOURCE_OPTIONS = {
+  "attr:konstitution": { label: "Konstitution", type: "Attribut", attr: "sr6_attr_konstitution_gesamtwert" },
+  "attr:geschicklichkeit": { label: "Geschicklichkeit", type: "Attribut", attr: "sr6_attr_geschicklichkeit_gesamtwert" },
+  "attr:reaktion": { label: "Reaktion", type: "Attribut", attr: "sr6_attr_reaktion_gesamtwert" },
+  "attr:staerke": { label: "Stärke", type: "Attribut", attr: "sr6_attr_staerke_gesamtwert" },
+  "attr:willenskraft": { label: "Willenskraft", type: "Attribut", attr: "sr6_attr_willenskraft_gesamtwert" },
+  "attr:logik": { label: "Logik", type: "Attribut", attr: "sr6_attr_logik_gesamtwert" },
+  "attr:intuition": { label: "Intuition", type: "Attribut", attr: "sr6_attr_intuition_gesamtwert" },
+  "attr:charisma": { label: "Charisma", type: "Attribut", attr: "sr6_attr_charisma_gesamtwert" },
+  "attr:edge": { label: "Edge", type: "Attribut", attr: "sr6_attr_edge_gesamtwert" },
+  "attr:magie_resonanz": { label: "Magie/Resonanz", type: "Attribut", attr: "sr6_attr_magie_resonanz_gesamtwert" },
+  "skill:astral": { label: "Astral", type: "Fertigkeit", attr: "sr6_skill_astral_gesamtwert" },
+  "skill:athletik": { label: "Athletik", type: "Fertigkeit", attr: "sr6_skill_athletik_gesamtwert" },
+  "skill:beschwoeren": { label: "Beschwören", type: "Fertigkeit", attr: "sr6_skill_beschwoeren_gesamtwert" },
+  "skill:biotech": { label: "Biotech", type: "Fertigkeit", attr: "sr6_skill_biotech_gesamtwert" },
+  "skill:cracken": { label: "Cracken", type: "Fertigkeit", attr: "sr6_skill_cracken_gesamtwert" },
+  "skill:einfluss": { label: "Einfluss", type: "Fertigkeit", attr: "sr6_skill_einfluss_gesamtwert" },
+  "skill:elektronik": { label: "Elektronik", type: "Fertigkeit", attr: "sr6_skill_elektronik_gesamtwert" },
+  "skill:exotische_waffen": { label: "Exotische Waffen", type: "Fertigkeit", attr: "sr6_skill_exotische_waffen_gesamtwert" },
+  "skill:feuerwaffen": { label: "Feuerwaffen", type: "Fertigkeit", attr: "sr6_skill_feuerwaffen_gesamtwert" },
+  "skill:heimlichkeit": { label: "Heimlichkeit", type: "Fertigkeit", attr: "sr6_skill_heimlichkeit_gesamtwert" },
+  "skill:hexerei": { label: "Hexerei", type: "Fertigkeit", attr: "sr6_skill_hexerei_gesamtwert" },
+  "skill:mechanik": { label: "Mechanik", type: "Fertigkeit", attr: "sr6_skill_mechanik_gesamtwert" },
+  "skill:nahkampf": { label: "Nahkampf", type: "Fertigkeit", attr: "sr6_skill_nahkampf_gesamtwert" },
+  "skill:natur": { label: "Natur", type: "Fertigkeit", attr: "sr6_skill_natur_gesamtwert" },
+  "skill:steuern": { label: "Steuern", type: "Fertigkeit", attr: "sr6_skill_steuern_gesamtwert" },
+  "skill:tasken": { label: "Tasken", type: "Fertigkeit", attr: "sr6_skill_tasken_gesamtwert" },
+  "skill:ueberreden": { label: "Überreden", type: "Fertigkeit", attr: "sr6_skill_ueberreden_gesamtwert" },
+  "skill:verzaubern": { label: "Verzaubern", type: "Fertigkeit", attr: "sr6_skill_verzaubern_gesamtwert" },
+  "skill:wahrnehmung": { label: "Wahrnehmung", type: "Fertigkeit", attr: "sr6_skill_wahrnehmung_gesamtwert" },
+};
 
-function createRiggingVehiclePopupFields() {
-  return [
-    ...SR6_DEFAULT_POPUP_FIELDS,
-    {
-      id: "ammo_context",
-      slot: 2,
-      label: "Munition",
-      type: "select",
-      optionSet: "ammo",
-      sourceAttr: "sr6_rigging_fahrzeug_waffe_munition",
-      affects: ["attack_value", "damage"],
-      includeInTemplate: true,
-      defaultValue: "Standard",
-      visibleWhenField: "Probe",
-      visibleWhenValue: "weapon_attack",
-    },
-  ];
+function getEquipmentSourceOption(sourceKey) {
+  return SR6_EQUIPMENT_SOURCE_OPTIONS[`${sourceKey || ""}`.trim()] || null;
 }
 
+function getEquipmentSourceAttributeRefs() {
+  return Object.keys(SR6_EQUIPMENT_SOURCE_OPTIONS)
+    .map((sourceKey) => SR6_EQUIPMENT_SOURCE_OPTIONS[sourceKey].attr)
+    .filter((attr) => !!attr);
+}
+// END MODULE: workers/rolls/definitions/equipment.js
+
+// BEGIN MODULE: workers/rolls/definitions/rigging.js
+// Attributliste, die fuer Fahrzeug-/Drohnenproben gesammelt werden muss, bevor der Pool berechnet werden kann.
+const SR6_RIGGING_VEHICLE_ROLL_ATTRIBUTES = [
+  "sr6_attr_reaktion_gesamtwert",
+  "sr6_attr_geschicklichkeit_gesamtwert",
+  "sr6_attr_intuition_gesamtwert",
+  "sr6_attr_logik_gesamtwert",
+  "sr6_skill_steuern_gesamtwert",
+  "sr6_skill_mechanik_gesamtwert",
+  "sr6_skill_mechanik_spezialisierung",
+  "sr6_skill_mechanik_expertise",
+  "sr6_skill_heimlichkeit_gesamtwert",
+  "sr6_skill_wahrnehmung_gesamtwert",
+  "sr6_rigging_fahrzeug_probe",
+  "sr6_rigging_fahrzeug_modus",
+  "sr6_rigging_fahrzeug_rumpf",
+  "sr6_rigging_fahrzeug_panzerung",
+  "sr6_rigging_fahrzeug_pilot",
+  "sr6_rigging_fahrzeug_sensor",
+  "sr6_rigging_fahrzeug_agentenstufe",
+  "sr6_rigging_fahrzeug_riggerkontrolle",
+  "sr6_rigging_fahrzeug_manoevrieren",
+  "sr6_rigging_fahrzeug_zielerfassung",
+  "sr6_rigging_fahrzeug_ausweichen",
+  "sr6_rigging_fahrzeug_stealth",
+  "sr6_rigging_fahrzeug_clearsight",
+  "sr6_rigging_fahrzeug_angriffswert",
+  "sr6_rigging_fahrzeug_verteidigungswert",
+  "sr6_rigging_fahrzeug_zustandsmonitor",
+  "sr6_rigging_fahrzeug_waffe_probe_wert",
+  "sr6_rigging_fahrzeug_waffe_name",
+  "sr6_rigging_fahrzeug_waffe",
+  "sr6_rigging_fahrzeug_waffe_schaden",
+  "sr6_rigging_fahrzeug_waffe_modus",
+  "sr6_rigging_fahrzeug_waffe_s_nah",
+  "sr6_rigging_fahrzeug_waffe_nah",
+  "sr6_rigging_fahrzeug_waffe_mittel",
+  "sr6_rigging_fahrzeug_waffe_weit",
+  "sr6_rigging_fahrzeug_waffe_s_weit",
+];
+// END MODULE: workers/rolls/definitions/rigging.js
+
+// BEGIN MODULE: workers/rolls/definitions/skills.js
+// Regelwerksnahe Attributzuordnung fuer Aktionsfertigkeiten: Standardattribut und alternative Popup-Auswahl.
 const SR6_SKILL_ATTRIBUTE_CONFIGS = {
   astral: {
     optionSet: "skill_attr_intuition_willenskraft",
@@ -1005,7 +987,44 @@ const SR6_SKILL_ATTRIBUTE_CONFIGS = {
     ],
   },
 };
+// END MODULE: workers/rolls/definitions/skills.js
 
+// BEGIN MODULE: workers/rolls/definitions/popup-fields.js
+// Gemeinsame Popup-Feldgruppen, die von mehreren Roll-Definitionen wiederverwendet werden.
+const SR6_DEFAULT_POPUP_FIELDS = [
+  {
+    id: "pool_mod",
+    slot: 1,
+    label: "Popup-Modifikator",
+    type: "number",
+    affects: "pool",
+    defaultValue: "0",
+    includeInTemplate: true,
+  },
+];
+
+function createRiggingVehiclePopupFields() {
+  return [
+    ...SR6_DEFAULT_POPUP_FIELDS,
+    {
+      id: "ammo_context",
+      slot: 2,
+      label: "Munition",
+      type: "select",
+      optionSet: "ammo",
+      sourceAttr: "sr6_rigging_fahrzeug_waffe_munition",
+      affects: ["attack_value", "damage"],
+      includeInTemplate: true,
+      defaultValue: "Standard",
+      visibleWhenField: "Probe",
+      visibleWhenValue: "weapon_attack",
+    },
+  ];
+}
+// END MODULE: workers/rolls/definitions/popup-fields.js
+
+// BEGIN MODULE: workers/rolls/definitions/builders.js
+// Factory-Funktionen fuer Roll-Definitionen und Popup-Felder. Domain-Dateien nutzen diese Builder, damit gleiche Probenmodelle gleich aufgebaut bleiben.
 function createPopupField(config) {
   return {
     affects: "display",
@@ -1536,15 +1555,18 @@ function createInitiativeProbeDefinition(config = {}) {
     titleFallback: config.titleFallback || "Initiative",
   };
 }
+// END MODULE: workers/rolls/definitions/builders.js
 
-const SR6_ROLL_DEFINITIONS = [
-  {
+// BEGIN MODULE: workers/rolls/definitions/core.js
+// Basis-Definitionen fuer generische Initiative-, Attributs- und Attributspaar-Proben.
+const SR6_ROLL_DEFINITIONS_CORE = [
+{
     id: "initiative",
     ...createInitiativeProbeDefinition({
       titleFallback: "Initiative",
     }),
   },
-  {
+{
     id: "attribute_pair",
     ...createAttributeProbeDefinition({
       matchField: "Attributsprobe",
@@ -1556,7 +1578,7 @@ const SR6_ROLL_DEFINITIONS = [
       titleFallback: "Attributsproben",
     }),
   },
-  {
+{
     id: "attribute",
     ...createAttributeProbeDefinition({
       matchField: "Attribut",
@@ -1569,14 +1591,20 @@ const SR6_ROLL_DEFINITIONS = [
       titleFallback: "Probe",
     }),
   },
-  {
+];
+// END MODULE: workers/rolls/definitions/core.js
+
+// BEGIN MODULE: workers/rolls/definitions/skills-rolls.js
+// Roll-Definitionen fuer Fertigkeiten, Wissens-/Sprachfelder, Talentsofts und Wissens-/Sprachsofts.
+const SR6_ROLL_DEFINITIONS_SKILLS = [
+{
     id: "knowledge_skill",
     ...createSkillProbeDefinition({
       matchPoolPrefix: "sr6_wissensfertigkeit_",
       titleFallback: "Wissensfertigkeiten",
     }),
   },
-  {
+{
     id: "language_skill",
     ...createSkillProbeDefinition({
       matchPoolPrefix: "sr6_sprachfertigkeit_",
@@ -1584,7 +1612,7 @@ const SR6_ROLL_DEFINITIONS = [
       titleFallback: "Sprachfertigkeiten",
     }),
   },
-  {
+{
     id: "talentsoft_skill",
     ...createSkillProbeDefinition({
       matchPoolPrefix: "sr6_talentsoft_",
@@ -1592,14 +1620,35 @@ const SR6_ROLL_DEFINITIONS = [
       titleFallback: "Talentsofts",
     }),
   },
-  {
+{
     id: "knowledge_language_soft_skill",
     ...createSkillProbeDefinition({
       matchPoolPrefix: "sr6_wissenssprachsoft_",
       titleFallback: "Wissens-/Sprachsofts",
     }),
   },
-  {
+...SR6_SKILLS.map((skillKey) => ({
+    id: `skill_${skillKey}`,
+    ...createSkillProbeDefinition({
+      matchPoolPrefix: `sr6_skill_${skillKey}_`,
+      skillKey: skillKey,
+      skillAttributeConfig: SR6_SKILL_ATTRIBUTE_CONFIGS[skillKey],
+      titleFallback: "Fertigkeiten",
+    }),
+  })),
+{
+    id: "generic_skill",
+    ...createSkillProbeDefinition({
+      titleFallback: "Fertigkeiten",
+    }),
+  },
+];
+// END MODULE: workers/rolls/definitions/skills-rolls.js
+
+// BEGIN MODULE: workers/rolls/definitions/equipment-rolls.js
+// Roll-Definition fuer Ausruestungsproben mit optionalem Attribut-/Fertigkeitsbezug.
+const SR6_ROLL_DEFINITIONS_EQUIPMENT = [
+{
     id: "equipment",
     probeModel: "equipment_probe",
     matchField: "Ausrüstung",
@@ -1612,22 +1661,13 @@ const SR6_ROLL_DEFINITIONS = [
     internalFields: ["Auswahl"],
     titleFallback: "Ausrüstung",
   },
-  ...SR6_SKILLS.map((skillKey) => ({
-    id: `skill_${skillKey}`,
-    ...createSkillProbeDefinition({
-      matchPoolPrefix: `sr6_skill_${skillKey}_`,
-      skillKey: skillKey,
-      skillAttributeConfig: SR6_SKILL_ATTRIBUTE_CONFIGS[skillKey],
-      titleFallback: "Fertigkeiten",
-    }),
-  })),
-  {
-    id: "generic_skill",
-    ...createSkillProbeDefinition({
-      titleFallback: "Fertigkeiten",
-    }),
-  },
-  {
+];
+// END MODULE: workers/rolls/definitions/equipment-rolls.js
+
+// BEGIN MODULE: workers/rolls/definitions/magic.js
+// Roll-Definitionen fuer Magie: Zauber, Beschwoeren, Magie-Kernwerte und astrale Verteidigungs-/Widerstandsproben.
+const SR6_ROLL_DEFINITIONS_MAGIC = [
+{
     id: "spell",
     probeModel: "spell_probe",
     matchField: "",
@@ -1643,7 +1683,7 @@ const SR6_ROLL_DEFINITIONS = [
     popupFields: createSpellPopupFields(),
     titleFallback: "Zauber",
   },
-  {
+{
     id: "summoning",
     probeModel: "summoning_probe",
     matchField: "",
@@ -1655,7 +1695,7 @@ const SR6_ROLL_DEFINITIONS = [
     popupFields: createSummoningPopupFields(),
     titleFallback: "Geister",
   },
-  {
+{
     id: "astral_defense",
     ...createDefenseProbeDefinition({
       matchField: "",
@@ -1667,7 +1707,7 @@ const SR6_ROLL_DEFINITIONS = [
       titleFallback: "Magie: Kernwerte",
     }),
   },
-  {
+{
     id: "astral_damage_resistance",
     ...createDefenseProbeDefinition({
       matchField: "",
@@ -1679,7 +1719,7 @@ const SR6_ROLL_DEFINITIONS = [
       titleFallback: "Magie: Kernwerte",
     }),
   },
-  {
+{
     id: "magic_value",
     ...createValueProbeDefinition({
       matchField: "",
@@ -1687,7 +1727,13 @@ const SR6_ROLL_DEFINITIONS = [
       titleFallback: "Magie: Kernwerte",
     }),
   },
-  {
+];
+// END MODULE: workers/rolls/definitions/magic.js
+
+// BEGIN MODULE: workers/rolls/definitions/matrix.js
+// Roll-Definitionen fuer Matrix-Kernwerte und Matrixhandlungen mit getrennter Probe und Verteidigung.
+const SR6_ROLL_DEFINITIONS_MATRIX = [
+{
     id: "matrix_action",
     matchField: "Handlung",
     matchPoolPrefix: "sr6_matrix_handlung_",
@@ -1718,7 +1764,7 @@ const SR6_ROLL_DEFINITIONS = [
     ],
     titleFallback: "Matrix-Handlungen",
   },
-  {
+{
     id: "matrix_defense",
     ...createDefenseProbeDefinition({
       matchPoolPrefix: "sr6_matrix_verteidigung",
@@ -1729,7 +1775,7 @@ const SR6_ROLL_DEFINITIONS = [
       titleFallback: "Matrix: Kernwerte",
     }),
   },
-  {
+{
     id: "matrix_damage_resistance",
     ...createDefenseProbeDefinition({
       matchPoolPrefix: "sr6_matrix_schadenswiderstand",
@@ -1740,7 +1786,7 @@ const SR6_ROLL_DEFINITIONS = [
       titleFallback: "Matrix: Kernwerte",
     }),
   },
-  {
+{
     id: "matrix_biofeedback_damage_resistance",
     ...createDefenseProbeDefinition({
       matchPoolPrefix: "sr6_matrix_biofeedback_schadenswiderstand",
@@ -1751,7 +1797,7 @@ const SR6_ROLL_DEFINITIONS = [
       titleFallback: "Matrix: Kernwerte",
     }),
   },
-  {
+{
     id: "matrix_comparison_value",
     ...createValueProbeDefinition({
       matchPoolPrefix: "sr6_matrix_",
@@ -1760,7 +1806,7 @@ const SR6_ROLL_DEFINITIONS = [
       titleFallback: "Matrix: Kernwerte",
     }),
   },
-  {
+{
     id: "matrix_defense_value",
     ...createValueProbeDefinition({
       matchPoolPrefix: "sr6_matrix_",
@@ -1769,7 +1815,7 @@ const SR6_ROLL_DEFINITIONS = [
       titleFallback: "Matrix: Kernwerte",
     }),
   },
-  {
+{
     id: "matrix_value",
     ...createValueProbeDefinition({
       matchPoolPrefix: "sr6_matrix_",
@@ -1798,7 +1844,13 @@ const SR6_ROLL_DEFINITIONS = [
       titleFallback: "Matrix: Kernwerte",
     }),
   },
-  {
+];
+// END MODULE: workers/rolls/definitions/matrix.js
+
+// BEGIN MODULE: workers/rolls/definitions/rigging-rolls.js
+// Roll-Definitionen fuer Rigging-Kernwerte und Fahrzeuge/Drohnen inklusive Fahrzeugwaffen.
+const SR6_ROLL_DEFINITIONS_RIGGING = [
+{
     id: "rigging_comparison_value",
     ...createValueProbeDefinition({
       matchPoolPrefix: "sr6_rigging_",
@@ -1807,7 +1859,7 @@ const SR6_ROLL_DEFINITIONS = [
       titleFallback: "Rigging: Kernwerte",
     }),
   },
-  {
+{
     id: "rigging_defense_value",
     ...createValueProbeDefinition({
       matchPoolPrefix: "sr6_rigging_",
@@ -1816,7 +1868,7 @@ const SR6_ROLL_DEFINITIONS = [
       titleFallback: "Rigging: Kernwerte",
     }),
   },
-  {
+{
     id: "rigging_vehicle",
     probeModel: "rigging_vehicle_probe",
     matchField: "Fahrzeug",
@@ -1829,20 +1881,14 @@ const SR6_ROLL_DEFINITIONS = [
     internalFields: ["Probe"],
     titleFallback: "Rigging-Fahrzeugprobe",
   },
-  {
+{
     id: "rigging_value",
     ...createValueProbeDefinition({
       matchPoolPrefix: "sr6_rigging_",
       titleFallback: "Rigging: Kernwerte",
     }),
   },
-  {
-    id: "value",
-    ...createValueProbeDefinition({
-      titleFallback: "Probe",
-    }),
-  },
-  {
+{
     id: "rigging_matrix_defense",
     ...createDefenseProbeDefinition({
       matchPoolPrefix: "sr6_rigging_matrix_verteidigung",
@@ -1853,7 +1899,7 @@ const SR6_ROLL_DEFINITIONS = [
       titleFallback: "Rigging: Kernwerte",
     }),
   },
-  {
+{
     id: "rigging_matrix_damage_resistance",
     ...createDefenseProbeDefinition({
       matchPoolPrefix: "sr6_rigging_matrix_schadenswiderstand",
@@ -1864,7 +1910,7 @@ const SR6_ROLL_DEFINITIONS = [
       titleFallback: "Rigging: Kernwerte",
     }),
   },
-  {
+{
     id: "rigging_biofeedback_damage_resistance",
     ...createDefenseProbeDefinition({
       matchPoolPrefix: "sr6_rigging_biofeedback_schadenswiderstand",
@@ -1875,7 +1921,13 @@ const SR6_ROLL_DEFINITIONS = [
       titleFallback: "Rigging: Kernwerte",
     }),
   },
-  {
+];
+// END MODULE: workers/rolls/definitions/rigging-rolls.js
+
+// BEGIN MODULE: workers/rolls/definitions/combat.js
+// Roll-Definitionen fuer Kampf: Kernwerte, Waffenangriffe, Verteidigung, Schadenswiderstand und Kampfvergleichswerte.
+const SR6_ROLL_DEFINITIONS_COMBAT = [
+{
     id: "combat_ranged_core_attack",
     probeModel: "combat_attack_probe",
     matchField: "Wert",
@@ -1899,7 +1951,7 @@ const SR6_ROLL_DEFINITIONS = [
     ],
     titleFallback: "Kampf",
   },
-  {
+{
     id: "combat_melee_core_attack",
     probeModel: "combat_attack_probe",
     matchField: "Wert",
@@ -1928,7 +1980,7 @@ const SR6_ROLL_DEFINITIONS = [
     ],
     titleFallback: "Kampf",
   },
-  {
+{
     id: "physical_defense",
     ...createDefenseProbeDefinition({
       matchPoolPrefix: "sr6_verteidigung_physisch_",
@@ -1938,7 +1990,7 @@ const SR6_ROLL_DEFINITIONS = [
       titleFallback: "Verteidigung",
     }),
   },
-  {
+{
     id: "physical_damage_resistance",
     ...createDefenseProbeDefinition({
       matchPoolPrefix: "sr6_schadenswiderstand_physisch_",
@@ -1948,7 +2000,7 @@ const SR6_ROLL_DEFINITIONS = [
       titleFallback: "Schadenswiderstand",
     }),
   },
-  {
+{
     id: "general_defense",
     ...createDefenseProbeDefinition({
       matchPoolPrefix: "sr6_verteidigung_",
@@ -1958,7 +2010,7 @@ const SR6_ROLL_DEFINITIONS = [
       titleFallback: "Verteidigung",
     }),
   },
-  {
+{
     id: "general_damage_resistance",
     ...createDefenseProbeDefinition({
       matchPoolPrefix: "sr6_schadenswiderstand_",
@@ -1968,7 +2020,7 @@ const SR6_ROLL_DEFINITIONS = [
       titleFallback: "Schadenswiderstand",
     }),
   },
-  {
+{
     id: "combat_ranged_weapon",
     probeModel: "combat_attack_probe",
     matchField: "Waffe",
@@ -1989,7 +2041,7 @@ const SR6_ROLL_DEFINITIONS = [
     ],
     titleFallback: "Kampf",
   },
-  {
+{
     id: "combat_melee_weapon",
     probeModel: "combat_attack_probe",
     matchField: "Waffe",
@@ -2020,7 +2072,7 @@ const SR6_ROLL_DEFINITIONS = [
     ],
     titleFallback: "Kampf",
   },
-  {
+{
     id: "ranged_weapon",
     probeModel: "combat_attack_probe",
     matchField: "Waffe",
@@ -2042,7 +2094,7 @@ const SR6_ROLL_DEFINITIONS = [
     ],
     titleFallback: "Fernkampfwaffen",
   },
-  {
+{
     id: "melee_weapon",
     probeModel: "combat_attack_probe",
     matchField: "Waffe",
@@ -2074,7 +2126,7 @@ const SR6_ROLL_DEFINITIONS = [
     ],
     titleFallback: "Nahkampfwaffen",
   },
-  {
+{
     id: "weapon",
     // Legacy safety net for weapon-shaped rolls that are not yet mapped to an explicit domain model.
     matchField: "Waffe",
@@ -2106,7 +2158,19 @@ const SR6_ROLL_DEFINITIONS = [
     ],
     titleFallback: "Kampf",
   },
-  {
+];
+// END MODULE: workers/rolls/definitions/combat.js
+
+// BEGIN MODULE: workers/rolls/definitions/fallback.js
+// Letztes Sicherheitsnetz fuer Rollbuttons, die noch keinem expliziten Probenmodell zugeordnet sind.
+const SR6_ROLL_DEFINITIONS_FALLBACK = [
+{
+    id: "value",
+    ...createValueProbeDefinition({
+      titleFallback: "Probe",
+    }),
+  },
+{
     id: "fallback",
     // Final generic fallback for rolls that do not match any explicit probe model yet.
     titleMode: "pool-prefix-or-explicit",
@@ -2116,7 +2180,66 @@ const SR6_ROLL_DEFINITIONS = [
     titleFallback: "Probe",
   },
 ];
+// END MODULE: workers/rolls/definitions/fallback.js
 
+// BEGIN MODULE: workers/rolls/definitions/validation.js
+// Leichte Laufzeitpruefung der zusammengesetzten Roll-Definitionen, damit Strukturfehler im Worker sichtbar werden.
+function validateRollDefinition(definition, index) {
+  const warnings = [];
+  if (!definition || typeof definition !== "object") {
+    warnings.push(`Roll definition ${index} is not an object.`);
+    return warnings;
+  }
+  if (!definition.id) {
+    warnings.push(`Roll definition ${index} has no id.`);
+  }
+  if (!definition.titleFallback && !definition.fixedTitle) {
+    warnings.push(`Roll definition ${definition.id || index} has no title fallback.`);
+  }
+  if (definition.popupFields && !Array.isArray(definition.popupFields)) {
+    warnings.push(`Roll definition ${definition.id || index} has invalid popupFields.`);
+  }
+  return warnings;
+}
+
+function validateRollDefinitions(definitions) {
+  const warnings = [];
+  const seenIds = {};
+  const list = Array.isArray(definitions) ? definitions : [];
+  list.forEach((definition, index) => {
+    validateRollDefinition(definition, index).forEach((warning) => warnings.push(warning));
+    if (definition && definition.id) {
+      if (seenIds[definition.id]) {
+        warnings.push(`Duplicate roll definition id: ${definition.id}`);
+      }
+      seenIds[definition.id] = true;
+    }
+  });
+  if (typeof console !== "undefined" && console.warn && warnings.length > 0) {
+    warnings.forEach((warning) => console.warn(`[SR6 Roll Definition] ${warning}`));
+  }
+  return warnings;
+}
+// END MODULE: workers/rolls/definitions/validation.js
+
+// BEGIN MODULE: workers/rolls/definitions/registry.js
+// Setzt alle Domain-Definitionen in der Reihenfolge zusammen, in der der Resolver sie prueft.
+const SR6_ROLL_DEFINITIONS = [
+  ...SR6_ROLL_DEFINITIONS_CORE,
+  ...SR6_ROLL_DEFINITIONS_SKILLS,
+  ...SR6_ROLL_DEFINITIONS_EQUIPMENT,
+  ...SR6_ROLL_DEFINITIONS_MAGIC,
+  ...SR6_ROLL_DEFINITIONS_MATRIX,
+  ...SR6_ROLL_DEFINITIONS_RIGGING,
+  ...SR6_ROLL_DEFINITIONS_COMBAT,
+  ...SR6_ROLL_DEFINITIONS_FALLBACK,
+];
+
+const SR6_ROLL_DEFINITION_VALIDATION_WARNINGS = validateRollDefinitions(SR6_ROLL_DEFINITIONS);
+// END MODULE: workers/rolls/definitions/registry.js
+
+// BEGIN MODULE: workers/rolls/definition-resolver
+// Waehlt anhand von Button-Feldern und Pool-Attribut die passende Roll-Definition aus und baut daraus Popup-/Template-Metadaten.
 function findRollTitleByPoolAttribute(poolAttribute) {
   if (!poolAttribute) return "";
 
@@ -2623,9 +2746,11 @@ function getPopupDerivedResults(definition) {
   const resolvedDefinition = definition || resolveRollDefinition({});
   return Array.isArray(resolvedDefinition.popupDerivedResults) ? resolvedDefinition.popupDerivedResults : [];
 }
-// END MODULE: workers/rolls/definitions
+// END MODULE: workers/rolls/definition-resolver
+// END MODULE: workers/rolls/definition-resolver
 
 // BEGIN MODULE: workers/rolls/context
+// Liest den Kontext aus einem angeklickten Roll20-Button: Template-Felder, Pool-Attribute, Repeating-Zeilen und Popup-Speicherwerte.
 function parseTemplateFields(template) {
   const fields = {};
   let index = 0;
@@ -2801,6 +2926,7 @@ function buildRequestedAttributes(rawTemplate, repeatingRowPrefix) {
 // END MODULE: workers/rolls/context
 
 // BEGIN MODULE: workers/rolls/display
+// Wandelt berechnete Wuerfe in Rolltemplate-Felder um, inklusive farbiger Detailwuerfel und spezieller Template-Varianten.
 function buildDiceDetails(diceResults) {
   return Array.isArray(diceResults) ? diceResults.join(" + ") : "";
 }
@@ -3270,6 +3396,7 @@ function buildEdgeTokenMessage(actionText, edgeCurrent) {
 // END MODULE: workers/rolls/display
 
 // BEGIN MODULE: workers/rolls/compute
+// Berechnet reine Wuerfelergebnisse: normale W6, explodierende Sechsen, Schicksalswuerfel, Patzer und Erfolgszahlen. Diese Datei kennt keine UI und keine Roll20-Templates.
 function rollD6() {
   return Math.floor(Math.random() * 6) + 1;
 }
@@ -3422,6 +3549,7 @@ function buildFixedPoolComputation(poolValue) {
 // END MODULE: workers/rolls/compute
 
 // BEGIN MODULE: workers/rolls/probe
+// Fuehrt fachliche Pool-Berechnungen aus: Popup-Modifikatoren, Spezialisierungen, Kampf/Magie/Matrix/Rigging-Sonderlogik und finale Rollauswertung.
 function normalizePopupState(popupState) {
   if (typeof popupState === "number") {
     return { poolMod: popupState, attackValueMod: 0, damageMod: 0, drainMod: 0, poolMultiplier: 1, selectedValues: {}, rows: [] };
@@ -4429,6 +4557,7 @@ function runSuccessProbeFromContext(rawTemplate, repeatingRowPrefix, popupState 
 // END MODULE: workers/rolls/probe
 
 // BEGIN MODULE: workers/rolls/popup
+// Oeffnet das eigene Wurf-Popup, befuellt es aus der Roll-Definition und startet nach Bestaetigung den eigentlichen Wurf.
 function runSuccessProbeRoll(eventInfo) {
   const rawTemplate = (eventInfo && eventInfo.htmlAttributes && eventInfo.htmlAttributes.value) || "";
   const repeatingRowPrefix = extractRepeatingRowPrefix(eventInfo);
@@ -4533,6 +4662,7 @@ function runGlobalPopupProbeCancel() {
 // END MODULE: workers/rolls/popup
 
 // BEGIN MODULE: workers/rolls/edge
+// Steuert Edge-Token und den Edge-nach-dem-Wurf-Flow. Der eigentliche Wurf bleibt in compute/probe, diese Datei verwaltet Bedienung und Chat-Ausgabe.
 function runEdgeTokenChange(delta) {
   getAttrs(["sr6_edge_aktuell"], (values) => {
     const edgeCurrent = clampNumber(parseNumber(values.sr6_edge_aktuell) + delta, 0, 7);
@@ -4691,6 +4821,7 @@ function runEdgeAfterRollConfirm(values) {
 // END MODULE: workers/rolls/edge
 
 // BEGIN MODULE: workers/rolls/number-stepper
+// Erlaubt Plus/Minus-Buttons neben Zahlenfeldern und behandelt Sonderfaelle, bei denen Felder berechnet oder in Repeatern gespeichert werden.
 const SR6_NUMBER_STEPPER_COMPUTED_TARGETS = [
   "sr6_magic_magie",
   "sr6_magic_zauberpool",
@@ -4850,6 +4981,7 @@ function runNumberStepperAdjust(eventInfo) {
 // END MODULE: workers/rolls/number-stepper
 
 // BEGIN MODULE: workers/rolls/index
+// Registriert alle Roll20-Eventhandler fuer Rollbuttons, Popup-Aktionen, Edge und Stepper. Hier wird nur verdrahtet, nicht fachlich berechnet.
 function registerSuccessProbeRollEvents() {
   on("clicked:probe", runSuccessProbeRoll);
   on("clicked:repeating_sr6fernkampfwaffen:probe", runSuccessProbeRoll);

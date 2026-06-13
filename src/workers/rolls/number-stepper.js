@@ -1,4 +1,5 @@
 // BEGIN MODULE: workers/rolls/number-stepper
+// Erlaubt Plus/Minus-Buttons neben Zahlenfeldern und behandelt Sonderfaelle, bei denen Felder berechnet oder in Repeatern gespeichert werden.
 const SR6_NUMBER_STEPPER_COMPUTED_TARGETS = [
   "sr6_magic_magie",
   "sr6_magic_zauberpool",

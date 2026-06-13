@@ -10,6 +10,7 @@
   - Shell-Header-Module: `shell/kopfbereich-layout.css`, `shell/kopfbereich-monitor.css`, `shell/kopfbereich-edge.css`
 - `src/workers/core/, src/workers/compute/, src/workers/rolls/, src/workers/ui/`
   - modularer Sheet-Worker-Code
+  - Roll-Definitionen: `workers/rolls/definitions/*.js` nach fachlichen Domaenen; `workers/rolls/definition-resolver.js` enthaelt Runtime-/Resolver-Helfer
   - Monitor-Header-Compute: `workers/compute/header-monitor.js`
 - `src/i18n/translation.json`
   - DE/EN/FR Quelle
@@ -36,6 +37,7 @@ Include-Dateien duerfen nur in diesen Roots liegen:
 ## Designentscheidung
 - Roll20 braucht weiterhin eine finale Einzel-CSS/HTML im Output.
 - Im Source arbeiten wir modular; der Build fuegt zusammen.
+- Roll-Definitionen werden domain-orientiert gepflegt (`combat`, `magic`, `matrix`, `rigging`, `skills`, `equipment`, `edge`/shared). Die Registry setzt daraus die Roll20-kompatible Definitionsliste zusammen.
 - Kopfbereich-Dateien bleiben bewusst flach im Shell-Ordner (`kopfbereich-*.html`), damit Tickets ohne Include-Navigation schnell auffindbar sind.
 - `Allgemein` ist nur noch eine reduzierte Uebersicht/Spiegel-Ansicht; operative Pflege passiert in den Fach-Tabs.
 - Nicht inkludierte Alt-Partial-Dateien koennen noch im Tree liegen, sind aber keine aktive UI, solange sie nicht ueber `@include` eingebunden sind.

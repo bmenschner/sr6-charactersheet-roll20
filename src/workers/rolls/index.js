@@ -1,4 +1,5 @@
 // BEGIN MODULE: workers/rolls/index
+// Registriert alle Roll20-Eventhandler fuer Rollbuttons, Popup-Aktionen, Edge und Stepper. Hier wird nur verdrahtet, nicht fachlich berechnet.
 function registerSuccessProbeRollEvents() {
   on("clicked:probe", runSuccessProbeRoll);
   on("clicked:repeating_sr6fernkampfwaffen:probe", runSuccessProbeRoll);

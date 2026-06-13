@@ -1,4 +1,5 @@
 // BEGIN MODULE: workers/rolls/edge
+// Steuert Edge-Token und den Edge-nach-dem-Wurf-Flow. Der eigentliche Wurf bleibt in compute/probe, diese Datei verwaltet Bedienung und Chat-Ausgabe.
 function runEdgeTokenChange(delta) {
   getAttrs(["sr6_edge_aktuell"], (values) => {
     const edgeCurrent = clampNumber(parseNumber(values.sr6_edge_aktuell) + delta, 0, 7);

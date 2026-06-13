@@ -58,6 +58,30 @@ Hinweis:
   - `src/css/modules/31-list-zauber.css`
   - `src/css/modules/32-list-repeating-shared.css`
 
+
+## Schnelleinstieg (Worker / Rolls)
+- Worker-Entry und Include-Reihenfolge: `src/workers/sheet_workers.js`
+- Roll-Definition Registry: `src/workers/rolls/definitions/registry.js`
+- Roll-Definition Runtime/Resolver: `src/workers/rolls/definition-resolver.js`
+- Gemeinsame Definitionen und Popup-Optionen:
+  - `src/workers/rolls/definitions/shared.js`
+  - `src/workers/rolls/definitions/popup-options.js`
+  - `src/workers/rolls/definitions/popup-fields.js`
+  - `src/workers/rolls/definitions/builders.js`
+  - `src/workers/rolls/definitions/validation.js`
+- Fachliche Roll-Definitionen:
+  - Kampf: `src/workers/rolls/definitions/combat.js`
+  - Magie: `src/workers/rolls/definitions/magic.js`
+  - Matrix: `src/workers/rolls/definitions/matrix.js`
+  - Rigging: `src/workers/rolls/definitions/rigging-rolls.js`
+  - Fertigkeiten: `src/workers/rolls/definitions/skills-rolls.js`
+  - Ausruestung: `src/workers/rolls/definitions/equipment-rolls.js`
+  - Fallback/Core: `src/workers/rolls/definitions/core.js`, `src/workers/rolls/definitions/fallback.js`
+- Domain-Helfer fuer Wertquellen:
+  - Ausruestung: `src/workers/rolls/definitions/equipment.js`
+  - Rigging: `src/workers/rolls/definitions/rigging.js`
+  - Fertigkeiten: `src/workers/rolls/definitions/skills.js`
+
 ## Build-Output fuer Sandbox
 - `output/charactersheet.html`
 - `output/charactersheet.css`

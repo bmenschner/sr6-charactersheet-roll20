@@ -1,4 +1,5 @@
 // BEGIN MODULE: workers/rolls/context
+// Liest den Kontext aus einem angeklickten Roll20-Button: Template-Felder, Pool-Attribute, Repeating-Zeilen und Popup-Speicherwerte.
 function parseTemplateFields(template) {
   const fields = {};
   let index = 0;
