@@ -241,6 +241,7 @@
   "field.reichweite_selbst": "Selbst",
   "field.reichweite_beruehrung": "Berührung",
   "field.reichweite_sicht": "Sicht",
+  "field.reichweite_flaeche": "Fläche",
   "field.reichweite_spezial": "Spezial",
   "field.dauer": "Dauer",
   "field.dauer_sofort": "Sofort",

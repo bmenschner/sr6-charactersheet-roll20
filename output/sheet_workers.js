@@ -599,6 +599,7 @@ const SR6_POPUP_SELECT_OPTION_SETS = {
     { value: "Selbst", label: "Selbst", rowValue: "Selbst" },
     { value: "Beruehrung", label: "Berührung", rowValue: "Berührung" },
     { value: "Sicht", label: "Sicht", rowValue: "Sicht" },
+    { value: "Fläche", label: "Fläche", rowValue: "Fläche" },
     { value: "Spezial", label: "Spezial", rowValue: "Spezial" },
   ],
   spirit_type: [
