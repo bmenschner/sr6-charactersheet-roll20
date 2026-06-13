@@ -459,7 +459,10 @@ function resolveEdgeBoostOptions(popupState, lookupAttr) {
 
 function appendEdgeBoostRows(rows, edgeOptions, computation) {
   if (!edgeOptions || (edgeOptions.boost === "none" && parseNumber(edgeOptions.fateDiceCount) === 0 && !edgeOptions.matrixLonerActive)) return;
-  const totalFateDiceCount = parseNumber(edgeOptions.fateDiceCount) + parseNumber(edgeOptions.matrixLonerFateDiceCount);
+  const requestedFateDiceCount = parseNumber(edgeOptions.fateDiceCount) + parseNumber(edgeOptions.matrixLonerFateDiceCount);
+  const totalFateDiceCount = computation
+    ? parseNumber(computation.fateDiceCount)
+    : requestedFateDiceCount;
 
   if (edgeOptions.boost !== "none") {
     appendRowIfMissing(rows, "Edge-Boost", edgeOptions.label);
@@ -484,10 +487,13 @@ function appendEdgeBoostRows(rows, edgeOptions, computation) {
     if (fateDiceSources.length > 1) {
       appendRowIfMissing(rows, "Schicksalswürfel-Quelle", fateDiceSources.join(" + "));
     }
+    if (requestedFateDiceCount > totalFateDiceCount) {
+      appendRowIfMissing(rows, "Schicksalswürfel begrenzt", `${totalFateDiceCount} von ${requestedFateDiceCount}`);
+    }
     appendRowIfMissing(
       rows,
       "Schicksalswürfel-Hinweis",
-      "Erfolg auf Schicksalswürfel zählt als 3 Erfolge; eine 1 annulliert normale 5en."
+      "Schicksalswürfel ersetzen vorhandene Poolwürfel; Erfolg zählt als 3 Erfolge, eine 1 annulliert normale 5en."
     );
   }
   if (computation && parseNumber(computation.ignoredLonerFateOnes) > 0) {
