@@ -346,7 +346,82 @@ function formatSignedModifier(value) {
   return numberValue > 0 ? `+${numberValue}` : `${numberValue}`;
 }
 
-function buildPopupDerivedResultRows(definition, lookupAttr, poolAttribute, resolvedFields, popupState) {
+function isMeleeWeaponAttackDefinition(definition) {
+  return !!(definition && (definition.id === "melee_weapon" || definition.id === "combat_melee_weapon"));
+}
+
+function isUnarmedCombatWeaponType(value) {
+  return normalizeCombatSpecializationName(value) === normalizeCombatSpecializationName("Waffenloser Kampf");
+}
+
+function isWhipCombatContext(resolvedFields) {
+  const candidates = [
+    resolvedFields && resolvedFields.Waffentyp,
+    resolvedFields && resolvedFields.Spezialisierung,
+    resolvedFields && resolvedFields.Expertise,
+    resolvedFields && resolvedFields.Waffe,
+  ];
+  return candidates.some((value) => normalizeCombatSpecializationName(value) === normalizeCombatSpecializationName("Peitschen"));
+}
+
+function isWeaponAttackDefinition(definition) {
+  return !!(definition && definition.templateVariant === "weapon");
+}
+
+function resolveWeaponAttackValueBase(definition, lookupAttr, resolvedFields, result, sourceAttr, rawBaseValue) {
+  if (!result || result.kind !== "attack_value" || !isMeleeWeaponAttackDefinition(definition)) {
+    return { value: rawBaseValue, rows: [] };
+  }
+
+  const agilityValue = parseNumber(lookupAttr("sr6_attr_geschicklichkeit_gesamtwert"));
+  const strengthValue = parseNumber(lookupAttr("sr6_attr_staerke_gesamtwert"));
+  const reactionValue = parseNumber(lookupAttr("sr6_attr_reaktion_gesamtwert"));
+  const weaponType = `${(resolvedFields && resolvedFields.Waffentyp) || ""}`.trim();
+  const selectedAttribute = `${(resolvedFields && resolvedFields.Attribut) || "Geschicklichkeit"}`.trim();
+
+  if (isUnarmedCombatWeaponType(weaponType)) {
+    if (selectedAttribute === "Stärke") {
+      return {
+        value: agilityValue + reactionValue,
+        rows: [
+          { label: "Angriffswert-Formel", value: "Waffenloser Kampf mit Stärke-Pool: Geschicklichkeit + Reaktion" },
+          { label: "Geschicklichkeit-Wert", value: `${agilityValue}` },
+          { label: "Reaktion-Wert", value: `${reactionValue}` },
+        ],
+      };
+    }
+
+    return {
+      value: reactionValue + strengthValue,
+      rows: [
+        { label: "Angriffswert-Formel", value: "Waffenloser Kampf: Reaktion + Stärke" },
+        { label: "Reaktion-Wert", value: `${reactionValue}` },
+        { label: "Stärke-Wert", value: `${strengthValue}` },
+      ],
+    };
+  }
+
+  if (isWhipCombatContext(resolvedFields)) {
+    return {
+      value: rawBaseValue + reactionValue,
+      rows: [
+        { label: "Angriffswert-Formel", value: "Peitschen: Waffen-Angriffswert + Reaktion" },
+        { label: "Angriffswert-Basis", value: `${rawBaseValue}` },
+        { label: "Reaktion-Wert", value: `${reactionValue}` },
+      ],
+    };
+  }
+
+  return {
+    value: rawBaseValue + strengthValue,
+    rows: [
+      { label: "Angriffswert-Basis", value: `${rawBaseValue}` },
+      { label: "Stärke-Wert", value: `${strengthValue}` },
+    ],
+  };
+}
+
+function buildPopupDerivedResultRows(definition, lookupAttr, poolAttribute, resolvedFields, popupState, computation = null) {
   const derivedResults = getPopupDerivedResults(definition);
   const rows = [];
   const fireMode = shouldApplyFireMode(definition, resolvedFields)
@@ -375,25 +450,44 @@ function buildPopupDerivedResultRows(definition, lookupAttr, poolAttribute, reso
         : 0;
     const modifier = popupModifier + fireModeModifier;
 
-    if (modifier === 0) {
+    const shouldAlwaysShowAttackValue = resultKind === "attack_value" && result.sourceByRange;
+    const shouldAlwaysShowDamage = resultKind === "damage" && isWeaponAttackDefinition(definition);
+    if (modifier === 0 && !shouldAlwaysShowAttackValue && !shouldAlwaysShowDamage) {
       return;
     }
 
     const sourceAttr = resolvePopupDerivedSourceAttr(result, resolvedFields);
-    const baseValue = result.source === "pool"
+    const resolvedAttackValue = `${(resolvedFields && resolvedFields.Angriffswert) || ""}`.trim();
+    const rawBaseValue = result.source === "pool"
       ? parseNumber(lookupAttr(poolAttribute))
-      : parseNumber(lookupAttr(sourceAttr));
-    const totalValue = baseValue + modifier;
+      : result.sourceByRange && resolvedAttackValue !== ""
+        ? parseNumber(resolvedAttackValue)
+        : parseNumber(lookupAttr(sourceAttr));
+    const resolvedBase = resolveWeaponAttackValueBase(definition, lookupAttr, resolvedFields, result, sourceAttr, rawBaseValue);
+    const baseValue = resolvedBase.value;
+    const successDamageBonus = resultKind === "damage" && computation
+      ? parseNumber(computation.successCount)
+      : 0;
+    const totalValue = baseValue + successDamageBonus + modifier;
     const labelBase = result.label || "Wert";
 
-    rows.push({ label: `${labelBase}-Basis`, value: `${baseValue}` });
+    if (resolvedBase.rows.length > 0) {
+      resolvedBase.rows.forEach((row) => rows.push(row));
+    } else {
+      rows.push({ label: `${labelBase}-Basis`, value: `${baseValue}` });
+    }
+    if (successDamageBonus !== 0) {
+      rows.push({ label: "Erfolge auf Schaden", value: `+${successDamageBonus}` });
+    }
     if (fireModeModifier !== 0) {
       rows.push({
         label: resultKind === "attack_value" ? "Feuermodus-Angriffswert" : "Feuermodus-Schaden",
         value: formatSignedModifier(fireModeModifier),
       });
     }
-    rows.push({ label: `${labelBase}-Modifikator`, value: formatSignedModifier(modifier) });
+    if (modifier !== 0) {
+      rows.push({ label: `${labelBase}-Modifikator`, value: formatSignedModifier(modifier) });
+    }
     rows.push({ label: `${labelBase}`, value: `${totalValue}` });
   });
 
@@ -999,7 +1093,7 @@ function runSuccessProbeFromContext(rawTemplate, repeatingRowPrefix, popupState 
       rows.push({ label: "Zustandsmodifikator", value: `${computation.monitorPoolMod}` });
     }
     effectivePopupState.rows.forEach((popupRow) => rows.push(popupRow));
-    buildPopupDerivedResultRows(context.definition, lookupAttr, context.poolAttribute, resolvedFields, effectivePopupState)
+    buildPopupDerivedResultRows(context.definition, lookupAttr, context.poolAttribute, resolvedFields, effectivePopupState, computation)
       .forEach((popupRow) => rows.push(popupRow));
     appendEdgeBoostRows(rows, edgeOptions, computation);
 
