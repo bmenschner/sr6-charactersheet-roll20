@@ -128,7 +128,7 @@
                 <div class="sr6-number-stepper"><button type="action" class="sr6-number-stepper-button sr6-number-stepper-button--minus" name="act_sr6_number_step" value="sr6_rigging_fahrzeug_agentenstufe::-1" aria-label="Verringern">-</button><input type="number" name="attr_sr6_rigging_fahrzeug_agentenstufe" min="0" max="6" /><button type="action" class="sr6-number-stepper-button sr6-number-stepper-button--plus" name="act_sr6_number_step" value="sr6_rigging_fahrzeug_agentenstufe::1" aria-label="Erhoehen">+</button></div>
               </div>
               <div class="sr6-charactersheet-field">
-                <span data-i18n="field.wert">Wert</span>
+                <div class="sr6-field-label-with-info"><span data-i18n="field.wert">Wert</span><span class="sr6-info-icon" title="Wert = abhängig von Probe und Modus: Autonom nutzt Autosoft + Pilot/Sensor; Agent nutzt Agentenstufe + Pilot/Sensor; Eingesprungen nutzt Fertigkeit + Attribut + Riggerkontrolle">i</span></div>
                 <div class="sr6-charactersheet-field-input-with-dice sr6-charactersheet-field-input-with-dice--compact">
                   <input type="number" name="attr_sr6_rigging_fahrzeug_probe_wert" readonly />
                   <button
@@ -140,15 +140,15 @@
                 </div>
               </div>
               <div class="sr6-charactersheet-field">
-                <span data-i18n="field.angriffswert">Angriffswert</span>
+                <div class="sr6-field-label-with-info"><span data-i18n="field.angriffswert">Angriffswert</span><span class="sr6-info-icon" title="Angriffswert = Agentenstufe + Sensor, Manövrieren + Sensor oder Steuern + Sensor, abhängig vom Modus">i</span></div>
                 <input type="number" name="attr_sr6_rigging_fahrzeug_angriffswert" readonly />
               </div>
               <div class="sr6-charactersheet-field">
-                <span data-i18n="field.verteidigungswert">Verteidigungswert</span>
+                <div class="sr6-field-label-with-info"><span data-i18n="field.verteidigungswert">Verteidigungswert</span><span class="sr6-info-icon" title="Verteidigungswert = Agentenstufe + Panzerung, Manövrieren + Panzerung oder Steuern + Panzerung, abhängig vom Modus">i</span></div>
                 <input type="number" name="attr_sr6_rigging_fahrzeug_verteidigungswert" readonly />
               </div>
               <div class="sr6-charactersheet-field">
-                <span data-i18n="field.zustandsmonitor">Zustandsmonitor</span>
+                <div class="sr6-field-label-with-info"><span data-i18n="field.zustandsmonitor">Zustandsmonitor</span><span class="sr6-info-icon" title="Zustandsmonitor = aufrunden(Rumpf / 2) + 8">i</span></div>
                 <input type="number" name="attr_sr6_rigging_fahrzeug_zustandsmonitor" readonly />
               </div>
             </div>
@@ -160,7 +160,7 @@
                   <input type="text" name="attr_sr6_rigging_fahrzeug_waffe_name" />
                 </div>
                 <div class="sr6-charactersheet-field">
-                  <span data-i18n="field.waffentyp">Waffentyp</span>
+                  <div class="sr6-field-label-with-info"><span data-i18n="field.waffentyp">Waffentyp</span><span class="sr6-info-icon" title="Waffentyp = Geschütze; verwendet Mechanik-Spezialisierung/Expertise Geschütze für Fahrzeugwaffen">i</span></div>
                   <input type="text" name="attr_sr6_rigging_fahrzeug_waffe" value="Geschütze" readonly />
                 </div>
                 <div class="sr6-charactersheet-field">

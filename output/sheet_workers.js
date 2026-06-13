@@ -3578,6 +3578,11 @@ function normalizePopupState(popupState) {
 function applyTemplateSkillBonusToPopupState(popupState, resolvedFields) {
   const state = normalizePopupState(popupState);
   const rows = Array.isArray(state.rows) ? [...state.rows] : [];
+  const selectedValues = state.selectedValues || {};
+  const popupSkillBonusSelected =
+    `${selectedValues.expertise || ""}`.trim() === "1" ||
+    `${selectedValues.specialization || ""}`.trim() === "1" ||
+    rows.some((row) => row && (row.label === "Expertise" || row.label === "Spezialisierung"));
   const hasPopupBonusRow = (label, value) => rows.some((row) => (
     row &&
     row.label === label &&
@@ -3587,6 +3592,13 @@ function applyTemplateSkillBonusToPopupState(popupState, resolvedFields) {
   const specializationName = `${(resolvedFields && resolvedFields.Spezialisierung) || ""}`.trim();
   const expertiseRequested = `${(resolvedFields && resolvedFields["Expertise Aktiv"]) || ""}`.trim() === "1" && expertiseName !== "";
   const specializationRequested = `${(resolvedFields && resolvedFields["Spezialisierung Aktiv"]) || ""}`.trim() === "1" && specializationName !== "";
+
+  if (popupSkillBonusSelected) {
+    return {
+      ...state,
+      rows: rows,
+    };
+  }
 
   if (expertiseRequested && !hasPopupBonusRow("Expertise", "+3")) {
     return {

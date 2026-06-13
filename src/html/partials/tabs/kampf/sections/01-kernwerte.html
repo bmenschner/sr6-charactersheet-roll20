@@ -30,7 +30,7 @@
     <!-- BEGIN BLOCK: Zeile 2 -->
     <div class="sr6-charactersheet-row sr6-charactersheet-row-5">
       <div class="sr6-charactersheet-field">
-        <span data-i18n="field.fernkampfangriff">Fernkampfangriff</span>
+        <div class="sr6-field-label-with-info"><span data-i18n="field.fernkampfangriff">Fernkampfangriff</span><span class="sr6-info-icon" title="Fernkampfangriff = Geschicklichkeit + gewählte Fertigkeit der primären Fernkampfwaffe + passende Spezialisierung/Expertise + Modifikator">i</span></div>
         <div class="sr6-charactersheet-field-input-with-dice">
           <div class="sr6-number-stepper"><button type="action" class="sr6-number-stepper-button sr6-number-stepper-button--minus" name="act_sr6_number_step" value="sr6_combat_fernkampfangriff_gesamtwert::-1" aria-label="Verringern">-</button><input type="number" name="attr_sr6_combat_fernkampfangriff_gesamtwert" readonly /><button type="action" class="sr6-number-stepper-button sr6-number-stepper-button--plus" name="act_sr6_number_step" value="sr6_combat_fernkampfangriff_gesamtwert::1" aria-label="Erhoehen">+</button></div><button
             type="action"
@@ -41,7 +41,7 @@
           </div>
       </div>
       <div class="sr6-charactersheet-field">
-        <span data-i18n="field.projektilwaffen">Projektilwaffen</span>
+        <div class="sr6-field-label-with-info"><span data-i18n="field.projektilwaffen">Projektilwaffen</span><span class="sr6-info-icon" title="Projektilwaffen = Geschicklichkeit + Athletik + Modifikator">i</span></div>
         <div class="sr6-charactersheet-field-input-with-dice">
           <div class="sr6-number-stepper"><button type="action" class="sr6-number-stepper-button sr6-number-stepper-button--minus" name="act_sr6_number_step" value="sr6_combat_projektilwaffen_gesamtwert::-1" aria-label="Verringern">-</button><input type="number" name="attr_sr6_combat_projektilwaffen_gesamtwert" readonly /><button type="action" class="sr6-number-stepper-button sr6-number-stepper-button--plus" name="act_sr6_number_step" value="sr6_combat_projektilwaffen_gesamtwert::1" aria-label="Erhoehen">+</button></div><button
             type="action"
@@ -52,7 +52,7 @@
         </div>
       </div>
       <div class="sr6-charactersheet-field">
-        <span data-i18n="field.nahkampfangriff">Nahkampfangriff</span>
+        <div class="sr6-field-label-with-info"><span data-i18n="field.nahkampfangriff">Nahkampfangriff</span><span class="sr6-info-icon" title="Nahkampfangriff = gewähltes Attribut + gewählte Fertigkeit der primären Nahkampfwaffe + passende Spezialisierung/Expertise + Modifikator">i</span></div>
         <div class="sr6-charactersheet-field-input-with-dice">
           <div class="sr6-number-stepper"><button type="action" class="sr6-number-stepper-button sr6-number-stepper-button--minus" name="act_sr6_number_step" value="sr6_combat_nahkampfangriff_gesamtwert::-1" aria-label="Verringern">-</button><input type="number" name="attr_sr6_combat_nahkampfangriff_gesamtwert" readonly /><button type="action" class="sr6-number-stepper-button sr6-number-stepper-button--plus" name="act_sr6_number_step" value="sr6_combat_nahkampfangriff_gesamtwert::1" aria-label="Erhoehen">+</button></div><button
             type="action"
@@ -63,7 +63,7 @@
         </div>
       </div>
       <div class="sr6-charactersheet-field">
-        <span data-i18n="field.verteidigung_physisch">Verteidigung (Physisch)</span>
+        <div class="sr6-field-label-with-info"><span data-i18n="field.verteidigung_physisch">Verteidigung (Physisch)</span><span class="sr6-info-icon" title="Verteidigung (Physisch) = Reaktion + Intuition + Modifikator">i</span></div>
         <div class="sr6-charactersheet-field-input-with-dice">
           <div class="sr6-number-stepper"><button type="action" class="sr6-number-stepper-button sr6-number-stepper-button--minus" name="act_sr6_number_step" value="sr6_verteidigung_physisch_gesamtwert::-1" aria-label="Verringern">-</button><input type="number" name="attr_sr6_verteidigung_physisch_gesamtwert" readonly /><button type="action" class="sr6-number-stepper-button sr6-number-stepper-button--plus" name="act_sr6_number_step" value="sr6_verteidigung_physisch_gesamtwert::1" aria-label="Erhoehen">+</button></div><button
             type="action"
@@ -74,7 +74,7 @@
         </div>
       </div>
       <div class="sr6-charactersheet-field">
-        <span data-i18n="field.schadenswiderstand_physisch">Schadenswiderstand (Physisch)</span>
+        <div class="sr6-field-label-with-info"><span data-i18n="field.schadenswiderstand_physisch">Schadenswiderstand (Physisch)</span><span class="sr6-info-icon" title="Schadenswiderstand (Physisch) = Konstitution + Modifikator">i</span></div>
         <div class="sr6-charactersheet-field-input-with-dice">
           <div class="sr6-number-stepper"><button type="action" class="sr6-number-stepper-button sr6-number-stepper-button--minus" name="act_sr6_number_step" value="sr6_schadenswiderstand_physisch_gesamtwert::-1" aria-label="Verringern">-</button><input type="number" name="attr_sr6_schadenswiderstand_physisch_gesamtwert" readonly /><button type="action" class="sr6-number-stepper-button sr6-number-stepper-button--plus" name="act_sr6_number_step" value="sr6_schadenswiderstand_physisch_gesamtwert::1" aria-label="Erhoehen">+</button></div><button
             type="action"
@@ -92,23 +92,23 @@
     <!-- BEGIN BLOCK: Zeile 3 -->
     <div class="sr6-charactersheet-row sr6-charactersheet-row-5">
       <div class="sr6-charactersheet-field">
-        <span data-i18n="field.verteidigungswert">Verteidigungswert</span>
+        <div class="sr6-field-label-with-info"><span data-i18n="field.verteidigungswert">Verteidigungswert</span><span class="sr6-info-icon" title="Verteidigungswert = Konstitution + primäre Panzerung + sekundäre Panzerung + Helm + Schild + Modifikator">i</span></div>
         <div class="sr6-number-stepper"><button type="action" class="sr6-number-stepper-button sr6-number-stepper-button--minus" name="act_sr6_number_step" value="sr6_combat_verteidigungswert_gesamtwert::-1" aria-label="Verringern">-</button><input type="number" name="attr_sr6_combat_verteidigungswert_gesamtwert" readonly /><button type="action" class="sr6-number-stepper-button sr6-number-stepper-button--plus" name="act_sr6_number_step" value="sr6_combat_verteidigungswert_gesamtwert::1" aria-label="Erhoehen">+</button></div>
       </div>
       <div class="sr6-charactersheet-field">
-        <span data-i18n="field.primaere_panzerung">Primäre Panzerung</span>
+        <div class="sr6-field-label-with-info"><span data-i18n="field.primaere_panzerung">Primäre Panzerung</span><span class="sr6-info-icon" title="Primäre Panzerung = ausgewählte Panzerung mit Rolle Primär">i</span></div>
         <input type="text" name="attr_sr6_combat_primaere_panzerung_name" readonly />
       </div>
       <div class="sr6-charactersheet-field">
-        <span data-i18n="field.sekundaere_panzerung">Sekundäre Panzerung</span>
+        <div class="sr6-field-label-with-info"><span data-i18n="field.sekundaere_panzerung">Sekundäre Panzerung</span><span class="sr6-info-icon" title="Sekundäre Panzerung = ausgewählte Panzerung mit Rolle Sekundär">i</span></div>
         <input type="text" name="attr_sr6_combat_sekundaere_panzerung_name" readonly />
       </div>
       <div class="sr6-charactersheet-field">
-        <span data-i18n="field.helm">Helm</span>
+        <div class="sr6-field-label-with-info"><span data-i18n="field.helm">Helm</span><span class="sr6-info-icon" title="Helm = ausgewählte Panzerung mit Rolle Helm">i</span></div>
         <input type="text" name="attr_sr6_combat_helm_name" readonly />
       </div>
       <div class="sr6-charactersheet-field">
-        <span data-i18n="field.schild">Schild</span>
+        <div class="sr6-field-label-with-info"><span data-i18n="field.schild">Schild</span><span class="sr6-info-icon" title="Schild = ausgewählte Panzerung mit Rolle Schild">i</span></div>
         <input type="text" name="attr_sr6_combat_schild_name" readonly />
       </div>
     </div>
