@@ -3485,12 +3485,15 @@ function buildProbeComputation(lookupAttr, poolAttribute, popupPoolMod, poolMult
   const monitorPoolMod = parseNumber(lookupAttr("sr6_monitor_pool_mod"));
   const poolPopupMod = parseNumber(popupPoolMod);
   const edgePoolBonus = Math.max(0, parseNumber(edgeOptions && edgeOptions.poolBonus));
-  const standardFateDiceCount = Math.max(0, parseNumber(edgeOptions && edgeOptions.fateDiceCount));
-  const matrixLonerFateDiceCount = Math.max(0, parseNumber(edgeOptions && edgeOptions.matrixLonerFateDiceCount));
-  const fateDiceCount = standardFateDiceCount + matrixLonerFateDiceCount;
+  const requestedStandardFateDiceCount = Math.max(0, parseNumber(edgeOptions && edgeOptions.fateDiceCount));
+  const requestedMatrixLonerFateDiceCount = Math.max(0, parseNumber(edgeOptions && edgeOptions.matrixLonerFateDiceCount));
   const explodingSixes = !!(edgeOptions && edgeOptions.explodingSixes);
-  const regularPool = Math.max(0, poolBasis + monitorPoolMod + poolPopupMod + edgePoolBonus);
-  const pool = regularPool + fateDiceCount;
+  const pool = Math.max(0, poolBasis + monitorPoolMod + poolPopupMod + edgePoolBonus);
+  const matrixLonerFateDiceCount = Math.min(requestedMatrixLonerFateDiceCount, pool);
+  const remainingFateSlots = Math.max(0, pool - matrixLonerFateDiceCount);
+  const standardFateDiceCount = Math.min(requestedStandardFateDiceCount, remainingFateSlots);
+  const fateDiceCount = standardFateDiceCount + matrixLonerFateDiceCount;
+  const regularPool = Math.max(0, pool - fateDiceCount);
   const regularRoll = rollRegularDice(regularPool, explodingSixes);
   const fateRoll = rollFateDice(standardFateDiceCount, matrixLonerFateDiceCount, explodingSixes);
   const canceledNormalFives = fateRoll.cancelsNormalFives
@@ -3512,6 +3515,7 @@ function buildProbeComputation(lookupAttr, poolAttribute, popupPoolMod, poolMult
     fateDiceCount: fateDiceCount,
     standardFateDiceCount: standardFateDiceCount,
     matrixLonerFateDiceCount: matrixLonerFateDiceCount,
+    requestedFateDiceCount: requestedStandardFateDiceCount + requestedMatrixLonerFateDiceCount,
     explodingSixes: explodingSixes,
     canceledNormalFives: canceledNormalFives,
     cancelingFateOnes: fateRoll.cancelingOnes,
@@ -4009,7 +4013,10 @@ function resolveEdgeBoostOptions(popupState, lookupAttr) {
 
 function appendEdgeBoostRows(rows, edgeOptions, computation) {
   if (!edgeOptions || (edgeOptions.boost === "none" && parseNumber(edgeOptions.fateDiceCount) === 0 && !edgeOptions.matrixLonerActive)) return;
-  const totalFateDiceCount = parseNumber(edgeOptions.fateDiceCount) + parseNumber(edgeOptions.matrixLonerFateDiceCount);
+  const requestedFateDiceCount = parseNumber(edgeOptions.fateDiceCount) + parseNumber(edgeOptions.matrixLonerFateDiceCount);
+  const totalFateDiceCount = computation
+    ? parseNumber(computation.fateDiceCount)
+    : requestedFateDiceCount;
 
   if (edgeOptions.boost !== "none") {
     appendRowIfMissing(rows, "Edge-Boost", edgeOptions.label);
@@ -4034,10 +4041,13 @@ function appendEdgeBoostRows(rows, edgeOptions, computation) {
     if (fateDiceSources.length > 1) {
       appendRowIfMissing(rows, "Schicksalswürfel-Quelle", fateDiceSources.join(" + "));
     }
+    if (requestedFateDiceCount > totalFateDiceCount) {
+      appendRowIfMissing(rows, "Schicksalswürfel begrenzt", `${totalFateDiceCount} von ${requestedFateDiceCount}`);
+    }
     appendRowIfMissing(
       rows,
       "Schicksalswürfel-Hinweis",
-      "Erfolg auf Schicksalswürfel zählt als 3 Erfolge; eine 1 annulliert normale 5en."
+      "Schicksalswürfel ersetzen vorhandene Poolwürfel; Erfolg zählt als 3 Erfolge, eine 1 annulliert normale 5en."
     );
   }
   if (computation && parseNumber(computation.ignoredLonerFateOnes) > 0) {
