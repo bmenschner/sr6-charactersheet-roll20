@@ -37,6 +37,19 @@ Dabei gilt:
 - `Allgemein` bleibt nur Uebersicht/Spiegel fuer Datenfelder
 - die eigentliche Logik sitzt in wiederverwendbaren Modellen
 
+
+### Aktuelle technische Roll-Definitionen
+
+Die fachlichen Roll-Definitionen sind nicht mehr in einer grossen Sammeldatei gebuendelt.
+Stattdessen gilt:
+
+- `src/workers/rolls/definitions/*.js` enthaelt die fachlichen Definitionsmodule nach Domaene.
+- `src/workers/rolls/definitions/registry.js` setzt die final genutzte `SR6_ROLL_DEFINITIONS`-Liste zusammen.
+- `src/workers/rolls/definitions/validation.js` prueft die zusammengesetzte Liste auf grundlegende Strukturprobleme und doppelte IDs.
+- `src/workers/rolls/definition-resolver.js` bleibt bewusst Runtime-/Resolver-Schicht fuer Popup, Rolltemplate und Definitionsauswahl.
+
+Damit bleibt die Roll20-Ausgabe weiterhin eine gebuendelte Worker-Datei, waehrend die Source-Dateien review- und mergefreundlicher gepflegt werden koennen.
+
 ### Aktive Probenmodelle
 
 | Probenmodell | Fachliche Grundlogik | Typische Popup-Felder | Typische Output-Felder | Tab-spezifische Feldquellen |

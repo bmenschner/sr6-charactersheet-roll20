@@ -1,4 +1,5 @@
 // BEGIN MODULE: workers/rolls/compute
+// Berechnet reine Wuerfelergebnisse: normale W6, explodierende Sechsen, Schicksalswuerfel, Patzer und Erfolgszahlen. Diese Datei kennt keine UI und keine Roll20-Templates.
 function rollD6() {
   return Math.floor(Math.random() * 6) + 1;
 }

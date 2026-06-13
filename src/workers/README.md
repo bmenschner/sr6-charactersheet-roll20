@@ -8,7 +8,7 @@ Die Worker sind jetzt entlang der Zielarchitektur aufgeteilt:
   - `guards.js`
   - `register.js` (Event-Registrierung + Recompute-Orchestrierung)
 - `src/workers/rolls/`
-  - `definitions.js` (zentrale Rolltypen, Titellogik, Feldreihenfolge, Popup-Felder inkl. Zahlen/Dropdowns)
+  - `definition-resolver.js` (Roll-Definitionsauswahl, Titellogik, Feldreihenfolge und Popup-State-Helfer)
   - `context.js` (Template/Attribut-Kontext aufbauen)
   - `display.js` (Probe-Zeilen, Titel, Chat-Template)
   - `compute.js` (Pool-, Erfolg- und Patzer-Berechnung)
@@ -33,7 +33,7 @@ Eingebunden wird alles über:
 
 Include-Reihenfolge ist wichtig:
 1. core (constants/helpers/guards)
-2. rolls (definitions/context/display/compute/probe/popup/edge/index)
+2. rolls (definitions/*, definition-resolver, context/display/compute/probe/popup/edge/index)
 3. compute (attributes/skills/header-monitor/combat/magic/matrix/rigging)
 4. ui (defaults/monitor-cascade)
 5. core/register

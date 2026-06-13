@@ -17,7 +17,7 @@ Aktueller Stand: Das Popup funktioniert wieder stabiler, benutzt aber historisch
 
 - `src/html/partials/runtime/roll-popup-global.html`
 - `src/css/modules/50-overlays-and-roll20-tabs.css`
-- `src/workers/rolls/definitions.js`
+- `src/workers/rolls/definition-resolver.js`
 - `src/workers/rolls/popup.js`
 - `src/workers/rolls/probe.js`
 

@@ -1,4 +1,5 @@
 // BEGIN MODULE: workers/rolls/popup
+// Oeffnet das eigene Wurf-Popup, befuellt es aus der Roll-Definition und startet nach Bestaetigung den eigentlichen Wurf.
 function runSuccessProbeRoll(eventInfo) {
   const rawTemplate = (eventInfo && eventInfo.htmlAttributes && eventInfo.htmlAttributes.value) || "";
   const repeatingRowPrefix = extractRepeatingRowPrefix(eventInfo);

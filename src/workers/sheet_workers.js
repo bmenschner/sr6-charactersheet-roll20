@@ -5,7 +5,24 @@
 // END BLOCK: Worker Includes (core)
 
 // BEGIN BLOCK: Worker Includes (rolls)
-<!-- @include ./rolls/definitions.js -->
+<!-- @include ./rolls/definitions/shared.js -->
+<!-- @include ./rolls/definitions/popup-options.js -->
+<!-- @include ./rolls/definitions/equipment.js -->
+<!-- @include ./rolls/definitions/rigging.js -->
+<!-- @include ./rolls/definitions/skills.js -->
+<!-- @include ./rolls/definitions/popup-fields.js -->
+<!-- @include ./rolls/definitions/builders.js -->
+<!-- @include ./rolls/definitions/core.js -->
+<!-- @include ./rolls/definitions/skills-rolls.js -->
+<!-- @include ./rolls/definitions/equipment-rolls.js -->
+<!-- @include ./rolls/definitions/magic.js -->
+<!-- @include ./rolls/definitions/matrix.js -->
+<!-- @include ./rolls/definitions/rigging-rolls.js -->
+<!-- @include ./rolls/definitions/combat.js -->
+<!-- @include ./rolls/definitions/fallback.js -->
+<!-- @include ./rolls/definitions/validation.js -->
+<!-- @include ./rolls/definitions/registry.js -->
+<!-- @include ./rolls/definition-resolver.js -->
 <!-- @include ./rolls/context.js -->
 <!-- @include ./rolls/display.js -->
 <!-- @include ./rolls/compute.js -->

@@ -1,4 +1,5 @@
 // BEGIN MODULE: workers/rolls/display
+// Wandelt berechnete Wuerfe in Rolltemplate-Felder um, inklusive farbiger Detailwuerfel und spezieller Template-Varianten.
 function buildDiceDetails(diceResults) {
   return Array.isArray(diceResults) ? diceResults.join(" + ") : "";
 }
