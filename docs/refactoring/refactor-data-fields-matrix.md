@@ -505,6 +505,7 @@ Grundlage fuer die Magie-Kernwerte ist das Regelwerksmuster aus Magieprobe, Entz
 | `Magie` | `Magie/Resonanz + Modifikator` | `sr6_attr_magie_resonanz_gesamtwert + sr6_magic_magie_modifikator` | Berechneter Magie-Kernwert |
 | `Hexerei` / `Zauberpool` | `Hexerei + Modifikator` | `sr6_skill_hexerei_gesamtwert + sr6_magic_zauberpool_modifikator` | Komponentenwert fuer Spruchzauberei |
 | `Spruchzauberei` | `Magie + Hexerei + Modifikator` | `sr6_magic_magie + sr6_magic_zauberpool + sr6_magic_spruchzauberei_modifikator` | Regelwerksnaher Zauberpool |
+| `Angriffswert` | `Magie + Traditionsattribut + Modifikator` | `sr6_magic_magie + Wert(sr6_magic_traditionsattribut_1) + sr6_magic_angriffswert_modifikator` | Kampfzauber-Vergleichswert fuer Edge |
 | `Beschwoeren` | `Magie + Beschwoeren + Modifikator` | `sr6_magic_magie + sr6_skill_beschwoeren_gesamtwert + sr6_magic_beschwoeren_modifikator` | Von reinem Fertigkeitswert auf Magieprobe umgestellt |
 | `Entzugswiderstand` | `Traditionsattribut + Willenskraft + Modifikator` | `Wert(sr6_magic_traditionsattribut_1) + sr6_attr_willenskraft_gesamtwert + sr6_magic_entzug_widerstand_modifikator` | `Traditionsattribut 2` wird nicht mehr verwendet und ist aus der UI entfernt |
 | `Waffenloser Kampf` | `Astral + Willenskraft + Modifikator` | `sr6_skill_astral_gesamtwert + sr6_attr_willenskraft_gesamtwert + sr6_magic_waffenloser_kampf_modifikator` | Astralkampf-Sonderformel |

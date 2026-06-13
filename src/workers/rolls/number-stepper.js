@@ -4,6 +4,7 @@ const SR6_NUMBER_STEPPER_COMPUTED_TARGETS = [
   "sr6_magic_magie",
   "sr6_magic_zauberpool",
   "sr6_magic_spruchzauberei",
+  "sr6_magic_angriffswert",
   "sr6_magic_beschwoeren",
   "sr6_magic_entzug_widerstand",
   "sr6_magic_waffenloser_kampf",

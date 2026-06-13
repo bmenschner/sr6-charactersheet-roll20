@@ -5,6 +5,7 @@ function appendMagicRequestKeys(requestKeys) {
   requestKeys.push("sr6_magic_magie_modifikator");
   requestKeys.push("sr6_magic_zauberpool_modifikator");
   requestKeys.push("sr6_magic_spruchzauberei_modifikator");
+  requestKeys.push("sr6_magic_angriffswert_modifikator");
   requestKeys.push("sr6_magic_beschwoeren_modifikator");
   requestKeys.push("sr6_magic_entzug_widerstand_modifikator");
   requestKeys.push("sr6_magic_waffenloser_kampf_modifikator");
@@ -61,6 +62,11 @@ function computeMagicDerived(values, totals, skillTotals, updates) {
     traditionValue1 +
       (totals.willenskraft || 0) +
       parseNumber(values.sr6_magic_entzug_widerstand_modifikator)
+  );
+  updates.sr6_magic_angriffswert = String(
+    parseNumber(updates.sr6_magic_magie) +
+      traditionValue1 +
+      parseNumber(values.sr6_magic_angriffswert_modifikator)
   );
   updates.sr6_magic_astralkampf_angriffswert = String(
     (totals.magie_resonanz || 0) +
