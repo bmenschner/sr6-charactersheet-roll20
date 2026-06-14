@@ -40,7 +40,7 @@
           <div class="sr6-charactersheet-field">
             <span data-i18n="field.magie">Magie</span>
             <div class="sr6-charactersheet-field-input-with-dice">
-              <div class="sr6-number-stepper"><button type="action" class="sr6-number-stepper-button sr6-number-stepper-button--minus" name="act_sr6_number_step" value="sr6_magic_magie::-1" aria-label="Verringern">-</button><input type="number" name="attr_sr6_magic_magie" /><button type="action" class="sr6-number-stepper-button sr6-number-stepper-button--plus" name="act_sr6_number_step" value="sr6_magic_magie::1" aria-label="Erhoehen">+</button></div><button
+              <input type="number" name="attr_sr6_magic_magie" readonly /><button
                 type="action"
                 class="sr6-charactersheet-field-dice-button"
                 name="act_probe"
@@ -52,7 +52,7 @@
           <div class="sr6-charactersheet-field">
             <span data-i18n="skill.hexerei">Hexerei</span>
             <div class="sr6-charactersheet-field-input-with-dice">
-              <div class="sr6-number-stepper"><button type="action" class="sr6-number-stepper-button sr6-number-stepper-button--minus" name="act_sr6_number_step" value="sr6_magic_zauberpool::-1" aria-label="Verringern">-</button><input type="number" name="attr_sr6_magic_zauberpool" /><button type="action" class="sr6-number-stepper-button sr6-number-stepper-button--plus" name="act_sr6_number_step" value="sr6_magic_zauberpool::1" aria-label="Erhoehen">+</button></div><button
+              <input type="number" name="attr_sr6_magic_zauberpool" readonly /><button
                 type="action"
                 class="sr6-charactersheet-field-dice-button"
                 name="act_probe"
@@ -64,7 +64,7 @@
           <div class="sr6-charactersheet-field">
             <div class="sr6-field-label-with-info"><span data-i18n="field.spruchzauberei">Spruchzauberei</span><span class="sr6-info-icon" title="Spruchzauberei = sr6_skill_hexerei_gesamtwert + sr6_attr_magie_resonanz_gesamtwert">i</span></div>
             <div class="sr6-charactersheet-field-input-with-dice">
-              <div class="sr6-number-stepper"><button type="action" class="sr6-number-stepper-button sr6-number-stepper-button--minus" name="act_sr6_number_step" value="sr6_magic_spruchzauberei::-1" aria-label="Verringern">-</button><input type="number" name="attr_sr6_magic_spruchzauberei" /><button type="action" class="sr6-number-stepper-button sr6-number-stepper-button--plus" name="act_sr6_number_step" value="sr6_magic_spruchzauberei::1" aria-label="Erhoehen">+</button></div><button
+              <input type="number" name="attr_sr6_magic_spruchzauberei" readonly /><button
                 type="action"
                 class="sr6-charactersheet-field-dice-button"
                 name="act_probe"
@@ -73,13 +73,13 @@
             </div>
           </div>
           <div class="sr6-charactersheet-field">
-            <div class="sr6-field-label-with-info"><span data-i18n="field.angriffswert">Angriffswert</span><span class="sr6-info-icon" title="Angriffswert = sr6_magic_magie + Wert(sr6_magic_traditionsattribut_1) + Modifikator">i</span></div>
-            <div class="sr6-number-stepper"><button type="action" class="sr6-number-stepper-button sr6-number-stepper-button--minus" name="act_sr6_number_step" value="sr6_magic_angriffswert::-1" aria-label="Verringern">-</button><input type="number" name="attr_sr6_magic_angriffswert" /><button type="action" class="sr6-number-stepper-button sr6-number-stepper-button--plus" name="act_sr6_number_step" value="sr6_magic_angriffswert::1" aria-label="Erhoehen">+</button></div>
+            <div class="sr6-field-label-with-info"><span data-i18n="field.angriffswert">Angriffswert</span><span class="sr6-info-icon" title="Angriffswert = sr6_magic_magie + Wert(sr6_magic_traditionsattribut_1)">i</span></div>
+            <input type="number" name="attr_sr6_magic_angriffswert" readonly />
           </div>
           <div class="sr6-charactersheet-field">
-            <div class="sr6-field-label-with-info"><span data-i18n="skill.beschwoeren">Beschwören</span><span class="sr6-info-icon" title="Beschwören = sr6_skill_beschwoeren_gesamtwert + sr6_magic_magie + Modifikator">i</span></div>
+            <div class="sr6-field-label-with-info"><span data-i18n="skill.beschwoeren">Beschwören</span><span class="sr6-info-icon" title="Beschwören = sr6_skill_beschwoeren_gesamtwert + sr6_magic_magie">i</span></div>
             <div class="sr6-charactersheet-field-input-with-dice">
-              <div class="sr6-number-stepper"><button type="action" class="sr6-number-stepper-button sr6-number-stepper-button--minus" name="act_sr6_number_step" value="sr6_magic_beschwoeren::-1" aria-label="Verringern">-</button><input type="number" name="attr_sr6_magic_beschwoeren" /><button type="action" class="sr6-number-stepper-button sr6-number-stepper-button--plus" name="act_sr6_number_step" value="sr6_magic_beschwoeren::1" aria-label="Erhoehen">+</button></div><button
+              <input type="number" name="attr_sr6_magic_beschwoeren" readonly /><button
                 type="action"
                 class="sr6-charactersheet-field-dice-button"
                 name="act_probe"
@@ -90,7 +90,7 @@
           <div class="sr6-charactersheet-field">
             <div class="sr6-field-label-with-info"><span data-i18n="field.entzug_widerstand">Entzugwiderstand</span><span class="sr6-info-icon" title="Entzugswiderstand = Wert(sr6_magic_traditionsattribut_1) + sr6_attr_willenskraft_gesamtwert">i</span></div>
             <div class="sr6-charactersheet-field-input-with-dice">
-              <div class="sr6-number-stepper"><button type="action" class="sr6-number-stepper-button sr6-number-stepper-button--minus" name="act_sr6_number_step" value="sr6_magic_entzug_widerstand::-1" aria-label="Verringern">-</button><input type="number" name="attr_sr6_magic_entzug_widerstand" /><button type="action" class="sr6-number-stepper-button sr6-number-stepper-button--plus" name="act_sr6_number_step" value="sr6_magic_entzug_widerstand::1" aria-label="Erhoehen">+</button></div><button
+              <input type="number" name="attr_sr6_magic_entzug_widerstand" readonly /><button
                 type="action"
                 class="sr6-charactersheet-field-dice-button"
                 name="act_probe"
@@ -105,7 +105,7 @@
           <div class="sr6-charactersheet-field">
             <div class="sr6-field-label-with-info"><span data-i18n="field.waffenloser_kampf">Waffenloser Kampf</span><span class="sr6-info-icon" title="Waffenloser Kampf = sr6_skill_astral_gesamtwert + sr6_attr_willenskraft_gesamtwert">i</span></div>
             <div class="sr6-charactersheet-field-input-with-dice">
-              <div class="sr6-number-stepper"><button type="action" class="sr6-number-stepper-button sr6-number-stepper-button--minus" name="act_sr6_number_step" value="sr6_magic_waffenloser_kampf::-1" aria-label="Verringern">-</button><input type="number" name="attr_sr6_magic_waffenloser_kampf" /><button type="action" class="sr6-number-stepper-button sr6-number-stepper-button--plus" name="act_sr6_number_step" value="sr6_magic_waffenloser_kampf::1" aria-label="Erhoehen">+</button></div><button
+              <input type="number" name="attr_sr6_magic_waffenloser_kampf" readonly /><button
                 type="action"
                 class="sr6-charactersheet-field-dice-button"
                 name="act_probe"
@@ -116,7 +116,7 @@
           <div class="sr6-charactersheet-field">
             <div class="sr6-field-label-with-info"><span data-i18n="field.a_verteidigung">A. Verteidigung</span><span class="sr6-info-icon" title="Astrale Verteidigung = sr6_attr_logik_gesamtwert + sr6_attr_intuition_gesamtwert">i</span></div>
             <div class="sr6-charactersheet-field-input-with-dice">
-              <div class="sr6-number-stepper"><button type="action" class="sr6-number-stepper-button sr6-number-stepper-button--minus" name="act_sr6_number_step" value="sr6_magic_astrale_verteidigung::-1" aria-label="Verringern">-</button><input type="number" name="attr_sr6_magic_astrale_verteidigung" /><button type="action" class="sr6-number-stepper-button sr6-number-stepper-button--plus" name="act_sr6_number_step" value="sr6_magic_astrale_verteidigung::1" aria-label="Erhoehen">+</button></div><button
+              <input type="number" name="attr_sr6_magic_astrale_verteidigung" readonly /><button
                 type="action"
                 class="sr6-charactersheet-field-dice-button"
                 name="act_probe"
@@ -128,7 +128,7 @@
           <div class="sr6-charactersheet-field">
             <div class="sr6-field-label-with-info"><span data-i18n="field.a_schadenswiderstand">A. Schadenswiderstand</span><span class="sr6-info-icon" title="Astraler Schadenswiderstand = sr6_attr_willenskraft_gesamtwert">i</span></div>
             <div class="sr6-charactersheet-field-input-with-dice">
-              <div class="sr6-number-stepper"><button type="action" class="sr6-number-stepper-button sr6-number-stepper-button--minus" name="act_sr6_number_step" value="sr6_magic_astraler_schadenswiderstand::-1" aria-label="Verringern">-</button><input type="number" name="attr_sr6_magic_astraler_schadenswiderstand" /><button type="action" class="sr6-number-stepper-button sr6-number-stepper-button--plus" name="act_sr6_number_step" value="sr6_magic_astraler_schadenswiderstand::1" aria-label="Erhoehen">+</button></div><button
+              <input type="number" name="attr_sr6_magic_astraler_schadenswiderstand" readonly /><button
                 type="action"
                 class="sr6-charactersheet-field-dice-button"
                 name="act_probe"
@@ -138,11 +138,11 @@
           </div>
           <div class="sr6-charactersheet-field">
             <div class="sr6-field-label-with-info"><span data-i18n="field.a_angriffswert">A. Angriffswert</span><span class="sr6-info-icon" title="Astralkampf Angriffswert = sr6_attr_magie_resonanz_gesamtwert + Wert(sr6_magic_traditionsattribut_1)">i</span></div>
-            <div class="sr6-number-stepper"><button type="action" class="sr6-number-stepper-button sr6-number-stepper-button--minus" name="act_sr6_number_step" value="sr6_magic_astralkampf_angriffswert::-1" aria-label="Verringern">-</button><input type="number" name="attr_sr6_magic_astralkampf_angriffswert" /><button type="action" class="sr6-number-stepper-button sr6-number-stepper-button--plus" name="act_sr6_number_step" value="sr6_magic_astralkampf_angriffswert::1" aria-label="Erhoehen">+</button></div>
+            <input type="number" name="attr_sr6_magic_astralkampf_angriffswert" readonly />
           </div>
           <div class="sr6-charactersheet-field">
-            <div class="sr6-field-label-with-info"><span data-i18n="field.a_verteidigungswert">A. Verteidigungswert</span><span class="sr6-info-icon" title="Astralkampf Verteidigungswert = sr6_attr_intuition_gesamtwert + Modifikator">i</span></div>
-            <div class="sr6-number-stepper"><button type="action" class="sr6-number-stepper-button sr6-number-stepper-button--minus" name="act_sr6_number_step" value="sr6_magic_astralkampf_verteidigungswert::-1" aria-label="Verringern">-</button><input type="number" name="attr_sr6_magic_astralkampf_verteidigungswert" /><button type="action" class="sr6-number-stepper-button sr6-number-stepper-button--plus" name="act_sr6_number_step" value="sr6_magic_astralkampf_verteidigungswert::1" aria-label="Erhoehen">+</button></div>
+            <div class="sr6-field-label-with-info"><span data-i18n="field.a_verteidigungswert">A. Verteidigungswert</span><span class="sr6-info-icon" title="Astralkampf Verteidigungswert = sr6_attr_intuition_gesamtwert">i</span></div>
+            <input type="number" name="attr_sr6_magic_astralkampf_verteidigungswert" readonly />
           </div>
         </div>
     </section>

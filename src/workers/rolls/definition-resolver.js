@@ -98,7 +98,8 @@ function resolveSkillProbeAttributeOption(definition, selectedValue) {
 }
 
 function getRollAdditionalAttributes(definition) {
-  const attributes = ["sr6_attr_edge_gesamtwert", ...getMagicRollAdditionalAttributes(definition)];
+  const skillBaseAttributes = SR6_SKILLS.map((skillKey) => `sr6_skill_${skillKey}_grundwert`);
+  const attributes = ["sr6_attr_edge_gesamtwert", ...skillBaseAttributes, ...getMagicRollAdditionalAttributes(definition)];
   getSkillProbeAttributeOptions(definition).forEach((option) => {
     if (option && option.attr) attributes.push(option.attr);
   });

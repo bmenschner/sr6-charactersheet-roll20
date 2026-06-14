@@ -205,6 +205,7 @@ function buildWeaponProbePresentation(payload) {
   const calcParts = [];
   const specialization = findLastRowValue(rows, "Spezialisierung");
   const expertise = findLastRowValue(rows, "Expertise");
+  const untrained = findLastRowValue(rows, "Ungeübt");
 
   findAllRowValues(rows, "Munitionshinweis").forEach((hint) => {
     if (!hint || hint.includes("Salvenfeuer und Vollautomatik")) {
@@ -233,6 +234,9 @@ function buildWeaponProbePresentation(payload) {
   }
   if (expertise) {
     calcParts.push(`Expertise: ${expertise}`);
+  }
+  if (untrained) {
+    calcParts.push(`Ungeübt: ${untrained}`);
   }
   if (attributeFallback) {
     calcParts.push(`Attribut-Fallback: ${attributeFallback}`);

@@ -105,6 +105,9 @@ const SR6_ROLL_DEFINITIONS_COMBAT = [
     primaryFields: ["Waffe"],
     extraFields: ["Waffentyp", "Schadenswert", "Munition", "Reichweite", "Modus"],
     templateVariant: "weapon",
+    contextFields: [
+      { label: "Fertigkeit", attr: "sr6_combat_fernkampf_fertigkeit" },
+    ],
     fixedTitle: "Fernkampfangriff",
     popupFields: SR6_COMBAT_TAB_POPUP_FIELDS,
     popupDerivedResults: [

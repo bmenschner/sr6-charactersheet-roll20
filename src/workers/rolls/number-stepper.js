@@ -1,20 +1,6 @@
 // BEGIN MODULE: workers/rolls/number-stepper
 // Erlaubt Plus/Minus-Buttons neben Zahlenfeldern und behandelt Sonderfaelle, bei denen Felder berechnet oder in Repeatern gespeichert werden.
-const SR6_NUMBER_STEPPER_COMPUTED_TARGETS = [
-  "sr6_magic_magie",
-  "sr6_magic_zauberpool",
-  "sr6_magic_spruchzauberei",
-  "sr6_magic_angriffswert",
-  "sr6_magic_beschwoeren",
-  "sr6_magic_entzug_widerstand",
-  "sr6_magic_waffenloser_kampf",
-  "sr6_magic_astrale_initiative",
-  "sr6_magic_astrale_verteidigung",
-  "sr6_magic_astraler_schadenswiderstand",
-  "sr6_magic_astralkampf_angriffswert",
-  "sr6_magic_astralkampf_verteidigungswert",
-  "sr6_derived_initiative_basis",
-];
+const SR6_NUMBER_STEPPER_COMPUTED_TARGETS = [];
 
 const SR6_NUMBER_STEPPER_REPEATING_SKILL_PREFIXES = [
   "repeating_sr6wissensfertigkeiten_",
