@@ -67,13 +67,22 @@ function resolveMatrixActionDefenseComponent(rule, selectedDefense) {
 
 function computeMatrixTotals(values, totals, skillTotals, updates) {
   const matrixInitiativeMode = resolveMatrixInitiativeMode(values.sr6_matrix_modus);
+  const matrixAttack = parseNumber(values.sr6_matrix_angriff);
+  const matrixSleaze = parseNumber(values.sr6_matrix_schleicher);
+  const matrixDataProcessing = parseNumber(values.sr6_matrix_datenverarbeitung);
+  const matrixFirewall = parseNumber(values.sr6_matrix_firewall);
   const matrixBasis =
     matrixInitiativeMode.basisSource === "matrix"
-      ? (totals.intuition || 0) + parseNumber(values.sr6_matrix_datenverarbeitung)
+      ? (totals.intuition || 0) + matrixDataProcessing
       : (totals.reaktion || 0) + (totals.intuition || 0);
 
   updates.sr6_matrix_initiative = String(matrixBasis);
   updates.sr6_matrix_initiative_w6 = String(matrixInitiativeMode.w6);
+  updates.sr6_matrix_angriffswert = String(matrixAttack + matrixSleaze);
+  updates.sr6_matrix_verteidigungswert = String(matrixDataProcessing + matrixFirewall);
+  updates.sr6_matrix_verteidigung = String((totals.intuition || 0) + matrixFirewall);
+  updates.sr6_matrix_schadenswiderstand = String(matrixFirewall);
+  updates.sr6_matrix_biofeedback_schadenswiderstand = String(totals.willenskraft || 0);
 
   SR6_MATRIX_ACTIONS.forEach((actionName) => {
     const rule = SR6_MATRIX_ACTION_RULES[actionName] || {};

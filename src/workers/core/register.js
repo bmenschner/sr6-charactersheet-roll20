@@ -83,7 +83,10 @@ function buildRecalcEvents() {
   events.push("change:sr6_matrix_datenverarbeitung");
   events.push("change:sr6_matrix_firewall");
   events.push("change:sr6_rigging_modus");
+  events.push("change:sr6_rigging_angriff");
+  events.push("change:sr6_rigging_schleicher");
   events.push("change:sr6_rigging_datenverarbeitung");
+  events.push("change:sr6_rigging_firewall");
 
   for (let index = 1; index <= 18; index += 1) {
     events.push(`change:sr6_monitor_koerperlich_${index}`);

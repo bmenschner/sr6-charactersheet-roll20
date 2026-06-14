@@ -145,6 +145,34 @@ function findAllRowValues(rows, label) {
     .map((row) => `${row.value}`);
 }
 
+function isWeaponPresentationWhipContext(resolvedFields, rows) {
+  const candidates = [
+    resolvedFields && resolvedFields.Waffentyp,
+    findLastRowValue(rows, "Waffentyp"),
+  ];
+
+  return candidates.some((value) => normalizeCombatSpecializationName(value) === normalizeCombatSpecializationName("Peitschen"));
+}
+
+function resolveWeaponPresentationAttackValue(rows, resolvedFields) {
+  const derivedAttackValue = findLastRowValue(rows, "Angriffswert");
+  if (derivedAttackValue) {
+    return derivedAttackValue;
+  }
+
+  if (!isWeaponPresentationWhipContext(resolvedFields, rows)) {
+    return "";
+  }
+
+  const baseAttackValue = parseNumber((resolvedFields && resolvedFields.Angriffswert) || findLastRowValue(rows, "Angriffswert-Basis"));
+  const reactionValue = parseNumber(
+    findLastRowValue(rows, "Reaktion-Wert") ||
+    ((resolvedFields && resolvedFields["Reaktion-Wert"]) || 0)
+  );
+
+  return `${baseAttackValue + reactionValue}`;
+}
+
 function buildWeaponProbePresentation(payload) {
   const rows = Array.isArray(payload.rows) ? payload.rows : [];
   const resolvedFields = payload.resolvedFields || {};
@@ -152,7 +180,7 @@ function buildWeaponProbePresentation(payload) {
   const popupAmmo = findAllRowValues(rows, "Munition").find((value) => value && value !== baseAmmo) || "";
   const attribute = findLastRowValue(rows, "Attribut") || `${resolvedFields.Attribut || ""}`;
   const damageType = findLastRowValue(rows, "Schadenstyp") || `${resolvedFields.Schadenstyp || ""}`;
-  const attackValue = findLastRowValue(rows, "Angriffswert");
+  const attackValue = resolveWeaponPresentationAttackValue(rows, resolvedFields);
   const finalDamage = findLastRowValue(rows, "Schaden") || `${resolvedFields.Schadenswert || ""}`;
   const baseDamage = `${resolvedFields.Schadenswert || ""}`;
   const attackValueMod = findLastRowValue(rows, "Angriffswert-Modifikator");
@@ -227,8 +255,16 @@ function buildWeaponProbePresentation(payload) {
   if (damageMod) {
     calcParts.push(`Schadens-Modifikator: ${damageMod}`);
   }
+  const attackValueFormula = findLastRowValue(rows, "Angriffswert-Formel");
+  const reactionValue = findLastRowValue(rows, "Reaktion-Wert") || `${resolvedFields["Reaktion-Wert"] || ""}`;
+  if (attackValueFormula) {
+    calcParts.push(`Angriffswert-Formel: ${attackValueFormula}`);
+  }
   if (attackValueBase) {
     calcParts.push(`Angriffswert-Basis: ${attackValueBase}`);
+  }
+  if (reactionValue && isWeaponPresentationWhipContext(resolvedFields, rows)) {
+    calcParts.push(`Reaktion-Wert: ${reactionValue}`);
   }
   if (damageBase) {
     calcParts.push(`Schaden-Basis: ${damageBase}`);

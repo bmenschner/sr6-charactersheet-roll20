@@ -1966,8 +1966,10 @@ const SR6_ROLL_DEFINITIONS_COMBAT = [
       { label: "Waffe", attr: "sr6_combat_primaere_nahkampfwaffe" },
       { label: "Fertigkeit", attr: "sr6_combat_nahkampf_fertigkeit" },
       { label: "Attribut", attr: "sr6_combat_nahkampf_attribut" },
+      { label: "Waffentyp", attr: "sr6_combat_nahkampf_waffentyp" },
       { label: "Geschicklichkeit-Wert", attr: "sr6_attr_geschicklichkeit_gesamtwert" },
       { label: "Stärke-Wert", attr: "sr6_attr_staerke_gesamtwert" },
+      { label: "Reaktion-Wert", attr: "sr6_attr_reaktion_gesamtwert" },
       { label: "Schadenswert", attr: "sr6_combat_nahkampf_schaden" },
       { label: "Schadenstyp", attr: "sr6_combat_nahkampf_schadentyp" },
     ],
@@ -2028,7 +2030,7 @@ const SR6_ROLL_DEFINITIONS_COMBAT = [
     matchPoolPrefix: "sr6_combat_fernkampf_",
     titleMode: "pool-prefix",
     primaryFields: ["Waffe"],
-    extraFields: ["Schadenswert", "Munition", "Reichweite", "Modus"],
+    extraFields: ["Waffentyp", "Schadenswert", "Munition", "Reichweite", "Modus"],
     templateVariant: "weapon",
     fixedTitle: "Fernkampfangriff",
     popupFields: SR6_COMBAT_TAB_POPUP_FIELDS,
@@ -2049,13 +2051,15 @@ const SR6_ROLL_DEFINITIONS_COMBAT = [
     matchPoolPrefix: "sr6_combat_nahkampf_",
     titleMode: "pool-prefix",
     primaryFields: ["Waffe"],
-    extraFields: ["Fertigkeit", "Attribut", "Schadenswert", "Schadenstyp", "Reichweite"],
+    extraFields: ["Fertigkeit", "Attribut", "Waffentyp", "Schadenswert", "Schadenstyp", "Reichweite"],
     templateVariant: "weapon",
     contextFields: [
       { label: "Fertigkeit", attr: "sr6_combat_nahkampf_fertigkeit" },
       { label: "Attribut", attr: "sr6_combat_nahkampf_attribut" },
+      { label: "Waffentyp", attr: "sr6_combat_nahkampf_waffentyp" },
       { label: "Geschicklichkeit-Wert", attr: "sr6_attr_geschicklichkeit_gesamtwert" },
       { label: "Stärke-Wert", attr: "sr6_attr_staerke_gesamtwert" },
+      { label: "Reaktion-Wert", attr: "sr6_attr_reaktion_gesamtwert" },
       { label: "Schadenswert", attr: "sr6_combat_nahkampf_schaden" },
       { label: "Schadenstyp", attr: "sr6_combat_nahkampf_schadentyp" },
     ],
@@ -2103,13 +2107,15 @@ const SR6_ROLL_DEFINITIONS_COMBAT = [
     titleMode: "field-short",
     titleField: "Fertigkeit",
     primaryFields: ["Waffe"],
-    extraFields: ["Fertigkeit", "Attribut", "Schadenswert", "Schadenstyp", "Reichweite"],
+    extraFields: ["Fertigkeit", "Attribut", "Waffentyp", "Schadenswert", "Schadenstyp", "Reichweite"],
     templateVariant: "weapon",
     contextFields: [
       { label: "Fertigkeit", attr: "sr6_nahkampf_fertigkeit" },
       { label: "Attribut", attr: "sr6_nahkampf_attribut" },
+      { label: "Waffentyp", attr: "sr6_nahkampf_waffentyp" },
       { label: "Geschicklichkeit-Wert", attr: "sr6_attr_geschicklichkeit_gesamtwert" },
       { label: "Stärke-Wert", attr: "sr6_attr_staerke_gesamtwert" },
+      { label: "Reaktion-Wert", attr: "sr6_attr_reaktion_gesamtwert" },
       { label: "Schadenswert", attr: "sr6_nahkampf_schaden" },
       { label: "Schadenstyp", attr: "sr6_nahkampf_schadentyp" },
     ],
@@ -2133,7 +2139,7 @@ const SR6_ROLL_DEFINITIONS_COMBAT = [
     matchField: "Waffe",
     titleMode: "pool-prefix",
     primaryFields: ["Waffe"],
-    extraFields: ["Schadenswert", "Munition", "Reichweite", "Modus"],
+    extraFields: ["Waffentyp", "Schadenswert", "Munition", "Reichweite", "Modus"],
     popupFields: [
       SR6_DEFAULT_POPUP_FIELDS[0],
       {
@@ -3073,6 +3079,34 @@ function findAllRowValues(rows, label) {
     .map((row) => `${row.value}`);
 }
 
+function isWeaponPresentationWhipContext(resolvedFields, rows) {
+  const candidates = [
+    resolvedFields && resolvedFields.Waffentyp,
+    findLastRowValue(rows, "Waffentyp"),
+  ];
+
+  return candidates.some((value) => normalizeCombatSpecializationName(value) === normalizeCombatSpecializationName("Peitschen"));
+}
+
+function resolveWeaponPresentationAttackValue(rows, resolvedFields) {
+  const derivedAttackValue = findLastRowValue(rows, "Angriffswert");
+  if (derivedAttackValue) {
+    return derivedAttackValue;
+  }
+
+  if (!isWeaponPresentationWhipContext(resolvedFields, rows)) {
+    return "";
+  }
+
+  const baseAttackValue = parseNumber((resolvedFields && resolvedFields.Angriffswert) || findLastRowValue(rows, "Angriffswert-Basis"));
+  const reactionValue = parseNumber(
+    findLastRowValue(rows, "Reaktion-Wert") ||
+    ((resolvedFields && resolvedFields["Reaktion-Wert"]) || 0)
+  );
+
+  return `${baseAttackValue + reactionValue}`;
+}
+
 function buildWeaponProbePresentation(payload) {
   const rows = Array.isArray(payload.rows) ? payload.rows : [];
   const resolvedFields = payload.resolvedFields || {};
@@ -3080,7 +3114,7 @@ function buildWeaponProbePresentation(payload) {
   const popupAmmo = findAllRowValues(rows, "Munition").find((value) => value && value !== baseAmmo) || "";
   const attribute = findLastRowValue(rows, "Attribut") || `${resolvedFields.Attribut || ""}`;
   const damageType = findLastRowValue(rows, "Schadenstyp") || `${resolvedFields.Schadenstyp || ""}`;
-  const attackValue = findLastRowValue(rows, "Angriffswert");
+  const attackValue = resolveWeaponPresentationAttackValue(rows, resolvedFields);
   const finalDamage = findLastRowValue(rows, "Schaden") || `${resolvedFields.Schadenswert || ""}`;
   const baseDamage = `${resolvedFields.Schadenswert || ""}`;
   const attackValueMod = findLastRowValue(rows, "Angriffswert-Modifikator");
@@ -3155,8 +3189,16 @@ function buildWeaponProbePresentation(payload) {
   if (damageMod) {
     calcParts.push(`Schadens-Modifikator: ${damageMod}`);
   }
+  const attackValueFormula = findLastRowValue(rows, "Angriffswert-Formel");
+  const reactionValue = findLastRowValue(rows, "Reaktion-Wert") || `${resolvedFields["Reaktion-Wert"] || ""}`;
+  if (attackValueFormula) {
+    calcParts.push(`Angriffswert-Formel: ${attackValueFormula}`);
+  }
   if (attackValueBase) {
     calcParts.push(`Angriffswert-Basis: ${attackValueBase}`);
+  }
+  if (reactionValue && isWeaponPresentationWhipContext(resolvedFields, rows)) {
+    calcParts.push(`Reaktion-Wert: ${reactionValue}`);
   }
   if (damageBase) {
     calcParts.push(`Schaden-Basis: ${damageBase}`);
@@ -3901,7 +3943,76 @@ function formatSignedModifier(value) {
   return numberValue > 0 ? `+${numberValue}` : `${numberValue}`;
 }
 
-function buildPopupDerivedResultRows(definition, lookupAttr, poolAttribute, resolvedFields, popupState) {
+function isMeleeWeaponAttackDefinition(definition) {
+  return !!(definition && (definition.id === "melee_weapon" || definition.id === "combat_melee_weapon"));
+}
+
+function isUnarmedCombatWeaponType(value) {
+  return normalizeCombatSpecializationName(value) === normalizeCombatSpecializationName("Waffenloser Kampf");
+}
+
+function isWhipCombatContext(resolvedFields) {
+  return normalizeCombatSpecializationName(resolvedFields && resolvedFields.Waffentyp) === normalizeCombatSpecializationName("Peitschen");
+}
+
+function isWeaponAttackDefinition(definition) {
+  return !!(definition && definition.templateVariant === "weapon");
+}
+
+function resolveWeaponAttackValueBase(definition, lookupAttr, resolvedFields, result, sourceAttr, rawBaseValue) {
+  if (!result || result.kind !== "attack_value" || !isMeleeWeaponAttackDefinition(definition)) {
+    return { value: rawBaseValue, rows: [] };
+  }
+
+  const agilityValue = parseNumber(lookupAttr("sr6_attr_geschicklichkeit_gesamtwert"));
+  const strengthValue = parseNumber(lookupAttr("sr6_attr_staerke_gesamtwert"));
+  const reactionValue = parseNumber(lookupAttr("sr6_attr_reaktion_gesamtwert"));
+  const weaponType = `${(resolvedFields && resolvedFields.Waffentyp) || ""}`.trim();
+  const selectedAttribute = `${(resolvedFields && resolvedFields.Attribut) || "Geschicklichkeit"}`.trim();
+
+  if (isUnarmedCombatWeaponType(weaponType)) {
+    if (selectedAttribute === "Stärke") {
+      return {
+        value: agilityValue + reactionValue,
+        rows: [
+          { label: "Angriffswert-Formel", value: "Waffenloser Kampf mit Stärke-Pool: Geschicklichkeit + Reaktion" },
+          { label: "Geschicklichkeit-Wert", value: `${agilityValue}` },
+          { label: "Reaktion-Wert", value: `${reactionValue}` },
+        ],
+      };
+    }
+
+    return {
+      value: reactionValue + strengthValue,
+      rows: [
+        { label: "Angriffswert-Formel", value: "Waffenloser Kampf: Reaktion + Stärke" },
+        { label: "Reaktion-Wert", value: `${reactionValue}` },
+        { label: "Stärke-Wert", value: `${strengthValue}` },
+      ],
+    };
+  }
+
+  if (isWhipCombatContext(resolvedFields)) {
+    return {
+      value: rawBaseValue + reactionValue,
+      rows: [
+        { label: "Angriffswert-Formel", value: "Peitschen: Waffen-Angriffswert + Reaktion" },
+        { label: "Angriffswert-Basis", value: `${rawBaseValue}` },
+        { label: "Reaktion-Wert", value: `${reactionValue}` },
+      ],
+    };
+  }
+
+  return {
+    value: rawBaseValue + strengthValue,
+    rows: [
+      { label: "Angriffswert-Basis", value: `${rawBaseValue}` },
+      { label: "Stärke-Wert", value: `${strengthValue}` },
+    ],
+  };
+}
+
+function buildPopupDerivedResultRows(definition, lookupAttr, poolAttribute, resolvedFields, popupState, computation = null) {
   const derivedResults = getPopupDerivedResults(definition);
   const rows = [];
   const fireMode = shouldApplyFireMode(definition, resolvedFields)
@@ -3930,25 +4041,44 @@ function buildPopupDerivedResultRows(definition, lookupAttr, poolAttribute, reso
         : 0;
     const modifier = popupModifier + fireModeModifier;
 
-    if (modifier === 0) {
+    const shouldAlwaysShowAttackValue = resultKind === "attack_value" && result.sourceByRange;
+    const shouldAlwaysShowDamage = resultKind === "damage" && isWeaponAttackDefinition(definition);
+    if (modifier === 0 && !shouldAlwaysShowAttackValue && !shouldAlwaysShowDamage) {
       return;
     }
 
     const sourceAttr = resolvePopupDerivedSourceAttr(result, resolvedFields);
-    const baseValue = result.source === "pool"
+    const resolvedAttackValue = `${(resolvedFields && resolvedFields.Angriffswert) || ""}`.trim();
+    const rawBaseValue = result.source === "pool"
       ? parseNumber(lookupAttr(poolAttribute))
-      : parseNumber(lookupAttr(sourceAttr));
-    const totalValue = baseValue + modifier;
+      : result.sourceByRange && resolvedAttackValue !== ""
+        ? parseNumber(resolvedAttackValue)
+        : parseNumber(lookupAttr(sourceAttr));
+    const resolvedBase = resolveWeaponAttackValueBase(definition, lookupAttr, resolvedFields, result, sourceAttr, rawBaseValue);
+    const baseValue = resolvedBase.value;
+    const successDamageBonus = resultKind === "damage" && computation
+      ? parseNumber(computation.successCount)
+      : 0;
+    const totalValue = baseValue + successDamageBonus + modifier;
     const labelBase = result.label || "Wert";
 
-    rows.push({ label: `${labelBase}-Basis`, value: `${baseValue}` });
+    if (resolvedBase.rows.length > 0) {
+      resolvedBase.rows.forEach((row) => rows.push(row));
+    } else {
+      rows.push({ label: `${labelBase}-Basis`, value: `${baseValue}` });
+    }
+    if (successDamageBonus !== 0) {
+      rows.push({ label: "Erfolge auf Schaden", value: `+${successDamageBonus}` });
+    }
     if (fireModeModifier !== 0) {
       rows.push({
         label: resultKind === "attack_value" ? "Feuermodus-Angriffswert" : "Feuermodus-Schaden",
         value: formatSignedModifier(fireModeModifier),
       });
     }
-    rows.push({ label: `${labelBase}-Modifikator`, value: formatSignedModifier(modifier) });
+    if (modifier !== 0) {
+      rows.push({ label: `${labelBase}-Modifikator`, value: formatSignedModifier(modifier) });
+    }
     rows.push({ label: `${labelBase}`, value: `${totalValue}` });
   });
 
@@ -4554,7 +4684,7 @@ function runSuccessProbeFromContext(rawTemplate, repeatingRowPrefix, popupState 
       rows.push({ label: "Zustandsmodifikator", value: `${computation.monitorPoolMod}` });
     }
     effectivePopupState.rows.forEach((popupRow) => rows.push(popupRow));
-    buildPopupDerivedResultRows(context.definition, lookupAttr, context.poolAttribute, resolvedFields, effectivePopupState)
+    buildPopupDerivedResultRows(context.definition, lookupAttr, context.poolAttribute, resolvedFields, effectivePopupState, computation)
       .forEach((popupRow) => rows.push(popupRow));
     appendEdgeBoostRows(rows, edgeOptions, computation);
 
@@ -6051,13 +6181,22 @@ function resolveMatrixActionDefenseComponent(rule, selectedDefense) {
 
 function computeMatrixTotals(values, totals, skillTotals, updates) {
   const matrixInitiativeMode = resolveMatrixInitiativeMode(values.sr6_matrix_modus);
+  const matrixAttack = parseNumber(values.sr6_matrix_angriff);
+  const matrixSleaze = parseNumber(values.sr6_matrix_schleicher);
+  const matrixDataProcessing = parseNumber(values.sr6_matrix_datenverarbeitung);
+  const matrixFirewall = parseNumber(values.sr6_matrix_firewall);
   const matrixBasis =
     matrixInitiativeMode.basisSource === "matrix"
-      ? (totals.intuition || 0) + parseNumber(values.sr6_matrix_datenverarbeitung)
+      ? (totals.intuition || 0) + matrixDataProcessing
       : (totals.reaktion || 0) + (totals.intuition || 0);
 
   updates.sr6_matrix_initiative = String(matrixBasis);
   updates.sr6_matrix_initiative_w6 = String(matrixInitiativeMode.w6);
+  updates.sr6_matrix_angriffswert = String(matrixAttack + matrixSleaze);
+  updates.sr6_matrix_verteidigungswert = String(matrixDataProcessing + matrixFirewall);
+  updates.sr6_matrix_verteidigung = String((totals.intuition || 0) + matrixFirewall);
+  updates.sr6_matrix_schadenswiderstand = String(matrixFirewall);
+  updates.sr6_matrix_biofeedback_schadenswiderstand = String(totals.willenskraft || 0);
 
   SR6_MATRIX_ACTIONS.forEach((actionName) => {
     const rule = SR6_MATRIX_ACTION_RULES[actionName] || {};
@@ -6080,7 +6219,10 @@ function computeMatrixTotals(values, totals, skillTotals, updates) {
 // BEGIN MODULE: workers/compute/rigging
 function appendRiggingRequestKeys(requestKeys) {
   requestKeys.push("sr6_rigging_modus");
+  requestKeys.push("sr6_rigging_angriff");
+  requestKeys.push("sr6_rigging_schleicher");
   requestKeys.push("sr6_rigging_datenverarbeitung");
+  requestKeys.push("sr6_rigging_firewall");
 }
 
 const SR6_RIGGING_VEHICLE_PROBE_LABELS = {
@@ -6107,13 +6249,22 @@ function resolveRiggingInitiativeMode(mode) {
 
 function computeRiggingDerived(values, totals, _skillTotals, updates) {
   const riggingInitiativeMode = resolveRiggingInitiativeMode(values.sr6_rigging_modus);
+  const riggingAttack = parseNumber(values.sr6_rigging_angriff);
+  const riggingSleaze = parseNumber(values.sr6_rigging_schleicher);
+  const riggingDataProcessing = parseNumber(values.sr6_rigging_datenverarbeitung);
+  const riggingFirewall = parseNumber(values.sr6_rigging_firewall);
   const riggingBasis =
     riggingInitiativeMode.basisSource === "matrix"
-      ? (totals.intuition || 0) + parseNumber(values.sr6_rigging_datenverarbeitung)
+      ? (totals.intuition || 0) + riggingDataProcessing
       : (totals.reaktion || 0) + (totals.intuition || 0);
 
   updates.sr6_rigging_initiative = String(riggingBasis);
   updates.sr6_rigging_initiative_w6 = String(riggingInitiativeMode.w6);
+  updates.sr6_rigging_angriffswert = String(riggingAttack + riggingSleaze);
+  updates.sr6_rigging_verteidigungswert = String(riggingDataProcessing + riggingFirewall);
+  updates.sr6_rigging_matrix_verteidigung = String((totals.intuition || 0) + riggingFirewall);
+  updates.sr6_rigging_matrix_schadenswiderstand = String(riggingFirewall);
+  updates.sr6_rigging_biofeedback_schadenswiderstand = String(totals.willenskraft || 0);
 }
 
 function normalizeRiggingVehicleMode(mode) {
@@ -6578,7 +6729,10 @@ function buildRecalcEvents() {
   events.push("change:sr6_matrix_datenverarbeitung");
   events.push("change:sr6_matrix_firewall");
   events.push("change:sr6_rigging_modus");
+  events.push("change:sr6_rigging_angriff");
+  events.push("change:sr6_rigging_schleicher");
   events.push("change:sr6_rigging_datenverarbeitung");
+  events.push("change:sr6_rigging_firewall");
 
   for (let index = 1; index <= 18; index += 1) {
     events.push(`change:sr6_monitor_koerperlich_${index}`);

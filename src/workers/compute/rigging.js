@@ -1,7 +1,10 @@
 // BEGIN MODULE: workers/compute/rigging
 function appendRiggingRequestKeys(requestKeys) {
   requestKeys.push("sr6_rigging_modus");
+  requestKeys.push("sr6_rigging_angriff");
+  requestKeys.push("sr6_rigging_schleicher");
   requestKeys.push("sr6_rigging_datenverarbeitung");
+  requestKeys.push("sr6_rigging_firewall");
 }
 
 const SR6_RIGGING_VEHICLE_PROBE_LABELS = {
@@ -28,13 +31,22 @@ function resolveRiggingInitiativeMode(mode) {
 
 function computeRiggingDerived(values, totals, _skillTotals, updates) {
   const riggingInitiativeMode = resolveRiggingInitiativeMode(values.sr6_rigging_modus);
+  const riggingAttack = parseNumber(values.sr6_rigging_angriff);
+  const riggingSleaze = parseNumber(values.sr6_rigging_schleicher);
+  const riggingDataProcessing = parseNumber(values.sr6_rigging_datenverarbeitung);
+  const riggingFirewall = parseNumber(values.sr6_rigging_firewall);
   const riggingBasis =
     riggingInitiativeMode.basisSource === "matrix"
-      ? (totals.intuition || 0) + parseNumber(values.sr6_rigging_datenverarbeitung)
+      ? (totals.intuition || 0) + riggingDataProcessing
       : (totals.reaktion || 0) + (totals.intuition || 0);
 
   updates.sr6_rigging_initiative = String(riggingBasis);
   updates.sr6_rigging_initiative_w6 = String(riggingInitiativeMode.w6);
+  updates.sr6_rigging_angriffswert = String(riggingAttack + riggingSleaze);
+  updates.sr6_rigging_verteidigungswert = String(riggingDataProcessing + riggingFirewall);
+  updates.sr6_rigging_matrix_verteidigung = String((totals.intuition || 0) + riggingFirewall);
+  updates.sr6_rigging_matrix_schadenswiderstand = String(riggingFirewall);
+  updates.sr6_rigging_biofeedback_schadenswiderstand = String(totals.willenskraft || 0);
 }
 
 function normalizeRiggingVehicleMode(mode) {
