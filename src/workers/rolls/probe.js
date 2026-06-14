@@ -135,6 +135,141 @@ function resolveRollSkillTotal(skillKey, lookupAttr) {
   return parseNumber(lookupAttr(`sr6_skill_${skillKey}_gesamtwert`));
 }
 
+const SR6_UNTRAINED_SKILL_LABELS = {
+  astral: "Astral",
+  athletik: "Athletik",
+  beschwoeren: "Beschwören",
+  biotech: "Biotech",
+  cracken: "Cracken",
+  einfluss: "Einfluss",
+  elektronik: "Elektronik",
+  exotische_waffen: "Exotische Waffen",
+  feuerwaffen: "Feuerwaffen",
+  heimlichkeit: "Heimlichkeit",
+  hexerei: "Hexerei",
+  mechanik: "Mechanik",
+  nahkampf: "Nahkampf",
+  natur: "Natur",
+  steuern: "Steuern",
+  tasken: "Tasken",
+  ueberreden: "Überreden",
+  verzaubern: "Verzaubern",
+  wahrnehmung: "Wahrnehmung",
+};
+
+function getUntrainedSkillLabel(skillKey) {
+  return SR6_UNTRAINED_SKILL_LABELS[skillKey] || `${skillKey || ""}`;
+}
+
+function getUntrainedSkillPenalty(skillKey, lookupAttr) {
+  if (!skillKey) return null;
+  const baseValue = parseNumber(lookupAttr(`sr6_skill_${skillKey}_grundwert`));
+  if (baseValue > 0) return null;
+
+  return {
+    skillKey: skillKey,
+    label: getUntrainedSkillLabel(skillKey),
+    value: -1,
+  };
+}
+
+function applyUntrainedSkillPenaltyToPopupState(popupState, untrainedPenalty, options) {
+  const state = normalizePopupState(popupState);
+  if (!untrainedPenalty) return state;
+
+  const rows = Array.isArray(state.rows) ? [...state.rows] : [];
+  const rowValue = `${untrainedPenalty.label}: -1`;
+  const applyPoolModifier = !options || options.applyPoolModifier !== false;
+  const hasUntrainedRow = rows.some((row) => (
+    row &&
+    row.label === "Ungeübt" &&
+    `${row.value || ""}`.trim() === rowValue
+  ));
+
+  return {
+    ...state,
+    poolMod: applyPoolModifier ? state.poolMod + untrainedPenalty.value : state.poolMod,
+    rows: hasUntrainedRow ? rows : [...rows, { label: "Ungeübt", value: rowValue }],
+  };
+}
+
+function resolveRangedCombatSkillKey(selectedSkill) {
+  const skill = `${selectedSkill || "Feuerwaffen"}`.trim();
+  if (skill === "Projektilwaffen") return "athletik";
+  if (skill === "Exotische Waffen") return "exotische_waffen";
+  return "feuerwaffen";
+}
+
+function resolveMeleeCombatSkillKey(selectedSkill) {
+  return `${selectedSkill || "Nahkampf"}`.trim() === "Exotische Waffen"
+    ? "exotische_waffen"
+    : "nahkampf";
+}
+
+function getCombatUntrainedSkillKey(definition, resolvedFields) {
+  if (!definition) return "";
+
+  if (definition.id === "combat_ranged_core_attack" || definition.id === "combat_ranged_weapon" || definition.id === "ranged_weapon") {
+    return resolveRangedCombatSkillKey(resolvedFields && resolvedFields.Fertigkeit);
+  }
+
+  if (definition.id === "combat_melee_core_attack" || definition.id === "combat_melee_weapon" || definition.id === "melee_weapon") {
+    return resolveMeleeCombatSkillKey(resolvedFields && resolvedFields.Fertigkeit);
+  }
+
+  return "";
+}
+
+function isComputedCombatPoolDefinition(definition) {
+  return !!(
+    definition &&
+    (
+      definition.id === "combat_ranged_core_attack" ||
+      definition.id === "combat_ranged_weapon" ||
+      definition.id === "ranged_weapon" ||
+      definition.id === "combat_melee_core_attack" ||
+      definition.id === "combat_melee_weapon" ||
+      definition.id === "melee_weapon"
+    )
+  );
+}
+
+function getMagicUntrainedSkillKey(definition) {
+  if (!definition) return "";
+  if (definition.id === "spell") return "hexerei";
+  if (definition.id === "summoning") return "beschwoeren";
+  return "";
+}
+
+function getMatrixUntrainedSkillKey(matrixActionContext) {
+  if (!matrixActionContext) return "";
+  const component = matrixActionContext.rollMode === "defense"
+    ? matrixActionContext.defenseOption
+    : matrixActionContext.rule && matrixActionContext.rule.probe;
+  return component && component.skill ? component.skill : "";
+}
+
+function getRiggingVehicleUntrainedSkillKey(probeKey, mode) {
+  const modeKey = normalizeRiggingVehicleMode(mode);
+  if (modeKey === "autonomous" || modeKey === "agent") {
+    return "";
+  }
+
+  if (probeKey === "damage_resistance") return "";
+  if (probeKey === "weapon_attack") return "mechanik";
+  if (probeKey === "stealth") return "heimlichkeit";
+  if (probeKey === "perception") return "wahrnehmung";
+  return "steuern";
+}
+
+function getRollUntrainedSkillPenalty(definition, resolvedFields, lookupAttr, matrixActionContext) {
+  const directSkillKey = definition && definition.probeModel === "skill_probe" ? definition.skillKey : "";
+  const combatSkillKey = getCombatUntrainedSkillKey(definition, resolvedFields);
+  const matrixSkillKey = getMatrixUntrainedSkillKey(matrixActionContext);
+  const skillKey = directSkillKey || combatSkillKey || matrixSkillKey;
+  return getUntrainedSkillPenalty(skillKey, lookupAttr);
+}
+
 function resolveMatrixActionComponentValue(component, lookupAttr) {
   if (!component || component.type === "none" || component.type === "description") {
     return null;
@@ -739,11 +874,15 @@ function runRiggingVehicleProbeFromContext(context, lookupAttr, resolvedFields, 
   const finalDamage = fireMode && baseDamage !== ""
     ? `${Math.max(0, parseNumber(baseDamage) + damageModifier)}`
     : `${baseDamage}`;
-  const edgeOptions = resolveEdgeBoostOptions(popupState, lookupAttr);
+  const effectivePopupState = applyUntrainedSkillPenaltyToPopupState(
+    popupState,
+    getUntrainedSkillPenalty(getRiggingVehicleUntrainedSkillKey(probeKey, mode), lookupAttr)
+  );
+  const edgeOptions = resolveEdgeBoostOptions(effectivePopupState, lookupAttr);
   const computation = buildProbeComputation(
     lookupAttr,
     context.poolAttribute,
-    popupState.poolMod,
+    effectivePopupState.poolMod,
     1,
     probe.value,
     edgeOptions
@@ -792,7 +931,7 @@ function runRiggingVehicleProbeFromContext(context, lookupAttr, resolvedFields, 
   if (normalizeRiggingVehicleMode(mode) === "agent") {
     rows.push({ label: "Agentenstufe", value: `${data.agentenstufe}` });
   }
-  popupState.rows.forEach((popupRow) => rows.push(popupRow));
+  effectivePopupState.rows.forEach((popupRow) => rows.push(popupRow));
   appendEdgeBoostRows(rows, edgeOptions, computation);
 
   const chatMessage = buildSr6ProbeMessage({
@@ -817,11 +956,15 @@ function runRiggingVehicleProbeFromContext(context, lookupAttr, resolvedFields, 
 function runSpellProbeFromContext(context, lookupAttr, resolvedFields, popupState) {
   const rows = buildProbeRows(resolvedFields, context.definition);
   const name = deriveProbeTitle(resolvedFields, context.poolAttribute, context.definition);
-  const edgeOptions = resolveEdgeBoostOptions(popupState, lookupAttr);
+  const effectivePopupState = applyUntrainedSkillPenaltyToPopupState(
+    popupState,
+    getUntrainedSkillPenalty(getMagicUntrainedSkillKey(context.definition), lookupAttr)
+  );
+  const edgeOptions = resolveEdgeBoostOptions(effectivePopupState, lookupAttr);
   const spellComputation = buildProbeComputation(
     lookupAttr,
     context.poolAttribute,
-    popupState.poolMod,
+    effectivePopupState.poolMod,
     1,
     null,
     edgeOptions
@@ -834,22 +977,22 @@ function runSpellProbeFromContext(context, lookupAttr, resolvedFields, popupStat
   const baseDamage = parseNumber(resolvedFields.Schaden);
   const baseAttackValue = parseNumber(resolvedFields.Angriffswert);
   const finalAttackValue = isCombatSpell(resolvedFields)
-    ? Math.max(0, baseAttackValue + popupState.attackValueMod)
+    ? Math.max(0, baseAttackValue + effectivePopupState.attackValueMod)
     : "";
-  const finalDamage = isCombatSpell(resolvedFields) || baseDamage || popupState.damageMod
-    ? `${baseDamage + popupState.damageMod}`
+  const finalDamage = isCombatSpell(resolvedFields) || baseDamage || effectivePopupState.damageMod
+    ? `${baseDamage + effectivePopupState.damageMod}`
     : "";
-  const modifiedDrain = Math.max(0, parseNumber(resolvedFields.Entzug) + popupState.drainMod);
+  const modifiedDrain = Math.max(0, parseNumber(resolvedFields.Entzug) + effectivePopupState.drainMod);
   const drainDamage = Math.max(0, modifiedDrain - drainComputation.successCount);
   const drainDamageType = resolveDrainDamageType(drainDamage, lookupAttr("sr6_magic_magie"));
 
-  popupState.rows.forEach((popupRow) => {
+  effectivePopupState.rows.forEach((popupRow) => {
     if (!popupRow || !popupRow.label) return;
     appendRowIfMissing(rows, popupRow.label, popupRow.value);
   });
-  if (isCombatSpell(resolvedFields) && popupState.attackValueMod !== 0) {
+  if (isCombatSpell(resolvedFields) && effectivePopupState.attackValueMod !== 0) {
     rows.push({ label: "Angriffswert-Basis", value: `${baseAttackValue}` });
-    rows.push({ label: "Angriffswert-Modifikator", value: `${popupState.attackValueMod}` });
+    rows.push({ label: "Angriffswert-Modifikator", value: `${effectivePopupState.attackValueMod}` });
     rows.push({ label: "Angriffswert", value: `${finalAttackValue}` });
   }
   appendEdgeBoostRows(rows, edgeOptions, spellComputation);
@@ -886,11 +1029,15 @@ function runSummoningProbeFromContext(context, lookupAttr, resolvedFields, popup
   const name = deriveProbeTitle(resolvedFields, context.poolAttribute, context.definition);
   const spiritType = resolveSummoningSpiritType(resolvedFields, popupState);
   const spiritForce = resolveSummoningSpiritForce(resolvedFields, popupState);
-  const edgeOptions = resolveEdgeBoostOptions(popupState, lookupAttr);
+  const effectivePopupState = applyUntrainedSkillPenaltyToPopupState(
+    popupState,
+    getUntrainedSkillPenalty(getMagicUntrainedSkillKey(context.definition), lookupAttr)
+  );
+  const edgeOptions = resolveEdgeBoostOptions(effectivePopupState, lookupAttr);
   const summonerComputation = buildProbeComputation(
     lookupAttr,
     context.poolAttribute,
-    popupState.poolMod,
+    effectivePopupState.poolMod,
     1,
     null,
     edgeOptions
@@ -898,7 +1045,7 @@ function runSummoningProbeFromContext(context, lookupAttr, resolvedFields, popup
   const spiritComputation = buildFixedPoolComputation(spiritForce * 2);
   const netHits = summonerComputation.successCount - spiritComputation.successCount;
   const services = Math.max(0, netHits);
-  const modifiedDrain = Math.max(0, spiritComputation.successCount + popupState.drainMod);
+  const modifiedDrain = Math.max(0, spiritComputation.successCount + effectivePopupState.drainMod);
   const drainComputation = buildProbeComputation(
     lookupAttr,
     "sr6_magic_entzug_widerstand",
@@ -906,8 +1053,8 @@ function runSummoningProbeFromContext(context, lookupAttr, resolvedFields, popup
   );
   const drainDamage = Math.max(0, modifiedDrain - drainComputation.successCount);
   const drainDamageType = resolveDrainDamageType(drainDamage, lookupAttr("sr6_magic_magie"));
-  const objectResistancePool = parseNumber((popupState.selectedValues || {}).object_resistance);
-  const objectResistanceComputation = isSummoningPossessionCheckEnabled(popupState)
+  const objectResistancePool = parseNumber((effectivePopupState.selectedValues || {}).object_resistance);
+  const objectResistanceComputation = isSummoningPossessionCheckEnabled(effectivePopupState)
     ? buildFixedPoolComputation(objectResistancePool)
     : null;
   const objectResistanceNetHits = objectResistanceComputation
@@ -916,7 +1063,7 @@ function runSummoningProbeFromContext(context, lookupAttr, resolvedFields, popup
 
   appendRowIfMissing(rows, "Geistertyp", spiritType);
   appendRowIfMissing(rows, "Kraftstufe", `${spiritForce}`);
-  popupState.rows.forEach((popupRow) => {
+  effectivePopupState.rows.forEach((popupRow) => {
     if (!popupRow || !popupRow.label) return;
     appendRowIfMissing(rows, popupRow.label, popupRow.value);
   });
@@ -996,7 +1143,7 @@ function runSuccessProbeFromContext(rawTemplate, repeatingRowPrefix, popupState 
       return;
     }
 
-    const effectivePopupState = applyTemplateSkillBonusToPopupState(normalizedPopupState, resolvedFields);
+    let effectivePopupState = applyTemplateSkillBonusToPopupState(normalizedPopupState, resolvedFields);
 
     const rows = buildProbeRows(resolvedFields, context.definition);
     const name = deriveProbeTitle(resolvedFields, context.poolAttribute, context.definition);
@@ -1042,6 +1189,11 @@ function runSuccessProbeFromContext(rawTemplate, repeatingRowPrefix, popupState 
       effectivePopupState,
       lookupAttr,
       context.poolAttribute
+    );
+    effectivePopupState = applyUntrainedSkillPenaltyToPopupState(
+      effectivePopupState,
+      getRollUntrainedSkillPenalty(context.definition, resolvedFields, lookupAttr, matrixActionContext),
+      { applyPoolModifier: !isComputedCombatPoolDefinition(context.definition) }
     );
     const poolBasisOverride = meleeAttributeOverride
       ? meleeAttributeOverride.poolBasisOverride

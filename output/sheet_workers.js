@@ -2032,6 +2032,9 @@ const SR6_ROLL_DEFINITIONS_COMBAT = [
     primaryFields: ["Waffe"],
     extraFields: ["Waffentyp", "Schadenswert", "Munition", "Reichweite", "Modus"],
     templateVariant: "weapon",
+    contextFields: [
+      { label: "Fertigkeit", attr: "sr6_combat_fernkampf_fertigkeit" },
+    ],
     fixedTitle: "Fernkampfangriff",
     popupFields: SR6_COMBAT_TAB_POPUP_FIELDS,
     popupDerivedResults: [
@@ -2345,7 +2348,8 @@ function resolveSkillProbeAttributeOption(definition, selectedValue) {
 }
 
 function getRollAdditionalAttributes(definition) {
-  const attributes = ["sr6_attr_edge_gesamtwert", ...getMagicRollAdditionalAttributes(definition)];
+  const skillBaseAttributes = SR6_SKILLS.map((skillKey) => `sr6_skill_${skillKey}_grundwert`);
+  const attributes = ["sr6_attr_edge_gesamtwert", ...skillBaseAttributes, ...getMagicRollAdditionalAttributes(definition)];
   getSkillProbeAttributeOptions(definition).forEach((option) => {
     if (option && option.attr) attributes.push(option.attr);
   });
@@ -3139,6 +3143,7 @@ function buildWeaponProbePresentation(payload) {
   const calcParts = [];
   const specialization = findLastRowValue(rows, "Spezialisierung");
   const expertise = findLastRowValue(rows, "Expertise");
+  const untrained = findLastRowValue(rows, "Ungeübt");
 
   findAllRowValues(rows, "Munitionshinweis").forEach((hint) => {
     if (!hint || hint.includes("Salvenfeuer und Vollautomatik")) {
@@ -3167,6 +3172,9 @@ function buildWeaponProbePresentation(payload) {
   }
   if (expertise) {
     calcParts.push(`Expertise: ${expertise}`);
+  }
+  if (untrained) {
+    calcParts.push(`Ungeübt: ${untrained}`);
   }
   if (attributeFallback) {
     calcParts.push(`Attribut-Fallback: ${attributeFallback}`);
@@ -3730,6 +3738,141 @@ function resolveRollSkillTotal(skillKey, lookupAttr) {
     return parseNumber(base) + parseNumber(modifier);
   }
   return parseNumber(lookupAttr(`sr6_skill_${skillKey}_gesamtwert`));
+}
+
+const SR6_UNTRAINED_SKILL_LABELS = {
+  astral: "Astral",
+  athletik: "Athletik",
+  beschwoeren: "Beschwören",
+  biotech: "Biotech",
+  cracken: "Cracken",
+  einfluss: "Einfluss",
+  elektronik: "Elektronik",
+  exotische_waffen: "Exotische Waffen",
+  feuerwaffen: "Feuerwaffen",
+  heimlichkeit: "Heimlichkeit",
+  hexerei: "Hexerei",
+  mechanik: "Mechanik",
+  nahkampf: "Nahkampf",
+  natur: "Natur",
+  steuern: "Steuern",
+  tasken: "Tasken",
+  ueberreden: "Überreden",
+  verzaubern: "Verzaubern",
+  wahrnehmung: "Wahrnehmung",
+};
+
+function getUntrainedSkillLabel(skillKey) {
+  return SR6_UNTRAINED_SKILL_LABELS[skillKey] || `${skillKey || ""}`;
+}
+
+function getUntrainedSkillPenalty(skillKey, lookupAttr) {
+  if (!skillKey) return null;
+  const baseValue = parseNumber(lookupAttr(`sr6_skill_${skillKey}_grundwert`));
+  if (baseValue > 0) return null;
+
+  return {
+    skillKey: skillKey,
+    label: getUntrainedSkillLabel(skillKey),
+    value: -1,
+  };
+}
+
+function applyUntrainedSkillPenaltyToPopupState(popupState, untrainedPenalty, options) {
+  const state = normalizePopupState(popupState);
+  if (!untrainedPenalty) return state;
+
+  const rows = Array.isArray(state.rows) ? [...state.rows] : [];
+  const rowValue = `${untrainedPenalty.label}: -1`;
+  const applyPoolModifier = !options || options.applyPoolModifier !== false;
+  const hasUntrainedRow = rows.some((row) => (
+    row &&
+    row.label === "Ungeübt" &&
+    `${row.value || ""}`.trim() === rowValue
+  ));
+
+  return {
+    ...state,
+    poolMod: applyPoolModifier ? state.poolMod + untrainedPenalty.value : state.poolMod,
+    rows: hasUntrainedRow ? rows : [...rows, { label: "Ungeübt", value: rowValue }],
+  };
+}
+
+function resolveRangedCombatSkillKey(selectedSkill) {
+  const skill = `${selectedSkill || "Feuerwaffen"}`.trim();
+  if (skill === "Projektilwaffen") return "athletik";
+  if (skill === "Exotische Waffen") return "exotische_waffen";
+  return "feuerwaffen";
+}
+
+function resolveMeleeCombatSkillKey(selectedSkill) {
+  return `${selectedSkill || "Nahkampf"}`.trim() === "Exotische Waffen"
+    ? "exotische_waffen"
+    : "nahkampf";
+}
+
+function getCombatUntrainedSkillKey(definition, resolvedFields) {
+  if (!definition) return "";
+
+  if (definition.id === "combat_ranged_core_attack" || definition.id === "combat_ranged_weapon" || definition.id === "ranged_weapon") {
+    return resolveRangedCombatSkillKey(resolvedFields && resolvedFields.Fertigkeit);
+  }
+
+  if (definition.id === "combat_melee_core_attack" || definition.id === "combat_melee_weapon" || definition.id === "melee_weapon") {
+    return resolveMeleeCombatSkillKey(resolvedFields && resolvedFields.Fertigkeit);
+  }
+
+  return "";
+}
+
+function isComputedCombatPoolDefinition(definition) {
+  return !!(
+    definition &&
+    (
+      definition.id === "combat_ranged_core_attack" ||
+      definition.id === "combat_ranged_weapon" ||
+      definition.id === "ranged_weapon" ||
+      definition.id === "combat_melee_core_attack" ||
+      definition.id === "combat_melee_weapon" ||
+      definition.id === "melee_weapon"
+    )
+  );
+}
+
+function getMagicUntrainedSkillKey(definition) {
+  if (!definition) return "";
+  if (definition.id === "spell") return "hexerei";
+  if (definition.id === "summoning") return "beschwoeren";
+  return "";
+}
+
+function getMatrixUntrainedSkillKey(matrixActionContext) {
+  if (!matrixActionContext) return "";
+  const component = matrixActionContext.rollMode === "defense"
+    ? matrixActionContext.defenseOption
+    : matrixActionContext.rule && matrixActionContext.rule.probe;
+  return component && component.skill ? component.skill : "";
+}
+
+function getRiggingVehicleUntrainedSkillKey(probeKey, mode) {
+  const modeKey = normalizeRiggingVehicleMode(mode);
+  if (modeKey === "autonomous" || modeKey === "agent") {
+    return "";
+  }
+
+  if (probeKey === "damage_resistance") return "";
+  if (probeKey === "weapon_attack") return "mechanik";
+  if (probeKey === "stealth") return "heimlichkeit";
+  if (probeKey === "perception") return "wahrnehmung";
+  return "steuern";
+}
+
+function getRollUntrainedSkillPenalty(definition, resolvedFields, lookupAttr, matrixActionContext) {
+  const directSkillKey = definition && definition.probeModel === "skill_probe" ? definition.skillKey : "";
+  const combatSkillKey = getCombatUntrainedSkillKey(definition, resolvedFields);
+  const matrixSkillKey = getMatrixUntrainedSkillKey(matrixActionContext);
+  const skillKey = directSkillKey || combatSkillKey || matrixSkillKey;
+  return getUntrainedSkillPenalty(skillKey, lookupAttr);
 }
 
 function resolveMatrixActionComponentValue(component, lookupAttr) {
@@ -4336,11 +4479,15 @@ function runRiggingVehicleProbeFromContext(context, lookupAttr, resolvedFields, 
   const finalDamage = fireMode && baseDamage !== ""
     ? `${Math.max(0, parseNumber(baseDamage) + damageModifier)}`
     : `${baseDamage}`;
-  const edgeOptions = resolveEdgeBoostOptions(popupState, lookupAttr);
+  const effectivePopupState = applyUntrainedSkillPenaltyToPopupState(
+    popupState,
+    getUntrainedSkillPenalty(getRiggingVehicleUntrainedSkillKey(probeKey, mode), lookupAttr)
+  );
+  const edgeOptions = resolveEdgeBoostOptions(effectivePopupState, lookupAttr);
   const computation = buildProbeComputation(
     lookupAttr,
     context.poolAttribute,
-    popupState.poolMod,
+    effectivePopupState.poolMod,
     1,
     probe.value,
     edgeOptions
@@ -4389,7 +4536,7 @@ function runRiggingVehicleProbeFromContext(context, lookupAttr, resolvedFields, 
   if (normalizeRiggingVehicleMode(mode) === "agent") {
     rows.push({ label: "Agentenstufe", value: `${data.agentenstufe}` });
   }
-  popupState.rows.forEach((popupRow) => rows.push(popupRow));
+  effectivePopupState.rows.forEach((popupRow) => rows.push(popupRow));
   appendEdgeBoostRows(rows, edgeOptions, computation);
 
   const chatMessage = buildSr6ProbeMessage({
@@ -4414,11 +4561,15 @@ function runRiggingVehicleProbeFromContext(context, lookupAttr, resolvedFields, 
 function runSpellProbeFromContext(context, lookupAttr, resolvedFields, popupState) {
   const rows = buildProbeRows(resolvedFields, context.definition);
   const name = deriveProbeTitle(resolvedFields, context.poolAttribute, context.definition);
-  const edgeOptions = resolveEdgeBoostOptions(popupState, lookupAttr);
+  const effectivePopupState = applyUntrainedSkillPenaltyToPopupState(
+    popupState,
+    getUntrainedSkillPenalty(getMagicUntrainedSkillKey(context.definition), lookupAttr)
+  );
+  const edgeOptions = resolveEdgeBoostOptions(effectivePopupState, lookupAttr);
   const spellComputation = buildProbeComputation(
     lookupAttr,
     context.poolAttribute,
-    popupState.poolMod,
+    effectivePopupState.poolMod,
     1,
     null,
     edgeOptions
@@ -4431,22 +4582,22 @@ function runSpellProbeFromContext(context, lookupAttr, resolvedFields, popupStat
   const baseDamage = parseNumber(resolvedFields.Schaden);
   const baseAttackValue = parseNumber(resolvedFields.Angriffswert);
   const finalAttackValue = isCombatSpell(resolvedFields)
-    ? Math.max(0, baseAttackValue + popupState.attackValueMod)
+    ? Math.max(0, baseAttackValue + effectivePopupState.attackValueMod)
     : "";
-  const finalDamage = isCombatSpell(resolvedFields) || baseDamage || popupState.damageMod
-    ? `${baseDamage + popupState.damageMod}`
+  const finalDamage = isCombatSpell(resolvedFields) || baseDamage || effectivePopupState.damageMod
+    ? `${baseDamage + effectivePopupState.damageMod}`
     : "";
-  const modifiedDrain = Math.max(0, parseNumber(resolvedFields.Entzug) + popupState.drainMod);
+  const modifiedDrain = Math.max(0, parseNumber(resolvedFields.Entzug) + effectivePopupState.drainMod);
   const drainDamage = Math.max(0, modifiedDrain - drainComputation.successCount);
   const drainDamageType = resolveDrainDamageType(drainDamage, lookupAttr("sr6_magic_magie"));
 
-  popupState.rows.forEach((popupRow) => {
+  effectivePopupState.rows.forEach((popupRow) => {
     if (!popupRow || !popupRow.label) return;
     appendRowIfMissing(rows, popupRow.label, popupRow.value);
   });
-  if (isCombatSpell(resolvedFields) && popupState.attackValueMod !== 0) {
+  if (isCombatSpell(resolvedFields) && effectivePopupState.attackValueMod !== 0) {
     rows.push({ label: "Angriffswert-Basis", value: `${baseAttackValue}` });
-    rows.push({ label: "Angriffswert-Modifikator", value: `${popupState.attackValueMod}` });
+    rows.push({ label: "Angriffswert-Modifikator", value: `${effectivePopupState.attackValueMod}` });
     rows.push({ label: "Angriffswert", value: `${finalAttackValue}` });
   }
   appendEdgeBoostRows(rows, edgeOptions, spellComputation);
@@ -4483,11 +4634,15 @@ function runSummoningProbeFromContext(context, lookupAttr, resolvedFields, popup
   const name = deriveProbeTitle(resolvedFields, context.poolAttribute, context.definition);
   const spiritType = resolveSummoningSpiritType(resolvedFields, popupState);
   const spiritForce = resolveSummoningSpiritForce(resolvedFields, popupState);
-  const edgeOptions = resolveEdgeBoostOptions(popupState, lookupAttr);
+  const effectivePopupState = applyUntrainedSkillPenaltyToPopupState(
+    popupState,
+    getUntrainedSkillPenalty(getMagicUntrainedSkillKey(context.definition), lookupAttr)
+  );
+  const edgeOptions = resolveEdgeBoostOptions(effectivePopupState, lookupAttr);
   const summonerComputation = buildProbeComputation(
     lookupAttr,
     context.poolAttribute,
-    popupState.poolMod,
+    effectivePopupState.poolMod,
     1,
     null,
     edgeOptions
@@ -4495,7 +4650,7 @@ function runSummoningProbeFromContext(context, lookupAttr, resolvedFields, popup
   const spiritComputation = buildFixedPoolComputation(spiritForce * 2);
   const netHits = summonerComputation.successCount - spiritComputation.successCount;
   const services = Math.max(0, netHits);
-  const modifiedDrain = Math.max(0, spiritComputation.successCount + popupState.drainMod);
+  const modifiedDrain = Math.max(0, spiritComputation.successCount + effectivePopupState.drainMod);
   const drainComputation = buildProbeComputation(
     lookupAttr,
     "sr6_magic_entzug_widerstand",
@@ -4503,8 +4658,8 @@ function runSummoningProbeFromContext(context, lookupAttr, resolvedFields, popup
   );
   const drainDamage = Math.max(0, modifiedDrain - drainComputation.successCount);
   const drainDamageType = resolveDrainDamageType(drainDamage, lookupAttr("sr6_magic_magie"));
-  const objectResistancePool = parseNumber((popupState.selectedValues || {}).object_resistance);
-  const objectResistanceComputation = isSummoningPossessionCheckEnabled(popupState)
+  const objectResistancePool = parseNumber((effectivePopupState.selectedValues || {}).object_resistance);
+  const objectResistanceComputation = isSummoningPossessionCheckEnabled(effectivePopupState)
     ? buildFixedPoolComputation(objectResistancePool)
     : null;
   const objectResistanceNetHits = objectResistanceComputation
@@ -4513,7 +4668,7 @@ function runSummoningProbeFromContext(context, lookupAttr, resolvedFields, popup
 
   appendRowIfMissing(rows, "Geistertyp", spiritType);
   appendRowIfMissing(rows, "Kraftstufe", `${spiritForce}`);
-  popupState.rows.forEach((popupRow) => {
+  effectivePopupState.rows.forEach((popupRow) => {
     if (!popupRow || !popupRow.label) return;
     appendRowIfMissing(rows, popupRow.label, popupRow.value);
   });
@@ -4593,7 +4748,7 @@ function runSuccessProbeFromContext(rawTemplate, repeatingRowPrefix, popupState 
       return;
     }
 
-    const effectivePopupState = applyTemplateSkillBonusToPopupState(normalizedPopupState, resolvedFields);
+    let effectivePopupState = applyTemplateSkillBonusToPopupState(normalizedPopupState, resolvedFields);
 
     const rows = buildProbeRows(resolvedFields, context.definition);
     const name = deriveProbeTitle(resolvedFields, context.poolAttribute, context.definition);
@@ -4639,6 +4794,11 @@ function runSuccessProbeFromContext(rawTemplate, repeatingRowPrefix, popupState 
       effectivePopupState,
       lookupAttr,
       context.poolAttribute
+    );
+    effectivePopupState = applyUntrainedSkillPenaltyToPopupState(
+      effectivePopupState,
+      getRollUntrainedSkillPenalty(context.definition, resolvedFields, lookupAttr, matrixActionContext),
+      { applyPoolModifier: !isComputedCombatPoolDefinition(context.definition) }
     );
     const poolBasisOverride = meleeAttributeOverride
       ? meleeAttributeOverride.poolBasisOverride
@@ -4976,21 +5136,7 @@ function runEdgeAfterRollConfirm(values) {
 
 // BEGIN MODULE: workers/rolls/number-stepper
 // Erlaubt Plus/Minus-Buttons neben Zahlenfeldern und behandelt Sonderfaelle, bei denen Felder berechnet oder in Repeatern gespeichert werden.
-const SR6_NUMBER_STEPPER_COMPUTED_TARGETS = [
-  "sr6_magic_magie",
-  "sr6_magic_zauberpool",
-  "sr6_magic_spruchzauberei",
-  "sr6_magic_angriffswert",
-  "sr6_magic_beschwoeren",
-  "sr6_magic_entzug_widerstand",
-  "sr6_magic_waffenloser_kampf",
-  "sr6_magic_astrale_initiative",
-  "sr6_magic_astrale_verteidigung",
-  "sr6_magic_astraler_schadenswiderstand",
-  "sr6_magic_astralkampf_angriffswert",
-  "sr6_magic_astralkampf_verteidigungswert",
-  "sr6_derived_initiative_basis",
-];
+const SR6_NUMBER_STEPPER_COMPUTED_TARGETS = [];
 
 const SR6_NUMBER_STEPPER_REPEATING_SKILL_PREFIXES = [
   "repeating_sr6wissensfertigkeiten_",
@@ -5463,10 +5609,8 @@ const SR6_COMBAT_ARMOR_SELECTION_FIELDS = [
 ];
 
 function getCombatMeleeSkillTotalByName(skillTotals, selectedSkill) {
-  if (selectedSkill === "Exotische Waffen") {
-    return (skillTotals && skillTotals.exotische_waffen) || 0;
-  }
-  return (skillTotals && skillTotals.nahkampf) || 0;
+  const skillKey = getCombatMeleeSkillKeyByName(selectedSkill);
+  return (skillTotals && skillTotals[skillKey]) || 0;
 }
 
 function getCombatMeleeSkillTotal(skillTotals, values) {
@@ -5487,18 +5631,57 @@ function getCombatMeleeAttributeTotal(totals, values) {
 }
 
 function getCombatRangedSkillTotalByName(skillTotals, selectedSkill) {
-  if (selectedSkill === "Projektilwaffen") {
-    return (skillTotals && skillTotals.athletik) || 0;
-  }
-  if (selectedSkill === "Exotische Waffen") {
-    return (skillTotals && skillTotals.exotische_waffen) || 0;
-  }
-  return (skillTotals && skillTotals.feuerwaffen) || 0;
+  const skillKey = getCombatRangedSkillKeyByName(selectedSkill);
+  return (skillTotals && skillTotals[skillKey]) || 0;
 }
 
 function getCombatRangedSkillTotal(skillTotals, values) {
   const selectedSkill = `${(values && values.sr6_combat_fernkampf_fertigkeit) || "Feuerwaffen"}`.trim();
   return getCombatRangedSkillTotalByName(skillTotals, selectedSkill);
+}
+
+function getCombatMeleeSkillKeyByName(selectedSkill) {
+  return `${selectedSkill || "Nahkampf"}`.trim() === "Exotische Waffen"
+    ? "exotische_waffen"
+    : "nahkampf";
+}
+
+function getCombatRangedSkillKeyByName(selectedSkill) {
+  const skill = `${selectedSkill || "Feuerwaffen"}`.trim();
+  if (skill === "Projektilwaffen") return "athletik";
+  if (skill === "Exotische Waffen") return "exotische_waffen";
+  return "feuerwaffen";
+}
+
+function getCombatUntrainedSkillPenalty(values, skillKey) {
+  if (!skillKey) return 0;
+  const baseValue = parseNumber(values && values[`sr6_skill_${skillKey}_grundwert`]);
+  return baseValue <= 0 ? -1 : 0;
+}
+
+function getCombatRangedUntrainedSkillPenalty(values, selectedSkill) {
+  return getCombatUntrainedSkillPenalty(values, getCombatRangedSkillKeyByName(selectedSkill));
+}
+
+function getCombatMeleeUntrainedSkillPenalty(values, selectedSkill) {
+  return getCombatUntrainedSkillPenalty(values, getCombatMeleeSkillKeyByName(selectedSkill));
+}
+
+function getCombatSkillSpecializationSelection(values, skillKey) {
+  return {
+    specialization: values && values[`sr6_skill_${skillKey}_spezialisierung`],
+    expertise: values && values[`sr6_skill_${skillKey}_expertise`],
+  };
+}
+
+function getCombatSkillPool(values, skillTotals, skillKey, attributeTotal, matchingNames) {
+  const selection = getCombatSkillSpecializationSelection(values, skillKey);
+  return (
+    parseNumber(attributeTotal) +
+    parseNumber(skillTotals && skillTotals[skillKey]) +
+    getCombatSpecializationBonus(selection.specialization, selection.expertise, matchingNames) +
+    getCombatUntrainedSkillPenalty(values, skillKey)
+  );
 }
 
 function normalizeCombatSpecializationName(value) {
@@ -5546,26 +5729,24 @@ function getCombatRangedSpecializationMatches(selectedSkill, weaponType) {
 
 function getCombatRangedSpecializationBonus(values, selectedSkill, weaponType) {
   const skill = `${selectedSkill || "Feuerwaffen"}`.trim();
-  const specializationKey =
-    skill === "Projektilwaffen" ? "athletik" : skill === "Exotische Waffen" ? "exotische_waffen" : "feuerwaffen";
-  const selections = {
-    athletik: {
-      specialization: values.sr6_skill_athletik_spezialisierung,
-      expertise: values.sr6_skill_athletik_expertise,
-    },
-    exotische_waffen: {
-      specialization: values.sr6_skill_exotische_waffen_spezialisierung,
-      expertise: values.sr6_skill_exotische_waffen_expertise,
-    },
-    feuerwaffen: {
-      specialization: values.sr6_skill_feuerwaffen_spezialisierung,
-      expertise: values.sr6_skill_feuerwaffen_expertise,
-    },
-  };
+  const skillKey = getCombatRangedSkillKeyByName(skill);
+  const selection = getCombatSkillSpecializationSelection(values, skillKey);
 
   return getCombatSpecializationBonus(
-    selections[specializationKey].specialization,
-    selections[specializationKey].expertise,
+    selection.specialization,
+    selection.expertise,
+    getCombatRangedSpecializationMatches(skill, weaponType)
+  );
+}
+
+function getCombatRangedPool(totals, skillTotals, values, selectedSkill, weaponType) {
+  const skill = `${selectedSkill || "Feuerwaffen"}`.trim();
+  const skillKey = getCombatRangedSkillKeyByName(skill);
+  return getCombatSkillPool(
+    values,
+    skillTotals,
+    skillKey,
+    totals && totals.geschicklichkeit,
     getCombatRangedSpecializationMatches(skill, weaponType)
   );
 }
@@ -5584,21 +5765,24 @@ function getCombatMeleeSpecializationMatches(selectedSkill, weaponType) {
 
 function getCombatMeleeSpecializationBonus(values, selectedSkill, weaponType) {
   const skill = `${selectedSkill || "Nahkampf"}`.trim();
-  const specializationKey = skill === "Exotische Waffen" ? "exotische_waffen" : "nahkampf";
-  const selections = {
-    exotische_waffen: {
-      specialization: values.sr6_skill_exotische_waffen_spezialisierung,
-      expertise: values.sr6_skill_exotische_waffen_expertise,
-    },
-    nahkampf: {
-      specialization: values.sr6_skill_nahkampf_spezialisierung,
-      expertise: values.sr6_skill_nahkampf_expertise,
-    },
-  };
+  const skillKey = getCombatMeleeSkillKeyByName(skill);
+  const selection = getCombatSkillSpecializationSelection(values, skillKey);
 
   return getCombatSpecializationBonus(
-    selections[specializationKey].specialization,
-    selections[specializationKey].expertise,
+    selection.specialization,
+    selection.expertise,
+    getCombatMeleeSpecializationMatches(skill, weaponType)
+  );
+}
+
+function getCombatMeleePool(totals, skillTotals, values, selectedSkill, selectedAttribute, weaponType) {
+  const skill = `${selectedSkill || "Nahkampf"}`.trim();
+  const skillKey = getCombatMeleeSkillKeyByName(skill);
+  return getCombatSkillPool(
+    values,
+    skillTotals,
+    skillKey,
+    getCombatMeleeAttributeTotalByName(totals, selectedAttribute),
     getCombatMeleeSpecializationMatches(skill, weaponType)
   );
 }
@@ -5606,37 +5790,32 @@ function getCombatMeleeSpecializationBonus(values, selectedSkill, weaponType) {
 const SR6_COMBAT_CALCULATED_FIELDS = [
   {
     key: "sr6_combat_fernkampfangriff",
+    useModifier: false,
     base: (totals, skillTotals, values) => {
       const selectedSkill = `${(values && values.sr6_combat_fernkampf_fertigkeit) || "Feuerwaffen"}`.trim();
       const weaponType = `${(values && values.sr6_combat_fernkampf_waffentyp) || ""}`.trim();
-      return (
-        getCombatRangedSkillTotal(skillTotals, values) +
-        (totals.geschicklichkeit || 0) +
-        getCombatRangedSpecializationBonus(values, selectedSkill, weaponType)
-      );
+      return getCombatRangedPool(totals, skillTotals, values, selectedSkill, weaponType);
     },
   },
   {
     key: "sr6_combat_projektilwaffen",
+    useModifier: false,
     base: (totals, skillTotals, values) =>
-      (skillTotals.athletik || 0) +
-      (totals.geschicklichkeit || 0) +
-      getCombatRangedSpecializationBonus(values, "Projektilwaffen", "Projektilwaffen"),
+      getCombatRangedPool(totals, skillTotals, values, "Projektilwaffen", "Projektilwaffen"),
   },
   {
     key: "sr6_combat_nahkampfangriff",
+    useModifier: false,
     base: (totals, skillTotals, values) => {
       const selectedSkill = `${(values && values.sr6_combat_nahkampf_fertigkeit) || "Nahkampf"}`.trim();
+      const selectedAttribute = `${(values && values.sr6_combat_nahkampf_attribut) || "Geschicklichkeit"}`.trim();
       const weaponType = `${(values && values.sr6_combat_nahkampf_waffentyp) || ""}`.trim();
-      return (
-        getCombatMeleeSkillTotal(skillTotals, values) +
-        getCombatMeleeAttributeTotal(totals, values) +
-        getCombatMeleeSpecializationBonus(values, selectedSkill, weaponType)
-      );
+      return getCombatMeleePool(totals, skillTotals, values, selectedSkill, selectedAttribute, weaponType);
     },
   },
   {
     key: "sr6_combat_verteidigungswert",
+    useModifier: false,
     base: (totals, skillTotals, values) =>
       (totals.konstitution || 0) +
       parseNumber(values.sr6_combat_primaere_panzerung) +
@@ -5646,10 +5825,12 @@ const SR6_COMBAT_CALCULATED_FIELDS = [
   },
   {
     key: "sr6_verteidigung_physisch",
+    useModifier: false,
     base: (totals) => (totals.reaktion || 0) + (totals.intuition || 0),
   },
   {
     key: "sr6_schadenswiderstand_physisch",
+    useModifier: false,
     base: (totals) => totals.konstitution || 0,
   },
   {
@@ -5744,7 +5925,6 @@ const SR6_COMBAT_PRIMARY_WEAPON_SELECTIONS = [
 ];
 
 function appendCombatRequestKeys(requestKeys) {
-  requestKeys.push("sr6_derived_initiative_basis_modifikator");
   SR6_COMBAT_CALCULATED_FIELDS.forEach((field) => {
     requestKeys.push(`${field.key}_modifikator`);
   });
@@ -5755,12 +5935,16 @@ function appendCombatRequestKeys(requestKeys) {
   requestKeys.push("sr6_combat_nahkampf_waffentyp");
   requestKeys.push("sr6_skill_athletik_spezialisierung");
   requestKeys.push("sr6_skill_athletik_expertise");
+  requestKeys.push("sr6_skill_athletik_grundwert");
   requestKeys.push("sr6_skill_exotische_waffen_spezialisierung");
   requestKeys.push("sr6_skill_exotische_waffen_expertise");
+  requestKeys.push("sr6_skill_exotische_waffen_grundwert");
   requestKeys.push("sr6_skill_feuerwaffen_spezialisierung");
   requestKeys.push("sr6_skill_feuerwaffen_expertise");
+  requestKeys.push("sr6_skill_feuerwaffen_grundwert");
   requestKeys.push("sr6_skill_nahkampf_spezialisierung");
   requestKeys.push("sr6_skill_nahkampf_expertise");
+  requestKeys.push("sr6_skill_nahkampf_grundwert");
   SR6_COMBAT_ARMOR_SELECTION_FIELDS.forEach((field) => {
     requestKeys.push(field.key);
   });
@@ -5770,13 +5954,12 @@ function computeCombatDerivedFromAttributes(totals, values, updates, skillTotals
   const reaktion = totals.reaktion || 0;
   const intuition = totals.intuition || 0;
   const resolvedSkillTotals = skillTotals || {};
-  const physicalInitiativeModifier = parseNumber(values.sr6_derived_initiative_basis_modifikator);
 
-  updates.sr6_derived_initiative_basis = String(reaktion + intuition + physicalInitiativeModifier);
+  updates.sr6_derived_initiative_basis = String(reaktion + intuition);
 
   SR6_COMBAT_CALCULATED_FIELDS.forEach((field) => {
     const baseValue = field.base(totals, resolvedSkillTotals, values);
-    const modifierValue = parseNumber(values[`${field.key}_modifikator`]);
+    const modifierValue = field.useModifier === false ? 0 : parseNumber(values[`${field.key}_modifikator`]);
     const totalValue = baseValue + modifierValue;
 
     updates[`${field.key}_grundwert`] = String(baseValue);
@@ -5932,15 +6115,19 @@ function syncCombatWeaponPools(callback) {
     "sr6_attr_geschicklichkeit_gesamtwert",
     "sr6_attr_staerke_gesamtwert",
     "sr6_skill_athletik_gesamtwert",
+    "sr6_skill_athletik_grundwert",
     "sr6_skill_athletik_spezialisierung",
     "sr6_skill_athletik_expertise",
     "sr6_skill_exotische_waffen_gesamtwert",
+    "sr6_skill_exotische_waffen_grundwert",
     "sr6_skill_exotische_waffen_spezialisierung",
     "sr6_skill_exotische_waffen_expertise",
     "sr6_skill_feuerwaffen_gesamtwert",
+    "sr6_skill_feuerwaffen_grundwert",
     "sr6_skill_feuerwaffen_spezialisierung",
     "sr6_skill_feuerwaffen_expertise",
     "sr6_skill_nahkampf_gesamtwert",
+    "sr6_skill_nahkampf_grundwert",
     "sr6_skill_nahkampf_spezialisierung",
     "sr6_skill_nahkampf_expertise",
   ];
@@ -5971,37 +6158,12 @@ function syncCombatWeaponPools(callback) {
           feuerwaffen: parseNumber(values.sr6_skill_feuerwaffen_gesamtwert),
           nahkampf: parseNumber(values.sr6_skill_nahkampf_gesamtwert),
         };
-        const specializationSelections = {
-          athletik: {
-            specialization: values.sr6_skill_athletik_spezialisierung,
-            expertise: values.sr6_skill_athletik_expertise,
-          },
-          exotische_waffen: {
-            specialization: values.sr6_skill_exotische_waffen_spezialisierung,
-            expertise: values.sr6_skill_exotische_waffen_expertise,
-          },
-          feuerwaffen: {
-            specialization: values.sr6_skill_feuerwaffen_spezialisierung,
-            expertise: values.sr6_skill_feuerwaffen_expertise,
-          },
-          nahkampf: {
-            specialization: values.sr6_skill_nahkampf_spezialisierung,
-            expertise: values.sr6_skill_nahkampf_expertise,
-          },
-        };
         const updates = {};
 
         rangedRowIds.forEach((rowId) => {
           const skill = `${values[`repeating_sr6fernkampfwaffen_${rowId}_sr6_fernkampf_fertigkeit`] || "Feuerwaffen"}`.trim();
           const weaponType = `${values[`repeating_sr6fernkampfwaffen_${rowId}_sr6_fernkampf_waffentyp`] || ""}`.trim();
-          const specializationKey =
-            skill === "Projektilwaffen" ? "athletik" : skill === "Exotische Waffen" ? "exotische_waffen" : "feuerwaffen";
-          const specializationBonus = getCombatSpecializationBonus(
-            specializationSelections[specializationKey].specialization,
-            specializationSelections[specializationKey].expertise,
-            getCombatRangedSpecializationMatches(skill, weaponType)
-          );
-          const pool = getCombatRangedSkillTotalByName(skillTotals, skill) + (totals.geschicklichkeit || 0) + specializationBonus;
+          const pool = getCombatRangedPool(totals, skillTotals, values, skill, weaponType);
           updates[`repeating_sr6fernkampfwaffen_${rowId}_sr6_fernkampf_pool`] = String(pool);
         });
 
@@ -6009,16 +6171,7 @@ function syncCombatWeaponPools(callback) {
           const skill = `${values[`repeating_sr6nahkampfwaffen_${rowId}_sr6_nahkampf_fertigkeit`] || "Nahkampf"}`.trim();
           const attribute = `${values[`repeating_sr6nahkampfwaffen_${rowId}_sr6_nahkampf_attribut`] || "Geschicklichkeit"}`.trim();
           const weaponType = `${values[`repeating_sr6nahkampfwaffen_${rowId}_sr6_nahkampf_waffentyp`] || ""}`.trim();
-          const specializationKey = skill === "Exotische Waffen" ? "exotische_waffen" : "nahkampf";
-          const specializationBonus = getCombatSpecializationBonus(
-            specializationSelections[specializationKey].specialization,
-            specializationSelections[specializationKey].expertise,
-            getCombatMeleeSpecializationMatches(skill, weaponType)
-          );
-          const pool =
-            getCombatMeleeSkillTotalByName(skillTotals, skill) +
-            getCombatMeleeAttributeTotalByName(totals, attribute) +
-            specializationBonus;
+          const pool = getCombatMeleePool(totals, skillTotals, values, skill, attribute, weaponType);
           updates[`repeating_sr6nahkampfwaffen_${rowId}_sr6_nahkampf_pool`] = String(pool);
         });
 
@@ -6036,55 +6189,27 @@ function syncCombatWeaponPools(callback) {
 function appendMagicRequestKeys(requestKeys) {
   requestKeys.push("sr6_magic_traditionsattribut_1");
   requestKeys.push("sr6_magic_traditionsattribut_1_modifikator");
-  requestKeys.push("sr6_magic_magie_modifikator");
-  requestKeys.push("sr6_magic_zauberpool_modifikator");
-  requestKeys.push("sr6_magic_spruchzauberei_modifikator");
-  requestKeys.push("sr6_magic_angriffswert_modifikator");
-  requestKeys.push("sr6_magic_beschwoeren_modifikator");
-  requestKeys.push("sr6_magic_entzug_widerstand_modifikator");
-  requestKeys.push("sr6_magic_waffenloser_kampf_modifikator");
-  requestKeys.push("sr6_magic_astrale_initiative_modifikator");
-  requestKeys.push("sr6_magic_astrale_verteidigung_modifikator");
-  requestKeys.push("sr6_magic_astraler_schadenswiderstand_modifikator");
-  requestKeys.push("sr6_magic_astralkampf_angriffswert_modifikator");
-  requestKeys.push("sr6_magic_astralkampf_verteidigungswert_modifikator");
 }
 
 function computeMagicDerived(values, totals, skillTotals, updates) {
-  updates.sr6_magic_magie = String(
-    (totals.magie_resonanz || 0) + parseNumber(values.sr6_magic_magie_modifikator)
-  );
-  updates.sr6_magic_zauberpool = String(
-    (skillTotals.hexerei || 0) + parseNumber(values.sr6_magic_zauberpool_modifikator)
-  );
+  updates.sr6_magic_magie = String(totals.magie_resonanz || 0);
+  updates.sr6_magic_zauberpool = String(skillTotals.hexerei || 0);
   updates.sr6_magic_spruchzauberei = String(
-    parseNumber(updates.sr6_magic_magie) +
-      parseNumber(updates.sr6_magic_zauberpool) +
-      parseNumber(values.sr6_magic_spruchzauberei_modifikator)
+    parseNumber(updates.sr6_magic_magie) + parseNumber(updates.sr6_magic_zauberpool)
   );
   updates.sr6_magic_beschwoeren = String(
-    (skillTotals.beschwoeren || 0) +
-      parseNumber(updates.sr6_magic_magie) +
-      parseNumber(values.sr6_magic_beschwoeren_modifikator)
+    (skillTotals.beschwoeren || 0) + parseNumber(updates.sr6_magic_magie)
   );
   updates.sr6_magic_waffenloser_kampf = String(
-    (skillTotals.astral || 0) +
-      (totals.willenskraft || 0) +
-      parseNumber(values.sr6_magic_waffenloser_kampf_modifikator)
+    (skillTotals.astral || 0) + (totals.willenskraft || 0)
   );
   updates.sr6_magic_waffenfoki = String((skillTotals.nahkampf || 0) + (totals.willenskraft || 0));
   updates.sr6_magic_astrale_verteidigung = String(
-    (totals.logik || 0) +
-      (totals.intuition || 0) +
-      parseNumber(values.sr6_magic_astrale_verteidigung_modifikator)
+    (totals.logik || 0) + (totals.intuition || 0)
   );
-  updates.sr6_magic_astraler_schadenswiderstand = String(
-    (totals.willenskraft || 0) + parseNumber(values.sr6_magic_astraler_schadenswiderstand_modifikator)
-  );
+  updates.sr6_magic_astraler_schadenswiderstand = String(totals.willenskraft || 0);
   updates.sr6_magic_astrale_initiative = String(
-    (totals.logik || 0) +
-      (totals.intuition || 0) +
-      parseNumber(values.sr6_magic_astrale_initiative_modifikator)
+    (totals.logik || 0) + (totals.intuition || 0)
   );
 
   const traditionKey1 = mapTraditionsattributToKey(values.sr6_magic_traditionsattribut_1);
@@ -6093,23 +6218,15 @@ function computeMagicDerived(values, totals, skillTotals, updates) {
     parseNumber(values.sr6_magic_traditionsattribut_1_modifikator);
 
   updates.sr6_magic_entzug_widerstand = String(
-    traditionValue1 +
-      (totals.willenskraft || 0) +
-      parseNumber(values.sr6_magic_entzug_widerstand_modifikator)
+    traditionValue1 + (totals.willenskraft || 0)
   );
   updates.sr6_magic_angriffswert = String(
-    parseNumber(updates.sr6_magic_magie) +
-      traditionValue1 +
-      parseNumber(values.sr6_magic_angriffswert_modifikator)
+    parseNumber(updates.sr6_magic_magie) + traditionValue1
   );
   updates.sr6_magic_astralkampf_angriffswert = String(
-    (totals.magie_resonanz || 0) +
-      traditionValue1 +
-      parseNumber(values.sr6_magic_astralkampf_angriffswert_modifikator)
+    (totals.magie_resonanz || 0) + traditionValue1
   );
-  updates.sr6_magic_astralkampf_verteidigungswert = String(
-    (totals.intuition || 0) + parseNumber(values.sr6_magic_astralkampf_verteidigungswert_modifikator)
-  );
+  updates.sr6_magic_astralkampf_verteidigungswert = String(totals.intuition || 0);
 }
 // END MODULE: workers/compute/magic
 
@@ -6153,6 +6270,7 @@ function resolveMatrixActionComponentTotal(component, values, totals, skillTotal
 
   if (component.skill) {
     total += parseNumber(skillTotals[component.skill]);
+    total += getMatrixUntrainedSkillPenalty(values, component.skill);
     hasParts = true;
   }
   if (component.attribute) {
@@ -6169,6 +6287,12 @@ function resolveMatrixActionComponentTotal(component, values, totals, skillTotal
   }
 
   return hasParts ? String(total) : "";
+}
+
+function getMatrixUntrainedSkillPenalty(values, skillKey) {
+  if (!skillKey) return 0;
+  const baseValue = parseNumber(values && values[`sr6_skill_${skillKey}_grundwert`]);
+  return baseValue <= 0 ? -1 : 0;
 }
 
 function resolveMatrixActionDefenseComponent(rule, selectedDefense) {
@@ -6702,28 +6826,20 @@ function buildRecalcEvents() {
   events.push("change:sr6_combat_fernkampfangriff_modifikator");
   events.push("change:sr6_combat_projektilwaffen_modifikator");
   events.push("change:sr6_combat_fernkampf_fertigkeit");
+  events.push("change:sr6_combat_fernkampf_waffentyp");
   events.push("change:sr6_combat_nahkampfangriff_modifikator");
+  events.push("change:sr6_combat_nahkampf_fertigkeit");
+  events.push("change:sr6_combat_nahkampf_attribut");
+  events.push("change:sr6_combat_nahkampf_waffentyp");
   events.push("change:sr6_verteidigung_physisch_modifikator");
   events.push("change:sr6_schadenswiderstand_physisch_modifikator");
   events.push("change:sr6_combat_fernkampfangriff");
   events.push("change:sr6_combat_nahkampfangriff");
   events.push("change:sr6_verteidigung_physisch_gesamtwert");
   events.push("change:sr6_schadenswiderstand_physisch_gesamtwert");
-  events.push("change:sr6_derived_initiative_basis_modifikator");
 
   events.push("change:sr6_magic_traditionsattribut_1");
   events.push("change:sr6_magic_traditionsattribut_1_modifikator");
-  events.push("change:sr6_magic_magie_modifikator");
-  events.push("change:sr6_magic_zauberpool_modifikator");
-  events.push("change:sr6_magic_spruchzauberei_modifikator");
-  events.push("change:sr6_magic_beschwoeren_modifikator");
-  events.push("change:sr6_magic_entzug_widerstand_modifikator");
-  events.push("change:sr6_magic_waffenloser_kampf_modifikator");
-  events.push("change:sr6_magic_astrale_initiative_modifikator");
-  events.push("change:sr6_magic_astrale_verteidigung_modifikator");
-  events.push("change:sr6_magic_astraler_schadenswiderstand_modifikator");
-  events.push("change:sr6_magic_astralkampf_angriffswert_modifikator");
-  events.push("change:sr6_magic_astralkampf_verteidigungswert_modifikator");
   events.push("change:sr6_matrix_modus");
   events.push("change:sr6_matrix_angriff");
   events.push("change:sr6_matrix_schleicher");

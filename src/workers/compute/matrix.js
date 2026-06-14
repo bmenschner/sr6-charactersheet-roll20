@@ -38,6 +38,7 @@ function resolveMatrixActionComponentTotal(component, values, totals, skillTotal
 
   if (component.skill) {
     total += parseNumber(skillTotals[component.skill]);
+    total += getMatrixUntrainedSkillPenalty(values, component.skill);
     hasParts = true;
   }
   if (component.attribute) {
@@ -54,6 +55,12 @@ function resolveMatrixActionComponentTotal(component, values, totals, skillTotal
   }
 
   return hasParts ? String(total) : "";
+}
+
+function getMatrixUntrainedSkillPenalty(values, skillKey) {
+  if (!skillKey) return 0;
+  const baseValue = parseNumber(values && values[`sr6_skill_${skillKey}_grundwert`]);
+  return baseValue <= 0 ? -1 : 0;
 }
 
 function resolveMatrixActionDefenseComponent(rule, selectedDefense) {

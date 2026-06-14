@@ -23,10 +23,8 @@ const SR6_COMBAT_ARMOR_SELECTION_FIELDS = [
 ];
 
 function getCombatMeleeSkillTotalByName(skillTotals, selectedSkill) {
-  if (selectedSkill === "Exotische Waffen") {
-    return (skillTotals && skillTotals.exotische_waffen) || 0;
-  }
-  return (skillTotals && skillTotals.nahkampf) || 0;
+  const skillKey = getCombatMeleeSkillKeyByName(selectedSkill);
+  return (skillTotals && skillTotals[skillKey]) || 0;
 }
 
 function getCombatMeleeSkillTotal(skillTotals, values) {
@@ -47,18 +45,57 @@ function getCombatMeleeAttributeTotal(totals, values) {
 }
 
 function getCombatRangedSkillTotalByName(skillTotals, selectedSkill) {
-  if (selectedSkill === "Projektilwaffen") {
-    return (skillTotals && skillTotals.athletik) || 0;
-  }
-  if (selectedSkill === "Exotische Waffen") {
-    return (skillTotals && skillTotals.exotische_waffen) || 0;
-  }
-  return (skillTotals && skillTotals.feuerwaffen) || 0;
+  const skillKey = getCombatRangedSkillKeyByName(selectedSkill);
+  return (skillTotals && skillTotals[skillKey]) || 0;
 }
 
 function getCombatRangedSkillTotal(skillTotals, values) {
   const selectedSkill = `${(values && values.sr6_combat_fernkampf_fertigkeit) || "Feuerwaffen"}`.trim();
   return getCombatRangedSkillTotalByName(skillTotals, selectedSkill);
+}
+
+function getCombatMeleeSkillKeyByName(selectedSkill) {
+  return `${selectedSkill || "Nahkampf"}`.trim() === "Exotische Waffen"
+    ? "exotische_waffen"
+    : "nahkampf";
+}
+
+function getCombatRangedSkillKeyByName(selectedSkill) {
+  const skill = `${selectedSkill || "Feuerwaffen"}`.trim();
+  if (skill === "Projektilwaffen") return "athletik";
+  if (skill === "Exotische Waffen") return "exotische_waffen";
+  return "feuerwaffen";
+}
+
+function getCombatUntrainedSkillPenalty(values, skillKey) {
+  if (!skillKey) return 0;
+  const baseValue = parseNumber(values && values[`sr6_skill_${skillKey}_grundwert`]);
+  return baseValue <= 0 ? -1 : 0;
+}
+
+function getCombatRangedUntrainedSkillPenalty(values, selectedSkill) {
+  return getCombatUntrainedSkillPenalty(values, getCombatRangedSkillKeyByName(selectedSkill));
+}
+
+function getCombatMeleeUntrainedSkillPenalty(values, selectedSkill) {
+  return getCombatUntrainedSkillPenalty(values, getCombatMeleeSkillKeyByName(selectedSkill));
+}
+
+function getCombatSkillSpecializationSelection(values, skillKey) {
+  return {
+    specialization: values && values[`sr6_skill_${skillKey}_spezialisierung`],
+    expertise: values && values[`sr6_skill_${skillKey}_expertise`],
+  };
+}
+
+function getCombatSkillPool(values, skillTotals, skillKey, attributeTotal, matchingNames) {
+  const selection = getCombatSkillSpecializationSelection(values, skillKey);
+  return (
+    parseNumber(attributeTotal) +
+    parseNumber(skillTotals && skillTotals[skillKey]) +
+    getCombatSpecializationBonus(selection.specialization, selection.expertise, matchingNames) +
+    getCombatUntrainedSkillPenalty(values, skillKey)
+  );
 }
 
 function normalizeCombatSpecializationName(value) {
@@ -106,26 +143,24 @@ function getCombatRangedSpecializationMatches(selectedSkill, weaponType) {
 
 function getCombatRangedSpecializationBonus(values, selectedSkill, weaponType) {
   const skill = `${selectedSkill || "Feuerwaffen"}`.trim();
-  const specializationKey =
-    skill === "Projektilwaffen" ? "athletik" : skill === "Exotische Waffen" ? "exotische_waffen" : "feuerwaffen";
-  const selections = {
-    athletik: {
-      specialization: values.sr6_skill_athletik_spezialisierung,
-      expertise: values.sr6_skill_athletik_expertise,
-    },
-    exotische_waffen: {
-      specialization: values.sr6_skill_exotische_waffen_spezialisierung,
-      expertise: values.sr6_skill_exotische_waffen_expertise,
-    },
-    feuerwaffen: {
-      specialization: values.sr6_skill_feuerwaffen_spezialisierung,
-      expertise: values.sr6_skill_feuerwaffen_expertise,
-    },
-  };
+  const skillKey = getCombatRangedSkillKeyByName(skill);
+  const selection = getCombatSkillSpecializationSelection(values, skillKey);
 
   return getCombatSpecializationBonus(
-    selections[specializationKey].specialization,
-    selections[specializationKey].expertise,
+    selection.specialization,
+    selection.expertise,
+    getCombatRangedSpecializationMatches(skill, weaponType)
+  );
+}
+
+function getCombatRangedPool(totals, skillTotals, values, selectedSkill, weaponType) {
+  const skill = `${selectedSkill || "Feuerwaffen"}`.trim();
+  const skillKey = getCombatRangedSkillKeyByName(skill);
+  return getCombatSkillPool(
+    values,
+    skillTotals,
+    skillKey,
+    totals && totals.geschicklichkeit,
     getCombatRangedSpecializationMatches(skill, weaponType)
   );
 }
@@ -144,21 +179,24 @@ function getCombatMeleeSpecializationMatches(selectedSkill, weaponType) {
 
 function getCombatMeleeSpecializationBonus(values, selectedSkill, weaponType) {
   const skill = `${selectedSkill || "Nahkampf"}`.trim();
-  const specializationKey = skill === "Exotische Waffen" ? "exotische_waffen" : "nahkampf";
-  const selections = {
-    exotische_waffen: {
-      specialization: values.sr6_skill_exotische_waffen_spezialisierung,
-      expertise: values.sr6_skill_exotische_waffen_expertise,
-    },
-    nahkampf: {
-      specialization: values.sr6_skill_nahkampf_spezialisierung,
-      expertise: values.sr6_skill_nahkampf_expertise,
-    },
-  };
+  const skillKey = getCombatMeleeSkillKeyByName(skill);
+  const selection = getCombatSkillSpecializationSelection(values, skillKey);
 
   return getCombatSpecializationBonus(
-    selections[specializationKey].specialization,
-    selections[specializationKey].expertise,
+    selection.specialization,
+    selection.expertise,
+    getCombatMeleeSpecializationMatches(skill, weaponType)
+  );
+}
+
+function getCombatMeleePool(totals, skillTotals, values, selectedSkill, selectedAttribute, weaponType) {
+  const skill = `${selectedSkill || "Nahkampf"}`.trim();
+  const skillKey = getCombatMeleeSkillKeyByName(skill);
+  return getCombatSkillPool(
+    values,
+    skillTotals,
+    skillKey,
+    getCombatMeleeAttributeTotalByName(totals, selectedAttribute),
     getCombatMeleeSpecializationMatches(skill, weaponType)
   );
 }
@@ -166,37 +204,32 @@ function getCombatMeleeSpecializationBonus(values, selectedSkill, weaponType) {
 const SR6_COMBAT_CALCULATED_FIELDS = [
   {
     key: "sr6_combat_fernkampfangriff",
+    useModifier: false,
     base: (totals, skillTotals, values) => {
       const selectedSkill = `${(values && values.sr6_combat_fernkampf_fertigkeit) || "Feuerwaffen"}`.trim();
       const weaponType = `${(values && values.sr6_combat_fernkampf_waffentyp) || ""}`.trim();
-      return (
-        getCombatRangedSkillTotal(skillTotals, values) +
-        (totals.geschicklichkeit || 0) +
-        getCombatRangedSpecializationBonus(values, selectedSkill, weaponType)
-      );
+      return getCombatRangedPool(totals, skillTotals, values, selectedSkill, weaponType);
     },
   },
   {
     key: "sr6_combat_projektilwaffen",
+    useModifier: false,
     base: (totals, skillTotals, values) =>
-      (skillTotals.athletik || 0) +
-      (totals.geschicklichkeit || 0) +
-      getCombatRangedSpecializationBonus(values, "Projektilwaffen", "Projektilwaffen"),
+      getCombatRangedPool(totals, skillTotals, values, "Projektilwaffen", "Projektilwaffen"),
   },
   {
     key: "sr6_combat_nahkampfangriff",
+    useModifier: false,
     base: (totals, skillTotals, values) => {
       const selectedSkill = `${(values && values.sr6_combat_nahkampf_fertigkeit) || "Nahkampf"}`.trim();
+      const selectedAttribute = `${(values && values.sr6_combat_nahkampf_attribut) || "Geschicklichkeit"}`.trim();
       const weaponType = `${(values && values.sr6_combat_nahkampf_waffentyp) || ""}`.trim();
-      return (
-        getCombatMeleeSkillTotal(skillTotals, values) +
-        getCombatMeleeAttributeTotal(totals, values) +
-        getCombatMeleeSpecializationBonus(values, selectedSkill, weaponType)
-      );
+      return getCombatMeleePool(totals, skillTotals, values, selectedSkill, selectedAttribute, weaponType);
     },
   },
   {
     key: "sr6_combat_verteidigungswert",
+    useModifier: false,
     base: (totals, skillTotals, values) =>
       (totals.konstitution || 0) +
       parseNumber(values.sr6_combat_primaere_panzerung) +
@@ -206,10 +239,12 @@ const SR6_COMBAT_CALCULATED_FIELDS = [
   },
   {
     key: "sr6_verteidigung_physisch",
+    useModifier: false,
     base: (totals) => (totals.reaktion || 0) + (totals.intuition || 0),
   },
   {
     key: "sr6_schadenswiderstand_physisch",
+    useModifier: false,
     base: (totals) => totals.konstitution || 0,
   },
   {
@@ -304,7 +339,6 @@ const SR6_COMBAT_PRIMARY_WEAPON_SELECTIONS = [
 ];
 
 function appendCombatRequestKeys(requestKeys) {
-  requestKeys.push("sr6_derived_initiative_basis_modifikator");
   SR6_COMBAT_CALCULATED_FIELDS.forEach((field) => {
     requestKeys.push(`${field.key}_modifikator`);
   });
@@ -315,12 +349,16 @@ function appendCombatRequestKeys(requestKeys) {
   requestKeys.push("sr6_combat_nahkampf_waffentyp");
   requestKeys.push("sr6_skill_athletik_spezialisierung");
   requestKeys.push("sr6_skill_athletik_expertise");
+  requestKeys.push("sr6_skill_athletik_grundwert");
   requestKeys.push("sr6_skill_exotische_waffen_spezialisierung");
   requestKeys.push("sr6_skill_exotische_waffen_expertise");
+  requestKeys.push("sr6_skill_exotische_waffen_grundwert");
   requestKeys.push("sr6_skill_feuerwaffen_spezialisierung");
   requestKeys.push("sr6_skill_feuerwaffen_expertise");
+  requestKeys.push("sr6_skill_feuerwaffen_grundwert");
   requestKeys.push("sr6_skill_nahkampf_spezialisierung");
   requestKeys.push("sr6_skill_nahkampf_expertise");
+  requestKeys.push("sr6_skill_nahkampf_grundwert");
   SR6_COMBAT_ARMOR_SELECTION_FIELDS.forEach((field) => {
     requestKeys.push(field.key);
   });
@@ -330,13 +368,12 @@ function computeCombatDerivedFromAttributes(totals, values, updates, skillTotals
   const reaktion = totals.reaktion || 0;
   const intuition = totals.intuition || 0;
   const resolvedSkillTotals = skillTotals || {};
-  const physicalInitiativeModifier = parseNumber(values.sr6_derived_initiative_basis_modifikator);
 
-  updates.sr6_derived_initiative_basis = String(reaktion + intuition + physicalInitiativeModifier);
+  updates.sr6_derived_initiative_basis = String(reaktion + intuition);
 
   SR6_COMBAT_CALCULATED_FIELDS.forEach((field) => {
     const baseValue = field.base(totals, resolvedSkillTotals, values);
-    const modifierValue = parseNumber(values[`${field.key}_modifikator`]);
+    const modifierValue = field.useModifier === false ? 0 : parseNumber(values[`${field.key}_modifikator`]);
     const totalValue = baseValue + modifierValue;
 
     updates[`${field.key}_grundwert`] = String(baseValue);
@@ -492,15 +529,19 @@ function syncCombatWeaponPools(callback) {
     "sr6_attr_geschicklichkeit_gesamtwert",
     "sr6_attr_staerke_gesamtwert",
     "sr6_skill_athletik_gesamtwert",
+    "sr6_skill_athletik_grundwert",
     "sr6_skill_athletik_spezialisierung",
     "sr6_skill_athletik_expertise",
     "sr6_skill_exotische_waffen_gesamtwert",
+    "sr6_skill_exotische_waffen_grundwert",
     "sr6_skill_exotische_waffen_spezialisierung",
     "sr6_skill_exotische_waffen_expertise",
     "sr6_skill_feuerwaffen_gesamtwert",
+    "sr6_skill_feuerwaffen_grundwert",
     "sr6_skill_feuerwaffen_spezialisierung",
     "sr6_skill_feuerwaffen_expertise",
     "sr6_skill_nahkampf_gesamtwert",
+    "sr6_skill_nahkampf_grundwert",
     "sr6_skill_nahkampf_spezialisierung",
     "sr6_skill_nahkampf_expertise",
   ];
@@ -531,37 +572,12 @@ function syncCombatWeaponPools(callback) {
           feuerwaffen: parseNumber(values.sr6_skill_feuerwaffen_gesamtwert),
           nahkampf: parseNumber(values.sr6_skill_nahkampf_gesamtwert),
         };
-        const specializationSelections = {
-          athletik: {
-            specialization: values.sr6_skill_athletik_spezialisierung,
-            expertise: values.sr6_skill_athletik_expertise,
-          },
-          exotische_waffen: {
-            specialization: values.sr6_skill_exotische_waffen_spezialisierung,
-            expertise: values.sr6_skill_exotische_waffen_expertise,
-          },
-          feuerwaffen: {
-            specialization: values.sr6_skill_feuerwaffen_spezialisierung,
-            expertise: values.sr6_skill_feuerwaffen_expertise,
-          },
-          nahkampf: {
-            specialization: values.sr6_skill_nahkampf_spezialisierung,
-            expertise: values.sr6_skill_nahkampf_expertise,
-          },
-        };
         const updates = {};
 
         rangedRowIds.forEach((rowId) => {
           const skill = `${values[`repeating_sr6fernkampfwaffen_${rowId}_sr6_fernkampf_fertigkeit`] || "Feuerwaffen"}`.trim();
           const weaponType = `${values[`repeating_sr6fernkampfwaffen_${rowId}_sr6_fernkampf_waffentyp`] || ""}`.trim();
-          const specializationKey =
-            skill === "Projektilwaffen" ? "athletik" : skill === "Exotische Waffen" ? "exotische_waffen" : "feuerwaffen";
-          const specializationBonus = getCombatSpecializationBonus(
-            specializationSelections[specializationKey].specialization,
-            specializationSelections[specializationKey].expertise,
-            getCombatRangedSpecializationMatches(skill, weaponType)
-          );
-          const pool = getCombatRangedSkillTotalByName(skillTotals, skill) + (totals.geschicklichkeit || 0) + specializationBonus;
+          const pool = getCombatRangedPool(totals, skillTotals, values, skill, weaponType);
           updates[`repeating_sr6fernkampfwaffen_${rowId}_sr6_fernkampf_pool`] = String(pool);
         });
 
@@ -569,16 +585,7 @@ function syncCombatWeaponPools(callback) {
           const skill = `${values[`repeating_sr6nahkampfwaffen_${rowId}_sr6_nahkampf_fertigkeit`] || "Nahkampf"}`.trim();
           const attribute = `${values[`repeating_sr6nahkampfwaffen_${rowId}_sr6_nahkampf_attribut`] || "Geschicklichkeit"}`.trim();
           const weaponType = `${values[`repeating_sr6nahkampfwaffen_${rowId}_sr6_nahkampf_waffentyp`] || ""}`.trim();
-          const specializationKey = skill === "Exotische Waffen" ? "exotische_waffen" : "nahkampf";
-          const specializationBonus = getCombatSpecializationBonus(
-            specializationSelections[specializationKey].specialization,
-            specializationSelections[specializationKey].expertise,
-            getCombatMeleeSpecializationMatches(skill, weaponType)
-          );
-          const pool =
-            getCombatMeleeSkillTotalByName(skillTotals, skill) +
-            getCombatMeleeAttributeTotalByName(totals, attribute) +
-            specializationBonus;
+          const pool = getCombatMeleePool(totals, skillTotals, values, skill, attribute, weaponType);
           updates[`repeating_sr6nahkampfwaffen_${rowId}_sr6_nahkampf_pool`] = String(pool);
         });
 
