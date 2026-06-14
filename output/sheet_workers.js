@@ -3082,11 +3082,7 @@ function findAllRowValues(rows, label) {
 function isWeaponPresentationWhipContext(resolvedFields, rows) {
   const candidates = [
     resolvedFields && resolvedFields.Waffentyp,
-    resolvedFields && resolvedFields.Spezialisierung,
-    resolvedFields && resolvedFields.Expertise,
     findLastRowValue(rows, "Waffentyp"),
-    findLastRowValue(rows, "Spezialisierung"),
-    findLastRowValue(rows, "Expertise"),
   ];
 
   return candidates.some((value) => normalizeCombatSpecializationName(value) === normalizeCombatSpecializationName("Peitschen"));
@@ -3956,13 +3952,7 @@ function isUnarmedCombatWeaponType(value) {
 }
 
 function isWhipCombatContext(resolvedFields) {
-  const candidates = [
-    resolvedFields && resolvedFields.Waffentyp,
-    resolvedFields && resolvedFields.Spezialisierung,
-    resolvedFields && resolvedFields.Expertise,
-    resolvedFields && resolvedFields.Waffe,
-  ];
-  return candidates.some((value) => normalizeCombatSpecializationName(value) === normalizeCombatSpecializationName("Peitschen"));
+  return normalizeCombatSpecializationName(resolvedFields && resolvedFields.Waffentyp) === normalizeCombatSpecializationName("Peitschen");
 }
 
 function isWeaponAttackDefinition(definition) {
@@ -6191,13 +6181,22 @@ function resolveMatrixActionDefenseComponent(rule, selectedDefense) {
 
 function computeMatrixTotals(values, totals, skillTotals, updates) {
   const matrixInitiativeMode = resolveMatrixInitiativeMode(values.sr6_matrix_modus);
+  const matrixAttack = parseNumber(values.sr6_matrix_angriff);
+  const matrixSleaze = parseNumber(values.sr6_matrix_schleicher);
+  const matrixDataProcessing = parseNumber(values.sr6_matrix_datenverarbeitung);
+  const matrixFirewall = parseNumber(values.sr6_matrix_firewall);
   const matrixBasis =
     matrixInitiativeMode.basisSource === "matrix"
-      ? (totals.intuition || 0) + parseNumber(values.sr6_matrix_datenverarbeitung)
+      ? (totals.intuition || 0) + matrixDataProcessing
       : (totals.reaktion || 0) + (totals.intuition || 0);
 
   updates.sr6_matrix_initiative = String(matrixBasis);
   updates.sr6_matrix_initiative_w6 = String(matrixInitiativeMode.w6);
+  updates.sr6_matrix_angriffswert = String(matrixAttack + matrixSleaze);
+  updates.sr6_matrix_verteidigungswert = String(matrixDataProcessing + matrixFirewall);
+  updates.sr6_matrix_verteidigung = String((totals.intuition || 0) + matrixFirewall);
+  updates.sr6_matrix_schadenswiderstand = String(matrixFirewall);
+  updates.sr6_matrix_biofeedback_schadenswiderstand = String(totals.willenskraft || 0);
 
   SR6_MATRIX_ACTIONS.forEach((actionName) => {
     const rule = SR6_MATRIX_ACTION_RULES[actionName] || {};
@@ -6220,7 +6219,10 @@ function computeMatrixTotals(values, totals, skillTotals, updates) {
 // BEGIN MODULE: workers/compute/rigging
 function appendRiggingRequestKeys(requestKeys) {
   requestKeys.push("sr6_rigging_modus");
+  requestKeys.push("sr6_rigging_angriff");
+  requestKeys.push("sr6_rigging_schleicher");
   requestKeys.push("sr6_rigging_datenverarbeitung");
+  requestKeys.push("sr6_rigging_firewall");
 }
 
 const SR6_RIGGING_VEHICLE_PROBE_LABELS = {
@@ -6247,13 +6249,22 @@ function resolveRiggingInitiativeMode(mode) {
 
 function computeRiggingDerived(values, totals, _skillTotals, updates) {
   const riggingInitiativeMode = resolveRiggingInitiativeMode(values.sr6_rigging_modus);
+  const riggingAttack = parseNumber(values.sr6_rigging_angriff);
+  const riggingSleaze = parseNumber(values.sr6_rigging_schleicher);
+  const riggingDataProcessing = parseNumber(values.sr6_rigging_datenverarbeitung);
+  const riggingFirewall = parseNumber(values.sr6_rigging_firewall);
   const riggingBasis =
     riggingInitiativeMode.basisSource === "matrix"
-      ? (totals.intuition || 0) + parseNumber(values.sr6_rigging_datenverarbeitung)
+      ? (totals.intuition || 0) + riggingDataProcessing
       : (totals.reaktion || 0) + (totals.intuition || 0);
 
   updates.sr6_rigging_initiative = String(riggingBasis);
   updates.sr6_rigging_initiative_w6 = String(riggingInitiativeMode.w6);
+  updates.sr6_rigging_angriffswert = String(riggingAttack + riggingSleaze);
+  updates.sr6_rigging_verteidigungswert = String(riggingDataProcessing + riggingFirewall);
+  updates.sr6_rigging_matrix_verteidigung = String((totals.intuition || 0) + riggingFirewall);
+  updates.sr6_rigging_matrix_schadenswiderstand = String(riggingFirewall);
+  updates.sr6_rigging_biofeedback_schadenswiderstand = String(totals.willenskraft || 0);
 }
 
 function normalizeRiggingVehicleMode(mode) {
@@ -6718,7 +6729,10 @@ function buildRecalcEvents() {
   events.push("change:sr6_matrix_datenverarbeitung");
   events.push("change:sr6_matrix_firewall");
   events.push("change:sr6_rigging_modus");
+  events.push("change:sr6_rigging_angriff");
+  events.push("change:sr6_rigging_schleicher");
   events.push("change:sr6_rigging_datenverarbeitung");
+  events.push("change:sr6_rigging_firewall");
 
   for (let index = 1; index <= 18; index += 1) {
     events.push(`change:sr6_monitor_koerperlich_${index}`);

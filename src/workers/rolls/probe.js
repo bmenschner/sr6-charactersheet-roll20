@@ -355,13 +355,7 @@ function isUnarmedCombatWeaponType(value) {
 }
 
 function isWhipCombatContext(resolvedFields) {
-  const candidates = [
-    resolvedFields && resolvedFields.Waffentyp,
-    resolvedFields && resolvedFields.Spezialisierung,
-    resolvedFields && resolvedFields.Expertise,
-    resolvedFields && resolvedFields.Waffe,
-  ];
-  return candidates.some((value) => normalizeCombatSpecializationName(value) === normalizeCombatSpecializationName("Peitschen"));
+  return normalizeCombatSpecializationName(resolvedFields && resolvedFields.Waffentyp) === normalizeCombatSpecializationName("Peitschen");
 }
 
 function isWeaponAttackDefinition(definition) {

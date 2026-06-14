@@ -148,11 +148,7 @@ function findAllRowValues(rows, label) {
 function isWeaponPresentationWhipContext(resolvedFields, rows) {
   const candidates = [
     resolvedFields && resolvedFields.Waffentyp,
-    resolvedFields && resolvedFields.Spezialisierung,
-    resolvedFields && resolvedFields.Expertise,
     findLastRowValue(rows, "Waffentyp"),
-    findLastRowValue(rows, "Spezialisierung"),
-    findLastRowValue(rows, "Expertise"),
   ];
 
   return candidates.some((value) => normalizeCombatSpecializationName(value) === normalizeCombatSpecializationName("Peitschen"));
