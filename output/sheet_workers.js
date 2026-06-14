@@ -4817,9 +4817,10 @@ function runGlobalPopupProbeCancel() {
 // BEGIN MODULE: workers/rolls/edge
 // Steuert Edge-Token und den Edge-nach-dem-Wurf-Flow. Der eigentliche Wurf bleibt in compute/probe, diese Datei verwaltet Bedienung und Chat-Ausgabe.
 function runEdgeTokenChange(delta) {
-  getAttrs(["sr6_edge_aktuell"], (values) => {
+  getAttrs(["sr6_edge_aktuell", "sr6_setting_edge_chatmeldung"], (values) => {
     const edgeCurrent = clampNumber(parseNumber(values.sr6_edge_aktuell) + delta, 0, 7);
     setAttrsSilent({ sr6_edge_aktuell: String(edgeCurrent) });
+    if (`${values.sr6_setting_edge_chatmeldung || "nein"}`.trim() !== "ja") return;
 
     const actionText = delta > 0 ? "hinzugefügt" : "verloren";
     const chatMessage = buildEdgeTokenMessage(actionText, edgeCurrent);
