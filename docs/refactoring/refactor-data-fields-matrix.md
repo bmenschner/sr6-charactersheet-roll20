@@ -50,6 +50,27 @@ Stattdessen gilt:
 
 Damit bleibt die Roll20-Ausgabe weiterhin eine gebuendelte Worker-Datei, waehrend die Source-Dateien review- und mergefreundlicher gepflegt werden koennen.
 
+### Issue 90: Roll-only-Modifikatoren fuer berechnete Werte
+
+Automatisch berechnete, wuerfelbare Sheet-Werte behalten im Sheet ihren angezeigten Basiswert. Sie werden nicht auf das Standardmodell `Grundwert / Modifikator / Gesamtwert` umgebaut, wenn der Wert fachlich aus anderen Quellen berechnet wird.
+
+Fuer situative Anpassungen am eigentlichen Wurf gilt stattdessen ein additives Feldmuster:
+
+- `attr_<poolAttribute>_roll_modifikator`
+- Beispiel Kampf: `attr_sr6_combat_fernkampfangriff_gesamtwert_roll_modifikator`
+- Beispiel Matrix-Probe: `attr_sr6_matrix_handlung_ausstoepseln_probe_wert_roll_modifikator`
+- Beispiel Matrix-Verteidigung: `attr_sr6_matrix_handlung_ausstoepseln_verteidigung_wert_roll_modifikator`
+
+Diese Felder sind persistente Roll20-Komfortfelder, aber keine neue fachliche Datenquelle fuer den berechneten Wert.
+
+Regel fuer Compute und Rolltemplate:
+
+- Der berechnete Sheet-Wert bleibt unveraendert sichtbar.
+- Der `*_roll_modifikator` wird erst beim Wurf addiert.
+- Der Modifikator darf nicht in die `compute/*`-Berechnung des Basiswerts zurueckschreiben.
+- Die Rolltemplate-Ausgabe zeigt `Wert-Modifikator` nur, wenn der Wert ungleich `0` ist.
+- Repeating Rows nutzen dasselbe Muster zeilenlokal innerhalb der bestehenden `repeating_*`-Sektion.
+
 ### Aktive Probenmodelle
 
 | Probenmodell | Fachliche Grundlogik | Typische Popup-Felder | Typische Output-Felder | Tab-spezifische Feldquellen |
@@ -61,8 +82,8 @@ Damit bleibt die Roll20-Ausgabe weiterhin eine gebuendelte Worker-Datei, waehren
 | `combat_attack_probe` | Angriffsprobe mit getrennten Ebenen fuer `Pool`, `Angriffswert`, `Schaden` | `Skill-Modifikator`, `Angriffswert-Modifikator`, `Schadens-Modifikator`, `Munition`, `Spezialisierung`, `Expertise` | `Waffe`, `Angriffswert`, `Pool`, `Erfolge`, `Schaden`, `Reichweite`, `Munition`, `Munitionshinweis`, `Berechnung` | Nah-/Fernkampfwerte, Waffenkontext, Munitionsquelle, Reichweite |
 | `spell_probe` | `Spruchzauberei` plus separater Entzug | Skill-, Angriffswert-, Schadens-, Flaechen-, Hochdrehen- und Entzugsmodifikatoren | Zauber, Pool, Erfolge, Schaden, modifizierter Entzug, Entzugsschaden inkl. Schadenstyp, Beschreibung, weitere Werte | Magie-Zauber |
 | `summoning_probe` | `Beschwoeren + Magie` gegen `Kraftstufe x 2`, Dienste aus Nettoerfolgen, Entzug aus Geister-Erfolgen | `Geistertyp`, `Beschwoeren-Modifikator`, `Entzug-Modifikator`, `Besessenheit`, `Objektwiderstand` | Geist, Typ, Stufe, Geistertyp, Pool, Erfolge, Geist-Pool, Geist-Erfolge, Nettoerfolge, erhaltene Dienste, entstandener Entzug, Entzugsschaden | Magie-Geister |
-| `value_probe` | einzelner Wert als Probe oder Vergleichswert | Standard-Modifikator, teils Matrix-Zugriff/Overwatch | Wert, Pool, Erfolge, Details | Magie-, Matrix-, Rigging- und Fallback-Werte |
-| `matrix_action` | Matrixhandlung mit getrennter Probe und Verteidigung | Verteidigungsquelle in der Handlungszeile; keine Standard-Popup-Pflicht | Handlung, Probe, Verteidigung, Pool, Erfolge, Details | Matrix-Handlungen |
+| `value_probe` | einzelner Wert als Probe oder Vergleichswert; berechnete Werte nutzen optional `*_roll_modifikator` nur beim Wurf | Standard-Modifikator, teils Matrix-Zugriff/Overwatch | Wert, Pool, Erfolge, Details, optional `Wert-Modifikator` | Magie-, Matrix-, Rigging- und Fallback-Werte |
+| `matrix_action` | Matrixhandlung mit getrennter Probe und Verteidigung; Probe und Verteidigung haben getrennte Roll-only-Modifikatoren | Verteidigungsquelle in der Handlungszeile; keine Standard-Popup-Pflicht | Handlung, Probe, Verteidigung, Pool, Erfolge, Details, optional `Wert-Modifikator` | Matrix-Handlungen |
 
 ### Aktuelles Mapping auf diese Zielmodelle
 
@@ -654,6 +675,10 @@ Aktueller Stand nach Umsetzung:
 - Die Standardansicht ist `A-Z`; die Ansichten `Gast`, `User` und `Admin` sortieren aktive Handlungen vor inaktive Handlungen.
 - Inaktive Handlungen werden in der Zugriffssortierung als ganze Zeile ausgegraut.
 - Neue/ergaenzte Handlungen wie `Cyberware kontrollieren`, `Dienstverweigerung`, `Stoersender lokalisieren` und `Suendenbock` sind im Mapping vorhanden.
+- Der angezeigte Probenwert und der angezeigte Verteidigungswert bleiben automatisch berechnete Basiswerte.
+- Probe und Verteidigung fuehren getrennte Roll-only-Modifikatoren nach dem Muster `attr_sr6_matrix_handlung_<name>_probe_wert_roll_modifikator` und `attr_sr6_matrix_handlung_<name>_verteidigung_wert_roll_modifikator`.
+- Diese Roll-only-Modifikatoren veraendern nur den Wurf und die Rolltemplate-Ausgabe, nicht den berechneten Sheet-Wert.
+- Die aktuelle UI nutzt ein kompaktes 5-Spalten-Layout: `Handlung`, `Probe`, `Probenwert + Mod + Rollbutton`, `Verteidigung`, `Verteidigungswert + Mod + Rollbutton`.
 - Der alte Dreiklang `grundwert/modifikator/gesamtwert` bleibt als kompatibler Datenpfad erhalten, ist aber nicht mehr die primaere UI fuer Matrix-Handlungen.
 
 | Handlung | Sheet-Key | Vor Umsetzung | Probe | Verteidigung | Auswahl / Hinweis |

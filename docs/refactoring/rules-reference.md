@@ -27,3 +27,12 @@ Technische Auslegung im Sheet:
 - Der Einzelgaenger-Schicksalswuerfel wird separat von anderen Schicksalswuerfeln gewuerfelt.
 - In der Detailanzeige steht er vor den anderen Schicksalswuerfeln.
 - Nur dieser Einzelgaenger-Wuerfel ignoriert bei einer 1 die 5er-Annullierung.
+
+## Wert-Modifikator
+
+Der `Wert-Modifikator` ist ein Sheet-Komfortwert fuer automatisch berechnete, wuerfelbare Werte.
+
+- Er ist kein eigener SR6-Regelwert.
+- Er veraendert nicht den angezeigten berechneten Sheet-Wert.
+- Er wird nur beim Wurf addiert und bei einem Wert ungleich `0` im Rolltemplate ausgegeben.
+- Regelquellen fuer eigentliche Pool-, Schadens-, Angriffs- oder Verteidigungswerte bleiben die jeweiligen SR6-Formeln und Sheet-Berechnungen.
