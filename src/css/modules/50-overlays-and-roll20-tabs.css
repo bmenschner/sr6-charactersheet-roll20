@@ -103,6 +103,9 @@
   color: var(--sr6-text);
   letter-spacing: 0.01rem;
   margin-bottom: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 
 .sr6-field-label-with-info > .sr6-info-icon {
