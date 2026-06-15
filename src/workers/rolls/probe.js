@@ -481,6 +481,17 @@ function formatSignedModifier(value) {
   return numberValue > 0 ? `+${numberValue}` : `${numberValue}`;
 }
 
+function getRollOnlyPoolModifier(context, lookupAttr) {
+  const modifierAttribute = getRollModifierAttribute(context && context.poolAttribute);
+  return modifierAttribute ? parseNumber(lookupAttr(modifierAttribute)) : 0;
+}
+
+function appendRollOnlyPoolModifierRow(rows, modifier) {
+  const rollOnlyModifier = parseNumber(modifier);
+  if (rollOnlyModifier === 0) return;
+  rows.push({ label: "Wert-Modifikator", value: formatSignedModifier(rollOnlyModifier) });
+}
+
 function isMeleeWeaponAttackDefinition(definition) {
   return !!(definition && (definition.id === "melee_weapon" || definition.id === "combat_melee_weapon"));
 }
@@ -771,10 +782,12 @@ function runEquipmentProbeFromContext(context, lookupAttr, resolvedFields, popup
   const ratingValue = rating * ratingMultiplier;
   const poolBasisOverride = sourceValue + ratingValue;
   const edgeOptions = resolveEdgeBoostOptions(popupState, lookupAttr);
+  const rollOnlyPoolModifier = getRollOnlyPoolModifier(context, lookupAttr);
   const computation = buildProbeComputation(
     lookupAttr,
     context.poolAttribute,
     popupState.poolMod,
+    rollOnlyPoolModifier,
     1,
     poolBasisOverride,
     edgeOptions
@@ -791,6 +804,7 @@ function runEquipmentProbeFromContext(context, lookupAttr, resolvedFields, popup
     rows.push({ label: "Pool-Basis", value: `${computation.poolBasis}` });
     rows.push({ label: "Zustandsmodifikator", value: `${computation.monitorPoolMod}` });
   }
+  appendRollOnlyPoolModifierRow(rows, rollOnlyPoolModifier);
   popupState.rows.forEach((popupRow) => rows.push(popupRow));
   appendEdgeBoostRows(rows, edgeOptions, computation);
 
@@ -879,10 +893,12 @@ function runRiggingVehicleProbeFromContext(context, lookupAttr, resolvedFields, 
     getUntrainedSkillPenalty(getRiggingVehicleUntrainedSkillKey(probeKey, mode), lookupAttr)
   );
   const edgeOptions = resolveEdgeBoostOptions(effectivePopupState, lookupAttr);
+  const rollOnlyPoolModifier = getRollOnlyPoolModifier(context, lookupAttr);
   const computation = buildProbeComputation(
     lookupAttr,
     context.poolAttribute,
     effectivePopupState.poolMod,
+    rollOnlyPoolModifier,
     1,
     probe.value,
     edgeOptions
@@ -931,6 +947,7 @@ function runRiggingVehicleProbeFromContext(context, lookupAttr, resolvedFields, 
   if (normalizeRiggingVehicleMode(mode) === "agent") {
     rows.push({ label: "Agentenstufe", value: `${data.agentenstufe}` });
   }
+  appendRollOnlyPoolModifierRow(rows, rollOnlyPoolModifier);
   effectivePopupState.rows.forEach((popupRow) => rows.push(popupRow));
   appendEdgeBoostRows(rows, edgeOptions, computation);
 
@@ -961,10 +978,12 @@ function runSpellProbeFromContext(context, lookupAttr, resolvedFields, popupStat
     getUntrainedSkillPenalty(getMagicUntrainedSkillKey(context.definition), lookupAttr)
   );
   const edgeOptions = resolveEdgeBoostOptions(effectivePopupState, lookupAttr);
+  const rollOnlyPoolModifier = getRollOnlyPoolModifier(context, lookupAttr);
   const spellComputation = buildProbeComputation(
     lookupAttr,
     context.poolAttribute,
     effectivePopupState.poolMod,
+    rollOnlyPoolModifier,
     1,
     null,
     edgeOptions
@@ -990,6 +1009,7 @@ function runSpellProbeFromContext(context, lookupAttr, resolvedFields, popupStat
     if (!popupRow || !popupRow.label) return;
     appendRowIfMissing(rows, popupRow.label, popupRow.value);
   });
+  appendRollOnlyPoolModifierRow(rows, rollOnlyPoolModifier);
   if (isCombatSpell(resolvedFields) && effectivePopupState.attackValueMod !== 0) {
     rows.push({ label: "Angriffswert-Basis", value: `${baseAttackValue}` });
     rows.push({ label: "Angriffswert-Modifikator", value: `${effectivePopupState.attackValueMod}` });
@@ -1034,10 +1054,12 @@ function runSummoningProbeFromContext(context, lookupAttr, resolvedFields, popup
     getUntrainedSkillPenalty(getMagicUntrainedSkillKey(context.definition), lookupAttr)
   );
   const edgeOptions = resolveEdgeBoostOptions(effectivePopupState, lookupAttr);
+  const rollOnlyPoolModifier = getRollOnlyPoolModifier(context, lookupAttr);
   const summonerComputation = buildProbeComputation(
     lookupAttr,
     context.poolAttribute,
     effectivePopupState.poolMod,
+    rollOnlyPoolModifier,
     1,
     null,
     edgeOptions
@@ -1067,6 +1089,7 @@ function runSummoningProbeFromContext(context, lookupAttr, resolvedFields, popup
     if (!popupRow || !popupRow.label) return;
     appendRowIfMissing(rows, popupRow.label, popupRow.value);
   });
+  appendRollOnlyPoolModifierRow(rows, rollOnlyPoolModifier);
   appendEdgeBoostRows(rows, edgeOptions, summonerComputation);
   rows.push({ label: "Beschwören-Pool", value: `${summonerComputation.pool}` });
   rows.push({ label: "Beschwören-Erfolge", value: `${summonerComputation.successCount}` });
@@ -1203,10 +1226,12 @@ function runSuccessProbeFromContext(rawTemplate, repeatingRowPrefix, popupState 
           ? matrixActionContext.poolBasisOverride
           : null;
     const edgeOptions = resolveEdgeBoostOptions(effectivePopupState, lookupAttr);
+    const rollOnlyPoolModifier = getRollOnlyPoolModifier(context, lookupAttr);
     const computation = buildProbeComputation(
       lookupAttr,
       context.poolAttribute,
       effectivePopupState.poolMod,
+      rollOnlyPoolModifier,
       poolMultiplier,
       poolBasisOverride,
       edgeOptions
@@ -1238,6 +1263,7 @@ function runSuccessProbeFromContext(rawTemplate, repeatingRowPrefix, popupState 
       });
       rows.push({ label: "Zustandsmodifikator", value: `${computation.monitorPoolMod}` });
     }
+    appendRollOnlyPoolModifierRow(rows, rollOnlyPoolModifier);
     effectivePopupState.rows.forEach((popupRow) => rows.push(popupRow));
     buildPopupDerivedResultRows(context.definition, lookupAttr, context.poolAttribute, resolvedFields, effectivePopupState, computation)
       .forEach((popupRow) => rows.push(popupRow));

@@ -100,6 +100,15 @@ function extractRepeatingRowPrefix(eventInfo) {
 function buildAttrLookup(values, repeatingRowPrefix) {
   return function lookupAttr(key) {
     if (!key) return "";
+    if (repeatingRowPrefix) {
+      const repeatingKey = `${repeatingRowPrefix}_${key}`;
+      if (
+        Object.prototype.hasOwnProperty.call(values, repeatingKey) &&
+        `${values[repeatingKey] || ""}`.trim() !== ""
+      ) {
+        return values[repeatingKey];
+      }
+    }
     if (Object.prototype.hasOwnProperty.call(values, key)) {
       return values[key];
     }
@@ -126,6 +135,10 @@ function buildResolvedFields(fields, lookupAttr) {
   return resolved;
 }
 
+function getRollModifierAttribute(poolAttribute) {
+  return poolAttribute ? `${poolAttribute}_roll_modifikator` : "";
+}
+
 function buildRequestedAttributes(rawTemplate, repeatingRowPrefix) {
   const fields = parseTemplateFields(rawTemplate);
   const poolAttribute = parsePoolAttributeFromFields(fields);
@@ -140,6 +153,7 @@ function buildRequestedAttributes(rawTemplate, repeatingRowPrefix) {
 
   if (poolAttribute) {
     attributeRefs.push("sr6_monitor_pool_mod");
+    attributeRefs.push(getRollModifierAttribute(poolAttribute));
   }
 
   const requestedAttributes = [];

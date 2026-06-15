@@ -79,7 +79,15 @@ function evaluateGlitch(diceResults, successCount) {
   return { isGlitch, isCriticalGlitch };
 }
 
-function buildProbeComputation(lookupAttr, poolAttribute, popupPoolMod, poolMultiplier = 1, poolBasisOverride = null, edgeOptions = {}) {
+function buildProbeComputation(
+  lookupAttr,
+  poolAttribute,
+  popupPoolMod,
+  rollPoolMod = 0,
+  poolMultiplier = 1,
+  poolBasisOverride = null,
+  edgeOptions = {}
+) {
   const poolBasisRaw = poolBasisOverride === null
     ? parseNumber(lookupAttr(poolAttribute))
     : parseNumber(poolBasisOverride);
@@ -87,11 +95,12 @@ function buildProbeComputation(lookupAttr, poolAttribute, popupPoolMod, poolMult
   const poolBasis = poolBasisRaw * normalizedPoolMultiplier;
   const monitorPoolMod = parseNumber(lookupAttr("sr6_monitor_pool_mod"));
   const poolPopupMod = parseNumber(popupPoolMod);
+  const poolRollMod = parseNumber(rollPoolMod);
   const edgePoolBonus = Math.max(0, parseNumber(edgeOptions && edgeOptions.poolBonus));
   const requestedStandardFateDiceCount = Math.max(0, parseNumber(edgeOptions && edgeOptions.fateDiceCount));
   const requestedMatrixLonerFateDiceCount = Math.max(0, parseNumber(edgeOptions && edgeOptions.matrixLonerFateDiceCount));
   const explodingSixes = !!(edgeOptions && edgeOptions.explodingSixes);
-  const pool = Math.max(0, poolBasis + monitorPoolMod + poolPopupMod + edgePoolBonus);
+  const pool = Math.max(0, poolBasis + monitorPoolMod + poolPopupMod + poolRollMod + edgePoolBonus);
   const matrixLonerFateDiceCount = Math.min(requestedMatrixLonerFateDiceCount, pool);
   const remainingFateSlots = Math.max(0, pool - matrixLonerFateDiceCount);
   const standardFateDiceCount = Math.min(requestedStandardFateDiceCount, remainingFateSlots);
@@ -114,6 +123,7 @@ function buildProbeComputation(lookupAttr, poolAttribute, popupPoolMod, poolMult
     poolBasis: poolBasis,
     monitorPoolMod: monitorPoolMod,
     poolPopupMod: poolPopupMod,
+    poolRollMod: poolRollMod,
     edgePoolBonus: edgePoolBonus,
     fateDiceCount: fateDiceCount,
     standardFateDiceCount: standardFateDiceCount,

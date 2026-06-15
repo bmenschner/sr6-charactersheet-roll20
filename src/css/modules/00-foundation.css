@@ -473,6 +473,59 @@ input[type="number"]::-webkit-inner-spin-button {
   max-width: 100%;
 }
 
+.sr6-charactersheet-field-input-with-dice--roll-mod,
+.sr6-charactersheet-field-input-with-dice--roll-mod:has(> .sr6-number-stepper) {
+  grid-template-columns: max-content max-content 1.75rem;
+  grid-template-rows: auto var(--sr6-field-height);
+  width: max-content;
+  max-width: 100%;
+  height: auto;
+}
+
+.sr6-charactersheet-field-input-with-mod,
+.sr6-charactersheet-field-input-with-mod:has(> .sr6-number-stepper) {
+  display: grid;
+  grid-template-columns: max-content max-content;
+  grid-template-rows: auto var(--sr6-field-height);
+  align-items: stretch;
+  justify-content: start;
+  column-gap: 0.125rem;
+  width: max-content;
+  max-width: 100%;
+  height: auto;
+}
+
+.sr6-roll-mod-subtitle {
+  align-self: end;
+  color: var(--sr6-muted);
+  font-size: 0.62rem;
+  font-weight: 400;
+  line-height: 1;
+  text-align: center;
+}
+
+.sr6-roll-mod-subtitle--basis {
+  grid-column: 1;
+  grid-row: 1;
+}
+
+.sr6-roll-mod-subtitle--mod {
+  grid-column: 2;
+  grid-row: 1;
+}
+
+.sr6-charactersheet-field-input-with-dice--roll-mod > input,
+.sr6-charactersheet-field-input-with-dice--roll-mod > select {
+  grid-column: 1;
+  grid-row: 2;
+}
+
+.sr6-charactersheet-field-input-with-mod > input,
+.sr6-charactersheet-field-input-with-mod > select {
+  grid-column: 1;
+  grid-row: 2;
+}
+
 .sr6-number-stepper {
   display: grid;
   grid-template-columns: 1.25rem max-content 1.25rem;
@@ -491,6 +544,18 @@ input[type="number"]::-webkit-inner-spin-button {
   justify-content: start;
 }
 
+.sr6-charactersheet-field-input-with-dice--roll-mod:has(> .sr6-number-stepper) > .sr6-number-stepper {
+  grid-column: 2;
+  grid-row: 2;
+  grid-template-columns: 1.25rem max-content 1.25rem;
+}
+
+.sr6-charactersheet-field-input-with-mod:has(> .sr6-number-stepper) > .sr6-number-stepper {
+  grid-column: 2;
+  grid-row: 2;
+  grid-template-columns: 1.25rem max-content 1.25rem;
+}
+
 .sr6-number-stepper > input {
   width: 2.75rem;
   min-width: 0;
@@ -507,6 +572,14 @@ input[type="number"]::-webkit-inner-spin-button {
 
 .sr6-charactersheet-field-input-with-dice:has(> .sr6-number-stepper) > .sr6-number-stepper > input {
   width: 2.75rem;
+}
+
+.sr6-charactersheet-field-input-with-dice--roll-mod:has(> .sr6-number-stepper) > .sr6-number-stepper > input {
+  width: 2.25rem;
+}
+
+.sr6-charactersheet-field-input-with-mod:has(> .sr6-number-stepper) > .sr6-number-stepper > input {
+  width: 2.25rem;
 }
 
 .sr6-number-stepper-button {
@@ -572,6 +645,11 @@ input[type="number"]::-webkit-inner-spin-button {
 
 .sr6-charactersheet-field-input-with-dice:has(> .sr6-number-stepper) > .sr6-charactersheet-field-dice-button {
   grid-column: 2;
+}
+
+.sr6-charactersheet-field-input-with-dice--roll-mod:has(> .sr6-number-stepper) > .sr6-charactersheet-field-dice-button {
+  grid-column: 3;
+  grid-row: 2;
 }
 
 .sr6-charactersheet-field-input-with-dice > .sr6-charactersheet-field-dice-button.sr6-charactersheet-field-dice-button--secondary {

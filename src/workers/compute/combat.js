@@ -229,7 +229,6 @@ const SR6_COMBAT_CALCULATED_FIELDS = [
   },
   {
     key: "sr6_combat_verteidigungswert",
-    useModifier: false,
     base: (totals, skillTotals, values) =>
       (totals.konstitution || 0) +
       parseNumber(values.sr6_combat_primaere_panzerung) +

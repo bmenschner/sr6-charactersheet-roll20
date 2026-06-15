@@ -69,16 +69,23 @@ function buildRecalcEvents() {
 
   events.push("change:sr6_magic_traditionsattribut_1");
   events.push("change:sr6_magic_traditionsattribut_1_modifikator");
+  events.push("change:sr6_magic_angriffswert_modifikator");
+  events.push("change:sr6_magic_astralkampf_angriffswert_modifikator");
+  events.push("change:sr6_magic_astralkampf_verteidigungswert_modifikator");
   events.push("change:sr6_matrix_modus");
   events.push("change:sr6_matrix_angriff");
   events.push("change:sr6_matrix_schleicher");
   events.push("change:sr6_matrix_datenverarbeitung");
   events.push("change:sr6_matrix_firewall");
+  events.push("change:sr6_matrix_angriffswert_modifikator");
+  events.push("change:sr6_matrix_verteidigungswert_modifikator");
   events.push("change:sr6_rigging_modus");
   events.push("change:sr6_rigging_angriff");
   events.push("change:sr6_rigging_schleicher");
   events.push("change:sr6_rigging_datenverarbeitung");
   events.push("change:sr6_rigging_firewall");
+  events.push("change:sr6_rigging_angriffswert_modifikator");
+  events.push("change:sr6_rigging_verteidigungswert_modifikator");
 
   for (let index = 1; index <= 18; index += 1) {
     events.push(`change:sr6_monitor_koerperlich_${index}`);
@@ -183,6 +190,8 @@ function registerWorkerEvents() {
       "change:repeating_sr6riggingfahrzeuge:sr6_rigging_fahrzeug_ausweichen",
       "change:repeating_sr6riggingfahrzeuge:sr6_rigging_fahrzeug_stealth",
       "change:repeating_sr6riggingfahrzeuge:sr6_rigging_fahrzeug_clearsight",
+      "change:repeating_sr6riggingfahrzeuge:sr6_rigging_fahrzeug_angriffswert_modifikator",
+      "change:repeating_sr6riggingfahrzeuge:sr6_rigging_fahrzeug_verteidigungswert_modifikator",
       "change:sr6_skill_mechanik_spezialisierung",
       "change:sr6_skill_mechanik_expertise",
       "remove:repeating_sr6riggingfahrzeuge",

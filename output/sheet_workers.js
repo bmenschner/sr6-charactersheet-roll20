@@ -2862,6 +2862,15 @@ function extractRepeatingRowPrefix(eventInfo) {
 function buildAttrLookup(values, repeatingRowPrefix) {
   return function lookupAttr(key) {
     if (!key) return "";
+    if (repeatingRowPrefix) {
+      const repeatingKey = `${repeatingRowPrefix}_${key}`;
+      if (
+        Object.prototype.hasOwnProperty.call(values, repeatingKey) &&
+        `${values[repeatingKey] || ""}`.trim() !== ""
+      ) {
+        return values[repeatingKey];
+      }
+    }
     if (Object.prototype.hasOwnProperty.call(values, key)) {
       return values[key];
     }
@@ -2888,6 +2897,10 @@ function buildResolvedFields(fields, lookupAttr) {
   return resolved;
 }
 
+function getRollModifierAttribute(poolAttribute) {
+  return poolAttribute ? `${poolAttribute}_roll_modifikator` : "";
+}
+
 function buildRequestedAttributes(rawTemplate, repeatingRowPrefix) {
   const fields = parseTemplateFields(rawTemplate);
   const poolAttribute = parsePoolAttributeFromFields(fields);
@@ -2902,6 +2915,7 @@ function buildRequestedAttributes(rawTemplate, repeatingRowPrefix) {
 
   if (poolAttribute) {
     attributeRefs.push("sr6_monitor_pool_mod");
+    attributeRefs.push(getRollModifierAttribute(poolAttribute));
   }
 
   const requestedAttributes = [];
@@ -3527,7 +3541,15 @@ function evaluateGlitch(diceResults, successCount) {
   return { isGlitch, isCriticalGlitch };
 }
 
-function buildProbeComputation(lookupAttr, poolAttribute, popupPoolMod, poolMultiplier = 1, poolBasisOverride = null, edgeOptions = {}) {
+function buildProbeComputation(
+  lookupAttr,
+  poolAttribute,
+  popupPoolMod,
+  rollPoolMod = 0,
+  poolMultiplier = 1,
+  poolBasisOverride = null,
+  edgeOptions = {}
+) {
   const poolBasisRaw = poolBasisOverride === null
     ? parseNumber(lookupAttr(poolAttribute))
     : parseNumber(poolBasisOverride);
@@ -3535,11 +3557,12 @@ function buildProbeComputation(lookupAttr, poolAttribute, popupPoolMod, poolMult
   const poolBasis = poolBasisRaw * normalizedPoolMultiplier;
   const monitorPoolMod = parseNumber(lookupAttr("sr6_monitor_pool_mod"));
   const poolPopupMod = parseNumber(popupPoolMod);
+  const poolRollMod = parseNumber(rollPoolMod);
   const edgePoolBonus = Math.max(0, parseNumber(edgeOptions && edgeOptions.poolBonus));
   const requestedStandardFateDiceCount = Math.max(0, parseNumber(edgeOptions && edgeOptions.fateDiceCount));
   const requestedMatrixLonerFateDiceCount = Math.max(0, parseNumber(edgeOptions && edgeOptions.matrixLonerFateDiceCount));
   const explodingSixes = !!(edgeOptions && edgeOptions.explodingSixes);
-  const pool = Math.max(0, poolBasis + monitorPoolMod + poolPopupMod + edgePoolBonus);
+  const pool = Math.max(0, poolBasis + monitorPoolMod + poolPopupMod + poolRollMod + edgePoolBonus);
   const matrixLonerFateDiceCount = Math.min(requestedMatrixLonerFateDiceCount, pool);
   const remainingFateSlots = Math.max(0, pool - matrixLonerFateDiceCount);
   const standardFateDiceCount = Math.min(requestedStandardFateDiceCount, remainingFateSlots);
@@ -3562,6 +3585,7 @@ function buildProbeComputation(lookupAttr, poolAttribute, popupPoolMod, poolMult
     poolBasis: poolBasis,
     monitorPoolMod: monitorPoolMod,
     poolPopupMod: poolPopupMod,
+    poolRollMod: poolRollMod,
     edgePoolBonus: edgePoolBonus,
     fateDiceCount: fateDiceCount,
     standardFateDiceCount: standardFateDiceCount,
@@ -4086,6 +4110,17 @@ function formatSignedModifier(value) {
   return numberValue > 0 ? `+${numberValue}` : `${numberValue}`;
 }
 
+function getRollOnlyPoolModifier(context, lookupAttr) {
+  const modifierAttribute = getRollModifierAttribute(context && context.poolAttribute);
+  return modifierAttribute ? parseNumber(lookupAttr(modifierAttribute)) : 0;
+}
+
+function appendRollOnlyPoolModifierRow(rows, modifier) {
+  const rollOnlyModifier = parseNumber(modifier);
+  if (rollOnlyModifier === 0) return;
+  rows.push({ label: "Wert-Modifikator", value: formatSignedModifier(rollOnlyModifier) });
+}
+
 function isMeleeWeaponAttackDefinition(definition) {
   return !!(definition && (definition.id === "melee_weapon" || definition.id === "combat_melee_weapon"));
 }
@@ -4376,10 +4411,12 @@ function runEquipmentProbeFromContext(context, lookupAttr, resolvedFields, popup
   const ratingValue = rating * ratingMultiplier;
   const poolBasisOverride = sourceValue + ratingValue;
   const edgeOptions = resolveEdgeBoostOptions(popupState, lookupAttr);
+  const rollOnlyPoolModifier = getRollOnlyPoolModifier(context, lookupAttr);
   const computation = buildProbeComputation(
     lookupAttr,
     context.poolAttribute,
     popupState.poolMod,
+    rollOnlyPoolModifier,
     1,
     poolBasisOverride,
     edgeOptions
@@ -4396,6 +4433,7 @@ function runEquipmentProbeFromContext(context, lookupAttr, resolvedFields, popup
     rows.push({ label: "Pool-Basis", value: `${computation.poolBasis}` });
     rows.push({ label: "Zustandsmodifikator", value: `${computation.monitorPoolMod}` });
   }
+  appendRollOnlyPoolModifierRow(rows, rollOnlyPoolModifier);
   popupState.rows.forEach((popupRow) => rows.push(popupRow));
   appendEdgeBoostRows(rows, edgeOptions, computation);
 
@@ -4484,10 +4522,12 @@ function runRiggingVehicleProbeFromContext(context, lookupAttr, resolvedFields, 
     getUntrainedSkillPenalty(getRiggingVehicleUntrainedSkillKey(probeKey, mode), lookupAttr)
   );
   const edgeOptions = resolveEdgeBoostOptions(effectivePopupState, lookupAttr);
+  const rollOnlyPoolModifier = getRollOnlyPoolModifier(context, lookupAttr);
   const computation = buildProbeComputation(
     lookupAttr,
     context.poolAttribute,
     effectivePopupState.poolMod,
+    rollOnlyPoolModifier,
     1,
     probe.value,
     edgeOptions
@@ -4536,6 +4576,7 @@ function runRiggingVehicleProbeFromContext(context, lookupAttr, resolvedFields, 
   if (normalizeRiggingVehicleMode(mode) === "agent") {
     rows.push({ label: "Agentenstufe", value: `${data.agentenstufe}` });
   }
+  appendRollOnlyPoolModifierRow(rows, rollOnlyPoolModifier);
   effectivePopupState.rows.forEach((popupRow) => rows.push(popupRow));
   appendEdgeBoostRows(rows, edgeOptions, computation);
 
@@ -4566,10 +4607,12 @@ function runSpellProbeFromContext(context, lookupAttr, resolvedFields, popupStat
     getUntrainedSkillPenalty(getMagicUntrainedSkillKey(context.definition), lookupAttr)
   );
   const edgeOptions = resolveEdgeBoostOptions(effectivePopupState, lookupAttr);
+  const rollOnlyPoolModifier = getRollOnlyPoolModifier(context, lookupAttr);
   const spellComputation = buildProbeComputation(
     lookupAttr,
     context.poolAttribute,
     effectivePopupState.poolMod,
+    rollOnlyPoolModifier,
     1,
     null,
     edgeOptions
@@ -4595,6 +4638,7 @@ function runSpellProbeFromContext(context, lookupAttr, resolvedFields, popupStat
     if (!popupRow || !popupRow.label) return;
     appendRowIfMissing(rows, popupRow.label, popupRow.value);
   });
+  appendRollOnlyPoolModifierRow(rows, rollOnlyPoolModifier);
   if (isCombatSpell(resolvedFields) && effectivePopupState.attackValueMod !== 0) {
     rows.push({ label: "Angriffswert-Basis", value: `${baseAttackValue}` });
     rows.push({ label: "Angriffswert-Modifikator", value: `${effectivePopupState.attackValueMod}` });
@@ -4639,10 +4683,12 @@ function runSummoningProbeFromContext(context, lookupAttr, resolvedFields, popup
     getUntrainedSkillPenalty(getMagicUntrainedSkillKey(context.definition), lookupAttr)
   );
   const edgeOptions = resolveEdgeBoostOptions(effectivePopupState, lookupAttr);
+  const rollOnlyPoolModifier = getRollOnlyPoolModifier(context, lookupAttr);
   const summonerComputation = buildProbeComputation(
     lookupAttr,
     context.poolAttribute,
     effectivePopupState.poolMod,
+    rollOnlyPoolModifier,
     1,
     null,
     edgeOptions
@@ -4672,6 +4718,7 @@ function runSummoningProbeFromContext(context, lookupAttr, resolvedFields, popup
     if (!popupRow || !popupRow.label) return;
     appendRowIfMissing(rows, popupRow.label, popupRow.value);
   });
+  appendRollOnlyPoolModifierRow(rows, rollOnlyPoolModifier);
   appendEdgeBoostRows(rows, edgeOptions, summonerComputation);
   rows.push({ label: "Beschwören-Pool", value: `${summonerComputation.pool}` });
   rows.push({ label: "Beschwören-Erfolge", value: `${summonerComputation.successCount}` });
@@ -4808,10 +4855,12 @@ function runSuccessProbeFromContext(rawTemplate, repeatingRowPrefix, popupState 
           ? matrixActionContext.poolBasisOverride
           : null;
     const edgeOptions = resolveEdgeBoostOptions(effectivePopupState, lookupAttr);
+    const rollOnlyPoolModifier = getRollOnlyPoolModifier(context, lookupAttr);
     const computation = buildProbeComputation(
       lookupAttr,
       context.poolAttribute,
       effectivePopupState.poolMod,
+      rollOnlyPoolModifier,
       poolMultiplier,
       poolBasisOverride,
       edgeOptions
@@ -4843,6 +4892,7 @@ function runSuccessProbeFromContext(rawTemplate, repeatingRowPrefix, popupState 
       });
       rows.push({ label: "Zustandsmodifikator", value: `${computation.monitorPoolMod}` });
     }
+    appendRollOnlyPoolModifierRow(rows, rollOnlyPoolModifier);
     effectivePopupState.rows.forEach((popupRow) => rows.push(popupRow));
     buildPopupDerivedResultRows(context.definition, lookupAttr, context.poolAttribute, resolvedFields, effectivePopupState, computation)
       .forEach((popupRow) => rows.push(popupRow));
@@ -5815,7 +5865,6 @@ const SR6_COMBAT_CALCULATED_FIELDS = [
   },
   {
     key: "sr6_combat_verteidigungswert",
-    useModifier: false,
     base: (totals, skillTotals, values) =>
       (totals.konstitution || 0) +
       parseNumber(values.sr6_combat_primaere_panzerung) +
@@ -6189,6 +6238,9 @@ function syncCombatWeaponPools(callback) {
 function appendMagicRequestKeys(requestKeys) {
   requestKeys.push("sr6_magic_traditionsattribut_1");
   requestKeys.push("sr6_magic_traditionsattribut_1_modifikator");
+  requestKeys.push("sr6_magic_angriffswert_modifikator");
+  requestKeys.push("sr6_magic_astralkampf_angriffswert_modifikator");
+  requestKeys.push("sr6_magic_astralkampf_verteidigungswert_modifikator");
 }
 
 function computeMagicDerived(values, totals, skillTotals, updates) {
@@ -6221,12 +6273,16 @@ function computeMagicDerived(values, totals, skillTotals, updates) {
     traditionValue1 + (totals.willenskraft || 0)
   );
   updates.sr6_magic_angriffswert = String(
-    parseNumber(updates.sr6_magic_magie) + traditionValue1
+    parseNumber(updates.sr6_magic_magie) + traditionValue1 + parseNumber(values.sr6_magic_angriffswert_modifikator)
   );
   updates.sr6_magic_astralkampf_angriffswert = String(
-    (totals.magie_resonanz || 0) + traditionValue1
+    (totals.magie_resonanz || 0) +
+      traditionValue1 +
+      parseNumber(values.sr6_magic_astralkampf_angriffswert_modifikator)
   );
-  updates.sr6_magic_astralkampf_verteidigungswert = String(totals.intuition || 0);
+  updates.sr6_magic_astralkampf_verteidigungswert = String(
+    (totals.intuition || 0) + parseNumber(values.sr6_magic_astralkampf_verteidigungswert_modifikator)
+  );
 }
 // END MODULE: workers/compute/magic
 
@@ -6237,6 +6293,8 @@ function appendMatrixRequestKeys(requestKeys) {
   requestKeys.push("sr6_matrix_schleicher");
   requestKeys.push("sr6_matrix_datenverarbeitung");
   requestKeys.push("sr6_matrix_firewall");
+  requestKeys.push("sr6_matrix_angriffswert_modifikator");
+  requestKeys.push("sr6_matrix_verteidigungswert_modifikator");
   SR6_MATRIX_ACTIONS.forEach((actionName) => {
     requestKeys.push(`sr6_matrix_handlung_${actionName}_grundwert`);
     requestKeys.push(`sr6_matrix_handlung_${actionName}_modifikator`);
@@ -6317,8 +6375,12 @@ function computeMatrixTotals(values, totals, skillTotals, updates) {
 
   updates.sr6_matrix_initiative = String(matrixBasis);
   updates.sr6_matrix_initiative_w6 = String(matrixInitiativeMode.w6);
-  updates.sr6_matrix_angriffswert = String(matrixAttack + matrixSleaze);
-  updates.sr6_matrix_verteidigungswert = String(matrixDataProcessing + matrixFirewall);
+  updates.sr6_matrix_angriffswert = String(
+    matrixAttack + matrixSleaze + parseNumber(values.sr6_matrix_angriffswert_modifikator)
+  );
+  updates.sr6_matrix_verteidigungswert = String(
+    matrixDataProcessing + matrixFirewall + parseNumber(values.sr6_matrix_verteidigungswert_modifikator)
+  );
   updates.sr6_matrix_verteidigung = String((totals.intuition || 0) + matrixFirewall);
   updates.sr6_matrix_schadenswiderstand = String(matrixFirewall);
   updates.sr6_matrix_biofeedback_schadenswiderstand = String(totals.willenskraft || 0);
@@ -6348,6 +6410,8 @@ function appendRiggingRequestKeys(requestKeys) {
   requestKeys.push("sr6_rigging_schleicher");
   requestKeys.push("sr6_rigging_datenverarbeitung");
   requestKeys.push("sr6_rigging_firewall");
+  requestKeys.push("sr6_rigging_angriffswert_modifikator");
+  requestKeys.push("sr6_rigging_verteidigungswert_modifikator");
 }
 
 const SR6_RIGGING_VEHICLE_PROBE_LABELS = {
@@ -6385,8 +6449,12 @@ function computeRiggingDerived(values, totals, _skillTotals, updates) {
 
   updates.sr6_rigging_initiative = String(riggingBasis);
   updates.sr6_rigging_initiative_w6 = String(riggingInitiativeMode.w6);
-  updates.sr6_rigging_angriffswert = String(riggingAttack + riggingSleaze);
-  updates.sr6_rigging_verteidigungswert = String(riggingDataProcessing + riggingFirewall);
+  updates.sr6_rigging_angriffswert = String(
+    riggingAttack + riggingSleaze + parseNumber(values.sr6_rigging_angriffswert_modifikator)
+  );
+  updates.sr6_rigging_verteidigungswert = String(
+    riggingDataProcessing + riggingFirewall + parseNumber(values.sr6_rigging_verteidigungswert_modifikator)
+  );
   updates.sr6_rigging_matrix_verteidigung = String((totals.intuition || 0) + riggingFirewall);
   updates.sr6_rigging_matrix_schadenswiderstand = String(riggingFirewall);
   updates.sr6_rigging_biofeedback_schadenswiderstand = String(totals.willenskraft || 0);
@@ -6586,6 +6654,8 @@ function appendRiggingVehicleRequestKeys(requestKeys, rowPrefix) {
   requestKeys.push(`${rowPrefix}_sr6_rigging_fahrzeug_ausweichen`);
   requestKeys.push(`${rowPrefix}_sr6_rigging_fahrzeug_stealth`);
   requestKeys.push(`${rowPrefix}_sr6_rigging_fahrzeug_clearsight`);
+  requestKeys.push(`${rowPrefix}_sr6_rigging_fahrzeug_angriffswert_modifikator`);
+  requestKeys.push(`${rowPrefix}_sr6_rigging_fahrzeug_verteidigungswert_modifikator`);
 }
 
 function syncRiggingVehicleProbes(callback) {
@@ -6620,8 +6690,14 @@ function syncRiggingVehicleProbes(callback) {
         updates[`${rowPrefix}_sr6_rigging_fahrzeug_waffe`] = "Geschütze";
         updates[`${rowPrefix}_sr6_rigging_fahrzeug_probe_wert`] = String(probe.value);
         updates[`${rowPrefix}_sr6_rigging_fahrzeug_waffe_probe_wert`] = String(weaponProbe.value);
-        updates[`${rowPrefix}_sr6_rigging_fahrzeug_angriffswert`] = String(getRiggingVehicleAttackValue(mode, data));
-        updates[`${rowPrefix}_sr6_rigging_fahrzeug_verteidigungswert`] = String(getRiggingVehicleDefenseValue(mode, data));
+        updates[`${rowPrefix}_sr6_rigging_fahrzeug_angriffswert`] = String(
+          getRiggingVehicleAttackValue(mode, data) +
+            parseNumber(values[`${rowPrefix}_sr6_rigging_fahrzeug_angriffswert_modifikator`])
+        );
+        updates[`${rowPrefix}_sr6_rigging_fahrzeug_verteidigungswert`] = String(
+          getRiggingVehicleDefenseValue(mode, data) +
+            parseNumber(values[`${rowPrefix}_sr6_rigging_fahrzeug_verteidigungswert_modifikator`])
+        );
         updates[`${rowPrefix}_sr6_rigging_fahrzeug_zustandsmonitor`] = String(getRiggingVehicleMonitorValue(data));
       });
 
@@ -6840,16 +6916,23 @@ function buildRecalcEvents() {
 
   events.push("change:sr6_magic_traditionsattribut_1");
   events.push("change:sr6_magic_traditionsattribut_1_modifikator");
+  events.push("change:sr6_magic_angriffswert_modifikator");
+  events.push("change:sr6_magic_astralkampf_angriffswert_modifikator");
+  events.push("change:sr6_magic_astralkampf_verteidigungswert_modifikator");
   events.push("change:sr6_matrix_modus");
   events.push("change:sr6_matrix_angriff");
   events.push("change:sr6_matrix_schleicher");
   events.push("change:sr6_matrix_datenverarbeitung");
   events.push("change:sr6_matrix_firewall");
+  events.push("change:sr6_matrix_angriffswert_modifikator");
+  events.push("change:sr6_matrix_verteidigungswert_modifikator");
   events.push("change:sr6_rigging_modus");
   events.push("change:sr6_rigging_angriff");
   events.push("change:sr6_rigging_schleicher");
   events.push("change:sr6_rigging_datenverarbeitung");
   events.push("change:sr6_rigging_firewall");
+  events.push("change:sr6_rigging_angriffswert_modifikator");
+  events.push("change:sr6_rigging_verteidigungswert_modifikator");
 
   for (let index = 1; index <= 18; index += 1) {
     events.push(`change:sr6_monitor_koerperlich_${index}`);
@@ -6954,6 +7037,8 @@ function registerWorkerEvents() {
       "change:repeating_sr6riggingfahrzeuge:sr6_rigging_fahrzeug_ausweichen",
       "change:repeating_sr6riggingfahrzeuge:sr6_rigging_fahrzeug_stealth",
       "change:repeating_sr6riggingfahrzeuge:sr6_rigging_fahrzeug_clearsight",
+      "change:repeating_sr6riggingfahrzeuge:sr6_rigging_fahrzeug_angriffswert_modifikator",
+      "change:repeating_sr6riggingfahrzeuge:sr6_rigging_fahrzeug_verteidigungswert_modifikator",
       "change:sr6_skill_mechanik_spezialisierung",
       "change:sr6_skill_mechanik_expertise",
       "remove:repeating_sr6riggingfahrzeuge",

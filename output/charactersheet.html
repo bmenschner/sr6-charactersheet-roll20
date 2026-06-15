@@ -2562,8 +2562,16 @@
     <div class="sr6-charactersheet-row sr6-charactersheet-row-5">
       <div class="sr6-charactersheet-field">
         <div class="sr6-field-label-with-info"><span data-i18n="field.fernkampfangriff">Fernkampfangriff</span><span class="sr6-info-icon" title="Fernkampfangriff = Geschicklichkeit + gewählte Fertigkeit der primären Fernkampfwaffe + passende Spezialisierung/Expertise">i</span></div>
-        <div class="sr6-charactersheet-field-input-with-dice">
-          <input type="number" name="attr_sr6_combat_fernkampfangriff_gesamtwert" readonly /><button
+        <div class="sr6-charactersheet-field-input-with-dice sr6-charactersheet-field-input-with-dice--roll-mod">
+          <span class="sr6-roll-mod-subtitle sr6-roll-mod-subtitle--basis" data-i18n="field.basis">Basis</span>
+          <span class="sr6-roll-mod-subtitle sr6-roll-mod-subtitle--mod" data-i18n="field.fertigkeitsmodifikator">Mod.</span>
+          <input type="number" name="attr_sr6_combat_fernkampfangriff_gesamtwert" readonly />
+              <div class="sr6-number-stepper sr6-roll-mod-stepper">
+                <button type="action" class="sr6-number-stepper-button sr6-number-stepper-button--minus" name="act_sr6_number_step" value="sr6_combat_fernkampfangriff_gesamtwert_roll_modifikator::-1" aria-label="Wert-Modifikator verringern">-</button>
+                <input type="number" name="attr_sr6_combat_fernkampfangriff_gesamtwert_roll_modifikator" title="Wert-Modifikator" />
+                <button type="action" class="sr6-number-stepper-button sr6-number-stepper-button--plus" name="act_sr6_number_step" value="sr6_combat_fernkampfangriff_gesamtwert_roll_modifikator::1" aria-label="Wert-Modifikator erhoehen">+</button>
+              </div>
+            <button
             type="action"
             class="sr6-charactersheet-field-dice-button"
             name="act_probe"
@@ -2573,8 +2581,16 @@
       </div>
       <div class="sr6-charactersheet-field">
         <div class="sr6-field-label-with-info"><span data-i18n="field.projektilwaffen">Projektilwaffen</span><span class="sr6-info-icon" title="Projektilwaffen = Geschicklichkeit + Athletik + Spezialisierung/Expertise Projektilwaffen">i</span></div>
-        <div class="sr6-charactersheet-field-input-with-dice">
-          <input type="number" name="attr_sr6_combat_projektilwaffen_gesamtwert" readonly /><button
+        <div class="sr6-charactersheet-field-input-with-dice sr6-charactersheet-field-input-with-dice--roll-mod">
+          <span class="sr6-roll-mod-subtitle sr6-roll-mod-subtitle--basis" data-i18n="field.basis">Basis</span>
+          <span class="sr6-roll-mod-subtitle sr6-roll-mod-subtitle--mod" data-i18n="field.fertigkeitsmodifikator">Mod.</span>
+          <input type="number" name="attr_sr6_combat_projektilwaffen_gesamtwert" readonly />
+              <div class="sr6-number-stepper sr6-roll-mod-stepper">
+                <button type="action" class="sr6-number-stepper-button sr6-number-stepper-button--minus" name="act_sr6_number_step" value="sr6_combat_projektilwaffen_gesamtwert_roll_modifikator::-1" aria-label="Wert-Modifikator verringern">-</button>
+                <input type="number" name="attr_sr6_combat_projektilwaffen_gesamtwert_roll_modifikator" title="Wert-Modifikator" />
+                <button type="action" class="sr6-number-stepper-button sr6-number-stepper-button--plus" name="act_sr6_number_step" value="sr6_combat_projektilwaffen_gesamtwert_roll_modifikator::1" aria-label="Wert-Modifikator erhoehen">+</button>
+              </div>
+            <button
             type="action"
             class="sr6-charactersheet-field-dice-button"
             name="act_probe"
@@ -2584,8 +2600,16 @@
       </div>
       <div class="sr6-charactersheet-field">
         <div class="sr6-field-label-with-info"><span data-i18n="field.nahkampfangriff">Nahkampfangriff</span><span class="sr6-info-icon" title="Nahkampfangriff = gewähltes Attribut + gewählte Fertigkeit der primären Nahkampfwaffe + passende Spezialisierung/Expertise">i</span></div>
-        <div class="sr6-charactersheet-field-input-with-dice">
-          <input type="number" name="attr_sr6_combat_nahkampfangriff_gesamtwert" readonly /><button
+        <div class="sr6-charactersheet-field-input-with-dice sr6-charactersheet-field-input-with-dice--roll-mod">
+          <span class="sr6-roll-mod-subtitle sr6-roll-mod-subtitle--basis" data-i18n="field.basis">Basis</span>
+          <span class="sr6-roll-mod-subtitle sr6-roll-mod-subtitle--mod" data-i18n="field.fertigkeitsmodifikator">Mod.</span>
+          <input type="number" name="attr_sr6_combat_nahkampfangriff_gesamtwert" readonly />
+              <div class="sr6-number-stepper sr6-roll-mod-stepper">
+                <button type="action" class="sr6-number-stepper-button sr6-number-stepper-button--minus" name="act_sr6_number_step" value="sr6_combat_nahkampfangriff_gesamtwert_roll_modifikator::-1" aria-label="Wert-Modifikator verringern">-</button>
+                <input type="number" name="attr_sr6_combat_nahkampfangriff_gesamtwert_roll_modifikator" title="Wert-Modifikator" />
+                <button type="action" class="sr6-number-stepper-button sr6-number-stepper-button--plus" name="act_sr6_number_step" value="sr6_combat_nahkampfangriff_gesamtwert_roll_modifikator::1" aria-label="Wert-Modifikator erhoehen">+</button>
+              </div>
+            <button
             type="action"
             class="sr6-charactersheet-field-dice-button"
             name="act_probe"
@@ -2595,8 +2619,16 @@
       </div>
       <div class="sr6-charactersheet-field">
         <div class="sr6-field-label-with-info"><span data-i18n="field.verteidigung_physisch">Verteidigung (Physisch)</span><span class="sr6-info-icon" title="Verteidigung (Physisch) = Reaktion + Intuition">i</span></div>
-        <div class="sr6-charactersheet-field-input-with-dice">
-          <input type="number" name="attr_sr6_verteidigung_physisch_gesamtwert" readonly /><button
+        <div class="sr6-charactersheet-field-input-with-dice sr6-charactersheet-field-input-with-dice--roll-mod">
+          <span class="sr6-roll-mod-subtitle sr6-roll-mod-subtitle--basis" data-i18n="field.basis">Basis</span>
+          <span class="sr6-roll-mod-subtitle sr6-roll-mod-subtitle--mod" data-i18n="field.fertigkeitsmodifikator">Mod.</span>
+          <input type="number" name="attr_sr6_verteidigung_physisch_gesamtwert" readonly />
+              <div class="sr6-number-stepper sr6-roll-mod-stepper">
+                <button type="action" class="sr6-number-stepper-button sr6-number-stepper-button--minus" name="act_sr6_number_step" value="sr6_verteidigung_physisch_gesamtwert_roll_modifikator::-1" aria-label="Wert-Modifikator verringern">-</button>
+                <input type="number" name="attr_sr6_verteidigung_physisch_gesamtwert_roll_modifikator" title="Wert-Modifikator" />
+                <button type="action" class="sr6-number-stepper-button sr6-number-stepper-button--plus" name="act_sr6_number_step" value="sr6_verteidigung_physisch_gesamtwert_roll_modifikator::1" aria-label="Wert-Modifikator erhoehen">+</button>
+              </div>
+            <button
             type="action"
             class="sr6-charactersheet-field-dice-button"
             name="act_probe"
@@ -2606,8 +2638,16 @@
       </div>
       <div class="sr6-charactersheet-field">
         <div class="sr6-field-label-with-info"><span data-i18n="field.schadenswiderstand_physisch">Schadenswiderstand (Physisch)</span><span class="sr6-info-icon" title="Schadenswiderstand (Physisch) = Konstitution">i</span></div>
-        <div class="sr6-charactersheet-field-input-with-dice">
-          <input type="number" name="attr_sr6_schadenswiderstand_physisch_gesamtwert" readonly /><button
+        <div class="sr6-charactersheet-field-input-with-dice sr6-charactersheet-field-input-with-dice--roll-mod">
+          <span class="sr6-roll-mod-subtitle sr6-roll-mod-subtitle--basis" data-i18n="field.basis">Basis</span>
+          <span class="sr6-roll-mod-subtitle sr6-roll-mod-subtitle--mod" data-i18n="field.fertigkeitsmodifikator">Mod.</span>
+          <input type="number" name="attr_sr6_schadenswiderstand_physisch_gesamtwert" readonly />
+              <div class="sr6-number-stepper sr6-roll-mod-stepper">
+                <button type="action" class="sr6-number-stepper-button sr6-number-stepper-button--minus" name="act_sr6_number_step" value="sr6_schadenswiderstand_physisch_gesamtwert_roll_modifikator::-1" aria-label="Wert-Modifikator verringern">-</button>
+                <input type="number" name="attr_sr6_schadenswiderstand_physisch_gesamtwert_roll_modifikator" title="Wert-Modifikator" />
+                <button type="action" class="sr6-number-stepper-button sr6-number-stepper-button--plus" name="act_sr6_number_step" value="sr6_schadenswiderstand_physisch_gesamtwert_roll_modifikator::1" aria-label="Wert-Modifikator erhoehen">+</button>
+              </div>
+            <button
             type="action"
             class="sr6-charactersheet-field-dice-button"
             name="act_probe"
@@ -2624,7 +2664,16 @@
     <div class="sr6-charactersheet-row sr6-charactersheet-row-5">
       <div class="sr6-charactersheet-field">
         <div class="sr6-field-label-with-info"><span data-i18n="field.verteidigungswert">Verteidigungswert</span><span class="sr6-info-icon" title="Verteidigungswert = Konstitution + primäre Panzerung + sekundäre Panzerung + Helm + Schild">i</span></div>
-        <input type="number" name="attr_sr6_combat_verteidigungswert_gesamtwert" readonly />
+        <div class="sr6-charactersheet-field-input-with-mod">
+          <span class="sr6-roll-mod-subtitle sr6-roll-mod-subtitle--basis" data-i18n="field.basis">Basis</span>
+          <span class="sr6-roll-mod-subtitle sr6-roll-mod-subtitle--mod" data-i18n="field.fertigkeitsmodifikator">Mod.</span>
+          <input type="number" name="attr_sr6_combat_verteidigungswert_gesamtwert" readonly />
+          <div class="sr6-number-stepper">
+            <button type="action" class="sr6-number-stepper-button sr6-number-stepper-button--minus" name="act_sr6_number_step" value="sr6_combat_verteidigungswert_modifikator::-1" aria-label="Modifikator verringern">-</button>
+            <input type="number" name="attr_sr6_combat_verteidigungswert_modifikator" title="Modifikator" />
+            <button type="action" class="sr6-number-stepper-button sr6-number-stepper-button--plus" name="act_sr6_number_step" value="sr6_combat_verteidigungswert_modifikator::1" aria-label="Modifikator erhoehen">+</button>
+          </div>
+        </div>
       </div>
       <div class="sr6-charactersheet-field">
         <div class="sr6-field-label-with-info"><span data-i18n="field.primaere_panzerung">Primäre Panzerung</span><span class="sr6-info-icon" title="Primäre Panzerung = ausgewählte Panzerung mit Rolle Primär">i</span></div>
@@ -3145,8 +3194,16 @@
         <div class="sr6-charactersheet-row sr6-charactersheet-row-6">
           <div class="sr6-charactersheet-field">
             <span data-i18n="field.magie">Magie</span>
-            <div class="sr6-charactersheet-field-input-with-dice">
-              <input type="number" name="attr_sr6_magic_magie" readonly /><button
+            <div class="sr6-charactersheet-field-input-with-dice sr6-charactersheet-field-input-with-dice--roll-mod">
+              <span class="sr6-roll-mod-subtitle sr6-roll-mod-subtitle--basis" data-i18n="field.basis">Basis</span>
+          <span class="sr6-roll-mod-subtitle sr6-roll-mod-subtitle--mod" data-i18n="field.fertigkeitsmodifikator">Mod.</span>
+          <input type="number" name="attr_sr6_magic_magie" readonly />
+              <div class="sr6-number-stepper sr6-roll-mod-stepper">
+                <button type="action" class="sr6-number-stepper-button sr6-number-stepper-button--minus" name="act_sr6_number_step" value="sr6_magic_magie_roll_modifikator::-1" aria-label="Wert-Modifikator verringern">-</button>
+                <input type="number" name="attr_sr6_magic_magie_roll_modifikator" title="Wert-Modifikator" />
+                <button type="action" class="sr6-number-stepper-button sr6-number-stepper-button--plus" name="act_sr6_number_step" value="sr6_magic_magie_roll_modifikator::1" aria-label="Wert-Modifikator erhoehen">+</button>
+              </div>
+            <button
                 type="action"
                 class="sr6-charactersheet-field-dice-button"
                 name="act_probe"
@@ -3157,8 +3214,16 @@
 
           <div class="sr6-charactersheet-field">
             <span data-i18n="skill.hexerei">Hexerei</span>
-            <div class="sr6-charactersheet-field-input-with-dice">
-              <input type="number" name="attr_sr6_magic_zauberpool" readonly /><button
+            <div class="sr6-charactersheet-field-input-with-dice sr6-charactersheet-field-input-with-dice--roll-mod">
+              <span class="sr6-roll-mod-subtitle sr6-roll-mod-subtitle--basis" data-i18n="field.basis">Basis</span>
+          <span class="sr6-roll-mod-subtitle sr6-roll-mod-subtitle--mod" data-i18n="field.fertigkeitsmodifikator">Mod.</span>
+          <input type="number" name="attr_sr6_magic_zauberpool" readonly />
+              <div class="sr6-number-stepper sr6-roll-mod-stepper">
+                <button type="action" class="sr6-number-stepper-button sr6-number-stepper-button--minus" name="act_sr6_number_step" value="sr6_magic_zauberpool_roll_modifikator::-1" aria-label="Wert-Modifikator verringern">-</button>
+                <input type="number" name="attr_sr6_magic_zauberpool_roll_modifikator" title="Wert-Modifikator" />
+                <button type="action" class="sr6-number-stepper-button sr6-number-stepper-button--plus" name="act_sr6_number_step" value="sr6_magic_zauberpool_roll_modifikator::1" aria-label="Wert-Modifikator erhoehen">+</button>
+              </div>
+            <button
                 type="action"
                 class="sr6-charactersheet-field-dice-button"
                 name="act_probe"
@@ -3169,8 +3234,16 @@
 
           <div class="sr6-charactersheet-field">
             <div class="sr6-field-label-with-info"><span data-i18n="field.spruchzauberei">Spruchzauberei</span><span class="sr6-info-icon" title="Spruchzauberei = sr6_skill_hexerei_gesamtwert + sr6_attr_magie_resonanz_gesamtwert">i</span></div>
-            <div class="sr6-charactersheet-field-input-with-dice">
-              <input type="number" name="attr_sr6_magic_spruchzauberei" readonly /><button
+            <div class="sr6-charactersheet-field-input-with-dice sr6-charactersheet-field-input-with-dice--roll-mod">
+              <span class="sr6-roll-mod-subtitle sr6-roll-mod-subtitle--basis" data-i18n="field.basis">Basis</span>
+          <span class="sr6-roll-mod-subtitle sr6-roll-mod-subtitle--mod" data-i18n="field.fertigkeitsmodifikator">Mod.</span>
+          <input type="number" name="attr_sr6_magic_spruchzauberei" readonly />
+              <div class="sr6-number-stepper sr6-roll-mod-stepper">
+                <button type="action" class="sr6-number-stepper-button sr6-number-stepper-button--minus" name="act_sr6_number_step" value="sr6_magic_spruchzauberei_roll_modifikator::-1" aria-label="Wert-Modifikator verringern">-</button>
+                <input type="number" name="attr_sr6_magic_spruchzauberei_roll_modifikator" title="Wert-Modifikator" />
+                <button type="action" class="sr6-number-stepper-button sr6-number-stepper-button--plus" name="act_sr6_number_step" value="sr6_magic_spruchzauberei_roll_modifikator::1" aria-label="Wert-Modifikator erhoehen">+</button>
+              </div>
+            <button
                 type="action"
                 class="sr6-charactersheet-field-dice-button"
                 name="act_probe"
@@ -3180,12 +3253,29 @@
           </div>
           <div class="sr6-charactersheet-field">
             <div class="sr6-field-label-with-info"><span data-i18n="field.angriffswert">Angriffswert</span><span class="sr6-info-icon" title="Angriffswert = sr6_magic_magie + Wert(sr6_magic_traditionsattribut_1)">i</span></div>
-            <input type="number" name="attr_sr6_magic_angriffswert" readonly />
+            <div class="sr6-charactersheet-field-input-with-mod">
+              <span class="sr6-roll-mod-subtitle sr6-roll-mod-subtitle--basis" data-i18n="field.basis">Basis</span>
+              <span class="sr6-roll-mod-subtitle sr6-roll-mod-subtitle--mod" data-i18n="field.fertigkeitsmodifikator">Mod.</span>
+              <input type="number" name="attr_sr6_magic_angriffswert" readonly />
+              <div class="sr6-number-stepper">
+                <button type="action" class="sr6-number-stepper-button sr6-number-stepper-button--minus" name="act_sr6_number_step" value="sr6_magic_angriffswert_modifikator::-1" aria-label="Modifikator verringern">-</button>
+                <input type="number" name="attr_sr6_magic_angriffswert_modifikator" title="Modifikator" />
+                <button type="action" class="sr6-number-stepper-button sr6-number-stepper-button--plus" name="act_sr6_number_step" value="sr6_magic_angriffswert_modifikator::1" aria-label="Modifikator erhoehen">+</button>
+              </div>
+            </div>
           </div>
           <div class="sr6-charactersheet-field">
             <div class="sr6-field-label-with-info"><span data-i18n="skill.beschwoeren">Beschwören</span><span class="sr6-info-icon" title="Beschwören = sr6_skill_beschwoeren_gesamtwert + sr6_magic_magie">i</span></div>
-            <div class="sr6-charactersheet-field-input-with-dice">
-              <input type="number" name="attr_sr6_magic_beschwoeren" readonly /><button
+            <div class="sr6-charactersheet-field-input-with-dice sr6-charactersheet-field-input-with-dice--roll-mod">
+              <span class="sr6-roll-mod-subtitle sr6-roll-mod-subtitle--basis" data-i18n="field.basis">Basis</span>
+          <span class="sr6-roll-mod-subtitle sr6-roll-mod-subtitle--mod" data-i18n="field.fertigkeitsmodifikator">Mod.</span>
+          <input type="number" name="attr_sr6_magic_beschwoeren" readonly />
+              <div class="sr6-number-stepper sr6-roll-mod-stepper">
+                <button type="action" class="sr6-number-stepper-button sr6-number-stepper-button--minus" name="act_sr6_number_step" value="sr6_magic_beschwoeren_roll_modifikator::-1" aria-label="Wert-Modifikator verringern">-</button>
+                <input type="number" name="attr_sr6_magic_beschwoeren_roll_modifikator" title="Wert-Modifikator" />
+                <button type="action" class="sr6-number-stepper-button sr6-number-stepper-button--plus" name="act_sr6_number_step" value="sr6_magic_beschwoeren_roll_modifikator::1" aria-label="Wert-Modifikator erhoehen">+</button>
+              </div>
+            <button
                 type="action"
                 class="sr6-charactersheet-field-dice-button"
                 name="act_probe"
@@ -3195,8 +3285,16 @@
           </div>
           <div class="sr6-charactersheet-field">
             <div class="sr6-field-label-with-info"><span data-i18n="field.entzug_widerstand">Entzugwiderstand</span><span class="sr6-info-icon" title="Entzugswiderstand = Wert(sr6_magic_traditionsattribut_1) + sr6_attr_willenskraft_gesamtwert">i</span></div>
-            <div class="sr6-charactersheet-field-input-with-dice">
-              <input type="number" name="attr_sr6_magic_entzug_widerstand" readonly /><button
+            <div class="sr6-charactersheet-field-input-with-dice sr6-charactersheet-field-input-with-dice--roll-mod">
+              <span class="sr6-roll-mod-subtitle sr6-roll-mod-subtitle--basis" data-i18n="field.basis">Basis</span>
+          <span class="sr6-roll-mod-subtitle sr6-roll-mod-subtitle--mod" data-i18n="field.fertigkeitsmodifikator">Mod.</span>
+          <input type="number" name="attr_sr6_magic_entzug_widerstand" readonly />
+              <div class="sr6-number-stepper sr6-roll-mod-stepper">
+                <button type="action" class="sr6-number-stepper-button sr6-number-stepper-button--minus" name="act_sr6_number_step" value="sr6_magic_entzug_widerstand_roll_modifikator::-1" aria-label="Wert-Modifikator verringern">-</button>
+                <input type="number" name="attr_sr6_magic_entzug_widerstand_roll_modifikator" title="Wert-Modifikator" />
+                <button type="action" class="sr6-number-stepper-button sr6-number-stepper-button--plus" name="act_sr6_number_step" value="sr6_magic_entzug_widerstand_roll_modifikator::1" aria-label="Wert-Modifikator erhoehen">+</button>
+              </div>
+            <button
                 type="action"
                 class="sr6-charactersheet-field-dice-button"
                 name="act_probe"
@@ -3210,8 +3308,16 @@
         <div class="sr6-charactersheet-row sr6-charactersheet-row-5">
           <div class="sr6-charactersheet-field">
             <div class="sr6-field-label-with-info"><span data-i18n="field.waffenloser_kampf">Waffenloser Kampf</span><span class="sr6-info-icon" title="Waffenloser Kampf = sr6_skill_astral_gesamtwert + sr6_attr_willenskraft_gesamtwert">i</span></div>
-            <div class="sr6-charactersheet-field-input-with-dice">
-              <input type="number" name="attr_sr6_magic_waffenloser_kampf" readonly /><button
+            <div class="sr6-charactersheet-field-input-with-dice sr6-charactersheet-field-input-with-dice--roll-mod">
+              <span class="sr6-roll-mod-subtitle sr6-roll-mod-subtitle--basis" data-i18n="field.basis">Basis</span>
+          <span class="sr6-roll-mod-subtitle sr6-roll-mod-subtitle--mod" data-i18n="field.fertigkeitsmodifikator">Mod.</span>
+          <input type="number" name="attr_sr6_magic_waffenloser_kampf" readonly />
+              <div class="sr6-number-stepper sr6-roll-mod-stepper">
+                <button type="action" class="sr6-number-stepper-button sr6-number-stepper-button--minus" name="act_sr6_number_step" value="sr6_magic_waffenloser_kampf_roll_modifikator::-1" aria-label="Wert-Modifikator verringern">-</button>
+                <input type="number" name="attr_sr6_magic_waffenloser_kampf_roll_modifikator" title="Wert-Modifikator" />
+                <button type="action" class="sr6-number-stepper-button sr6-number-stepper-button--plus" name="act_sr6_number_step" value="sr6_magic_waffenloser_kampf_roll_modifikator::1" aria-label="Wert-Modifikator erhoehen">+</button>
+              </div>
+            <button
                 type="action"
                 class="sr6-charactersheet-field-dice-button"
                 name="act_probe"
@@ -3221,8 +3327,16 @@
           </div>
           <div class="sr6-charactersheet-field">
             <div class="sr6-field-label-with-info"><span data-i18n="field.a_verteidigung">A. Verteidigung</span><span class="sr6-info-icon" title="Astrale Verteidigung = sr6_attr_logik_gesamtwert + sr6_attr_intuition_gesamtwert">i</span></div>
-            <div class="sr6-charactersheet-field-input-with-dice">
-              <input type="number" name="attr_sr6_magic_astrale_verteidigung" readonly /><button
+            <div class="sr6-charactersheet-field-input-with-dice sr6-charactersheet-field-input-with-dice--roll-mod">
+              <span class="sr6-roll-mod-subtitle sr6-roll-mod-subtitle--basis" data-i18n="field.basis">Basis</span>
+          <span class="sr6-roll-mod-subtitle sr6-roll-mod-subtitle--mod" data-i18n="field.fertigkeitsmodifikator">Mod.</span>
+          <input type="number" name="attr_sr6_magic_astrale_verteidigung" readonly />
+              <div class="sr6-number-stepper sr6-roll-mod-stepper">
+                <button type="action" class="sr6-number-stepper-button sr6-number-stepper-button--minus" name="act_sr6_number_step" value="sr6_magic_astrale_verteidigung_roll_modifikator::-1" aria-label="Wert-Modifikator verringern">-</button>
+                <input type="number" name="attr_sr6_magic_astrale_verteidigung_roll_modifikator" title="Wert-Modifikator" />
+                <button type="action" class="sr6-number-stepper-button sr6-number-stepper-button--plus" name="act_sr6_number_step" value="sr6_magic_astrale_verteidigung_roll_modifikator::1" aria-label="Wert-Modifikator erhoehen">+</button>
+              </div>
+            <button
                 type="action"
                 class="sr6-charactersheet-field-dice-button"
                 name="act_probe"
@@ -3233,8 +3347,16 @@
 
           <div class="sr6-charactersheet-field">
             <div class="sr6-field-label-with-info"><span data-i18n="field.a_schadenswiderstand">A. Schadenswiderstand</span><span class="sr6-info-icon" title="Astraler Schadenswiderstand = sr6_attr_willenskraft_gesamtwert">i</span></div>
-            <div class="sr6-charactersheet-field-input-with-dice">
-              <input type="number" name="attr_sr6_magic_astraler_schadenswiderstand" readonly /><button
+            <div class="sr6-charactersheet-field-input-with-dice sr6-charactersheet-field-input-with-dice--roll-mod">
+              <span class="sr6-roll-mod-subtitle sr6-roll-mod-subtitle--basis" data-i18n="field.basis">Basis</span>
+          <span class="sr6-roll-mod-subtitle sr6-roll-mod-subtitle--mod" data-i18n="field.fertigkeitsmodifikator">Mod.</span>
+          <input type="number" name="attr_sr6_magic_astraler_schadenswiderstand" readonly />
+              <div class="sr6-number-stepper sr6-roll-mod-stepper">
+                <button type="action" class="sr6-number-stepper-button sr6-number-stepper-button--minus" name="act_sr6_number_step" value="sr6_magic_astraler_schadenswiderstand_roll_modifikator::-1" aria-label="Wert-Modifikator verringern">-</button>
+                <input type="number" name="attr_sr6_magic_astraler_schadenswiderstand_roll_modifikator" title="Wert-Modifikator" />
+                <button type="action" class="sr6-number-stepper-button sr6-number-stepper-button--plus" name="act_sr6_number_step" value="sr6_magic_astraler_schadenswiderstand_roll_modifikator::1" aria-label="Wert-Modifikator erhoehen">+</button>
+              </div>
+            <button
                 type="action"
                 class="sr6-charactersheet-field-dice-button"
                 name="act_probe"
@@ -3244,11 +3366,29 @@
           </div>
           <div class="sr6-charactersheet-field">
             <div class="sr6-field-label-with-info"><span data-i18n="field.a_angriffswert">A. Angriffswert</span><span class="sr6-info-icon" title="Astralkampf Angriffswert = sr6_attr_magie_resonanz_gesamtwert + Wert(sr6_magic_traditionsattribut_1)">i</span></div>
-            <input type="number" name="attr_sr6_magic_astralkampf_angriffswert" readonly />
+            <div class="sr6-charactersheet-field-input-with-mod">
+              <span class="sr6-roll-mod-subtitle sr6-roll-mod-subtitle--basis" data-i18n="field.basis">Basis</span>
+              <span class="sr6-roll-mod-subtitle sr6-roll-mod-subtitle--mod" data-i18n="field.fertigkeitsmodifikator">Mod.</span>
+              <input type="number" name="attr_sr6_magic_astralkampf_angriffswert" readonly />
+              <div class="sr6-number-stepper">
+                <button type="action" class="sr6-number-stepper-button sr6-number-stepper-button--minus" name="act_sr6_number_step" value="sr6_magic_astralkampf_angriffswert_modifikator::-1" aria-label="Modifikator verringern">-</button>
+                <input type="number" name="attr_sr6_magic_astralkampf_angriffswert_modifikator" title="Modifikator" />
+                <button type="action" class="sr6-number-stepper-button sr6-number-stepper-button--plus" name="act_sr6_number_step" value="sr6_magic_astralkampf_angriffswert_modifikator::1" aria-label="Modifikator erhoehen">+</button>
+              </div>
+            </div>
           </div>
           <div class="sr6-charactersheet-field">
             <div class="sr6-field-label-with-info"><span data-i18n="field.a_verteidigungswert">A. Verteidigungswert</span><span class="sr6-info-icon" title="Astralkampf Verteidigungswert = sr6_attr_intuition_gesamtwert">i</span></div>
-            <input type="number" name="attr_sr6_magic_astralkampf_verteidigungswert" readonly />
+            <div class="sr6-charactersheet-field-input-with-mod">
+              <span class="sr6-roll-mod-subtitle sr6-roll-mod-subtitle--basis" data-i18n="field.basis">Basis</span>
+              <span class="sr6-roll-mod-subtitle sr6-roll-mod-subtitle--mod" data-i18n="field.fertigkeitsmodifikator">Mod.</span>
+              <input type="number" name="attr_sr6_magic_astralkampf_verteidigungswert" readonly />
+              <div class="sr6-number-stepper">
+                <button type="action" class="sr6-number-stepper-button sr6-number-stepper-button--minus" name="act_sr6_number_step" value="sr6_magic_astralkampf_verteidigungswert_modifikator::-1" aria-label="Modifikator verringern">-</button>
+                <input type="number" name="attr_sr6_magic_astralkampf_verteidigungswert_modifikator" title="Modifikator" />
+                <button type="action" class="sr6-number-stepper-button sr6-number-stepper-button--plus" name="act_sr6_number_step" value="sr6_magic_astralkampf_verteidigungswert_modifikator::1" aria-label="Modifikator erhoehen">+</button>
+              </div>
+            </div>
           </div>
         </div>
     </section>
@@ -3835,18 +3975,44 @@
       <div class="sr6-charactersheet-row sr6-charactersheet-row-5">
         <div class="sr6-charactersheet-field">
           <div class="sr6-field-label-with-info"><span data-i18n="field.angriffswert">Angriffswert</span><span class="sr6-info-icon" title="Angriffswert = Angriff + Schleicher">i</span></div>
-          <input type="number" name="attr_sr6_matrix_angriffswert" readonly />
+          <div class="sr6-charactersheet-field-input-with-mod">
+            <span class="sr6-roll-mod-subtitle sr6-roll-mod-subtitle--basis" data-i18n="field.basis">Basis</span>
+            <span class="sr6-roll-mod-subtitle sr6-roll-mod-subtitle--mod" data-i18n="field.fertigkeitsmodifikator">Mod.</span>
+            <input type="number" name="attr_sr6_matrix_angriffswert" readonly />
+            <div class="sr6-number-stepper">
+              <button type="action" class="sr6-number-stepper-button sr6-number-stepper-button--minus" name="act_sr6_number_step" value="sr6_matrix_angriffswert_modifikator::-1" aria-label="Modifikator verringern">-</button>
+              <input type="number" name="attr_sr6_matrix_angriffswert_modifikator" title="Modifikator" />
+              <button type="action" class="sr6-number-stepper-button sr6-number-stepper-button--plus" name="act_sr6_number_step" value="sr6_matrix_angriffswert_modifikator::1" aria-label="Modifikator erhoehen">+</button>
+            </div>
+          </div>
         </div>
 
         <div class="sr6-charactersheet-field">
           <div class="sr6-field-label-with-info"><span data-i18n="field.verteidigungswert">Verteidigungswert</span><span class="sr6-info-icon" title="Verteidigungswert = Datenverarbeitung + Firewall">i</span></div>
-          <input type="number" name="attr_sr6_matrix_verteidigungswert" readonly />
+          <div class="sr6-charactersheet-field-input-with-mod">
+            <span class="sr6-roll-mod-subtitle sr6-roll-mod-subtitle--basis" data-i18n="field.basis">Basis</span>
+            <span class="sr6-roll-mod-subtitle sr6-roll-mod-subtitle--mod" data-i18n="field.fertigkeitsmodifikator">Mod.</span>
+            <input type="number" name="attr_sr6_matrix_verteidigungswert" readonly />
+            <div class="sr6-number-stepper">
+              <button type="action" class="sr6-number-stepper-button sr6-number-stepper-button--minus" name="act_sr6_number_step" value="sr6_matrix_verteidigungswert_modifikator::-1" aria-label="Modifikator verringern">-</button>
+              <input type="number" name="attr_sr6_matrix_verteidigungswert_modifikator" title="Modifikator" />
+              <button type="action" class="sr6-number-stepper-button sr6-number-stepper-button--plus" name="act_sr6_number_step" value="sr6_matrix_verteidigungswert_modifikator::1" aria-label="Modifikator erhoehen">+</button>
+            </div>
+          </div>
         </div>
 
         <div class="sr6-charactersheet-field">
           <div class="sr6-field-label-with-info"><span data-i18n="field.matrix_verteidigung">Matrix Verteidigung</span><span class="sr6-info-icon" title="Matrix Verteidigung = Intuition + Firewall">i</span></div>
-          <div class="sr6-charactersheet-field-input-with-dice">
-            <input type="number" name="attr_sr6_matrix_verteidigung" readonly /><button
+          <div class="sr6-charactersheet-field-input-with-dice sr6-charactersheet-field-input-with-dice--roll-mod">
+            <span class="sr6-roll-mod-subtitle sr6-roll-mod-subtitle--basis" data-i18n="field.basis">Basis</span>
+          <span class="sr6-roll-mod-subtitle sr6-roll-mod-subtitle--mod" data-i18n="field.fertigkeitsmodifikator">Mod.</span>
+          <input type="number" name="attr_sr6_matrix_verteidigung" readonly />
+              <div class="sr6-number-stepper sr6-roll-mod-stepper">
+                <button type="action" class="sr6-number-stepper-button sr6-number-stepper-button--minus" name="act_sr6_number_step" value="sr6_matrix_verteidigung_roll_modifikator::-1" aria-label="Wert-Modifikator verringern">-</button>
+                <input type="number" name="attr_sr6_matrix_verteidigung_roll_modifikator" title="Wert-Modifikator" />
+                <button type="action" class="sr6-number-stepper-button sr6-number-stepper-button--plus" name="act_sr6_number_step" value="sr6_matrix_verteidigung_roll_modifikator::1" aria-label="Wert-Modifikator erhoehen">+</button>
+              </div>
+            <button
               type="action"
               class="sr6-charactersheet-field-dice-button"
               name="act_probe"
@@ -3857,8 +4023,16 @@
 
         <div class="sr6-charactersheet-field">
           <div class="sr6-field-label-with-info"><span data-i18n="field.matrix_schadenswiderstand">Matrix Schadenswiderstand</span><span class="sr6-info-icon" title="Matrix Schadenswiderstand = Firewall">i</span></div>
-          <div class="sr6-charactersheet-field-input-with-dice">
-            <input type="number" name="attr_sr6_matrix_schadenswiderstand" readonly /><button
+          <div class="sr6-charactersheet-field-input-with-dice sr6-charactersheet-field-input-with-dice--roll-mod">
+            <span class="sr6-roll-mod-subtitle sr6-roll-mod-subtitle--basis" data-i18n="field.basis">Basis</span>
+          <span class="sr6-roll-mod-subtitle sr6-roll-mod-subtitle--mod" data-i18n="field.fertigkeitsmodifikator">Mod.</span>
+          <input type="number" name="attr_sr6_matrix_schadenswiderstand" readonly />
+              <div class="sr6-number-stepper sr6-roll-mod-stepper">
+                <button type="action" class="sr6-number-stepper-button sr6-number-stepper-button--minus" name="act_sr6_number_step" value="sr6_matrix_schadenswiderstand_roll_modifikator::-1" aria-label="Wert-Modifikator verringern">-</button>
+                <input type="number" name="attr_sr6_matrix_schadenswiderstand_roll_modifikator" title="Wert-Modifikator" />
+                <button type="action" class="sr6-number-stepper-button sr6-number-stepper-button--plus" name="act_sr6_number_step" value="sr6_matrix_schadenswiderstand_roll_modifikator::1" aria-label="Wert-Modifikator erhoehen">+</button>
+              </div>
+            <button
               type="action"
               class="sr6-charactersheet-field-dice-button"
               name="act_probe"
@@ -3869,8 +4043,16 @@
 
         <div class="sr6-charactersheet-field">
           <div class="sr6-field-label-with-info"><span data-i18n="field.biofeedback_schadenswiderstand">Biofeedback Schadenswiderstand</span><span class="sr6-info-icon" title="Biofeedback Schadenswiderstand = Willenskraft">i</span></div>
-          <div class="sr6-charactersheet-field-input-with-dice">
-            <input type="number" name="attr_sr6_matrix_biofeedback_schadenswiderstand" readonly /><button
+          <div class="sr6-charactersheet-field-input-with-dice sr6-charactersheet-field-input-with-dice--roll-mod">
+            <span class="sr6-roll-mod-subtitle sr6-roll-mod-subtitle--basis" data-i18n="field.basis">Basis</span>
+          <span class="sr6-roll-mod-subtitle sr6-roll-mod-subtitle--mod" data-i18n="field.fertigkeitsmodifikator">Mod.</span>
+          <input type="number" name="attr_sr6_matrix_biofeedback_schadenswiderstand" readonly />
+              <div class="sr6-number-stepper sr6-roll-mod-stepper">
+                <button type="action" class="sr6-number-stepper-button sr6-number-stepper-button--minus" name="act_sr6_number_step" value="sr6_matrix_biofeedback_schadenswiderstand_roll_modifikator::-1" aria-label="Wert-Modifikator verringern">-</button>
+                <input type="number" name="attr_sr6_matrix_biofeedback_schadenswiderstand_roll_modifikator" title="Wert-Modifikator" />
+                <button type="action" class="sr6-number-stepper-button sr6-number-stepper-button--plus" name="act_sr6_number_step" value="sr6_matrix_biofeedback_schadenswiderstand_roll_modifikator::1" aria-label="Wert-Modifikator erhoehen">+</button>
+              </div>
+            <button
               type="action"
               class="sr6-charactersheet-field-dice-button"
               name="act_probe"
@@ -4079,8 +4261,15 @@
         <div class="sr6-matrix-handlung" data-zugriff="user">
           <span class="sr6-matrix-handlung-name">Ausstoepseln</span>
           <span class="sr6-matrix-handlung-formula">Elektronik + Willenskraft</span>
-          <div class="sr6-matrix-handlung-value">
-            <input type="number" name="attr_sr6_matrix_handlung_ausstoepseln_probe_wert" readonly />
+          <div class="sr6-matrix-handlung-value sr6-matrix-handlung-value--roll-mod">
+            <span class="sr6-roll-mod-subtitle sr6-roll-mod-subtitle--basis" data-i18n="field.basis">Basis</span>
+          <span class="sr6-roll-mod-subtitle sr6-roll-mod-subtitle--mod" data-i18n="field.fertigkeitsmodifikator">Mod.</span>
+          <input type="number" name="attr_sr6_matrix_handlung_ausstoepseln_probe_wert" readonly />
+              <div class="sr6-number-stepper sr6-roll-mod-stepper">
+                <button type="action" class="sr6-number-stepper-button sr6-number-stepper-button--minus" name="act_sr6_number_step" value="sr6_matrix_handlung_ausstoepseln_probe_wert_roll_modifikator::-1" aria-label="Wert-Modifikator verringern">-</button>
+                <input type="number" name="attr_sr6_matrix_handlung_ausstoepseln_probe_wert_roll_modifikator" title="Wert-Modifikator" />
+                <button type="action" class="sr6-number-stepper-button sr6-number-stepper-button--plus" name="act_sr6_number_step" value="sr6_matrix_handlung_ausstoepseln_probe_wert_roll_modifikator::1" aria-label="Wert-Modifikator erhoehen">+</button>
+              </div>
             <button
               type="action"
               class="sr6-charactersheet-field-dice-button"
@@ -4089,8 +4278,15 @@
               aria-label="Wuerfeln"></button>
           </div>
           <select name="attr_sr6_matrix_handlung_ausstoepseln_verteidigung_auswahl" class="sr6-matrix-handlung-formula sr6-matrix-handlung-formula--select"><option value="Charisma + Datenverarbeitung">Charisma + Datenverarbeitung</option><option value="Angriff + Datenverarbeitung">Angriff + Datenverarbeitung</option></select>
-          <div class="sr6-matrix-handlung-value">
-            <input type="number" name="attr_sr6_matrix_handlung_ausstoepseln_verteidigung_wert" readonly />
+          <div class="sr6-matrix-handlung-value sr6-matrix-handlung-value--roll-mod">
+            <span class="sr6-roll-mod-subtitle sr6-roll-mod-subtitle--basis" data-i18n="field.basis">Basis</span>
+          <span class="sr6-roll-mod-subtitle sr6-roll-mod-subtitle--mod" data-i18n="field.fertigkeitsmodifikator">Mod.</span>
+          <input type="number" name="attr_sr6_matrix_handlung_ausstoepseln_verteidigung_wert" readonly />
+              <div class="sr6-number-stepper sr6-roll-mod-stepper">
+                <button type="action" class="sr6-number-stepper-button sr6-number-stepper-button--minus" name="act_sr6_number_step" value="sr6_matrix_handlung_ausstoepseln_verteidigung_wert_roll_modifikator::-1" aria-label="Wert-Modifikator verringern">-</button>
+                <input type="number" name="attr_sr6_matrix_handlung_ausstoepseln_verteidigung_wert_roll_modifikator" title="Wert-Modifikator" />
+                <button type="action" class="sr6-number-stepper-button sr6-number-stepper-button--plus" name="act_sr6_number_step" value="sr6_matrix_handlung_ausstoepseln_verteidigung_wert_roll_modifikator::1" aria-label="Wert-Modifikator erhoehen">+</button>
+              </div>
             <button
               type="action"
               class="sr6-charactersheet-field-dice-button"
@@ -4102,8 +4298,15 @@
         <div class="sr6-matrix-handlung" data-zugriff="user">
           <span class="sr6-matrix-handlung-name">Bedrohungsanalyse</span>
           <span class="sr6-matrix-handlung-formula">Elektronik + Logik</span>
-          <div class="sr6-matrix-handlung-value">
-            <input type="number" name="attr_sr6_matrix_handlung_bedrohungsanalyse_probe_wert" readonly />
+          <div class="sr6-matrix-handlung-value sr6-matrix-handlung-value--roll-mod">
+            <span class="sr6-roll-mod-subtitle sr6-roll-mod-subtitle--basis" data-i18n="field.basis">Basis</span>
+          <span class="sr6-roll-mod-subtitle sr6-roll-mod-subtitle--mod" data-i18n="field.fertigkeitsmodifikator">Mod.</span>
+          <input type="number" name="attr_sr6_matrix_handlung_bedrohungsanalyse_probe_wert" readonly />
+              <div class="sr6-number-stepper sr6-roll-mod-stepper">
+                <button type="action" class="sr6-number-stepper-button sr6-number-stepper-button--minus" name="act_sr6_number_step" value="sr6_matrix_handlung_bedrohungsanalyse_probe_wert_roll_modifikator::-1" aria-label="Wert-Modifikator verringern">-</button>
+                <input type="number" name="attr_sr6_matrix_handlung_bedrohungsanalyse_probe_wert_roll_modifikator" title="Wert-Modifikator" />
+                <button type="action" class="sr6-number-stepper-button sr6-number-stepper-button--plus" name="act_sr6_number_step" value="sr6_matrix_handlung_bedrohungsanalyse_probe_wert_roll_modifikator::1" aria-label="Wert-Modifikator erhoehen">+</button>
+              </div>
             <button
               type="action"
               class="sr6-charactersheet-field-dice-button"
@@ -4120,8 +4323,15 @@
         <div class="sr6-matrix-handlung" data-zugriff="user">
           <span class="sr6-matrix-handlung-name">Befehl vortaeuschen</span>
           <span class="sr6-matrix-handlung-formula">Cracken + Logik</span>
-          <div class="sr6-matrix-handlung-value">
-            <input type="number" name="attr_sr6_matrix_handlung_befehl_vortaeuschen_probe_wert" readonly />
+          <div class="sr6-matrix-handlung-value sr6-matrix-handlung-value--roll-mod">
+            <span class="sr6-roll-mod-subtitle sr6-roll-mod-subtitle--basis" data-i18n="field.basis">Basis</span>
+          <span class="sr6-roll-mod-subtitle sr6-roll-mod-subtitle--mod" data-i18n="field.fertigkeitsmodifikator">Mod.</span>
+          <input type="number" name="attr_sr6_matrix_handlung_befehl_vortaeuschen_probe_wert" readonly />
+              <div class="sr6-number-stepper sr6-roll-mod-stepper">
+                <button type="action" class="sr6-number-stepper-button sr6-number-stepper-button--minus" name="act_sr6_number_step" value="sr6_matrix_handlung_befehl_vortaeuschen_probe_wert_roll_modifikator::-1" aria-label="Wert-Modifikator verringern">-</button>
+                <input type="number" name="attr_sr6_matrix_handlung_befehl_vortaeuschen_probe_wert_roll_modifikator" title="Wert-Modifikator" />
+                <button type="action" class="sr6-number-stepper-button sr6-number-stepper-button--plus" name="act_sr6_number_step" value="sr6_matrix_handlung_befehl_vortaeuschen_probe_wert_roll_modifikator::1" aria-label="Wert-Modifikator erhoehen">+</button>
+              </div>
             <button
               type="action"
               class="sr6-charactersheet-field-dice-button"
@@ -4130,8 +4340,15 @@
               aria-label="Wuerfeln"></button>
           </div>
           <select name="attr_sr6_matrix_handlung_befehl_vortaeuschen_verteidigung_auswahl" class="sr6-matrix-handlung-formula sr6-matrix-handlung-formula--select"><option value="Datenverarbeitung + Firewall">Datenverarbeitung + Firewall</option><option value="Pilot + Firewall">Pilot + Firewall</option></select>
-          <div class="sr6-matrix-handlung-value">
-            <input type="number" name="attr_sr6_matrix_handlung_befehl_vortaeuschen_verteidigung_wert" readonly />
+          <div class="sr6-matrix-handlung-value sr6-matrix-handlung-value--roll-mod">
+            <span class="sr6-roll-mod-subtitle sr6-roll-mod-subtitle--basis" data-i18n="field.basis">Basis</span>
+          <span class="sr6-roll-mod-subtitle sr6-roll-mod-subtitle--mod" data-i18n="field.fertigkeitsmodifikator">Mod.</span>
+          <input type="number" name="attr_sr6_matrix_handlung_befehl_vortaeuschen_verteidigung_wert" readonly />
+              <div class="sr6-number-stepper sr6-roll-mod-stepper">
+                <button type="action" class="sr6-number-stepper-button sr6-number-stepper-button--minus" name="act_sr6_number_step" value="sr6_matrix_handlung_befehl_vortaeuschen_verteidigung_wert_roll_modifikator::-1" aria-label="Wert-Modifikator verringern">-</button>
+                <input type="number" name="attr_sr6_matrix_handlung_befehl_vortaeuschen_verteidigung_wert_roll_modifikator" title="Wert-Modifikator" />
+                <button type="action" class="sr6-number-stepper-button sr6-number-stepper-button--plus" name="act_sr6_number_step" value="sr6_matrix_handlung_befehl_vortaeuschen_verteidigung_wert_roll_modifikator::1" aria-label="Wert-Modifikator erhoehen">+</button>
+              </div>
             <button
               type="action"
               class="sr6-charactersheet-field-dice-button"
@@ -4143,8 +4360,15 @@
         <div class="sr6-matrix-handlung" data-zugriff="admin">
           <span class="sr6-matrix-handlung-name">Brute Force</span>
           <span class="sr6-matrix-handlung-formula">Cracken + Logik</span>
-          <div class="sr6-matrix-handlung-value">
-            <input type="number" name="attr_sr6_matrix_handlung_brute_force_probe_wert" readonly />
+          <div class="sr6-matrix-handlung-value sr6-matrix-handlung-value--roll-mod">
+            <span class="sr6-roll-mod-subtitle sr6-roll-mod-subtitle--basis" data-i18n="field.basis">Basis</span>
+          <span class="sr6-roll-mod-subtitle sr6-roll-mod-subtitle--mod" data-i18n="field.fertigkeitsmodifikator">Mod.</span>
+          <input type="number" name="attr_sr6_matrix_handlung_brute_force_probe_wert" readonly />
+              <div class="sr6-number-stepper sr6-roll-mod-stepper">
+                <button type="action" class="sr6-number-stepper-button sr6-number-stepper-button--minus" name="act_sr6_number_step" value="sr6_matrix_handlung_brute_force_probe_wert_roll_modifikator::-1" aria-label="Wert-Modifikator verringern">-</button>
+                <input type="number" name="attr_sr6_matrix_handlung_brute_force_probe_wert_roll_modifikator" title="Wert-Modifikator" />
+                <button type="action" class="sr6-number-stepper-button sr6-number-stepper-button--plus" name="act_sr6_number_step" value="sr6_matrix_handlung_brute_force_probe_wert_roll_modifikator::1" aria-label="Wert-Modifikator erhoehen">+</button>
+              </div>
             <button
               type="action"
               class="sr6-charactersheet-field-dice-button"
@@ -4153,8 +4377,15 @@
               aria-label="Wuerfeln"></button>
           </div>
           <select name="attr_sr6_matrix_handlung_brute_force_verteidigung_auswahl" class="sr6-matrix-handlung-formula sr6-matrix-handlung-formula--select"><option value="Willenskraft + Firewall">Willenskraft + Firewall</option><option value="Firewall x2">Firewall x2</option></select>
-          <div class="sr6-matrix-handlung-value">
-            <input type="number" name="attr_sr6_matrix_handlung_brute_force_verteidigung_wert" readonly />
+          <div class="sr6-matrix-handlung-value sr6-matrix-handlung-value--roll-mod">
+            <span class="sr6-roll-mod-subtitle sr6-roll-mod-subtitle--basis" data-i18n="field.basis">Basis</span>
+          <span class="sr6-roll-mod-subtitle sr6-roll-mod-subtitle--mod" data-i18n="field.fertigkeitsmodifikator">Mod.</span>
+          <input type="number" name="attr_sr6_matrix_handlung_brute_force_verteidigung_wert" readonly />
+              <div class="sr6-number-stepper sr6-roll-mod-stepper">
+                <button type="action" class="sr6-number-stepper-button sr6-number-stepper-button--minus" name="act_sr6_number_step" value="sr6_matrix_handlung_brute_force_verteidigung_wert_roll_modifikator::-1" aria-label="Wert-Modifikator verringern">-</button>
+                <input type="number" name="attr_sr6_matrix_handlung_brute_force_verteidigung_wert_roll_modifikator" title="Wert-Modifikator" />
+                <button type="action" class="sr6-number-stepper-button sr6-number-stepper-button--plus" name="act_sr6_number_step" value="sr6_matrix_handlung_brute_force_verteidigung_wert_roll_modifikator::1" aria-label="Wert-Modifikator erhoehen">+</button>
+              </div>
             <button
               type="action"
               class="sr6-charactersheet-field-dice-button"
@@ -4166,8 +4397,15 @@
         <div class="sr6-matrix-handlung" data-zugriff="admin">
           <span class="sr6-matrix-handlung-name">Cyberware kontrollieren</span>
           <span class="sr6-matrix-handlung-formula">Cracken + Logik</span>
-          <div class="sr6-matrix-handlung-value">
-            <input type="number" name="attr_sr6_matrix_handlung_cyberware_kontrollieren_probe_wert" readonly />
+          <div class="sr6-matrix-handlung-value sr6-matrix-handlung-value--roll-mod">
+            <span class="sr6-roll-mod-subtitle sr6-roll-mod-subtitle--basis" data-i18n="field.basis">Basis</span>
+          <span class="sr6-roll-mod-subtitle sr6-roll-mod-subtitle--mod" data-i18n="field.fertigkeitsmodifikator">Mod.</span>
+          <input type="number" name="attr_sr6_matrix_handlung_cyberware_kontrollieren_probe_wert" readonly />
+              <div class="sr6-number-stepper sr6-roll-mod-stepper">
+                <button type="action" class="sr6-number-stepper-button sr6-number-stepper-button--minus" name="act_sr6_number_step" value="sr6_matrix_handlung_cyberware_kontrollieren_probe_wert_roll_modifikator::-1" aria-label="Wert-Modifikator verringern">-</button>
+                <input type="number" name="attr_sr6_matrix_handlung_cyberware_kontrollieren_probe_wert_roll_modifikator" title="Wert-Modifikator" />
+                <button type="action" class="sr6-number-stepper-button sr6-number-stepper-button--plus" name="act_sr6_number_step" value="sr6_matrix_handlung_cyberware_kontrollieren_probe_wert_roll_modifikator::1" aria-label="Wert-Modifikator erhoehen">+</button>
+              </div>
             <button
               type="action"
               class="sr6-charactersheet-field-dice-button"
@@ -4184,8 +4422,15 @@
         <div class="sr6-matrix-handlung" data-zugriff="admin">
           <span class="sr6-matrix-handlung-name">Datei cracken</span>
           <span class="sr6-matrix-handlung-formula">Cracken + Logik</span>
-          <div class="sr6-matrix-handlung-value">
-            <input type="number" name="attr_sr6_matrix_handlung_datei_cracken_probe_wert" readonly />
+          <div class="sr6-matrix-handlung-value sr6-matrix-handlung-value--roll-mod">
+            <span class="sr6-roll-mod-subtitle sr6-roll-mod-subtitle--basis" data-i18n="field.basis">Basis</span>
+          <span class="sr6-roll-mod-subtitle sr6-roll-mod-subtitle--mod" data-i18n="field.fertigkeitsmodifikator">Mod.</span>
+          <input type="number" name="attr_sr6_matrix_handlung_datei_cracken_probe_wert" readonly />
+              <div class="sr6-number-stepper sr6-roll-mod-stepper">
+                <button type="action" class="sr6-number-stepper-button sr6-number-stepper-button--minus" name="act_sr6_number_step" value="sr6_matrix_handlung_datei_cracken_probe_wert_roll_modifikator::-1" aria-label="Wert-Modifikator verringern">-</button>
+                <input type="number" name="attr_sr6_matrix_handlung_datei_cracken_probe_wert_roll_modifikator" title="Wert-Modifikator" />
+                <button type="action" class="sr6-number-stepper-button sr6-number-stepper-button--plus" name="act_sr6_number_step" value="sr6_matrix_handlung_datei_cracken_probe_wert_roll_modifikator::1" aria-label="Wert-Modifikator erhoehen">+</button>
+              </div>
             <button
               type="action"
               class="sr6-charactersheet-field-dice-button"
@@ -4202,8 +4447,15 @@
         <div class="sr6-matrix-handlung" data-zugriff="user">
           <span class="sr6-matrix-handlung-name">Datei editieren</span>
           <span class="sr6-matrix-handlung-formula">Elektronik + Logik</span>
-          <div class="sr6-matrix-handlung-value">
-            <input type="number" name="attr_sr6_matrix_handlung_datei_editieren_probe_wert" readonly />
+          <div class="sr6-matrix-handlung-value sr6-matrix-handlung-value--roll-mod">
+            <span class="sr6-roll-mod-subtitle sr6-roll-mod-subtitle--basis" data-i18n="field.basis">Basis</span>
+          <span class="sr6-roll-mod-subtitle sr6-roll-mod-subtitle--mod" data-i18n="field.fertigkeitsmodifikator">Mod.</span>
+          <input type="number" name="attr_sr6_matrix_handlung_datei_editieren_probe_wert" readonly />
+              <div class="sr6-number-stepper sr6-roll-mod-stepper">
+                <button type="action" class="sr6-number-stepper-button sr6-number-stepper-button--minus" name="act_sr6_number_step" value="sr6_matrix_handlung_datei_editieren_probe_wert_roll_modifikator::-1" aria-label="Wert-Modifikator verringern">-</button>
+                <input type="number" name="attr_sr6_matrix_handlung_datei_editieren_probe_wert_roll_modifikator" title="Wert-Modifikator" />
+                <button type="action" class="sr6-number-stepper-button sr6-number-stepper-button--plus" name="act_sr6_number_step" value="sr6_matrix_handlung_datei_editieren_probe_wert_roll_modifikator::1" aria-label="Wert-Modifikator erhoehen">+</button>
+              </div>
             <button
               type="action"
               class="sr6-charactersheet-field-dice-button"
@@ -4212,8 +4464,15 @@
               aria-label="Wuerfeln"></button>
           </div>
           <select name="attr_sr6_matrix_handlung_datei_editieren_verteidigung_auswahl" class="sr6-matrix-handlung-formula sr6-matrix-handlung-formula--select"><option value="Intuition + Firewall">Intuition + Firewall</option><option value="Schleicher + Firewall">Schleicher + Firewall</option></select>
-          <div class="sr6-matrix-handlung-value">
-            <input type="number" name="attr_sr6_matrix_handlung_datei_editieren_verteidigung_wert" readonly />
+          <div class="sr6-matrix-handlung-value sr6-matrix-handlung-value--roll-mod">
+            <span class="sr6-roll-mod-subtitle sr6-roll-mod-subtitle--basis" data-i18n="field.basis">Basis</span>
+          <span class="sr6-roll-mod-subtitle sr6-roll-mod-subtitle--mod" data-i18n="field.fertigkeitsmodifikator">Mod.</span>
+          <input type="number" name="attr_sr6_matrix_handlung_datei_editieren_verteidigung_wert" readonly />
+              <div class="sr6-number-stepper sr6-roll-mod-stepper">
+                <button type="action" class="sr6-number-stepper-button sr6-number-stepper-button--minus" name="act_sr6_number_step" value="sr6_matrix_handlung_datei_editieren_verteidigung_wert_roll_modifikator::-1" aria-label="Wert-Modifikator verringern">-</button>
+                <input type="number" name="attr_sr6_matrix_handlung_datei_editieren_verteidigung_wert_roll_modifikator" title="Wert-Modifikator" />
+                <button type="action" class="sr6-number-stepper-button sr6-number-stepper-button--plus" name="act_sr6_number_step" value="sr6_matrix_handlung_datei_editieren_verteidigung_wert_roll_modifikator::1" aria-label="Wert-Modifikator erhoehen">+</button>
+              </div>
             <button
               type="action"
               class="sr6-charactersheet-field-dice-button"
@@ -4225,8 +4484,15 @@
         <div class="sr6-matrix-handlung" data-zugriff="user">
           <span class="sr6-matrix-handlung-name">Datei verschluesseln</span>
           <span class="sr6-matrix-handlung-formula">Elektronik + Logik</span>
-          <div class="sr6-matrix-handlung-value">
-            <input type="number" name="attr_sr6_matrix_handlung_datei_verschluesseln_probe_wert" readonly />
+          <div class="sr6-matrix-handlung-value sr6-matrix-handlung-value--roll-mod">
+            <span class="sr6-roll-mod-subtitle sr6-roll-mod-subtitle--basis" data-i18n="field.basis">Basis</span>
+          <span class="sr6-roll-mod-subtitle sr6-roll-mod-subtitle--mod" data-i18n="field.fertigkeitsmodifikator">Mod.</span>
+          <input type="number" name="attr_sr6_matrix_handlung_datei_verschluesseln_probe_wert" readonly />
+              <div class="sr6-number-stepper sr6-roll-mod-stepper">
+                <button type="action" class="sr6-number-stepper-button sr6-number-stepper-button--minus" name="act_sr6_number_step" value="sr6_matrix_handlung_datei_verschluesseln_probe_wert_roll_modifikator::-1" aria-label="Wert-Modifikator verringern">-</button>
+                <input type="number" name="attr_sr6_matrix_handlung_datei_verschluesseln_probe_wert_roll_modifikator" title="Wert-Modifikator" />
+                <button type="action" class="sr6-number-stepper-button sr6-number-stepper-button--plus" name="act_sr6_number_step" value="sr6_matrix_handlung_datei_verschluesseln_probe_wert_roll_modifikator::1" aria-label="Wert-Modifikator erhoehen">+</button>
+              </div>
             <button
               type="action"
               class="sr6-charactersheet-field-dice-button"
@@ -4243,8 +4509,15 @@
         <div class="sr6-matrix-handlung" data-zugriff="user">
           <span class="sr6-matrix-handlung-name">Datenbombe entschaerfen</span>
           <span class="sr6-matrix-handlung-formula">Elektronik + Logik</span>
-          <div class="sr6-matrix-handlung-value">
-            <input type="number" name="attr_sr6_matrix_handlung_datenbombe_entschaerfen_probe_wert" readonly />
+          <div class="sr6-matrix-handlung-value sr6-matrix-handlung-value--roll-mod">
+            <span class="sr6-roll-mod-subtitle sr6-roll-mod-subtitle--basis" data-i18n="field.basis">Basis</span>
+          <span class="sr6-roll-mod-subtitle sr6-roll-mod-subtitle--mod" data-i18n="field.fertigkeitsmodifikator">Mod.</span>
+          <input type="number" name="attr_sr6_matrix_handlung_datenbombe_entschaerfen_probe_wert" readonly />
+              <div class="sr6-number-stepper sr6-roll-mod-stepper">
+                <button type="action" class="sr6-number-stepper-button sr6-number-stepper-button--minus" name="act_sr6_number_step" value="sr6_matrix_handlung_datenbombe_entschaerfen_probe_wert_roll_modifikator::-1" aria-label="Wert-Modifikator verringern">-</button>
+                <input type="number" name="attr_sr6_matrix_handlung_datenbombe_entschaerfen_probe_wert_roll_modifikator" title="Wert-Modifikator" />
+                <button type="action" class="sr6-number-stepper-button sr6-number-stepper-button--plus" name="act_sr6_number_step" value="sr6_matrix_handlung_datenbombe_entschaerfen_probe_wert_roll_modifikator::1" aria-label="Wert-Modifikator erhoehen">+</button>
+              </div>
             <button
               type="action"
               class="sr6-charactersheet-field-dice-button"
@@ -4261,8 +4534,15 @@
         <div class="sr6-matrix-handlung" data-zugriff="admin">
           <span class="sr6-matrix-handlung-name">Datenbombe legen</span>
           <span class="sr6-matrix-handlung-formula">Cracken + Logik</span>
-          <div class="sr6-matrix-handlung-value">
-            <input type="number" name="attr_sr6_matrix_handlung_datenbombe_legen_probe_wert" readonly />
+          <div class="sr6-matrix-handlung-value sr6-matrix-handlung-value--roll-mod">
+            <span class="sr6-roll-mod-subtitle sr6-roll-mod-subtitle--basis" data-i18n="field.basis">Basis</span>
+          <span class="sr6-roll-mod-subtitle sr6-roll-mod-subtitle--mod" data-i18n="field.fertigkeitsmodifikator">Mod.</span>
+          <input type="number" name="attr_sr6_matrix_handlung_datenbombe_legen_probe_wert" readonly />
+              <div class="sr6-number-stepper sr6-roll-mod-stepper">
+                <button type="action" class="sr6-number-stepper-button sr6-number-stepper-button--minus" name="act_sr6_number_step" value="sr6_matrix_handlung_datenbombe_legen_probe_wert_roll_modifikator::-1" aria-label="Wert-Modifikator verringern">-</button>
+                <input type="number" name="attr_sr6_matrix_handlung_datenbombe_legen_probe_wert_roll_modifikator" title="Wert-Modifikator" />
+                <button type="action" class="sr6-number-stepper-button sr6-number-stepper-button--plus" name="act_sr6_number_step" value="sr6_matrix_handlung_datenbombe_legen_probe_wert_roll_modifikator::1" aria-label="Wert-Modifikator erhoehen">+</button>
+              </div>
             <button
               type="action"
               class="sr6-charactersheet-field-dice-button"
@@ -4279,8 +4559,15 @@
         <div class="sr6-matrix-handlung" data-zugriff="user">
           <span class="sr6-matrix-handlung-name">Datenspike</span>
           <span class="sr6-matrix-handlung-formula">Cracken + Logik</span>
-          <div class="sr6-matrix-handlung-value">
-            <input type="number" name="attr_sr6_matrix_handlung_datenspike_probe_wert" readonly />
+          <div class="sr6-matrix-handlung-value sr6-matrix-handlung-value--roll-mod">
+            <span class="sr6-roll-mod-subtitle sr6-roll-mod-subtitle--basis" data-i18n="field.basis">Basis</span>
+          <span class="sr6-roll-mod-subtitle sr6-roll-mod-subtitle--mod" data-i18n="field.fertigkeitsmodifikator">Mod.</span>
+          <input type="number" name="attr_sr6_matrix_handlung_datenspike_probe_wert" readonly />
+              <div class="sr6-number-stepper sr6-roll-mod-stepper">
+                <button type="action" class="sr6-number-stepper-button sr6-number-stepper-button--minus" name="act_sr6_number_step" value="sr6_matrix_handlung_datenspike_probe_wert_roll_modifikator::-1" aria-label="Wert-Modifikator verringern">-</button>
+                <input type="number" name="attr_sr6_matrix_handlung_datenspike_probe_wert_roll_modifikator" title="Wert-Modifikator" />
+                <button type="action" class="sr6-number-stepper-button sr6-number-stepper-button--plus" name="act_sr6_number_step" value="sr6_matrix_handlung_datenspike_probe_wert_roll_modifikator::1" aria-label="Wert-Modifikator erhoehen">+</button>
+              </div>
             <button
               type="action"
               class="sr6-charactersheet-field-dice-button"
@@ -4289,8 +4576,15 @@
               aria-label="Wuerfeln"></button>
           </div>
           <select name="attr_sr6_matrix_handlung_datenspike_verteidigung_auswahl" class="sr6-matrix-handlung-formula sr6-matrix-handlung-formula--select"><option value="Datenverarbeitung + Firewall">Datenverarbeitung + Firewall</option><option value="Logik + Firewall">Logik + Firewall</option></select>
-          <div class="sr6-matrix-handlung-value">
-            <input type="number" name="attr_sr6_matrix_handlung_datenspike_verteidigung_wert" readonly />
+          <div class="sr6-matrix-handlung-value sr6-matrix-handlung-value--roll-mod">
+            <span class="sr6-roll-mod-subtitle sr6-roll-mod-subtitle--basis" data-i18n="field.basis">Basis</span>
+          <span class="sr6-roll-mod-subtitle sr6-roll-mod-subtitle--mod" data-i18n="field.fertigkeitsmodifikator">Mod.</span>
+          <input type="number" name="attr_sr6_matrix_handlung_datenspike_verteidigung_wert" readonly />
+              <div class="sr6-number-stepper sr6-roll-mod-stepper">
+                <button type="action" class="sr6-number-stepper-button sr6-number-stepper-button--minus" name="act_sr6_number_step" value="sr6_matrix_handlung_datenspike_verteidigung_wert_roll_modifikator::-1" aria-label="Wert-Modifikator verringern">-</button>
+                <input type="number" name="attr_sr6_matrix_handlung_datenspike_verteidigung_wert_roll_modifikator" title="Wert-Modifikator" />
+                <button type="action" class="sr6-number-stepper-button sr6-number-stepper-button--plus" name="act_sr6_number_step" value="sr6_matrix_handlung_datenspike_verteidigung_wert_roll_modifikator::1" aria-label="Wert-Modifikator erhoehen">+</button>
+              </div>
             <button
               type="action"
               class="sr6-charactersheet-field-dice-button"
@@ -4302,8 +4596,15 @@
         <div class="sr6-matrix-handlung" data-zugriff="admin">
           <span class="sr6-matrix-handlung-name">Dienstverweigerung</span>
           <span class="sr6-matrix-handlung-formula">Cracken + Logik</span>
-          <div class="sr6-matrix-handlung-value">
-            <input type="number" name="attr_sr6_matrix_handlung_dienstverweigerung_probe_wert" readonly />
+          <div class="sr6-matrix-handlung-value sr6-matrix-handlung-value--roll-mod">
+            <span class="sr6-roll-mod-subtitle sr6-roll-mod-subtitle--basis" data-i18n="field.basis">Basis</span>
+          <span class="sr6-roll-mod-subtitle sr6-roll-mod-subtitle--mod" data-i18n="field.fertigkeitsmodifikator">Mod.</span>
+          <input type="number" name="attr_sr6_matrix_handlung_dienstverweigerung_probe_wert" readonly />
+              <div class="sr6-number-stepper sr6-roll-mod-stepper">
+                <button type="action" class="sr6-number-stepper-button sr6-number-stepper-button--minus" name="act_sr6_number_step" value="sr6_matrix_handlung_dienstverweigerung_probe_wert_roll_modifikator::-1" aria-label="Wert-Modifikator verringern">-</button>
+                <input type="number" name="attr_sr6_matrix_handlung_dienstverweigerung_probe_wert_roll_modifikator" title="Wert-Modifikator" />
+                <button type="action" class="sr6-number-stepper-button sr6-number-stepper-button--plus" name="act_sr6_number_step" value="sr6_matrix_handlung_dienstverweigerung_probe_wert_roll_modifikator::1" aria-label="Wert-Modifikator erhoehen">+</button>
+              </div>
             <button
               type="action"
               class="sr6-charactersheet-field-dice-button"
@@ -4312,8 +4613,15 @@
               aria-label="Wuerfeln"></button>
           </div>
           <select name="attr_sr6_matrix_handlung_dienstverweigerung_verteidigung_auswahl" class="sr6-matrix-handlung-formula sr6-matrix-handlung-formula--select"><option value="Willenskraft + Firewall">Willenskraft + Firewall</option><option value="Firewall x2">Firewall x2</option></select>
-          <div class="sr6-matrix-handlung-value">
-            <input type="number" name="attr_sr6_matrix_handlung_dienstverweigerung_verteidigung_wert" readonly />
+          <div class="sr6-matrix-handlung-value sr6-matrix-handlung-value--roll-mod">
+            <span class="sr6-roll-mod-subtitle sr6-roll-mod-subtitle--basis" data-i18n="field.basis">Basis</span>
+          <span class="sr6-roll-mod-subtitle sr6-roll-mod-subtitle--mod" data-i18n="field.fertigkeitsmodifikator">Mod.</span>
+          <input type="number" name="attr_sr6_matrix_handlung_dienstverweigerung_verteidigung_wert" readonly />
+              <div class="sr6-number-stepper sr6-roll-mod-stepper">
+                <button type="action" class="sr6-number-stepper-button sr6-number-stepper-button--minus" name="act_sr6_number_step" value="sr6_matrix_handlung_dienstverweigerung_verteidigung_wert_roll_modifikator::-1" aria-label="Wert-Modifikator verringern">-</button>
+                <input type="number" name="attr_sr6_matrix_handlung_dienstverweigerung_verteidigung_wert_roll_modifikator" title="Wert-Modifikator" />
+                <button type="action" class="sr6-number-stepper-button sr6-number-stepper-button--plus" name="act_sr6_number_step" value="sr6_matrix_handlung_dienstverweigerung_verteidigung_wert_roll_modifikator::1" aria-label="Wert-Modifikator erhoehen">+</button>
+              </div>
             <button
               type="action"
               class="sr6-charactersheet-field-dice-button"
@@ -4325,8 +4633,15 @@
         <div class="sr6-matrix-handlung" data-zugriff="user">
           <span class="sr6-matrix-handlung-name">Ersticken</span>
           <span class="sr6-matrix-handlung-formula">Cracken + Logik</span>
-          <div class="sr6-matrix-handlung-value">
-            <input type="number" name="attr_sr6_matrix_handlung_ersticken_probe_wert" readonly />
+          <div class="sr6-matrix-handlung-value sr6-matrix-handlung-value--roll-mod">
+            <span class="sr6-roll-mod-subtitle sr6-roll-mod-subtitle--basis" data-i18n="field.basis">Basis</span>
+          <span class="sr6-roll-mod-subtitle sr6-roll-mod-subtitle--mod" data-i18n="field.fertigkeitsmodifikator">Mod.</span>
+          <input type="number" name="attr_sr6_matrix_handlung_ersticken_probe_wert" readonly />
+              <div class="sr6-number-stepper sr6-roll-mod-stepper">
+                <button type="action" class="sr6-number-stepper-button sr6-number-stepper-button--minus" name="act_sr6_number_step" value="sr6_matrix_handlung_ersticken_probe_wert_roll_modifikator::-1" aria-label="Wert-Modifikator verringern">-</button>
+                <input type="number" name="attr_sr6_matrix_handlung_ersticken_probe_wert_roll_modifikator" title="Wert-Modifikator" />
+                <button type="action" class="sr6-number-stepper-button sr6-number-stepper-button--plus" name="act_sr6_number_step" value="sr6_matrix_handlung_ersticken_probe_wert_roll_modifikator::1" aria-label="Wert-Modifikator erhoehen">+</button>
+              </div>
             <button
               type="action"
               class="sr6-charactersheet-field-dice-button"
@@ -4335,8 +4650,15 @@
               aria-label="Wuerfeln"></button>
           </div>
           <select name="attr_sr6_matrix_handlung_ersticken_verteidigung_auswahl" class="sr6-matrix-handlung-formula sr6-matrix-handlung-formula--select"><option value="Intuition + Schleicher">Intuition + Schleicher</option><option value="Schleicher x2">Schleicher x2</option></select>
-          <div class="sr6-matrix-handlung-value">
-            <input type="number" name="attr_sr6_matrix_handlung_ersticken_verteidigung_wert" readonly />
+          <div class="sr6-matrix-handlung-value sr6-matrix-handlung-value--roll-mod">
+            <span class="sr6-roll-mod-subtitle sr6-roll-mod-subtitle--basis" data-i18n="field.basis">Basis</span>
+          <span class="sr6-roll-mod-subtitle sr6-roll-mod-subtitle--mod" data-i18n="field.fertigkeitsmodifikator">Mod.</span>
+          <input type="number" name="attr_sr6_matrix_handlung_ersticken_verteidigung_wert" readonly />
+              <div class="sr6-number-stepper sr6-roll-mod-stepper">
+                <button type="action" class="sr6-number-stepper-button sr6-number-stepper-button--minus" name="act_sr6_number_step" value="sr6_matrix_handlung_ersticken_verteidigung_wert_roll_modifikator::-1" aria-label="Wert-Modifikator verringern">-</button>
+                <input type="number" name="attr_sr6_matrix_handlung_ersticken_verteidigung_wert_roll_modifikator" title="Wert-Modifikator" />
+                <button type="action" class="sr6-number-stepper-button sr6-number-stepper-button--plus" name="act_sr6_number_step" value="sr6_matrix_handlung_ersticken_verteidigung_wert_roll_modifikator::1" aria-label="Wert-Modifikator erhoehen">+</button>
+              </div>
             <button
               type="action"
               class="sr6-charactersheet-field-dice-button"
@@ -4348,8 +4670,15 @@
         <div class="sr6-matrix-handlung" data-zugriff="user">
           <span class="sr6-matrix-handlung-name">Garbage In/Garbage Out</span>
           <span class="sr6-matrix-handlung-formula">Cracken + Logik</span>
-          <div class="sr6-matrix-handlung-value">
-            <input type="number" name="attr_sr6_matrix_handlung_garbage_in_garbage_out_probe_wert" readonly />
+          <div class="sr6-matrix-handlung-value sr6-matrix-handlung-value--roll-mod">
+            <span class="sr6-roll-mod-subtitle sr6-roll-mod-subtitle--basis" data-i18n="field.basis">Basis</span>
+          <span class="sr6-roll-mod-subtitle sr6-roll-mod-subtitle--mod" data-i18n="field.fertigkeitsmodifikator">Mod.</span>
+          <input type="number" name="attr_sr6_matrix_handlung_garbage_in_garbage_out_probe_wert" readonly />
+              <div class="sr6-number-stepper sr6-roll-mod-stepper">
+                <button type="action" class="sr6-number-stepper-button sr6-number-stepper-button--minus" name="act_sr6_number_step" value="sr6_matrix_handlung_garbage_in_garbage_out_probe_wert_roll_modifikator::-1" aria-label="Wert-Modifikator verringern">-</button>
+                <input type="number" name="attr_sr6_matrix_handlung_garbage_in_garbage_out_probe_wert_roll_modifikator" title="Wert-Modifikator" />
+                <button type="action" class="sr6-number-stepper-button sr6-number-stepper-button--plus" name="act_sr6_number_step" value="sr6_matrix_handlung_garbage_in_garbage_out_probe_wert_roll_modifikator::1" aria-label="Wert-Modifikator erhoehen">+</button>
+              </div>
             <button
               type="action"
               class="sr6-charactersheet-field-dice-button"
@@ -4358,8 +4687,15 @@
               aria-label="Wuerfeln"></button>
           </div>
           <select name="attr_sr6_matrix_handlung_garbage_in_garbage_out_verteidigung_auswahl" class="sr6-matrix-handlung-formula sr6-matrix-handlung-formula--select"><option value="Willenskraft + Firewall">Willenskraft + Firewall</option><option value="Firewall x2">Firewall x2</option></select>
-          <div class="sr6-matrix-handlung-value">
-            <input type="number" name="attr_sr6_matrix_handlung_garbage_in_garbage_out_verteidigung_wert" readonly />
+          <div class="sr6-matrix-handlung-value sr6-matrix-handlung-value--roll-mod">
+            <span class="sr6-roll-mod-subtitle sr6-roll-mod-subtitle--basis" data-i18n="field.basis">Basis</span>
+          <span class="sr6-roll-mod-subtitle sr6-roll-mod-subtitle--mod" data-i18n="field.fertigkeitsmodifikator">Mod.</span>
+          <input type="number" name="attr_sr6_matrix_handlung_garbage_in_garbage_out_verteidigung_wert" readonly />
+              <div class="sr6-number-stepper sr6-roll-mod-stepper">
+                <button type="action" class="sr6-number-stepper-button sr6-number-stepper-button--minus" name="act_sr6_number_step" value="sr6_matrix_handlung_garbage_in_garbage_out_verteidigung_wert_roll_modifikator::-1" aria-label="Wert-Modifikator verringern">-</button>
+                <input type="number" name="attr_sr6_matrix_handlung_garbage_in_garbage_out_verteidigung_wert_roll_modifikator" title="Wert-Modifikator" />
+                <button type="action" class="sr6-number-stepper-button sr6-number-stepper-button--plus" name="act_sr6_number_step" value="sr6_matrix_handlung_garbage_in_garbage_out_verteidigung_wert_roll_modifikator::1" aria-label="Wert-Modifikator erhoehen">+</button>
+              </div>
             <button
               type="action"
               class="sr6-charactersheet-field-dice-button"
@@ -4371,8 +4707,15 @@
         <div class="sr6-matrix-handlung" data-zugriff="admin">
           <span class="sr6-matrix-handlung-name">Geraet formatieren</span>
           <span class="sr6-matrix-handlung-formula">Elektronik + Logik</span>
-          <div class="sr6-matrix-handlung-value">
-            <input type="number" name="attr_sr6_matrix_handlung_geraet_formatieren_probe_wert" readonly />
+          <div class="sr6-matrix-handlung-value sr6-matrix-handlung-value--roll-mod">
+            <span class="sr6-roll-mod-subtitle sr6-roll-mod-subtitle--basis" data-i18n="field.basis">Basis</span>
+          <span class="sr6-roll-mod-subtitle sr6-roll-mod-subtitle--mod" data-i18n="field.fertigkeitsmodifikator">Mod.</span>
+          <input type="number" name="attr_sr6_matrix_handlung_geraet_formatieren_probe_wert" readonly />
+              <div class="sr6-number-stepper sr6-roll-mod-stepper">
+                <button type="action" class="sr6-number-stepper-button sr6-number-stepper-button--minus" name="act_sr6_number_step" value="sr6_matrix_handlung_geraet_formatieren_probe_wert_roll_modifikator::-1" aria-label="Wert-Modifikator verringern">-</button>
+                <input type="number" name="attr_sr6_matrix_handlung_geraet_formatieren_probe_wert_roll_modifikator" title="Wert-Modifikator" />
+                <button type="action" class="sr6-number-stepper-button sr6-number-stepper-button--plus" name="act_sr6_number_step" value="sr6_matrix_handlung_geraet_formatieren_probe_wert_roll_modifikator::1" aria-label="Wert-Modifikator erhoehen">+</button>
+              </div>
             <button
               type="action"
               class="sr6-charactersheet-field-dice-button"
@@ -4381,8 +4724,15 @@
               aria-label="Wuerfeln"></button>
           </div>
           <select name="attr_sr6_matrix_handlung_geraet_formatieren_verteidigung_auswahl" class="sr6-matrix-handlung-formula sr6-matrix-handlung-formula--select"><option value="Willenskraft + Firewall">Willenskraft + Firewall</option><option value="Firewall x2">Firewall x2</option></select>
-          <div class="sr6-matrix-handlung-value">
-            <input type="number" name="attr_sr6_matrix_handlung_geraet_formatieren_verteidigung_wert" readonly />
+          <div class="sr6-matrix-handlung-value sr6-matrix-handlung-value--roll-mod">
+            <span class="sr6-roll-mod-subtitle sr6-roll-mod-subtitle--basis" data-i18n="field.basis">Basis</span>
+          <span class="sr6-roll-mod-subtitle sr6-roll-mod-subtitle--mod" data-i18n="field.fertigkeitsmodifikator">Mod.</span>
+          <input type="number" name="attr_sr6_matrix_handlung_geraet_formatieren_verteidigung_wert" readonly />
+              <div class="sr6-number-stepper sr6-roll-mod-stepper">
+                <button type="action" class="sr6-number-stepper-button sr6-number-stepper-button--minus" name="act_sr6_number_step" value="sr6_matrix_handlung_geraet_formatieren_verteidigung_wert_roll_modifikator::-1" aria-label="Wert-Modifikator verringern">-</button>
+                <input type="number" name="attr_sr6_matrix_handlung_geraet_formatieren_verteidigung_wert_roll_modifikator" title="Wert-Modifikator" />
+                <button type="action" class="sr6-number-stepper-button sr6-number-stepper-button--plus" name="act_sr6_number_step" value="sr6_matrix_handlung_geraet_formatieren_verteidigung_wert_roll_modifikator::1" aria-label="Wert-Modifikator erhoehen">+</button>
+              </div>
             <button
               type="action"
               class="sr6-charactersheet-field-dice-button"
@@ -4394,8 +4744,15 @@
         <div class="sr6-matrix-handlung" data-zugriff="admin">
           <span class="sr6-matrix-handlung-name">Geraet neu starten</span>
           <span class="sr6-matrix-handlung-formula">Elektronik + Logik</span>
-          <div class="sr6-matrix-handlung-value">
-            <input type="number" name="attr_sr6_matrix_handlung_geraet_neu_starten_probe_wert" readonly />
+          <div class="sr6-matrix-handlung-value sr6-matrix-handlung-value--roll-mod">
+            <span class="sr6-roll-mod-subtitle sr6-roll-mod-subtitle--basis" data-i18n="field.basis">Basis</span>
+          <span class="sr6-roll-mod-subtitle sr6-roll-mod-subtitle--mod" data-i18n="field.fertigkeitsmodifikator">Mod.</span>
+          <input type="number" name="attr_sr6_matrix_handlung_geraet_neu_starten_probe_wert" readonly />
+              <div class="sr6-number-stepper sr6-roll-mod-stepper">
+                <button type="action" class="sr6-number-stepper-button sr6-number-stepper-button--minus" name="act_sr6_number_step" value="sr6_matrix_handlung_geraet_neu_starten_probe_wert_roll_modifikator::-1" aria-label="Wert-Modifikator verringern">-</button>
+                <input type="number" name="attr_sr6_matrix_handlung_geraet_neu_starten_probe_wert_roll_modifikator" title="Wert-Modifikator" />
+                <button type="action" class="sr6-number-stepper-button sr6-number-stepper-button--plus" name="act_sr6_number_step" value="sr6_matrix_handlung_geraet_neu_starten_probe_wert_roll_modifikator::1" aria-label="Wert-Modifikator erhoehen">+</button>
+              </div>
             <button
               type="action"
               class="sr6-charactersheet-field-dice-button"
@@ -4404,8 +4761,15 @@
               aria-label="Wuerfeln"></button>
           </div>
           <select name="attr_sr6_matrix_handlung_geraet_neu_starten_verteidigung_auswahl" class="sr6-matrix-handlung-formula sr6-matrix-handlung-formula--select"><option value="Willenskraft + Firewall">Willenskraft + Firewall</option><option value="Firewall x2">Firewall x2</option></select>
-          <div class="sr6-matrix-handlung-value">
-            <input type="number" name="attr_sr6_matrix_handlung_geraet_neu_starten_verteidigung_wert" readonly />
+          <div class="sr6-matrix-handlung-value sr6-matrix-handlung-value--roll-mod">
+            <span class="sr6-roll-mod-subtitle sr6-roll-mod-subtitle--basis" data-i18n="field.basis">Basis</span>
+          <span class="sr6-roll-mod-subtitle sr6-roll-mod-subtitle--mod" data-i18n="field.fertigkeitsmodifikator">Mod.</span>
+          <input type="number" name="attr_sr6_matrix_handlung_geraet_neu_starten_verteidigung_wert" readonly />
+              <div class="sr6-number-stepper sr6-roll-mod-stepper">
+                <button type="action" class="sr6-number-stepper-button sr6-number-stepper-button--minus" name="act_sr6_number_step" value="sr6_matrix_handlung_geraet_neu_starten_verteidigung_wert_roll_modifikator::-1" aria-label="Wert-Modifikator verringern">-</button>
+                <input type="number" name="attr_sr6_matrix_handlung_geraet_neu_starten_verteidigung_wert_roll_modifikator" title="Wert-Modifikator" />
+                <button type="action" class="sr6-number-stepper-button sr6-number-stepper-button--plus" name="act_sr6_number_step" value="sr6_matrix_handlung_geraet_neu_starten_verteidigung_wert_roll_modifikator::1" aria-label="Wert-Modifikator erhoehen">+</button>
+              </div>
             <button
               type="action"
               class="sr6-charactersheet-field-dice-button"
@@ -4417,8 +4781,15 @@
         <div class="sr6-matrix-handlung" data-zugriff="admin">
           <span class="sr6-matrix-handlung-name">Geraet steuern</span>
           <span class="sr6-matrix-handlung-formula">Elektronik + Logik</span>
-          <div class="sr6-matrix-handlung-value">
-            <input type="number" name="attr_sr6_matrix_handlung_geraet_steuern_probe_wert" readonly />
+          <div class="sr6-matrix-handlung-value sr6-matrix-handlung-value--roll-mod">
+            <span class="sr6-roll-mod-subtitle sr6-roll-mod-subtitle--basis" data-i18n="field.basis">Basis</span>
+          <span class="sr6-roll-mod-subtitle sr6-roll-mod-subtitle--mod" data-i18n="field.fertigkeitsmodifikator">Mod.</span>
+          <input type="number" name="attr_sr6_matrix_handlung_geraet_steuern_probe_wert" readonly />
+              <div class="sr6-number-stepper sr6-roll-mod-stepper">
+                <button type="action" class="sr6-number-stepper-button sr6-number-stepper-button--minus" name="act_sr6_number_step" value="sr6_matrix_handlung_geraet_steuern_probe_wert_roll_modifikator::-1" aria-label="Wert-Modifikator verringern">-</button>
+                <input type="number" name="attr_sr6_matrix_handlung_geraet_steuern_probe_wert_roll_modifikator" title="Wert-Modifikator" />
+                <button type="action" class="sr6-number-stepper-button sr6-number-stepper-button--plus" name="act_sr6_number_step" value="sr6_matrix_handlung_geraet_steuern_probe_wert_roll_modifikator::1" aria-label="Wert-Modifikator erhoehen">+</button>
+              </div>
             <button
               type="action"
               class="sr6-charactersheet-field-dice-button"
@@ -4427,8 +4798,15 @@
               aria-label="Wuerfeln"></button>
           </div>
           <select name="attr_sr6_matrix_handlung_geraet_steuern_verteidigung_auswahl" class="sr6-matrix-handlung-formula sr6-matrix-handlung-formula--select"><option value="Willenskraft + Firewall">Willenskraft + Firewall</option><option value="Firewall x2">Firewall x2</option></select>
-          <div class="sr6-matrix-handlung-value">
-            <input type="number" name="attr_sr6_matrix_handlung_geraet_steuern_verteidigung_wert" readonly />
+          <div class="sr6-matrix-handlung-value sr6-matrix-handlung-value--roll-mod">
+            <span class="sr6-roll-mod-subtitle sr6-roll-mod-subtitle--basis" data-i18n="field.basis">Basis</span>
+          <span class="sr6-roll-mod-subtitle sr6-roll-mod-subtitle--mod" data-i18n="field.fertigkeitsmodifikator">Mod.</span>
+          <input type="number" name="attr_sr6_matrix_handlung_geraet_steuern_verteidigung_wert" readonly />
+              <div class="sr6-number-stepper sr6-roll-mod-stepper">
+                <button type="action" class="sr6-number-stepper-button sr6-number-stepper-button--minus" name="act_sr6_number_step" value="sr6_matrix_handlung_geraet_steuern_verteidigung_wert_roll_modifikator::-1" aria-label="Wert-Modifikator verringern">-</button>
+                <input type="number" name="attr_sr6_matrix_handlung_geraet_steuern_verteidigung_wert_roll_modifikator" title="Wert-Modifikator" />
+                <button type="action" class="sr6-number-stepper-button sr6-number-stepper-button--plus" name="act_sr6_number_step" value="sr6_matrix_handlung_geraet_steuern_verteidigung_wert_roll_modifikator::1" aria-label="Wert-Modifikator erhoehen">+</button>
+              </div>
             <button
               type="action"
               class="sr6-charactersheet-field-dice-button"
@@ -4440,8 +4818,15 @@
         <div class="sr6-matrix-handlung" data-zugriff="admin">
           <span class="sr6-matrix-handlung-name">Geraetesperre</span>
           <span class="sr6-matrix-handlung-formula">Cracken + Logik</span>
-          <div class="sr6-matrix-handlung-value">
-            <input type="number" name="attr_sr6_matrix_handlung_geraetesperre_probe_wert" readonly />
+          <div class="sr6-matrix-handlung-value sr6-matrix-handlung-value--roll-mod">
+            <span class="sr6-roll-mod-subtitle sr6-roll-mod-subtitle--basis" data-i18n="field.basis">Basis</span>
+          <span class="sr6-roll-mod-subtitle sr6-roll-mod-subtitle--mod" data-i18n="field.fertigkeitsmodifikator">Mod.</span>
+          <input type="number" name="attr_sr6_matrix_handlung_geraetesperre_probe_wert" readonly />
+              <div class="sr6-number-stepper sr6-roll-mod-stepper">
+                <button type="action" class="sr6-number-stepper-button sr6-number-stepper-button--minus" name="act_sr6_number_step" value="sr6_matrix_handlung_geraetesperre_probe_wert_roll_modifikator::-1" aria-label="Wert-Modifikator verringern">-</button>
+                <input type="number" name="attr_sr6_matrix_handlung_geraetesperre_probe_wert_roll_modifikator" title="Wert-Modifikator" />
+                <button type="action" class="sr6-number-stepper-button sr6-number-stepper-button--plus" name="act_sr6_number_step" value="sr6_matrix_handlung_geraetesperre_probe_wert_roll_modifikator::1" aria-label="Wert-Modifikator erhoehen">+</button>
+              </div>
             <button
               type="action"
               class="sr6-charactersheet-field-dice-button"
@@ -4450,8 +4835,15 @@
               aria-label="Wuerfeln"></button>
           </div>
           <select name="attr_sr6_matrix_handlung_geraetesperre_verteidigung_auswahl" class="sr6-matrix-handlung-formula sr6-matrix-handlung-formula--select"><option value="Willenskraft + Firewall">Willenskraft + Firewall</option><option value="Firewall x2">Firewall x2</option></select>
-          <div class="sr6-matrix-handlung-value">
-            <input type="number" name="attr_sr6_matrix_handlung_geraetesperre_verteidigung_wert" readonly />
+          <div class="sr6-matrix-handlung-value sr6-matrix-handlung-value--roll-mod">
+            <span class="sr6-roll-mod-subtitle sr6-roll-mod-subtitle--basis" data-i18n="field.basis">Basis</span>
+          <span class="sr6-roll-mod-subtitle sr6-roll-mod-subtitle--mod" data-i18n="field.fertigkeitsmodifikator">Mod.</span>
+          <input type="number" name="attr_sr6_matrix_handlung_geraetesperre_verteidigung_wert" readonly />
+              <div class="sr6-number-stepper sr6-roll-mod-stepper">
+                <button type="action" class="sr6-number-stepper-button sr6-number-stepper-button--minus" name="act_sr6_number_step" value="sr6_matrix_handlung_geraetesperre_verteidigung_wert_roll_modifikator::-1" aria-label="Wert-Modifikator verringern">-</button>
+                <input type="number" name="attr_sr6_matrix_handlung_geraetesperre_verteidigung_wert_roll_modifikator" title="Wert-Modifikator" />
+                <button type="action" class="sr6-number-stepper-button sr6-number-stepper-button--plus" name="act_sr6_number_step" value="sr6_matrix_handlung_geraetesperre_verteidigung_wert_roll_modifikator::1" aria-label="Wert-Modifikator erhoehen">+</button>
+              </div>
             <button
               type="action"
               class="sr6-charactersheet-field-dice-button"
@@ -4463,8 +4855,15 @@
         <div class="sr6-matrix-handlung" data-zugriff="user">
           <span class="sr6-matrix-handlung-name">Hineinspringen</span>
           <span class="sr6-matrix-handlung-formula">Elektronik + Logik</span>
-          <div class="sr6-matrix-handlung-value">
-            <input type="number" name="attr_sr6_matrix_handlung_hineinspringen_probe_wert" readonly />
+          <div class="sr6-matrix-handlung-value sr6-matrix-handlung-value--roll-mod">
+            <span class="sr6-roll-mod-subtitle sr6-roll-mod-subtitle--basis" data-i18n="field.basis">Basis</span>
+          <span class="sr6-roll-mod-subtitle sr6-roll-mod-subtitle--mod" data-i18n="field.fertigkeitsmodifikator">Mod.</span>
+          <input type="number" name="attr_sr6_matrix_handlung_hineinspringen_probe_wert" readonly />
+              <div class="sr6-number-stepper sr6-roll-mod-stepper">
+                <button type="action" class="sr6-number-stepper-button sr6-number-stepper-button--minus" name="act_sr6_number_step" value="sr6_matrix_handlung_hineinspringen_probe_wert_roll_modifikator::-1" aria-label="Wert-Modifikator verringern">-</button>
+                <input type="number" name="attr_sr6_matrix_handlung_hineinspringen_probe_wert_roll_modifikator" title="Wert-Modifikator" />
+                <button type="action" class="sr6-number-stepper-button sr6-number-stepper-button--plus" name="act_sr6_number_step" value="sr6_matrix_handlung_hineinspringen_probe_wert_roll_modifikator::1" aria-label="Wert-Modifikator erhoehen">+</button>
+              </div>
             <button
               type="action"
               class="sr6-charactersheet-field-dice-button"
@@ -4473,8 +4872,15 @@
               aria-label="Wuerfeln"></button>
           </div>
           <select name="attr_sr6_matrix_handlung_hineinspringen_verteidigung_auswahl" class="sr6-matrix-handlung-formula sr6-matrix-handlung-formula--select"><option value="Willenskraft + Firewall">Willenskraft + Firewall</option><option value="Firewall x2">Firewall x2</option></select>
-          <div class="sr6-matrix-handlung-value">
-            <input type="number" name="attr_sr6_matrix_handlung_hineinspringen_verteidigung_wert" readonly />
+          <div class="sr6-matrix-handlung-value sr6-matrix-handlung-value--roll-mod">
+            <span class="sr6-roll-mod-subtitle sr6-roll-mod-subtitle--basis" data-i18n="field.basis">Basis</span>
+          <span class="sr6-roll-mod-subtitle sr6-roll-mod-subtitle--mod" data-i18n="field.fertigkeitsmodifikator">Mod.</span>
+          <input type="number" name="attr_sr6_matrix_handlung_hineinspringen_verteidigung_wert" readonly />
+              <div class="sr6-number-stepper sr6-roll-mod-stepper">
+                <button type="action" class="sr6-number-stepper-button sr6-number-stepper-button--minus" name="act_sr6_number_step" value="sr6_matrix_handlung_hineinspringen_verteidigung_wert_roll_modifikator::-1" aria-label="Wert-Modifikator verringern">-</button>
+                <input type="number" name="attr_sr6_matrix_handlung_hineinspringen_verteidigung_wert_roll_modifikator" title="Wert-Modifikator" />
+                <button type="action" class="sr6-number-stepper-button sr6-number-stepper-button--plus" name="act_sr6_number_step" value="sr6_matrix_handlung_hineinspringen_verteidigung_wert_roll_modifikator::1" aria-label="Wert-Modifikator erhoehen">+</button>
+              </div>
             <button
               type="action"
               class="sr6-charactersheet-field-dice-button"
@@ -4486,8 +4892,15 @@
         <div class="sr6-matrix-handlung" data-zugriff="admin">
           <span class="sr6-matrix-handlung-name">Hintertuer benutzen</span>
           <span class="sr6-matrix-handlung-formula">Cracken + Logik</span>
-          <div class="sr6-matrix-handlung-value">
-            <input type="number" name="attr_sr6_matrix_handlung_hintertuer_benutzen_probe_wert" readonly />
+          <div class="sr6-matrix-handlung-value sr6-matrix-handlung-value--roll-mod">
+            <span class="sr6-roll-mod-subtitle sr6-roll-mod-subtitle--basis" data-i18n="field.basis">Basis</span>
+          <span class="sr6-roll-mod-subtitle sr6-roll-mod-subtitle--mod" data-i18n="field.fertigkeitsmodifikator">Mod.</span>
+          <input type="number" name="attr_sr6_matrix_handlung_hintertuer_benutzen_probe_wert" readonly />
+              <div class="sr6-number-stepper sr6-roll-mod-stepper">
+                <button type="action" class="sr6-number-stepper-button sr6-number-stepper-button--minus" name="act_sr6_number_step" value="sr6_matrix_handlung_hintertuer_benutzen_probe_wert_roll_modifikator::-1" aria-label="Wert-Modifikator verringern">-</button>
+                <input type="number" name="attr_sr6_matrix_handlung_hintertuer_benutzen_probe_wert_roll_modifikator" title="Wert-Modifikator" />
+                <button type="action" class="sr6-number-stepper-button sr6-number-stepper-button--plus" name="act_sr6_number_step" value="sr6_matrix_handlung_hintertuer_benutzen_probe_wert_roll_modifikator::1" aria-label="Wert-Modifikator erhoehen">+</button>
+              </div>
             <button
               type="action"
               class="sr6-charactersheet-field-dice-button"
@@ -4496,8 +4909,15 @@
               aria-label="Wuerfeln"></button>
           </div>
           <select name="attr_sr6_matrix_handlung_hintertuer_benutzen_verteidigung_auswahl" class="sr6-matrix-handlung-formula sr6-matrix-handlung-formula--select"><option value="Willenskraft + Firewall">Willenskraft + Firewall</option><option value="Firewall x2">Firewall x2</option></select>
-          <div class="sr6-matrix-handlung-value">
-            <input type="number" name="attr_sr6_matrix_handlung_hintertuer_benutzen_verteidigung_wert" readonly />
+          <div class="sr6-matrix-handlung-value sr6-matrix-handlung-value--roll-mod">
+            <span class="sr6-roll-mod-subtitle sr6-roll-mod-subtitle--basis" data-i18n="field.basis">Basis</span>
+          <span class="sr6-roll-mod-subtitle sr6-roll-mod-subtitle--mod" data-i18n="field.fertigkeitsmodifikator">Mod.</span>
+          <input type="number" name="attr_sr6_matrix_handlung_hintertuer_benutzen_verteidigung_wert" readonly />
+              <div class="sr6-number-stepper sr6-roll-mod-stepper">
+                <button type="action" class="sr6-number-stepper-button sr6-number-stepper-button--minus" name="act_sr6_number_step" value="sr6_matrix_handlung_hintertuer_benutzen_verteidigung_wert_roll_modifikator::-1" aria-label="Wert-Modifikator verringern">-</button>
+                <input type="number" name="attr_sr6_matrix_handlung_hintertuer_benutzen_verteidigung_wert_roll_modifikator" title="Wert-Modifikator" />
+                <button type="action" class="sr6-number-stepper-button sr6-number-stepper-button--plus" name="act_sr6_number_step" value="sr6_matrix_handlung_hintertuer_benutzen_verteidigung_wert_roll_modifikator::1" aria-label="Wert-Modifikator erhoehen">+</button>
+              </div>
             <button
               type="action"
               class="sr6-charactersheet-field-dice-button"
@@ -4509,8 +4929,15 @@
         <div class="sr6-matrix-handlung" data-zugriff="admin">
           <span class="sr6-matrix-handlung-name">Hintertuer mit bekanntem Exploit benutzen</span>
           <span class="sr6-matrix-handlung-formula">Cracken + Logik</span>
-          <div class="sr6-matrix-handlung-value">
-            <input type="number" name="attr_sr6_matrix_handlung_hintertuer_mit_bekanntem_exploit_benutzen_probe_wert" readonly />
+          <div class="sr6-matrix-handlung-value sr6-matrix-handlung-value--roll-mod">
+            <span class="sr6-roll-mod-subtitle sr6-roll-mod-subtitle--basis" data-i18n="field.basis">Basis</span>
+          <span class="sr6-roll-mod-subtitle sr6-roll-mod-subtitle--mod" data-i18n="field.fertigkeitsmodifikator">Mod.</span>
+          <input type="number" name="attr_sr6_matrix_handlung_hintertuer_mit_bekanntem_exploit_benutzen_probe_wert" readonly />
+              <div class="sr6-number-stepper sr6-roll-mod-stepper">
+                <button type="action" class="sr6-number-stepper-button sr6-number-stepper-button--minus" name="act_sr6_number_step" value="sr6_matrix_handlung_hintertuer_mit_bekanntem_exploit_benutzen_probe_wert_roll_modifikator::-1" aria-label="Wert-Modifikator verringern">-</button>
+                <input type="number" name="attr_sr6_matrix_handlung_hintertuer_mit_bekanntem_exploit_benutzen_probe_wert_roll_modifikator" title="Wert-Modifikator" />
+                <button type="action" class="sr6-number-stepper-button sr6-number-stepper-button--plus" name="act_sr6_number_step" value="sr6_matrix_handlung_hintertuer_mit_bekanntem_exploit_benutzen_probe_wert_roll_modifikator::1" aria-label="Wert-Modifikator erhoehen">+</button>
+              </div>
             <button
               type="action"
               class="sr6-charactersheet-field-dice-button"
@@ -4519,8 +4946,15 @@
               aria-label="Wuerfeln"></button>
           </div>
           <select name="attr_sr6_matrix_handlung_hintertuer_mit_bekanntem_exploit_benutzen_verteidigung_auswahl" class="sr6-matrix-handlung-formula sr6-matrix-handlung-formula--select"><option value="Willenskraft + Firewall">Willenskraft + Firewall</option><option value="Firewall x2">Firewall x2</option></select>
-          <div class="sr6-matrix-handlung-value">
-            <input type="number" name="attr_sr6_matrix_handlung_hintertuer_mit_bekanntem_exploit_benutzen_verteidigung_wert" readonly />
+          <div class="sr6-matrix-handlung-value sr6-matrix-handlung-value--roll-mod">
+            <span class="sr6-roll-mod-subtitle sr6-roll-mod-subtitle--basis" data-i18n="field.basis">Basis</span>
+          <span class="sr6-roll-mod-subtitle sr6-roll-mod-subtitle--mod" data-i18n="field.fertigkeitsmodifikator">Mod.</span>
+          <input type="number" name="attr_sr6_matrix_handlung_hintertuer_mit_bekanntem_exploit_benutzen_verteidigung_wert" readonly />
+              <div class="sr6-number-stepper sr6-roll-mod-stepper">
+                <button type="action" class="sr6-number-stepper-button sr6-number-stepper-button--minus" name="act_sr6_number_step" value="sr6_matrix_handlung_hintertuer_mit_bekanntem_exploit_benutzen_verteidigung_wert_roll_modifikator::-1" aria-label="Wert-Modifikator verringern">-</button>
+                <input type="number" name="attr_sr6_matrix_handlung_hintertuer_mit_bekanntem_exploit_benutzen_verteidigung_wert_roll_modifikator" title="Wert-Modifikator" />
+                <button type="action" class="sr6-number-stepper-button sr6-number-stepper-button--plus" name="act_sr6_number_step" value="sr6_matrix_handlung_hintertuer_mit_bekanntem_exploit_benutzen_verteidigung_wert_roll_modifikator::1" aria-label="Wert-Modifikator erhoehen">+</button>
+              </div>
             <button
               type="action"
               class="sr6-charactersheet-field-dice-button"
@@ -4545,8 +4979,15 @@
         <div class="sr6-matrix-handlung" data-zugriff="gast">
           <span class="sr6-matrix-handlung-name">Icon aufspueren</span>
           <span class="sr6-matrix-handlung-formula">Cracken + Intuition</span>
-          <div class="sr6-matrix-handlung-value">
-            <input type="number" name="attr_sr6_matrix_handlung_icon_aufspueren_probe_wert" readonly />
+          <div class="sr6-matrix-handlung-value sr6-matrix-handlung-value--roll-mod">
+            <span class="sr6-roll-mod-subtitle sr6-roll-mod-subtitle--basis" data-i18n="field.basis">Basis</span>
+          <span class="sr6-roll-mod-subtitle sr6-roll-mod-subtitle--mod" data-i18n="field.fertigkeitsmodifikator">Mod.</span>
+          <input type="number" name="attr_sr6_matrix_handlung_icon_aufspueren_probe_wert" readonly />
+              <div class="sr6-number-stepper sr6-roll-mod-stepper">
+                <button type="action" class="sr6-number-stepper-button sr6-number-stepper-button--minus" name="act_sr6_number_step" value="sr6_matrix_handlung_icon_aufspueren_probe_wert_roll_modifikator::-1" aria-label="Wert-Modifikator verringern">-</button>
+                <input type="number" name="attr_sr6_matrix_handlung_icon_aufspueren_probe_wert_roll_modifikator" title="Wert-Modifikator" />
+                <button type="action" class="sr6-number-stepper-button sr6-number-stepper-button--plus" name="act_sr6_number_step" value="sr6_matrix_handlung_icon_aufspueren_probe_wert_roll_modifikator::1" aria-label="Wert-Modifikator erhoehen">+</button>
+              </div>
             <button
               type="action"
               class="sr6-charactersheet-field-dice-button"
@@ -4555,8 +4996,15 @@
               aria-label="Wuerfeln"></button>
           </div>
           <select name="attr_sr6_matrix_handlung_icon_aufspueren_verteidigung_auswahl" class="sr6-matrix-handlung-formula sr6-matrix-handlung-formula--select"><option value="Willenskraft + Schleicher">Willenskraft + Schleicher</option><option value="Firewall + Schleicher">Firewall + Schleicher</option></select>
-          <div class="sr6-matrix-handlung-value">
-            <input type="number" name="attr_sr6_matrix_handlung_icon_aufspueren_verteidigung_wert" readonly />
+          <div class="sr6-matrix-handlung-value sr6-matrix-handlung-value--roll-mod">
+            <span class="sr6-roll-mod-subtitle sr6-roll-mod-subtitle--basis" data-i18n="field.basis">Basis</span>
+          <span class="sr6-roll-mod-subtitle sr6-roll-mod-subtitle--mod" data-i18n="field.fertigkeitsmodifikator">Mod.</span>
+          <input type="number" name="attr_sr6_matrix_handlung_icon_aufspueren_verteidigung_wert" readonly />
+              <div class="sr6-number-stepper sr6-roll-mod-stepper">
+                <button type="action" class="sr6-number-stepper-button sr6-number-stepper-button--minus" name="act_sr6_number_step" value="sr6_matrix_handlung_icon_aufspueren_verteidigung_wert_roll_modifikator::-1" aria-label="Wert-Modifikator verringern">-</button>
+                <input type="number" name="attr_sr6_matrix_handlung_icon_aufspueren_verteidigung_wert_roll_modifikator" title="Wert-Modifikator" />
+                <button type="action" class="sr6-number-stepper-button sr6-number-stepper-button--plus" name="act_sr6_number_step" value="sr6_matrix_handlung_icon_aufspueren_verteidigung_wert_roll_modifikator::1" aria-label="Wert-Modifikator erhoehen">+</button>
+              </div>
             <button
               type="action"
               class="sr6-charactersheet-field-dice-button"
@@ -4568,8 +5016,15 @@
         <div class="sr6-matrix-handlung" data-zugriff="admin">
           <span class="sr6-matrix-handlung-name">Icon modifizieren</span>
           <span class="sr6-matrix-handlung-formula">Cracken + Logik</span>
-          <div class="sr6-matrix-handlung-value">
-            <input type="number" name="attr_sr6_matrix_handlung_icon_modifizieren_probe_wert" readonly />
+          <div class="sr6-matrix-handlung-value sr6-matrix-handlung-value--roll-mod">
+            <span class="sr6-roll-mod-subtitle sr6-roll-mod-subtitle--basis" data-i18n="field.basis">Basis</span>
+          <span class="sr6-roll-mod-subtitle sr6-roll-mod-subtitle--mod" data-i18n="field.fertigkeitsmodifikator">Mod.</span>
+          <input type="number" name="attr_sr6_matrix_handlung_icon_modifizieren_probe_wert" readonly />
+              <div class="sr6-number-stepper sr6-roll-mod-stepper">
+                <button type="action" class="sr6-number-stepper-button sr6-number-stepper-button--minus" name="act_sr6_number_step" value="sr6_matrix_handlung_icon_modifizieren_probe_wert_roll_modifikator::-1" aria-label="Wert-Modifikator verringern">-</button>
+                <input type="number" name="attr_sr6_matrix_handlung_icon_modifizieren_probe_wert_roll_modifikator" title="Wert-Modifikator" />
+                <button type="action" class="sr6-number-stepper-button sr6-number-stepper-button--plus" name="act_sr6_number_step" value="sr6_matrix_handlung_icon_modifizieren_probe_wert_roll_modifikator::1" aria-label="Wert-Modifikator erhoehen">+</button>
+              </div>
             <button
               type="action"
               class="sr6-charactersheet-field-dice-button"
@@ -4578,8 +5033,15 @@
               aria-label="Wuerfeln"></button>
           </div>
           <select name="attr_sr6_matrix_handlung_icon_modifizieren_verteidigung_auswahl" class="sr6-matrix-handlung-formula sr6-matrix-handlung-formula--select"><option value="Intuition + Datenverarbeitung">Intuition + Datenverarbeitung</option><option value="Schleicher + Datenverarbeitung">Schleicher + Datenverarbeitung</option></select>
-          <div class="sr6-matrix-handlung-value">
-            <input type="number" name="attr_sr6_matrix_handlung_icon_modifizieren_verteidigung_wert" readonly />
+          <div class="sr6-matrix-handlung-value sr6-matrix-handlung-value--roll-mod">
+            <span class="sr6-roll-mod-subtitle sr6-roll-mod-subtitle--basis" data-i18n="field.basis">Basis</span>
+          <span class="sr6-roll-mod-subtitle sr6-roll-mod-subtitle--mod" data-i18n="field.fertigkeitsmodifikator">Mod.</span>
+          <input type="number" name="attr_sr6_matrix_handlung_icon_modifizieren_verteidigung_wert" readonly />
+              <div class="sr6-number-stepper sr6-roll-mod-stepper">
+                <button type="action" class="sr6-number-stepper-button sr6-number-stepper-button--minus" name="act_sr6_number_step" value="sr6_matrix_handlung_icon_modifizieren_verteidigung_wert_roll_modifikator::-1" aria-label="Wert-Modifikator verringern">-</button>
+                <input type="number" name="attr_sr6_matrix_handlung_icon_modifizieren_verteidigung_wert_roll_modifikator" title="Wert-Modifikator" />
+                <button type="action" class="sr6-number-stepper-button sr6-number-stepper-button--plus" name="act_sr6_number_step" value="sr6_matrix_handlung_icon_modifizieren_verteidigung_wert_roll_modifikator::1" aria-label="Wert-Modifikator erhoehen">+</button>
+              </div>
             <button
               type="action"
               class="sr6-charactersheet-field-dice-button"
@@ -4604,8 +5066,15 @@
         <div class="sr6-matrix-handlung" data-zugriff="admin">
           <span class="sr6-matrix-handlung-name">Infrastruktur unterwandern</span>
           <span class="sr6-matrix-handlung-formula">Cracken + Intuition</span>
-          <div class="sr6-matrix-handlung-value">
-            <input type="number" name="attr_sr6_matrix_handlung_infrastruktur_unterwandern_probe_wert" readonly />
+          <div class="sr6-matrix-handlung-value sr6-matrix-handlung-value--roll-mod">
+            <span class="sr6-roll-mod-subtitle sr6-roll-mod-subtitle--basis" data-i18n="field.basis">Basis</span>
+          <span class="sr6-roll-mod-subtitle sr6-roll-mod-subtitle--mod" data-i18n="field.fertigkeitsmodifikator">Mod.</span>
+          <input type="number" name="attr_sr6_matrix_handlung_infrastruktur_unterwandern_probe_wert" readonly />
+              <div class="sr6-number-stepper sr6-roll-mod-stepper">
+                <button type="action" class="sr6-number-stepper-button sr6-number-stepper-button--minus" name="act_sr6_number_step" value="sr6_matrix_handlung_infrastruktur_unterwandern_probe_wert_roll_modifikator::-1" aria-label="Wert-Modifikator verringern">-</button>
+                <input type="number" name="attr_sr6_matrix_handlung_infrastruktur_unterwandern_probe_wert_roll_modifikator" title="Wert-Modifikator" />
+                <button type="action" class="sr6-number-stepper-button sr6-number-stepper-button--plus" name="act_sr6_number_step" value="sr6_matrix_handlung_infrastruktur_unterwandern_probe_wert_roll_modifikator::1" aria-label="Wert-Modifikator erhoehen">+</button>
+              </div>
             <button
               type="action"
               class="sr6-charactersheet-field-dice-button"
@@ -4614,8 +5083,15 @@
               aria-label="Wuerfeln"></button>
           </div>
           <select name="attr_sr6_matrix_handlung_infrastruktur_unterwandern_verteidigung_auswahl" class="sr6-matrix-handlung-formula sr6-matrix-handlung-formula--select"><option value="Intuition + Firewall">Intuition + Firewall</option><option value="Schleicher + Firewall">Schleicher + Firewall</option></select>
-          <div class="sr6-matrix-handlung-value">
-            <input type="number" name="attr_sr6_matrix_handlung_infrastruktur_unterwandern_verteidigung_wert" readonly />
+          <div class="sr6-matrix-handlung-value sr6-matrix-handlung-value--roll-mod">
+            <span class="sr6-roll-mod-subtitle sr6-roll-mod-subtitle--basis" data-i18n="field.basis">Basis</span>
+          <span class="sr6-roll-mod-subtitle sr6-roll-mod-subtitle--mod" data-i18n="field.fertigkeitsmodifikator">Mod.</span>
+          <input type="number" name="attr_sr6_matrix_handlung_infrastruktur_unterwandern_verteidigung_wert" readonly />
+              <div class="sr6-number-stepper sr6-roll-mod-stepper">
+                <button type="action" class="sr6-number-stepper-button sr6-number-stepper-button--minus" name="act_sr6_number_step" value="sr6_matrix_handlung_infrastruktur_unterwandern_verteidigung_wert_roll_modifikator::-1" aria-label="Wert-Modifikator verringern">-</button>
+                <input type="number" name="attr_sr6_matrix_handlung_infrastruktur_unterwandern_verteidigung_wert_roll_modifikator" title="Wert-Modifikator" />
+                <button type="action" class="sr6-number-stepper-button sr6-number-stepper-button--plus" name="act_sr6_number_step" value="sr6_matrix_handlung_infrastruktur_unterwandern_verteidigung_wert_roll_modifikator::1" aria-label="Wert-Modifikator erhoehen">+</button>
+              </div>
             <button
               type="action"
               class="sr6-charactersheet-field-dice-button"
@@ -4640,8 +5116,15 @@
         <div class="sr6-matrix-handlung" data-zugriff="user">
           <span class="sr6-matrix-handlung-name">Kalibrierung</span>
           <span class="sr6-matrix-handlung-formula">Elektronik + Logik</span>
-          <div class="sr6-matrix-handlung-value">
-            <input type="number" name="attr_sr6_matrix_handlung_kalibrierung_probe_wert" readonly />
+          <div class="sr6-matrix-handlung-value sr6-matrix-handlung-value--roll-mod">
+            <span class="sr6-roll-mod-subtitle sr6-roll-mod-subtitle--basis" data-i18n="field.basis">Basis</span>
+          <span class="sr6-roll-mod-subtitle sr6-roll-mod-subtitle--mod" data-i18n="field.fertigkeitsmodifikator">Mod.</span>
+          <input type="number" name="attr_sr6_matrix_handlung_kalibrierung_probe_wert" readonly />
+              <div class="sr6-number-stepper sr6-roll-mod-stepper">
+                <button type="action" class="sr6-number-stepper-button sr6-number-stepper-button--minus" name="act_sr6_number_step" value="sr6_matrix_handlung_kalibrierung_probe_wert_roll_modifikator::-1" aria-label="Wert-Modifikator verringern">-</button>
+                <input type="number" name="attr_sr6_matrix_handlung_kalibrierung_probe_wert_roll_modifikator" title="Wert-Modifikator" />
+                <button type="action" class="sr6-number-stepper-button sr6-number-stepper-button--plus" name="act_sr6_number_step" value="sr6_matrix_handlung_kalibrierung_probe_wert_roll_modifikator::1" aria-label="Wert-Modifikator erhoehen">+</button>
+              </div>
             <button
               type="action"
               class="sr6-charactersheet-field-dice-button"
@@ -4658,8 +5141,15 @@
         <div class="sr6-matrix-handlung" data-zugriff="user">
           <span class="sr6-matrix-handlung-name">Maskerade</span>
           <span class="sr6-matrix-handlung-formula">Cracken + Logik</span>
-          <div class="sr6-matrix-handlung-value">
-            <input type="number" name="attr_sr6_matrix_handlung_maskerade_probe_wert" readonly />
+          <div class="sr6-matrix-handlung-value sr6-matrix-handlung-value--roll-mod">
+            <span class="sr6-roll-mod-subtitle sr6-roll-mod-subtitle--basis" data-i18n="field.basis">Basis</span>
+          <span class="sr6-roll-mod-subtitle sr6-roll-mod-subtitle--mod" data-i18n="field.fertigkeitsmodifikator">Mod.</span>
+          <input type="number" name="attr_sr6_matrix_handlung_maskerade_probe_wert" readonly />
+              <div class="sr6-number-stepper sr6-roll-mod-stepper">
+                <button type="action" class="sr6-number-stepper-button sr6-number-stepper-button--minus" name="act_sr6_number_step" value="sr6_matrix_handlung_maskerade_probe_wert_roll_modifikator::-1" aria-label="Wert-Modifikator verringern">-</button>
+                <input type="number" name="attr_sr6_matrix_handlung_maskerade_probe_wert_roll_modifikator" title="Wert-Modifikator" />
+                <button type="action" class="sr6-number-stepper-button sr6-number-stepper-button--plus" name="act_sr6_number_step" value="sr6_matrix_handlung_maskerade_probe_wert_roll_modifikator::1" aria-label="Wert-Modifikator erhoehen">+</button>
+              </div>
             <button
               type="action"
               class="sr6-charactersheet-field-dice-button"
@@ -4668,8 +5158,15 @@
               aria-label="Wuerfeln"></button>
           </div>
           <select name="attr_sr6_matrix_handlung_maskerade_verteidigung_auswahl" class="sr6-matrix-handlung-formula sr6-matrix-handlung-formula--select"><option value="Intuition + Datenverarbeitung">Intuition + Datenverarbeitung</option><option value="Schleicher + Datenverarbeitung">Schleicher + Datenverarbeitung</option></select>
-          <div class="sr6-matrix-handlung-value">
-            <input type="number" name="attr_sr6_matrix_handlung_maskerade_verteidigung_wert" readonly />
+          <div class="sr6-matrix-handlung-value sr6-matrix-handlung-value--roll-mod">
+            <span class="sr6-roll-mod-subtitle sr6-roll-mod-subtitle--basis" data-i18n="field.basis">Basis</span>
+          <span class="sr6-roll-mod-subtitle sr6-roll-mod-subtitle--mod" data-i18n="field.fertigkeitsmodifikator">Mod.</span>
+          <input type="number" name="attr_sr6_matrix_handlung_maskerade_verteidigung_wert" readonly />
+              <div class="sr6-number-stepper sr6-roll-mod-stepper">
+                <button type="action" class="sr6-number-stepper-button sr6-number-stepper-button--minus" name="act_sr6_number_step" value="sr6_matrix_handlung_maskerade_verteidigung_wert_roll_modifikator::-1" aria-label="Wert-Modifikator verringern">-</button>
+                <input type="number" name="attr_sr6_matrix_handlung_maskerade_verteidigung_wert_roll_modifikator" title="Wert-Modifikator" />
+                <button type="action" class="sr6-number-stepper-button sr6-number-stepper-button--plus" name="act_sr6_number_step" value="sr6_matrix_handlung_maskerade_verteidigung_wert_roll_modifikator::1" aria-label="Wert-Modifikator erhoehen">+</button>
+              </div>
             <button
               type="action"
               class="sr6-charactersheet-field-dice-button"
@@ -4694,8 +5191,15 @@
         <div class="sr6-matrix-handlung" data-zugriff="admin">
           <span class="sr6-matrix-handlung-name">Matrixsignatur loeschen</span>
           <span class="sr6-matrix-handlung-formula">Cracken + Logik</span>
-          <div class="sr6-matrix-handlung-value">
-            <input type="number" name="attr_sr6_matrix_handlung_matrixsignatur_loeschen_probe_wert" readonly />
+          <div class="sr6-matrix-handlung-value sr6-matrix-handlung-value--roll-mod">
+            <span class="sr6-roll-mod-subtitle sr6-roll-mod-subtitle--basis" data-i18n="field.basis">Basis</span>
+          <span class="sr6-roll-mod-subtitle sr6-roll-mod-subtitle--mod" data-i18n="field.fertigkeitsmodifikator">Mod.</span>
+          <input type="number" name="attr_sr6_matrix_handlung_matrixsignatur_loeschen_probe_wert" readonly />
+              <div class="sr6-number-stepper sr6-roll-mod-stepper">
+                <button type="action" class="sr6-number-stepper-button sr6-number-stepper-button--minus" name="act_sr6_number_step" value="sr6_matrix_handlung_matrixsignatur_loeschen_probe_wert_roll_modifikator::-1" aria-label="Wert-Modifikator verringern">-</button>
+                <input type="number" name="attr_sr6_matrix_handlung_matrixsignatur_loeschen_probe_wert_roll_modifikator" title="Wert-Modifikator" />
+                <button type="action" class="sr6-number-stepper-button sr6-number-stepper-button--plus" name="act_sr6_number_step" value="sr6_matrix_handlung_matrixsignatur_loeschen_probe_wert_roll_modifikator::1" aria-label="Wert-Modifikator erhoehen">+</button>
+              </div>
             <button
               type="action"
               class="sr6-charactersheet-field-dice-button"
@@ -4704,8 +5208,15 @@
               aria-label="Wuerfeln"></button>
           </div>
           <select name="attr_sr6_matrix_handlung_matrixsignatur_loeschen_verteidigung_auswahl" class="sr6-matrix-handlung-formula sr6-matrix-handlung-formula--select"><option value="Willenskraft + Firewall">Willenskraft + Firewall</option><option value="Firewall x2">Firewall x2</option></select>
-          <div class="sr6-matrix-handlung-value">
-            <input type="number" name="attr_sr6_matrix_handlung_matrixsignatur_loeschen_verteidigung_wert" readonly />
+          <div class="sr6-matrix-handlung-value sr6-matrix-handlung-value--roll-mod">
+            <span class="sr6-roll-mod-subtitle sr6-roll-mod-subtitle--basis" data-i18n="field.basis">Basis</span>
+          <span class="sr6-roll-mod-subtitle sr6-roll-mod-subtitle--mod" data-i18n="field.fertigkeitsmodifikator">Mod.</span>
+          <input type="number" name="attr_sr6_matrix_handlung_matrixsignatur_loeschen_verteidigung_wert" readonly />
+              <div class="sr6-number-stepper sr6-roll-mod-stepper">
+                <button type="action" class="sr6-number-stepper-button sr6-number-stepper-button--minus" name="act_sr6_number_step" value="sr6_matrix_handlung_matrixsignatur_loeschen_verteidigung_wert_roll_modifikator::-1" aria-label="Wert-Modifikator verringern">-</button>
+                <input type="number" name="attr_sr6_matrix_handlung_matrixsignatur_loeschen_verteidigung_wert_roll_modifikator" title="Wert-Modifikator" />
+                <button type="action" class="sr6-number-stepper-button sr6-number-stepper-button--plus" name="act_sr6_number_step" value="sr6_matrix_handlung_matrixsignatur_loeschen_verteidigung_wert_roll_modifikator::1" aria-label="Wert-Modifikator erhoehen">+</button>
+              </div>
             <button
               type="action"
               class="sr6-charactersheet-field-dice-button"
@@ -4717,8 +5228,15 @@
         <div class="sr6-matrix-handlung" data-zugriff="gast">
           <span class="sr6-matrix-handlung-name">Matrixsuche</span>
           <span class="sr6-matrix-handlung-formula">Elektronik + Intuition</span>
-          <div class="sr6-matrix-handlung-value">
-            <input type="number" name="attr_sr6_matrix_handlung_matrixsuche_probe_wert" readonly />
+          <div class="sr6-matrix-handlung-value sr6-matrix-handlung-value--roll-mod">
+            <span class="sr6-roll-mod-subtitle sr6-roll-mod-subtitle--basis" data-i18n="field.basis">Basis</span>
+          <span class="sr6-roll-mod-subtitle sr6-roll-mod-subtitle--mod" data-i18n="field.fertigkeitsmodifikator">Mod.</span>
+          <input type="number" name="attr_sr6_matrix_handlung_matrixsuche_probe_wert" readonly />
+              <div class="sr6-number-stepper sr6-roll-mod-stepper">
+                <button type="action" class="sr6-number-stepper-button sr6-number-stepper-button--minus" name="act_sr6_number_step" value="sr6_matrix_handlung_matrixsuche_probe_wert_roll_modifikator::-1" aria-label="Wert-Modifikator verringern">-</button>
+                <input type="number" name="attr_sr6_matrix_handlung_matrixsuche_probe_wert_roll_modifikator" title="Wert-Modifikator" />
+                <button type="action" class="sr6-number-stepper-button sr6-number-stepper-button--plus" name="act_sr6_number_step" value="sr6_matrix_handlung_matrixsuche_probe_wert_roll_modifikator::1" aria-label="Wert-Modifikator erhoehen">+</button>
+              </div>
             <button
               type="action"
               class="sr6-charactersheet-field-dice-button"
@@ -4735,8 +5253,15 @@
         <div class="sr6-matrix-handlung" data-zugriff="gast">
           <span class="sr6-matrix-handlung-name">Matrixwahrnehmung</span>
           <span class="sr6-matrix-handlung-formula">Elektronik + Intuition</span>
-          <div class="sr6-matrix-handlung-value">
-            <input type="number" name="attr_sr6_matrix_handlung_matrixwahrnehmung_probe_wert" readonly />
+          <div class="sr6-matrix-handlung-value sr6-matrix-handlung-value--roll-mod">
+            <span class="sr6-roll-mod-subtitle sr6-roll-mod-subtitle--basis" data-i18n="field.basis">Basis</span>
+          <span class="sr6-roll-mod-subtitle sr6-roll-mod-subtitle--mod" data-i18n="field.fertigkeitsmodifikator">Mod.</span>
+          <input type="number" name="attr_sr6_matrix_handlung_matrixwahrnehmung_probe_wert" readonly />
+              <div class="sr6-number-stepper sr6-roll-mod-stepper">
+                <button type="action" class="sr6-number-stepper-button sr6-number-stepper-button--minus" name="act_sr6_number_step" value="sr6_matrix_handlung_matrixwahrnehmung_probe_wert_roll_modifikator::-1" aria-label="Wert-Modifikator verringern">-</button>
+                <input type="number" name="attr_sr6_matrix_handlung_matrixwahrnehmung_probe_wert_roll_modifikator" title="Wert-Modifikator" />
+                <button type="action" class="sr6-number-stepper-button sr6-number-stepper-button--plus" name="act_sr6_number_step" value="sr6_matrix_handlung_matrixwahrnehmung_probe_wert_roll_modifikator::1" aria-label="Wert-Modifikator erhoehen">+</button>
+              </div>
             <button
               type="action"
               class="sr6-charactersheet-field-dice-button"
@@ -4745,8 +5270,15 @@
               aria-label="Wuerfeln"></button>
           </div>
           <select name="attr_sr6_matrix_handlung_matrixwahrnehmung_verteidigung_auswahl" class="sr6-matrix-handlung-formula sr6-matrix-handlung-formula--select"><option value="Willenskraft + Schleicher">Willenskraft + Schleicher</option><option value="Firewall + Schleicher">Firewall + Schleicher</option></select>
-          <div class="sr6-matrix-handlung-value">
-            <input type="number" name="attr_sr6_matrix_handlung_matrixwahrnehmung_verteidigung_wert" readonly />
+          <div class="sr6-matrix-handlung-value sr6-matrix-handlung-value--roll-mod">
+            <span class="sr6-roll-mod-subtitle sr6-roll-mod-subtitle--basis" data-i18n="field.basis">Basis</span>
+          <span class="sr6-roll-mod-subtitle sr6-roll-mod-subtitle--mod" data-i18n="field.fertigkeitsmodifikator">Mod.</span>
+          <input type="number" name="attr_sr6_matrix_handlung_matrixwahrnehmung_verteidigung_wert" readonly />
+              <div class="sr6-number-stepper sr6-roll-mod-stepper">
+                <button type="action" class="sr6-number-stepper-button sr6-number-stepper-button--minus" name="act_sr6_number_step" value="sr6_matrix_handlung_matrixwahrnehmung_verteidigung_wert_roll_modifikator::-1" aria-label="Wert-Modifikator verringern">-</button>
+                <input type="number" name="attr_sr6_matrix_handlung_matrixwahrnehmung_verteidigung_wert_roll_modifikator" title="Wert-Modifikator" />
+                <button type="action" class="sr6-number-stepper-button sr6-number-stepper-button--plus" name="act_sr6_number_step" value="sr6_matrix_handlung_matrixwahrnehmung_verteidigung_wert_roll_modifikator::1" aria-label="Wert-Modifikator erhoehen">+</button>
+              </div>
             <button
               type="action"
               class="sr6-charactersheet-field-dice-button"
@@ -4758,8 +5290,15 @@
         <div class="sr6-matrix-handlung" data-zugriff="user">
           <span class="sr6-matrix-handlung-name">Mittelsmetamensch</span>
           <span class="sr6-matrix-handlung-formula">Cracken + Logik</span>
-          <div class="sr6-matrix-handlung-value">
-            <input type="number" name="attr_sr6_matrix_handlung_mittelsmetamensch_probe_wert" readonly />
+          <div class="sr6-matrix-handlung-value sr6-matrix-handlung-value--roll-mod">
+            <span class="sr6-roll-mod-subtitle sr6-roll-mod-subtitle--basis" data-i18n="field.basis">Basis</span>
+          <span class="sr6-roll-mod-subtitle sr6-roll-mod-subtitle--mod" data-i18n="field.fertigkeitsmodifikator">Mod.</span>
+          <input type="number" name="attr_sr6_matrix_handlung_mittelsmetamensch_probe_wert" readonly />
+              <div class="sr6-number-stepper sr6-roll-mod-stepper">
+                <button type="action" class="sr6-number-stepper-button sr6-number-stepper-button--minus" name="act_sr6_number_step" value="sr6_matrix_handlung_mittelsmetamensch_probe_wert_roll_modifikator::-1" aria-label="Wert-Modifikator verringern">-</button>
+                <input type="number" name="attr_sr6_matrix_handlung_mittelsmetamensch_probe_wert_roll_modifikator" title="Wert-Modifikator" />
+                <button type="action" class="sr6-number-stepper-button sr6-number-stepper-button--plus" name="act_sr6_number_step" value="sr6_matrix_handlung_mittelsmetamensch_probe_wert_roll_modifikator::1" aria-label="Wert-Modifikator erhoehen">+</button>
+              </div>
             <button
               type="action"
               class="sr6-charactersheet-field-dice-button"
@@ -4768,8 +5307,15 @@
               aria-label="Wuerfeln"></button>
           </div>
           <select name="attr_sr6_matrix_handlung_mittelsmetamensch_verteidigung_auswahl" class="sr6-matrix-handlung-formula sr6-matrix-handlung-formula--select"><option value="Intuition + Datenverarbeitung">Intuition + Datenverarbeitung</option><option value="Schleicher + Datenverarbeitung">Schleicher + Datenverarbeitung</option></select>
-          <div class="sr6-matrix-handlung-value">
-            <input type="number" name="attr_sr6_matrix_handlung_mittelsmetamensch_verteidigung_wert" readonly />
+          <div class="sr6-matrix-handlung-value sr6-matrix-handlung-value--roll-mod">
+            <span class="sr6-roll-mod-subtitle sr6-roll-mod-subtitle--basis" data-i18n="field.basis">Basis</span>
+          <span class="sr6-roll-mod-subtitle sr6-roll-mod-subtitle--mod" data-i18n="field.fertigkeitsmodifikator">Mod.</span>
+          <input type="number" name="attr_sr6_matrix_handlung_mittelsmetamensch_verteidigung_wert" readonly />
+              <div class="sr6-number-stepper sr6-roll-mod-stepper">
+                <button type="action" class="sr6-number-stepper-button sr6-number-stepper-button--minus" name="act_sr6_number_step" value="sr6_matrix_handlung_mittelsmetamensch_verteidigung_wert_roll_modifikator::-1" aria-label="Wert-Modifikator verringern">-</button>
+                <input type="number" name="attr_sr6_matrix_handlung_mittelsmetamensch_verteidigung_wert_roll_modifikator" title="Wert-Modifikator" />
+                <button type="action" class="sr6-number-stepper-button sr6-number-stepper-button--plus" name="act_sr6_number_step" value="sr6_matrix_handlung_mittelsmetamensch_verteidigung_wert_roll_modifikator::1" aria-label="Wert-Modifikator erhoehen">+</button>
+              </div>
             <button
               type="action"
               class="sr6-charactersheet-field-dice-button"
@@ -4794,8 +5340,15 @@
         <div class="sr6-matrix-handlung" data-zugriff="gast">
           <span class="sr6-matrix-handlung-name">Overwatch-Wert bestimmen</span>
           <span class="sr6-matrix-handlung-formula">Cracken + Logik</span>
-          <div class="sr6-matrix-handlung-value">
-            <input type="number" name="attr_sr6_matrix_handlung_overwatch_wert_bestimmen_probe_wert" readonly />
+          <div class="sr6-matrix-handlung-value sr6-matrix-handlung-value--roll-mod">
+            <span class="sr6-roll-mod-subtitle sr6-roll-mod-subtitle--basis" data-i18n="field.basis">Basis</span>
+          <span class="sr6-roll-mod-subtitle sr6-roll-mod-subtitle--mod" data-i18n="field.fertigkeitsmodifikator">Mod.</span>
+          <input type="number" name="attr_sr6_matrix_handlung_overwatch_wert_bestimmen_probe_wert" readonly />
+              <div class="sr6-number-stepper sr6-roll-mod-stepper">
+                <button type="action" class="sr6-number-stepper-button sr6-number-stepper-button--minus" name="act_sr6_number_step" value="sr6_matrix_handlung_overwatch_wert_bestimmen_probe_wert_roll_modifikator::-1" aria-label="Wert-Modifikator verringern">-</button>
+                <input type="number" name="attr_sr6_matrix_handlung_overwatch_wert_bestimmen_probe_wert_roll_modifikator" title="Wert-Modifikator" />
+                <button type="action" class="sr6-number-stepper-button sr6-number-stepper-button--plus" name="act_sr6_number_step" value="sr6_matrix_handlung_overwatch_wert_bestimmen_probe_wert_roll_modifikator::1" aria-label="Wert-Modifikator erhoehen">+</button>
+              </div>
             <button
               type="action"
               class="sr6-charactersheet-field-dice-button"
@@ -4812,8 +5365,15 @@
         <div class="sr6-matrix-handlung" data-zugriff="user">
           <span class="sr6-matrix-handlung-name">Pop-up</span>
           <span class="sr6-matrix-handlung-formula">Cracken + Logik</span>
-          <div class="sr6-matrix-handlung-value">
-            <input type="number" name="attr_sr6_matrix_handlung_pop_up_probe_wert" readonly />
+          <div class="sr6-matrix-handlung-value sr6-matrix-handlung-value--roll-mod">
+            <span class="sr6-roll-mod-subtitle sr6-roll-mod-subtitle--basis" data-i18n="field.basis">Basis</span>
+          <span class="sr6-roll-mod-subtitle sr6-roll-mod-subtitle--mod" data-i18n="field.fertigkeitsmodifikator">Mod.</span>
+          <input type="number" name="attr_sr6_matrix_handlung_pop_up_probe_wert" readonly />
+              <div class="sr6-number-stepper sr6-roll-mod-stepper">
+                <button type="action" class="sr6-number-stepper-button sr6-number-stepper-button--minus" name="act_sr6_number_step" value="sr6_matrix_handlung_pop_up_probe_wert_roll_modifikator::-1" aria-label="Wert-Modifikator verringern">-</button>
+                <input type="number" name="attr_sr6_matrix_handlung_pop_up_probe_wert_roll_modifikator" title="Wert-Modifikator" />
+                <button type="action" class="sr6-number-stepper-button sr6-number-stepper-button--plus" name="act_sr6_number_step" value="sr6_matrix_handlung_pop_up_probe_wert_roll_modifikator::1" aria-label="Wert-Modifikator erhoehen">+</button>
+              </div>
             <button
               type="action"
               class="sr6-charactersheet-field-dice-button"
@@ -4822,8 +5382,15 @@
               aria-label="Wuerfeln"></button>
           </div>
           <select name="attr_sr6_matrix_handlung_pop_up_verteidigung_auswahl" class="sr6-matrix-handlung-formula sr6-matrix-handlung-formula--select"><option value="Intuition + Datenverarbeitung">Intuition + Datenverarbeitung</option><option value="Schleicher + Datenverarbeitung">Schleicher + Datenverarbeitung</option></select>
-          <div class="sr6-matrix-handlung-value">
-            <input type="number" name="attr_sr6_matrix_handlung_pop_up_verteidigung_wert" readonly />
+          <div class="sr6-matrix-handlung-value sr6-matrix-handlung-value--roll-mod">
+            <span class="sr6-roll-mod-subtitle sr6-roll-mod-subtitle--basis" data-i18n="field.basis">Basis</span>
+          <span class="sr6-roll-mod-subtitle sr6-roll-mod-subtitle--mod" data-i18n="field.fertigkeitsmodifikator">Mod.</span>
+          <input type="number" name="attr_sr6_matrix_handlung_pop_up_verteidigung_wert" readonly />
+              <div class="sr6-number-stepper sr6-roll-mod-stepper">
+                <button type="action" class="sr6-number-stepper-button sr6-number-stepper-button--minus" name="act_sr6_number_step" value="sr6_matrix_handlung_pop_up_verteidigung_wert_roll_modifikator::-1" aria-label="Wert-Modifikator verringern">-</button>
+                <input type="number" name="attr_sr6_matrix_handlung_pop_up_verteidigung_wert_roll_modifikator" title="Wert-Modifikator" />
+                <button type="action" class="sr6-number-stepper-button sr6-number-stepper-button--plus" name="act_sr6_number_step" value="sr6_matrix_handlung_pop_up_verteidigung_wert_roll_modifikator::1" aria-label="Wert-Modifikator erhoehen">+</button>
+              </div>
             <button
               type="action"
               class="sr6-charactersheet-field-dice-button"
@@ -4835,8 +5402,15 @@
         <div class="sr6-matrix-handlung" data-zugriff="admin">
           <span class="sr6-matrix-handlung-name">Programm abstuerzen lassen</span>
           <span class="sr6-matrix-handlung-formula">Cracken + Logik</span>
-          <div class="sr6-matrix-handlung-value">
-            <input type="number" name="attr_sr6_matrix_handlung_programm_abstuerzen_lassen_probe_wert" readonly />
+          <div class="sr6-matrix-handlung-value sr6-matrix-handlung-value--roll-mod">
+            <span class="sr6-roll-mod-subtitle sr6-roll-mod-subtitle--basis" data-i18n="field.basis">Basis</span>
+          <span class="sr6-roll-mod-subtitle sr6-roll-mod-subtitle--mod" data-i18n="field.fertigkeitsmodifikator">Mod.</span>
+          <input type="number" name="attr_sr6_matrix_handlung_programm_abstuerzen_lassen_probe_wert" readonly />
+              <div class="sr6-number-stepper sr6-roll-mod-stepper">
+                <button type="action" class="sr6-number-stepper-button sr6-number-stepper-button--minus" name="act_sr6_number_step" value="sr6_matrix_handlung_programm_abstuerzen_lassen_probe_wert_roll_modifikator::-1" aria-label="Wert-Modifikator verringern">-</button>
+                <input type="number" name="attr_sr6_matrix_handlung_programm_abstuerzen_lassen_probe_wert_roll_modifikator" title="Wert-Modifikator" />
+                <button type="action" class="sr6-number-stepper-button sr6-number-stepper-button--plus" name="act_sr6_number_step" value="sr6_matrix_handlung_programm_abstuerzen_lassen_probe_wert_roll_modifikator::1" aria-label="Wert-Modifikator erhoehen">+</button>
+              </div>
             <button
               type="action"
               class="sr6-charactersheet-field-dice-button"
@@ -4853,8 +5427,15 @@
         <div class="sr6-matrix-handlung" data-zugriff="user">
           <span class="sr6-matrix-handlung-name">Pruefsummensuche</span>
           <span class="sr6-matrix-handlung-formula">Cracken + Logik</span>
-          <div class="sr6-matrix-handlung-value">
-            <input type="number" name="attr_sr6_matrix_handlung_pruefsummensuche_probe_wert" readonly />
+          <div class="sr6-matrix-handlung-value sr6-matrix-handlung-value--roll-mod">
+            <span class="sr6-roll-mod-subtitle sr6-roll-mod-subtitle--basis" data-i18n="field.basis">Basis</span>
+          <span class="sr6-roll-mod-subtitle sr6-roll-mod-subtitle--mod" data-i18n="field.fertigkeitsmodifikator">Mod.</span>
+          <input type="number" name="attr_sr6_matrix_handlung_pruefsummensuche_probe_wert" readonly />
+              <div class="sr6-number-stepper sr6-roll-mod-stepper">
+                <button type="action" class="sr6-number-stepper-button sr6-number-stepper-button--minus" name="act_sr6_number_step" value="sr6_matrix_handlung_pruefsummensuche_probe_wert_roll_modifikator::-1" aria-label="Wert-Modifikator verringern">-</button>
+                <input type="number" name="attr_sr6_matrix_handlung_pruefsummensuche_probe_wert_roll_modifikator" title="Wert-Modifikator" />
+                <button type="action" class="sr6-number-stepper-button sr6-number-stepper-button--plus" name="act_sr6_number_step" value="sr6_matrix_handlung_pruefsummensuche_probe_wert_roll_modifikator::1" aria-label="Wert-Modifikator erhoehen">+</button>
+              </div>
             <button
               type="action"
               class="sr6-charactersheet-field-dice-button"
@@ -4871,8 +5452,15 @@
         <div class="sr6-matrix-handlung" data-zugriff="admin">
           <span class="sr6-matrix-handlung-name">Signal stoeren</span>
           <span class="sr6-matrix-handlung-formula">Cracken + Logik</span>
-          <div class="sr6-matrix-handlung-value">
-            <input type="number" name="attr_sr6_matrix_handlung_signal_stoeren_probe_wert" readonly />
+          <div class="sr6-matrix-handlung-value sr6-matrix-handlung-value--roll-mod">
+            <span class="sr6-roll-mod-subtitle sr6-roll-mod-subtitle--basis" data-i18n="field.basis">Basis</span>
+          <span class="sr6-roll-mod-subtitle sr6-roll-mod-subtitle--mod" data-i18n="field.fertigkeitsmodifikator">Mod.</span>
+          <input type="number" name="attr_sr6_matrix_handlung_signal_stoeren_probe_wert" readonly />
+              <div class="sr6-number-stepper sr6-roll-mod-stepper">
+                <button type="action" class="sr6-number-stepper-button sr6-number-stepper-button--minus" name="act_sr6_number_step" value="sr6_matrix_handlung_signal_stoeren_probe_wert_roll_modifikator::-1" aria-label="Wert-Modifikator verringern">-</button>
+                <input type="number" name="attr_sr6_matrix_handlung_signal_stoeren_probe_wert_roll_modifikator" title="Wert-Modifikator" />
+                <button type="action" class="sr6-number-stepper-button sr6-number-stepper-button--plus" name="act_sr6_number_step" value="sr6_matrix_handlung_signal_stoeren_probe_wert_roll_modifikator::1" aria-label="Wert-Modifikator erhoehen">+</button>
+              </div>
             <button
               type="action"
               class="sr6-charactersheet-field-dice-button"
@@ -4889,8 +5477,15 @@
         <div class="sr6-matrix-handlung" data-zugriff="user">
           <span class="sr6-matrix-handlung-name">Sondieren</span>
           <span class="sr6-matrix-handlung-formula">Cracken + Logik</span>
-          <div class="sr6-matrix-handlung-value">
-            <input type="number" name="attr_sr6_matrix_handlung_sondieren_probe_wert" readonly />
+          <div class="sr6-matrix-handlung-value sr6-matrix-handlung-value--roll-mod">
+            <span class="sr6-roll-mod-subtitle sr6-roll-mod-subtitle--basis" data-i18n="field.basis">Basis</span>
+          <span class="sr6-roll-mod-subtitle sr6-roll-mod-subtitle--mod" data-i18n="field.fertigkeitsmodifikator">Mod.</span>
+          <input type="number" name="attr_sr6_matrix_handlung_sondieren_probe_wert" readonly />
+              <div class="sr6-number-stepper sr6-roll-mod-stepper">
+                <button type="action" class="sr6-number-stepper-button sr6-number-stepper-button--minus" name="act_sr6_number_step" value="sr6_matrix_handlung_sondieren_probe_wert_roll_modifikator::-1" aria-label="Wert-Modifikator verringern">-</button>
+                <input type="number" name="attr_sr6_matrix_handlung_sondieren_probe_wert_roll_modifikator" title="Wert-Modifikator" />
+                <button type="action" class="sr6-number-stepper-button sr6-number-stepper-button--plus" name="act_sr6_number_step" value="sr6_matrix_handlung_sondieren_probe_wert_roll_modifikator::1" aria-label="Wert-Modifikator erhoehen">+</button>
+              </div>
             <button
               type="action"
               class="sr6-charactersheet-field-dice-button"
@@ -4899,8 +5494,15 @@
               aria-label="Wuerfeln"></button>
           </div>
           <select name="attr_sr6_matrix_handlung_sondieren_verteidigung_auswahl" class="sr6-matrix-handlung-formula sr6-matrix-handlung-formula--select"><option value="Willenskraft + Firewall">Willenskraft + Firewall</option><option value="Firewall x2">Firewall x2</option></select>
-          <div class="sr6-matrix-handlung-value">
-            <input type="number" name="attr_sr6_matrix_handlung_sondieren_verteidigung_wert" readonly />
+          <div class="sr6-matrix-handlung-value sr6-matrix-handlung-value--roll-mod">
+            <span class="sr6-roll-mod-subtitle sr6-roll-mod-subtitle--basis" data-i18n="field.basis">Basis</span>
+          <span class="sr6-roll-mod-subtitle sr6-roll-mod-subtitle--mod" data-i18n="field.fertigkeitsmodifikator">Mod.</span>
+          <input type="number" name="attr_sr6_matrix_handlung_sondieren_verteidigung_wert" readonly />
+              <div class="sr6-number-stepper sr6-roll-mod-stepper">
+                <button type="action" class="sr6-number-stepper-button sr6-number-stepper-button--minus" name="act_sr6_number_step" value="sr6_matrix_handlung_sondieren_verteidigung_wert_roll_modifikator::-1" aria-label="Wert-Modifikator verringern">-</button>
+                <input type="number" name="attr_sr6_matrix_handlung_sondieren_verteidigung_wert_roll_modifikator" title="Wert-Modifikator" />
+                <button type="action" class="sr6-number-stepper-button sr6-number-stepper-button--plus" name="act_sr6_number_step" value="sr6_matrix_handlung_sondieren_verteidigung_wert_roll_modifikator::1" aria-label="Wert-Modifikator erhoehen">+</button>
+              </div>
             <button
               type="action"
               class="sr6-charactersheet-field-dice-button"
@@ -4912,8 +5514,15 @@
         <div class="sr6-matrix-handlung" data-zugriff="user">
           <span class="sr6-matrix-handlung-name">Stalking</span>
           <span class="sr6-matrix-handlung-formula">Cracken + Logik</span>
-          <div class="sr6-matrix-handlung-value">
-            <input type="number" name="attr_sr6_matrix_handlung_stalking_probe_wert" readonly />
+          <div class="sr6-matrix-handlung-value sr6-matrix-handlung-value--roll-mod">
+            <span class="sr6-roll-mod-subtitle sr6-roll-mod-subtitle--basis" data-i18n="field.basis">Basis</span>
+          <span class="sr6-roll-mod-subtitle sr6-roll-mod-subtitle--mod" data-i18n="field.fertigkeitsmodifikator">Mod.</span>
+          <input type="number" name="attr_sr6_matrix_handlung_stalking_probe_wert" readonly />
+              <div class="sr6-number-stepper sr6-roll-mod-stepper">
+                <button type="action" class="sr6-number-stepper-button sr6-number-stepper-button--minus" name="act_sr6_number_step" value="sr6_matrix_handlung_stalking_probe_wert_roll_modifikator::-1" aria-label="Wert-Modifikator verringern">-</button>
+                <input type="number" name="attr_sr6_matrix_handlung_stalking_probe_wert_roll_modifikator" title="Wert-Modifikator" />
+                <button type="action" class="sr6-number-stepper-button sr6-number-stepper-button--plus" name="act_sr6_number_step" value="sr6_matrix_handlung_stalking_probe_wert_roll_modifikator::1" aria-label="Wert-Modifikator erhoehen">+</button>
+              </div>
             <button
               type="action"
               class="sr6-charactersheet-field-dice-button"
@@ -4922,8 +5531,15 @@
               aria-label="Wuerfeln"></button>
           </div>
           <select name="attr_sr6_matrix_handlung_stalking_verteidigung_auswahl" class="sr6-matrix-handlung-formula sr6-matrix-handlung-formula--select"><option value="Willenskraft + Firewall">Willenskraft + Firewall</option><option value="Firewall x2">Firewall x2</option></select>
-          <div class="sr6-matrix-handlung-value">
-            <input type="number" name="attr_sr6_matrix_handlung_stalking_verteidigung_wert" readonly />
+          <div class="sr6-matrix-handlung-value sr6-matrix-handlung-value--roll-mod">
+            <span class="sr6-roll-mod-subtitle sr6-roll-mod-subtitle--basis" data-i18n="field.basis">Basis</span>
+          <span class="sr6-roll-mod-subtitle sr6-roll-mod-subtitle--mod" data-i18n="field.fertigkeitsmodifikator">Mod.</span>
+          <input type="number" name="attr_sr6_matrix_handlung_stalking_verteidigung_wert" readonly />
+              <div class="sr6-number-stepper sr6-roll-mod-stepper">
+                <button type="action" class="sr6-number-stepper-button sr6-number-stepper-button--minus" name="act_sr6_number_step" value="sr6_matrix_handlung_stalking_verteidigung_wert_roll_modifikator::-1" aria-label="Wert-Modifikator verringern">-</button>
+                <input type="number" name="attr_sr6_matrix_handlung_stalking_verteidigung_wert_roll_modifikator" title="Wert-Modifikator" />
+                <button type="action" class="sr6-number-stepper-button sr6-number-stepper-button--plus" name="act_sr6_number_step" value="sr6_matrix_handlung_stalking_verteidigung_wert_roll_modifikator::1" aria-label="Wert-Modifikator erhoehen">+</button>
+              </div>
             <button
               type="action"
               class="sr6-charactersheet-field-dice-button"
@@ -4935,8 +5551,15 @@
         <div class="sr6-matrix-handlung" data-zugriff="user">
           <span class="sr6-matrix-handlung-name">Stoersender lokalisieren</span>
           <span class="sr6-matrix-handlung-formula">Cracken (Elektronische Kriegsfuehrung) + Logik</span>
-          <div class="sr6-matrix-handlung-value">
-            <input type="number" name="attr_sr6_matrix_handlung_stoersender_lokalisieren_probe_wert" readonly />
+          <div class="sr6-matrix-handlung-value sr6-matrix-handlung-value--roll-mod">
+            <span class="sr6-roll-mod-subtitle sr6-roll-mod-subtitle--basis" data-i18n="field.basis">Basis</span>
+          <span class="sr6-roll-mod-subtitle sr6-roll-mod-subtitle--mod" data-i18n="field.fertigkeitsmodifikator">Mod.</span>
+          <input type="number" name="attr_sr6_matrix_handlung_stoersender_lokalisieren_probe_wert" readonly />
+              <div class="sr6-number-stepper sr6-roll-mod-stepper">
+                <button type="action" class="sr6-number-stepper-button sr6-number-stepper-button--minus" name="act_sr6_number_step" value="sr6_matrix_handlung_stoersender_lokalisieren_probe_wert_roll_modifikator::-1" aria-label="Wert-Modifikator verringern">-</button>
+                <input type="number" name="attr_sr6_matrix_handlung_stoersender_lokalisieren_probe_wert_roll_modifikator" title="Wert-Modifikator" />
+                <button type="action" class="sr6-number-stepper-button sr6-number-stepper-button--plus" name="act_sr6_number_step" value="sr6_matrix_handlung_stoersender_lokalisieren_probe_wert_roll_modifikator::1" aria-label="Wert-Modifikator erhoehen">+</button>
+              </div>
             <button
               type="action"
               class="sr6-charactersheet-field-dice-button"
@@ -4953,8 +5576,15 @@
         <div class="sr6-matrix-handlung" data-zugriff="admin">
           <span class="sr6-matrix-handlung-name">Suendenbock</span>
           <span class="sr6-matrix-handlung-formula">Cracken + Schleicher</span>
-          <div class="sr6-matrix-handlung-value">
-            <input type="number" name="attr_sr6_matrix_handlung_suendenbock_probe_wert" readonly />
+          <div class="sr6-matrix-handlung-value sr6-matrix-handlung-value--roll-mod">
+            <span class="sr6-roll-mod-subtitle sr6-roll-mod-subtitle--basis" data-i18n="field.basis">Basis</span>
+          <span class="sr6-roll-mod-subtitle sr6-roll-mod-subtitle--mod" data-i18n="field.fertigkeitsmodifikator">Mod.</span>
+          <input type="number" name="attr_sr6_matrix_handlung_suendenbock_probe_wert" readonly />
+              <div class="sr6-number-stepper sr6-roll-mod-stepper">
+                <button type="action" class="sr6-number-stepper-button sr6-number-stepper-button--minus" name="act_sr6_number_step" value="sr6_matrix_handlung_suendenbock_probe_wert_roll_modifikator::-1" aria-label="Wert-Modifikator verringern">-</button>
+                <input type="number" name="attr_sr6_matrix_handlung_suendenbock_probe_wert_roll_modifikator" title="Wert-Modifikator" />
+                <button type="action" class="sr6-number-stepper-button sr6-number-stepper-button--plus" name="act_sr6_number_step" value="sr6_matrix_handlung_suendenbock_probe_wert_roll_modifikator::1" aria-label="Wert-Modifikator erhoehen">+</button>
+              </div>
             <button
               type="action"
               class="sr6-charactersheet-field-dice-button"
@@ -4963,8 +5593,15 @@
               aria-label="Wuerfeln"></button>
           </div>
           <span class="sr6-matrix-handlung-formula">Willenskraft + Firewall</span><input type="hidden" name="attr_sr6_matrix_handlung_suendenbock_verteidigung_auswahl" value="Willenskraft + Firewall" />
-          <div class="sr6-matrix-handlung-value">
-            <input type="number" name="attr_sr6_matrix_handlung_suendenbock_verteidigung_wert" readonly />
+          <div class="sr6-matrix-handlung-value sr6-matrix-handlung-value--roll-mod">
+            <span class="sr6-roll-mod-subtitle sr6-roll-mod-subtitle--basis" data-i18n="field.basis">Basis</span>
+          <span class="sr6-roll-mod-subtitle sr6-roll-mod-subtitle--mod" data-i18n="field.fertigkeitsmodifikator">Mod.</span>
+          <input type="number" name="attr_sr6_matrix_handlung_suendenbock_verteidigung_wert" readonly />
+              <div class="sr6-number-stepper sr6-roll-mod-stepper">
+                <button type="action" class="sr6-number-stepper-button sr6-number-stepper-button--minus" name="act_sr6_number_step" value="sr6_matrix_handlung_suendenbock_verteidigung_wert_roll_modifikator::-1" aria-label="Wert-Modifikator verringern">-</button>
+                <input type="number" name="attr_sr6_matrix_handlung_suendenbock_verteidigung_wert_roll_modifikator" title="Wert-Modifikator" />
+                <button type="action" class="sr6-number-stepper-button sr6-number-stepper-button--plus" name="act_sr6_number_step" value="sr6_matrix_handlung_suendenbock_verteidigung_wert_roll_modifikator::1" aria-label="Wert-Modifikator erhoehen">+</button>
+              </div>
             <button
               type="action"
               class="sr6-charactersheet-field-dice-button"
@@ -4976,8 +5613,15 @@
         <div class="sr6-matrix-handlung" data-zugriff="admin">
           <span class="sr6-matrix-handlung-name">Teergrube</span>
           <span class="sr6-matrix-handlung-formula">Cracken + Logik</span>
-          <div class="sr6-matrix-handlung-value">
-            <input type="number" name="attr_sr6_matrix_handlung_teergrube_probe_wert" readonly />
+          <div class="sr6-matrix-handlung-value sr6-matrix-handlung-value--roll-mod">
+            <span class="sr6-roll-mod-subtitle sr6-roll-mod-subtitle--basis" data-i18n="field.basis">Basis</span>
+          <span class="sr6-roll-mod-subtitle sr6-roll-mod-subtitle--mod" data-i18n="field.fertigkeitsmodifikator">Mod.</span>
+          <input type="number" name="attr_sr6_matrix_handlung_teergrube_probe_wert" readonly />
+              <div class="sr6-number-stepper sr6-roll-mod-stepper">
+                <button type="action" class="sr6-number-stepper-button sr6-number-stepper-button--minus" name="act_sr6_number_step" value="sr6_matrix_handlung_teergrube_probe_wert_roll_modifikator::-1" aria-label="Wert-Modifikator verringern">-</button>
+                <input type="number" name="attr_sr6_matrix_handlung_teergrube_probe_wert_roll_modifikator" title="Wert-Modifikator" />
+                <button type="action" class="sr6-number-stepper-button sr6-number-stepper-button--plus" name="act_sr6_number_step" value="sr6_matrix_handlung_teergrube_probe_wert_roll_modifikator::1" aria-label="Wert-Modifikator erhoehen">+</button>
+              </div>
             <button
               type="action"
               class="sr6-charactersheet-field-dice-button"
@@ -4986,8 +5630,15 @@
               aria-label="Wuerfeln"></button>
           </div>
           <select name="attr_sr6_matrix_handlung_teergrube_verteidigung_auswahl" class="sr6-matrix-handlung-formula sr6-matrix-handlung-formula--select"><option value="Datenverarbeitung + Firewall">Datenverarbeitung + Firewall</option><option value="Logik + Firewall">Logik + Firewall</option></select>
-          <div class="sr6-matrix-handlung-value">
-            <input type="number" name="attr_sr6_matrix_handlung_teergrube_verteidigung_wert" readonly />
+          <div class="sr6-matrix-handlung-value sr6-matrix-handlung-value--roll-mod">
+            <span class="sr6-roll-mod-subtitle sr6-roll-mod-subtitle--basis" data-i18n="field.basis">Basis</span>
+          <span class="sr6-roll-mod-subtitle sr6-roll-mod-subtitle--mod" data-i18n="field.fertigkeitsmodifikator">Mod.</span>
+          <input type="number" name="attr_sr6_matrix_handlung_teergrube_verteidigung_wert" readonly />
+              <div class="sr6-number-stepper sr6-roll-mod-stepper">
+                <button type="action" class="sr6-number-stepper-button sr6-number-stepper-button--minus" name="act_sr6_number_step" value="sr6_matrix_handlung_teergrube_verteidigung_wert_roll_modifikator::-1" aria-label="Wert-Modifikator verringern">-</button>
+                <input type="number" name="attr_sr6_matrix_handlung_teergrube_verteidigung_wert_roll_modifikator" title="Wert-Modifikator" />
+                <button type="action" class="sr6-number-stepper-button sr6-number-stepper-button--plus" name="act_sr6_number_step" value="sr6_matrix_handlung_teergrube_verteidigung_wert_roll_modifikator::1" aria-label="Wert-Modifikator erhoehen">+</button>
+              </div>
             <button
               type="action"
               class="sr6-charactersheet-field-dice-button"
@@ -4999,8 +5650,15 @@
         <div class="sr6-matrix-handlung" data-zugriff="admin">
           <span class="sr6-matrix-handlung-name">Uebertragung abfangen</span>
           <span class="sr6-matrix-handlung-formula">Cracken + Logik</span>
-          <div class="sr6-matrix-handlung-value">
-            <input type="number" name="attr_sr6_matrix_handlung_uebertragung_abfangen_probe_wert" readonly />
+          <div class="sr6-matrix-handlung-value sr6-matrix-handlung-value--roll-mod">
+            <span class="sr6-roll-mod-subtitle sr6-roll-mod-subtitle--basis" data-i18n="field.basis">Basis</span>
+          <span class="sr6-roll-mod-subtitle sr6-roll-mod-subtitle--mod" data-i18n="field.fertigkeitsmodifikator">Mod.</span>
+          <input type="number" name="attr_sr6_matrix_handlung_uebertragung_abfangen_probe_wert" readonly />
+              <div class="sr6-number-stepper sr6-roll-mod-stepper">
+                <button type="action" class="sr6-number-stepper-button sr6-number-stepper-button--minus" name="act_sr6_number_step" value="sr6_matrix_handlung_uebertragung_abfangen_probe_wert_roll_modifikator::-1" aria-label="Wert-Modifikator verringern">-</button>
+                <input type="number" name="attr_sr6_matrix_handlung_uebertragung_abfangen_probe_wert_roll_modifikator" title="Wert-Modifikator" />
+                <button type="action" class="sr6-number-stepper-button sr6-number-stepper-button--plus" name="act_sr6_number_step" value="sr6_matrix_handlung_uebertragung_abfangen_probe_wert_roll_modifikator::1" aria-label="Wert-Modifikator erhoehen">+</button>
+              </div>
             <button
               type="action"
               class="sr6-charactersheet-field-dice-button"
@@ -5009,8 +5667,15 @@
               aria-label="Wuerfeln"></button>
           </div>
           <select name="attr_sr6_matrix_handlung_uebertragung_abfangen_verteidigung_auswahl" class="sr6-matrix-handlung-formula sr6-matrix-handlung-formula--select"><option value="Logik + Firewall">Logik + Firewall</option><option value="Datenverarbeitung + Firewall">Datenverarbeitung + Firewall</option></select>
-          <div class="sr6-matrix-handlung-value">
-            <input type="number" name="attr_sr6_matrix_handlung_uebertragung_abfangen_verteidigung_wert" readonly />
+          <div class="sr6-matrix-handlung-value sr6-matrix-handlung-value--roll-mod">
+            <span class="sr6-roll-mod-subtitle sr6-roll-mod-subtitle--basis" data-i18n="field.basis">Basis</span>
+          <span class="sr6-roll-mod-subtitle sr6-roll-mod-subtitle--mod" data-i18n="field.fertigkeitsmodifikator">Mod.</span>
+          <input type="number" name="attr_sr6_matrix_handlung_uebertragung_abfangen_verteidigung_wert" readonly />
+              <div class="sr6-number-stepper sr6-roll-mod-stepper">
+                <button type="action" class="sr6-number-stepper-button sr6-number-stepper-button--minus" name="act_sr6_number_step" value="sr6_matrix_handlung_uebertragung_abfangen_verteidigung_wert_roll_modifikator::-1" aria-label="Wert-Modifikator verringern">-</button>
+                <input type="number" name="attr_sr6_matrix_handlung_uebertragung_abfangen_verteidigung_wert_roll_modifikator" title="Wert-Modifikator" />
+                <button type="action" class="sr6-number-stepper-button sr6-number-stepper-button--plus" name="act_sr6_number_step" value="sr6_matrix_handlung_uebertragung_abfangen_verteidigung_wert_roll_modifikator::1" aria-label="Wert-Modifikator erhoehen">+</button>
+              </div>
             <button
               type="action"
               class="sr6-charactersheet-field-dice-button"
@@ -5022,8 +5687,15 @@
         <div class="sr6-matrix-handlung" data-zugriff="user">
           <span class="sr6-matrix-handlung-name">Verstecken</span>
           <span class="sr6-matrix-handlung-formula">Cracken + Intuition</span>
-          <div class="sr6-matrix-handlung-value">
-            <input type="number" name="attr_sr6_matrix_handlung_verstecken_probe_wert" readonly />
+          <div class="sr6-matrix-handlung-value sr6-matrix-handlung-value--roll-mod">
+            <span class="sr6-roll-mod-subtitle sr6-roll-mod-subtitle--basis" data-i18n="field.basis">Basis</span>
+          <span class="sr6-roll-mod-subtitle sr6-roll-mod-subtitle--mod" data-i18n="field.fertigkeitsmodifikator">Mod.</span>
+          <input type="number" name="attr_sr6_matrix_handlung_verstecken_probe_wert" readonly />
+              <div class="sr6-number-stepper sr6-roll-mod-stepper">
+                <button type="action" class="sr6-number-stepper-button sr6-number-stepper-button--minus" name="act_sr6_number_step" value="sr6_matrix_handlung_verstecken_probe_wert_roll_modifikator::-1" aria-label="Wert-Modifikator verringern">-</button>
+                <input type="number" name="attr_sr6_matrix_handlung_verstecken_probe_wert_roll_modifikator" title="Wert-Modifikator" />
+                <button type="action" class="sr6-number-stepper-button sr6-number-stepper-button--plus" name="act_sr6_number_step" value="sr6_matrix_handlung_verstecken_probe_wert_roll_modifikator::1" aria-label="Wert-Modifikator erhoehen">+</button>
+              </div>
             <button
               type="action"
               class="sr6-charactersheet-field-dice-button"
@@ -5032,8 +5704,15 @@
               aria-label="Wuerfeln"></button>
           </div>
           <select name="attr_sr6_matrix_handlung_verstecken_verteidigung_auswahl" class="sr6-matrix-handlung-formula sr6-matrix-handlung-formula--select"><option value="Intuition + Datenverarbeitung">Intuition + Datenverarbeitung</option><option value="Schleicher + Datenverarbeitung">Schleicher + Datenverarbeitung</option></select>
-          <div class="sr6-matrix-handlung-value">
-            <input type="number" name="attr_sr6_matrix_handlung_verstecken_verteidigung_wert" readonly />
+          <div class="sr6-matrix-handlung-value sr6-matrix-handlung-value--roll-mod">
+            <span class="sr6-roll-mod-subtitle sr6-roll-mod-subtitle--basis" data-i18n="field.basis">Basis</span>
+          <span class="sr6-roll-mod-subtitle sr6-roll-mod-subtitle--mod" data-i18n="field.fertigkeitsmodifikator">Mod.</span>
+          <input type="number" name="attr_sr6_matrix_handlung_verstecken_verteidigung_wert" readonly />
+              <div class="sr6-number-stepper sr6-roll-mod-stepper">
+                <button type="action" class="sr6-number-stepper-button sr6-number-stepper-button--minus" name="act_sr6_number_step" value="sr6_matrix_handlung_verstecken_verteidigung_wert_roll_modifikator::-1" aria-label="Wert-Modifikator verringern">-</button>
+                <input type="number" name="attr_sr6_matrix_handlung_verstecken_verteidigung_wert_roll_modifikator" title="Wert-Modifikator" />
+                <button type="action" class="sr6-number-stepper-button sr6-number-stepper-button--plus" name="act_sr6_number_step" value="sr6_matrix_handlung_verstecken_verteidigung_wert_roll_modifikator::1" aria-label="Wert-Modifikator erhoehen">+</button>
+              </div>
             <button
               type="action"
               class="sr6-charactersheet-field-dice-button"
@@ -5045,8 +5724,15 @@
         <div class="sr6-matrix-handlung" data-zugriff="admin">
           <span class="sr6-matrix-handlung-name">Verzoegerter Befehl</span>
           <span class="sr6-matrix-handlung-formula">Cracken + Logik</span>
-          <div class="sr6-matrix-handlung-value">
-            <input type="number" name="attr_sr6_matrix_handlung_verzoegerter_befehl_probe_wert" readonly />
+          <div class="sr6-matrix-handlung-value sr6-matrix-handlung-value--roll-mod">
+            <span class="sr6-roll-mod-subtitle sr6-roll-mod-subtitle--basis" data-i18n="field.basis">Basis</span>
+          <span class="sr6-roll-mod-subtitle sr6-roll-mod-subtitle--mod" data-i18n="field.fertigkeitsmodifikator">Mod.</span>
+          <input type="number" name="attr_sr6_matrix_handlung_verzoegerter_befehl_probe_wert" readonly />
+              <div class="sr6-number-stepper sr6-roll-mod-stepper">
+                <button type="action" class="sr6-number-stepper-button sr6-number-stepper-button--minus" name="act_sr6_number_step" value="sr6_matrix_handlung_verzoegerter_befehl_probe_wert_roll_modifikator::-1" aria-label="Wert-Modifikator verringern">-</button>
+                <input type="number" name="attr_sr6_matrix_handlung_verzoegerter_befehl_probe_wert_roll_modifikator" title="Wert-Modifikator" />
+                <button type="action" class="sr6-number-stepper-button sr6-number-stepper-button--plus" name="act_sr6_number_step" value="sr6_matrix_handlung_verzoegerter_befehl_probe_wert_roll_modifikator::1" aria-label="Wert-Modifikator erhoehen">+</button>
+              </div>
             <button
               type="action"
               class="sr6-charactersheet-field-dice-button"
@@ -5055,8 +5741,15 @@
               aria-label="Wuerfeln"></button>
           </div>
           <select name="attr_sr6_matrix_handlung_verzoegerter_befehl_verteidigung_auswahl" class="sr6-matrix-handlung-formula sr6-matrix-handlung-formula--select"><option value="Datenverarbeitung + Firewall">Datenverarbeitung + Firewall</option><option value="Pilot + Firewall">Pilot + Firewall</option></select>
-          <div class="sr6-matrix-handlung-value">
-            <input type="number" name="attr_sr6_matrix_handlung_verzoegerter_befehl_verteidigung_wert" readonly />
+          <div class="sr6-matrix-handlung-value sr6-matrix-handlung-value--roll-mod">
+            <span class="sr6-roll-mod-subtitle sr6-roll-mod-subtitle--basis" data-i18n="field.basis">Basis</span>
+          <span class="sr6-roll-mod-subtitle sr6-roll-mod-subtitle--mod" data-i18n="field.fertigkeitsmodifikator">Mod.</span>
+          <input type="number" name="attr_sr6_matrix_handlung_verzoegerter_befehl_verteidigung_wert" readonly />
+              <div class="sr6-number-stepper sr6-roll-mod-stepper">
+                <button type="action" class="sr6-number-stepper-button sr6-number-stepper-button--minus" name="act_sr6_number_step" value="sr6_matrix_handlung_verzoegerter_befehl_verteidigung_wert_roll_modifikator::-1" aria-label="Wert-Modifikator verringern">-</button>
+                <input type="number" name="attr_sr6_matrix_handlung_verzoegerter_befehl_verteidigung_wert_roll_modifikator" title="Wert-Modifikator" />
+                <button type="action" class="sr6-number-stepper-button sr6-number-stepper-button--plus" name="act_sr6_number_step" value="sr6_matrix_handlung_verzoegerter_befehl_verteidigung_wert_roll_modifikator::1" aria-label="Wert-Modifikator erhoehen">+</button>
+              </div>
             <button
               type="action"
               class="sr6-charactersheet-field-dice-button"
@@ -5407,18 +6100,44 @@
       <div class="sr6-charactersheet-row sr6-charactersheet-row-5">
         <div class="sr6-charactersheet-field">
           <div class="sr6-field-label-with-info"><span data-i18n="field.angriffswert">Angriffswert</span><span class="sr6-info-icon" title="Angriffswert = Angriff + Schleicher">i</span></div>
-          <input type="number" name="attr_sr6_rigging_angriffswert" readonly />
+          <div class="sr6-charactersheet-field-input-with-mod">
+            <span class="sr6-roll-mod-subtitle sr6-roll-mod-subtitle--basis" data-i18n="field.basis">Basis</span>
+            <span class="sr6-roll-mod-subtitle sr6-roll-mod-subtitle--mod" data-i18n="field.fertigkeitsmodifikator">Mod.</span>
+            <input type="number" name="attr_sr6_rigging_angriffswert" readonly />
+            <div class="sr6-number-stepper">
+              <button type="action" class="sr6-number-stepper-button sr6-number-stepper-button--minus" name="act_sr6_number_step" value="sr6_rigging_angriffswert_modifikator::-1" aria-label="Modifikator verringern">-</button>
+              <input type="number" name="attr_sr6_rigging_angriffswert_modifikator" title="Modifikator" />
+              <button type="action" class="sr6-number-stepper-button sr6-number-stepper-button--plus" name="act_sr6_number_step" value="sr6_rigging_angriffswert_modifikator::1" aria-label="Modifikator erhoehen">+</button>
+            </div>
+          </div>
         </div>
 
         <div class="sr6-charactersheet-field">
           <div class="sr6-field-label-with-info"><span data-i18n="field.verteidigungswert">Verteidigungswert</span><span class="sr6-info-icon" title="Verteidigungswert = Datenverarbeitung + Firewall">i</span></div>
-          <input type="number" name="attr_sr6_rigging_verteidigungswert" readonly />
+          <div class="sr6-charactersheet-field-input-with-mod">
+            <span class="sr6-roll-mod-subtitle sr6-roll-mod-subtitle--basis" data-i18n="field.basis">Basis</span>
+            <span class="sr6-roll-mod-subtitle sr6-roll-mod-subtitle--mod" data-i18n="field.fertigkeitsmodifikator">Mod.</span>
+            <input type="number" name="attr_sr6_rigging_verteidigungswert" readonly />
+            <div class="sr6-number-stepper">
+              <button type="action" class="sr6-number-stepper-button sr6-number-stepper-button--minus" name="act_sr6_number_step" value="sr6_rigging_verteidigungswert_modifikator::-1" aria-label="Modifikator verringern">-</button>
+              <input type="number" name="attr_sr6_rigging_verteidigungswert_modifikator" title="Modifikator" />
+              <button type="action" class="sr6-number-stepper-button sr6-number-stepper-button--plus" name="act_sr6_number_step" value="sr6_rigging_verteidigungswert_modifikator::1" aria-label="Modifikator erhoehen">+</button>
+            </div>
+          </div>
         </div>
 
         <div class="sr6-charactersheet-field">
           <div class="sr6-field-label-with-info"><span data-i18n="field.matrix_verteidigung">Matrix Verteidigung</span><span class="sr6-info-icon" title="Matrix Verteidigung = Intuition + Firewall">i</span></div>
-          <div class="sr6-charactersheet-field-input-with-dice">
-            <input type="number" name="attr_sr6_rigging_matrix_verteidigung" readonly /><button
+          <div class="sr6-charactersheet-field-input-with-dice sr6-charactersheet-field-input-with-dice--roll-mod">
+            <span class="sr6-roll-mod-subtitle sr6-roll-mod-subtitle--basis" data-i18n="field.basis">Basis</span>
+          <span class="sr6-roll-mod-subtitle sr6-roll-mod-subtitle--mod" data-i18n="field.fertigkeitsmodifikator">Mod.</span>
+          <input type="number" name="attr_sr6_rigging_matrix_verteidigung" readonly />
+              <div class="sr6-number-stepper sr6-roll-mod-stepper">
+                <button type="action" class="sr6-number-stepper-button sr6-number-stepper-button--minus" name="act_sr6_number_step" value="sr6_rigging_matrix_verteidigung_roll_modifikator::-1" aria-label="Wert-Modifikator verringern">-</button>
+                <input type="number" name="attr_sr6_rigging_matrix_verteidigung_roll_modifikator" title="Wert-Modifikator" />
+                <button type="action" class="sr6-number-stepper-button sr6-number-stepper-button--plus" name="act_sr6_number_step" value="sr6_rigging_matrix_verteidigung_roll_modifikator::1" aria-label="Wert-Modifikator erhoehen">+</button>
+              </div>
+            <button
               type="action"
               class="sr6-charactersheet-field-dice-button"
               name="act_probe"
@@ -5429,8 +6148,16 @@
 
         <div class="sr6-charactersheet-field">
           <div class="sr6-field-label-with-info"><span data-i18n="field.matrix_schadenswiderstand">Matrix Schadenswiderstand</span><span class="sr6-info-icon" title="Matrix Schadenswiderstand = Firewall">i</span></div>
-          <div class="sr6-charactersheet-field-input-with-dice">
-            <input type="number" name="attr_sr6_rigging_matrix_schadenswiderstand" readonly /><button
+          <div class="sr6-charactersheet-field-input-with-dice sr6-charactersheet-field-input-with-dice--roll-mod">
+            <span class="sr6-roll-mod-subtitle sr6-roll-mod-subtitle--basis" data-i18n="field.basis">Basis</span>
+          <span class="sr6-roll-mod-subtitle sr6-roll-mod-subtitle--mod" data-i18n="field.fertigkeitsmodifikator">Mod.</span>
+          <input type="number" name="attr_sr6_rigging_matrix_schadenswiderstand" readonly />
+              <div class="sr6-number-stepper sr6-roll-mod-stepper">
+                <button type="action" class="sr6-number-stepper-button sr6-number-stepper-button--minus" name="act_sr6_number_step" value="sr6_rigging_matrix_schadenswiderstand_roll_modifikator::-1" aria-label="Wert-Modifikator verringern">-</button>
+                <input type="number" name="attr_sr6_rigging_matrix_schadenswiderstand_roll_modifikator" title="Wert-Modifikator" />
+                <button type="action" class="sr6-number-stepper-button sr6-number-stepper-button--plus" name="act_sr6_number_step" value="sr6_rigging_matrix_schadenswiderstand_roll_modifikator::1" aria-label="Wert-Modifikator erhoehen">+</button>
+              </div>
+            <button
               type="action"
               class="sr6-charactersheet-field-dice-button"
               name="act_probe"
@@ -5441,8 +6168,16 @@
 
         <div class="sr6-charactersheet-field">
           <div class="sr6-field-label-with-info"><span data-i18n="field.biofeedback_schadenswiderstand">Biofeedback Schadenswiderstand</span><span class="sr6-info-icon" title="Biofeedback Schadenswiderstand = Willenskraft">i</span></div>
-          <div class="sr6-charactersheet-field-input-with-dice">
-            <input type="number" name="attr_sr6_rigging_biofeedback_schadenswiderstand" readonly /><button
+          <div class="sr6-charactersheet-field-input-with-dice sr6-charactersheet-field-input-with-dice--roll-mod">
+            <span class="sr6-roll-mod-subtitle sr6-roll-mod-subtitle--basis" data-i18n="field.basis">Basis</span>
+          <span class="sr6-roll-mod-subtitle sr6-roll-mod-subtitle--mod" data-i18n="field.fertigkeitsmodifikator">Mod.</span>
+          <input type="number" name="attr_sr6_rigging_biofeedback_schadenswiderstand" readonly />
+              <div class="sr6-number-stepper sr6-roll-mod-stepper">
+                <button type="action" class="sr6-number-stepper-button sr6-number-stepper-button--minus" name="act_sr6_number_step" value="sr6_rigging_biofeedback_schadenswiderstand_roll_modifikator::-1" aria-label="Wert-Modifikator verringern">-</button>
+                <input type="number" name="attr_sr6_rigging_biofeedback_schadenswiderstand_roll_modifikator" title="Wert-Modifikator" />
+                <button type="action" class="sr6-number-stepper-button sr6-number-stepper-button--plus" name="act_sr6_number_step" value="sr6_rigging_biofeedback_schadenswiderstand_roll_modifikator::1" aria-label="Wert-Modifikator erhoehen">+</button>
+              </div>
+            <button
               type="action"
               class="sr6-charactersheet-field-dice-button"
               name="act_probe"
@@ -5586,8 +6321,15 @@
               </div>
               <div class="sr6-charactersheet-field">
                 <div class="sr6-field-label-with-info"><span data-i18n="field.wert">Wert</span><span class="sr6-info-icon" title="Wert = abhängig von Probe und Modus: Autonom nutzt Autosoft + Pilot/Sensor; Agent nutzt Agentenstufe + Pilot/Sensor; Eingesprungen nutzt Fertigkeit + Attribut + Riggerkontrolle">i</span></div>
-                <div class="sr6-charactersheet-field-input-with-dice sr6-charactersheet-field-input-with-dice--compact">
-                  <input type="number" name="attr_sr6_rigging_fahrzeug_probe_wert" readonly />
+                <div class="sr6-charactersheet-field-input-with-dice sr6-charactersheet-field-input-with-dice--roll-mod sr6-charactersheet-field-input-with-dice--compact">
+                  <span class="sr6-roll-mod-subtitle sr6-roll-mod-subtitle--basis" data-i18n="field.basis">Basis</span>
+          <span class="sr6-roll-mod-subtitle sr6-roll-mod-subtitle--mod" data-i18n="field.fertigkeitsmodifikator">Mod.</span>
+          <input type="number" name="attr_sr6_rigging_fahrzeug_probe_wert" readonly />
+              <div class="sr6-number-stepper sr6-roll-mod-stepper">
+                <button type="action" class="sr6-number-stepper-button sr6-number-stepper-button--minus" name="act_sr6_number_step" value="sr6_rigging_fahrzeug_probe_wert_roll_modifikator::-1" aria-label="Wert-Modifikator verringern">-</button>
+                <input type="number" name="attr_sr6_rigging_fahrzeug_probe_wert_roll_modifikator" title="Wert-Modifikator" />
+                <button type="action" class="sr6-number-stepper-button sr6-number-stepper-button--plus" name="act_sr6_number_step" value="sr6_rigging_fahrzeug_probe_wert_roll_modifikator::1" aria-label="Wert-Modifikator erhoehen">+</button>
+              </div>
                   <button
                     type="action"
                     class="sr6-charactersheet-field-dice-button"
@@ -5598,11 +6340,29 @@
               </div>
               <div class="sr6-charactersheet-field">
                 <div class="sr6-field-label-with-info"><span data-i18n="field.angriffswert">Angriffswert</span><span class="sr6-info-icon" title="Angriffswert = Agentenstufe + Sensor, Manövrieren + Sensor oder Steuern + Sensor, abhängig vom Modus">i</span></div>
-                <input type="number" name="attr_sr6_rigging_fahrzeug_angriffswert" readonly />
+                <div class="sr6-charactersheet-field-input-with-mod">
+                  <span class="sr6-roll-mod-subtitle sr6-roll-mod-subtitle--basis" data-i18n="field.basis">Basis</span>
+                  <span class="sr6-roll-mod-subtitle sr6-roll-mod-subtitle--mod" data-i18n="field.fertigkeitsmodifikator">Mod.</span>
+                  <input type="number" name="attr_sr6_rigging_fahrzeug_angriffswert" readonly />
+                  <div class="sr6-number-stepper">
+                    <button type="action" class="sr6-number-stepper-button sr6-number-stepper-button--minus" name="act_sr6_number_step" value="sr6_rigging_fahrzeug_angriffswert_modifikator::-1" aria-label="Modifikator verringern">-</button>
+                    <input type="number" name="attr_sr6_rigging_fahrzeug_angriffswert_modifikator" title="Modifikator" />
+                    <button type="action" class="sr6-number-stepper-button sr6-number-stepper-button--plus" name="act_sr6_number_step" value="sr6_rigging_fahrzeug_angriffswert_modifikator::1" aria-label="Modifikator erhoehen">+</button>
+                  </div>
+                </div>
               </div>
               <div class="sr6-charactersheet-field">
                 <div class="sr6-field-label-with-info"><span data-i18n="field.verteidigungswert">Verteidigungswert</span><span class="sr6-info-icon" title="Verteidigungswert = Agentenstufe + Panzerung, Manövrieren + Panzerung oder Steuern + Panzerung, abhängig vom Modus">i</span></div>
-                <input type="number" name="attr_sr6_rigging_fahrzeug_verteidigungswert" readonly />
+                <div class="sr6-charactersheet-field-input-with-mod">
+                  <span class="sr6-roll-mod-subtitle sr6-roll-mod-subtitle--basis" data-i18n="field.basis">Basis</span>
+                  <span class="sr6-roll-mod-subtitle sr6-roll-mod-subtitle--mod" data-i18n="field.fertigkeitsmodifikator">Mod.</span>
+                  <input type="number" name="attr_sr6_rigging_fahrzeug_verteidigungswert" readonly />
+                  <div class="sr6-number-stepper">
+                    <button type="action" class="sr6-number-stepper-button sr6-number-stepper-button--minus" name="act_sr6_number_step" value="sr6_rigging_fahrzeug_verteidigungswert_modifikator::-1" aria-label="Modifikator verringern">-</button>
+                    <input type="number" name="attr_sr6_rigging_fahrzeug_verteidigungswert_modifikator" title="Modifikator" />
+                    <button type="action" class="sr6-number-stepper-button sr6-number-stepper-button--plus" name="act_sr6_number_step" value="sr6_rigging_fahrzeug_verteidigungswert_modifikator::1" aria-label="Modifikator erhoehen">+</button>
+                  </div>
+                </div>
               </div>
               <div class="sr6-charactersheet-field">
                 <div class="sr6-field-label-with-info"><span data-i18n="field.zustandsmonitor">Zustandsmonitor</span><span class="sr6-info-icon" title="Zustandsmonitor = aufrunden(Rumpf / 2) + 8">i</span></div>
@@ -9506,6 +10266,15 @@ function extractRepeatingRowPrefix(eventInfo) {
 function buildAttrLookup(values, repeatingRowPrefix) {
   return function lookupAttr(key) {
     if (!key) return "";
+    if (repeatingRowPrefix) {
+      const repeatingKey = `${repeatingRowPrefix}_${key}`;
+      if (
+        Object.prototype.hasOwnProperty.call(values, repeatingKey) &&
+        `${values[repeatingKey] || ""}`.trim() !== ""
+      ) {
+        return values[repeatingKey];
+      }
+    }
     if (Object.prototype.hasOwnProperty.call(values, key)) {
       return values[key];
     }
@@ -9532,6 +10301,10 @@ function buildResolvedFields(fields, lookupAttr) {
   return resolved;
 }
 
+function getRollModifierAttribute(poolAttribute) {
+  return poolAttribute ? `${poolAttribute}_roll_modifikator` : "";
+}
+
 function buildRequestedAttributes(rawTemplate, repeatingRowPrefix) {
   const fields = parseTemplateFields(rawTemplate);
   const poolAttribute = parsePoolAttributeFromFields(fields);
@@ -9546,6 +10319,7 @@ function buildRequestedAttributes(rawTemplate, repeatingRowPrefix) {
 
   if (poolAttribute) {
     attributeRefs.push("sr6_monitor_pool_mod");
+    attributeRefs.push(getRollModifierAttribute(poolAttribute));
   }
 
   const requestedAttributes = [];
@@ -10171,7 +10945,15 @@ function evaluateGlitch(diceResults, successCount) {
   return { isGlitch, isCriticalGlitch };
 }
 
-function buildProbeComputation(lookupAttr, poolAttribute, popupPoolMod, poolMultiplier = 1, poolBasisOverride = null, edgeOptions = {}) {
+function buildProbeComputation(
+  lookupAttr,
+  poolAttribute,
+  popupPoolMod,
+  rollPoolMod = 0,
+  poolMultiplier = 1,
+  poolBasisOverride = null,
+  edgeOptions = {}
+) {
   const poolBasisRaw = poolBasisOverride === null
     ? parseNumber(lookupAttr(poolAttribute))
     : parseNumber(poolBasisOverride);
@@ -10179,11 +10961,12 @@ function buildProbeComputation(lookupAttr, poolAttribute, popupPoolMod, poolMult
   const poolBasis = poolBasisRaw * normalizedPoolMultiplier;
   const monitorPoolMod = parseNumber(lookupAttr("sr6_monitor_pool_mod"));
   const poolPopupMod = parseNumber(popupPoolMod);
+  const poolRollMod = parseNumber(rollPoolMod);
   const edgePoolBonus = Math.max(0, parseNumber(edgeOptions && edgeOptions.poolBonus));
   const requestedStandardFateDiceCount = Math.max(0, parseNumber(edgeOptions && edgeOptions.fateDiceCount));
   const requestedMatrixLonerFateDiceCount = Math.max(0, parseNumber(edgeOptions && edgeOptions.matrixLonerFateDiceCount));
   const explodingSixes = !!(edgeOptions && edgeOptions.explodingSixes);
-  const pool = Math.max(0, poolBasis + monitorPoolMod + poolPopupMod + edgePoolBonus);
+  const pool = Math.max(0, poolBasis + monitorPoolMod + poolPopupMod + poolRollMod + edgePoolBonus);
   const matrixLonerFateDiceCount = Math.min(requestedMatrixLonerFateDiceCount, pool);
   const remainingFateSlots = Math.max(0, pool - matrixLonerFateDiceCount);
   const standardFateDiceCount = Math.min(requestedStandardFateDiceCount, remainingFateSlots);
@@ -10206,6 +10989,7 @@ function buildProbeComputation(lookupAttr, poolAttribute, popupPoolMod, poolMult
     poolBasis: poolBasis,
     monitorPoolMod: monitorPoolMod,
     poolPopupMod: poolPopupMod,
+    poolRollMod: poolRollMod,
     edgePoolBonus: edgePoolBonus,
     fateDiceCount: fateDiceCount,
     standardFateDiceCount: standardFateDiceCount,
@@ -10730,6 +11514,17 @@ function formatSignedModifier(value) {
   return numberValue > 0 ? `+${numberValue}` : `${numberValue}`;
 }
 
+function getRollOnlyPoolModifier(context, lookupAttr) {
+  const modifierAttribute = getRollModifierAttribute(context && context.poolAttribute);
+  return modifierAttribute ? parseNumber(lookupAttr(modifierAttribute)) : 0;
+}
+
+function appendRollOnlyPoolModifierRow(rows, modifier) {
+  const rollOnlyModifier = parseNumber(modifier);
+  if (rollOnlyModifier === 0) return;
+  rows.push({ label: "Wert-Modifikator", value: formatSignedModifier(rollOnlyModifier) });
+}
+
 function isMeleeWeaponAttackDefinition(definition) {
   return !!(definition && (definition.id === "melee_weapon" || definition.id === "combat_melee_weapon"));
 }
@@ -11020,10 +11815,12 @@ function runEquipmentProbeFromContext(context, lookupAttr, resolvedFields, popup
   const ratingValue = rating * ratingMultiplier;
   const poolBasisOverride = sourceValue + ratingValue;
   const edgeOptions = resolveEdgeBoostOptions(popupState, lookupAttr);
+  const rollOnlyPoolModifier = getRollOnlyPoolModifier(context, lookupAttr);
   const computation = buildProbeComputation(
     lookupAttr,
     context.poolAttribute,
     popupState.poolMod,
+    rollOnlyPoolModifier,
     1,
     poolBasisOverride,
     edgeOptions
@@ -11040,6 +11837,7 @@ function runEquipmentProbeFromContext(context, lookupAttr, resolvedFields, popup
     rows.push({ label: "Pool-Basis", value: `${computation.poolBasis}` });
     rows.push({ label: "Zustandsmodifikator", value: `${computation.monitorPoolMod}` });
   }
+  appendRollOnlyPoolModifierRow(rows, rollOnlyPoolModifier);
   popupState.rows.forEach((popupRow) => rows.push(popupRow));
   appendEdgeBoostRows(rows, edgeOptions, computation);
 
@@ -11128,10 +11926,12 @@ function runRiggingVehicleProbeFromContext(context, lookupAttr, resolvedFields, 
     getUntrainedSkillPenalty(getRiggingVehicleUntrainedSkillKey(probeKey, mode), lookupAttr)
   );
   const edgeOptions = resolveEdgeBoostOptions(effectivePopupState, lookupAttr);
+  const rollOnlyPoolModifier = getRollOnlyPoolModifier(context, lookupAttr);
   const computation = buildProbeComputation(
     lookupAttr,
     context.poolAttribute,
     effectivePopupState.poolMod,
+    rollOnlyPoolModifier,
     1,
     probe.value,
     edgeOptions
@@ -11180,6 +11980,7 @@ function runRiggingVehicleProbeFromContext(context, lookupAttr, resolvedFields, 
   if (normalizeRiggingVehicleMode(mode) === "agent") {
     rows.push({ label: "Agentenstufe", value: `${data.agentenstufe}` });
   }
+  appendRollOnlyPoolModifierRow(rows, rollOnlyPoolModifier);
   effectivePopupState.rows.forEach((popupRow) => rows.push(popupRow));
   appendEdgeBoostRows(rows, edgeOptions, computation);
 
@@ -11210,10 +12011,12 @@ function runSpellProbeFromContext(context, lookupAttr, resolvedFields, popupStat
     getUntrainedSkillPenalty(getMagicUntrainedSkillKey(context.definition), lookupAttr)
   );
   const edgeOptions = resolveEdgeBoostOptions(effectivePopupState, lookupAttr);
+  const rollOnlyPoolModifier = getRollOnlyPoolModifier(context, lookupAttr);
   const spellComputation = buildProbeComputation(
     lookupAttr,
     context.poolAttribute,
     effectivePopupState.poolMod,
+    rollOnlyPoolModifier,
     1,
     null,
     edgeOptions
@@ -11239,6 +12042,7 @@ function runSpellProbeFromContext(context, lookupAttr, resolvedFields, popupStat
     if (!popupRow || !popupRow.label) return;
     appendRowIfMissing(rows, popupRow.label, popupRow.value);
   });
+  appendRollOnlyPoolModifierRow(rows, rollOnlyPoolModifier);
   if (isCombatSpell(resolvedFields) && effectivePopupState.attackValueMod !== 0) {
     rows.push({ label: "Angriffswert-Basis", value: `${baseAttackValue}` });
     rows.push({ label: "Angriffswert-Modifikator", value: `${effectivePopupState.attackValueMod}` });
@@ -11283,10 +12087,12 @@ function runSummoningProbeFromContext(context, lookupAttr, resolvedFields, popup
     getUntrainedSkillPenalty(getMagicUntrainedSkillKey(context.definition), lookupAttr)
   );
   const edgeOptions = resolveEdgeBoostOptions(effectivePopupState, lookupAttr);
+  const rollOnlyPoolModifier = getRollOnlyPoolModifier(context, lookupAttr);
   const summonerComputation = buildProbeComputation(
     lookupAttr,
     context.poolAttribute,
     effectivePopupState.poolMod,
+    rollOnlyPoolModifier,
     1,
     null,
     edgeOptions
@@ -11316,6 +12122,7 @@ function runSummoningProbeFromContext(context, lookupAttr, resolvedFields, popup
     if (!popupRow || !popupRow.label) return;
     appendRowIfMissing(rows, popupRow.label, popupRow.value);
   });
+  appendRollOnlyPoolModifierRow(rows, rollOnlyPoolModifier);
   appendEdgeBoostRows(rows, edgeOptions, summonerComputation);
   rows.push({ label: "Beschwören-Pool", value: `${summonerComputation.pool}` });
   rows.push({ label: "Beschwören-Erfolge", value: `${summonerComputation.successCount}` });
@@ -11452,10 +12259,12 @@ function runSuccessProbeFromContext(rawTemplate, repeatingRowPrefix, popupState 
           ? matrixActionContext.poolBasisOverride
           : null;
     const edgeOptions = resolveEdgeBoostOptions(effectivePopupState, lookupAttr);
+    const rollOnlyPoolModifier = getRollOnlyPoolModifier(context, lookupAttr);
     const computation = buildProbeComputation(
       lookupAttr,
       context.poolAttribute,
       effectivePopupState.poolMod,
+      rollOnlyPoolModifier,
       poolMultiplier,
       poolBasisOverride,
       edgeOptions
@@ -11487,6 +12296,7 @@ function runSuccessProbeFromContext(rawTemplate, repeatingRowPrefix, popupState 
       });
       rows.push({ label: "Zustandsmodifikator", value: `${computation.monitorPoolMod}` });
     }
+    appendRollOnlyPoolModifierRow(rows, rollOnlyPoolModifier);
     effectivePopupState.rows.forEach((popupRow) => rows.push(popupRow));
     buildPopupDerivedResultRows(context.definition, lookupAttr, context.poolAttribute, resolvedFields, effectivePopupState, computation)
       .forEach((popupRow) => rows.push(popupRow));
@@ -12459,7 +13269,6 @@ const SR6_COMBAT_CALCULATED_FIELDS = [
   },
   {
     key: "sr6_combat_verteidigungswert",
-    useModifier: false,
     base: (totals, skillTotals, values) =>
       (totals.konstitution || 0) +
       parseNumber(values.sr6_combat_primaere_panzerung) +
@@ -12833,6 +13642,9 @@ function syncCombatWeaponPools(callback) {
 function appendMagicRequestKeys(requestKeys) {
   requestKeys.push("sr6_magic_traditionsattribut_1");
   requestKeys.push("sr6_magic_traditionsattribut_1_modifikator");
+  requestKeys.push("sr6_magic_angriffswert_modifikator");
+  requestKeys.push("sr6_magic_astralkampf_angriffswert_modifikator");
+  requestKeys.push("sr6_magic_astralkampf_verteidigungswert_modifikator");
 }
 
 function computeMagicDerived(values, totals, skillTotals, updates) {
@@ -12865,12 +13677,16 @@ function computeMagicDerived(values, totals, skillTotals, updates) {
     traditionValue1 + (totals.willenskraft || 0)
   );
   updates.sr6_magic_angriffswert = String(
-    parseNumber(updates.sr6_magic_magie) + traditionValue1
+    parseNumber(updates.sr6_magic_magie) + traditionValue1 + parseNumber(values.sr6_magic_angriffswert_modifikator)
   );
   updates.sr6_magic_astralkampf_angriffswert = String(
-    (totals.magie_resonanz || 0) + traditionValue1
+    (totals.magie_resonanz || 0) +
+      traditionValue1 +
+      parseNumber(values.sr6_magic_astralkampf_angriffswert_modifikator)
   );
-  updates.sr6_magic_astralkampf_verteidigungswert = String(totals.intuition || 0);
+  updates.sr6_magic_astralkampf_verteidigungswert = String(
+    (totals.intuition || 0) + parseNumber(values.sr6_magic_astralkampf_verteidigungswert_modifikator)
+  );
 }
 // END MODULE: workers/compute/magic
 
@@ -12881,6 +13697,8 @@ function appendMatrixRequestKeys(requestKeys) {
   requestKeys.push("sr6_matrix_schleicher");
   requestKeys.push("sr6_matrix_datenverarbeitung");
   requestKeys.push("sr6_matrix_firewall");
+  requestKeys.push("sr6_matrix_angriffswert_modifikator");
+  requestKeys.push("sr6_matrix_verteidigungswert_modifikator");
   SR6_MATRIX_ACTIONS.forEach((actionName) => {
     requestKeys.push(`sr6_matrix_handlung_${actionName}_grundwert`);
     requestKeys.push(`sr6_matrix_handlung_${actionName}_modifikator`);
@@ -12961,8 +13779,12 @@ function computeMatrixTotals(values, totals, skillTotals, updates) {
 
   updates.sr6_matrix_initiative = String(matrixBasis);
   updates.sr6_matrix_initiative_w6 = String(matrixInitiativeMode.w6);
-  updates.sr6_matrix_angriffswert = String(matrixAttack + matrixSleaze);
-  updates.sr6_matrix_verteidigungswert = String(matrixDataProcessing + matrixFirewall);
+  updates.sr6_matrix_angriffswert = String(
+    matrixAttack + matrixSleaze + parseNumber(values.sr6_matrix_angriffswert_modifikator)
+  );
+  updates.sr6_matrix_verteidigungswert = String(
+    matrixDataProcessing + matrixFirewall + parseNumber(values.sr6_matrix_verteidigungswert_modifikator)
+  );
   updates.sr6_matrix_verteidigung = String((totals.intuition || 0) + matrixFirewall);
   updates.sr6_matrix_schadenswiderstand = String(matrixFirewall);
   updates.sr6_matrix_biofeedback_schadenswiderstand = String(totals.willenskraft || 0);
@@ -12992,6 +13814,8 @@ function appendRiggingRequestKeys(requestKeys) {
   requestKeys.push("sr6_rigging_schleicher");
   requestKeys.push("sr6_rigging_datenverarbeitung");
   requestKeys.push("sr6_rigging_firewall");
+  requestKeys.push("sr6_rigging_angriffswert_modifikator");
+  requestKeys.push("sr6_rigging_verteidigungswert_modifikator");
 }
 
 const SR6_RIGGING_VEHICLE_PROBE_LABELS = {
@@ -13029,8 +13853,12 @@ function computeRiggingDerived(values, totals, _skillTotals, updates) {
 
   updates.sr6_rigging_initiative = String(riggingBasis);
   updates.sr6_rigging_initiative_w6 = String(riggingInitiativeMode.w6);
-  updates.sr6_rigging_angriffswert = String(riggingAttack + riggingSleaze);
-  updates.sr6_rigging_verteidigungswert = String(riggingDataProcessing + riggingFirewall);
+  updates.sr6_rigging_angriffswert = String(
+    riggingAttack + riggingSleaze + parseNumber(values.sr6_rigging_angriffswert_modifikator)
+  );
+  updates.sr6_rigging_verteidigungswert = String(
+    riggingDataProcessing + riggingFirewall + parseNumber(values.sr6_rigging_verteidigungswert_modifikator)
+  );
   updates.sr6_rigging_matrix_verteidigung = String((totals.intuition || 0) + riggingFirewall);
   updates.sr6_rigging_matrix_schadenswiderstand = String(riggingFirewall);
   updates.sr6_rigging_biofeedback_schadenswiderstand = String(totals.willenskraft || 0);
@@ -13230,6 +14058,8 @@ function appendRiggingVehicleRequestKeys(requestKeys, rowPrefix) {
   requestKeys.push(`${rowPrefix}_sr6_rigging_fahrzeug_ausweichen`);
   requestKeys.push(`${rowPrefix}_sr6_rigging_fahrzeug_stealth`);
   requestKeys.push(`${rowPrefix}_sr6_rigging_fahrzeug_clearsight`);
+  requestKeys.push(`${rowPrefix}_sr6_rigging_fahrzeug_angriffswert_modifikator`);
+  requestKeys.push(`${rowPrefix}_sr6_rigging_fahrzeug_verteidigungswert_modifikator`);
 }
 
 function syncRiggingVehicleProbes(callback) {
@@ -13264,8 +14094,14 @@ function syncRiggingVehicleProbes(callback) {
         updates[`${rowPrefix}_sr6_rigging_fahrzeug_waffe`] = "Geschütze";
         updates[`${rowPrefix}_sr6_rigging_fahrzeug_probe_wert`] = String(probe.value);
         updates[`${rowPrefix}_sr6_rigging_fahrzeug_waffe_probe_wert`] = String(weaponProbe.value);
-        updates[`${rowPrefix}_sr6_rigging_fahrzeug_angriffswert`] = String(getRiggingVehicleAttackValue(mode, data));
-        updates[`${rowPrefix}_sr6_rigging_fahrzeug_verteidigungswert`] = String(getRiggingVehicleDefenseValue(mode, data));
+        updates[`${rowPrefix}_sr6_rigging_fahrzeug_angriffswert`] = String(
+          getRiggingVehicleAttackValue(mode, data) +
+            parseNumber(values[`${rowPrefix}_sr6_rigging_fahrzeug_angriffswert_modifikator`])
+        );
+        updates[`${rowPrefix}_sr6_rigging_fahrzeug_verteidigungswert`] = String(
+          getRiggingVehicleDefenseValue(mode, data) +
+            parseNumber(values[`${rowPrefix}_sr6_rigging_fahrzeug_verteidigungswert_modifikator`])
+        );
         updates[`${rowPrefix}_sr6_rigging_fahrzeug_zustandsmonitor`] = String(getRiggingVehicleMonitorValue(data));
       });
 
@@ -13484,16 +14320,23 @@ function buildRecalcEvents() {
 
   events.push("change:sr6_magic_traditionsattribut_1");
   events.push("change:sr6_magic_traditionsattribut_1_modifikator");
+  events.push("change:sr6_magic_angriffswert_modifikator");
+  events.push("change:sr6_magic_astralkampf_angriffswert_modifikator");
+  events.push("change:sr6_magic_astralkampf_verteidigungswert_modifikator");
   events.push("change:sr6_matrix_modus");
   events.push("change:sr6_matrix_angriff");
   events.push("change:sr6_matrix_schleicher");
   events.push("change:sr6_matrix_datenverarbeitung");
   events.push("change:sr6_matrix_firewall");
+  events.push("change:sr6_matrix_angriffswert_modifikator");
+  events.push("change:sr6_matrix_verteidigungswert_modifikator");
   events.push("change:sr6_rigging_modus");
   events.push("change:sr6_rigging_angriff");
   events.push("change:sr6_rigging_schleicher");
   events.push("change:sr6_rigging_datenverarbeitung");
   events.push("change:sr6_rigging_firewall");
+  events.push("change:sr6_rigging_angriffswert_modifikator");
+  events.push("change:sr6_rigging_verteidigungswert_modifikator");
 
   for (let index = 1; index <= 18; index += 1) {
     events.push(`change:sr6_monitor_koerperlich_${index}`);
@@ -13598,6 +14441,8 @@ function registerWorkerEvents() {
       "change:repeating_sr6riggingfahrzeuge:sr6_rigging_fahrzeug_ausweichen",
       "change:repeating_sr6riggingfahrzeuge:sr6_rigging_fahrzeug_stealth",
       "change:repeating_sr6riggingfahrzeuge:sr6_rigging_fahrzeug_clearsight",
+      "change:repeating_sr6riggingfahrzeuge:sr6_rigging_fahrzeug_angriffswert_modifikator",
+      "change:repeating_sr6riggingfahrzeuge:sr6_rigging_fahrzeug_verteidigungswert_modifikator",
       "change:sr6_skill_mechanik_spezialisierung",
       "change:sr6_skill_mechanik_expertise",
       "remove:repeating_sr6riggingfahrzeuge",
