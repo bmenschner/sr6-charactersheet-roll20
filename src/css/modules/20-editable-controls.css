@@ -156,46 +156,6 @@
   color: var(--sr6-line);
 }
 
-.sr6-editable-section:has(.sr6-editable-section-mode:not(:checked)) .sr6-editable-item-fields .sr6-foundry-item-row,
-.sr6-editable-section:has(.sr6-editable-section-mode:not(:checked)) .sr6-editable-item-fields .sr6-foundry-item-footer {
-  display: none;
-}
-
-.sr6-editable-section:has(.sr6-editable-section-mode:not(:checked)) .sr6-editable-item-fields .sr6-foundry-item-head {
-  margin-top: 0;
-}
-
-.sr6-editable-section:has(.sr6-editable-section-mode:not(:checked)) .sr6-editable-item-fields .sr6-foundry-item-head .sr6-charactersheet-field > span {
-  display: none;
-}
-
-.sr6-editable-section:has(.sr6-editable-section-mode:not(:checked)) .sr6-editable-item-fields .sr6-foundry-item-head input,
-.sr6-editable-section:has(.sr6-editable-section-mode:not(:checked)) .sr6-editable-item-fields .sr6-foundry-item-head select,
-.sr6-editable-section:has(.sr6-editable-section-mode:not(:checked)) .sr6-editable-item-fields .sr6-foundry-item-head textarea {
-  pointer-events: none;
-  user-select: none;
-  border-bottom: none;
-  padding: 0;
-  font-size: 0.82rem;
-}
-
-.sr6-editable-section:has(.sr6-editable-section-mode:not(:checked)) .sr6-editable-item-fields input:not([type="checkbox"]),
-.sr6-editable-section:has(.sr6-editable-section-mode:not(:checked)) .sr6-editable-item-fields select,
-.sr6-editable-section:has(.sr6-editable-section-mode:not(:checked)) .sr6-editable-item-fields textarea {
-  border-bottom: none;
-}
-
-.sr6-editable-section:has(.sr6-editable-section-mode:not(:checked)) .sr6-editable-item-fields select {
-  appearance: none;
-  -webkit-appearance: none;
-  -moz-appearance: none;
-  background-image: none;
-}
-
-.sr6-editable-section:has(.sr6-editable-section-mode:not(:checked)) .repcontrol {
-  display: none;
-}
-
 /* Kampf-Boxen: Lock-only (keine Listenansicht-Umschaltung, nur Eingaben sperren) */
 .sr6-kampf-lockable-section:has(.sr6-editable-section-mode:checked) .sr6-editable-section-toggle {
   border-color: var(--sr6-line);
@@ -207,24 +167,4 @@
   border-color: var(--sr6-line);
   background: rgba(255, 255, 255, 0.88);
   color: var(--sr6-line);
-}
-
-.sr6-kampf-lockable-section:has(.sr6-editable-section-mode:not(:checked)) .sr6-editable-item-fields input:not([type="checkbox"]),
-.sr6-kampf-lockable-section:has(.sr6-editable-section-mode:not(:checked)) .sr6-editable-item-fields select,
-.sr6-kampf-lockable-section:has(.sr6-editable-section-mode:not(:checked)) .sr6-editable-item-fields textarea,
-.sr6-kampf-lockable-section:has(.sr6-editable-section-mode:not(:checked)) .sr6-editable-item-fields summary {
-  pointer-events: none;
-  user-select: none;
-}
-
-.sr6-kampf-lockable-section:has(.sr6-editable-section-mode:not(:checked)) .sr6-editable-item-fields input:not([type="checkbox"]),
-.sr6-kampf-lockable-section:has(.sr6-editable-section-mode:not(:checked)) .sr6-editable-item-fields select,
-.sr6-kampf-lockable-section:has(.sr6-editable-section-mode:not(:checked)) .sr6-editable-item-fields textarea,
-.sr6-kampf-lockable-section:has(.sr6-editable-section-mode:not(:checked)) .sr6-editable-item-fields .sr6-charactersheet-field-input-with-dice > input,
-.sr6-kampf-lockable-section:has(.sr6-editable-section-mode:not(:checked)) .sr6-editable-item-fields .sr6-charactersheet-field-input-with-dice > .sr6-number-stepper > input {
-  border-bottom: none;
-}
-
-.sr6-kampf-lockable-section:has(.sr6-editable-section-mode:not(:checked)) .repcontrol {
-  display: none;
 }
