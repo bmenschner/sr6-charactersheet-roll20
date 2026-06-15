@@ -5,6 +5,8 @@ function appendMatrixRequestKeys(requestKeys) {
   requestKeys.push("sr6_matrix_schleicher");
   requestKeys.push("sr6_matrix_datenverarbeitung");
   requestKeys.push("sr6_matrix_firewall");
+  requestKeys.push("sr6_matrix_angriffswert_modifikator");
+  requestKeys.push("sr6_matrix_verteidigungswert_modifikator");
   SR6_MATRIX_ACTIONS.forEach((actionName) => {
     requestKeys.push(`sr6_matrix_handlung_${actionName}_grundwert`);
     requestKeys.push(`sr6_matrix_handlung_${actionName}_modifikator`);
@@ -85,8 +87,12 @@ function computeMatrixTotals(values, totals, skillTotals, updates) {
 
   updates.sr6_matrix_initiative = String(matrixBasis);
   updates.sr6_matrix_initiative_w6 = String(matrixInitiativeMode.w6);
-  updates.sr6_matrix_angriffswert = String(matrixAttack + matrixSleaze);
-  updates.sr6_matrix_verteidigungswert = String(matrixDataProcessing + matrixFirewall);
+  updates.sr6_matrix_angriffswert = String(
+    matrixAttack + matrixSleaze + parseNumber(values.sr6_matrix_angriffswert_modifikator)
+  );
+  updates.sr6_matrix_verteidigungswert = String(
+    matrixDataProcessing + matrixFirewall + parseNumber(values.sr6_matrix_verteidigungswert_modifikator)
+  );
   updates.sr6_matrix_verteidigung = String((totals.intuition || 0) + matrixFirewall);
   updates.sr6_matrix_schadenswiderstand = String(matrixFirewall);
   updates.sr6_matrix_biofeedback_schadenswiderstand = String(totals.willenskraft || 0);

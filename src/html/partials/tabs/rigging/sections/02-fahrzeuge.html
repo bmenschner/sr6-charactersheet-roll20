@@ -129,8 +129,15 @@
               </div>
               <div class="sr6-charactersheet-field">
                 <div class="sr6-field-label-with-info"><span data-i18n="field.wert">Wert</span><span class="sr6-info-icon" title="Wert = abhängig von Probe und Modus: Autonom nutzt Autosoft + Pilot/Sensor; Agent nutzt Agentenstufe + Pilot/Sensor; Eingesprungen nutzt Fertigkeit + Attribut + Riggerkontrolle">i</span></div>
-                <div class="sr6-charactersheet-field-input-with-dice sr6-charactersheet-field-input-with-dice--compact">
-                  <input type="number" name="attr_sr6_rigging_fahrzeug_probe_wert" readonly />
+                <div class="sr6-charactersheet-field-input-with-dice sr6-charactersheet-field-input-with-dice--roll-mod sr6-charactersheet-field-input-with-dice--compact">
+                  <span class="sr6-roll-mod-subtitle sr6-roll-mod-subtitle--basis" data-i18n="field.basis">Basis</span>
+          <span class="sr6-roll-mod-subtitle sr6-roll-mod-subtitle--mod" data-i18n="field.fertigkeitsmodifikator">Mod.</span>
+          <input type="number" name="attr_sr6_rigging_fahrzeug_probe_wert" readonly />
+              <div class="sr6-number-stepper sr6-roll-mod-stepper">
+                <button type="action" class="sr6-number-stepper-button sr6-number-stepper-button--minus" name="act_sr6_number_step" value="sr6_rigging_fahrzeug_probe_wert_roll_modifikator::-1" aria-label="Wert-Modifikator verringern">-</button>
+                <input type="number" name="attr_sr6_rigging_fahrzeug_probe_wert_roll_modifikator" title="Wert-Modifikator" />
+                <button type="action" class="sr6-number-stepper-button sr6-number-stepper-button--plus" name="act_sr6_number_step" value="sr6_rigging_fahrzeug_probe_wert_roll_modifikator::1" aria-label="Wert-Modifikator erhoehen">+</button>
+              </div>
                   <button
                     type="action"
                     class="sr6-charactersheet-field-dice-button"
@@ -141,11 +148,29 @@
               </div>
               <div class="sr6-charactersheet-field">
                 <div class="sr6-field-label-with-info"><span data-i18n="field.angriffswert">Angriffswert</span><span class="sr6-info-icon" title="Angriffswert = Agentenstufe + Sensor, Manövrieren + Sensor oder Steuern + Sensor, abhängig vom Modus">i</span></div>
-                <input type="number" name="attr_sr6_rigging_fahrzeug_angriffswert" readonly />
+                <div class="sr6-charactersheet-field-input-with-mod">
+                  <span class="sr6-roll-mod-subtitle sr6-roll-mod-subtitle--basis" data-i18n="field.basis">Basis</span>
+                  <span class="sr6-roll-mod-subtitle sr6-roll-mod-subtitle--mod" data-i18n="field.fertigkeitsmodifikator">Mod.</span>
+                  <input type="number" name="attr_sr6_rigging_fahrzeug_angriffswert" readonly />
+                  <div class="sr6-number-stepper">
+                    <button type="action" class="sr6-number-stepper-button sr6-number-stepper-button--minus" name="act_sr6_number_step" value="sr6_rigging_fahrzeug_angriffswert_modifikator::-1" aria-label="Modifikator verringern">-</button>
+                    <input type="number" name="attr_sr6_rigging_fahrzeug_angriffswert_modifikator" title="Modifikator" />
+                    <button type="action" class="sr6-number-stepper-button sr6-number-stepper-button--plus" name="act_sr6_number_step" value="sr6_rigging_fahrzeug_angriffswert_modifikator::1" aria-label="Modifikator erhoehen">+</button>
+                  </div>
+                </div>
               </div>
               <div class="sr6-charactersheet-field">
                 <div class="sr6-field-label-with-info"><span data-i18n="field.verteidigungswert">Verteidigungswert</span><span class="sr6-info-icon" title="Verteidigungswert = Agentenstufe + Panzerung, Manövrieren + Panzerung oder Steuern + Panzerung, abhängig vom Modus">i</span></div>
-                <input type="number" name="attr_sr6_rigging_fahrzeug_verteidigungswert" readonly />
+                <div class="sr6-charactersheet-field-input-with-mod">
+                  <span class="sr6-roll-mod-subtitle sr6-roll-mod-subtitle--basis" data-i18n="field.basis">Basis</span>
+                  <span class="sr6-roll-mod-subtitle sr6-roll-mod-subtitle--mod" data-i18n="field.fertigkeitsmodifikator">Mod.</span>
+                  <input type="number" name="attr_sr6_rigging_fahrzeug_verteidigungswert" readonly />
+                  <div class="sr6-number-stepper">
+                    <button type="action" class="sr6-number-stepper-button sr6-number-stepper-button--minus" name="act_sr6_number_step" value="sr6_rigging_fahrzeug_verteidigungswert_modifikator::-1" aria-label="Modifikator verringern">-</button>
+                    <input type="number" name="attr_sr6_rigging_fahrzeug_verteidigungswert_modifikator" title="Modifikator" />
+                    <button type="action" class="sr6-number-stepper-button sr6-number-stepper-button--plus" name="act_sr6_number_step" value="sr6_rigging_fahrzeug_verteidigungswert_modifikator::1" aria-label="Modifikator erhoehen">+</button>
+                  </div>
+                </div>
               </div>
               <div class="sr6-charactersheet-field">
                 <div class="sr6-field-label-with-info"><span data-i18n="field.zustandsmonitor">Zustandsmonitor</span><span class="sr6-info-icon" title="Zustandsmonitor = aufrunden(Rumpf / 2) + 8">i</span></div>

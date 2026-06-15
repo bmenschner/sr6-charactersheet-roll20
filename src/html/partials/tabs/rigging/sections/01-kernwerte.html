@@ -105,18 +105,44 @@
       <div class="sr6-charactersheet-row sr6-charactersheet-row-5">
         <div class="sr6-charactersheet-field">
           <div class="sr6-field-label-with-info"><span data-i18n="field.angriffswert">Angriffswert</span><span class="sr6-info-icon" title="Angriffswert = Angriff + Schleicher">i</span></div>
-          <input type="number" name="attr_sr6_rigging_angriffswert" readonly />
+          <div class="sr6-charactersheet-field-input-with-mod">
+            <span class="sr6-roll-mod-subtitle sr6-roll-mod-subtitle--basis" data-i18n="field.basis">Basis</span>
+            <span class="sr6-roll-mod-subtitle sr6-roll-mod-subtitle--mod" data-i18n="field.fertigkeitsmodifikator">Mod.</span>
+            <input type="number" name="attr_sr6_rigging_angriffswert" readonly />
+            <div class="sr6-number-stepper">
+              <button type="action" class="sr6-number-stepper-button sr6-number-stepper-button--minus" name="act_sr6_number_step" value="sr6_rigging_angriffswert_modifikator::-1" aria-label="Modifikator verringern">-</button>
+              <input type="number" name="attr_sr6_rigging_angriffswert_modifikator" title="Modifikator" />
+              <button type="action" class="sr6-number-stepper-button sr6-number-stepper-button--plus" name="act_sr6_number_step" value="sr6_rigging_angriffswert_modifikator::1" aria-label="Modifikator erhoehen">+</button>
+            </div>
+          </div>
         </div>
 
         <div class="sr6-charactersheet-field">
           <div class="sr6-field-label-with-info"><span data-i18n="field.verteidigungswert">Verteidigungswert</span><span class="sr6-info-icon" title="Verteidigungswert = Datenverarbeitung + Firewall">i</span></div>
-          <input type="number" name="attr_sr6_rigging_verteidigungswert" readonly />
+          <div class="sr6-charactersheet-field-input-with-mod">
+            <span class="sr6-roll-mod-subtitle sr6-roll-mod-subtitle--basis" data-i18n="field.basis">Basis</span>
+            <span class="sr6-roll-mod-subtitle sr6-roll-mod-subtitle--mod" data-i18n="field.fertigkeitsmodifikator">Mod.</span>
+            <input type="number" name="attr_sr6_rigging_verteidigungswert" readonly />
+            <div class="sr6-number-stepper">
+              <button type="action" class="sr6-number-stepper-button sr6-number-stepper-button--minus" name="act_sr6_number_step" value="sr6_rigging_verteidigungswert_modifikator::-1" aria-label="Modifikator verringern">-</button>
+              <input type="number" name="attr_sr6_rigging_verteidigungswert_modifikator" title="Modifikator" />
+              <button type="action" class="sr6-number-stepper-button sr6-number-stepper-button--plus" name="act_sr6_number_step" value="sr6_rigging_verteidigungswert_modifikator::1" aria-label="Modifikator erhoehen">+</button>
+            </div>
+          </div>
         </div>
 
         <div class="sr6-charactersheet-field">
           <div class="sr6-field-label-with-info"><span data-i18n="field.matrix_verteidigung">Matrix Verteidigung</span><span class="sr6-info-icon" title="Matrix Verteidigung = Intuition + Firewall">i</span></div>
-          <div class="sr6-charactersheet-field-input-with-dice">
-            <input type="number" name="attr_sr6_rigging_matrix_verteidigung" readonly /><button
+          <div class="sr6-charactersheet-field-input-with-dice sr6-charactersheet-field-input-with-dice--roll-mod">
+            <span class="sr6-roll-mod-subtitle sr6-roll-mod-subtitle--basis" data-i18n="field.basis">Basis</span>
+          <span class="sr6-roll-mod-subtitle sr6-roll-mod-subtitle--mod" data-i18n="field.fertigkeitsmodifikator">Mod.</span>
+          <input type="number" name="attr_sr6_rigging_matrix_verteidigung" readonly />
+              <div class="sr6-number-stepper sr6-roll-mod-stepper">
+                <button type="action" class="sr6-number-stepper-button sr6-number-stepper-button--minus" name="act_sr6_number_step" value="sr6_rigging_matrix_verteidigung_roll_modifikator::-1" aria-label="Wert-Modifikator verringern">-</button>
+                <input type="number" name="attr_sr6_rigging_matrix_verteidigung_roll_modifikator" title="Wert-Modifikator" />
+                <button type="action" class="sr6-number-stepper-button sr6-number-stepper-button--plus" name="act_sr6_number_step" value="sr6_rigging_matrix_verteidigung_roll_modifikator::1" aria-label="Wert-Modifikator erhoehen">+</button>
+              </div>
+            <button
               type="action"
               class="sr6-charactersheet-field-dice-button"
               name="act_probe"
@@ -127,8 +153,16 @@
 
         <div class="sr6-charactersheet-field">
           <div class="sr6-field-label-with-info"><span data-i18n="field.matrix_schadenswiderstand">Matrix Schadenswiderstand</span><span class="sr6-info-icon" title="Matrix Schadenswiderstand = Firewall">i</span></div>
-          <div class="sr6-charactersheet-field-input-with-dice">
-            <input type="number" name="attr_sr6_rigging_matrix_schadenswiderstand" readonly /><button
+          <div class="sr6-charactersheet-field-input-with-dice sr6-charactersheet-field-input-with-dice--roll-mod">
+            <span class="sr6-roll-mod-subtitle sr6-roll-mod-subtitle--basis" data-i18n="field.basis">Basis</span>
+          <span class="sr6-roll-mod-subtitle sr6-roll-mod-subtitle--mod" data-i18n="field.fertigkeitsmodifikator">Mod.</span>
+          <input type="number" name="attr_sr6_rigging_matrix_schadenswiderstand" readonly />
+              <div class="sr6-number-stepper sr6-roll-mod-stepper">
+                <button type="action" class="sr6-number-stepper-button sr6-number-stepper-button--minus" name="act_sr6_number_step" value="sr6_rigging_matrix_schadenswiderstand_roll_modifikator::-1" aria-label="Wert-Modifikator verringern">-</button>
+                <input type="number" name="attr_sr6_rigging_matrix_schadenswiderstand_roll_modifikator" title="Wert-Modifikator" />
+                <button type="action" class="sr6-number-stepper-button sr6-number-stepper-button--plus" name="act_sr6_number_step" value="sr6_rigging_matrix_schadenswiderstand_roll_modifikator::1" aria-label="Wert-Modifikator erhoehen">+</button>
+              </div>
+            <button
               type="action"
               class="sr6-charactersheet-field-dice-button"
               name="act_probe"
@@ -139,8 +173,16 @@
 
         <div class="sr6-charactersheet-field">
           <div class="sr6-field-label-with-info"><span data-i18n="field.biofeedback_schadenswiderstand">Biofeedback Schadenswiderstand</span><span class="sr6-info-icon" title="Biofeedback Schadenswiderstand = Willenskraft">i</span></div>
-          <div class="sr6-charactersheet-field-input-with-dice">
-            <input type="number" name="attr_sr6_rigging_biofeedback_schadenswiderstand" readonly /><button
+          <div class="sr6-charactersheet-field-input-with-dice sr6-charactersheet-field-input-with-dice--roll-mod">
+            <span class="sr6-roll-mod-subtitle sr6-roll-mod-subtitle--basis" data-i18n="field.basis">Basis</span>
+          <span class="sr6-roll-mod-subtitle sr6-roll-mod-subtitle--mod" data-i18n="field.fertigkeitsmodifikator">Mod.</span>
+          <input type="number" name="attr_sr6_rigging_biofeedback_schadenswiderstand" readonly />
+              <div class="sr6-number-stepper sr6-roll-mod-stepper">
+                <button type="action" class="sr6-number-stepper-button sr6-number-stepper-button--minus" name="act_sr6_number_step" value="sr6_rigging_biofeedback_schadenswiderstand_roll_modifikator::-1" aria-label="Wert-Modifikator verringern">-</button>
+                <input type="number" name="attr_sr6_rigging_biofeedback_schadenswiderstand_roll_modifikator" title="Wert-Modifikator" />
+                <button type="action" class="sr6-number-stepper-button sr6-number-stepper-button--plus" name="act_sr6_number_step" value="sr6_rigging_biofeedback_schadenswiderstand_roll_modifikator::1" aria-label="Wert-Modifikator erhoehen">+</button>
+              </div>
+            <button
               type="action"
               class="sr6-charactersheet-field-dice-button"
               name="act_probe"

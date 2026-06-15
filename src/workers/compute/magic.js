@@ -2,6 +2,9 @@
 function appendMagicRequestKeys(requestKeys) {
   requestKeys.push("sr6_magic_traditionsattribut_1");
   requestKeys.push("sr6_magic_traditionsattribut_1_modifikator");
+  requestKeys.push("sr6_magic_angriffswert_modifikator");
+  requestKeys.push("sr6_magic_astralkampf_angriffswert_modifikator");
+  requestKeys.push("sr6_magic_astralkampf_verteidigungswert_modifikator");
 }
 
 function computeMagicDerived(values, totals, skillTotals, updates) {
@@ -34,11 +37,15 @@ function computeMagicDerived(values, totals, skillTotals, updates) {
     traditionValue1 + (totals.willenskraft || 0)
   );
   updates.sr6_magic_angriffswert = String(
-    parseNumber(updates.sr6_magic_magie) + traditionValue1
+    parseNumber(updates.sr6_magic_magie) + traditionValue1 + parseNumber(values.sr6_magic_angriffswert_modifikator)
   );
   updates.sr6_magic_astralkampf_angriffswert = String(
-    (totals.magie_resonanz || 0) + traditionValue1
+    (totals.magie_resonanz || 0) +
+      traditionValue1 +
+      parseNumber(values.sr6_magic_astralkampf_angriffswert_modifikator)
   );
-  updates.sr6_magic_astralkampf_verteidigungswert = String(totals.intuition || 0);
+  updates.sr6_magic_astralkampf_verteidigungswert = String(
+    (totals.intuition || 0) + parseNumber(values.sr6_magic_astralkampf_verteidigungswert_modifikator)
+  );
 }
 // END MODULE: workers/compute/magic

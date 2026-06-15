@@ -5,6 +5,8 @@ function appendRiggingRequestKeys(requestKeys) {
   requestKeys.push("sr6_rigging_schleicher");
   requestKeys.push("sr6_rigging_datenverarbeitung");
   requestKeys.push("sr6_rigging_firewall");
+  requestKeys.push("sr6_rigging_angriffswert_modifikator");
+  requestKeys.push("sr6_rigging_verteidigungswert_modifikator");
 }
 
 const SR6_RIGGING_VEHICLE_PROBE_LABELS = {
@@ -42,8 +44,12 @@ function computeRiggingDerived(values, totals, _skillTotals, updates) {
 
   updates.sr6_rigging_initiative = String(riggingBasis);
   updates.sr6_rigging_initiative_w6 = String(riggingInitiativeMode.w6);
-  updates.sr6_rigging_angriffswert = String(riggingAttack + riggingSleaze);
-  updates.sr6_rigging_verteidigungswert = String(riggingDataProcessing + riggingFirewall);
+  updates.sr6_rigging_angriffswert = String(
+    riggingAttack + riggingSleaze + parseNumber(values.sr6_rigging_angriffswert_modifikator)
+  );
+  updates.sr6_rigging_verteidigungswert = String(
+    riggingDataProcessing + riggingFirewall + parseNumber(values.sr6_rigging_verteidigungswert_modifikator)
+  );
   updates.sr6_rigging_matrix_verteidigung = String((totals.intuition || 0) + riggingFirewall);
   updates.sr6_rigging_matrix_schadenswiderstand = String(riggingFirewall);
   updates.sr6_rigging_biofeedback_schadenswiderstand = String(totals.willenskraft || 0);
@@ -243,6 +249,8 @@ function appendRiggingVehicleRequestKeys(requestKeys, rowPrefix) {
   requestKeys.push(`${rowPrefix}_sr6_rigging_fahrzeug_ausweichen`);
   requestKeys.push(`${rowPrefix}_sr6_rigging_fahrzeug_stealth`);
   requestKeys.push(`${rowPrefix}_sr6_rigging_fahrzeug_clearsight`);
+  requestKeys.push(`${rowPrefix}_sr6_rigging_fahrzeug_angriffswert_modifikator`);
+  requestKeys.push(`${rowPrefix}_sr6_rigging_fahrzeug_verteidigungswert_modifikator`);
 }
 
 function syncRiggingVehicleProbes(callback) {
@@ -277,8 +285,14 @@ function syncRiggingVehicleProbes(callback) {
         updates[`${rowPrefix}_sr6_rigging_fahrzeug_waffe`] = "Geschütze";
         updates[`${rowPrefix}_sr6_rigging_fahrzeug_probe_wert`] = String(probe.value);
         updates[`${rowPrefix}_sr6_rigging_fahrzeug_waffe_probe_wert`] = String(weaponProbe.value);
-        updates[`${rowPrefix}_sr6_rigging_fahrzeug_angriffswert`] = String(getRiggingVehicleAttackValue(mode, data));
-        updates[`${rowPrefix}_sr6_rigging_fahrzeug_verteidigungswert`] = String(getRiggingVehicleDefenseValue(mode, data));
+        updates[`${rowPrefix}_sr6_rigging_fahrzeug_angriffswert`] = String(
+          getRiggingVehicleAttackValue(mode, data) +
+            parseNumber(values[`${rowPrefix}_sr6_rigging_fahrzeug_angriffswert_modifikator`])
+        );
+        updates[`${rowPrefix}_sr6_rigging_fahrzeug_verteidigungswert`] = String(
+          getRiggingVehicleDefenseValue(mode, data) +
+            parseNumber(values[`${rowPrefix}_sr6_rigging_fahrzeug_verteidigungswert_modifikator`])
+        );
         updates[`${rowPrefix}_sr6_rigging_fahrzeug_zustandsmonitor`] = String(getRiggingVehicleMonitorValue(data));
       });
 

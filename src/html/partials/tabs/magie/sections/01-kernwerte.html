@@ -39,8 +39,16 @@
         <div class="sr6-charactersheet-row sr6-charactersheet-row-6">
           <div class="sr6-charactersheet-field">
             <span data-i18n="field.magie">Magie</span>
-            <div class="sr6-charactersheet-field-input-with-dice">
-              <input type="number" name="attr_sr6_magic_magie" readonly /><button
+            <div class="sr6-charactersheet-field-input-with-dice sr6-charactersheet-field-input-with-dice--roll-mod">
+              <span class="sr6-roll-mod-subtitle sr6-roll-mod-subtitle--basis" data-i18n="field.basis">Basis</span>
+          <span class="sr6-roll-mod-subtitle sr6-roll-mod-subtitle--mod" data-i18n="field.fertigkeitsmodifikator">Mod.</span>
+          <input type="number" name="attr_sr6_magic_magie" readonly />
+              <div class="sr6-number-stepper sr6-roll-mod-stepper">
+                <button type="action" class="sr6-number-stepper-button sr6-number-stepper-button--minus" name="act_sr6_number_step" value="sr6_magic_magie_roll_modifikator::-1" aria-label="Wert-Modifikator verringern">-</button>
+                <input type="number" name="attr_sr6_magic_magie_roll_modifikator" title="Wert-Modifikator" />
+                <button type="action" class="sr6-number-stepper-button sr6-number-stepper-button--plus" name="act_sr6_number_step" value="sr6_magic_magie_roll_modifikator::1" aria-label="Wert-Modifikator erhoehen">+</button>
+              </div>
+            <button
                 type="action"
                 class="sr6-charactersheet-field-dice-button"
                 name="act_probe"
@@ -51,8 +59,16 @@
 
           <div class="sr6-charactersheet-field">
             <span data-i18n="skill.hexerei">Hexerei</span>
-            <div class="sr6-charactersheet-field-input-with-dice">
-              <input type="number" name="attr_sr6_magic_zauberpool" readonly /><button
+            <div class="sr6-charactersheet-field-input-with-dice sr6-charactersheet-field-input-with-dice--roll-mod">
+              <span class="sr6-roll-mod-subtitle sr6-roll-mod-subtitle--basis" data-i18n="field.basis">Basis</span>
+          <span class="sr6-roll-mod-subtitle sr6-roll-mod-subtitle--mod" data-i18n="field.fertigkeitsmodifikator">Mod.</span>
+          <input type="number" name="attr_sr6_magic_zauberpool" readonly />
+              <div class="sr6-number-stepper sr6-roll-mod-stepper">
+                <button type="action" class="sr6-number-stepper-button sr6-number-stepper-button--minus" name="act_sr6_number_step" value="sr6_magic_zauberpool_roll_modifikator::-1" aria-label="Wert-Modifikator verringern">-</button>
+                <input type="number" name="attr_sr6_magic_zauberpool_roll_modifikator" title="Wert-Modifikator" />
+                <button type="action" class="sr6-number-stepper-button sr6-number-stepper-button--plus" name="act_sr6_number_step" value="sr6_magic_zauberpool_roll_modifikator::1" aria-label="Wert-Modifikator erhoehen">+</button>
+              </div>
+            <button
                 type="action"
                 class="sr6-charactersheet-field-dice-button"
                 name="act_probe"
@@ -63,8 +79,16 @@
 
           <div class="sr6-charactersheet-field">
             <div class="sr6-field-label-with-info"><span data-i18n="field.spruchzauberei">Spruchzauberei</span><span class="sr6-info-icon" title="Spruchzauberei = sr6_skill_hexerei_gesamtwert + sr6_attr_magie_resonanz_gesamtwert">i</span></div>
-            <div class="sr6-charactersheet-field-input-with-dice">
-              <input type="number" name="attr_sr6_magic_spruchzauberei" readonly /><button
+            <div class="sr6-charactersheet-field-input-with-dice sr6-charactersheet-field-input-with-dice--roll-mod">
+              <span class="sr6-roll-mod-subtitle sr6-roll-mod-subtitle--basis" data-i18n="field.basis">Basis</span>
+          <span class="sr6-roll-mod-subtitle sr6-roll-mod-subtitle--mod" data-i18n="field.fertigkeitsmodifikator">Mod.</span>
+          <input type="number" name="attr_sr6_magic_spruchzauberei" readonly />
+              <div class="sr6-number-stepper sr6-roll-mod-stepper">
+                <button type="action" class="sr6-number-stepper-button sr6-number-stepper-button--minus" name="act_sr6_number_step" value="sr6_magic_spruchzauberei_roll_modifikator::-1" aria-label="Wert-Modifikator verringern">-</button>
+                <input type="number" name="attr_sr6_magic_spruchzauberei_roll_modifikator" title="Wert-Modifikator" />
+                <button type="action" class="sr6-number-stepper-button sr6-number-stepper-button--plus" name="act_sr6_number_step" value="sr6_magic_spruchzauberei_roll_modifikator::1" aria-label="Wert-Modifikator erhoehen">+</button>
+              </div>
+            <button
                 type="action"
                 class="sr6-charactersheet-field-dice-button"
                 name="act_probe"
@@ -74,12 +98,29 @@
           </div>
           <div class="sr6-charactersheet-field">
             <div class="sr6-field-label-with-info"><span data-i18n="field.angriffswert">Angriffswert</span><span class="sr6-info-icon" title="Angriffswert = sr6_magic_magie + Wert(sr6_magic_traditionsattribut_1)">i</span></div>
-            <input type="number" name="attr_sr6_magic_angriffswert" readonly />
+            <div class="sr6-charactersheet-field-input-with-mod">
+              <span class="sr6-roll-mod-subtitle sr6-roll-mod-subtitle--basis" data-i18n="field.basis">Basis</span>
+              <span class="sr6-roll-mod-subtitle sr6-roll-mod-subtitle--mod" data-i18n="field.fertigkeitsmodifikator">Mod.</span>
+              <input type="number" name="attr_sr6_magic_angriffswert" readonly />
+              <div class="sr6-number-stepper">
+                <button type="action" class="sr6-number-stepper-button sr6-number-stepper-button--minus" name="act_sr6_number_step" value="sr6_magic_angriffswert_modifikator::-1" aria-label="Modifikator verringern">-</button>
+                <input type="number" name="attr_sr6_magic_angriffswert_modifikator" title="Modifikator" />
+                <button type="action" class="sr6-number-stepper-button sr6-number-stepper-button--plus" name="act_sr6_number_step" value="sr6_magic_angriffswert_modifikator::1" aria-label="Modifikator erhoehen">+</button>
+              </div>
+            </div>
           </div>
           <div class="sr6-charactersheet-field">
             <div class="sr6-field-label-with-info"><span data-i18n="skill.beschwoeren">Beschwören</span><span class="sr6-info-icon" title="Beschwören = sr6_skill_beschwoeren_gesamtwert + sr6_magic_magie">i</span></div>
-            <div class="sr6-charactersheet-field-input-with-dice">
-              <input type="number" name="attr_sr6_magic_beschwoeren" readonly /><button
+            <div class="sr6-charactersheet-field-input-with-dice sr6-charactersheet-field-input-with-dice--roll-mod">
+              <span class="sr6-roll-mod-subtitle sr6-roll-mod-subtitle--basis" data-i18n="field.basis">Basis</span>
+          <span class="sr6-roll-mod-subtitle sr6-roll-mod-subtitle--mod" data-i18n="field.fertigkeitsmodifikator">Mod.</span>
+          <input type="number" name="attr_sr6_magic_beschwoeren" readonly />
+              <div class="sr6-number-stepper sr6-roll-mod-stepper">
+                <button type="action" class="sr6-number-stepper-button sr6-number-stepper-button--minus" name="act_sr6_number_step" value="sr6_magic_beschwoeren_roll_modifikator::-1" aria-label="Wert-Modifikator verringern">-</button>
+                <input type="number" name="attr_sr6_magic_beschwoeren_roll_modifikator" title="Wert-Modifikator" />
+                <button type="action" class="sr6-number-stepper-button sr6-number-stepper-button--plus" name="act_sr6_number_step" value="sr6_magic_beschwoeren_roll_modifikator::1" aria-label="Wert-Modifikator erhoehen">+</button>
+              </div>
+            <button
                 type="action"
                 class="sr6-charactersheet-field-dice-button"
                 name="act_probe"
@@ -89,8 +130,16 @@
           </div>
           <div class="sr6-charactersheet-field">
             <div class="sr6-field-label-with-info"><span data-i18n="field.entzug_widerstand">Entzugwiderstand</span><span class="sr6-info-icon" title="Entzugswiderstand = Wert(sr6_magic_traditionsattribut_1) + sr6_attr_willenskraft_gesamtwert">i</span></div>
-            <div class="sr6-charactersheet-field-input-with-dice">
-              <input type="number" name="attr_sr6_magic_entzug_widerstand" readonly /><button
+            <div class="sr6-charactersheet-field-input-with-dice sr6-charactersheet-field-input-with-dice--roll-mod">
+              <span class="sr6-roll-mod-subtitle sr6-roll-mod-subtitle--basis" data-i18n="field.basis">Basis</span>
+          <span class="sr6-roll-mod-subtitle sr6-roll-mod-subtitle--mod" data-i18n="field.fertigkeitsmodifikator">Mod.</span>
+          <input type="number" name="attr_sr6_magic_entzug_widerstand" readonly />
+              <div class="sr6-number-stepper sr6-roll-mod-stepper">
+                <button type="action" class="sr6-number-stepper-button sr6-number-stepper-button--minus" name="act_sr6_number_step" value="sr6_magic_entzug_widerstand_roll_modifikator::-1" aria-label="Wert-Modifikator verringern">-</button>
+                <input type="number" name="attr_sr6_magic_entzug_widerstand_roll_modifikator" title="Wert-Modifikator" />
+                <button type="action" class="sr6-number-stepper-button sr6-number-stepper-button--plus" name="act_sr6_number_step" value="sr6_magic_entzug_widerstand_roll_modifikator::1" aria-label="Wert-Modifikator erhoehen">+</button>
+              </div>
+            <button
                 type="action"
                 class="sr6-charactersheet-field-dice-button"
                 name="act_probe"
@@ -104,8 +153,16 @@
         <div class="sr6-charactersheet-row sr6-charactersheet-row-5">
           <div class="sr6-charactersheet-field">
             <div class="sr6-field-label-with-info"><span data-i18n="field.waffenloser_kampf">Waffenloser Kampf</span><span class="sr6-info-icon" title="Waffenloser Kampf = sr6_skill_astral_gesamtwert + sr6_attr_willenskraft_gesamtwert">i</span></div>
-            <div class="sr6-charactersheet-field-input-with-dice">
-              <input type="number" name="attr_sr6_magic_waffenloser_kampf" readonly /><button
+            <div class="sr6-charactersheet-field-input-with-dice sr6-charactersheet-field-input-with-dice--roll-mod">
+              <span class="sr6-roll-mod-subtitle sr6-roll-mod-subtitle--basis" data-i18n="field.basis">Basis</span>
+          <span class="sr6-roll-mod-subtitle sr6-roll-mod-subtitle--mod" data-i18n="field.fertigkeitsmodifikator">Mod.</span>
+          <input type="number" name="attr_sr6_magic_waffenloser_kampf" readonly />
+              <div class="sr6-number-stepper sr6-roll-mod-stepper">
+                <button type="action" class="sr6-number-stepper-button sr6-number-stepper-button--minus" name="act_sr6_number_step" value="sr6_magic_waffenloser_kampf_roll_modifikator::-1" aria-label="Wert-Modifikator verringern">-</button>
+                <input type="number" name="attr_sr6_magic_waffenloser_kampf_roll_modifikator" title="Wert-Modifikator" />
+                <button type="action" class="sr6-number-stepper-button sr6-number-stepper-button--plus" name="act_sr6_number_step" value="sr6_magic_waffenloser_kampf_roll_modifikator::1" aria-label="Wert-Modifikator erhoehen">+</button>
+              </div>
+            <button
                 type="action"
                 class="sr6-charactersheet-field-dice-button"
                 name="act_probe"
@@ -115,8 +172,16 @@
           </div>
           <div class="sr6-charactersheet-field">
             <div class="sr6-field-label-with-info"><span data-i18n="field.a_verteidigung">A. Verteidigung</span><span class="sr6-info-icon" title="Astrale Verteidigung = sr6_attr_logik_gesamtwert + sr6_attr_intuition_gesamtwert">i</span></div>
-            <div class="sr6-charactersheet-field-input-with-dice">
-              <input type="number" name="attr_sr6_magic_astrale_verteidigung" readonly /><button
+            <div class="sr6-charactersheet-field-input-with-dice sr6-charactersheet-field-input-with-dice--roll-mod">
+              <span class="sr6-roll-mod-subtitle sr6-roll-mod-subtitle--basis" data-i18n="field.basis">Basis</span>
+          <span class="sr6-roll-mod-subtitle sr6-roll-mod-subtitle--mod" data-i18n="field.fertigkeitsmodifikator">Mod.</span>
+          <input type="number" name="attr_sr6_magic_astrale_verteidigung" readonly />
+              <div class="sr6-number-stepper sr6-roll-mod-stepper">
+                <button type="action" class="sr6-number-stepper-button sr6-number-stepper-button--minus" name="act_sr6_number_step" value="sr6_magic_astrale_verteidigung_roll_modifikator::-1" aria-label="Wert-Modifikator verringern">-</button>
+                <input type="number" name="attr_sr6_magic_astrale_verteidigung_roll_modifikator" title="Wert-Modifikator" />
+                <button type="action" class="sr6-number-stepper-button sr6-number-stepper-button--plus" name="act_sr6_number_step" value="sr6_magic_astrale_verteidigung_roll_modifikator::1" aria-label="Wert-Modifikator erhoehen">+</button>
+              </div>
+            <button
                 type="action"
                 class="sr6-charactersheet-field-dice-button"
                 name="act_probe"
@@ -127,8 +192,16 @@
 
           <div class="sr6-charactersheet-field">
             <div class="sr6-field-label-with-info"><span data-i18n="field.a_schadenswiderstand">A. Schadenswiderstand</span><span class="sr6-info-icon" title="Astraler Schadenswiderstand = sr6_attr_willenskraft_gesamtwert">i</span></div>
-            <div class="sr6-charactersheet-field-input-with-dice">
-              <input type="number" name="attr_sr6_magic_astraler_schadenswiderstand" readonly /><button
+            <div class="sr6-charactersheet-field-input-with-dice sr6-charactersheet-field-input-with-dice--roll-mod">
+              <span class="sr6-roll-mod-subtitle sr6-roll-mod-subtitle--basis" data-i18n="field.basis">Basis</span>
+          <span class="sr6-roll-mod-subtitle sr6-roll-mod-subtitle--mod" data-i18n="field.fertigkeitsmodifikator">Mod.</span>
+          <input type="number" name="attr_sr6_magic_astraler_schadenswiderstand" readonly />
+              <div class="sr6-number-stepper sr6-roll-mod-stepper">
+                <button type="action" class="sr6-number-stepper-button sr6-number-stepper-button--minus" name="act_sr6_number_step" value="sr6_magic_astraler_schadenswiderstand_roll_modifikator::-1" aria-label="Wert-Modifikator verringern">-</button>
+                <input type="number" name="attr_sr6_magic_astraler_schadenswiderstand_roll_modifikator" title="Wert-Modifikator" />
+                <button type="action" class="sr6-number-stepper-button sr6-number-stepper-button--plus" name="act_sr6_number_step" value="sr6_magic_astraler_schadenswiderstand_roll_modifikator::1" aria-label="Wert-Modifikator erhoehen">+</button>
+              </div>
+            <button
                 type="action"
                 class="sr6-charactersheet-field-dice-button"
                 name="act_probe"
@@ -138,11 +211,29 @@
           </div>
           <div class="sr6-charactersheet-field">
             <div class="sr6-field-label-with-info"><span data-i18n="field.a_angriffswert">A. Angriffswert</span><span class="sr6-info-icon" title="Astralkampf Angriffswert = sr6_attr_magie_resonanz_gesamtwert + Wert(sr6_magic_traditionsattribut_1)">i</span></div>
-            <input type="number" name="attr_sr6_magic_astralkampf_angriffswert" readonly />
+            <div class="sr6-charactersheet-field-input-with-mod">
+              <span class="sr6-roll-mod-subtitle sr6-roll-mod-subtitle--basis" data-i18n="field.basis">Basis</span>
+              <span class="sr6-roll-mod-subtitle sr6-roll-mod-subtitle--mod" data-i18n="field.fertigkeitsmodifikator">Mod.</span>
+              <input type="number" name="attr_sr6_magic_astralkampf_angriffswert" readonly />
+              <div class="sr6-number-stepper">
+                <button type="action" class="sr6-number-stepper-button sr6-number-stepper-button--minus" name="act_sr6_number_step" value="sr6_magic_astralkampf_angriffswert_modifikator::-1" aria-label="Modifikator verringern">-</button>
+                <input type="number" name="attr_sr6_magic_astralkampf_angriffswert_modifikator" title="Modifikator" />
+                <button type="action" class="sr6-number-stepper-button sr6-number-stepper-button--plus" name="act_sr6_number_step" value="sr6_magic_astralkampf_angriffswert_modifikator::1" aria-label="Modifikator erhoehen">+</button>
+              </div>
+            </div>
           </div>
           <div class="sr6-charactersheet-field">
             <div class="sr6-field-label-with-info"><span data-i18n="field.a_verteidigungswert">A. Verteidigungswert</span><span class="sr6-info-icon" title="Astralkampf Verteidigungswert = sr6_attr_intuition_gesamtwert">i</span></div>
-            <input type="number" name="attr_sr6_magic_astralkampf_verteidigungswert" readonly />
+            <div class="sr6-charactersheet-field-input-with-mod">
+              <span class="sr6-roll-mod-subtitle sr6-roll-mod-subtitle--basis" data-i18n="field.basis">Basis</span>
+              <span class="sr6-roll-mod-subtitle sr6-roll-mod-subtitle--mod" data-i18n="field.fertigkeitsmodifikator">Mod.</span>
+              <input type="number" name="attr_sr6_magic_astralkampf_verteidigungswert" readonly />
+              <div class="sr6-number-stepper">
+                <button type="action" class="sr6-number-stepper-button sr6-number-stepper-button--minus" name="act_sr6_number_step" value="sr6_magic_astralkampf_verteidigungswert_modifikator::-1" aria-label="Modifikator verringern">-</button>
+                <input type="number" name="attr_sr6_magic_astralkampf_verteidigungswert_modifikator" title="Modifikator" />
+                <button type="action" class="sr6-number-stepper-button sr6-number-stepper-button--plus" name="act_sr6_number_step" value="sr6_magic_astralkampf_verteidigungswert_modifikator::1" aria-label="Modifikator erhoehen">+</button>
+              </div>
+            </div>
           </div>
         </div>
     </section>
