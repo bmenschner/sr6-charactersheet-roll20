@@ -25,6 +25,10 @@
   align-items: start;
 }
 
+.ui-dialog .charsheet .sr6-charactersheet-kopfbereich-spalte--zustand input {
+  height: var(--sr6-field-height);
+}
+
 .sr6-charactersheet-monitor-track-wrap > input {
   width: 100%;
   height: 1.5rem;

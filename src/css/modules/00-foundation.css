@@ -42,10 +42,6 @@ body,
   margin: 0 auto;
 }
 
-.ui-dialog .charsheet input {
-    height: var(--sr6-field-height);
-}
-
 input[type="number"] {
   appearance: textfield;
   -moz-appearance: textfield;

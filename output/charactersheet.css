@@ -43,10 +43,6 @@ body,
   margin: 0 auto;
 }
 
-.ui-dialog .charsheet input {
-    height: var(--sr6-field-height);
-}
-
 input[type="number"] {
   appearance: textfield;
   -moz-appearance: textfield;
@@ -711,6 +707,10 @@ input[type="number"]::-webkit-inner-spin-button {
   grid-template-columns: 2.4rem minmax(0, 1fr);
   gap: 0.25rem;
   align-items: start;
+}
+
+.ui-dialog .charsheet .sr6-charactersheet-kopfbereich-spalte--zustand input {
+  height: var(--sr6-field-height);
 }
 
 .sr6-charactersheet-monitor-track-wrap > input {
