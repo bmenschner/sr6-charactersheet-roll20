@@ -28,6 +28,16 @@ Technische Auslegung im Sheet:
 - In der Detailanzeige steht er vor den anderen Schicksalswuerfeln.
 - Nur dieser Einzelgaenger-Wuerfel ignoriert bei einer 1 die 5er-Annullierung.
 
+## Rolltemplate `sheet-sr6probe`
+
+`sheet-sr6probe` ist das gemeinsame Basistemplate fuer alle Proben.
+
+- Der Header enthaelt den Wurftitel.
+- Danach folgen Name der Handlung/Waffe/des Geraets/des Zaubers, finaler Pool, Erfolge, Wuerfeldetails, Edge-Button und ein Trennstrich.
+- Berechnungsquellen werden ab Zeile 7 in einer standardmaessig eingeklappten Details-Zeile als kommagetrennte Debug-Liste ausgegeben. Die Liste beginnt mit der vollstaendigen Pool-Rechnung und enthaelt danach die verwendeten Basiswerte, Modifikatoren, Dropdowns und Checkboxen.
+- Direkte Attribut- und Fertigkeitsgesamtwerte werden in der Detailzeile generisch in Basis, Modifikator und Gesamtwert aufgeschluesselt.
+- Spezielle Ergebniszeilen wie Schaden, Entzug, Dienste oder Angriffswert werden nicht global hervorgehoben, sondern issue- und domaenenspezifisch entschieden.
+
 ## Wert-Modifikator
 
 Der `Wert-Modifikator` ist ein Sheet-Komfortwert fuer automatisch berechnete, wuerfelbare Werte.

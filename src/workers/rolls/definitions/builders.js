@@ -97,7 +97,7 @@ function createAttributeProbePopupFields() {
     {
       id: "attribute_mod",
       slot: 1,
-      label: "Popup-Modifikator",
+      label: "Probenmodifikator",
       type: "number",
       affects: "pool",
       defaultValue: "0",
@@ -435,7 +435,12 @@ function createSummoningPopupFields() {
 function getMagicRollAdditionalAttributes(definition) {
   if (!definition) return [];
   if (definition.id === "spell" || definition.id === "summoning") {
-    return ["sr6_magic_magie", "sr6_magic_entzug_widerstand"];
+    return [
+      "sr6_magic_magie",
+      "sr6_magic_entzug_widerstand",
+      "sr6_magic_traditionsattribut_1",
+      "sr6_magic_traditionsattribut_1_modifikator",
+    ];
   }
   return [];
 }

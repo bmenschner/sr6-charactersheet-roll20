@@ -50,6 +50,16 @@ Stattdessen gilt:
 
 Damit bleibt die Roll20-Ausgabe weiterhin eine gebuendelte Worker-Datei, waehrend die Source-Dateien review- und mergefreundlicher gepflegt werden koennen.
 
+### Issue 90: Gemeinsames Rolltemplate
+
+`sheet-sr6probe` ist das gemeinsame Basistemplate fuer alle Roll-Definitionen.
+
+- `{{name}}` ist der Wurftitel im Header.
+- `{{subject_label}}` und `{{subject}}` bilden die erste fachliche Zeile, z. B. Attribut, Fertigkeit, Waffe, Zauber, Handlung, Geraet oder Wert.
+- `{{pool}}`, `{{erfolge}}`, die bestehenden Wuerfeldetails und der Edge-Button bleiben die prominenten Standardzeilen.
+- `{{calc_details}}` sammelt die vollstaendige Pool-Rechnung sowie die verwendeten Werte, Dropdowns, Checkboxen und Modifikatoren als kommagetrennte Debug-Liste in einer standardmaessig eingeklappten Zeile.
+- Domaenenspezifische Zusatzfelder wie Schaden, Entzug, Dienste oder Angriffswert werden nicht im globalen Basistemplate entschieden, sondern in den jeweiligen Folge-Issues.
+
 ### Issue 90: Roll-only-Modifikatoren fuer berechnete Werte
 
 Automatisch berechnete, wuerfelbare Sheet-Werte behalten im Sheet ihren angezeigten Basiswert. Sie werden nicht auf das Standardmodell `Grundwert / Modifikator / Gesamtwert` umgebaut, wenn der Wert fachlich aus anderen Quellen berechnet wird.
@@ -68,7 +78,7 @@ Regel fuer Compute und Rolltemplate:
 - Der berechnete Sheet-Wert bleibt unveraendert sichtbar.
 - Der `*_roll_modifikator` wird erst beim Wurf addiert.
 - Der Modifikator darf nicht in die `compute/*`-Berechnung des Basiswerts zurueckschreiben.
-- Die Rolltemplate-Ausgabe zeigt `Wert-Modifikator` nur, wenn der Wert ungleich `0` ist.
+- Die Rolltemplate-Ausgabe zeigt die finalen Pool-Modifikatoren zentral in `calc_details`; fachliche Detailzeilen wie `Wert-Modifikator` koennen zusaetzlich erscheinen, wenn sie fuer den Wurf relevant sind.
 - Repeating Rows nutzen dasselbe Muster zeilenlokal innerhalb der bestehenden `repeating_*`-Sektion.
 
 ### Aktive Probenmodelle
@@ -77,7 +87,7 @@ Regel fuer Compute und Rolltemplate:
 | --- | --- | --- | --- | --- |
 | `attribute_probe` | `Attribut` oder `Attribut x2` `+- Modifikator` | `Modifikator`, spaeter optional `x2`/Variante | `Attribut`, `Wert`, `Pool`, `Erfolge`, `Details` | Attributsname und Poolquelle je nach Probe |
 | `skill_probe` | `Attribut + Fertigkeitsgrundwert + Modifikator + Spezialisierung/Expertise` | `Skill-Modifikator`, `Attribut`, `Spezialisierung`, `Expertise` | `Attribut`, `Attribut-Wert`, `Fertigkeitswert`, `Pool`, `Erfolge`, `Details` | Attribut-, Fertigkeits- und Poolquelle je Tab/Fall |
-| `initiative_probe` | `Basis + W6` | keine Standard-Popup-Modifikatoren | `Basis`, `W6`, `Gesamt` | physische, astrale, Matrix- und Rigging-Initiative |
+| `initiative_probe` | `Basis + W6` | keine Standard-Probenmodifikatoren | `Basis`, `W6`, `Gesamt` | physische, astrale, Matrix- und Rigging-Initiative |
 | `defense_probe` | `Attribut + Fertigkeit +- Modifikator` nach SR6-Grundlogik | `Modifikator`, kontextabhaengige Vergleichswerte wie `Verteidigungswert` | `Wert`, Vergleichswert, `Pool`, `Erfolge`, `Details` | pro Tab andere Attribut-/Fertigkeitsquellen, z. B. `Kampf`, `Matrix`, spaeter weitere |
 | `combat_attack_probe` | Angriffsprobe mit getrennten Ebenen fuer `Pool`, `Angriffswert`, `Schaden` | `Skill-Modifikator`, `Angriffswert-Modifikator`, `Schadens-Modifikator`, `Munition`, `Spezialisierung`, `Expertise` | `Waffe`, `Angriffswert`, `Pool`, `Erfolge`, `Schaden`, `Reichweite`, `Munition`, `Munitionshinweis`, `Berechnung` | Nah-/Fernkampfwerte, Waffenkontext, Munitionsquelle, Reichweite |
 | `spell_probe` | `Spruchzauberei` plus separater Entzug | Skill-, Angriffswert-, Schadens-, Flaechen-, Hochdrehen- und Entzugsmodifikatoren | Zauber, Pool, Erfolge, Schaden, modifizierter Entzug, Entzugsschaden inkl. Schadenstyp, Beschreibung, weitere Werte | Magie-Zauber |
@@ -484,7 +494,7 @@ Fuer das Sheet bedeutet das als Zielmodell:
 ```text
 Attribut (Grundwert + Modifikator)
 + Fertigkeit (Grundwert + Modifikator)
-+ Situations-/Popup-Modifikator
++ Situations-/Probenmodifikator
 = Wuerfelpool
 ```
 
@@ -494,13 +504,13 @@ Die technische Basis ist bereits vorhanden:
 - `sr6_skill_<name>_gesamtwert = sr6_skill_<name>_grundwert + sr6_skill_<name>_modifikator`
 - `buildProbeComputation()` wuerfelt den finalen Pool als W6 und zaehlt `die >= 5` als Erfolg
 - der Zustandsmonitor wird als globaler Poolmodifikator beruecksichtigt
-- Popup-Modifikatoren werden erst beim Wurf auf den Pool addiert
+- Probenmodifikatoren werden erst beim Wurf auf den Pool addiert
 
 ### Issue-12 Pruefbefund Probenmodelle
 
 | Probenmodell / Bereich | Aktueller Stand | Issue-12-Befund | Naechster Schritt |
 | --- | --- | --- | --- |
-| `attribute_probe` | Nutzt einen Attribut-Gesamtwert als Pool; optional `Attribut x2`; Popup-Modifikator wird addiert | Fuer reine Attributproben und `Attribut x2` passend; kein Standardmodell fuer `Attribut + Fertigkeit` | Beibehalten, aber klar als Attribut-/Sonderprobe behandeln |
+| `attribute_probe` | Nutzt einen Attribut-Gesamtwert als Pool; optional `Attribut x2`; Probenmodifikator wird addiert | Fuer reine Attributproben und `Attribut x2` passend; kein Standardmodell fuer `Attribut + Fertigkeit` | Beibehalten, aber klar als Attribut-/Sonderprobe behandeln |
 | `skill_probe` | Aktionsfertigkeiten nutzen ein Attribut-Dropdown im Popup; Popup-Skill-Modifikator, Spezialisierung und Expertise werden addiert | Fuer Aktionsfertigkeiten jetzt regelkonform als `gewaehltes Attribut + Fertigkeitswert + Modifikatoren` umgesetzt; Sandbox-Test und Matrix-Abgleich bestanden | Fuer Wissens-/Sprach-/Soft-Felder separat entscheiden, ob und welche Attributszuordnung gewuenscht ist |
 | Attribute & Fertigkeiten / Aktionsfertigkeiten | `grundwert + modifikator = gesamtwert` bleibt der Fertigkeitswert; der Rollbutton baut daraus plus gewaehltem Attribut den Pool | Datenquelle ist korrekt und wird im Popup zur vollstaendigen Standardprobe erweitert | Beibehalten; keine parallelen Skillquellen einfuehren |
 | Wissens-/Sprach-/Soft-Felder | Wissens-/Sprach-/Wissenssprachsofts zeigen `Name` und den berechneten `Wert = Erinnerungsvermoegen`; Talentsofts berechnen `Attribut + Stufe + Modifikator` | Erinnerungsvermoegen ist als Attributsprobe `Logik + Intuition` umgesetzt; Talentsofts sind eigener Ersatz-Fertigkeitsfall | Wissen/Sprache bleibt ohne eigenen Dreiklang; Talentsofts optional spaeter um Soft-Typ/Aktionsfertigkeit erweitern |
@@ -581,12 +591,12 @@ Primaerattribute werden als Default genutzt. Das Popup zeigt ein Attribut-Dropdo
 Umsetzungsregel fuer `skill_probe`:
 
 - Der angezeigte Fertigkeitswert bleibt `sr6_skill_<name>_gesamtwert`.
-- Der Standard-Wuerfelpool wird `ausgewaehltes Attribut-Gesamtwert + Fertigkeits-Gesamtwert + Popup-Modifikatoren`.
+- Der Standard-Wuerfelpool wird `ausgewaehltes Attribut-Gesamtwert + Fertigkeits-Gesamtwert + Probenmodifikatoren`.
 - Das Popup bietet fuer Aktionsfertigkeiten ein Attribut-Dropdown an.
 - Die Dropdown-Vorauswahl ist immer das Primaerattribut der Fertigkeit.
 - Die Dropdown-Optionen bestehen aus Primaerattribut plus den im Regelwerk genannten Sekundaerattributen.
 - Fertigkeiten ohne Sekundaerattribut zeigen nur das Primaerattribut; das Dropdown kann dann technisch entfallen oder als nicht wechselbare Anzeige umgesetzt werden.
-- Spezialisierung und Expertise bleiben Popup-Modifikatoren auf den Pool.
+- Spezialisierung und Expertise bleiben Probenmodifikatoren auf den Pool.
 - Kontextfaelle werden nicht blind automatisch gewaehlt; die Auswahl erfolgt durch den Spieler im Popup.
 - Magie/Resonanz nutzt technisch dasselbe Sheet-Feld, muss im Rolltemplate aber fachlich mit dem passenden Label ausgegeben werden.
 

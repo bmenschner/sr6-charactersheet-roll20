@@ -139,6 +139,47 @@ function getRollModifierAttribute(poolAttribute) {
   return poolAttribute ? `${poolAttribute}_roll_modifikator` : "";
 }
 
+function appendPoolComponentAttributeRefs(attributeRefs, poolAttribute) {
+  if (!poolAttribute) return;
+  const attributeMatch = poolAttribute.match(/^sr6_attr_(.+)_gesamtwert$/);
+  if (attributeMatch) {
+    attributeRefs.push(`sr6_attr_${attributeMatch[1]}_grundwert`);
+    attributeRefs.push(`sr6_attr_${attributeMatch[1]}_modifikator`);
+  }
+
+  const skillMatch = poolAttribute.match(/^sr6_skill_(.+)_gesamtwert$/);
+  if (skillMatch) {
+    attributeRefs.push(`sr6_skill_${skillMatch[1]}_grundwert`);
+    attributeRefs.push(`sr6_skill_${skillMatch[1]}_modifikator`);
+  }
+}
+
+function appendComputedCombatPoolAttributeRefs(attributeRefs, definition) {
+  if (!definition || definition.probeModel !== "combat_attack_probe") return;
+
+  [
+    "geschicklichkeit",
+    "staerke",
+  ].forEach((attributeKey) => {
+    attributeRefs.push(`sr6_attr_${attributeKey}_grundwert`);
+    attributeRefs.push(`sr6_attr_${attributeKey}_modifikator`);
+    attributeRefs.push(`sr6_attr_${attributeKey}_gesamtwert`);
+  });
+
+  [
+    "athletik",
+    "exotische_waffen",
+    "feuerwaffen",
+    "nahkampf",
+  ].forEach((skillKey) => {
+    attributeRefs.push(`sr6_skill_${skillKey}_grundwert`);
+    attributeRefs.push(`sr6_skill_${skillKey}_modifikator`);
+    attributeRefs.push(`sr6_skill_${skillKey}_gesamtwert`);
+    attributeRefs.push(`sr6_skill_${skillKey}_spezialisierung`);
+    attributeRefs.push(`sr6_skill_${skillKey}_expertise`);
+  });
+}
+
 function buildRequestedAttributes(rawTemplate, repeatingRowPrefix) {
   const fields = parseTemplateFields(rawTemplate);
   const poolAttribute = parsePoolAttributeFromFields(fields);
@@ -150,6 +191,8 @@ function buildRequestedAttributes(rawTemplate, repeatingRowPrefix) {
   if (poolAttribute && !attributeRefs.includes(poolAttribute)) {
     attributeRefs.push(poolAttribute);
   }
+  appendPoolComponentAttributeRefs(attributeRefs, poolAttribute);
+  appendComputedCombatPoolAttributeRefs(attributeRefs, definition);
 
   if (poolAttribute) {
     attributeRefs.push("sr6_monitor_pool_mod");

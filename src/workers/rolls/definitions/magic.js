@@ -9,7 +9,6 @@ const SR6_ROLL_DEFINITIONS_MAGIC = [
     titleMode: "fixed",
     primaryFields: ["Zauber"],
     extraFields: ["Art", "Reichweite", "Dauer", "Entzug", "Schaden", "Notiz"],
-    templateVariant: "spell",
     contextFields: [
       { label: "Entzugwiderstand", attr: "sr6_magic_entzug_widerstand" },
     ],

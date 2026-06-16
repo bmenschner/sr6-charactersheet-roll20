@@ -98,10 +98,29 @@ function resolveSkillProbeAttributeOption(definition, selectedValue) {
 }
 
 function getRollAdditionalAttributes(definition) {
+  const attributeBaseAttributes = SR6_ATTRIBUTES.map((attributeKey) => `sr6_attr_${attributeKey}_grundwert`);
+  const attributeModifierAttributes = SR6_ATTRIBUTES.map((attributeKey) => `sr6_attr_${attributeKey}_modifikator`);
+  const attributeTotalAttributes = SR6_ATTRIBUTES.map((attributeKey) => `sr6_attr_${attributeKey}_gesamtwert`);
   const skillBaseAttributes = SR6_SKILLS.map((skillKey) => `sr6_skill_${skillKey}_grundwert`);
-  const attributes = ["sr6_attr_edge_gesamtwert", ...skillBaseAttributes, ...getMagicRollAdditionalAttributes(definition)];
+  const skillModifierAttributes = SR6_SKILLS.map((skillKey) => `sr6_skill_${skillKey}_modifikator`);
+  const skillTotalAttributes = SR6_SKILLS.map((skillKey) => `sr6_skill_${skillKey}_gesamtwert`);
+  const attributes = [
+    ...attributeBaseAttributes,
+    ...attributeModifierAttributes,
+    ...attributeTotalAttributes,
+    ...skillBaseAttributes,
+    ...skillModifierAttributes,
+    ...skillTotalAttributes,
+    ...getMagicRollAdditionalAttributes(definition),
+  ];
   getSkillProbeAttributeOptions(definition).forEach((option) => {
-    if (option && option.attr) attributes.push(option.attr);
+    if (!option || !option.attr) return;
+    attributes.push(option.attr);
+    const attributeMatch = option.attr.match(/^sr6_attr_(.+)_gesamtwert$/);
+    if (attributeMatch) {
+      attributes.push(`sr6_attr_${attributeMatch[1]}_grundwert`);
+      attributes.push(`sr6_attr_${attributeMatch[1]}_modifikator`);
+    }
   });
   if (definition && definition.id === "equipment") {
     attributes.push(...getEquipmentSourceAttributeRefs());
