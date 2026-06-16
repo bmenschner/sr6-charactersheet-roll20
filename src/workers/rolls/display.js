@@ -22,6 +22,16 @@ function buildDetailsDice(diceResults, fateDiceResults = [], maxDice = 20) {
   });
 }
 
+function buildNeutralDetailsDice(diceResults, maxDice = 20) {
+  if (!Array.isArray(diceResults)) return [];
+
+  return diceResults.slice(0, maxDice).map((die) => ({
+    value: `${die}`,
+    tone: "neutral",
+    isFate: false,
+  }));
+}
+
 function appendDetailsDiceTemplateFields(parts, detailsDice) {
   if (!Array.isArray(detailsDice) || detailsDice.length === 0) return;
 
@@ -186,6 +196,11 @@ function appendDebugRow(rows, label, value) {
   rows.push({ label: label, value: `${value}` });
 }
 
+function appendNonZeroDebugModifierRow(rows, label, value) {
+  if (parseNumber(value) === 0) return;
+  appendDebugRow(rows, label, formatDebugModifier(value));
+}
+
 function findLastDetailRowValue(rows, label) {
   if (!Array.isArray(rows)) return "";
   for (let index = rows.length - 1; index >= 0; index -= 1) {
@@ -207,6 +222,13 @@ function parsePoolComponentValue(row) {
   return parseNumber(value);
 }
 
+function getLanguageLevelBonusFromRows(rows) {
+  const languageLevelRow = (Array.isArray(rows) ? rows : []).find((row) => row && row.label === "Sprachniveau");
+  const languageLevel = `${languageLevelRow && languageLevelRow.value ? languageLevelRow.value : ""}`.trim();
+  const bonusMatch = languageLevel.match(/\(([+-]?\d+)\)/);
+  return bonusMatch ? parseNumber(bonusMatch[1]) : 0;
+}
+
 function isPoolBonusComponent(row, poolBonusLabels) {
   if (!row) return false;
   if (row.poolComponent) return true;
@@ -218,11 +240,17 @@ function isPoolBonusComponent(row, poolBonusLabels) {
 
 function collectPoolBasisComponents(rows) {
   const detailRows = Array.isArray(rows) ? rows : [];
-  const poolBonusLabels = new Set(["Spezialisierung", "Expertise", "Spezialisierung/Expertise", "Ungeübt"]);
-  const markedComponents = detailRows
-    .filter((row) => isPoolBonusComponent(row, poolBonusLabels))
+  const poolBonusLabels = new Set(["Spezialisierung", "Expertise", "Spezialisierung/Expertise", "Ungeübt", "Sprachbonus"]);
+  let markedComponents = [
+    ...detailRows.filter((row) => row && row.poolComponent),
+    ...detailRows.filter((row) => row && !row.poolComponent && isPoolBonusComponent(row, poolBonusLabels)),
+  ]
     .filter((row) => `${row.value === undefined || row.value === null ? "" : row.value}`.trim() !== "")
     .map((row) => parsePoolComponentValue(row));
+  const languageLevelBonus = getLanguageLevelBonusFromRows(detailRows);
+  if (languageLevelBonus !== 0 && !detailRows.some((row) => row && row.label === "Sprachbonus")) {
+    markedComponents.push(languageLevelBonus);
+  }
 
   if (markedComponents.length > 0) {
     return markedComponents;
@@ -240,10 +268,49 @@ function collectPoolBasisComponents(rows) {
     "Modifikator",
   ];
 
-  return componentLabels
+  const fallbackComponents = componentLabels
     .map((label) => findLastDetailRowValue(detailRows, label))
     .filter((value) => value !== "")
     .map((value) => parseNumber(value));
+  if (languageLevelBonus !== 0 && !detailRows.some((row) => row && row.label === "Sprachbonus")) {
+    fallbackComponents.push(languageLevelBonus);
+  }
+
+  return fallbackComponents;
+}
+
+function formatPoolFormulaComponent(value, index) {
+  const numberValue = parseNumber(value);
+  if (numberValue < 0) return `- ${Math.abs(numberValue)}`;
+  if (index === 0) return `${numberValue}`;
+  return `+ ${numberValue}`;
+}
+
+function buildPoolFormulaText(components, fallbackValue) {
+  const visibleComponents = (Array.isArray(components) ? components : [])
+    .map((value) => parseNumber(value))
+    .filter((value) => value !== 0);
+
+  if (visibleComponents.length === 0) {
+    return `${parseNumber(fallbackValue)}`;
+  }
+
+  return visibleComponents
+    .map((value, index) => formatPoolFormulaComponent(value, index))
+    .join(" ");
+}
+
+function reconcilePoolFormulaComponents(components, poolBasis) {
+  const formulaComponents = Array.isArray(components) ? [...components] : [];
+  if (formulaComponents.length <= 1) return formulaComponents;
+
+  const componentTotal = formulaComponents.reduce((sum, value) => sum + parseNumber(value), 0);
+  const missingComponent = parseNumber(poolBasis) - componentTotal;
+  if (missingComponent !== 0) {
+    formulaComponents.push(missingComponent);
+  }
+
+  return formulaComponents;
 }
 
 function buildComputationDebugRows(computation, sourceRows) {
@@ -258,14 +325,20 @@ function buildComputationDebugRows(computation, sourceRows) {
   const poolRollMod = parseNumber(computation.poolRollMod);
   const edgePoolBonus = parseNumber(computation.edgePoolBonus);
   const poolBasisComponents = collectPoolBasisComponents(sourceRows);
-  const poolFormulaComponents = poolBasisComponents.length > 1 ? poolBasisComponents : [poolBasis];
-  const poolFormula = [
-    ...poolFormulaComponents.map((value) => `${value}`),
-    `${monitorPoolMod}`,
-    `${poolPopupMod}`,
-    `${poolRollMod}`,
-    `${edgePoolBonus}`,
-  ].join(" ");
+  const poolFormulaComponents = reconcilePoolFormulaComponents(
+    poolBasisComponents.length > 1 ? poolBasisComponents : [poolBasis],
+    poolBasis
+  );
+  const poolFormula = buildPoolFormulaText(
+    [
+      ...poolFormulaComponents,
+      monitorPoolMod,
+      poolPopupMod,
+      poolRollMod,
+      edgePoolBonus,
+    ],
+    poolBasis
+  );
 
   appendDebugRow(rows, "Pool-Rechnung", `${poolFormula} = ${parseNumber(computation.pool)}`);
   appendDebugRow(rows, "Pool-Basis", `${poolBasis}`);
@@ -273,10 +346,10 @@ function buildComputationDebugRows(computation, sourceRows) {
     appendDebugRow(rows, "Pool-Basis vor Multiplikator", `${poolBasisRaw}`);
     appendDebugRow(rows, "Pool-Multiplikator", `x${poolMultiplier}`);
   }
-  appendDebugRow(rows, "Pool-Zustandsmodifikator", formatDebugModifier(monitorPoolMod));
-  appendDebugRow(rows, "Pool-Probenmodifikator", formatDebugModifier(poolPopupMod));
-  appendDebugRow(rows, "Pool-Wert-Modifikator", formatDebugModifier(poolRollMod));
-  appendDebugRow(rows, "Pool-Edgebonus", formatDebugModifier(edgePoolBonus));
+  appendNonZeroDebugModifierRow(rows, "Pool-Zustandsmodifikator", monitorPoolMod);
+  appendNonZeroDebugModifierRow(rows, "Pool-Probenmodifikator", poolPopupMod);
+  appendNonZeroDebugModifierRow(rows, "Pool-Wert-Modifikator", poolRollMod);
+  appendNonZeroDebugModifierRow(rows, "Pool-Edgebonus", edgePoolBonus);
 
   if (parseNumber(computation.requestedFateDiceCount) > 0 || parseNumber(computation.fateDiceCount) > 0) {
     appendDebugRow(rows, "Schicksalswürfel angefordert", `${parseNumber(computation.requestedFateDiceCount)}`);
@@ -287,22 +360,105 @@ function buildComputationDebugRows(computation, sourceRows) {
   return rows;
 }
 
-function buildCalcDetails(rows, subjectFieldLabel, payload) {
-  const details = [];
+function getCalcDetailSourceGroupKey(label) {
+  if (label === "Sprachniveau") return "language";
+  if (label === "Attributsprobe" || label === "Formel") return "formula";
+  if (label === "Attribut" || label.indexOf("Attributwert ") === 0) return "attribute";
+  if (label.indexOf("Fertigkeitswert ") === 0) return "skill";
+  const formulaComponentMatch = label.match(/^(.+) (Basis|Modifikator|Gesamtwert)$/);
+  if (formulaComponentMatch && formulaComponentMatch[1] !== "Pool") {
+    return `component:${formulaComponentMatch[1]}`;
+  }
+  return "general";
+}
+
+function hasLanguageBonusRow(rows) {
+  const sourceRows = Array.isArray(rows) ? rows : [];
+  return sourceRows.some((row) => (
+    row &&
+    row.label === "Sprachbonus" &&
+    parseNumber(row.value) !== 0
+  )) || getLanguageLevelBonusFromRows(sourceRows) !== 0;
+}
+
+function shouldSuppressSourceDetailRow(row) {
+  return row && row.label === "Sprachbonus";
+}
+
+function buildSourceDetailEntry(row, sourceRows) {
+  const label = row.label;
+  let value = `${row.value || ""}`.trim();
+  if (label === "Formel" && hasLanguageBonusRow(sourceRows) && value.indexOf("Sprachbonus") === -1) {
+    value = `${value} + Sprachbonus`;
+  }
+  return `${label}: ${value}`;
+}
+
+function appendSourceDetailGroup(groups, group) {
+  if (!group || group.entries.length === 0) return;
+  groups.push(group.entries.join(", "));
+}
+
+function buildCalcDetailGroups(rows, subjectFieldLabel, payload) {
+  const debugDetails = [];
+  const sourceGroups = [];
+  let currentSourceGroup = null;
   const seen = new Set();
   const debugRows = buildComputationDebugRows(payload && payload.computation, rows);
 
-  [...debugRows, ...(Array.isArray(rows) ? rows : [])].forEach((row) => {
+  function appendCalcDetail(row, target) {
     if (!shouldIncludeCalcDetailRow(row, subjectFieldLabel)) return;
     const label = row.label;
     const value = `${row.value || ""}`.trim();
     const entry = `${label}: ${value}`;
     if (seen.has(entry)) return;
     seen.add(entry);
-    details.push(entry);
-  });
+    target.push(entry);
+  }
 
-  return details.join(", ");
+  function appendSourceDetail(row) {
+    if (!shouldIncludeCalcDetailRow(row, subjectFieldLabel)) return;
+    if (shouldSuppressSourceDetailRow(row)) return;
+    const label = row.label;
+    const entry = buildSourceDetailEntry(row, rows);
+    if (seen.has(entry)) return;
+    seen.add(entry);
+
+    const groupKey = getCalcDetailSourceGroupKey(label);
+    if (!currentSourceGroup || currentSourceGroup.key !== groupKey) {
+      appendSourceDetailGroup(sourceGroups, currentSourceGroup);
+      currentSourceGroup = { key: groupKey, entries: [] };
+    }
+
+    currentSourceGroup.entries.push(entry);
+  }
+
+  debugRows.forEach((row) => appendCalcDetail(row, debugDetails));
+  (Array.isArray(rows) ? rows : []).forEach((row) => appendSourceDetail(row));
+  appendSourceDetailGroup(sourceGroups, currentSourceGroup);
+
+  return {
+    summary: debugDetails.join(", "),
+    sourceGroups: sourceGroups,
+  };
+}
+
+function appendCalcDetailsTemplateFields(parts, rows, subjectFieldLabel, payload) {
+  const groups = buildCalcDetailGroups(rows, subjectFieldLabel, payload);
+
+  if (groups.summary) {
+    parts.push(`{{calc_details=${groups.summary}}}`);
+  }
+  if (groups.sourceGroups.length > 0) {
+    if (!groups.summary) {
+      parts.push(`{{calc_details=${groups.sourceGroups[0]}}}`);
+    } else {
+      parts.push(`{{calc_details_sources=${groups.sourceGroups[0]}}}`);
+    }
+    if (groups.sourceGroups[1]) parts.push(`{{calc_details_sources_2=${groups.sourceGroups[1]}}}`);
+    if (groups.sourceGroups[2]) parts.push(`{{calc_details_sources_3=${groups.sourceGroups[2]}}}`);
+    if (groups.sourceGroups[3]) parts.push(`{{calc_details_sources_4=${groups.sourceGroups.slice(3).join(", ")}}}`);
+  }
 }
 
 function buildSr6ProbeMessage(payload) {
@@ -314,10 +470,11 @@ function buildSr6ProbeMessage(payload) {
   const subjectFieldLabel = getSubjectFieldLabel(payload.resolvedFields, payload.definition);
   const subjectLabel = normalizeSubjectLabel(subjectFieldLabel);
   const subject = getSubjectValue(payload.resolvedFields, subjectFieldLabel, name);
-  const calcDetails = buildCalcDetails(rows, subjectFieldLabel, payload);
 
-  if (subjectLabel) parts.push(`{{subject_label=${subjectLabel}}}`);
-  if (subject) parts.push(`{{subject=${subject}}}`);
+  if (!payload.suppressSubject) {
+    if (subjectLabel) parts.push(`{{subject_label=${subjectLabel}}}`);
+    if (subject) parts.push(`{{subject=${subject}}}`);
+  }
 
   if (payload.pool !== undefined && payload.pool !== null && `${payload.pool}` !== "") {
     parts.push(`{{pool=${payload.pool}}}`);
@@ -327,12 +484,15 @@ function buildSr6ProbeMessage(payload) {
     parts.push(`{{erfolge=${payload.erfolge}}}`);
   }
 
+  if (payload.resultValue !== undefined && payload.resultValue !== null && `${payload.resultValue}` !== "") {
+    parts.push(`{{result_label=${payload.resultLabel || "Ergebnis"}}}`);
+    parts.push(`{{result_value=${payload.resultValue}}}`);
+  }
+
   appendDetailsTemplateFields(parts, payload);
   appendEdgeActionTemplateField(parts, payload);
 
-  if (calcDetails) {
-    parts.push(`{{calc_details=${calcDetails}}}`);
-  }
+  appendCalcDetailsTemplateFields(parts, rows, subjectFieldLabel, payload);
 
   if (payload.isGlitch) {
     parts.push("{{is_glitch=1}}");
