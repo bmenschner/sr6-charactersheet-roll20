@@ -7,6 +7,11 @@ function runSuccessProbeRoll(eventInfo) {
   const poolAttribute = parsePoolAttributeFromFields(parsedFields);
   const definition = resolveRollDefinition(parsedFields, poolAttribute);
 
+  if (definition && definition.probeModel === "initiative_probe") {
+    runSuccessProbeFromContext(rawTemplate, repeatingRowPrefix, 0);
+    return;
+  }
+
   getAttrs(["sr6_setting_popup_mods"], (values) => {
     const popupSetting = (values.sr6_setting_popup_mods || "eigen").toLowerCase();
     const useRoll20Fallback = popupSetting === "roll20";

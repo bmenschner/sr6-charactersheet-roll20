@@ -1085,6 +1085,43 @@ function saveEdgeLastRollContext(name, computation) {
   });
 }
 
+function runInitiativeProbeFromContext(context, lookupAttr, resolvedFields) {
+  const rows = buildProbeRows(resolvedFields, context.definition);
+  const name = deriveProbeTitle(resolvedFields, context.poolAttribute, context.definition);
+  const basis = parseNumber(resolvedFields.Basis);
+  const diceCount = Math.max(0, parseNumber(resolvedFields.W6));
+  const diceResults = [];
+  let diceTotal = 0;
+
+  for (let index = 0; index < diceCount; index += 1) {
+    const die = rollD6();
+    diceResults.push(die);
+    diceTotal += die;
+  }
+
+  const total = basis + diceTotal;
+  appendRowIfMissing(rows, "W6-Wurf", diceResults.length > 0 ? diceResults.join(" + ") : "0");
+  appendRowIfMissing(rows, "Gesamt", `${total}`);
+
+  const chatMessage = buildSr6ProbeMessage({
+    name: name,
+    rows: rows,
+    resolvedFields: resolvedFields,
+    definition: context.definition,
+    definitionId: context.definition && context.definition.id,
+    pool: `${basis}`,
+    erfolge: `${total}`,
+    details: diceResults.join(" + "),
+    edgeAction: false,
+    isGlitch: false,
+    characterId: lookupAttr("character_id"),
+  });
+
+  startRoll(chatMessage, (rollResult) => {
+    finishRoll(rollResult.rollId);
+  });
+}
+
 function runEquipmentProbeFromContext(context, lookupAttr, resolvedFields, popupState) {
   const rows = buildProbeRows(resolvedFields, context.definition);
   const name = deriveProbeTitle(resolvedFields, context.poolAttribute, context.definition);
@@ -1454,6 +1491,10 @@ function runSuccessProbeFromContext(rawTemplate, repeatingRowPrefix, popupState 
       resolvedFields[field.label] = lookupAttr(field.attr);
     });
 
+    if (context.definition && context.definition.probeModel === "initiative_probe") {
+      runInitiativeProbeFromContext(context, lookupAttr, resolvedFields);
+      return;
+    }
     if (context.definition && context.definition.probeModel === "spell_probe") {
       runSpellProbeFromContext(context, lookupAttr, resolvedFields, normalizedPopupState);
       return;
