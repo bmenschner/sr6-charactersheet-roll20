@@ -3395,7 +3395,95 @@ function buildComputationDebugRows(computation, sourceRows) {
   return rows;
 }
 
-function getCalcDetailSourceGroupKey(label, subjectFieldLabel) {
+function isCombatCalcDetailDefinition(payload) {
+  const definition = payload && payload.definition;
+  const definitionId = `${(payload && payload.definitionId) || (definition && definition.id) || ""}`.trim();
+  const combatDefinitionIds = new Set([
+    "combat_ranged_core_attack",
+    "combat_melee_core_attack",
+    "combat_ranged_weapon",
+    "combat_melee_weapon",
+    "ranged_weapon",
+    "melee_weapon",
+    "weapon",
+    "physical_defense",
+    "physical_damage_resistance",
+    "general_defense",
+    "general_damage_resistance",
+  ]);
+
+  return combatDefinitionIds.has(definitionId) || !!(definition && definition.templateVariant === "weapon");
+}
+
+function getCombatCalcDetailSourceGroupKey(label) {
+  const combatContextLabels = new Set([
+    "Waffe",
+    "Fertigkeit",
+    "Waffentyp",
+    "Munition",
+    "Modus",
+    "Reichweite",
+    "Schadenswert",
+    "Schadenstyp",
+  ]);
+  const skillLabels = new Set([
+    "Fertigkeitswert Basis",
+    "Fertigkeitswert Modifikator",
+    "Fertigkeitswert Gesamtwert",
+    "Spezialisierung Auswahl",
+    "Expertise Auswahl",
+  ]);
+  const damageLabels = new Set([
+    "Schaden-Basis",
+    "Erfolge auf Schaden",
+    "Feuermodus-Schaden",
+    "Schadens-Modifikator",
+    "Schaden-Modifikator",
+    "Schaden",
+  ]);
+  const attackValueLabels = new Set([
+    "Angriffswert-Formel",
+    "Angriffswert-Basis",
+    "Geschicklichkeit-Wert",
+    "Stärke-Wert",
+    "Reaktion-Wert",
+    "Feuermodus-Angriffswert",
+    "Angriffswert-Modifikator",
+    "Angriffswert",
+  ]);
+  const defenseLabels = new Set([
+    "Verteidigung",
+    "Verteidigungswert",
+    "Reaktion Basis",
+    "Reaktion Modifikator",
+    "Reaktion Gesamtwert",
+    "Intuition Basis",
+    "Intuition Modifikator",
+    "Intuition Gesamtwert",
+  ]);
+  const popupLabels = new Set([
+    "Skill-Modifikator",
+    "Spezialisierung",
+    "Expertise",
+    "Spezialisierung/Expertise",
+  ]);
+
+  if (combatContextLabels.has(label)) return "combat_context";
+  if (label === "Attribut" || label.indexOf("Attributwert ") === 0) return "attribute";
+  if (skillLabels.has(label)) return "skill";
+  if (damageLabels.has(label)) return "combat_damage";
+  if (attackValueLabels.has(label)) return "combat_attack_value";
+  if (defenseLabels.has(label)) return "combat_defense";
+  if (popupLabels.has(label)) return "popup";
+  return "";
+}
+
+function getCalcDetailSourceGroupKey(label, subjectFieldLabel, payload) {
+  if (isCombatCalcDetailDefinition(payload)) {
+    const combatGroupKey = getCombatCalcDetailSourceGroupKey(label);
+    if (combatGroupKey) return combatGroupKey;
+  }
+
   if (label === "Sprachniveau") return "language";
   if (label === "Attributsprobe" || label === "Formel") return "formula";
   if (subjectFieldLabel === "Attribut" && (label === "Basis" || label === "Modifikator" || label === "Gesamtwert")) return "attribute";
@@ -3428,6 +3516,10 @@ function getCalcDetailSourceGroupKey(label, subjectFieldLabel) {
 }
 
 function getCalcDetailSourceGroupTitle(groupKey) {
+  if (groupKey === "combat_context") return "Kampfkontext";
+  if (groupKey === "combat_damage") return "Schadensberechnung";
+  if (groupKey === "combat_attack_value") return "Angriffswertberechnung";
+  if (groupKey === "combat_defense") return "Verteidigungsberechnung";
   if (groupKey === "attribute") return "Attributsberechnung";
   if (groupKey === "skill") return "Fertigkeitsberechnung";
   if (groupKey === "popup") return "Popup-Modifikatoren";
@@ -3502,7 +3594,7 @@ function buildCalcDetailGroups(rows, subjectFieldLabel, payload) {
     if (seen.has(entry)) return;
     seen.add(entry);
 
-    const groupKey = getCalcDetailSourceGroupKey(label, subjectFieldLabel);
+    const groupKey = getCalcDetailSourceGroupKey(label, subjectFieldLabel, payload);
     if (!currentSourceGroup || currentSourceGroup.key !== groupKey) {
       appendSourceDetailGroup(sourceGroups, currentSourceGroup);
       currentSourceGroup = { key: groupKey, entries: [] };
@@ -3543,10 +3635,12 @@ function appendCalcDetailsTemplateFields(parts, rows, subjectFieldLabel, payload
     appendCalcDetailsGroupTemplateFields(parts, "calc_details_sources_3", groups.sourceGroups[2]);
     appendCalcDetailsGroupTemplateFields(parts, "calc_details_sources_4", groups.sourceGroups[3]);
     appendCalcDetailsGroupTemplateFields(parts, "calc_details_sources_5", groups.sourceGroups[4]);
-    if (groups.sourceGroups[5]) {
-      appendCalcDetailsGroupTemplateFields(parts, "calc_details_sources_6", {
-        title: groups.sourceGroups[5].title,
-        details: groups.sourceGroups.slice(5).map((group) => group.details).join(", "),
+    appendCalcDetailsGroupTemplateFields(parts, "calc_details_sources_6", groups.sourceGroups[5]);
+    appendCalcDetailsGroupTemplateFields(parts, "calc_details_sources_7", groups.sourceGroups[6]);
+    if (groups.sourceGroups[7]) {
+      appendCalcDetailsGroupTemplateFields(parts, "calc_details_sources_8", {
+        title: groups.sourceGroups[7].title,
+        details: groups.sourceGroups.slice(7).map((group) => group.details).join(", "),
       });
     }
   }
@@ -6359,12 +6453,6 @@ const SR6_COMBAT_CALCULATED_FIELDS = [
     },
   },
   {
-    key: "sr6_combat_projektilwaffen",
-    useModifier: false,
-    base: (totals, skillTotals, values) =>
-      getCombatRangedPool(totals, skillTotals, values, "Projektilwaffen", "Projektilwaffen"),
-  },
-  {
     key: "sr6_combat_nahkampfangriff",
     useModifier: false,
     base: (totals, skillTotals, values) => {
@@ -7411,7 +7499,6 @@ function buildRecalcEvents() {
   events.push("change:sr6_combat_helm");
   events.push("change:sr6_combat_schild");
   events.push("change:sr6_combat_fernkampfangriff_modifikator");
-  events.push("change:sr6_combat_projektilwaffen_modifikator");
   events.push("change:sr6_combat_fernkampf_fertigkeit");
   events.push("change:sr6_combat_fernkampf_waffentyp");
   events.push("change:sr6_combat_nahkampfangriff_modifikator");

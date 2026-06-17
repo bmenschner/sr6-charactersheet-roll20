@@ -212,12 +212,6 @@ const SR6_COMBAT_CALCULATED_FIELDS = [
     },
   },
   {
-    key: "sr6_combat_projektilwaffen",
-    useModifier: false,
-    base: (totals, skillTotals, values) =>
-      getCombatRangedPool(totals, skillTotals, values, "Projektilwaffen", "Projektilwaffen"),
-  },
-  {
     key: "sr6_combat_nahkampfangriff",
     useModifier: false,
     base: (totals, skillTotals, values) => {
