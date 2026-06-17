@@ -37,13 +37,13 @@ function runSuccessProbeRoll(eventInfo) {
     }
 
     startRoll(
-      "&{template:default} {{name=Probenmodifikator}} {{Wert=[[?{Modifikator|0}]]}}",
+      "&{template:default} {{name=Popup-Modifikator}} {{Wert=[[?{Modifikator|0}]]}}",
       (queryResult) => {
         const queryRoll = queryResult && queryResult.results && queryResult.results.Wert;
         const popupState = {
           poolMod: parseNumber(queryRoll && queryRoll.result),
           rows: parseNumber(queryRoll && queryRoll.result) !== 0
-            ? [{ label: "Probenmodifikator", value: `${parseNumber(queryRoll && queryRoll.result)}` }]
+            ? [{ label: "Popup-Modifikator", value: `${parseNumber(queryRoll && queryRoll.result)}` }]
             : [],
         };
         if (queryResult && queryResult.rollId) {
@@ -62,7 +62,7 @@ function runTestPopupProbeRoll(eventInfo) {
     const popupPoolMod = parseNumber(values.sr6_test_roll_popup_mod);
     const popupState = {
       poolMod: popupPoolMod,
-      rows: popupPoolMod !== 0 ? [{ label: "Probenmodifikator", value: `${popupPoolMod}` }] : [],
+      rows: popupPoolMod !== 0 ? [{ label: "Popup-Modifikator", value: `${popupPoolMod}` }] : [],
     };
     runSuccessProbeFromContext(rawTemplate, repeatingRowPrefix, popupState);
   });

@@ -996,7 +996,7 @@ const SR6_DEFAULT_POPUP_FIELDS = [
   {
     id: "pool_mod",
     slot: 1,
-    label: "Probenmodifikator",
+    label: "Popup-Modifikator",
     type: "number",
     affects: "pool",
     defaultValue: "0",
@@ -1123,7 +1123,7 @@ function createAttributeProbePopupFields() {
     {
       id: "attribute_mod",
       slot: 1,
-      label: "Probenmodifikator",
+      label: "Popup-Modifikator",
       type: "number",
       affects: "pool",
       defaultValue: "0",
@@ -3200,7 +3200,7 @@ function shouldIncludeCalcDetailRow(row, subjectFieldLabel) {
   if (!value) return false;
   if (row.label === subjectFieldLabel) return false;
   if (row.label === "name" || row.label === "Pool" || row.label === "Erfolge" || row.label === "Details") return false;
-  if (row.label === "Probenmodifikator" && parseNumber(value) === 0) return false;
+  if (row.label === "Popup-Modifikator" && parseNumber(value) === 0) return false;
   return true;
 }
 
@@ -3365,7 +3365,7 @@ function buildComputationDebugRows(computation, sourceRows) {
     appendDebugRow(rows, "Pool-Multiplikator", `x${poolMultiplier}`);
   }
   appendNonZeroDebugModifierRow(rows, "Pool-Zustandsmodifikator", monitorPoolMod);
-  appendNonZeroDebugModifierRow(rows, "Pool-Probenmodifikator", poolPopupMod);
+  appendNonZeroDebugModifierRow(rows, "Pool-Popup-Modifikator", poolPopupMod);
   appendNonZeroDebugModifierRow(rows, "Pool-Wert-Modifikator", poolRollMod);
   appendNonZeroDebugModifierRow(rows, "Pool-Edgebonus", edgePoolBonus);
 
@@ -3383,11 +3383,39 @@ function getCalcDetailSourceGroupKey(label) {
   if (label === "Attributsprobe" || label === "Formel") return "formula";
   if (label === "Attribut" || label.indexOf("Attributwert ") === 0) return "attribute";
   if (label.indexOf("Fertigkeitswert ") === 0) return "skill";
+  if (
+    label === "Popup-Modifikator" ||
+    label === "Expertise" ||
+    label === "Spezialisierung/Expertise" ||
+    label === "Ungeübt" ||
+    label === "Edge-Boost" ||
+    label === "Edge-Kosten" ||
+    label === "Edge-Poolbonus" ||
+    label === "Edge-Hinweis" ||
+    label === "Schicksalswürfel" ||
+    label === "Schicksalswürfel-Wurf" ||
+    label === "Schicksalswürfel-Quelle" ||
+    label === "Schicksalswürfel begrenzt"
+  ) {
+    return "popup";
+  }
+  if (label === "Hinweis" || label.indexOf("-Hinweis") > -1) return "hint";
   const formulaComponentMatch = label.match(/^(.+) (Basis|Modifikator|Gesamtwert)$/);
   if (formulaComponentMatch && formulaComponentMatch[1] !== "Pool") {
     return `component:${formulaComponentMatch[1]}`;
   }
   return "general";
+}
+
+function getCalcDetailSourceGroupTitle(groupKey) {
+  if (groupKey === "attribute") return "Attributsberechnung";
+  if (groupKey === "skill") return "Fertigkeitsberechnung";
+  if (groupKey === "popup") return "Popup-Modifikatoren";
+  if (groupKey === "hint") return "Hinweis";
+  if (groupKey && groupKey.indexOf("component:") === 0) {
+    return `${groupKey.slice("component:".length)} Berechnung`;
+  }
+  return "";
 }
 
 function hasLanguageBonusRow(rows) {
@@ -3404,17 +3432,25 @@ function shouldSuppressSourceDetailRow(row) {
 }
 
 function buildSourceDetailEntry(row, sourceRows) {
-  const label = row.label;
+  let label = row.label;
   let value = `${row.value || ""}`.trim();
   if (label === "Formel" && hasLanguageBonusRow(sourceRows) && value.indexOf("Sprachbonus") === -1) {
     value = `${value} + Sprachbonus`;
+  }
+  if (label === "Edge-Hinweis") {
+    label = "Schicksalswürfel-Edge-Hinweis";
+  } else if (label === "Schicksalswürfel-Hinweis") {
+    label = "Hinweis";
   }
   return `${label}: ${value}`;
 }
 
 function appendSourceDetailGroup(groups, group) {
   if (!group || group.entries.length === 0) return;
-  groups.push(group.entries.join(", "));
+  groups.push({
+    title: getCalcDetailSourceGroupTitle(group.key),
+    details: group.entries.join(", "),
+  });
 }
 
 function buildCalcDetailGroups(rows, subjectFieldLabel, payload) {
@@ -3461,6 +3497,12 @@ function buildCalcDetailGroups(rows, subjectFieldLabel, payload) {
   };
 }
 
+function appendCalcDetailsGroupTemplateFields(parts, prefix, group) {
+  if (!group || !group.details) return;
+  if (group.title) parts.push(`{{${prefix}_title=${group.title}}}`);
+  parts.push(`{{${prefix}=${group.details}}}`);
+}
+
 function appendCalcDetailsTemplateFields(parts, rows, subjectFieldLabel, payload) {
   const groups = buildCalcDetailGroups(rows, subjectFieldLabel, payload);
 
@@ -3469,13 +3511,20 @@ function appendCalcDetailsTemplateFields(parts, rows, subjectFieldLabel, payload
   }
   if (groups.sourceGroups.length > 0) {
     if (!groups.summary) {
-      parts.push(`{{calc_details=${groups.sourceGroups[0]}}}`);
+      parts.push(`{{calc_details=${groups.sourceGroups[0].details}}}`);
     } else {
-      parts.push(`{{calc_details_sources=${groups.sourceGroups[0]}}}`);
+      appendCalcDetailsGroupTemplateFields(parts, "calc_details_sources", groups.sourceGroups[0]);
     }
-    if (groups.sourceGroups[1]) parts.push(`{{calc_details_sources_2=${groups.sourceGroups[1]}}}`);
-    if (groups.sourceGroups[2]) parts.push(`{{calc_details_sources_3=${groups.sourceGroups[2]}}}`);
-    if (groups.sourceGroups[3]) parts.push(`{{calc_details_sources_4=${groups.sourceGroups.slice(3).join(", ")}}}`);
+    appendCalcDetailsGroupTemplateFields(parts, "calc_details_sources_2", groups.sourceGroups[1]);
+    appendCalcDetailsGroupTemplateFields(parts, "calc_details_sources_3", groups.sourceGroups[2]);
+    appendCalcDetailsGroupTemplateFields(parts, "calc_details_sources_4", groups.sourceGroups[3]);
+    appendCalcDetailsGroupTemplateFields(parts, "calc_details_sources_5", groups.sourceGroups[4]);
+    if (groups.sourceGroups[5]) {
+      appendCalcDetailsGroupTemplateFields(parts, "calc_details_sources_6", {
+        title: groups.sourceGroups[5].title,
+        details: groups.sourceGroups.slice(5).map((group) => group.details).join(", "),
+      });
+    }
   }
 }
 
@@ -3692,7 +3741,7 @@ function buildFixedPoolComputation(poolValue) {
 // END MODULE: workers/rolls/compute
 
 // BEGIN MODULE: workers/rolls/probe
-// Fuehrt fachliche Pool-Berechnungen aus: Probenmodifikatoren, Spezialisierungen, Kampf/Magie/Matrix/Rigging-Sonderlogik und finale Rollauswertung.
+// Fuehrt fachliche Pool-Berechnungen aus: Popup-Modifikatoren, Spezialisierungen, Kampf/Magie/Matrix/Rigging-Sonderlogik und finale Rollauswertung.
 function normalizePopupState(popupState) {
   if (typeof popupState === "number") {
     return { poolMod: popupState, attackValueMod: 0, damageMod: 0, drainMod: 0, poolMultiplier: 1, selectedValues: {}, rows: [] };
@@ -5377,13 +5426,13 @@ function runSuccessProbeRoll(eventInfo) {
     }
 
     startRoll(
-      "&{template:default} {{name=Probenmodifikator}} {{Wert=[[?{Modifikator|0}]]}}",
+      "&{template:default} {{name=Popup-Modifikator}} {{Wert=[[?{Modifikator|0}]]}}",
       (queryResult) => {
         const queryRoll = queryResult && queryResult.results && queryResult.results.Wert;
         const popupState = {
           poolMod: parseNumber(queryRoll && queryRoll.result),
           rows: parseNumber(queryRoll && queryRoll.result) !== 0
-            ? [{ label: "Probenmodifikator", value: `${parseNumber(queryRoll && queryRoll.result)}` }]
+            ? [{ label: "Popup-Modifikator", value: `${parseNumber(queryRoll && queryRoll.result)}` }]
             : [],
         };
         if (queryResult && queryResult.rollId) {
@@ -5402,7 +5451,7 @@ function runTestPopupProbeRoll(eventInfo) {
     const popupPoolMod = parseNumber(values.sr6_test_roll_popup_mod);
     const popupState = {
       poolMod: popupPoolMod,
-      rows: popupPoolMod !== 0 ? [{ label: "Probenmodifikator", value: `${popupPoolMod}` }] : [],
+      rows: popupPoolMod !== 0 ? [{ label: "Popup-Modifikator", value: `${popupPoolMod}` }] : [],
     };
     runSuccessProbeFromContext(rawTemplate, repeatingRowPrefix, popupState);
   });

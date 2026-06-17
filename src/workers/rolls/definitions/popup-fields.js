@@ -4,7 +4,7 @@ const SR6_DEFAULT_POPUP_FIELDS = [
   {
     id: "pool_mod",
     slot: 1,
-    label: "Probenmodifikator",
+    label: "Popup-Modifikator",
     type: "number",
     affects: "pool",
     defaultValue: "0",

@@ -97,7 +97,7 @@ function createAttributeProbePopupFields() {
     {
       id: "attribute_mod",
       slot: 1,
-      label: "Probenmodifikator",
+      label: "Popup-Modifikator",
       type: "number",
       affects: "pool",
       defaultValue: "0",

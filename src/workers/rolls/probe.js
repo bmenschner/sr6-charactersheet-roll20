@@ -1,5 +1,5 @@
 // BEGIN MODULE: workers/rolls/probe
-// Fuehrt fachliche Pool-Berechnungen aus: Probenmodifikatoren, Spezialisierungen, Kampf/Magie/Matrix/Rigging-Sonderlogik und finale Rollauswertung.
+// Fuehrt fachliche Pool-Berechnungen aus: Popup-Modifikatoren, Spezialisierungen, Kampf/Magie/Matrix/Rigging-Sonderlogik und finale Rollauswertung.
 function normalizePopupState(popupState) {
   if (typeof popupState === "number") {
     return { poolMod: popupState, attackValueMod: 0, damageMod: 0, drainMod: 0, poolMultiplier: 1, selectedValues: {}, rows: [] };
