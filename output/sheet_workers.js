@@ -3022,22 +3022,33 @@ function buildDiceDetails(diceResults) {
   return Array.isArray(diceResults) ? diceResults.join(" + ") : "";
 }
 
-function buildDetailsDice(diceResults, fateDiceResults = [], maxDice = 20) {
+function buildDetailsDice(diceResults, fateDiceResults = [], maxDice = 20, diceTrace = []) {
   if (!Array.isArray(diceResults)) return [];
 
   const fateCount = Array.isArray(fateDiceResults) ? fateDiceResults.length : 0;
   const fateStartIndex = Math.max(0, diceResults.length - fateCount);
+  const trace = Array.isArray(diceTrace) ? diceTrace : [];
+  const hasTrace = trace.length > 0;
 
-  return diceResults.slice(0, maxDice).map((die, index) => {
+  const detailsDice = diceResults.map((die, index) => {
+    const tracedDie = trace[index] || {};
     let tone = "neutral";
     if (die === 1) tone = "fail";
     if (die >= 5) tone = "success";
     return {
       value: `${die}`,
       tone: tone,
-      isFate: fateCount > 0 && index >= fateStartIndex,
+      isFate: hasTrace ? !!tracedDie.isFate : (fateCount > 0 && index >= fateStartIndex),
+      isExploded: !!tracedDie.isExploded,
+      isFateExplosion: !!tracedDie.isFateExplosion,
     };
   });
+  const regularDice = detailsDice.filter((die) => !die.isFate && !die.isFateExplosion);
+  const fateDice = detailsDice.filter((die) => die.isFate || die.isFateExplosion);
+  const visibleFateDice = fateDice.slice(-maxDice);
+  const regularLimit = Math.max(0, maxDice - visibleFateDice.length);
+
+  return [...regularDice.slice(0, regularLimit), ...visibleFateDice];
 }
 
 function buildNeutralDetailsDice(diceResults, maxDice = 20) {
@@ -3058,7 +3069,9 @@ function appendDetailsDiceTemplateFields(parts, detailsDice) {
     const tone = die.tone || "neutral";
     parts.push(`{{d${dieIndex}_v=${die.value}}}`);
     if (die.isFate) {
-      parts.push(`{{d${dieIndex}_fate=1}}`);
+      parts.push(`{{d${dieIndex}_${die.isExploded ? "fate_exploded" : "fate"}=1}}`);
+    } else if (die.isExploded) {
+      parts.push(`{{d${dieIndex}_${tone}_exploded=1}}`);
     } else {
       parts.push(`{{d${dieIndex}_${tone}=1}}`);
     }
@@ -3337,6 +3350,8 @@ function buildComputationDebugRows(computation, sourceRows) {
   const rows = [];
   const poolBasisRaw = parseNumber(computation.poolBasisRaw);
   const poolMultiplier = Math.max(1, parseNumber(computation.poolMultiplier) || 1);
+  const poolPreMultiplier = parseNumber(computation.poolPreMultiplier);
+  const poolMultiplierBonus = parseNumber(computation.poolMultiplierBonus);
   const poolBasis = parseNumber(computation.poolBasis);
   const monitorPoolMod = parseNumber(computation.monitorPoolMod);
   const poolPopupMod = parseNumber(computation.poolPopupMod);
@@ -3344,8 +3359,8 @@ function buildComputationDebugRows(computation, sourceRows) {
   const edgePoolBonus = parseNumber(computation.edgePoolBonus);
   const poolBasisComponents = collectPoolBasisComponents(sourceRows);
   const poolFormulaComponents = reconcilePoolFormulaComponents(
-    poolBasisComponents.length > 1 ? poolBasisComponents : [poolBasis],
-    poolBasis
+    poolBasisComponents.length > 1 ? poolBasisComponents : [poolBasisRaw],
+    poolBasisRaw
   );
   const poolFormula = buildPoolFormulaText(
     [
@@ -3354,6 +3369,7 @@ function buildComputationDebugRows(computation, sourceRows) {
       poolPopupMod,
       poolRollMod,
       edgePoolBonus,
+      poolMultiplierBonus,
     ],
     poolBasis
   );
@@ -3361,8 +3377,9 @@ function buildComputationDebugRows(computation, sourceRows) {
   appendDebugRow(rows, "Pool-Rechnung", `${poolFormula} = ${parseNumber(computation.pool)}`);
   appendDebugRow(rows, "Pool-Basis", `${poolBasis}`);
   if (poolMultiplier !== 1) {
-    appendDebugRow(rows, "Pool-Basis vor Multiplikator", `${poolBasisRaw}`);
+    appendDebugRow(rows, "Pool-Basis vor Multiplikator", `${poolPreMultiplier}`);
     appendDebugRow(rows, "Pool-Multiplikator", `x${poolMultiplier}`);
+    appendDebugRow(rows, "Pool-Multiplikator-Bonus", formatDebugModifier(poolMultiplierBonus));
   }
   appendNonZeroDebugModifierRow(rows, "Pool-Zustandsmodifikator", monitorPoolMod);
   appendNonZeroDebugModifierRow(rows, "Pool-Popup-Modifikator", poolPopupMod);
@@ -3378,9 +3395,10 @@ function buildComputationDebugRows(computation, sourceRows) {
   return rows;
 }
 
-function getCalcDetailSourceGroupKey(label) {
+function getCalcDetailSourceGroupKey(label, subjectFieldLabel) {
   if (label === "Sprachniveau") return "language";
   if (label === "Attributsprobe" || label === "Formel") return "formula";
+  if (subjectFieldLabel === "Attribut" && (label === "Basis" || label === "Modifikator" || label === "Gesamtwert")) return "attribute";
   if (label === "Attribut" || label.indexOf("Attributwert ") === 0) return "attribute";
   if (label.indexOf("Fertigkeitswert ") === 0) return "skill";
   if (
@@ -3388,6 +3406,8 @@ function getCalcDetailSourceGroupKey(label) {
     label === "Expertise" ||
     label === "Spezialisierung/Expertise" ||
     label === "Ungeübt" ||
+    label === "Attribut x2" ||
+    label === "Stufe x2" ||
     label === "Edge-Boost" ||
     label === "Edge-Kosten" ||
     label === "Edge-Poolbonus" ||
@@ -3447,10 +3467,14 @@ function buildSourceDetailEntry(row, sourceRows) {
 
 function appendSourceDetailGroup(groups, group) {
   if (!group || group.entries.length === 0) return;
-  groups.push({
-    title: getCalcDetailSourceGroupTitle(group.key),
-    details: group.entries.join(", "),
-  });
+  const title = getCalcDetailSourceGroupTitle(group.key);
+  const details = group.entries.join(", ");
+  const existingGroup = groups.find((sourceGroup) => sourceGroup.title === title);
+  if (existingGroup) {
+    existingGroup.details = `${existingGroup.details}, ${details}`;
+    return;
+  }
+  groups.push({ title, details });
 }
 
 function buildCalcDetailGroups(rows, subjectFieldLabel, payload) {
@@ -3478,7 +3502,7 @@ function buildCalcDetailGroups(rows, subjectFieldLabel, payload) {
     if (seen.has(entry)) return;
     seen.add(entry);
 
-    const groupKey = getCalcDetailSourceGroupKey(label);
+    const groupKey = getCalcDetailSourceGroupKey(label, subjectFieldLabel);
     if (!currentSourceGroup || currentSourceGroup.key !== groupKey) {
       appendSourceDetailGroup(sourceGroups, currentSourceGroup);
       currentSourceGroup = { key: groupKey, entries: [] };
@@ -3582,27 +3606,32 @@ function rollD6() {
 function rollRegularDice(pool, explodingSixes) {
   const diceResults = [];
   const initialDiceResults = [];
+  const diceTrace = [];
 
   for (let index = 0; index < pool; index += 1) {
     let die = rollD6();
     diceResults.push(die);
     initialDiceResults.push(die);
+    diceTrace.push({ value: die, isFate: false, isExploded: explodingSixes && die === 6 });
 
     while (explodingSixes && die === 6) {
       die = rollD6();
       diceResults.push(die);
+      diceTrace.push({ value: die, isFate: false, isExploded: true });
     }
   }
 
   return {
     diceResults: diceResults,
     initialDiceResults: initialDiceResults,
+    diceTrace: diceTrace,
   };
 }
 
 function rollFateDice(fateDiceCount, matrixLonerFateDiceCount, explodingSixes) {
   const diceResults = [];
   const initialDiceResults = [];
+  const diceTrace = [];
   let successCount = 0;
   let cancelingOnes = 0;
   let ignoredLonerOnes = 0;
@@ -3611,6 +3640,7 @@ function rollFateDice(fateDiceCount, matrixLonerFateDiceCount, explodingSixes) {
     let die = rollD6();
     diceResults.push(die);
     initialDiceResults.push(die);
+    diceTrace.push({ value: die, isFate: true, isExploded: explodingSixes && die === 6 });
 
     if (die === 1 && ignoreCancellationOnOne) {
       ignoredLonerOnes += 1;
@@ -3623,6 +3653,7 @@ function rollFateDice(fateDiceCount, matrixLonerFateDiceCount, explodingSixes) {
     while (explodingSixes && die === 6) {
       die = rollD6();
       diceResults.push(die);
+      diceTrace.push({ value: die, isFate: false, isExploded: true, isFateExplosion: true });
       if (die >= 5) {
         successCount += 1;
       }
@@ -3640,6 +3671,7 @@ function rollFateDice(fateDiceCount, matrixLonerFateDiceCount, explodingSixes) {
   return {
     diceResults: diceResults,
     initialDiceResults: initialDiceResults,
+    diceTrace: diceTrace,
     successCount: successCount,
     cancelsNormalFives: cancelingOnes > 0,
     cancelingOnes: cancelingOnes,
@@ -3667,15 +3699,17 @@ function buildProbeComputation(
     ? parseNumber(lookupAttr(poolAttribute))
     : parseNumber(poolBasisOverride);
   const normalizedPoolMultiplier = Math.max(1, parseNumber(poolMultiplier) || 1);
-  const poolBasis = poolBasisRaw * normalizedPoolMultiplier;
   const monitorPoolMod = parseNumber(lookupAttr("sr6_monitor_pool_mod"));
   const poolPopupMod = parseNumber(popupPoolMod);
   const poolRollMod = parseNumber(rollPoolMod);
   const edgePoolBonus = Math.max(0, parseNumber(edgeOptions && edgeOptions.poolBonus));
+  const poolPreMultiplier = poolBasisRaw + monitorPoolMod + poolPopupMod + poolRollMod + edgePoolBonus;
+  const poolMultiplierBonus = poolPreMultiplier * (normalizedPoolMultiplier - 1);
+  const poolBasis = Math.max(0, poolPreMultiplier * normalizedPoolMultiplier);
   const requestedStandardFateDiceCount = Math.max(0, parseNumber(edgeOptions && edgeOptions.fateDiceCount));
   const requestedMatrixLonerFateDiceCount = Math.max(0, parseNumber(edgeOptions && edgeOptions.matrixLonerFateDiceCount));
   const explodingSixes = !!(edgeOptions && edgeOptions.explodingSixes);
-  const pool = Math.max(0, poolBasis + monitorPoolMod + poolPopupMod + poolRollMod + edgePoolBonus);
+  const pool = poolBasis;
   const matrixLonerFateDiceCount = Math.min(requestedMatrixLonerFateDiceCount, pool);
   const remainingFateSlots = Math.max(0, pool - matrixLonerFateDiceCount);
   const standardFateDiceCount = Math.min(requestedStandardFateDiceCount, remainingFateSlots);
@@ -3689,12 +3723,15 @@ function buildProbeComputation(
   const regularSuccessCount = regularRoll.diceResults.filter((die) => die >= 5).length;
   const successCount = Math.max(0, regularSuccessCount - canceledNormalFives + fateRoll.successCount);
   const diceResults = [...regularRoll.diceResults, ...fateRoll.diceResults];
+  const diceTrace = [...regularRoll.diceTrace, ...fateRoll.diceTrace];
   const glitchDiceResults = [...regularRoll.initialDiceResults, ...fateRoll.initialDiceResults];
   const glitchState = evaluateGlitch(glitchDiceResults, successCount);
 
   return {
     poolBasisRaw: poolBasisRaw,
     poolMultiplier: normalizedPoolMultiplier,
+    poolPreMultiplier: poolPreMultiplier,
+    poolMultiplierBonus: poolMultiplierBonus,
     poolBasis: poolBasis,
     monitorPoolMod: monitorPoolMod,
     poolPopupMod: poolPopupMod,
@@ -3711,6 +3748,7 @@ function buildProbeComputation(
     regularPool: regularPool,
     pool: pool,
     diceResults: diceResults,
+    diceTrace: diceTrace,
     regularDiceResults: regularRoll.diceResults,
     fateDiceResults: fateRoll.diceResults,
     successCount: successCount,
@@ -4914,7 +4952,7 @@ function runEquipmentProbeFromContext(context, lookupAttr, resolvedFields, popup
     pool: `${computation.pool}`,
     erfolge: erfolgeValue,
     details: buildDiceDetails(computation.diceResults, computation.fateDiceResults),
-    detailsDice: buildDetailsDice(computation.diceResults, computation.fateDiceResults),
+    detailsDice: buildDetailsDice(computation.diceResults, computation.fateDiceResults, 20, computation.diceTrace),
     computation: computation,
     isGlitch: computation.isGlitch,
     characterId: lookupAttr("character_id"),
@@ -5059,7 +5097,7 @@ function runRiggingVehicleProbeFromContext(context, lookupAttr, resolvedFields, 
     pool: `${computation.pool}`,
     erfolge: erfolgeValue,
     details: buildDiceDetails(computation.diceResults, computation.fateDiceResults),
-    detailsDice: buildDetailsDice(computation.diceResults, computation.fateDiceResults),
+    detailsDice: buildDetailsDice(computation.diceResults, computation.fateDiceResults, 20, computation.diceTrace),
     computation: computation,
     isGlitch: computation.isGlitch,
     characterId: lookupAttr("character_id"),
@@ -5116,7 +5154,7 @@ function runSpellProbeFromContext(context, lookupAttr, resolvedFields, popupStat
     pool: `${spellComputation.pool}`,
     erfolge: `${spellComputation.successCount}`,
     details: buildDiceDetails(spellComputation.diceResults, spellComputation.fateDiceResults),
-    detailsDice: buildDetailsDice(spellComputation.diceResults, spellComputation.fateDiceResults),
+    detailsDice: buildDetailsDice(spellComputation.diceResults, spellComputation.fateDiceResults, 20, spellComputation.diceTrace),
     computation: spellComputation,
     isGlitch: spellComputation.isGlitch,
     characterId: lookupAttr("character_id"),
@@ -5209,7 +5247,7 @@ function runSummoningProbeFromContext(context, lookupAttr, resolvedFields, popup
     pool: `${summonerComputation.pool}`,
     erfolge: `${summonerComputation.successCount}`,
     details: buildDiceDetails(summonerComputation.diceResults, summonerComputation.fateDiceResults),
-    detailsDice: buildDetailsDice(summonerComputation.diceResults, summonerComputation.fateDiceResults),
+    detailsDice: buildDetailsDice(summonerComputation.diceResults, summonerComputation.fateDiceResults, 20, summonerComputation.diceTrace),
     computation: summonerComputation,
     isGlitch: summonerComputation.isGlitch,
     characterId: lookupAttr("character_id"),
@@ -5349,7 +5387,7 @@ function runSuccessProbeFromContext(rawTemplate, repeatingRowPrefix, popupState 
     const erfolgeValue = computation.isGlitch ? glitchText : `${computation.successCount}`;
 
     if (computation.poolMultiplier !== 1) {
-      rows.push({ label: "Pool-Basis", value: `${computation.poolBasisRaw}` });
+      rows.push({ label: "Pool-Basis vor Multiplikator", value: `${computation.poolPreMultiplier}` });
       rows.push({ label: "Multiplikator", value: `x${computation.poolMultiplier}` });
     }
     if (computation.monitorPoolMod !== 0) {
@@ -5374,7 +5412,7 @@ function runSuccessProbeFromContext(rawTemplate, repeatingRowPrefix, popupState 
       pool: `${computation.pool}`,
       erfolge: erfolgeValue,
       details: buildDiceDetails(computation.diceResults, computation.fateDiceResults),
-      detailsDice: buildDetailsDice(computation.diceResults, computation.fateDiceResults),
+      detailsDice: buildDetailsDice(computation.diceResults, computation.fateDiceResults, 20, computation.diceTrace),
       computation: computation,
       isGlitch: computation.isGlitch,
       characterId: lookupAttr("character_id"),

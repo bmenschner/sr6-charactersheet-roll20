@@ -4,22 +4,33 @@ function buildDiceDetails(diceResults) {
   return Array.isArray(diceResults) ? diceResults.join(" + ") : "";
 }
 
-function buildDetailsDice(diceResults, fateDiceResults = [], maxDice = 20) {
+function buildDetailsDice(diceResults, fateDiceResults = [], maxDice = 20, diceTrace = []) {
   if (!Array.isArray(diceResults)) return [];
 
   const fateCount = Array.isArray(fateDiceResults) ? fateDiceResults.length : 0;
   const fateStartIndex = Math.max(0, diceResults.length - fateCount);
+  const trace = Array.isArray(diceTrace) ? diceTrace : [];
+  const hasTrace = trace.length > 0;
 
-  return diceResults.slice(0, maxDice).map((die, index) => {
+  const detailsDice = diceResults.map((die, index) => {
+    const tracedDie = trace[index] || {};
     let tone = "neutral";
     if (die === 1) tone = "fail";
     if (die >= 5) tone = "success";
     return {
       value: `${die}`,
       tone: tone,
-      isFate: fateCount > 0 && index >= fateStartIndex,
+      isFate: hasTrace ? !!tracedDie.isFate : (fateCount > 0 && index >= fateStartIndex),
+      isExploded: !!tracedDie.isExploded,
+      isFateExplosion: !!tracedDie.isFateExplosion,
     };
   });
+  const regularDice = detailsDice.filter((die) => !die.isFate && !die.isFateExplosion);
+  const fateDice = detailsDice.filter((die) => die.isFate || die.isFateExplosion);
+  const visibleFateDice = fateDice.slice(-maxDice);
+  const regularLimit = Math.max(0, maxDice - visibleFateDice.length);
+
+  return [...regularDice.slice(0, regularLimit), ...visibleFateDice];
 }
 
 function buildNeutralDetailsDice(diceResults, maxDice = 20) {
@@ -40,7 +51,9 @@ function appendDetailsDiceTemplateFields(parts, detailsDice) {
     const tone = die.tone || "neutral";
     parts.push(`{{d${dieIndex}_v=${die.value}}}`);
     if (die.isFate) {
-      parts.push(`{{d${dieIndex}_fate=1}}`);
+      parts.push(`{{d${dieIndex}_${die.isExploded ? "fate_exploded" : "fate"}=1}}`);
+    } else if (die.isExploded) {
+      parts.push(`{{d${dieIndex}_${tone}_exploded=1}}`);
     } else {
       parts.push(`{{d${dieIndex}_${tone}=1}}`);
     }
@@ -319,6 +332,8 @@ function buildComputationDebugRows(computation, sourceRows) {
   const rows = [];
   const poolBasisRaw = parseNumber(computation.poolBasisRaw);
   const poolMultiplier = Math.max(1, parseNumber(computation.poolMultiplier) || 1);
+  const poolPreMultiplier = parseNumber(computation.poolPreMultiplier);
+  const poolMultiplierBonus = parseNumber(computation.poolMultiplierBonus);
   const poolBasis = parseNumber(computation.poolBasis);
   const monitorPoolMod = parseNumber(computation.monitorPoolMod);
   const poolPopupMod = parseNumber(computation.poolPopupMod);
@@ -326,8 +341,8 @@ function buildComputationDebugRows(computation, sourceRows) {
   const edgePoolBonus = parseNumber(computation.edgePoolBonus);
   const poolBasisComponents = collectPoolBasisComponents(sourceRows);
   const poolFormulaComponents = reconcilePoolFormulaComponents(
-    poolBasisComponents.length > 1 ? poolBasisComponents : [poolBasis],
-    poolBasis
+    poolBasisComponents.length > 1 ? poolBasisComponents : [poolBasisRaw],
+    poolBasisRaw
   );
   const poolFormula = buildPoolFormulaText(
     [
@@ -336,6 +351,7 @@ function buildComputationDebugRows(computation, sourceRows) {
       poolPopupMod,
       poolRollMod,
       edgePoolBonus,
+      poolMultiplierBonus,
     ],
     poolBasis
   );
@@ -343,8 +359,9 @@ function buildComputationDebugRows(computation, sourceRows) {
   appendDebugRow(rows, "Pool-Rechnung", `${poolFormula} = ${parseNumber(computation.pool)}`);
   appendDebugRow(rows, "Pool-Basis", `${poolBasis}`);
   if (poolMultiplier !== 1) {
-    appendDebugRow(rows, "Pool-Basis vor Multiplikator", `${poolBasisRaw}`);
+    appendDebugRow(rows, "Pool-Basis vor Multiplikator", `${poolPreMultiplier}`);
     appendDebugRow(rows, "Pool-Multiplikator", `x${poolMultiplier}`);
+    appendDebugRow(rows, "Pool-Multiplikator-Bonus", formatDebugModifier(poolMultiplierBonus));
   }
   appendNonZeroDebugModifierRow(rows, "Pool-Zustandsmodifikator", monitorPoolMod);
   appendNonZeroDebugModifierRow(rows, "Pool-Popup-Modifikator", poolPopupMod);
@@ -360,9 +377,10 @@ function buildComputationDebugRows(computation, sourceRows) {
   return rows;
 }
 
-function getCalcDetailSourceGroupKey(label) {
+function getCalcDetailSourceGroupKey(label, subjectFieldLabel) {
   if (label === "Sprachniveau") return "language";
   if (label === "Attributsprobe" || label === "Formel") return "formula";
+  if (subjectFieldLabel === "Attribut" && (label === "Basis" || label === "Modifikator" || label === "Gesamtwert")) return "attribute";
   if (label === "Attribut" || label.indexOf("Attributwert ") === 0) return "attribute";
   if (label.indexOf("Fertigkeitswert ") === 0) return "skill";
   if (
@@ -370,6 +388,8 @@ function getCalcDetailSourceGroupKey(label) {
     label === "Expertise" ||
     label === "Spezialisierung/Expertise" ||
     label === "Ungeübt" ||
+    label === "Attribut x2" ||
+    label === "Stufe x2" ||
     label === "Edge-Boost" ||
     label === "Edge-Kosten" ||
     label === "Edge-Poolbonus" ||
@@ -429,10 +449,14 @@ function buildSourceDetailEntry(row, sourceRows) {
 
 function appendSourceDetailGroup(groups, group) {
   if (!group || group.entries.length === 0) return;
-  groups.push({
-    title: getCalcDetailSourceGroupTitle(group.key),
-    details: group.entries.join(", "),
-  });
+  const title = getCalcDetailSourceGroupTitle(group.key);
+  const details = group.entries.join(", ");
+  const existingGroup = groups.find((sourceGroup) => sourceGroup.title === title);
+  if (existingGroup) {
+    existingGroup.details = `${existingGroup.details}, ${details}`;
+    return;
+  }
+  groups.push({ title, details });
 }
 
 function buildCalcDetailGroups(rows, subjectFieldLabel, payload) {
@@ -460,7 +484,7 @@ function buildCalcDetailGroups(rows, subjectFieldLabel, payload) {
     if (seen.has(entry)) return;
     seen.add(entry);
 
-    const groupKey = getCalcDetailSourceGroupKey(label);
+    const groupKey = getCalcDetailSourceGroupKey(label, subjectFieldLabel);
     if (!currentSourceGroup || currentSourceGroup.key !== groupKey) {
       appendSourceDetailGroup(sourceGroups, currentSourceGroup);
       currentSourceGroup = { key: groupKey, entries: [] };

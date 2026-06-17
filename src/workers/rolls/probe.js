@@ -1172,7 +1172,7 @@ function runEquipmentProbeFromContext(context, lookupAttr, resolvedFields, popup
     pool: `${computation.pool}`,
     erfolge: erfolgeValue,
     details: buildDiceDetails(computation.diceResults, computation.fateDiceResults),
-    detailsDice: buildDetailsDice(computation.diceResults, computation.fateDiceResults),
+    detailsDice: buildDetailsDice(computation.diceResults, computation.fateDiceResults, 20, computation.diceTrace),
     computation: computation,
     isGlitch: computation.isGlitch,
     characterId: lookupAttr("character_id"),
@@ -1317,7 +1317,7 @@ function runRiggingVehicleProbeFromContext(context, lookupAttr, resolvedFields, 
     pool: `${computation.pool}`,
     erfolge: erfolgeValue,
     details: buildDiceDetails(computation.diceResults, computation.fateDiceResults),
-    detailsDice: buildDetailsDice(computation.diceResults, computation.fateDiceResults),
+    detailsDice: buildDetailsDice(computation.diceResults, computation.fateDiceResults, 20, computation.diceTrace),
     computation: computation,
     isGlitch: computation.isGlitch,
     characterId: lookupAttr("character_id"),
@@ -1374,7 +1374,7 @@ function runSpellProbeFromContext(context, lookupAttr, resolvedFields, popupStat
     pool: `${spellComputation.pool}`,
     erfolge: `${spellComputation.successCount}`,
     details: buildDiceDetails(spellComputation.diceResults, spellComputation.fateDiceResults),
-    detailsDice: buildDetailsDice(spellComputation.diceResults, spellComputation.fateDiceResults),
+    detailsDice: buildDetailsDice(spellComputation.diceResults, spellComputation.fateDiceResults, 20, spellComputation.diceTrace),
     computation: spellComputation,
     isGlitch: spellComputation.isGlitch,
     characterId: lookupAttr("character_id"),
@@ -1467,7 +1467,7 @@ function runSummoningProbeFromContext(context, lookupAttr, resolvedFields, popup
     pool: `${summonerComputation.pool}`,
     erfolge: `${summonerComputation.successCount}`,
     details: buildDiceDetails(summonerComputation.diceResults, summonerComputation.fateDiceResults),
-    detailsDice: buildDetailsDice(summonerComputation.diceResults, summonerComputation.fateDiceResults),
+    detailsDice: buildDetailsDice(summonerComputation.diceResults, summonerComputation.fateDiceResults, 20, summonerComputation.diceTrace),
     computation: summonerComputation,
     isGlitch: summonerComputation.isGlitch,
     characterId: lookupAttr("character_id"),
@@ -1607,7 +1607,7 @@ function runSuccessProbeFromContext(rawTemplate, repeatingRowPrefix, popupState 
     const erfolgeValue = computation.isGlitch ? glitchText : `${computation.successCount}`;
 
     if (computation.poolMultiplier !== 1) {
-      rows.push({ label: "Pool-Basis", value: `${computation.poolBasisRaw}` });
+      rows.push({ label: "Pool-Basis vor Multiplikator", value: `${computation.poolPreMultiplier}` });
       rows.push({ label: "Multiplikator", value: `x${computation.poolMultiplier}` });
     }
     if (computation.monitorPoolMod !== 0) {
@@ -1632,7 +1632,7 @@ function runSuccessProbeFromContext(rawTemplate, repeatingRowPrefix, popupState 
       pool: `${computation.pool}`,
       erfolge: erfolgeValue,
       details: buildDiceDetails(computation.diceResults, computation.fateDiceResults),
-      detailsDice: buildDetailsDice(computation.diceResults, computation.fateDiceResults),
+      detailsDice: buildDetailsDice(computation.diceResults, computation.fateDiceResults, 20, computation.diceTrace),
       computation: computation,
       isGlitch: computation.isGlitch,
       characterId: lookupAttr("character_id"),

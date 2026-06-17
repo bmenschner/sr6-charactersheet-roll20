@@ -7,27 +7,32 @@ function rollD6() {
 function rollRegularDice(pool, explodingSixes) {
   const diceResults = [];
   const initialDiceResults = [];
+  const diceTrace = [];
 
   for (let index = 0; index < pool; index += 1) {
     let die = rollD6();
     diceResults.push(die);
     initialDiceResults.push(die);
+    diceTrace.push({ value: die, isFate: false, isExploded: explodingSixes && die === 6 });
 
     while (explodingSixes && die === 6) {
       die = rollD6();
       diceResults.push(die);
+      diceTrace.push({ value: die, isFate: false, isExploded: true });
     }
   }
 
   return {
     diceResults: diceResults,
     initialDiceResults: initialDiceResults,
+    diceTrace: diceTrace,
   };
 }
 
 function rollFateDice(fateDiceCount, matrixLonerFateDiceCount, explodingSixes) {
   const diceResults = [];
   const initialDiceResults = [];
+  const diceTrace = [];
   let successCount = 0;
   let cancelingOnes = 0;
   let ignoredLonerOnes = 0;
@@ -36,6 +41,7 @@ function rollFateDice(fateDiceCount, matrixLonerFateDiceCount, explodingSixes) {
     let die = rollD6();
     diceResults.push(die);
     initialDiceResults.push(die);
+    diceTrace.push({ value: die, isFate: true, isExploded: explodingSixes && die === 6 });
 
     if (die === 1 && ignoreCancellationOnOne) {
       ignoredLonerOnes += 1;
@@ -48,6 +54,7 @@ function rollFateDice(fateDiceCount, matrixLonerFateDiceCount, explodingSixes) {
     while (explodingSixes && die === 6) {
       die = rollD6();
       diceResults.push(die);
+      diceTrace.push({ value: die, isFate: false, isExploded: true, isFateExplosion: true });
       if (die >= 5) {
         successCount += 1;
       }
@@ -65,6 +72,7 @@ function rollFateDice(fateDiceCount, matrixLonerFateDiceCount, explodingSixes) {
   return {
     diceResults: diceResults,
     initialDiceResults: initialDiceResults,
+    diceTrace: diceTrace,
     successCount: successCount,
     cancelsNormalFives: cancelingOnes > 0,
     cancelingOnes: cancelingOnes,
@@ -92,15 +100,17 @@ function buildProbeComputation(
     ? parseNumber(lookupAttr(poolAttribute))
     : parseNumber(poolBasisOverride);
   const normalizedPoolMultiplier = Math.max(1, parseNumber(poolMultiplier) || 1);
-  const poolBasis = poolBasisRaw * normalizedPoolMultiplier;
   const monitorPoolMod = parseNumber(lookupAttr("sr6_monitor_pool_mod"));
   const poolPopupMod = parseNumber(popupPoolMod);
   const poolRollMod = parseNumber(rollPoolMod);
   const edgePoolBonus = Math.max(0, parseNumber(edgeOptions && edgeOptions.poolBonus));
+  const poolPreMultiplier = poolBasisRaw + monitorPoolMod + poolPopupMod + poolRollMod + edgePoolBonus;
+  const poolMultiplierBonus = poolPreMultiplier * (normalizedPoolMultiplier - 1);
+  const poolBasis = Math.max(0, poolPreMultiplier * normalizedPoolMultiplier);
   const requestedStandardFateDiceCount = Math.max(0, parseNumber(edgeOptions && edgeOptions.fateDiceCount));
   const requestedMatrixLonerFateDiceCount = Math.max(0, parseNumber(edgeOptions && edgeOptions.matrixLonerFateDiceCount));
   const explodingSixes = !!(edgeOptions && edgeOptions.explodingSixes);
-  const pool = Math.max(0, poolBasis + monitorPoolMod + poolPopupMod + poolRollMod + edgePoolBonus);
+  const pool = poolBasis;
   const matrixLonerFateDiceCount = Math.min(requestedMatrixLonerFateDiceCount, pool);
   const remainingFateSlots = Math.max(0, pool - matrixLonerFateDiceCount);
   const standardFateDiceCount = Math.min(requestedStandardFateDiceCount, remainingFateSlots);
@@ -114,12 +124,15 @@ function buildProbeComputation(
   const regularSuccessCount = regularRoll.diceResults.filter((die) => die >= 5).length;
   const successCount = Math.max(0, regularSuccessCount - canceledNormalFives + fateRoll.successCount);
   const diceResults = [...regularRoll.diceResults, ...fateRoll.diceResults];
+  const diceTrace = [...regularRoll.diceTrace, ...fateRoll.diceTrace];
   const glitchDiceResults = [...regularRoll.initialDiceResults, ...fateRoll.initialDiceResults];
   const glitchState = evaluateGlitch(glitchDiceResults, successCount);
 
   return {
     poolBasisRaw: poolBasisRaw,
     poolMultiplier: normalizedPoolMultiplier,
+    poolPreMultiplier: poolPreMultiplier,
+    poolMultiplierBonus: poolMultiplierBonus,
     poolBasis: poolBasis,
     monitorPoolMod: monitorPoolMod,
     poolPopupMod: poolPopupMod,
@@ -136,6 +149,7 @@ function buildProbeComputation(
     regularPool: regularPool,
     pool: pool,
     diceResults: diceResults,
+    diceTrace: diceTrace,
     regularDiceResults: regularRoll.diceResults,
     fateDiceResults: fateRoll.diceResults,
     successCount: successCount,

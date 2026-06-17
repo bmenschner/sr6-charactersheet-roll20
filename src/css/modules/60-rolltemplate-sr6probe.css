@@ -81,6 +81,12 @@
   align-items: center;
 }
 
+.sheet-rolltemplate-sr6probe .sheet-sr6probe__die--exploded,
+.sheet-sr6probe__die--exploded {
+  border-color: #c62828;
+  box-shadow: none;
+}
+
 .sheet-rolltemplate-sr6probe .sheet-sr6probe__row--details,
 .sheet-sr6probe__row--details {
   display: block;
