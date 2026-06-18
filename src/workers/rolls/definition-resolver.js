@@ -128,6 +128,21 @@ function getRollAdditionalAttributes(definition) {
   if (definition && definition.id === "rigging_vehicle") {
     attributes.push(...SR6_RIGGING_VEHICLE_ROLL_ATTRIBUTES);
   }
+  if (definition && [
+    "physical_defense",
+    "physical_damage_resistance",
+    "general_defense",
+    "general_damage_resistance",
+  ].includes(definition.id)) {
+    attributes.push(
+      "sr6_combat_primaere_panzerung",
+      "sr6_combat_sekundaere_panzerung",
+      "sr6_combat_helm",
+      "sr6_combat_schild",
+      "sr6_combat_verteidigungswert_modifikator",
+      "sr6_combat_verteidigungswert_gesamtwert"
+    );
+  }
   if (definition && definition.id === "matrix_action") {
     return [...new Set([...attributes, ...getMatrixActionRuleAttributeRefs(), ...getMatrixActionSelectionAttributeRefs()])];
   }
@@ -267,6 +282,7 @@ function buildPopupStateFromValues(values, definition, poolAttribute) {
   const popupFields = getRollPopupFields(definition, poolAttribute);
   const popupRows = [];
   const selectedValues = {};
+  const combatSkillBonusIsInformational = typeof isComputedCombatPoolDefinition === "function" && isComputedCombatPoolDefinition(definition);
   let poolMod = 0;
   let attackValueMod = 0;
   let damageMod = 0;
@@ -310,6 +326,9 @@ function buildPopupStateFromValues(values, definition, poolAttribute) {
       : field.affects
         ? [field.affects]
         : [];
+    const skillBonusIsInformational =
+      combatSkillBonusIsInformational &&
+      (field.id === "specialization" || field.id === "expertise");
     const affectMultipliers = field && field.affectMultipliers && typeof field.affectMultipliers === "object"
       ? field.affectMultipliers
       : {};
@@ -323,7 +342,7 @@ function buildPopupStateFromValues(values, definition, poolAttribute) {
       selectedValues[field.id] = normalizedValue;
     }
 
-    if (affects.includes("pool")) {
+    if (affects.includes("pool") && !skillBonusIsInformational) {
       poolMod += isNumberField
         ? numericBaseValue * (parseNumber(affectMultipliers.pool) || 1)
         : isCheckboxField
@@ -375,6 +394,7 @@ function buildPopupStateFromValues(values, definition, poolAttribute) {
       popupRows.push({
         label: field.label,
         value: displayValue,
+        ignorePoolFormula: skillBonusIsInformational,
       });
     }
 
@@ -518,6 +538,21 @@ function buildPopupPrefillPayload(definition, poolAttribute, repeatingRowPrefix,
       payload[getPopupFieldValueAttr(field, index)] = "1";
     }
   });
+
+  if (typeof resolveComputedCombatPopupSkillBonusState === "function") {
+    const combatSkillBonusState = resolveComputedCombatPopupSkillBonusState(definition, resolvedTemplateFields, lookupAttr);
+    if (combatSkillBonusState) {
+      popupFields.forEach((field, index) => {
+        if (!fieldMatchesPopupVisibility(field, resolvedTemplateFields)) return;
+        if (field.id === "specialization") {
+          payload[getPopupFieldValueAttr(field, index)] = combatSkillBonusState.specializationActive ? "1" : "0";
+        }
+        if (field.id === "expertise") {
+          payload[getPopupFieldValueAttr(field, index)] = combatSkillBonusState.expertiseActive ? "1" : "0";
+        }
+      });
+    }
+  }
 
   return payload;
 }

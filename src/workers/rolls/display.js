@@ -244,6 +244,7 @@ function getLanguageLevelBonusFromRows(rows) {
 
 function isPoolBonusComponent(row, poolBonusLabels) {
   if (!row) return false;
+  if (row.ignorePoolFormula) return false;
   if (row.poolComponent) return true;
   if (!poolBonusLabels.has(row.label)) return false;
   const value = `${row.value === undefined || row.value === null ? "" : row.value}`.trim();
@@ -429,13 +430,50 @@ function getCombatCalcDetailSourceGroupKey(label) {
   ]);
   const defenseLabels = new Set([
     "Verteidigung",
-    "Verteidigungswert",
     "Reaktion Basis",
     "Reaktion Modifikator",
     "Reaktion Gesamtwert",
     "Intuition Basis",
     "Intuition Modifikator",
     "Intuition Gesamtwert",
+  ]);
+  const defenseValueLabels = new Set([
+    "Verteidigungswert",
+    "Verteidigungswert Konstitution Basis",
+    "Verteidigungswert Konstitution Modifikator",
+    "Verteidigungswert Konstitution Gesamtwert",
+    "Verteidigungswert Primäre Panzerung",
+    "Verteidigungswert Sekundäre Panzerung",
+    "Verteidigungswert Helm",
+    "Verteidigungswert Schild",
+    "Verteidigungswert Modifikator",
+    "Verteidigungswert Gesamtwert",
+  ]);
+  const attributeLabels = new Set([
+    "Konstitution Basis",
+    "Konstitution Modifikator",
+    "Konstitution Gesamtwert",
+    "Geschicklichkeit Basis",
+    "Geschicklichkeit Modifikator",
+    "Geschicklichkeit Gesamtwert",
+    "Stärke Basis",
+    "Stärke Modifikator",
+    "Stärke Gesamtwert",
+    "Willenskraft Basis",
+    "Willenskraft Modifikator",
+    "Willenskraft Gesamtwert",
+    "Logik Basis",
+    "Logik Modifikator",
+    "Logik Gesamtwert",
+    "Charisma Basis",
+    "Charisma Modifikator",
+    "Charisma Gesamtwert",
+    "Edge Basis",
+    "Edge Modifikator",
+    "Edge Gesamtwert",
+    "Magie/Resonanz Basis",
+    "Magie/Resonanz Modifikator",
+    "Magie/Resonanz Gesamtwert",
   ]);
   const popupLabels = new Set([
     "Skill-Modifikator",
@@ -450,6 +488,8 @@ function getCombatCalcDetailSourceGroupKey(label) {
   if (damageLabels.has(label)) return "combat_damage";
   if (attackValueLabels.has(label)) return "combat_attack_value";
   if (defenseLabels.has(label)) return "combat_defense";
+  if (defenseValueLabels.has(label)) return "combat_defense_value";
+  if (attributeLabels.has(label)) return "attribute";
   if (popupLabels.has(label)) return "popup";
   return "";
 }
@@ -519,6 +559,7 @@ function getCalcDetailSourceGroupTitle(groupKey) {
   if (groupKey === "fire_mode") return "Feuermodus";
   if (groupKey === "combat_attack_value") return "Angriffswertberechnung";
   if (groupKey === "combat_defense") return "Verteidigungsberechnung";
+  if (groupKey === "combat_defense_value") return "Verteidigungswertberechnung";
   if (groupKey === "attribute") return "Attributsberechnung";
   if (groupKey === "skill") return "Fertigkeitsberechnung";
   if (groupKey === "popup") return "Popup-Modifikatoren";
@@ -562,7 +603,7 @@ function shouldSuppressSourceDetailRow(row) {
   return row && row.label === "Sprachbonus";
 }
 
-function buildSourceDetailEntry(row, sourceRows) {
+function buildSourceDetailEntry(row, sourceRows, groupKey) {
   let label = row.label;
   let value = `${row.value || ""}`.trim();
   if (label === "Formel" && hasLanguageBonusRow(sourceRows) && value.indexOf("Sprachbonus") === -1) {
@@ -570,6 +611,9 @@ function buildSourceDetailEntry(row, sourceRows) {
   }
   if (label === "Schicksalswürfel-Hinweis") {
     label = "Hinweis";
+  }
+  if (groupKey === "combat_defense_value" && label.indexOf("Verteidigungswert ") === 0) {
+    label = label.replace(/^Verteidigungswert\s+/, "");
   }
   return `${label}: ${value}`;
 }
@@ -607,11 +651,11 @@ function buildCalcDetailGroups(rows, subjectFieldLabel, payload) {
     if (!shouldIncludeCalcDetailRow(row, subjectFieldLabel)) return;
     if (shouldSuppressSourceDetailRow(row)) return;
     const label = row.label;
-    const entry = buildSourceDetailEntry(row, rows);
+    const groupKey = getCalcDetailSourceGroupKey(label, subjectFieldLabel, payload);
+    const entry = buildSourceDetailEntry(row, rows, groupKey);
     if (seen.has(entry)) return;
     seen.add(entry);
 
-    const groupKey = getCalcDetailSourceGroupKey(label, subjectFieldLabel, payload);
     if (!currentSourceGroup || currentSourceGroup.key !== groupKey) {
       appendSourceDetailGroup(sourceGroups, currentSourceGroup);
       currentSourceGroup = { key: groupKey, entries: [] };
@@ -643,20 +687,11 @@ function appendCalcDetailsGroupTemplateFields(parts, prefix, group) {
 function appendPoolInfoGroupTemplateFields(parts, sourceGroups) {
   if (!Array.isArray(sourceGroups) || sourceGroups.length === 0) return;
 
-  const poolInfoTitles = new Set([
-    "Attributsberechnung",
-    "Fertigkeitsberechnung",
-    "Popup-Modifikatoren",
-    "Edge-Boost",
-    "Schicksalswürfel",
-  ]);
-  const poolGroups = sourceGroups.filter((group) => group && poolInfoTitles.has(group.title));
-
-  appendCalcDetailsGroupTemplateFields(parts, "pool_info_sources", poolGroups[0]);
-  appendCalcDetailsGroupTemplateFields(parts, "pool_info_sources_2", poolGroups[1]);
-  appendCalcDetailsGroupTemplateFields(parts, "pool_info_sources_3", poolGroups[2]);
-  appendCalcDetailsGroupTemplateFields(parts, "pool_info_sources_4", poolGroups[3]);
-  appendCalcDetailsGroupTemplateFields(parts, "pool_info_sources_5", poolGroups[4]);
+  appendCalcDetailsGroupTemplateFields(parts, "pool_info_sources", sourceGroups[0]);
+  appendCalcDetailsGroupTemplateFields(parts, "pool_info_sources_2", sourceGroups[1]);
+  appendCalcDetailsGroupTemplateFields(parts, "pool_info_sources_3", sourceGroups[2]);
+  appendCalcDetailsGroupTemplateFields(parts, "pool_info_sources_4", sourceGroups[3]);
+  appendCalcDetailsGroupTemplateFields(parts, "pool_info_sources_5", sourceGroups[4]);
 }
 
 function getLastRowValue(rows, label) {
@@ -765,45 +800,40 @@ function getVisibleCombatContextInfoGroups(row, sourceGroups, usedTitles) {
   }, []);
 }
 
-function appendVisibleCombatContextTemplateFields(parts, rows, payload, sourceGroups) {
-  const contextRows = buildVisibleCombatContextRows(rows, payload);
+function appendContextRowsTemplateFields(parts, contextRows) {
   if (contextRows.length === 0) return;
 
-  const usedInfoTitles = new Set();
-  contextRows.slice(0, 5).forEach((row, index) => {
+  contextRows.slice(0, 6).forEach((row, index) => {
     const rowIndex = index + 1;
-    const infoGroups = getVisibleCombatContextInfoGroups(row, sourceGroups, usedInfoTitles);
-    parts.push(`{{visible_context_${rowIndex}_label=${row.label}}}`);
-    parts.push(`{{visible_context_${rowIndex}_value=${row.value}}}`);
+    const infoGroups = Array.isArray(row.infoGroups) ? row.infoGroups : [];
+    parts.push(`{{context_${rowIndex}_label=${row.label}}}`);
+    parts.push(`{{context_${rowIndex}_value=${row.value}}}`);
     if (infoGroups.length > 0) {
-      parts.push(`{{visible_context_${rowIndex}_info_title=${infoGroups[0].title}}}`);
-      parts.push(`{{visible_context_${rowIndex}_info=${infoGroups[0].details}}}`);
+      parts.push(`{{context_${rowIndex}_info_title=${infoGroups[0].title}}}`);
+      parts.push(`{{context_${rowIndex}_info=${infoGroups[0].details}}}`);
     }
     if (infoGroups.length > 1) {
-      parts.push(`{{visible_context_${rowIndex}_info_2_title=${infoGroups[1].title}}}`);
-      parts.push(`{{visible_context_${rowIndex}_info_2=${infoGroups[1].details}}}`);
+      parts.push(`{{context_${rowIndex}_info_2_title=${infoGroups[1].title}}}`);
+      parts.push(`{{context_${rowIndex}_info_2=${infoGroups[1].details}}}`);
     }
   });
 }
 
-function getVisibleCombatExtractedInfoTitles(rows, payload, sourceGroups) {
+function buildVisibleCombatContextRowsWithInfo(rows, payload, sourceGroups) {
   const contextRows = buildVisibleCombatContextRows(rows, payload);
   const usedInfoTitles = new Set();
 
-  contextRows.slice(0, 5).forEach((row) => {
-    getVisibleCombatContextInfoGroups(row, sourceGroups, usedInfoTitles);
+  return contextRows.map((row) => {
+    const infoGroups = getVisibleCombatContextInfoGroups(row, sourceGroups, usedInfoTitles);
+    return {
+      label: row.label,
+      value: row.value,
+      infoGroups: infoGroups,
+    };
   });
-
-  return usedInfoTitles;
 }
 
-function appendCalcDetailsTemplateFields(parts, groups, excludedTitles) {
-  if (!groups) return;
-  if (groups.summary) {
-    parts.push(`{{pool_info=${groups.summary}}}`);
-  }
-  appendPoolInfoGroupTemplateFields(parts, groups.sourceGroups);
-  const excluded = excludedTitles || new Set();
+function getPoolInfoGroups(sourceGroups) {
   const poolInfoTitles = new Set([
     "Attributsberechnung",
     "Fertigkeitsberechnung",
@@ -811,24 +841,98 @@ function appendCalcDetailsTemplateFields(parts, groups, excludedTitles) {
     "Edge-Boost",
     "Schicksalswürfel",
   ]);
-  const sourceGroups = groups.sourceGroups.filter((group) => (
-    !excluded.has(group.title) && !poolInfoTitles.has(group.title)
-  ));
-  if (sourceGroups.length > 0) {
-    appendCalcDetailsGroupTemplateFields(parts, "calc_details_sources", sourceGroups[0]);
-    appendCalcDetailsGroupTemplateFields(parts, "calc_details_sources_2", sourceGroups[1]);
-    appendCalcDetailsGroupTemplateFields(parts, "calc_details_sources_3", sourceGroups[2]);
-    appendCalcDetailsGroupTemplateFields(parts, "calc_details_sources_4", sourceGroups[3]);
-    appendCalcDetailsGroupTemplateFields(parts, "calc_details_sources_5", sourceGroups[4]);
-    appendCalcDetailsGroupTemplateFields(parts, "calc_details_sources_6", sourceGroups[5]);
-    appendCalcDetailsGroupTemplateFields(parts, "calc_details_sources_7", sourceGroups[6]);
-    if (sourceGroups[7]) {
-      appendCalcDetailsGroupTemplateFields(parts, "calc_details_sources_8", {
-        title: sourceGroups[7].title,
-        details: sourceGroups.slice(7).map((group) => group.details).join(", "),
-      });
-    }
+
+  return (Array.isArray(sourceGroups) ? sourceGroups : []).filter((group) => group && poolInfoTitles.has(group.title));
+}
+
+function buildDefaultProbeView(payload, name, subjectFieldLabel, subjectLabel, subject, calcDetailGroups) {
+  return {
+    suppressSubject: !!(payload && payload.suppressSubject),
+    subject: { label: subjectLabel, value: subject },
+    poolInfo: getPoolInfoGroups(calcDetailGroups.sourceGroups),
+    contextRows: [],
+    resultLabel: (payload && payload.resultLabel) || "Ergebnis",
+    resultValue: payload && payload.resultValue,
+    debugGroups: calcDetailGroups.sourceGroups,
+  };
+}
+
+function buildInitiativeView(payload, name, subjectFieldLabel, subjectLabel, subject, calcDetailGroups) {
+  const initiativeGroup = calcDetailGroups.sourceGroups.find((group) => group && group.title === "") ||
+    calcDetailGroups.sourceGroups.find((group) => group && group.title === "Details") ||
+    calcDetailGroups.sourceGroups.find((group) => group && group.details);
+  const poolInfo = initiativeGroup ? [{ title: "Initiative", details: initiativeGroup.details }] : [];
+
+  return {
+    suppressSubject: true,
+    subject: { label: subjectLabel, value: subject },
+    poolInfo: poolInfo,
+    contextRows: [],
+    resultLabel: (payload && payload.resultLabel) || "Initiative",
+    resultValue: payload && payload.resultValue,
+    debugGroups: calcDetailGroups.sourceGroups,
+  };
+}
+
+function buildCombatWeaponView(payload, name, subjectFieldLabel, subjectLabel, subject, calcDetailGroups, rows) {
+  return {
+    suppressSubject: !!(payload && payload.suppressSubject),
+    subject: { label: subjectLabel, value: subject },
+    poolInfo: getPoolInfoGroups(calcDetailGroups.sourceGroups),
+    contextRows: buildVisibleCombatContextRowsWithInfo(rows, payload, calcDetailGroups.sourceGroups),
+    resultLabel: (payload && payload.resultLabel) || "Ergebnis",
+    resultValue: payload && payload.resultValue,
+    debugGroups: calcDetailGroups.sourceGroups,
+  };
+}
+
+function buildCombatDefenseView(payload, name, subjectFieldLabel, subjectLabel, subject, calcDetailGroups, rows) {
+  const defenseGroup = getSourceGroupByTitle(calcDetailGroups.sourceGroups, "Verteidigungsberechnung");
+  const defenseValueGroup = getSourceGroupByTitle(calcDetailGroups.sourceGroups, "Verteidigungswertberechnung");
+  const poolInfo = [
+    ...(defenseGroup ? [defenseGroup] : []),
+    ...getPoolInfoGroups(calcDetailGroups.sourceGroups),
+  ];
+  const contextRows = [
+    { label: "Verteidigungswert", infoGroups: defenseValueGroup ? [defenseValueGroup] : [] },
+    { label: "Verteidigung", infoGroups: defenseGroup ? [defenseGroup] : [] },
+  ]
+    .map((row) => ({ label: row.label, value: getLastRowValue(rows, row.label), infoGroups: row.infoGroups }))
+    .filter((row) => row.value);
+
+  return {
+    suppressSubject: !!(payload && payload.suppressSubject),
+    subject: { label: subjectLabel, value: subject },
+    poolInfo: poolInfo,
+    contextRows: contextRows,
+    resultLabel: (payload && payload.resultLabel) || "Ergebnis",
+    resultValue: payload && payload.resultValue,
+    debugGroups: calcDetailGroups.sourceGroups,
+  };
+}
+
+function buildSr6ProbeView(payload, name, subjectFieldLabel, subjectLabel, subject, calcDetailGroups, rows) {
+  const definition = payload && payload.definition;
+  const definitionId = `${(payload && payload.definitionId) || (definition && definition.id) || ""}`.trim();
+
+  if (definition && definition.probeModel === "initiative_probe") {
+    return buildInitiativeView(payload, name, subjectFieldLabel, subjectLabel, subject, calcDetailGroups);
   }
+
+  if (isCombatWeaponContextDefinition(payload)) {
+    return buildCombatWeaponView(payload, name, subjectFieldLabel, subjectLabel, subject, calcDetailGroups, rows);
+  }
+
+  if (
+    definitionId === "physical_defense" ||
+    definitionId === "physical_damage_resistance" ||
+    definitionId === "general_defense" ||
+    definitionId === "general_damage_resistance"
+  ) {
+    return buildCombatDefenseView(payload, name, subjectFieldLabel, subjectLabel, subject, calcDetailGroups, rows);
+  }
+
+  return buildDefaultProbeView(payload, name, subjectFieldLabel, subjectLabel, subject, calcDetailGroups);
 }
 
 function appendDebugDetailsTemplateFields(parts, groups) {
@@ -872,10 +976,11 @@ function buildSr6ProbeMessage(payload) {
   const subjectLabel = normalizeSubjectLabel(subjectFieldLabel);
   const subject = getSubjectValue(payload.resolvedFields, subjectFieldLabel, name);
   const calcDetailGroups = buildCalcDetailGroups(rows, subjectFieldLabel, payload);
+  const view = buildSr6ProbeView(payload, name, subjectFieldLabel, subjectLabel, subject, calcDetailGroups, rows);
 
-  if (!payload.suppressSubject) {
-    if (subjectLabel) parts.push(`{{subject_label=${subjectLabel}}}`);
-    if (subject) parts.push(`{{subject=${subject}}}`);
+  if (!view.suppressSubject) {
+    if (view.subject && view.subject.label) parts.push(`{{subject_label=${view.subject.label}}}`);
+    if (view.subject && view.subject.value) parts.push(`{{subject=${view.subject.value}}}`);
   }
 
   if (payload.pool !== undefined && payload.pool !== null && `${payload.pool}` !== "") {
@@ -886,17 +991,18 @@ function buildSr6ProbeMessage(payload) {
     parts.push(`{{erfolge=${payload.erfolge}}}`);
   }
 
-  if (payload.resultValue !== undefined && payload.resultValue !== null && `${payload.resultValue}` !== "") {
-    parts.push(`{{result_label=${payload.resultLabel || "Ergebnis"}}}`);
-    parts.push(`{{result_value=${payload.resultValue}}}`);
+  if (view.resultValue !== undefined && view.resultValue !== null && `${view.resultValue}` !== "") {
+    parts.push(`{{result_label=${view.resultLabel || "Ergebnis"}}}`);
+    parts.push(`{{result_value=${view.resultValue}}}`);
   }
 
   appendDetailsTemplateFields(parts, payload);
   appendEdgeActionTemplateField(parts, payload);
-  appendVisibleCombatContextTemplateFields(parts, rows, payload, calcDetailGroups.sourceGroups);
-
-  const extractedInfoTitles = getVisibleCombatExtractedInfoTitles(rows, payload, calcDetailGroups.sourceGroups);
-  appendCalcDetailsTemplateFields(parts, calcDetailGroups, extractedInfoTitles);
+  appendContextRowsTemplateFields(parts, view.contextRows || []);
+  if (calcDetailGroups.summary) {
+    parts.push(`{{pool_info=${calcDetailGroups.summary}}}`);
+  }
+  appendPoolInfoGroupTemplateFields(parts, view.poolInfo || []);
   if (payload.debugDetailsEnabled) {
     appendDebugDetailsTemplateFields(parts, calcDetailGroups);
   }

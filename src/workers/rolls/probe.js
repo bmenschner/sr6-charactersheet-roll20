@@ -325,6 +325,37 @@ function appendKnownPoolFormulaRows(rows, definition, lookupAttr, poolAttribute)
   return false;
 }
 
+function appendCombatDefenseValueDetailRows(rows, definition, lookupAttr) {
+  if (!definition || ![
+    "physical_defense",
+    "physical_damage_resistance",
+    "general_defense",
+    "general_damage_resistance",
+  ].includes(definition.id)) {
+    return;
+  }
+
+  const constitutionBase = parseNumber(lookupAttr("sr6_attr_konstitution_grundwert"));
+  const constitutionModifier = parseNumber(lookupAttr("sr6_attr_konstitution_modifikator"));
+  const constitutionTotal = resolveRollAttributeTotal("konstitution", lookupAttr);
+  const primaryArmor = parseNumber(lookupAttr("sr6_combat_primaere_panzerung"));
+  const secondaryArmor = parseNumber(lookupAttr("sr6_combat_sekundaere_panzerung"));
+  const helmet = parseNumber(lookupAttr("sr6_combat_helm"));
+  const shield = parseNumber(lookupAttr("sr6_combat_schild"));
+  const defenseValueModifier = parseNumber(lookupAttr("sr6_combat_verteidigungswert_modifikator"));
+  const defenseValueTotal = parseNumber(lookupAttr("sr6_combat_verteidigungswert_gesamtwert"));
+
+  appendRowIfMissing(rows, "Verteidigungswert Konstitution Basis", `${constitutionBase}`);
+  appendRowIfMissing(rows, "Verteidigungswert Konstitution Modifikator", `${constitutionModifier}`);
+  appendRowIfMissing(rows, "Verteidigungswert Konstitution Gesamtwert", `${constitutionTotal}`);
+  appendRowIfMissing(rows, "Verteidigungswert Primäre Panzerung", `${primaryArmor}`);
+  appendRowIfMissing(rows, "Verteidigungswert Sekundäre Panzerung", `${secondaryArmor}`);
+  appendRowIfMissing(rows, "Verteidigungswert Helm", `${helmet}`);
+  appendRowIfMissing(rows, "Verteidigungswert Schild", `${shield}`);
+  appendRowIfMissing(rows, "Verteidigungswert Modifikator", `${defenseValueModifier}`);
+  appendRowIfMissing(rows, "Verteidigungswert Gesamtwert", `${defenseValueTotal}`);
+}
+
 function appendDrainResistanceDetailRows(rows, lookupAttr) {
   const traditionAttribute = `${lookupAttr("sr6_magic_traditionsattribut_1") || ""}`.trim();
   const traditionKey = mapTraditionsattributToKey(traditionAttribute);
@@ -388,6 +419,37 @@ function appendCombatSpecializationDetailRows(rows, definition, lookupAttr, skil
   } else {
     appendRowIfMissing(rows, "Spezialisierung/Expertise", "0", { poolComponent: true });
   }
+}
+
+function resolveComputedCombatPopupSkillBonusState(definition, resolvedFields, lookupAttr) {
+  if (!isComputedCombatPoolDefinition(definition)) {
+    return null;
+  }
+
+  const skillKey = getCombatPoolSkillKey(definition, resolvedFields);
+  if (!skillKey) {
+    return null;
+  }
+
+  const selectedSkill = `${(resolvedFields && resolvedFields.Fertigkeit) || getSkillDetailLabel(skillKey)}`.trim();
+  const weaponType = `${(resolvedFields && resolvedFields.Waffentyp) || ""}`.trim();
+  const specialization = lookupAttr(`sr6_skill_${skillKey}_spezialisierung`);
+  const expertise = lookupAttr(`sr6_skill_${skillKey}_expertise`);
+  const matchingNames = definition && (
+    definition.id === "combat_ranged_core_attack" ||
+    definition.id === "combat_ranged_weapon" ||
+    definition.id === "ranged_weapon"
+  )
+    ? getCombatRangedSpecializationMatches(selectedSkill, weaponType)
+    : getCombatMeleeSpecializationMatches(selectedSkill, weaponType);
+  const matches = new Set((matchingNames || []).map(normalizeCombatSpecializationName).filter(Boolean));
+  const expertiseActive = matches.has(normalizeCombatSpecializationName(expertise));
+  const specializationActive = !expertiseActive && matches.has(normalizeCombatSpecializationName(specialization));
+
+  return {
+    specializationActive: specializationActive,
+    expertiseActive: expertiseActive,
+  };
 }
 
 function appendComputedCombatPoolDetailRows(rows, definition, lookupAttr, resolvedFields) {
@@ -1605,6 +1667,7 @@ function runSuccessProbeFromContext(rawTemplate, repeatingRowPrefix, popupState 
       appendAttributeDetailRows(rows, lookupAttr, getAttributeDetailKey(meleeAttributeOverride.selectedAttribute), "Attributwert");
     }
     appendBasePoolDetailRows(rows, context.definition, lookupAttr, context.poolAttribute, skillAttributeOverride, resolvedFields);
+    appendCombatDefenseValueDetailRows(rows, context.definition, lookupAttr);
     appendMatrixActionRows(rows, matrixActionContext);
     appendRowsFormulaDetails(
       rows,

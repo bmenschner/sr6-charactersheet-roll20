@@ -9797,6 +9797,21 @@ function getRollAdditionalAttributes(definition) {
   if (definition && definition.id === "rigging_vehicle") {
     attributes.push(...SR6_RIGGING_VEHICLE_ROLL_ATTRIBUTES);
   }
+  if (definition && [
+    "physical_defense",
+    "physical_damage_resistance",
+    "general_defense",
+    "general_damage_resistance",
+  ].includes(definition.id)) {
+    attributes.push(
+      "sr6_combat_primaere_panzerung",
+      "sr6_combat_sekundaere_panzerung",
+      "sr6_combat_helm",
+      "sr6_combat_schild",
+      "sr6_combat_verteidigungswert_modifikator",
+      "sr6_combat_verteidigungswert_gesamtwert"
+    );
+  }
   if (definition && definition.id === "matrix_action") {
     return [...new Set([...attributes, ...getMatrixActionRuleAttributeRefs(), ...getMatrixActionSelectionAttributeRefs()])];
   }
@@ -9936,6 +9951,7 @@ function buildPopupStateFromValues(values, definition, poolAttribute) {
   const popupFields = getRollPopupFields(definition, poolAttribute);
   const popupRows = [];
   const selectedValues = {};
+  const combatSkillBonusIsInformational = typeof isComputedCombatPoolDefinition === "function" && isComputedCombatPoolDefinition(definition);
   let poolMod = 0;
   let attackValueMod = 0;
   let damageMod = 0;
@@ -9979,6 +9995,9 @@ function buildPopupStateFromValues(values, definition, poolAttribute) {
       : field.affects
         ? [field.affects]
         : [];
+    const skillBonusIsInformational =
+      combatSkillBonusIsInformational &&
+      (field.id === "specialization" || field.id === "expertise");
     const affectMultipliers = field && field.affectMultipliers && typeof field.affectMultipliers === "object"
       ? field.affectMultipliers
       : {};
@@ -9992,7 +10011,7 @@ function buildPopupStateFromValues(values, definition, poolAttribute) {
       selectedValues[field.id] = normalizedValue;
     }
 
-    if (affects.includes("pool")) {
+    if (affects.includes("pool") && !skillBonusIsInformational) {
       poolMod += isNumberField
         ? numericBaseValue * (parseNumber(affectMultipliers.pool) || 1)
         : isCheckboxField
@@ -10044,6 +10063,7 @@ function buildPopupStateFromValues(values, definition, poolAttribute) {
       popupRows.push({
         label: field.label,
         value: displayValue,
+        ignorePoolFormula: skillBonusIsInformational,
       });
     }
 
@@ -10187,6 +10207,21 @@ function buildPopupPrefillPayload(definition, poolAttribute, repeatingRowPrefix,
       payload[getPopupFieldValueAttr(field, index)] = "1";
     }
   });
+
+  if (typeof resolveComputedCombatPopupSkillBonusState === "function") {
+    const combatSkillBonusState = resolveComputedCombatPopupSkillBonusState(definition, resolvedTemplateFields, lookupAttr);
+    if (combatSkillBonusState) {
+      popupFields.forEach((field, index) => {
+        if (!fieldMatchesPopupVisibility(field, resolvedTemplateFields)) return;
+        if (field.id === "specialization") {
+          payload[getPopupFieldValueAttr(field, index)] = combatSkillBonusState.specializationActive ? "1" : "0";
+        }
+        if (field.id === "expertise") {
+          payload[getPopupFieldValueAttr(field, index)] = combatSkillBonusState.expertiseActive ? "1" : "0";
+        }
+      });
+    }
+  }
 
   return payload;
 }
@@ -10678,6 +10713,7 @@ function getLanguageLevelBonusFromRows(rows) {
 
 function isPoolBonusComponent(row, poolBonusLabels) {
   if (!row) return false;
+  if (row.ignorePoolFormula) return false;
   if (row.poolComponent) return true;
   if (!poolBonusLabels.has(row.label)) return false;
   const value = `${row.value === undefined || row.value === null ? "" : row.value}`.trim();
@@ -10863,13 +10899,50 @@ function getCombatCalcDetailSourceGroupKey(label) {
   ]);
   const defenseLabels = new Set([
     "Verteidigung",
-    "Verteidigungswert",
     "Reaktion Basis",
     "Reaktion Modifikator",
     "Reaktion Gesamtwert",
     "Intuition Basis",
     "Intuition Modifikator",
     "Intuition Gesamtwert",
+  ]);
+  const defenseValueLabels = new Set([
+    "Verteidigungswert",
+    "Verteidigungswert Konstitution Basis",
+    "Verteidigungswert Konstitution Modifikator",
+    "Verteidigungswert Konstitution Gesamtwert",
+    "Verteidigungswert Primäre Panzerung",
+    "Verteidigungswert Sekundäre Panzerung",
+    "Verteidigungswert Helm",
+    "Verteidigungswert Schild",
+    "Verteidigungswert Modifikator",
+    "Verteidigungswert Gesamtwert",
+  ]);
+  const attributeLabels = new Set([
+    "Konstitution Basis",
+    "Konstitution Modifikator",
+    "Konstitution Gesamtwert",
+    "Geschicklichkeit Basis",
+    "Geschicklichkeit Modifikator",
+    "Geschicklichkeit Gesamtwert",
+    "Stärke Basis",
+    "Stärke Modifikator",
+    "Stärke Gesamtwert",
+    "Willenskraft Basis",
+    "Willenskraft Modifikator",
+    "Willenskraft Gesamtwert",
+    "Logik Basis",
+    "Logik Modifikator",
+    "Logik Gesamtwert",
+    "Charisma Basis",
+    "Charisma Modifikator",
+    "Charisma Gesamtwert",
+    "Edge Basis",
+    "Edge Modifikator",
+    "Edge Gesamtwert",
+    "Magie/Resonanz Basis",
+    "Magie/Resonanz Modifikator",
+    "Magie/Resonanz Gesamtwert",
   ]);
   const popupLabels = new Set([
     "Skill-Modifikator",
@@ -10884,6 +10957,8 @@ function getCombatCalcDetailSourceGroupKey(label) {
   if (damageLabels.has(label)) return "combat_damage";
   if (attackValueLabels.has(label)) return "combat_attack_value";
   if (defenseLabels.has(label)) return "combat_defense";
+  if (defenseValueLabels.has(label)) return "combat_defense_value";
+  if (attributeLabels.has(label)) return "attribute";
   if (popupLabels.has(label)) return "popup";
   return "";
 }
@@ -10953,6 +11028,7 @@ function getCalcDetailSourceGroupTitle(groupKey) {
   if (groupKey === "fire_mode") return "Feuermodus";
   if (groupKey === "combat_attack_value") return "Angriffswertberechnung";
   if (groupKey === "combat_defense") return "Verteidigungsberechnung";
+  if (groupKey === "combat_defense_value") return "Verteidigungswertberechnung";
   if (groupKey === "attribute") return "Attributsberechnung";
   if (groupKey === "skill") return "Fertigkeitsberechnung";
   if (groupKey === "popup") return "Popup-Modifikatoren";
@@ -10996,7 +11072,7 @@ function shouldSuppressSourceDetailRow(row) {
   return row && row.label === "Sprachbonus";
 }
 
-function buildSourceDetailEntry(row, sourceRows) {
+function buildSourceDetailEntry(row, sourceRows, groupKey) {
   let label = row.label;
   let value = `${row.value || ""}`.trim();
   if (label === "Formel" && hasLanguageBonusRow(sourceRows) && value.indexOf("Sprachbonus") === -1) {
@@ -11004,6 +11080,9 @@ function buildSourceDetailEntry(row, sourceRows) {
   }
   if (label === "Schicksalswürfel-Hinweis") {
     label = "Hinweis";
+  }
+  if (groupKey === "combat_defense_value" && label.indexOf("Verteidigungswert ") === 0) {
+    label = label.replace(/^Verteidigungswert\s+/, "");
   }
   return `${label}: ${value}`;
 }
@@ -11041,11 +11120,11 @@ function buildCalcDetailGroups(rows, subjectFieldLabel, payload) {
     if (!shouldIncludeCalcDetailRow(row, subjectFieldLabel)) return;
     if (shouldSuppressSourceDetailRow(row)) return;
     const label = row.label;
-    const entry = buildSourceDetailEntry(row, rows);
+    const groupKey = getCalcDetailSourceGroupKey(label, subjectFieldLabel, payload);
+    const entry = buildSourceDetailEntry(row, rows, groupKey);
     if (seen.has(entry)) return;
     seen.add(entry);
 
-    const groupKey = getCalcDetailSourceGroupKey(label, subjectFieldLabel, payload);
     if (!currentSourceGroup || currentSourceGroup.key !== groupKey) {
       appendSourceDetailGroup(sourceGroups, currentSourceGroup);
       currentSourceGroup = { key: groupKey, entries: [] };
@@ -11077,20 +11156,11 @@ function appendCalcDetailsGroupTemplateFields(parts, prefix, group) {
 function appendPoolInfoGroupTemplateFields(parts, sourceGroups) {
   if (!Array.isArray(sourceGroups) || sourceGroups.length === 0) return;
 
-  const poolInfoTitles = new Set([
-    "Attributsberechnung",
-    "Fertigkeitsberechnung",
-    "Popup-Modifikatoren",
-    "Edge-Boost",
-    "Schicksalswürfel",
-  ]);
-  const poolGroups = sourceGroups.filter((group) => group && poolInfoTitles.has(group.title));
-
-  appendCalcDetailsGroupTemplateFields(parts, "pool_info_sources", poolGroups[0]);
-  appendCalcDetailsGroupTemplateFields(parts, "pool_info_sources_2", poolGroups[1]);
-  appendCalcDetailsGroupTemplateFields(parts, "pool_info_sources_3", poolGroups[2]);
-  appendCalcDetailsGroupTemplateFields(parts, "pool_info_sources_4", poolGroups[3]);
-  appendCalcDetailsGroupTemplateFields(parts, "pool_info_sources_5", poolGroups[4]);
+  appendCalcDetailsGroupTemplateFields(parts, "pool_info_sources", sourceGroups[0]);
+  appendCalcDetailsGroupTemplateFields(parts, "pool_info_sources_2", sourceGroups[1]);
+  appendCalcDetailsGroupTemplateFields(parts, "pool_info_sources_3", sourceGroups[2]);
+  appendCalcDetailsGroupTemplateFields(parts, "pool_info_sources_4", sourceGroups[3]);
+  appendCalcDetailsGroupTemplateFields(parts, "pool_info_sources_5", sourceGroups[4]);
 }
 
 function getLastRowValue(rows, label) {
@@ -11199,45 +11269,40 @@ function getVisibleCombatContextInfoGroups(row, sourceGroups, usedTitles) {
   }, []);
 }
 
-function appendVisibleCombatContextTemplateFields(parts, rows, payload, sourceGroups) {
-  const contextRows = buildVisibleCombatContextRows(rows, payload);
+function appendContextRowsTemplateFields(parts, contextRows) {
   if (contextRows.length === 0) return;
 
-  const usedInfoTitles = new Set();
-  contextRows.slice(0, 5).forEach((row, index) => {
+  contextRows.slice(0, 6).forEach((row, index) => {
     const rowIndex = index + 1;
-    const infoGroups = getVisibleCombatContextInfoGroups(row, sourceGroups, usedInfoTitles);
-    parts.push(`{{visible_context_${rowIndex}_label=${row.label}}}`);
-    parts.push(`{{visible_context_${rowIndex}_value=${row.value}}}`);
+    const infoGroups = Array.isArray(row.infoGroups) ? row.infoGroups : [];
+    parts.push(`{{context_${rowIndex}_label=${row.label}}}`);
+    parts.push(`{{context_${rowIndex}_value=${row.value}}}`);
     if (infoGroups.length > 0) {
-      parts.push(`{{visible_context_${rowIndex}_info_title=${infoGroups[0].title}}}`);
-      parts.push(`{{visible_context_${rowIndex}_info=${infoGroups[0].details}}}`);
+      parts.push(`{{context_${rowIndex}_info_title=${infoGroups[0].title}}}`);
+      parts.push(`{{context_${rowIndex}_info=${infoGroups[0].details}}}`);
     }
     if (infoGroups.length > 1) {
-      parts.push(`{{visible_context_${rowIndex}_info_2_title=${infoGroups[1].title}}}`);
-      parts.push(`{{visible_context_${rowIndex}_info_2=${infoGroups[1].details}}}`);
+      parts.push(`{{context_${rowIndex}_info_2_title=${infoGroups[1].title}}}`);
+      parts.push(`{{context_${rowIndex}_info_2=${infoGroups[1].details}}}`);
     }
   });
 }
 
-function getVisibleCombatExtractedInfoTitles(rows, payload, sourceGroups) {
+function buildVisibleCombatContextRowsWithInfo(rows, payload, sourceGroups) {
   const contextRows = buildVisibleCombatContextRows(rows, payload);
   const usedInfoTitles = new Set();
 
-  contextRows.slice(0, 5).forEach((row) => {
-    getVisibleCombatContextInfoGroups(row, sourceGroups, usedInfoTitles);
+  return contextRows.map((row) => {
+    const infoGroups = getVisibleCombatContextInfoGroups(row, sourceGroups, usedInfoTitles);
+    return {
+      label: row.label,
+      value: row.value,
+      infoGroups: infoGroups,
+    };
   });
-
-  return usedInfoTitles;
 }
 
-function appendCalcDetailsTemplateFields(parts, groups, excludedTitles) {
-  if (!groups) return;
-  if (groups.summary) {
-    parts.push(`{{pool_info=${groups.summary}}}`);
-  }
-  appendPoolInfoGroupTemplateFields(parts, groups.sourceGroups);
-  const excluded = excludedTitles || new Set();
+function getPoolInfoGroups(sourceGroups) {
   const poolInfoTitles = new Set([
     "Attributsberechnung",
     "Fertigkeitsberechnung",
@@ -11245,24 +11310,98 @@ function appendCalcDetailsTemplateFields(parts, groups, excludedTitles) {
     "Edge-Boost",
     "Schicksalswürfel",
   ]);
-  const sourceGroups = groups.sourceGroups.filter((group) => (
-    !excluded.has(group.title) && !poolInfoTitles.has(group.title)
-  ));
-  if (sourceGroups.length > 0) {
-    appendCalcDetailsGroupTemplateFields(parts, "calc_details_sources", sourceGroups[0]);
-    appendCalcDetailsGroupTemplateFields(parts, "calc_details_sources_2", sourceGroups[1]);
-    appendCalcDetailsGroupTemplateFields(parts, "calc_details_sources_3", sourceGroups[2]);
-    appendCalcDetailsGroupTemplateFields(parts, "calc_details_sources_4", sourceGroups[3]);
-    appendCalcDetailsGroupTemplateFields(parts, "calc_details_sources_5", sourceGroups[4]);
-    appendCalcDetailsGroupTemplateFields(parts, "calc_details_sources_6", sourceGroups[5]);
-    appendCalcDetailsGroupTemplateFields(parts, "calc_details_sources_7", sourceGroups[6]);
-    if (sourceGroups[7]) {
-      appendCalcDetailsGroupTemplateFields(parts, "calc_details_sources_8", {
-        title: sourceGroups[7].title,
-        details: sourceGroups.slice(7).map((group) => group.details).join(", "),
-      });
-    }
+
+  return (Array.isArray(sourceGroups) ? sourceGroups : []).filter((group) => group && poolInfoTitles.has(group.title));
+}
+
+function buildDefaultProbeView(payload, name, subjectFieldLabel, subjectLabel, subject, calcDetailGroups) {
+  return {
+    suppressSubject: !!(payload && payload.suppressSubject),
+    subject: { label: subjectLabel, value: subject },
+    poolInfo: getPoolInfoGroups(calcDetailGroups.sourceGroups),
+    contextRows: [],
+    resultLabel: (payload && payload.resultLabel) || "Ergebnis",
+    resultValue: payload && payload.resultValue,
+    debugGroups: calcDetailGroups.sourceGroups,
+  };
+}
+
+function buildInitiativeView(payload, name, subjectFieldLabel, subjectLabel, subject, calcDetailGroups) {
+  const initiativeGroup = calcDetailGroups.sourceGroups.find((group) => group && group.title === "") ||
+    calcDetailGroups.sourceGroups.find((group) => group && group.title === "Details") ||
+    calcDetailGroups.sourceGroups.find((group) => group && group.details);
+  const poolInfo = initiativeGroup ? [{ title: "Initiative", details: initiativeGroup.details }] : [];
+
+  return {
+    suppressSubject: true,
+    subject: { label: subjectLabel, value: subject },
+    poolInfo: poolInfo,
+    contextRows: [],
+    resultLabel: (payload && payload.resultLabel) || "Initiative",
+    resultValue: payload && payload.resultValue,
+    debugGroups: calcDetailGroups.sourceGroups,
+  };
+}
+
+function buildCombatWeaponView(payload, name, subjectFieldLabel, subjectLabel, subject, calcDetailGroups, rows) {
+  return {
+    suppressSubject: !!(payload && payload.suppressSubject),
+    subject: { label: subjectLabel, value: subject },
+    poolInfo: getPoolInfoGroups(calcDetailGroups.sourceGroups),
+    contextRows: buildVisibleCombatContextRowsWithInfo(rows, payload, calcDetailGroups.sourceGroups),
+    resultLabel: (payload && payload.resultLabel) || "Ergebnis",
+    resultValue: payload && payload.resultValue,
+    debugGroups: calcDetailGroups.sourceGroups,
+  };
+}
+
+function buildCombatDefenseView(payload, name, subjectFieldLabel, subjectLabel, subject, calcDetailGroups, rows) {
+  const defenseGroup = getSourceGroupByTitle(calcDetailGroups.sourceGroups, "Verteidigungsberechnung");
+  const defenseValueGroup = getSourceGroupByTitle(calcDetailGroups.sourceGroups, "Verteidigungswertberechnung");
+  const poolInfo = [
+    ...(defenseGroup ? [defenseGroup] : []),
+    ...getPoolInfoGroups(calcDetailGroups.sourceGroups),
+  ];
+  const contextRows = [
+    { label: "Verteidigungswert", infoGroups: defenseValueGroup ? [defenseValueGroup] : [] },
+    { label: "Verteidigung", infoGroups: defenseGroup ? [defenseGroup] : [] },
+  ]
+    .map((row) => ({ label: row.label, value: getLastRowValue(rows, row.label), infoGroups: row.infoGroups }))
+    .filter((row) => row.value);
+
+  return {
+    suppressSubject: !!(payload && payload.suppressSubject),
+    subject: { label: subjectLabel, value: subject },
+    poolInfo: poolInfo,
+    contextRows: contextRows,
+    resultLabel: (payload && payload.resultLabel) || "Ergebnis",
+    resultValue: payload && payload.resultValue,
+    debugGroups: calcDetailGroups.sourceGroups,
+  };
+}
+
+function buildSr6ProbeView(payload, name, subjectFieldLabel, subjectLabel, subject, calcDetailGroups, rows) {
+  const definition = payload && payload.definition;
+  const definitionId = `${(payload && payload.definitionId) || (definition && definition.id) || ""}`.trim();
+
+  if (definition && definition.probeModel === "initiative_probe") {
+    return buildInitiativeView(payload, name, subjectFieldLabel, subjectLabel, subject, calcDetailGroups);
   }
+
+  if (isCombatWeaponContextDefinition(payload)) {
+    return buildCombatWeaponView(payload, name, subjectFieldLabel, subjectLabel, subject, calcDetailGroups, rows);
+  }
+
+  if (
+    definitionId === "physical_defense" ||
+    definitionId === "physical_damage_resistance" ||
+    definitionId === "general_defense" ||
+    definitionId === "general_damage_resistance"
+  ) {
+    return buildCombatDefenseView(payload, name, subjectFieldLabel, subjectLabel, subject, calcDetailGroups, rows);
+  }
+
+  return buildDefaultProbeView(payload, name, subjectFieldLabel, subjectLabel, subject, calcDetailGroups);
 }
 
 function appendDebugDetailsTemplateFields(parts, groups) {
@@ -11306,10 +11445,11 @@ function buildSr6ProbeMessage(payload) {
   const subjectLabel = normalizeSubjectLabel(subjectFieldLabel);
   const subject = getSubjectValue(payload.resolvedFields, subjectFieldLabel, name);
   const calcDetailGroups = buildCalcDetailGroups(rows, subjectFieldLabel, payload);
+  const view = buildSr6ProbeView(payload, name, subjectFieldLabel, subjectLabel, subject, calcDetailGroups, rows);
 
-  if (!payload.suppressSubject) {
-    if (subjectLabel) parts.push(`{{subject_label=${subjectLabel}}}`);
-    if (subject) parts.push(`{{subject=${subject}}}`);
+  if (!view.suppressSubject) {
+    if (view.subject && view.subject.label) parts.push(`{{subject_label=${view.subject.label}}}`);
+    if (view.subject && view.subject.value) parts.push(`{{subject=${view.subject.value}}}`);
   }
 
   if (payload.pool !== undefined && payload.pool !== null && `${payload.pool}` !== "") {
@@ -11320,17 +11460,18 @@ function buildSr6ProbeMessage(payload) {
     parts.push(`{{erfolge=${payload.erfolge}}}`);
   }
 
-  if (payload.resultValue !== undefined && payload.resultValue !== null && `${payload.resultValue}` !== "") {
-    parts.push(`{{result_label=${payload.resultLabel || "Ergebnis"}}}`);
-    parts.push(`{{result_value=${payload.resultValue}}}`);
+  if (view.resultValue !== undefined && view.resultValue !== null && `${view.resultValue}` !== "") {
+    parts.push(`{{result_label=${view.resultLabel || "Ergebnis"}}}`);
+    parts.push(`{{result_value=${view.resultValue}}}`);
   }
 
   appendDetailsTemplateFields(parts, payload);
   appendEdgeActionTemplateField(parts, payload);
-  appendVisibleCombatContextTemplateFields(parts, rows, payload, calcDetailGroups.sourceGroups);
-
-  const extractedInfoTitles = getVisibleCombatExtractedInfoTitles(rows, payload, calcDetailGroups.sourceGroups);
-  appendCalcDetailsTemplateFields(parts, calcDetailGroups, extractedInfoTitles);
+  appendContextRowsTemplateFields(parts, view.contextRows || []);
+  if (calcDetailGroups.summary) {
+    parts.push(`{{pool_info=${calcDetailGroups.summary}}}`);
+  }
+  appendPoolInfoGroupTemplateFields(parts, view.poolInfo || []);
   if (payload.debugDetailsEnabled) {
     appendDebugDetailsTemplateFields(parts, calcDetailGroups);
   }
@@ -11855,6 +11996,37 @@ function appendKnownPoolFormulaRows(rows, definition, lookupAttr, poolAttribute)
   return false;
 }
 
+function appendCombatDefenseValueDetailRows(rows, definition, lookupAttr) {
+  if (!definition || ![
+    "physical_defense",
+    "physical_damage_resistance",
+    "general_defense",
+    "general_damage_resistance",
+  ].includes(definition.id)) {
+    return;
+  }
+
+  const constitutionBase = parseNumber(lookupAttr("sr6_attr_konstitution_grundwert"));
+  const constitutionModifier = parseNumber(lookupAttr("sr6_attr_konstitution_modifikator"));
+  const constitutionTotal = resolveRollAttributeTotal("konstitution", lookupAttr);
+  const primaryArmor = parseNumber(lookupAttr("sr6_combat_primaere_panzerung"));
+  const secondaryArmor = parseNumber(lookupAttr("sr6_combat_sekundaere_panzerung"));
+  const helmet = parseNumber(lookupAttr("sr6_combat_helm"));
+  const shield = parseNumber(lookupAttr("sr6_combat_schild"));
+  const defenseValueModifier = parseNumber(lookupAttr("sr6_combat_verteidigungswert_modifikator"));
+  const defenseValueTotal = parseNumber(lookupAttr("sr6_combat_verteidigungswert_gesamtwert"));
+
+  appendRowIfMissing(rows, "Verteidigungswert Konstitution Basis", `${constitutionBase}`);
+  appendRowIfMissing(rows, "Verteidigungswert Konstitution Modifikator", `${constitutionModifier}`);
+  appendRowIfMissing(rows, "Verteidigungswert Konstitution Gesamtwert", `${constitutionTotal}`);
+  appendRowIfMissing(rows, "Verteidigungswert Primäre Panzerung", `${primaryArmor}`);
+  appendRowIfMissing(rows, "Verteidigungswert Sekundäre Panzerung", `${secondaryArmor}`);
+  appendRowIfMissing(rows, "Verteidigungswert Helm", `${helmet}`);
+  appendRowIfMissing(rows, "Verteidigungswert Schild", `${shield}`);
+  appendRowIfMissing(rows, "Verteidigungswert Modifikator", `${defenseValueModifier}`);
+  appendRowIfMissing(rows, "Verteidigungswert Gesamtwert", `${defenseValueTotal}`);
+}
+
 function appendDrainResistanceDetailRows(rows, lookupAttr) {
   const traditionAttribute = `${lookupAttr("sr6_magic_traditionsattribut_1") || ""}`.trim();
   const traditionKey = mapTraditionsattributToKey(traditionAttribute);
@@ -11918,6 +12090,37 @@ function appendCombatSpecializationDetailRows(rows, definition, lookupAttr, skil
   } else {
     appendRowIfMissing(rows, "Spezialisierung/Expertise", "0", { poolComponent: true });
   }
+}
+
+function resolveComputedCombatPopupSkillBonusState(definition, resolvedFields, lookupAttr) {
+  if (!isComputedCombatPoolDefinition(definition)) {
+    return null;
+  }
+
+  const skillKey = getCombatPoolSkillKey(definition, resolvedFields);
+  if (!skillKey) {
+    return null;
+  }
+
+  const selectedSkill = `${(resolvedFields && resolvedFields.Fertigkeit) || getSkillDetailLabel(skillKey)}`.trim();
+  const weaponType = `${(resolvedFields && resolvedFields.Waffentyp) || ""}`.trim();
+  const specialization = lookupAttr(`sr6_skill_${skillKey}_spezialisierung`);
+  const expertise = lookupAttr(`sr6_skill_${skillKey}_expertise`);
+  const matchingNames = definition && (
+    definition.id === "combat_ranged_core_attack" ||
+    definition.id === "combat_ranged_weapon" ||
+    definition.id === "ranged_weapon"
+  )
+    ? getCombatRangedSpecializationMatches(selectedSkill, weaponType)
+    : getCombatMeleeSpecializationMatches(selectedSkill, weaponType);
+  const matches = new Set((matchingNames || []).map(normalizeCombatSpecializationName).filter(Boolean));
+  const expertiseActive = matches.has(normalizeCombatSpecializationName(expertise));
+  const specializationActive = !expertiseActive && matches.has(normalizeCombatSpecializationName(specialization));
+
+  return {
+    specializationActive: specializationActive,
+    expertiseActive: expertiseActive,
+  };
 }
 
 function appendComputedCombatPoolDetailRows(rows, definition, lookupAttr, resolvedFields) {
@@ -13135,6 +13338,7 @@ function runSuccessProbeFromContext(rawTemplate, repeatingRowPrefix, popupState 
       appendAttributeDetailRows(rows, lookupAttr, getAttributeDetailKey(meleeAttributeOverride.selectedAttribute), "Attributwert");
     }
     appendBasePoolDetailRows(rows, context.definition, lookupAttr, context.poolAttribute, skillAttributeOverride, resolvedFields);
+    appendCombatDefenseValueDetailRows(rows, context.definition, lookupAttr);
     appendMatrixActionRows(rows, matrixActionContext);
     appendRowsFormulaDetails(
       rows,
@@ -17977,66 +18181,42 @@ registerWorkerEvents();
     </div>
     {{/edge_action}}
 
-    {{#visible_context_title}}
-    <div class="sheet-sr6probe__row" style="display:block;padding:0.375rem 0.5rem 0.125rem;background:#ffffff;">
-      <div class="sheet-sr6probe__subtitle" style="color:#840763;font-weight:700;font-size:0.82rem;line-height:1.25;">{{visible_context_title}}</div>
-    </div>
-    {{/visible_context_title}}
-    {{#visible_context_1_value}}
+    {{#context_1_value}}
     <div class="sheet-sr6probe__row sheet-sr6probe__row--context" style="display:grid;grid-template-columns:minmax(7.5rem,auto) 1fr;gap:0.5rem;align-items:center;padding:0.25rem 0.5rem;background:#ffffff;">
-      <span class="sheet-sr6probe__label" style="font-weight:700;color:#840763;">{{visible_context_1_label}}{{#visible_context_1_info}} <span class="sheet-sr6probe__info-wrap"><span class="sheet-sr6probe__info-icon">i</span><span class="sheet-sr6probe__info-panel"><span class="sheet-sr6probe__subtitle">{{visible_context_1_info_title}}</span><span class="sheet-sr6probe__calc">{{visible_context_1_info}}</span>{{#visible_context_1_info_2}}<span class="sheet-sr6probe__subtitle">{{visible_context_1_info_2_title}}</span><span class="sheet-sr6probe__calc">{{visible_context_1_info_2}}</span>{{/visible_context_1_info_2}}</span></span>{{/visible_context_1_info}}</span>
-      <span class="sheet-sr6probe__value" style="color:#111111;">{{visible_context_1_value}}</span>
+      <span class="sheet-sr6probe__label" style="font-weight:700;color:#840763;">{{context_1_label}}{{#context_1_info}} <span class="sheet-sr6probe__info-wrap"><span class="sheet-sr6probe__info-icon">i</span><span class="sheet-sr6probe__info-panel"><span class="sheet-sr6probe__subtitle">{{context_1_info_title}}</span><span class="sheet-sr6probe__calc">{{context_1_info}}</span>{{#context_1_info_2}}<span class="sheet-sr6probe__subtitle">{{context_1_info_2_title}}</span><span class="sheet-sr6probe__calc">{{context_1_info_2}}</span>{{/context_1_info_2}}</span></span>{{/context_1_info}}</span>
+      <span class="sheet-sr6probe__value" style="color:#111111;">{{context_1_value}}</span>
     </div>
-    {{/visible_context_1_value}}
-    {{#visible_context_2_value}}
+    {{/context_1_value}}
+    {{#context_2_value}}
     <div class="sheet-sr6probe__row sheet-sr6probe__row--context" style="display:grid;grid-template-columns:minmax(7.5rem,auto) 1fr;gap:0.5rem;align-items:center;padding:0.25rem 0.5rem;background:#ffffff;">
-      <span class="sheet-sr6probe__label" style="font-weight:700;color:#840763;">{{visible_context_2_label}}{{#visible_context_2_info}} <span class="sheet-sr6probe__info-wrap"><span class="sheet-sr6probe__info-icon">i</span><span class="sheet-sr6probe__info-panel"><span class="sheet-sr6probe__subtitle">{{visible_context_2_info_title}}</span><span class="sheet-sr6probe__calc">{{visible_context_2_info}}</span>{{#visible_context_2_info_2}}<span class="sheet-sr6probe__subtitle">{{visible_context_2_info_2_title}}</span><span class="sheet-sr6probe__calc">{{visible_context_2_info_2}}</span>{{/visible_context_2_info_2}}</span></span>{{/visible_context_2_info}}</span>
-      <span class="sheet-sr6probe__value" style="color:#111111;">{{visible_context_2_value}}</span>
+      <span class="sheet-sr6probe__label" style="font-weight:700;color:#840763;">{{context_2_label}}{{#context_2_info}} <span class="sheet-sr6probe__info-wrap"><span class="sheet-sr6probe__info-icon">i</span><span class="sheet-sr6probe__info-panel"><span class="sheet-sr6probe__subtitle">{{context_2_info_title}}</span><span class="sheet-sr6probe__calc">{{context_2_info}}</span>{{#context_2_info_2}}<span class="sheet-sr6probe__subtitle">{{context_2_info_2_title}}</span><span class="sheet-sr6probe__calc">{{context_2_info_2}}</span>{{/context_2_info_2}}</span></span>{{/context_2_info}}</span>
+      <span class="sheet-sr6probe__value" style="color:#111111;">{{context_2_value}}</span>
     </div>
-    {{/visible_context_2_value}}
-    {{#visible_context_3_value}}
+    {{/context_2_value}}
+    {{#context_3_value}}
     <div class="sheet-sr6probe__row sheet-sr6probe__row--context" style="display:grid;grid-template-columns:minmax(7.5rem,auto) 1fr;gap:0.5rem;align-items:center;padding:0.25rem 0.5rem;background:#ffffff;">
-      <span class="sheet-sr6probe__label" style="font-weight:700;color:#840763;">{{visible_context_3_label}}{{#visible_context_3_info}} <span class="sheet-sr6probe__info-wrap"><span class="sheet-sr6probe__info-icon">i</span><span class="sheet-sr6probe__info-panel"><span class="sheet-sr6probe__subtitle">{{visible_context_3_info_title}}</span><span class="sheet-sr6probe__calc">{{visible_context_3_info}}</span>{{#visible_context_3_info_2}}<span class="sheet-sr6probe__subtitle">{{visible_context_3_info_2_title}}</span><span class="sheet-sr6probe__calc">{{visible_context_3_info_2}}</span>{{/visible_context_3_info_2}}</span></span>{{/visible_context_3_info}}</span>
-      <span class="sheet-sr6probe__value" style="color:#111111;">{{visible_context_3_value}}</span>
+      <span class="sheet-sr6probe__label" style="font-weight:700;color:#840763;">{{context_3_label}}{{#context_3_info}} <span class="sheet-sr6probe__info-wrap"><span class="sheet-sr6probe__info-icon">i</span><span class="sheet-sr6probe__info-panel"><span class="sheet-sr6probe__subtitle">{{context_3_info_title}}</span><span class="sheet-sr6probe__calc">{{context_3_info}}</span>{{#context_3_info_2}}<span class="sheet-sr6probe__subtitle">{{context_3_info_2_title}}</span><span class="sheet-sr6probe__calc">{{context_3_info_2}}</span>{{/context_3_info_2}}</span></span>{{/context_3_info}}</span>
+      <span class="sheet-sr6probe__value" style="color:#111111;">{{context_3_value}}</span>
     </div>
-    {{/visible_context_3_value}}
-    {{#visible_context_4_value}}
+    {{/context_3_value}}
+    {{#context_4_value}}
     <div class="sheet-sr6probe__row sheet-sr6probe__row--context" style="display:grid;grid-template-columns:minmax(7.5rem,auto) 1fr;gap:0.5rem;align-items:center;padding:0.25rem 0.5rem;background:#ffffff;">
-      <span class="sheet-sr6probe__label" style="font-weight:700;color:#840763;">{{visible_context_4_label}}{{#visible_context_4_info}} <span class="sheet-sr6probe__info-wrap"><span class="sheet-sr6probe__info-icon">i</span><span class="sheet-sr6probe__info-panel"><span class="sheet-sr6probe__subtitle">{{visible_context_4_info_title}}</span><span class="sheet-sr6probe__calc">{{visible_context_4_info}}</span>{{#visible_context_4_info_2}}<span class="sheet-sr6probe__subtitle">{{visible_context_4_info_2_title}}</span><span class="sheet-sr6probe__calc">{{visible_context_4_info_2}}</span>{{/visible_context_4_info_2}}</span></span>{{/visible_context_4_info}}</span>
-      <span class="sheet-sr6probe__value" style="color:#111111;">{{visible_context_4_value}}</span>
+      <span class="sheet-sr6probe__label" style="font-weight:700;color:#840763;">{{context_4_label}}{{#context_4_info}} <span class="sheet-sr6probe__info-wrap"><span class="sheet-sr6probe__info-icon">i</span><span class="sheet-sr6probe__info-panel"><span class="sheet-sr6probe__subtitle">{{context_4_info_title}}</span><span class="sheet-sr6probe__calc">{{context_4_info}}</span>{{#context_4_info_2}}<span class="sheet-sr6probe__subtitle">{{context_4_info_2_title}}</span><span class="sheet-sr6probe__calc">{{context_4_info_2}}</span>{{/context_4_info_2}}</span></span>{{/context_4_info}}</span>
+      <span class="sheet-sr6probe__value" style="color:#111111;">{{context_4_value}}</span>
     </div>
-    {{/visible_context_4_value}}
-    {{#visible_context_5_value}}
+    {{/context_4_value}}
+    {{#context_5_value}}
     <div class="sheet-sr6probe__row sheet-sr6probe__row--context" style="display:grid;grid-template-columns:minmax(7.5rem,auto) 1fr;gap:0.5rem;align-items:center;padding:0.25rem 0.5rem;background:#ffffff;">
-      <span class="sheet-sr6probe__label" style="font-weight:700;color:#840763;">{{visible_context_5_label}}{{#visible_context_5_info}} <span class="sheet-sr6probe__info-wrap"><span class="sheet-sr6probe__info-icon">i</span><span class="sheet-sr6probe__info-panel"><span class="sheet-sr6probe__subtitle">{{visible_context_5_info_title}}</span><span class="sheet-sr6probe__calc">{{visible_context_5_info}}</span>{{#visible_context_5_info_2}}<span class="sheet-sr6probe__subtitle">{{visible_context_5_info_2_title}}</span><span class="sheet-sr6probe__calc">{{visible_context_5_info_2}}</span>{{/visible_context_5_info_2}}</span></span>{{/visible_context_5_info}}</span>
-      <span class="sheet-sr6probe__value" style="color:#111111;">{{visible_context_5_value}}</span>
+      <span class="sheet-sr6probe__label" style="font-weight:700;color:#840763;">{{context_5_label}}{{#context_5_info}} <span class="sheet-sr6probe__info-wrap"><span class="sheet-sr6probe__info-icon">i</span><span class="sheet-sr6probe__info-panel"><span class="sheet-sr6probe__subtitle">{{context_5_info_title}}</span><span class="sheet-sr6probe__calc">{{context_5_info}}</span>{{#context_5_info_2}}<span class="sheet-sr6probe__subtitle">{{context_5_info_2_title}}</span><span class="sheet-sr6probe__calc">{{context_5_info_2}}</span>{{/context_5_info_2}}</span></span>{{/context_5_info}}</span>
+      <span class="sheet-sr6probe__value" style="color:#111111;">{{context_5_value}}</span>
     </div>
-    {{/visible_context_5_value}}
-
-    {{#calc_details_sources}}
-    <div class="sheet-sr6probe__row" style="padding:0 0.5rem;background:#ffffff;">
-      <div style="height:1px;background:#d7d7d7;margin:0.25rem 0 0.5rem;"></div>
+    {{/context_5_value}}
+    {{#context_6_value}}
+    <div class="sheet-sr6probe__row sheet-sr6probe__row--context" style="display:grid;grid-template-columns:minmax(7.5rem,auto) 1fr;gap:0.5rem;align-items:center;padding:0.25rem 0.5rem;background:#ffffff;">
+      <span class="sheet-sr6probe__label" style="font-weight:700;color:#840763;">{{context_6_label}}{{#context_6_info}} <span class="sheet-sr6probe__info-wrap"><span class="sheet-sr6probe__info-icon">i</span><span class="sheet-sr6probe__info-panel"><span class="sheet-sr6probe__subtitle">{{context_6_info_title}}</span><span class="sheet-sr6probe__calc">{{context_6_info}}</span>{{#context_6_info_2}}<span class="sheet-sr6probe__subtitle">{{context_6_info_2_title}}</span><span class="sheet-sr6probe__calc">{{context_6_info_2}}</span>{{/context_6_info_2}}</span></span>{{/context_6_info}}</span>
+      <span class="sheet-sr6probe__value" style="color:#111111;">{{context_6_value}}</span>
     </div>
-    <div class="sheet-sr6probe__row sheet-sr6probe__row--info" style="display:grid;grid-template-columns:minmax(7.5rem,auto) 1fr;gap:0.5rem;align-items:center;padding:0.375rem 0.5rem;background:#ffffff;">
-      <span class="sheet-sr6probe__label" style="font-weight:700;color:#840763;">Infos</span>
-      <span class="sheet-sr6probe__value sheet-sr6probe__info-host" style="color:#111111;min-width:0;">
-        <span class="sheet-sr6probe__info-wrap">
-          <span class="sheet-sr6probe__info-icon">i</span>
-          <span class="sheet-sr6probe__info-panel">
-            <span class="sheet-sr6probe__subtitle">{{calc_details_sources_title}}</span>
-            <span class="sheet-sr6probe__calc">{{calc_details_sources}}</span>
-            {{#calc_details_sources_2}}<span class="sheet-sr6probe__subtitle">{{calc_details_sources_2_title}}</span><span class="sheet-sr6probe__calc">{{calc_details_sources_2}}</span>{{/calc_details_sources_2}}
-            {{#calc_details_sources_3}}<span class="sheet-sr6probe__subtitle">{{calc_details_sources_3_title}}</span><span class="sheet-sr6probe__calc">{{calc_details_sources_3}}</span>{{/calc_details_sources_3}}
-            {{#calc_details_sources_4}}<span class="sheet-sr6probe__subtitle">{{calc_details_sources_4_title}}</span><span class="sheet-sr6probe__calc">{{calc_details_sources_4}}</span>{{/calc_details_sources_4}}
-            {{#calc_details_sources_5}}<span class="sheet-sr6probe__subtitle">{{calc_details_sources_5_title}}</span><span class="sheet-sr6probe__calc">{{calc_details_sources_5}}</span>{{/calc_details_sources_5}}
-            {{#calc_details_sources_6}}<span class="sheet-sr6probe__subtitle">{{calc_details_sources_6_title}}</span><span class="sheet-sr6probe__calc">{{calc_details_sources_6}}</span>{{/calc_details_sources_6}}
-            {{#calc_details_sources_7}}<span class="sheet-sr6probe__subtitle">{{calc_details_sources_7_title}}</span><span class="sheet-sr6probe__calc">{{calc_details_sources_7}}</span>{{/calc_details_sources_7}}
-            {{#calc_details_sources_8}}<span class="sheet-sr6probe__subtitle">{{calc_details_sources_8_title}}</span><span class="sheet-sr6probe__calc">{{calc_details_sources_8}}</span>{{/calc_details_sources_8}}
-          </span>
-        </span>
-      </span>
-    </div>
-    {{/calc_details_sources}}
+    {{/context_6_value}}
 
     {{#debug_details_enabled}}
     <div class="sheet-sr6probe__row" style="padding:0 0.5rem;background:#ffffff;">

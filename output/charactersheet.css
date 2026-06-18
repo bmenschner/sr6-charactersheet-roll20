@@ -3020,11 +3020,6 @@ body.sheet-darkmode .sheet-rolltemplate-sr6probe .sheet-sr6probe__value {
   vertical-align: middle;
 }
 
-.sheet-rolltemplate-sr6probe .sheet-sr6probe__row--info,
-.sheet-sr6probe__row--info {
-  position: relative;
-}
-
 .sheet-rolltemplate-sr6probe .sheet-sr6probe__row--pool,
 .sheet-sr6probe__row--pool {
   position: relative;
@@ -3094,16 +3089,6 @@ body.sheet-darkmode .sheet-rolltemplate-sr6probe .sheet-sr6probe__value {
 .sheet-sr6probe__info-wrap:hover .sheet-sr6probe__info-panel,
 .sheet-sr6probe__info-wrap:focus-within .sheet-sr6probe__info-panel {
   display: block !important;
-}
-
-.sheet-rolltemplate-sr6probe .sheet-sr6probe__info-host,
-.sheet-sr6probe__info-host {
-  position: static;
-}
-
-.sheet-rolltemplate-sr6probe .sheet-sr6probe__info-host .sheet-sr6probe__info-wrap,
-.sheet-sr6probe__info-host .sheet-sr6probe__info-wrap {
-  position: static;
 }
 
 .sheet-rolltemplate-sr6probe .sheet-sr6probe__subtitle,

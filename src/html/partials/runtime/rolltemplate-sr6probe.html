@@ -100,66 +100,42 @@
     </div>
     {{/edge_action}}
 
-    {{#visible_context_title}}
-    <div class="sheet-sr6probe__row" style="display:block;padding:0.375rem 0.5rem 0.125rem;background:#ffffff;">
-      <div class="sheet-sr6probe__subtitle" style="color:#840763;font-weight:700;font-size:0.82rem;line-height:1.25;">{{visible_context_title}}</div>
-    </div>
-    {{/visible_context_title}}
-    {{#visible_context_1_value}}
+    {{#context_1_value}}
     <div class="sheet-sr6probe__row sheet-sr6probe__row--context" style="display:grid;grid-template-columns:minmax(7.5rem,auto) 1fr;gap:0.5rem;align-items:center;padding:0.25rem 0.5rem;background:#ffffff;">
-      <span class="sheet-sr6probe__label" style="font-weight:700;color:#840763;">{{visible_context_1_label}}{{#visible_context_1_info}} <span class="sheet-sr6probe__info-wrap"><span class="sheet-sr6probe__info-icon">i</span><span class="sheet-sr6probe__info-panel"><span class="sheet-sr6probe__subtitle">{{visible_context_1_info_title}}</span><span class="sheet-sr6probe__calc">{{visible_context_1_info}}</span>{{#visible_context_1_info_2}}<span class="sheet-sr6probe__subtitle">{{visible_context_1_info_2_title}}</span><span class="sheet-sr6probe__calc">{{visible_context_1_info_2}}</span>{{/visible_context_1_info_2}}</span></span>{{/visible_context_1_info}}</span>
-      <span class="sheet-sr6probe__value" style="color:#111111;">{{visible_context_1_value}}</span>
+      <span class="sheet-sr6probe__label" style="font-weight:700;color:#840763;">{{context_1_label}}{{#context_1_info}} <span class="sheet-sr6probe__info-wrap"><span class="sheet-sr6probe__info-icon">i</span><span class="sheet-sr6probe__info-panel"><span class="sheet-sr6probe__subtitle">{{context_1_info_title}}</span><span class="sheet-sr6probe__calc">{{context_1_info}}</span>{{#context_1_info_2}}<span class="sheet-sr6probe__subtitle">{{context_1_info_2_title}}</span><span class="sheet-sr6probe__calc">{{context_1_info_2}}</span>{{/context_1_info_2}}</span></span>{{/context_1_info}}</span>
+      <span class="sheet-sr6probe__value" style="color:#111111;">{{context_1_value}}</span>
     </div>
-    {{/visible_context_1_value}}
-    {{#visible_context_2_value}}
+    {{/context_1_value}}
+    {{#context_2_value}}
     <div class="sheet-sr6probe__row sheet-sr6probe__row--context" style="display:grid;grid-template-columns:minmax(7.5rem,auto) 1fr;gap:0.5rem;align-items:center;padding:0.25rem 0.5rem;background:#ffffff;">
-      <span class="sheet-sr6probe__label" style="font-weight:700;color:#840763;">{{visible_context_2_label}}{{#visible_context_2_info}} <span class="sheet-sr6probe__info-wrap"><span class="sheet-sr6probe__info-icon">i</span><span class="sheet-sr6probe__info-panel"><span class="sheet-sr6probe__subtitle">{{visible_context_2_info_title}}</span><span class="sheet-sr6probe__calc">{{visible_context_2_info}}</span>{{#visible_context_2_info_2}}<span class="sheet-sr6probe__subtitle">{{visible_context_2_info_2_title}}</span><span class="sheet-sr6probe__calc">{{visible_context_2_info_2}}</span>{{/visible_context_2_info_2}}</span></span>{{/visible_context_2_info}}</span>
-      <span class="sheet-sr6probe__value" style="color:#111111;">{{visible_context_2_value}}</span>
+      <span class="sheet-sr6probe__label" style="font-weight:700;color:#840763;">{{context_2_label}}{{#context_2_info}} <span class="sheet-sr6probe__info-wrap"><span class="sheet-sr6probe__info-icon">i</span><span class="sheet-sr6probe__info-panel"><span class="sheet-sr6probe__subtitle">{{context_2_info_title}}</span><span class="sheet-sr6probe__calc">{{context_2_info}}</span>{{#context_2_info_2}}<span class="sheet-sr6probe__subtitle">{{context_2_info_2_title}}</span><span class="sheet-sr6probe__calc">{{context_2_info_2}}</span>{{/context_2_info_2}}</span></span>{{/context_2_info}}</span>
+      <span class="sheet-sr6probe__value" style="color:#111111;">{{context_2_value}}</span>
     </div>
-    {{/visible_context_2_value}}
-    {{#visible_context_3_value}}
+    {{/context_2_value}}
+    {{#context_3_value}}
     <div class="sheet-sr6probe__row sheet-sr6probe__row--context" style="display:grid;grid-template-columns:minmax(7.5rem,auto) 1fr;gap:0.5rem;align-items:center;padding:0.25rem 0.5rem;background:#ffffff;">
-      <span class="sheet-sr6probe__label" style="font-weight:700;color:#840763;">{{visible_context_3_label}}{{#visible_context_3_info}} <span class="sheet-sr6probe__info-wrap"><span class="sheet-sr6probe__info-icon">i</span><span class="sheet-sr6probe__info-panel"><span class="sheet-sr6probe__subtitle">{{visible_context_3_info_title}}</span><span class="sheet-sr6probe__calc">{{visible_context_3_info}}</span>{{#visible_context_3_info_2}}<span class="sheet-sr6probe__subtitle">{{visible_context_3_info_2_title}}</span><span class="sheet-sr6probe__calc">{{visible_context_3_info_2}}</span>{{/visible_context_3_info_2}}</span></span>{{/visible_context_3_info}}</span>
-      <span class="sheet-sr6probe__value" style="color:#111111;">{{visible_context_3_value}}</span>
+      <span class="sheet-sr6probe__label" style="font-weight:700;color:#840763;">{{context_3_label}}{{#context_3_info}} <span class="sheet-sr6probe__info-wrap"><span class="sheet-sr6probe__info-icon">i</span><span class="sheet-sr6probe__info-panel"><span class="sheet-sr6probe__subtitle">{{context_3_info_title}}</span><span class="sheet-sr6probe__calc">{{context_3_info}}</span>{{#context_3_info_2}}<span class="sheet-sr6probe__subtitle">{{context_3_info_2_title}}</span><span class="sheet-sr6probe__calc">{{context_3_info_2}}</span>{{/context_3_info_2}}</span></span>{{/context_3_info}}</span>
+      <span class="sheet-sr6probe__value" style="color:#111111;">{{context_3_value}}</span>
     </div>
-    {{/visible_context_3_value}}
-    {{#visible_context_4_value}}
+    {{/context_3_value}}
+    {{#context_4_value}}
     <div class="sheet-sr6probe__row sheet-sr6probe__row--context" style="display:grid;grid-template-columns:minmax(7.5rem,auto) 1fr;gap:0.5rem;align-items:center;padding:0.25rem 0.5rem;background:#ffffff;">
-      <span class="sheet-sr6probe__label" style="font-weight:700;color:#840763;">{{visible_context_4_label}}{{#visible_context_4_info}} <span class="sheet-sr6probe__info-wrap"><span class="sheet-sr6probe__info-icon">i</span><span class="sheet-sr6probe__info-panel"><span class="sheet-sr6probe__subtitle">{{visible_context_4_info_title}}</span><span class="sheet-sr6probe__calc">{{visible_context_4_info}}</span>{{#visible_context_4_info_2}}<span class="sheet-sr6probe__subtitle">{{visible_context_4_info_2_title}}</span><span class="sheet-sr6probe__calc">{{visible_context_4_info_2}}</span>{{/visible_context_4_info_2}}</span></span>{{/visible_context_4_info}}</span>
-      <span class="sheet-sr6probe__value" style="color:#111111;">{{visible_context_4_value}}</span>
+      <span class="sheet-sr6probe__label" style="font-weight:700;color:#840763;">{{context_4_label}}{{#context_4_info}} <span class="sheet-sr6probe__info-wrap"><span class="sheet-sr6probe__info-icon">i</span><span class="sheet-sr6probe__info-panel"><span class="sheet-sr6probe__subtitle">{{context_4_info_title}}</span><span class="sheet-sr6probe__calc">{{context_4_info}}</span>{{#context_4_info_2}}<span class="sheet-sr6probe__subtitle">{{context_4_info_2_title}}</span><span class="sheet-sr6probe__calc">{{context_4_info_2}}</span>{{/context_4_info_2}}</span></span>{{/context_4_info}}</span>
+      <span class="sheet-sr6probe__value" style="color:#111111;">{{context_4_value}}</span>
     </div>
-    {{/visible_context_4_value}}
-    {{#visible_context_5_value}}
+    {{/context_4_value}}
+    {{#context_5_value}}
     <div class="sheet-sr6probe__row sheet-sr6probe__row--context" style="display:grid;grid-template-columns:minmax(7.5rem,auto) 1fr;gap:0.5rem;align-items:center;padding:0.25rem 0.5rem;background:#ffffff;">
-      <span class="sheet-sr6probe__label" style="font-weight:700;color:#840763;">{{visible_context_5_label}}{{#visible_context_5_info}} <span class="sheet-sr6probe__info-wrap"><span class="sheet-sr6probe__info-icon">i</span><span class="sheet-sr6probe__info-panel"><span class="sheet-sr6probe__subtitle">{{visible_context_5_info_title}}</span><span class="sheet-sr6probe__calc">{{visible_context_5_info}}</span>{{#visible_context_5_info_2}}<span class="sheet-sr6probe__subtitle">{{visible_context_5_info_2_title}}</span><span class="sheet-sr6probe__calc">{{visible_context_5_info_2}}</span>{{/visible_context_5_info_2}}</span></span>{{/visible_context_5_info}}</span>
-      <span class="sheet-sr6probe__value" style="color:#111111;">{{visible_context_5_value}}</span>
+      <span class="sheet-sr6probe__label" style="font-weight:700;color:#840763;">{{context_5_label}}{{#context_5_info}} <span class="sheet-sr6probe__info-wrap"><span class="sheet-sr6probe__info-icon">i</span><span class="sheet-sr6probe__info-panel"><span class="sheet-sr6probe__subtitle">{{context_5_info_title}}</span><span class="sheet-sr6probe__calc">{{context_5_info}}</span>{{#context_5_info_2}}<span class="sheet-sr6probe__subtitle">{{context_5_info_2_title}}</span><span class="sheet-sr6probe__calc">{{context_5_info_2}}</span>{{/context_5_info_2}}</span></span>{{/context_5_info}}</span>
+      <span class="sheet-sr6probe__value" style="color:#111111;">{{context_5_value}}</span>
     </div>
-    {{/visible_context_5_value}}
-
-    {{#calc_details_sources}}
-    <div class="sheet-sr6probe__row" style="padding:0 0.5rem;background:#ffffff;">
-      <div style="height:1px;background:#d7d7d7;margin:0.25rem 0 0.5rem;"></div>
+    {{/context_5_value}}
+    {{#context_6_value}}
+    <div class="sheet-sr6probe__row sheet-sr6probe__row--context" style="display:grid;grid-template-columns:minmax(7.5rem,auto) 1fr;gap:0.5rem;align-items:center;padding:0.25rem 0.5rem;background:#ffffff;">
+      <span class="sheet-sr6probe__label" style="font-weight:700;color:#840763;">{{context_6_label}}{{#context_6_info}} <span class="sheet-sr6probe__info-wrap"><span class="sheet-sr6probe__info-icon">i</span><span class="sheet-sr6probe__info-panel"><span class="sheet-sr6probe__subtitle">{{context_6_info_title}}</span><span class="sheet-sr6probe__calc">{{context_6_info}}</span>{{#context_6_info_2}}<span class="sheet-sr6probe__subtitle">{{context_6_info_2_title}}</span><span class="sheet-sr6probe__calc">{{context_6_info_2}}</span>{{/context_6_info_2}}</span></span>{{/context_6_info}}</span>
+      <span class="sheet-sr6probe__value" style="color:#111111;">{{context_6_value}}</span>
     </div>
-    <div class="sheet-sr6probe__row sheet-sr6probe__row--info" style="display:grid;grid-template-columns:minmax(7.5rem,auto) 1fr;gap:0.5rem;align-items:center;padding:0.375rem 0.5rem;background:#ffffff;">
-      <span class="sheet-sr6probe__label" style="font-weight:700;color:#840763;">Infos</span>
-      <span class="sheet-sr6probe__value sheet-sr6probe__info-host" style="color:#111111;min-width:0;">
-        <span class="sheet-sr6probe__info-wrap">
-          <span class="sheet-sr6probe__info-icon">i</span>
-          <span class="sheet-sr6probe__info-panel">
-            <span class="sheet-sr6probe__subtitle">{{calc_details_sources_title}}</span>
-            <span class="sheet-sr6probe__calc">{{calc_details_sources}}</span>
-            {{#calc_details_sources_2}}<span class="sheet-sr6probe__subtitle">{{calc_details_sources_2_title}}</span><span class="sheet-sr6probe__calc">{{calc_details_sources_2}}</span>{{/calc_details_sources_2}}
-            {{#calc_details_sources_3}}<span class="sheet-sr6probe__subtitle">{{calc_details_sources_3_title}}</span><span class="sheet-sr6probe__calc">{{calc_details_sources_3}}</span>{{/calc_details_sources_3}}
-            {{#calc_details_sources_4}}<span class="sheet-sr6probe__subtitle">{{calc_details_sources_4_title}}</span><span class="sheet-sr6probe__calc">{{calc_details_sources_4}}</span>{{/calc_details_sources_4}}
-            {{#calc_details_sources_5}}<span class="sheet-sr6probe__subtitle">{{calc_details_sources_5_title}}</span><span class="sheet-sr6probe__calc">{{calc_details_sources_5}}</span>{{/calc_details_sources_5}}
-            {{#calc_details_sources_6}}<span class="sheet-sr6probe__subtitle">{{calc_details_sources_6_title}}</span><span class="sheet-sr6probe__calc">{{calc_details_sources_6}}</span>{{/calc_details_sources_6}}
-            {{#calc_details_sources_7}}<span class="sheet-sr6probe__subtitle">{{calc_details_sources_7_title}}</span><span class="sheet-sr6probe__calc">{{calc_details_sources_7}}</span>{{/calc_details_sources_7}}
-            {{#calc_details_sources_8}}<span class="sheet-sr6probe__subtitle">{{calc_details_sources_8_title}}</span><span class="sheet-sr6probe__calc">{{calc_details_sources_8}}</span>{{/calc_details_sources_8}}
-          </span>
-        </span>
-      </span>
-    </div>
-    {{/calc_details_sources}}
+    {{/context_6_value}}
 
     {{#debug_details_enabled}}
     <div class="sheet-sr6probe__row" style="padding:0 0.5rem;background:#ffffff;">
