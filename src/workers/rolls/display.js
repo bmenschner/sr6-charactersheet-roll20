@@ -462,6 +462,14 @@ function getCombatCalcDetailSourceGroupKey(label) {
 
 function getCalcDetailSourceGroupKey(label, subjectFieldLabel, payload) {
   if (isCombatCalcDetailDefinition(payload)) {
+    if (label === "Munitionshinweis") return "munition_hint";
+    if (
+      label === "Feuermodus" ||
+      label === "Feuermodus-Schuss" ||
+      label === "Feuermodus-Hinweis"
+    ) {
+      return "fire_mode";
+    }
     const combatGroupKey = getCombatCalcDetailSourceGroupKey(label);
     if (combatGroupKey) return combatGroupKey;
   }
@@ -484,6 +492,7 @@ function getCalcDetailSourceGroupKey(label, subjectFieldLabel, payload) {
     label === "Edge-Hinweis" ||
     label === "Schicksalswürfel" ||
     label === "Schicksalswürfel-Wurf" ||
+    label === "Schicksalswürfel-Hinweis" ||
     label === "Schicksalswürfel-Quelle" ||
     label === "Schicksalswürfel begrenzt"
   ) {
@@ -500,6 +509,8 @@ function getCalcDetailSourceGroupKey(label, subjectFieldLabel, payload) {
 function getCalcDetailSourceGroupTitle(groupKey) {
   if (groupKey === "combat_context") return "Kampfkontext";
   if (groupKey === "combat_damage") return "Schadensberechnung";
+  if (groupKey === "munition_hint") return "Munitionshinweis";
+  if (groupKey === "fire_mode") return "Feuermodus";
   if (groupKey === "combat_attack_value") return "Angriffswertberechnung";
   if (groupKey === "combat_defense") return "Verteidigungsberechnung";
   if (groupKey === "attribute") return "Attributsberechnung";
@@ -597,32 +608,184 @@ function buildCalcDetailGroups(rows, subjectFieldLabel, payload) {
 
 function appendCalcDetailsGroupTemplateFields(parts, prefix, group) {
   if (!group || !group.details) return;
-  if (group.title) parts.push(`{{${prefix}_title=${group.title}}}`);
+  parts.push(`{{${prefix}_title=${group.title || "Details"}}}`);
   parts.push(`{{${prefix}=${group.details}}}`);
 }
 
-function appendCalcDetailsTemplateFields(parts, rows, subjectFieldLabel, payload) {
-  const groups = buildCalcDetailGroups(rows, subjectFieldLabel, payload);
+function appendPoolInfoGroupTemplateFields(parts, sourceGroups) {
+  if (!Array.isArray(sourceGroups) || sourceGroups.length === 0) return;
 
-  if (groups.summary) {
-    parts.push(`{{calc_details=${groups.summary}}}`);
-  }
-  if (groups.sourceGroups.length > 0) {
-    if (!groups.summary) {
-      parts.push(`{{calc_details=${groups.sourceGroups[0].details}}}`);
-    } else {
-      appendCalcDetailsGroupTemplateFields(parts, "calc_details_sources", groups.sourceGroups[0]);
+  const poolInfoTitles = new Set([
+    "Attributsberechnung",
+    "Fertigkeitsberechnung",
+    "Popup-Modifikatoren",
+  ]);
+  const poolGroups = sourceGroups.filter((group) => group && poolInfoTitles.has(group.title));
+
+  appendCalcDetailsGroupTemplateFields(parts, "pool_info_sources", poolGroups[0]);
+  appendCalcDetailsGroupTemplateFields(parts, "pool_info_sources_2", poolGroups[1]);
+  appendCalcDetailsGroupTemplateFields(parts, "pool_info_sources_3", poolGroups[2]);
+}
+
+function getLastRowValue(rows, label) {
+  if (!Array.isArray(rows)) return "";
+  for (let index = rows.length - 1; index >= 0; index -= 1) {
+    const row = rows[index];
+    if (row && row.label === label) {
+      return `${row.value || ""}`.trim();
     }
-    appendCalcDetailsGroupTemplateFields(parts, "calc_details_sources_2", groups.sourceGroups[1]);
-    appendCalcDetailsGroupTemplateFields(parts, "calc_details_sources_3", groups.sourceGroups[2]);
-    appendCalcDetailsGroupTemplateFields(parts, "calc_details_sources_4", groups.sourceGroups[3]);
-    appendCalcDetailsGroupTemplateFields(parts, "calc_details_sources_5", groups.sourceGroups[4]);
-    appendCalcDetailsGroupTemplateFields(parts, "calc_details_sources_6", groups.sourceGroups[5]);
-    appendCalcDetailsGroupTemplateFields(parts, "calc_details_sources_7", groups.sourceGroups[6]);
-    if (groups.sourceGroups[7]) {
+  }
+  return "";
+}
+
+function isCombatWeaponContextDefinition(payload) {
+  const definition = payload && payload.definition;
+  const definitionId = `${(payload && payload.definitionId) || (definition && definition.id) || ""}`.trim();
+  return (
+    definitionId === "ranged_weapon" ||
+    definitionId === "melee_weapon" ||
+    definitionId === "combat_ranged_weapon" ||
+    definitionId === "combat_melee_weapon"
+  );
+}
+
+function getVisibleCombatDamageType(rows) {
+  const explicitType = getLastRowValue(rows, "Schadenstyp");
+  if (explicitType) return explicitType;
+
+  const ammunition = getLastRowValue(rows, "Munition");
+  if (ammunition === "Schocker") return "Betäubung (elektrisch)";
+  if (ammunition === "Gel") return "Betäubung";
+
+  return "Körperlich";
+}
+
+function getVisibleCombatDamageValue(rows) {
+  const damage = getLastRowValue(rows, "Schaden") || getLastRowValue(rows, "Schadenswert");
+  if (!damage) return "";
+
+  const damageType = getVisibleCombatDamageType(rows);
+  return damageType ? `${damage} ${damageType}` : damage;
+}
+
+function buildVisibleCombatContextRows(rows, payload) {
+  if (!isCombatWeaponContextDefinition(payload)) return [];
+
+  const definition = payload && payload.definition;
+  const definitionId = `${(payload && payload.definitionId) || (definition && definition.id) || ""}`.trim();
+  const rowLabels = (definitionId === "melee_weapon" || definitionId === "combat_melee_weapon")
+    ? ["Angriffswert", "Waffentyp", "Reichweite"]
+    : ["Angriffswert", "Munition", "Modus", "Reichweite"];
+  const contextRows = [];
+  const seen = new Set();
+  const damageValue = getVisibleCombatDamageValue(rows);
+
+  if (damageValue) {
+    seen.add("Schadenswert");
+    contextRows.push({ label: "Schadenswert", value: damageValue });
+  }
+
+  rowLabels.forEach((label) => {
+    const value = getLastRowValue(rows, label);
+    if (!value || seen.has(label)) return;
+    seen.add(label);
+    contextRows.push({ label, value });
+  });
+
+  return contextRows;
+}
+
+function getSourceGroupByTitle(sourceGroups, title) {
+  if (!Array.isArray(sourceGroups) || !title) return null;
+  return sourceGroups.find((group) => group && group.title === title) || null;
+}
+
+function getVisibleCombatContextInfoGroups(row, sourceGroups, usedTitles) {
+  if (!row) return null;
+  const used = usedTitles || new Set();
+  let titles = [];
+
+  if (row.label === "Schadenswert") {
+    titles = ["Kampfkontext", "Schadensberechnung"];
+  } else if (row.label === "Angriffswert") {
+    titles = ["Angriffswertberechnung"];
+  } else if (row.label === "Munition") {
+    titles = ["Munitionshinweis"];
+  } else if (row.label === "Modus") {
+    titles = ["Feuermodus"];
+  } else if (row.label === "Reichweite" || row.label === "Waffentyp") {
+    titles = ["Kampfkontext"];
+  }
+
+  return titles.reduce((groups, title) => {
+    if (!title || used.has(title)) return groups;
+    const group = getSourceGroupByTitle(sourceGroups, title);
+    if (!group || !group.details) return groups;
+    used.add(title);
+    groups.push(group);
+    return groups;
+  }, []);
+}
+
+function appendVisibleCombatContextTemplateFields(parts, rows, payload, sourceGroups) {
+  const contextRows = buildVisibleCombatContextRows(rows, payload);
+  if (contextRows.length === 0) return;
+
+  const usedInfoTitles = new Set();
+  contextRows.slice(0, 5).forEach((row, index) => {
+    const rowIndex = index + 1;
+    const infoGroups = getVisibleCombatContextInfoGroups(row, sourceGroups, usedInfoTitles);
+    parts.push(`{{visible_context_${rowIndex}_label=${row.label}}}`);
+    parts.push(`{{visible_context_${rowIndex}_value=${row.value}}}`);
+    if (infoGroups.length > 0) {
+      parts.push(`{{visible_context_${rowIndex}_info_title=${infoGroups[0].title}}}`);
+      parts.push(`{{visible_context_${rowIndex}_info=${infoGroups[0].details}}}`);
+    }
+    if (infoGroups.length > 1) {
+      parts.push(`{{visible_context_${rowIndex}_info_2_title=${infoGroups[1].title}}}`);
+      parts.push(`{{visible_context_${rowIndex}_info_2=${infoGroups[1].details}}}`);
+    }
+  });
+}
+
+function getVisibleCombatExtractedInfoTitles(rows, payload, sourceGroups) {
+  const contextRows = buildVisibleCombatContextRows(rows, payload);
+  const usedInfoTitles = new Set();
+
+  contextRows.slice(0, 5).forEach((row) => {
+    getVisibleCombatContextInfoGroups(row, sourceGroups, usedInfoTitles);
+  });
+
+  return usedInfoTitles;
+}
+
+function appendCalcDetailsTemplateFields(parts, groups, excludedTitles) {
+  if (!groups) return;
+  if (groups.summary) {
+    parts.push(`{{pool_info=${groups.summary}}}`);
+  }
+  appendPoolInfoGroupTemplateFields(parts, groups.sourceGroups);
+  const excluded = excludedTitles || new Set();
+  const poolInfoTitles = new Set([
+    "Attributsberechnung",
+    "Fertigkeitsberechnung",
+    "Popup-Modifikatoren",
+  ]);
+  const sourceGroups = groups.sourceGroups.filter((group) => (
+    !excluded.has(group.title) && !poolInfoTitles.has(group.title)
+  ));
+  if (sourceGroups.length > 0) {
+    appendCalcDetailsGroupTemplateFields(parts, "calc_details_sources", sourceGroups[0]);
+    appendCalcDetailsGroupTemplateFields(parts, "calc_details_sources_2", sourceGroups[1]);
+    appendCalcDetailsGroupTemplateFields(parts, "calc_details_sources_3", sourceGroups[2]);
+    appendCalcDetailsGroupTemplateFields(parts, "calc_details_sources_4", sourceGroups[3]);
+    appendCalcDetailsGroupTemplateFields(parts, "calc_details_sources_5", sourceGroups[4]);
+    appendCalcDetailsGroupTemplateFields(parts, "calc_details_sources_6", sourceGroups[5]);
+    appendCalcDetailsGroupTemplateFields(parts, "calc_details_sources_7", sourceGroups[6]);
+    if (sourceGroups[7]) {
       appendCalcDetailsGroupTemplateFields(parts, "calc_details_sources_8", {
-        title: groups.sourceGroups[7].title,
-        details: groups.sourceGroups.slice(7).map((group) => group.details).join(", "),
+        title: sourceGroups[7].title,
+        details: sourceGroups.slice(7).map((group) => group.details).join(", "),
       });
     }
   }
@@ -637,6 +800,7 @@ function buildSr6ProbeMessage(payload) {
   const subjectFieldLabel = getSubjectFieldLabel(payload.resolvedFields, payload.definition);
   const subjectLabel = normalizeSubjectLabel(subjectFieldLabel);
   const subject = getSubjectValue(payload.resolvedFields, subjectFieldLabel, name);
+  const calcDetailGroups = buildCalcDetailGroups(rows, subjectFieldLabel, payload);
 
   if (!payload.suppressSubject) {
     if (subjectLabel) parts.push(`{{subject_label=${subjectLabel}}}`);
@@ -658,8 +822,10 @@ function buildSr6ProbeMessage(payload) {
 
   appendDetailsTemplateFields(parts, payload);
   appendEdgeActionTemplateField(parts, payload);
+  appendVisibleCombatContextTemplateFields(parts, rows, payload, calcDetailGroups.sourceGroups);
 
-  appendCalcDetailsTemplateFields(parts, rows, subjectFieldLabel, payload);
+  const extractedInfoTitles = getVisibleCombatExtractedInfoTitles(rows, payload, calcDetailGroups.sourceGroups);
+  appendCalcDetailsTemplateFields(parts, calcDetailGroups, extractedInfoTitles);
 
   if (payload.isGlitch) {
     parts.push("{{is_glitch=1}}");

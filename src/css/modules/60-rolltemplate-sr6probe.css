@@ -211,22 +211,118 @@ body.sheet-darkmode .sheet-rolltemplate-sr6probe .sheet-sr6probe__value {
   border: none;
 }
 
-.sheet-rolltemplate-sr6probe .sheet-sr6probe__details-toggle summary,
-.sheet-sr6probe__details-toggle summary {
-  cursor: pointer;
-  font-weight: 700;
-  color: #840763;
+.sheet-rolltemplate-sr6probe .sheet-sr6probe__info-wrap,
+.sheet-sr6probe__info-wrap {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.25rem;
+  margin-left: 0.15rem;
+  position: relative;
+  vertical-align: middle;
 }
 
-.sheet-rolltemplate-sr6probe .sheet-sr6probe__details-toggle,
-.sheet-sr6probe__details-toggle {
+.sheet-rolltemplate-sr6probe .sheet-sr6probe__row--info,
+.sheet-sr6probe__row--info {
+  position: relative;
+}
+
+.sheet-rolltemplate-sr6probe .sheet-sr6probe__row--pool,
+.sheet-sr6probe__row--pool {
+  position: relative;
+}
+
+.sheet-rolltemplate-sr6probe .sheet-sr6probe__row--pool .sheet-sr6probe__info-wrap,
+.sheet-sr6probe__row--pool .sheet-sr6probe__info-wrap {
+  position: static;
+}
+
+.sheet-rolltemplate-sr6probe .sheet-sr6probe__row--context,
+.sheet-sr6probe__row--context {
+  position: relative;
+}
+
+.sheet-rolltemplate-sr6probe .sheet-sr6probe__row--context .sheet-sr6probe__info-wrap,
+.sheet-sr6probe__row--context .sheet-sr6probe__info-wrap {
+  position: static;
+}
+
+.sheet-rolltemplate-sr6probe .sheet-sr6probe__info-icon,
+.sheet-sr6probe__info-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 0.875rem;
+  height: 0.875rem;
+  border: 0.0625rem solid #b98bb0;
+  border-radius: 999rem;
+  background: rgba(255, 255, 255, 0.9);
+  color: #840763;
+  cursor: help;
+  font-size: 0.625rem;
+  font-weight: 700;
+  line-height: 0.875rem;
+}
+
+.sheet-rolltemplate-sr6probe .sheet-sr6probe__info-panel,
+.sheet-sr6probe__info-panel {
+  display: none;
+  position: absolute;
+  bottom: 100%;
+  left: 0;
+  box-sizing: border-box;
+  width: 100%;
+  max-width: 100%;
+  max-height: 68vh;
+  overflow: auto;
+  margin-bottom: 0.35rem;
+  padding: 0.65rem 0.75rem 0.75rem;
+  border: 0.125rem solid #840763;
+  border-radius: 0.35rem;
+  background: #ffffff;
+  box-shadow: 0 0.35rem 1.5rem rgba(0, 0, 0, 0.35);
+  color: #111111;
+  font-size: 0.95rem;
+  font-weight: 400;
+  line-height: 1.35;
+  overflow-wrap: anywhere;
+  text-align: left;
+  white-space: normal;
+  z-index: 2147483647 !important;
+}
+
+.sheet-rolltemplate-sr6probe .sheet-sr6probe__info-wrap:hover .sheet-sr6probe__info-panel,
+.sheet-rolltemplate-sr6probe .sheet-sr6probe__info-wrap:focus-within .sheet-sr6probe__info-panel,
+.sheet-sr6probe__info-wrap:hover .sheet-sr6probe__info-panel,
+.sheet-sr6probe__info-wrap:focus-within .sheet-sr6probe__info-panel {
+  display: block !important;
+}
+
+.sheet-rolltemplate-sr6probe .sheet-sr6probe__info-host,
+.sheet-sr6probe__info-host {
+  position: static;
+}
+
+.sheet-rolltemplate-sr6probe .sheet-sr6probe__info-host .sheet-sr6probe__info-wrap,
+.sheet-sr6probe__info-host .sheet-sr6probe__info-wrap {
+  position: static;
+}
+
+.sheet-rolltemplate-sr6probe .sheet-sr6probe__subtitle,
+.sheet-sr6probe__subtitle {
   display: block;
+  margin-top: 0.5rem;
+  color: #840763;
+  font-size: 1.4545rem;
+  font-weight: 700;
+  line-height: 1.25;
 }
 
 .sheet-rolltemplate-sr6probe .sheet-sr6probe__calc,
 .sheet-sr6probe__calc {
+  display: block;
   margin-top: 0.25rem;
   color: #111111;
+  font-size: 1.1636rem;
   line-height: 1.35;
   overflow-wrap: anywhere;
   word-break: normal;
