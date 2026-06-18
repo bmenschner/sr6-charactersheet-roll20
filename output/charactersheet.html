@@ -10841,6 +10841,212 @@ function buildComputationDebugRows(computation, sourceRows) {
   return rows;
 }
 
+// Source group labels used to build pool info, context popups, and debug output.
+const SR6_DETAIL_GROUP_TITLES = {
+  combatContext: "Kampfkontext",
+  combatDamage: "Schadensberechnung",
+  munitionHint: "Munitionshinweis",
+  fireMode: "Feuermodus",
+  attackValue: "Angriffswertberechnung",
+  combatDefense: "Verteidigungsberechnung",
+  combatDefenseValue: "Verteidigungswertberechnung",
+  formula: "Formelberechnung",
+  language: "Sprachberechnung",
+  spellContext: "Zauberkontext",
+  magicDrain: "Magie und Entzug",
+  summoning: "Beschwörung",
+  objectResistance: "Objektwiderstand",
+  probeContext: "Probenkontext",
+  defenseContext: "Verteidigungsberechnung",
+  vehicleContext: "Fahrzeugkontext",
+  weaponContext: "Waffenkontext",
+  equipmentContext: "Ausrüstungskontext",
+  attribute: "Attributsberechnung",
+  skill: "Fertigkeitsberechnung",
+  popup: "Popup-Modifikatoren",
+  edgeBoost: "Edge-Boost",
+  fateDice: "Schicksalswürfel",
+  hint: "Hinweis",
+};
+
+const SR6_POOL_INFO_TITLES = new Set([
+  SR6_DETAIL_GROUP_TITLES.language,
+  SR6_DETAIL_GROUP_TITLES.formula,
+  SR6_DETAIL_GROUP_TITLES.probeContext,
+  SR6_DETAIL_GROUP_TITLES.equipmentContext,
+  SR6_DETAIL_GROUP_TITLES.attribute,
+  SR6_DETAIL_GROUP_TITLES.skill,
+  SR6_DETAIL_GROUP_TITLES.popup,
+  SR6_DETAIL_GROUP_TITLES.edgeBoost,
+  SR6_DETAIL_GROUP_TITLES.fateDice,
+]);
+
+const SR6_COMBAT_CONTEXT_LABELS = new Set([
+  "Waffe",
+  "Fertigkeit",
+  "Waffentyp",
+  "Munition",
+  "Modus",
+  "Reichweite",
+  "Schadenswert",
+  "Schadenstyp",
+]);
+const SR6_COMBAT_SKILL_LABELS = new Set([
+  "Fertigkeitswert Basis",
+  "Fertigkeitswert Modifikator",
+  "Fertigkeitswert Gesamtwert",
+  "Spezialisierung Auswahl",
+  "Expertise Auswahl",
+]);
+const SR6_DAMAGE_LABELS = new Set([
+  "Schaden-Basis",
+  "Erfolge auf Schaden",
+  "Feuermodus-Schaden",
+  "Schadens-Modifikator",
+  "Schaden-Modifikator",
+  "Schaden",
+  "Schadenswert",
+  "Schadenstyp",
+]);
+const SR6_ATTACK_VALUE_LABELS = new Set([
+  "Angriffswert-Formel",
+  "Angriffswert-Basis",
+  "Geschicklichkeit-Wert",
+  "Stärke-Wert",
+  "Reaktion-Wert",
+  "Feuermodus-Angriffswert",
+  "Angriffswert-Modifikator",
+  "Angriffswert",
+]);
+const SR6_COMBAT_DEFENSE_LABELS = new Set([
+  "Verteidigung",
+  "Reaktion Basis",
+  "Reaktion Modifikator",
+  "Reaktion Gesamtwert",
+  "Intuition Basis",
+  "Intuition Modifikator",
+  "Intuition Gesamtwert",
+]);
+const SR6_COMBAT_DEFENSE_VALUE_LABELS = new Set([
+  "Verteidigungswert",
+  "Verteidigungswert Konstitution Basis",
+  "Verteidigungswert Konstitution Modifikator",
+  "Verteidigungswert Konstitution Gesamtwert",
+  "Verteidigungswert Primäre Panzerung",
+  "Verteidigungswert Sekundäre Panzerung",
+  "Verteidigungswert Helm",
+  "Verteidigungswert Schild",
+  "Verteidigungswert Modifikator",
+  "Verteidigungswert Gesamtwert",
+]);
+const SR6_ATTRIBUTE_DETAIL_LABELS = new Set([
+  "Konstitution Basis",
+  "Konstitution Modifikator",
+  "Konstitution Gesamtwert",
+  "Geschicklichkeit Basis",
+  "Geschicklichkeit Modifikator",
+  "Geschicklichkeit Gesamtwert",
+  "Stärke Basis",
+  "Stärke Modifikator",
+  "Stärke Gesamtwert",
+  "Willenskraft Basis",
+  "Willenskraft Modifikator",
+  "Willenskraft Gesamtwert",
+  "Logik Basis",
+  "Logik Modifikator",
+  "Logik Gesamtwert",
+  "Charisma Basis",
+  "Charisma Modifikator",
+  "Charisma Gesamtwert",
+  "Edge Basis",
+  "Edge Modifikator",
+  "Edge Gesamtwert",
+  "Magie/Resonanz Basis",
+  "Magie/Resonanz Modifikator",
+  "Magie/Resonanz Gesamtwert",
+]);
+const SR6_POPUP_DETAIL_LABELS = new Set([
+  "Popup-Modifikator",
+  "Skill-Modifikator",
+  "Spezialisierung",
+  "Expertise",
+  "Spezialisierung/Expertise",
+  "Ungeübt",
+  "Attribut x2",
+  "Stufe x2",
+]);
+const SR6_FATE_DICE_LABELS = new Set([
+  "Schicksalswürfel",
+  "Schicksalswürfel-Wurf",
+  "Schicksalswürfel-Hinweis",
+  "Schicksalswürfel-Quelle",
+  "Schicksalswürfel begrenzt",
+  "Einzelgänger",
+  "Einzelgänger-1 ignoriert",
+  "Annullierende Schicksalswürfel-1en",
+  "Normale 5en annulliert",
+]);
+const SR6_EDGE_BOOST_LABELS = new Set([
+  "Edge-Boost",
+  "Edge-Kosten",
+  "Edge-Poolbonus",
+  "Edge-Hinweis",
+]);
+const SR6_SPELL_CONTEXT_LABELS = new Set(["Art", "Reichweite", "Dauer", "Schaden", "Notiz"]);
+const SR6_MAGIC_DRAIN_LABELS = new Set(["Entzug", "Entzugwiderstand", "Entzug-Details", "Entstandener Entzug", "Entzugsschaden"]);
+const SR6_SUMMONING_LABELS = new Set([
+  "Geist",
+  "Typ",
+  "Stufe",
+  "Beschwören-Pool",
+  "Beschwören-Erfolge",
+  "Geist-Pool",
+  "Geist-Erfolge",
+  "Nettoerfolge",
+  "Erhaltene Dienste",
+  "Geist-Details",
+]);
+const SR6_OBJECT_RESISTANCE_LABELS = new Set([
+  "Objektwiderstand-Pool",
+  "Objektwiderstand-Erfolge",
+  "Objektwiderstand-Nettoerfolge",
+  "Objektwiderstand-Details",
+]);
+const SR6_PROBE_CONTEXT_LABELS = new Set(["Probe", "Probe-Wert", "Matrixattribut", "Zugriff", "Overwatch-Modifikator"]);
+const SR6_DEFENSE_CONTEXT_LABELS = new Set(["Verteidigung", "Verteidigungswert"]);
+const SR6_VEHICLE_CONTEXT_LABELS = new Set(["Modus", "Fahrzeug", "Gerät", "Geraet", "Zustandsmonitor", "Riggerkontrolle", "Agentenstufe"]);
+const SR6_WEAPON_CONTEXT_LABELS = new Set(["Installierte Waffe", "Waffentyp", "Angriffswerte (Reichweite)"]);
+const SR6_EQUIPMENT_CONTEXT_LABELS = new Set(["Bezug", "Bezugswert", "Auswahl", "Stufe", "Stufe x2"]);
+
+const SR6_GROUP_TITLE_BY_KEY = {
+  combat_context: SR6_DETAIL_GROUP_TITLES.combatContext,
+  combat_damage: SR6_DETAIL_GROUP_TITLES.combatDamage,
+  munition_hint: SR6_DETAIL_GROUP_TITLES.munitionHint,
+  fire_mode: SR6_DETAIL_GROUP_TITLES.fireMode,
+  combat_attack_value: SR6_DETAIL_GROUP_TITLES.attackValue,
+  combat_defense: SR6_DETAIL_GROUP_TITLES.combatDefense,
+  combat_defense_value: SR6_DETAIL_GROUP_TITLES.combatDefenseValue,
+  formula: SR6_DETAIL_GROUP_TITLES.formula,
+  language: SR6_DETAIL_GROUP_TITLES.language,
+  spell_context: SR6_DETAIL_GROUP_TITLES.spellContext,
+  magic_drain: SR6_DETAIL_GROUP_TITLES.magicDrain,
+  summoning: SR6_DETAIL_GROUP_TITLES.summoning,
+  object_resistance: SR6_DETAIL_GROUP_TITLES.objectResistance,
+  probe_context: SR6_DETAIL_GROUP_TITLES.probeContext,
+  defense_context: SR6_DETAIL_GROUP_TITLES.defenseContext,
+  vehicle_context: SR6_DETAIL_GROUP_TITLES.vehicleContext,
+  weapon_context: SR6_DETAIL_GROUP_TITLES.weaponContext,
+  attack_value: SR6_DETAIL_GROUP_TITLES.attackValue,
+  damage: SR6_DETAIL_GROUP_TITLES.combatDamage,
+  equipment_context: SR6_DETAIL_GROUP_TITLES.equipmentContext,
+  attribute: SR6_DETAIL_GROUP_TITLES.attribute,
+  skill: SR6_DETAIL_GROUP_TITLES.skill,
+  popup: SR6_DETAIL_GROUP_TITLES.popup,
+  edge_boost: SR6_DETAIL_GROUP_TITLES.edgeBoost,
+  fate_dice: SR6_DETAIL_GROUP_TITLES.fateDice,
+  hint: SR6_DETAIL_GROUP_TITLES.hint,
+};
+
 function isCombatCalcDetailDefinition(payload) {
   const definition = payload && payload.definition;
   const definitionId = `${(payload && payload.definitionId) || (definition && definition.id) || ""}`.trim();
@@ -10862,108 +11068,22 @@ function isCombatCalcDetailDefinition(payload) {
 }
 
 function getCombatCalcDetailSourceGroupKey(label) {
-  const combatContextLabels = new Set([
-    "Waffe",
-    "Fertigkeit",
-    "Waffentyp",
-    "Munition",
-    "Modus",
-    "Reichweite",
-    "Schadenswert",
-    "Schadenstyp",
-  ]);
-  const skillLabels = new Set([
-    "Fertigkeitswert Basis",
-    "Fertigkeitswert Modifikator",
-    "Fertigkeitswert Gesamtwert",
-    "Spezialisierung Auswahl",
-    "Expertise Auswahl",
-  ]);
-  const damageLabels = new Set([
-    "Schaden-Basis",
-    "Erfolge auf Schaden",
-    "Feuermodus-Schaden",
-    "Schadens-Modifikator",
-    "Schaden-Modifikator",
-    "Schaden",
-  ]);
-  const attackValueLabels = new Set([
-    "Angriffswert-Formel",
-    "Angriffswert-Basis",
-    "Geschicklichkeit-Wert",
-    "Stärke-Wert",
-    "Reaktion-Wert",
-    "Feuermodus-Angriffswert",
-    "Angriffswert-Modifikator",
-    "Angriffswert",
-  ]);
-  const defenseLabels = new Set([
-    "Verteidigung",
-    "Reaktion Basis",
-    "Reaktion Modifikator",
-    "Reaktion Gesamtwert",
-    "Intuition Basis",
-    "Intuition Modifikator",
-    "Intuition Gesamtwert",
-  ]);
-  const defenseValueLabels = new Set([
-    "Verteidigungswert",
-    "Verteidigungswert Konstitution Basis",
-    "Verteidigungswert Konstitution Modifikator",
-    "Verteidigungswert Konstitution Gesamtwert",
-    "Verteidigungswert Primäre Panzerung",
-    "Verteidigungswert Sekundäre Panzerung",
-    "Verteidigungswert Helm",
-    "Verteidigungswert Schild",
-    "Verteidigungswert Modifikator",
-    "Verteidigungswert Gesamtwert",
-  ]);
-  const attributeLabels = new Set([
-    "Konstitution Basis",
-    "Konstitution Modifikator",
-    "Konstitution Gesamtwert",
-    "Geschicklichkeit Basis",
-    "Geschicklichkeit Modifikator",
-    "Geschicklichkeit Gesamtwert",
-    "Stärke Basis",
-    "Stärke Modifikator",
-    "Stärke Gesamtwert",
-    "Willenskraft Basis",
-    "Willenskraft Modifikator",
-    "Willenskraft Gesamtwert",
-    "Logik Basis",
-    "Logik Modifikator",
-    "Logik Gesamtwert",
-    "Charisma Basis",
-    "Charisma Modifikator",
-    "Charisma Gesamtwert",
-    "Edge Basis",
-    "Edge Modifikator",
-    "Edge Gesamtwert",
-    "Magie/Resonanz Basis",
-    "Magie/Resonanz Modifikator",
-    "Magie/Resonanz Gesamtwert",
-  ]);
-  const popupLabels = new Set([
-    "Skill-Modifikator",
-    "Spezialisierung",
-    "Expertise",
-    "Spezialisierung/Expertise",
-  ]);
-
-  if (combatContextLabels.has(label)) return "combat_context";
+  if (SR6_COMBAT_CONTEXT_LABELS.has(label)) return "combat_context";
   if (label === "Attribut" || label.indexOf("Attributwert ") === 0) return "attribute";
-  if (skillLabels.has(label)) return "skill";
-  if (damageLabels.has(label)) return "combat_damage";
-  if (attackValueLabels.has(label)) return "combat_attack_value";
-  if (defenseLabels.has(label)) return "combat_defense";
-  if (defenseValueLabels.has(label)) return "combat_defense_value";
-  if (attributeLabels.has(label)) return "attribute";
-  if (popupLabels.has(label)) return "popup";
+  if (SR6_COMBAT_SKILL_LABELS.has(label)) return "skill";
+  if (SR6_DAMAGE_LABELS.has(label)) return "combat_damage";
+  if (SR6_ATTACK_VALUE_LABELS.has(label)) return "combat_attack_value";
+  if (SR6_COMBAT_DEFENSE_LABELS.has(label)) return "combat_defense";
+  if (SR6_COMBAT_DEFENSE_VALUE_LABELS.has(label)) return "combat_defense_value";
+  if (SR6_ATTRIBUTE_DETAIL_LABELS.has(label)) return "attribute";
+  if (SR6_POPUP_DETAIL_LABELS.has(label)) return "popup";
   return "";
 }
 
 function getCalcDetailSourceGroupKey(label, subjectFieldLabel, payload) {
+  const definition = payload && payload.definition;
+  const probeModel = definition && definition.probeModel;
+
   if (isCombatCalcDetailDefinition(payload)) {
     if (label === "Munitionshinweis") return "munition_hint";
     if (
@@ -10979,38 +11099,52 @@ function getCalcDetailSourceGroupKey(label, subjectFieldLabel, payload) {
 
   if (label === "Sprachniveau") return "language";
   if (label === "Attributsprobe" || label === "Formel") return "formula";
+  if (probeModel === "spell_probe" && SR6_SPELL_CONTEXT_LABELS.has(label)) {
+    return "spell_context";
+  }
+  if (
+    (probeModel === "spell_probe" || probeModel === "summoning_probe") &&
+    SR6_MAGIC_DRAIN_LABELS.has(label)
+  ) {
+    return "magic_drain";
+  }
+  if (probeModel === "summoning_probe" && SR6_SUMMONING_LABELS.has(label)) {
+    return "summoning";
+  }
+  if (probeModel === "summoning_probe" && SR6_OBJECT_RESISTANCE_LABELS.has(label)) {
+    return "object_resistance";
+  }
+  if (SR6_PROBE_CONTEXT_LABELS.has(label)) {
+    return "probe_context";
+  }
+  if (SR6_DEFENSE_CONTEXT_LABELS.has(label)) {
+    return "defense_context";
+  }
+  if (probeModel === "rigging_vehicle_probe" && SR6_VEHICLE_CONTEXT_LABELS.has(label)) {
+    return "vehicle_context";
+  }
+  if (probeModel === "rigging_vehicle_probe" && SR6_WEAPON_CONTEXT_LABELS.has(label)) {
+    return "weapon_context";
+  }
+  if (SR6_ATTACK_VALUE_LABELS.has(label)) {
+    return "attack_value";
+  }
+  if (SR6_DAMAGE_LABELS.has(label)) {
+    return "damage";
+  }
+  if (probeModel === "equipment_probe" && SR6_EQUIPMENT_CONTEXT_LABELS.has(label)) {
+    return "equipment_context";
+  }
   if (subjectFieldLabel === "Attribut" && (label === "Basis" || label === "Modifikator" || label === "Gesamtwert")) return "attribute";
   if (label === "Attribut" || label.indexOf("Attributwert ") === 0) return "attribute";
   if (label.indexOf("Fertigkeitswert ") === 0) return "skill";
-  if (
-    label === "Schicksalswürfel" ||
-    label === "Schicksalswürfel-Wurf" ||
-    label === "Schicksalswürfel-Hinweis" ||
-    label === "Schicksalswürfel-Quelle" ||
-    label === "Schicksalswürfel begrenzt" ||
-    label === "Einzelgänger" ||
-    label === "Einzelgänger-1 ignoriert" ||
-    label === "Annullierende Schicksalswürfel-1en" ||
-    label === "Normale 5en annulliert"
-  ) {
+  if (SR6_FATE_DICE_LABELS.has(label)) {
     return "fate_dice";
   }
-  if (
-    label === "Edge-Boost" ||
-    label === "Edge-Kosten" ||
-    label === "Edge-Poolbonus" ||
-    label === "Edge-Hinweis"
-  ) {
+  if (SR6_EDGE_BOOST_LABELS.has(label)) {
     return "edge_boost";
   }
-  if (
-    label === "Popup-Modifikator" ||
-    label === "Expertise" ||
-    label === "Spezialisierung/Expertise" ||
-    label === "Ungeübt" ||
-    label === "Attribut x2" ||
-    label === "Stufe x2"
-  ) {
+  if (SR6_POPUP_DETAIL_LABELS.has(label)) {
     return "popup";
   }
   if (label === "Hinweis" || label.indexOf("-Hinweis") > -1) return "hint";
@@ -11022,21 +11156,9 @@ function getCalcDetailSourceGroupKey(label, subjectFieldLabel, payload) {
 }
 
 function getCalcDetailSourceGroupTitle(groupKey) {
-  if (groupKey === "combat_context") return "Kampfkontext";
-  if (groupKey === "combat_damage") return "Schadensberechnung";
-  if (groupKey === "munition_hint") return "Munitionshinweis";
-  if (groupKey === "fire_mode") return "Feuermodus";
-  if (groupKey === "combat_attack_value") return "Angriffswertberechnung";
-  if (groupKey === "combat_defense") return "Verteidigungsberechnung";
-  if (groupKey === "combat_defense_value") return "Verteidigungswertberechnung";
-  if (groupKey === "attribute") return "Attributsberechnung";
-  if (groupKey === "skill") return "Fertigkeitsberechnung";
-  if (groupKey === "popup") return "Popup-Modifikatoren";
-  if (groupKey === "edge_boost") return "Edge-Boost";
-  if (groupKey === "fate_dice") return "Schicksalswürfel";
-  if (groupKey === "hint") return "Hinweis";
+  if (SR6_GROUP_TITLE_BY_KEY[groupKey]) return SR6_GROUP_TITLE_BY_KEY[groupKey];
   if (groupKey && groupKey.indexOf("component:") === 0) {
-    return `${groupKey.slice("component:".length)} Berechnung`;
+    return SR6_DETAIL_GROUP_TITLES.formula;
   }
   return "";
 }
@@ -11206,66 +11328,38 @@ function getVisibleCombatDamageValue(rows) {
   return damageType ? `${damage} ${damageType}` : damage;
 }
 
-function buildVisibleCombatContextRows(rows, payload) {
-  if (!isCombatWeaponContextDefinition(payload)) return [];
-
-  const definition = payload && payload.definition;
-  const definitionId = `${(payload && payload.definitionId) || (definition && definition.id) || ""}`.trim();
-  const rowLabels = (
-    definitionId === "melee_weapon" ||
-    definitionId === "combat_melee_core_attack" ||
-    definitionId === "combat_melee_weapon"
-  )
-    ? ["Angriffswert", "Waffentyp", "Reichweite"]
-    : ["Angriffswert", "Munition", "Modus", "Reichweite"];
-  const contextRows = [];
-  const seen = new Set();
-  const damageValue = getVisibleCombatDamageValue(rows);
-
-  if (damageValue) {
-    seen.add("Schadenswert");
-    contextRows.push({ label: "Schadenswert", value: damageValue });
-  }
-
-  rowLabels.forEach((label) => {
-    const value = getLastRowValue(rows, label);
-    if (!value || seen.has(label)) return;
-    seen.add(label);
-    contextRows.push({ label, value });
-  });
-
-  return contextRows;
-}
-
 function getSourceGroupByTitle(sourceGroups, title) {
   if (!Array.isArray(sourceGroups) || !title) return null;
   return sourceGroups.find((group) => group && group.title === title) || null;
 }
 
-function getVisibleCombatContextInfoGroups(row, sourceGroups, usedTitles) {
-  if (!row) return null;
+function getSourceGroupsByTitle(sourceGroups, titles, usedTitles) {
   const used = usedTitles || new Set();
-  let titles = [];
-
-  if (row.label === "Schadenswert") {
-    titles = ["Kampfkontext", "Schadensberechnung"];
-  } else if (row.label === "Angriffswert") {
-    titles = ["Angriffswertberechnung"];
-  } else if (row.label === "Munition") {
-    titles = ["Munitionshinweis"];
-  } else if (row.label === "Modus") {
-    titles = ["Feuermodus"];
-  } else if (row.label === "Reichweite" || row.label === "Waffentyp") {
-    titles = ["Kampfkontext"];
-  }
-
-  return titles.reduce((groups, title) => {
+  return (Array.isArray(titles) ? titles : []).reduce((groups, title) => {
     if (!title || used.has(title)) return groups;
     const group = getSourceGroupByTitle(sourceGroups, title);
     if (!group || !group.details) return groups;
     used.add(title);
     groups.push(group);
     return groups;
+  }, []);
+}
+
+function buildContextRowsFromLabels(rows, labels, sourceGroups, infoTitleMap = {}, options = {}) {
+  const sharedInfoTitles = options.dedupeInfoTitles ? new Set() : null;
+  const valueByLabel = options.valueByLabel || {};
+
+  return (Array.isArray(labels) ? labels : []).reduce((contextRows, label) => {
+    const value = valueByLabel[label] !== undefined
+      ? `${valueByLabel[label] || ""}`.trim()
+      : getLastRowValue(rows, label);
+    if (!value) return contextRows;
+    contextRows.push({
+      label: label,
+      value: value,
+      infoGroups: getSourceGroupsByTitle(sourceGroups, infoTitleMap[label] || [], sharedInfoTitles || new Set()),
+    });
+    return contextRows;
   }, []);
 }
 
@@ -11288,30 +11382,8 @@ function appendContextRowsTemplateFields(parts, contextRows) {
   });
 }
 
-function buildVisibleCombatContextRowsWithInfo(rows, payload, sourceGroups) {
-  const contextRows = buildVisibleCombatContextRows(rows, payload);
-  const usedInfoTitles = new Set();
-
-  return contextRows.map((row) => {
-    const infoGroups = getVisibleCombatContextInfoGroups(row, sourceGroups, usedInfoTitles);
-    return {
-      label: row.label,
-      value: row.value,
-      infoGroups: infoGroups,
-    };
-  });
-}
-
 function getPoolInfoGroups(sourceGroups) {
-  const poolInfoTitles = new Set([
-    "Attributsberechnung",
-    "Fertigkeitsberechnung",
-    "Popup-Modifikatoren",
-    "Edge-Boost",
-    "Schicksalswürfel",
-  ]);
-
-  return (Array.isArray(sourceGroups) ? sourceGroups : []).filter((group) => group && poolInfoTitles.has(group.title));
+  return (Array.isArray(sourceGroups) ? sourceGroups : []).filter((group) => group && SR6_POOL_INFO_TITLES.has(group.title));
 }
 
 function buildDefaultProbeView(payload, name, subjectFieldLabel, subjectLabel, subject, calcDetailGroups) {
@@ -11344,36 +11416,197 @@ function buildInitiativeView(payload, name, subjectFieldLabel, subjectLabel, sub
 }
 
 function buildCombatWeaponView(payload, name, subjectFieldLabel, subjectLabel, subject, calcDetailGroups, rows) {
+  const definition = payload && payload.definition;
+  const definitionId = `${(payload && payload.definitionId) || (definition && definition.id) || ""}`.trim();
+  const isMelee = (
+    definitionId === "melee_weapon" ||
+    definitionId === "combat_melee_core_attack" ||
+    definitionId === "combat_melee_weapon"
+  );
+  const contextLabels = isMelee
+    ? ["Schadenswert", "Angriffswert", "Waffentyp", "Reichweite"]
+    : ["Schadenswert", "Angriffswert", "Munition", "Modus", "Reichweite"];
+
   return {
     suppressSubject: !!(payload && payload.suppressSubject),
     subject: { label: subjectLabel, value: subject },
     poolInfo: getPoolInfoGroups(calcDetailGroups.sourceGroups),
-    contextRows: buildVisibleCombatContextRowsWithInfo(rows, payload, calcDetailGroups.sourceGroups),
+    contextRows: buildContextRowsFromLabels(rows, contextLabels, calcDetailGroups.sourceGroups, {
+      "Schadenswert": [SR6_DETAIL_GROUP_TITLES.combatContext, SR6_DETAIL_GROUP_TITLES.combatDamage],
+      "Angriffswert": [SR6_DETAIL_GROUP_TITLES.attackValue],
+      "Munition": [SR6_DETAIL_GROUP_TITLES.munitionHint],
+      "Modus": [SR6_DETAIL_GROUP_TITLES.fireMode],
+      "Reichweite": [SR6_DETAIL_GROUP_TITLES.combatContext],
+      "Waffentyp": [SR6_DETAIL_GROUP_TITLES.combatContext],
+    }, {
+      dedupeInfoTitles: true,
+      valueByLabel: {
+        "Schadenswert": getVisibleCombatDamageValue(rows),
+      },
+    }),
     resultLabel: (payload && payload.resultLabel) || "Ergebnis",
     resultValue: payload && payload.resultValue,
     debugGroups: calcDetailGroups.sourceGroups,
   };
 }
 
-function buildCombatDefenseView(payload, name, subjectFieldLabel, subjectLabel, subject, calcDetailGroups, rows) {
+function buildDefenseView(payload, name, subjectFieldLabel, subjectLabel, subject, calcDetailGroups, rows) {
   const defenseGroup = getSourceGroupByTitle(calcDetailGroups.sourceGroups, "Verteidigungsberechnung");
   const defenseValueGroup = getSourceGroupByTitle(calcDetailGroups.sourceGroups, "Verteidigungswertberechnung");
+  const comparisonLabel = (payload && payload.definition && payload.definition.comparisonContextLabel) || "Verteidigungswert";
+  const contextLabels = comparisonLabel === "Verteidigung"
+    ? [comparisonLabel]
+    : [comparisonLabel, "Verteidigung"];
+  const contextRows = buildContextRowsFromLabels(rows, contextLabels, calcDetailGroups.sourceGroups, {
+    [comparisonLabel]: defenseValueGroup ? ["Verteidigungswertberechnung"] : ["Verteidigungsberechnung"],
+    "Verteidigung": ["Verteidigungsberechnung"],
+  });
   const poolInfo = [
     ...(defenseGroup ? [defenseGroup] : []),
     ...getPoolInfoGroups(calcDetailGroups.sourceGroups),
   ];
-  const contextRows = [
-    { label: "Verteidigungswert", infoGroups: defenseValueGroup ? [defenseValueGroup] : [] },
-    { label: "Verteidigung", infoGroups: defenseGroup ? [defenseGroup] : [] },
-  ]
-    .map((row) => ({ label: row.label, value: getLastRowValue(rows, row.label), infoGroups: row.infoGroups }))
-    .filter((row) => row.value);
 
   return {
     suppressSubject: !!(payload && payload.suppressSubject),
     subject: { label: subjectLabel, value: subject },
     poolInfo: poolInfo,
     contextRows: contextRows,
+    resultLabel: (payload && payload.resultLabel) || "Ergebnis",
+    resultValue: payload && payload.resultValue,
+    debugGroups: calcDetailGroups.sourceGroups,
+  };
+}
+
+function buildSpellView(payload, name, subjectFieldLabel, subjectLabel, subject, calcDetailGroups, rows) {
+  return {
+    suppressSubject: !!(payload && payload.suppressSubject),
+    subject: { label: subjectLabel, value: subject },
+    poolInfo: getPoolInfoGroups(calcDetailGroups.sourceGroups),
+    contextRows: buildContextRowsFromLabels(rows, [
+      "Art",
+      "Reichweite",
+      "Dauer",
+      "Entzug",
+      "Schaden",
+      "Angriffswert",
+      "Entzugwiderstand",
+    ], calcDetailGroups.sourceGroups, {
+      "Art": ["Zauberkontext"],
+      "Reichweite": ["Zauberkontext"],
+      "Dauer": ["Zauberkontext"],
+      "Entzug": ["Magie und Entzug"],
+      "Schaden": ["Zauberkontext", "Schadensberechnung"],
+      "Angriffswert": ["Angriffswertberechnung"],
+      "Entzugwiderstand": ["Magie und Entzug"],
+    }),
+    resultLabel: (payload && payload.resultLabel) || "Ergebnis",
+    resultValue: payload && payload.resultValue,
+    debugGroups: calcDetailGroups.sourceGroups,
+  };
+}
+
+function buildSummoningView(payload, name, subjectFieldLabel, subjectLabel, subject, calcDetailGroups, rows) {
+  return {
+    suppressSubject: !!(payload && payload.suppressSubject),
+    subject: { label: subjectLabel, value: subject },
+    poolInfo: getPoolInfoGroups(calcDetailGroups.sourceGroups),
+    contextRows: buildContextRowsFromLabels(rows, [
+      "Typ",
+      "Stufe",
+      "Geist-Erfolge",
+      "Erhaltene Dienste",
+      "Entstandener Entzug",
+      "Entzugsschaden",
+      "Objektwiderstand-Nettoerfolge",
+    ], calcDetailGroups.sourceGroups, {
+      "Typ": ["Beschwörung"],
+      "Stufe": ["Beschwörung"],
+      "Geist-Erfolge": ["Beschwörung"],
+      "Erhaltene Dienste": ["Beschwörung"],
+      "Entstandener Entzug": ["Magie und Entzug"],
+      "Entzugsschaden": ["Magie und Entzug"],
+      "Objektwiderstand-Nettoerfolge": ["Objektwiderstand"],
+    }),
+    resultLabel: (payload && payload.resultLabel) || "Ergebnis",
+    resultValue: payload && payload.resultValue,
+    debugGroups: calcDetailGroups.sourceGroups,
+  };
+}
+
+function buildMatrixActionView(payload, name, subjectFieldLabel, subjectLabel, subject, calcDetailGroups, rows) {
+  return {
+    suppressSubject: !!(payload && payload.suppressSubject),
+    subject: { label: subjectLabel, value: subject },
+    poolInfo: getPoolInfoGroups(calcDetailGroups.sourceGroups),
+    contextRows: buildContextRowsFromLabels(rows, [
+      "Probe",
+      "Probe-Wert",
+      "Verteidigung",
+      "Verteidigungswert",
+      "Zugriff",
+      "Overwatch-Modifikator",
+    ], calcDetailGroups.sourceGroups, {
+      "Probe": ["Probenkontext", "Formelberechnung"],
+      "Probe-Wert": ["Probenkontext", "Formelberechnung"],
+      "Verteidigung": ["Verteidigungsberechnung"],
+      "Verteidigungswert": ["Verteidigungsberechnung"],
+      "Zugriff": ["Probenkontext"],
+      "Overwatch-Modifikator": ["Probenkontext"],
+    }),
+    resultLabel: (payload && payload.resultLabel) || "Ergebnis",
+    resultValue: payload && payload.resultValue,
+    debugGroups: calcDetailGroups.sourceGroups,
+  };
+}
+
+function buildRiggingVehicleView(payload, name, subjectFieldLabel, subjectLabel, subject, calcDetailGroups, rows) {
+  return {
+    suppressSubject: !!(payload && payload.suppressSubject),
+    subject: { label: subjectLabel, value: subject },
+    poolInfo: getPoolInfoGroups(calcDetailGroups.sourceGroups),
+    contextRows: buildContextRowsFromLabels(rows, [
+      "Modus",
+      "Probe",
+      "Angriffswert",
+      "Verteidigungswert",
+      "Zustandsmonitor",
+      "Schaden",
+      "Installierte Waffe",
+      "Feuermodus",
+    ], calcDetailGroups.sourceGroups, {
+      "Modus": ["Fahrzeugkontext"],
+      "Probe": ["Probenkontext", "Formelberechnung"],
+      "Angriffswert": ["Angriffswertberechnung"],
+      "Verteidigungswert": ["Fahrzeugkontext"],
+      "Zustandsmonitor": ["Fahrzeugkontext"],
+      "Schaden": ["Schadensberechnung"],
+      "Installierte Waffe": ["Waffenkontext"],
+      "Feuermodus": ["Feuermodus"],
+    }),
+    resultLabel: (payload && payload.resultLabel) || "Ergebnis",
+    resultValue: payload && payload.resultValue,
+    debugGroups: calcDetailGroups.sourceGroups,
+  };
+}
+
+function buildEquipmentView(payload, name, subjectFieldLabel, subjectLabel, subject, calcDetailGroups, rows) {
+  return {
+    suppressSubject: !!(payload && payload.suppressSubject),
+    subject: { label: subjectLabel, value: subject },
+    poolInfo: getPoolInfoGroups(calcDetailGroups.sourceGroups),
+    contextRows: buildContextRowsFromLabels(rows, [
+      "Bezug",
+      "Attribut",
+      "Fertigkeit",
+      "Stufe",
+      "Stufe x2",
+    ], calcDetailGroups.sourceGroups, {
+      "Bezug": ["Ausrüstungskontext"],
+      "Attribut": ["Ausrüstungskontext", "Attributsberechnung"],
+      "Fertigkeit": ["Ausrüstungskontext", "Fertigkeitsberechnung"],
+      "Stufe": ["Ausrüstungskontext"],
+      "Stufe x2": ["Ausrüstungskontext"],
+    }),
     resultLabel: (payload && payload.resultLabel) || "Ergebnis",
     resultValue: payload && payload.resultValue,
     debugGroups: calcDetailGroups.sourceGroups,
@@ -11392,13 +11625,28 @@ function buildSr6ProbeView(payload, name, subjectFieldLabel, subjectLabel, subje
     return buildCombatWeaponView(payload, name, subjectFieldLabel, subjectLabel, subject, calcDetailGroups, rows);
   }
 
-  if (
-    definitionId === "physical_defense" ||
-    definitionId === "physical_damage_resistance" ||
-    definitionId === "general_defense" ||
-    definitionId === "general_damage_resistance"
-  ) {
-    return buildCombatDefenseView(payload, name, subjectFieldLabel, subjectLabel, subject, calcDetailGroups, rows);
+  if (definition && definition.probeModel === "defense_probe") {
+    return buildDefenseView(payload, name, subjectFieldLabel, subjectLabel, subject, calcDetailGroups, rows);
+  }
+
+  if (definition && definition.probeModel === "spell_probe") {
+    return buildSpellView(payload, name, subjectFieldLabel, subjectLabel, subject, calcDetailGroups, rows);
+  }
+
+  if (definition && definition.probeModel === "summoning_probe") {
+    return buildSummoningView(payload, name, subjectFieldLabel, subjectLabel, subject, calcDetailGroups, rows);
+  }
+
+  if (definitionId === "matrix_action") {
+    return buildMatrixActionView(payload, name, subjectFieldLabel, subjectLabel, subject, calcDetailGroups, rows);
+  }
+
+  if (definition && definition.probeModel === "rigging_vehicle_probe") {
+    return buildRiggingVehicleView(payload, name, subjectFieldLabel, subjectLabel, subject, calcDetailGroups, rows);
+  }
+
+  if (definition && definition.probeModel === "equipment_probe") {
+    return buildEquipmentView(payload, name, subjectFieldLabel, subjectLabel, subject, calcDetailGroups, rows);
   }
 
   return buildDefaultProbeView(payload, name, subjectFieldLabel, subjectLabel, subject, calcDetailGroups);
