@@ -368,12 +368,6 @@ function buildComputationDebugRows(computation, sourceRows) {
   appendNonZeroDebugModifierRow(rows, "Pool-Wert-Modifikator", poolRollMod);
   appendNonZeroDebugModifierRow(rows, "Pool-Edgebonus", edgePoolBonus);
 
-  if (parseNumber(computation.requestedFateDiceCount) > 0 || parseNumber(computation.fateDiceCount) > 0) {
-    appendDebugRow(rows, "Schicksalswürfel angefordert", `${parseNumber(computation.requestedFateDiceCount)}`);
-    appendDebugRow(rows, "Schicksalswürfel genutzt", `${parseNumber(computation.fateDiceCount)}`);
-    appendDebugRow(rows, "Normale Poolwürfel", `${parseNumber(computation.regularPool)}`);
-  }
-
   return rows;
 }
 
@@ -480,21 +474,33 @@ function getCalcDetailSourceGroupKey(label, subjectFieldLabel, payload) {
   if (label === "Attribut" || label.indexOf("Attributwert ") === 0) return "attribute";
   if (label.indexOf("Fertigkeitswert ") === 0) return "skill";
   if (
+    label === "Schicksalswürfel" ||
+    label === "Schicksalswürfel-Wurf" ||
+    label === "Schicksalswürfel-Hinweis" ||
+    label === "Schicksalswürfel-Quelle" ||
+    label === "Schicksalswürfel begrenzt" ||
+    label === "Einzelgänger" ||
+    label === "Einzelgänger-1 ignoriert" ||
+    label === "Annullierende Schicksalswürfel-1en" ||
+    label === "Normale 5en annulliert"
+  ) {
+    return "fate_dice";
+  }
+  if (
+    label === "Edge-Boost" ||
+    label === "Edge-Kosten" ||
+    label === "Edge-Poolbonus" ||
+    label === "Edge-Hinweis"
+  ) {
+    return "edge_boost";
+  }
+  if (
     label === "Popup-Modifikator" ||
     label === "Expertise" ||
     label === "Spezialisierung/Expertise" ||
     label === "Ungeübt" ||
     label === "Attribut x2" ||
-    label === "Stufe x2" ||
-    label === "Edge-Boost" ||
-    label === "Edge-Kosten" ||
-    label === "Edge-Poolbonus" ||
-    label === "Edge-Hinweis" ||
-    label === "Schicksalswürfel" ||
-    label === "Schicksalswürfel-Wurf" ||
-    label === "Schicksalswürfel-Hinweis" ||
-    label === "Schicksalswürfel-Quelle" ||
-    label === "Schicksalswürfel begrenzt"
+    label === "Stufe x2"
   ) {
     return "popup";
   }
@@ -516,11 +522,31 @@ function getCalcDetailSourceGroupTitle(groupKey) {
   if (groupKey === "attribute") return "Attributsberechnung";
   if (groupKey === "skill") return "Fertigkeitsberechnung";
   if (groupKey === "popup") return "Popup-Modifikatoren";
+  if (groupKey === "edge_boost") return "Edge-Boost";
+  if (groupKey === "fate_dice") return "Schicksalswürfel";
   if (groupKey === "hint") return "Hinweis";
   if (groupKey && groupKey.indexOf("component:") === 0) {
     return `${groupKey.slice("component:".length)} Berechnung`;
   }
   return "";
+}
+
+function buildComputationFateDetailEntries(computation) {
+  if (
+    !computation ||
+    (
+      parseNumber(computation.requestedFateDiceCount) <= 0 &&
+      parseNumber(computation.fateDiceCount) <= 0
+    )
+  ) {
+    return [];
+  }
+
+  return [
+    `Schicksalswürfel angefordert: ${parseNumber(computation.requestedFateDiceCount)}`,
+    `Schicksalswürfel genutzt: ${parseNumber(computation.fateDiceCount)}`,
+    `Normale Poolwürfel: ${parseNumber(computation.regularPool)}`,
+  ];
 }
 
 function hasLanguageBonusRow(rows) {
@@ -542,9 +568,7 @@ function buildSourceDetailEntry(row, sourceRows) {
   if (label === "Formel" && hasLanguageBonusRow(sourceRows) && value.indexOf("Sprachbonus") === -1) {
     value = `${value} + Sprachbonus`;
   }
-  if (label === "Edge-Hinweis") {
-    label = "Schicksalswürfel-Edge-Hinweis";
-  } else if (label === "Schicksalswürfel-Hinweis") {
+  if (label === "Schicksalswürfel-Hinweis") {
     label = "Hinweis";
   }
   return `${label}: ${value}`;
@@ -599,6 +623,10 @@ function buildCalcDetailGroups(rows, subjectFieldLabel, payload) {
   debugRows.forEach((row) => appendCalcDetail(row, debugDetails));
   (Array.isArray(rows) ? rows : []).forEach((row) => appendSourceDetail(row));
   appendSourceDetailGroup(sourceGroups, currentSourceGroup);
+  appendSourceDetailGroup(sourceGroups, {
+    key: "fate_dice",
+    entries: buildComputationFateDetailEntries(payload && payload.computation),
+  });
 
   return {
     summary: debugDetails.join(", "),
@@ -619,12 +647,16 @@ function appendPoolInfoGroupTemplateFields(parts, sourceGroups) {
     "Attributsberechnung",
     "Fertigkeitsberechnung",
     "Popup-Modifikatoren",
+    "Edge-Boost",
+    "Schicksalswürfel",
   ]);
   const poolGroups = sourceGroups.filter((group) => group && poolInfoTitles.has(group.title));
 
   appendCalcDetailsGroupTemplateFields(parts, "pool_info_sources", poolGroups[0]);
   appendCalcDetailsGroupTemplateFields(parts, "pool_info_sources_2", poolGroups[1]);
   appendCalcDetailsGroupTemplateFields(parts, "pool_info_sources_3", poolGroups[2]);
+  appendCalcDetailsGroupTemplateFields(parts, "pool_info_sources_4", poolGroups[3]);
+  appendCalcDetailsGroupTemplateFields(parts, "pool_info_sources_5", poolGroups[4]);
 }
 
 function getLastRowValue(rows, label) {
@@ -644,6 +676,8 @@ function isCombatWeaponContextDefinition(payload) {
   return (
     definitionId === "ranged_weapon" ||
     definitionId === "melee_weapon" ||
+    definitionId === "combat_ranged_core_attack" ||
+    definitionId === "combat_melee_core_attack" ||
     definitionId === "combat_ranged_weapon" ||
     definitionId === "combat_melee_weapon"
   );
@@ -673,7 +707,11 @@ function buildVisibleCombatContextRows(rows, payload) {
 
   const definition = payload && payload.definition;
   const definitionId = `${(payload && payload.definitionId) || (definition && definition.id) || ""}`.trim();
-  const rowLabels = (definitionId === "melee_weapon" || definitionId === "combat_melee_weapon")
+  const rowLabels = (
+    definitionId === "melee_weapon" ||
+    definitionId === "combat_melee_core_attack" ||
+    definitionId === "combat_melee_weapon"
+  )
     ? ["Angriffswert", "Waffentyp", "Reichweite"]
     : ["Angriffswert", "Munition", "Modus", "Reichweite"];
   const contextRows = [];
@@ -770,6 +808,8 @@ function appendCalcDetailsTemplateFields(parts, groups, excludedTitles) {
     "Attributsberechnung",
     "Fertigkeitsberechnung",
     "Popup-Modifikatoren",
+    "Edge-Boost",
+    "Schicksalswürfel",
   ]);
   const sourceGroups = groups.sourceGroups.filter((group) => (
     !excluded.has(group.title) && !poolInfoTitles.has(group.title)
@@ -788,6 +828,37 @@ function appendCalcDetailsTemplateFields(parts, groups, excludedTitles) {
         details: sourceGroups.slice(7).map((group) => group.details).join(", "),
       });
     }
+  }
+}
+
+function appendDebugDetailsTemplateFields(parts, groups) {
+  if (!groups) return;
+  let hasDebugDetails = false;
+  if (groups.summary) {
+    parts.push(`{{debug_pool_info=${groups.summary}}}`);
+    hasDebugDetails = true;
+  }
+
+  const sourceGroups = Array.isArray(groups.sourceGroups) ? groups.sourceGroups : [];
+  if (sourceGroups.length > 0) {
+    appendCalcDetailsGroupTemplateFields(parts, "debug_details_sources", sourceGroups[0]);
+    appendCalcDetailsGroupTemplateFields(parts, "debug_details_sources_2", sourceGroups[1]);
+    appendCalcDetailsGroupTemplateFields(parts, "debug_details_sources_3", sourceGroups[2]);
+    appendCalcDetailsGroupTemplateFields(parts, "debug_details_sources_4", sourceGroups[3]);
+    appendCalcDetailsGroupTemplateFields(parts, "debug_details_sources_5", sourceGroups[4]);
+    appendCalcDetailsGroupTemplateFields(parts, "debug_details_sources_6", sourceGroups[5]);
+    appendCalcDetailsGroupTemplateFields(parts, "debug_details_sources_7", sourceGroups[6]);
+    if (sourceGroups[7]) {
+      appendCalcDetailsGroupTemplateFields(parts, "debug_details_sources_8", {
+        title: sourceGroups[7].title,
+        details: sourceGroups.slice(7).map((group) => group.details).join(", "),
+      });
+    }
+    hasDebugDetails = true;
+  }
+
+  if (hasDebugDetails) {
+    parts.push("{{debug_details_enabled=1}}");
   }
 }
 
@@ -826,6 +897,9 @@ function buildSr6ProbeMessage(payload) {
 
   const extractedInfoTitles = getVisibleCombatExtractedInfoTitles(rows, payload, calcDetailGroups.sourceGroups);
   appendCalcDetailsTemplateFields(parts, calcDetailGroups, extractedInfoTitles);
+  if (payload.debugDetailsEnabled) {
+    appendDebugDetailsTemplateFields(parts, calcDetailGroups);
+  }
 
   if (payload.isGlitch) {
     parts.push("{{is_glitch=1}}");

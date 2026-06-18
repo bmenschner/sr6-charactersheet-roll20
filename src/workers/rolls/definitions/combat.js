@@ -1,5 +1,15 @@
 // BEGIN MODULE: workers/rolls/definitions/combat.js
 // Roll-Definitionen fuer Kampf: Kernwerte, Waffenangriffe, Verteidigung, Schadenswiderstand und Kampfvergleichswerte.
+function createCombatCoreAttackValueSourceByRange(prefix) {
+  return {
+    "S. Nah": `${prefix}_sehr_nah`,
+    "Nah": `${prefix}_nah`,
+    "Mittel": `${prefix}_mittel`,
+    "Weit": `${prefix}_weit`,
+    "S. Weit": `${prefix}_sehr_weit`,
+  };
+}
+
 const SR6_ROLL_DEFINITIONS_COMBAT = [
 {
     id: "combat_ranged_core_attack",
@@ -8,19 +18,25 @@ const SR6_ROLL_DEFINITIONS_COMBAT = [
     matchPoolPrefix: "sr6_combat_fernkampfangriff",
     titleMode: "field-short",
     titleField: "Fertigkeit",
-    primaryFields: ["Wert"],
-    extraFields: [],
+    primaryFields: ["Waffe", "Wert"],
+    extraFields: ["Fertigkeit", "Waffentyp", "Schadenswert", "Munition", "Modus", "Reichweite"],
     templateVariant: "weapon",
     contextFields: [
       { label: "Waffe", attr: "sr6_combat_primaere_fernkampfwaffe" },
       { label: "Fertigkeit", attr: "sr6_combat_fernkampf_fertigkeit" },
+      { label: "Waffentyp", attr: "sr6_combat_fernkampf_waffentyp" },
       { label: "Munition", attr: "sr6_combat_munition" },
+      { label: "Modus", attr: "sr6_combat_fernkampf_modus" },
       { label: "Schadenswert", attr: "sr6_combat_fernkampf_schaden" },
     ],
     fixedTitle: "Fernkampfangriff",
     popupFields: SR6_COMBAT_TAB_POPUP_FIELDS,
     popupDerivedResults: [
-      { kind: "attack_value", label: "Angriffswert", source: "pool" },
+      {
+        kind: "attack_value",
+        label: "Angriffswert",
+        sourceByRange: createCombatCoreAttackValueSourceByRange("sr6_combat_fernkampf"),
+      },
       { kind: "damage", label: "Schaden", sourceAttr: "sr6_combat_fernkampf_schaden" },
     ],
     titleFallback: "Kampf",
@@ -32,8 +48,8 @@ const SR6_ROLL_DEFINITIONS_COMBAT = [
     matchPoolPrefix: "sr6_combat_nahkampfangriff",
     titleMode: "field-short",
     titleField: "Fertigkeit",
-    primaryFields: ["Wert"],
-    extraFields: [],
+    primaryFields: ["Waffe", "Wert"],
+    extraFields: ["Fertigkeit", "Attribut", "Waffentyp", "Schadenswert", "Schadenstyp", "Reichweite"],
     templateVariant: "weapon",
     contextFields: [
       { label: "Waffe", attr: "sr6_combat_primaere_nahkampfwaffe" },
@@ -51,7 +67,11 @@ const SR6_ROLL_DEFINITIONS_COMBAT = [
     popupPoolAttributeOverride: "melee_attribute",
     internalFields: ["Geschicklichkeit-Wert", "Stärke-Wert"],
     popupDerivedResults: [
-      { kind: "attack_value", label: "Angriffswert", source: "pool" },
+      {
+        kind: "attack_value",
+        label: "Angriffswert",
+        sourceByRange: createCombatCoreAttackValueSourceByRange("sr6_combat_nahkampf"),
+      },
       { kind: "damage", label: "Schaden", sourceAttr: "sr6_combat_nahkampf_schaden" },
     ],
     titleFallback: "Kampf",

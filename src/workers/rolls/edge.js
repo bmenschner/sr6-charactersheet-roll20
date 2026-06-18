@@ -75,6 +75,7 @@ function runEdgeAfterRollConfirm(values) {
     "sr6_edge_last_roll_successes",
     "sr6_edge_last_roll_is_glitch",
     "sr6_edge_last_roll_is_critical_glitch",
+    "sr6_setting_rolltemplate_debug",
   ];
 
   getAttrs(attrs, (lastValues) => {
@@ -94,6 +95,7 @@ function runEdgeAfterRollConfirm(values) {
         name: "Edge einsetzen",
         rows: buildEdgeAfterRollRows("Nicht möglich", lastRollName, rows),
         edgeAction: false,
+        debugDetailsEnabled: `${lastValues.sr6_setting_rolltemplate_debug || "nein"}`.trim() === "ja",
       });
       startRoll(chatMessage, (rollResult) => finishRoll(rollResult.rollId));
       return;
@@ -151,6 +153,7 @@ function runEdgeAfterRollConfirm(values) {
       erfolge: successes,
       detailsDice: detailsDice,
       edgeAction: false,
+      debugDetailsEnabled: `${lastValues.sr6_setting_rolltemplate_debug || "nein"}`.trim() === "ja",
     });
 
     startRoll(chatMessage, (rollResult) => finishRoll(rollResult.rollId));

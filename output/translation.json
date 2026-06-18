@@ -349,6 +349,7 @@
   "field.option_popup_eigen": "Eigenes Popup (Standard)",
   "field.option_popup_roll20": "Roll20-Fallback",
   "field.option_edge_chatmeldung": "Edge Chatmeldung",
+  "field.option_rolltemplate_debug": "Rolltemplate-Debug",
   "field.option_nein": "Nein",
   "field.option_ja": "Ja",
   "field.edge_boost": "Edge-Boost",

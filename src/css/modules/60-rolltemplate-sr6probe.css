@@ -327,4 +327,16 @@ body.sheet-darkmode .sheet-rolltemplate-sr6probe .sheet-sr6probe__value {
   overflow-wrap: anywhere;
   word-break: normal;
 }
+
+.sheet-rolltemplate-sr6probe .sheet-sr6probe__debug-details,
+.sheet-sr6probe__debug-details {
+  display: block;
+  padding: 0.375rem 0.5rem 0.625rem;
+  background: #ffffff;
+}
+
+.sheet-rolltemplate-sr6probe .sheet-sr6probe__debug-details .sheet-sr6probe__subtitle:first-child,
+.sheet-sr6probe__debug-details .sheet-sr6probe__subtitle:first-child {
+  margin-top: 0;
+}
 /* END MODULE: SR6 Probe Rolltemplate */

@@ -25,6 +25,8 @@
             {{#pool_info_sources}}<span class="sheet-sr6probe__subtitle">{{pool_info_sources_title}}</span><span class="sheet-sr6probe__calc">{{pool_info_sources}}</span>{{/pool_info_sources}}
             {{#pool_info_sources_2}}<span class="sheet-sr6probe__subtitle">{{pool_info_sources_2_title}}</span><span class="sheet-sr6probe__calc">{{pool_info_sources_2}}</span>{{/pool_info_sources_2}}
             {{#pool_info_sources_3}}<span class="sheet-sr6probe__subtitle">{{pool_info_sources_3_title}}</span><span class="sheet-sr6probe__calc">{{pool_info_sources_3}}</span>{{/pool_info_sources_3}}
+            {{#pool_info_sources_4}}<span class="sheet-sr6probe__subtitle">{{pool_info_sources_4_title}}</span><span class="sheet-sr6probe__calc">{{pool_info_sources_4}}</span>{{/pool_info_sources_4}}
+            {{#pool_info_sources_5}}<span class="sheet-sr6probe__subtitle">{{pool_info_sources_5_title}}</span><span class="sheet-sr6probe__calc">{{pool_info_sources_5}}</span>{{/pool_info_sources_5}}
           </span>
         </span>
         {{/pool_info}}
@@ -158,6 +160,27 @@
       </span>
     </div>
     {{/calc_details_sources}}
+
+    {{#debug_details_enabled}}
+    <div class="sheet-sr6probe__row" style="padding:0 0.5rem;background:#ffffff;">
+      <div style="height:1px;background:#d7d7d7;margin:0.25rem 0 0.5rem;"></div>
+    </div>
+    <div class="sheet-sr6probe__row sheet-sr6probe__debug-details" style="display:block;padding:0.375rem 0.5rem 0.625rem;background:#ffffff;">
+      <span class="sheet-sr6probe__subtitle">Debug</span>
+      {{#debug_pool_info}}
+      <span class="sheet-sr6probe__subtitle">Pool-Rechnung</span>
+      <span class="sheet-sr6probe__calc">{{debug_pool_info}}</span>
+      {{/debug_pool_info}}
+      {{#debug_details_sources}}<span class="sheet-sr6probe__subtitle">{{debug_details_sources_title}}</span><span class="sheet-sr6probe__calc">{{debug_details_sources}}</span>{{/debug_details_sources}}
+      {{#debug_details_sources_2}}<span class="sheet-sr6probe__subtitle">{{debug_details_sources_2_title}}</span><span class="sheet-sr6probe__calc">{{debug_details_sources_2}}</span>{{/debug_details_sources_2}}
+      {{#debug_details_sources_3}}<span class="sheet-sr6probe__subtitle">{{debug_details_sources_3_title}}</span><span class="sheet-sr6probe__calc">{{debug_details_sources_3}}</span>{{/debug_details_sources_3}}
+      {{#debug_details_sources_4}}<span class="sheet-sr6probe__subtitle">{{debug_details_sources_4_title}}</span><span class="sheet-sr6probe__calc">{{debug_details_sources_4}}</span>{{/debug_details_sources_4}}
+      {{#debug_details_sources_5}}<span class="sheet-sr6probe__subtitle">{{debug_details_sources_5_title}}</span><span class="sheet-sr6probe__calc">{{debug_details_sources_5}}</span>{{/debug_details_sources_5}}
+      {{#debug_details_sources_6}}<span class="sheet-sr6probe__subtitle">{{debug_details_sources_6_title}}</span><span class="sheet-sr6probe__calc">{{debug_details_sources_6}}</span>{{/debug_details_sources_6}}
+      {{#debug_details_sources_7}}<span class="sheet-sr6probe__subtitle">{{debug_details_sources_7_title}}</span><span class="sheet-sr6probe__calc">{{debug_details_sources_7}}</span>{{/debug_details_sources_7}}
+      {{#debug_details_sources_8}}<span class="sheet-sr6probe__subtitle">{{debug_details_sources_8_title}}</span><span class="sheet-sr6probe__calc">{{debug_details_sources_8}}</span>{{/debug_details_sources_8}}
+    </div>
+    {{/debug_details_enabled}}
   </div>
 </rolltemplate>
 <!-- END BLOCK: Rolltemplate SR6 Probe -->

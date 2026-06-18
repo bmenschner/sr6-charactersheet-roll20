@@ -1085,6 +1085,10 @@ function saveEdgeLastRollContext(name, computation) {
   });
 }
 
+function isRolltemplateDebugEnabled(lookupAttr) {
+  return `${lookupAttr("sr6_setting_rolltemplate_debug") || "nein"}`.trim() === "ja";
+}
+
 function runInitiativeProbeFromContext(context, lookupAttr, resolvedFields) {
   const rows = buildProbeRows(resolvedFields, context.definition);
   const name = deriveProbeTitle(resolvedFields, context.poolAttribute, context.definition);
@@ -1118,6 +1122,7 @@ function runInitiativeProbeFromContext(context, lookupAttr, resolvedFields) {
     edgeAction: false,
     isGlitch: false,
     characterId: lookupAttr("character_id"),
+    debugDetailsEnabled: isRolltemplateDebugEnabled(lookupAttr),
   });
 
   startRoll(chatMessage, (rollResult) => {
@@ -1176,6 +1181,7 @@ function runEquipmentProbeFromContext(context, lookupAttr, resolvedFields, popup
     computation: computation,
     isGlitch: computation.isGlitch,
     characterId: lookupAttr("character_id"),
+    debugDetailsEnabled: isRolltemplateDebugEnabled(lookupAttr),
   });
 
   saveEdgeLastRollContext(name, computation);
@@ -1321,6 +1327,7 @@ function runRiggingVehicleProbeFromContext(context, lookupAttr, resolvedFields, 
     computation: computation,
     isGlitch: computation.isGlitch,
     characterId: lookupAttr("character_id"),
+    debugDetailsEnabled: isRolltemplateDebugEnabled(lookupAttr),
   });
   saveEdgeLastRollContext("Rigging-Fahrzeugprobe", computation);
   startRoll(chatMessage, (rollResult) => {
@@ -1378,6 +1385,7 @@ function runSpellProbeFromContext(context, lookupAttr, resolvedFields, popupStat
     computation: spellComputation,
     isGlitch: spellComputation.isGlitch,
     characterId: lookupAttr("character_id"),
+    debugDetailsEnabled: isRolltemplateDebugEnabled(lookupAttr),
   });
 
   saveEdgeLastRollContext(name, spellComputation);
@@ -1471,6 +1479,7 @@ function runSummoningProbeFromContext(context, lookupAttr, resolvedFields, popup
     computation: summonerComputation,
     isGlitch: summonerComputation.isGlitch,
     characterId: lookupAttr("character_id"),
+    debugDetailsEnabled: isRolltemplateDebugEnabled(lookupAttr),
   });
 
   saveEdgeLastRollContext(name, summonerComputation);
@@ -1532,6 +1541,7 @@ function runSuccessProbeFromContext(rawTemplate, repeatingRowPrefix, popupState 
         details: resolvedFields.Details || "",
         isGlitch: false,
         characterId: lookupAttr("character_id"),
+        debugDetailsEnabled: isRolltemplateDebugEnabled(lookupAttr),
       });
       startRoll(chatMessage, (rollResult) => {
         finishRoll(rollResult.rollId);
@@ -1636,6 +1646,7 @@ function runSuccessProbeFromContext(rawTemplate, repeatingRowPrefix, popupState 
       computation: computation,
       isGlitch: computation.isGlitch,
       characterId: lookupAttr("character_id"),
+      debugDetailsEnabled: isRolltemplateDebugEnabled(lookupAttr),
     });
     saveEdgeLastRollContext(name, computation);
     startRoll(chatMessage, (rollResult) => {

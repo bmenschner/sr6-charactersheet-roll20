@@ -187,6 +187,7 @@ function buildRequestedAttributes(rawTemplate, repeatingRowPrefix) {
   const attributeRefs = collectAttributeReferences(rawTemplate);
 
   attributeRefs.push("character_id");
+  attributeRefs.push("sr6_setting_rolltemplate_debug");
 
   if (poolAttribute && !attributeRefs.includes(poolAttribute)) {
     attributeRefs.push(poolAttribute);
