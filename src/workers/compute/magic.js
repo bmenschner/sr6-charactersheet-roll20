@@ -1,7 +1,6 @@
 // BEGIN MODULE: workers/compute/magic
 function appendMagicRequestKeys(requestKeys) {
   requestKeys.push("sr6_magic_traditionsattribut_1");
-  requestKeys.push("sr6_magic_traditionsattribut_1_modifikator");
   requestKeys.push("sr6_magic_angriffswert_modifikator");
   requestKeys.push("sr6_magic_astralkampf_angriffswert_modifikator");
   requestKeys.push("sr6_magic_astralkampf_verteidigungswert_modifikator");
@@ -29,9 +28,7 @@ function computeMagicDerived(values, totals, skillTotals, updates) {
   );
 
   const traditionKey1 = mapTraditionsattributToKey(values.sr6_magic_traditionsattribut_1);
-  const traditionValue1 =
-    (traditionKey1 ? (totals[traditionKey1] || 0) : 0) +
-    parseNumber(values.sr6_magic_traditionsattribut_1_modifikator);
+  const traditionValue1 = traditionKey1 ? (totals[traditionKey1] || 0) : 0;
 
   updates.sr6_magic_entzug_widerstand = String(
     traditionValue1 + (totals.willenskraft || 0)

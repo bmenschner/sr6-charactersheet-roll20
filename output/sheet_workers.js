@@ -1460,12 +1460,11 @@ function createSummoningPopupFields() {
 
 function getMagicRollAdditionalAttributes(definition) {
   if (!definition) return [];
-  if (definition.id === "spell" || definition.id === "summoning") {
+  if (definition.id === "spell" || definition.id === "summoning" || definition.id === "magic_drain_resistance") {
     return [
       "sr6_magic_magie",
       "sr6_magic_entzug_widerstand",
       "sr6_magic_traditionsattribut_1",
-      "sr6_magic_traditionsattribut_1_modifikator",
     ];
   }
   return [];
@@ -1680,9 +1679,9 @@ const SR6_ROLL_DEFINITIONS_MAGIC = [
     matchPoolPrefix: "sr6_magic_spruchzauberei",
     titleMode: "fixed",
     primaryFields: ["Zauber"],
-    extraFields: ["Art", "Reichweite", "Dauer", "Entzug", "Schaden", "Notiz"],
+    extraFields: ["Art", "Reichweite", "Typ", "Dauer", "Widerstand", "Entzug", "Schadenstyp", "Notiz"],
     contextFields: [
-      { label: "Entzugwiderstand", attr: "sr6_magic_entzug_widerstand" },
+      { label: "Entzugswiderstand", attr: "sr6_magic_entzug_widerstand" },
     ],
     fixedTitle: "Spruchzauberei",
     popupFields: createSpellPopupFields(),
@@ -1722,6 +1721,15 @@ const SR6_ROLL_DEFINITIONS_MAGIC = [
       comparisonContextSourceAttr: "sr6_magic_astralkampf_verteidigungswert",
       fixedTitle: "Astraler Schadenswiderstand",
       titleFallback: "Magie: Kernwerte",
+    }),
+  },
+{
+    id: "magic_drain_resistance",
+    ...createValueProbeDefinition({
+      matchField: "",
+      matchPoolPrefix: "sr6_magic_entzug_widerstand",
+      fixedTitle: "Entzugswiderstand",
+      titleFallback: "Entzugswiderstand",
     }),
   },
 {
@@ -3459,6 +3467,8 @@ const SR6_DETAIL_GROUP_TITLES = {
   language: "Sprachberechnung",
   spellContext: "Zauberkontext",
   magicDrain: "Magie und Entzug",
+  spellDamage: "Kampfzauber-Schaden",
+  notes: "Notizen",
   summoning: "Beschwörung",
   objectResistance: "Objektwiderstand",
   probeContext: "Probenkontext",
@@ -3521,6 +3531,10 @@ const SR6_ATTACK_VALUE_LABELS = new Set([
   "Reaktion-Wert",
   "Feuermodus-Angriffswert",
   "Angriffswert-Modifikator",
+  "Angriffswert Kernwert-Modifikator",
+  "Angriffswert Magie",
+  "Angriffswert Traditionsattribut",
+  "Angriffswert Traditionsattribut Wert",
   "Angriffswert",
 ]);
 const SR6_COMBAT_DEFENSE_LABELS = new Set([
@@ -3551,6 +3565,9 @@ const SR6_ATTRIBUTE_DETAIL_LABELS = new Set([
   "Geschicklichkeit Basis",
   "Geschicklichkeit Modifikator",
   "Geschicklichkeit Gesamtwert",
+  "Reaktion Basis",
+  "Reaktion Modifikator",
+  "Reaktion Gesamtwert",
   "Stärke Basis",
   "Stärke Modifikator",
   "Stärke Gesamtwert",
@@ -3560,6 +3577,9 @@ const SR6_ATTRIBUTE_DETAIL_LABELS = new Set([
   "Logik Basis",
   "Logik Modifikator",
   "Logik Gesamtwert",
+  "Intuition Basis",
+  "Intuition Modifikator",
+  "Intuition Gesamtwert",
   "Charisma Basis",
   "Charisma Modifikator",
   "Charisma Gesamtwert",
@@ -3597,8 +3617,27 @@ const SR6_EDGE_BOOST_LABELS = new Set([
   "Edge-Poolbonus",
   "Edge-Hinweis",
 ]);
-const SR6_SPELL_CONTEXT_LABELS = new Set(["Art", "Reichweite", "Dauer", "Schaden", "Notiz"]);
-const SR6_MAGIC_DRAIN_LABELS = new Set(["Entzug", "Entzugwiderstand", "Entzug-Details", "Entstandener Entzug", "Entzugsschaden"]);
+const SR6_SPELL_CONTEXT_LABELS = new Set(["Art", "Reichweite", "Typ", "Dauer", "Widerstand"]);
+const SR6_MAGIC_DRAIN_LABELS = new Set([
+  "Entzug",
+  "Entzug-Basis",
+  "Fläche Vergrößern-Entzug",
+  "Hochdrehen-Entzug",
+  "Entzug-Modifikator",
+  "Entzugswiderstand",
+  "Entzug-Details",
+  "Entstandener Entzug",
+  "Entzugsschaden",
+]);
+const SR6_SPELL_DAMAGE_LABELS = new Set([
+  "Schaden-Formel",
+  "Schaden-Basis",
+  "Erfolge auf Schaden",
+  "Hochdrehen-Schaden",
+  "Schadens-Modifikator",
+  "Schaden",
+  "Schadenstyp",
+]);
 const SR6_SUMMONING_LABELS = new Set([
   "Geist",
   "Typ",
@@ -3635,6 +3674,8 @@ const SR6_GROUP_TITLE_BY_KEY = {
   language: SR6_DETAIL_GROUP_TITLES.language,
   spell_context: SR6_DETAIL_GROUP_TITLES.spellContext,
   magic_drain: SR6_DETAIL_GROUP_TITLES.magicDrain,
+  spell_damage: SR6_DETAIL_GROUP_TITLES.spellDamage,
+  notes: SR6_DETAIL_GROUP_TITLES.notes,
   summoning: SR6_DETAIL_GROUP_TITLES.summoning,
   object_resistance: SR6_DETAIL_GROUP_TITLES.objectResistance,
   probe_context: SR6_DETAIL_GROUP_TITLES.probeContext,
@@ -3707,11 +3748,17 @@ function getCalcDetailSourceGroupKey(label, subjectFieldLabel, payload) {
   if (probeModel === "spell_probe" && SR6_SPELL_CONTEXT_LABELS.has(label)) {
     return "spell_context";
   }
+  if (probeModel === "spell_probe" && SR6_SPELL_DAMAGE_LABELS.has(label)) {
+    return "spell_damage";
+  }
   if (
     (probeModel === "spell_probe" || probeModel === "summoning_probe") &&
     SR6_MAGIC_DRAIN_LABELS.has(label)
   ) {
     return "magic_drain";
+  }
+  if (label === "Notiz" || label === "Notizen") {
+    return "notes";
   }
   if (probeModel === "summoning_probe" && SR6_SUMMONING_LABELS.has(label)) {
     return "summoning";
@@ -3742,7 +3789,21 @@ function getCalcDetailSourceGroupKey(label, subjectFieldLabel, payload) {
   }
   if (subjectFieldLabel === "Attribut" && (label === "Basis" || label === "Modifikator" || label === "Gesamtwert")) return "attribute";
   if (label === "Attribut" || label.indexOf("Attributwert ") === 0) return "attribute";
+  if (SR6_ATTRIBUTE_DETAIL_LABELS.has(label)) return "attribute";
+  if (label === "Fertigkeit") return "skill";
   if (label.indexOf("Fertigkeitswert ") === 0) return "skill";
+  if (
+    (probeModel === "spell_probe" || probeModel === "summoning_probe") &&
+    label.indexOf("Magie/Resonanz ") === 0
+  ) {
+    return "attribute";
+  }
+  if (probeModel === "spell_probe" && label.indexOf("Hexerei ") === 0) {
+    return "skill";
+  }
+  if (probeModel === "summoning_probe" && label.indexOf("Beschwören ") === 0) {
+    return "skill";
+  }
   if (SR6_FATE_DICE_LABELS.has(label)) {
     return "fate_dice";
   }
@@ -3953,15 +4014,18 @@ function getSourceGroupsByTitle(sourceGroups, titles, usedTitles) {
 function buildContextRowsFromLabels(rows, labels, sourceGroups, infoTitleMap = {}, options = {}) {
   const sharedInfoTitles = options.dedupeInfoTitles ? new Set() : null;
   const valueByLabel = options.valueByLabel || {};
+  const separatorBeforeLabels = new Set(options.separatorBeforeLabels || []);
+  const allowEmptyLabels = new Set(options.allowEmptyLabels || []);
 
   return (Array.isArray(labels) ? labels : []).reduce((contextRows, label) => {
     const value = valueByLabel[label] !== undefined
-      ? `${valueByLabel[label] || ""}`.trim()
+      ? `${valueByLabel[label] || ""}`
       : getLastRowValue(rows, label);
-    if (!value) return contextRows;
+    if (!`${value || ""}`.trim() && !allowEmptyLabels.has(label)) return contextRows;
     contextRows.push({
       label: label,
       value: value,
+      separatorBefore: separatorBeforeLabels.has(label),
       infoGroups: getSourceGroupsByTitle(sourceGroups, infoTitleMap[label] || [], sharedInfoTitles || new Set()),
     });
     return contextRows;
@@ -3971,11 +4035,14 @@ function buildContextRowsFromLabels(rows, labels, sourceGroups, infoTitleMap = {
 function appendContextRowsTemplateFields(parts, contextRows) {
   if (contextRows.length === 0) return;
 
-  contextRows.slice(0, 6).forEach((row, index) => {
+  contextRows.slice(0, 9).forEach((row, index) => {
     const rowIndex = index + 1;
     const infoGroups = Array.isArray(row.infoGroups) ? row.infoGroups : [];
     parts.push(`{{context_${rowIndex}_label=${row.label}}}`);
     parts.push(`{{context_${rowIndex}_value=${row.value}}}`);
+    if (row.separatorBefore) {
+      parts.push(`{{context_${rowIndex}_separator=1}}`);
+    }
     if (infoGroups.length > 0) {
       parts.push(`{{context_${rowIndex}_info_title=${infoGroups[0].title}}}`);
       parts.push(`{{context_${rowIndex}_info=${infoGroups[0].details}}}`);
@@ -4083,26 +4150,39 @@ function buildDefenseView(payload, name, subjectFieldLabel, subjectLabel, subjec
 }
 
 function buildSpellView(payload, name, subjectFieldLabel, subjectLabel, subject, calcDetailGroups, rows) {
+  const poolInfo = getPoolInfoGroups(calcDetailGroups.sourceGroups)
+    .filter((group) => group.title !== SR6_DETAIL_GROUP_TITLES.formula);
+
   return {
     suppressSubject: !!(payload && payload.suppressSubject),
     subject: { label: subjectLabel, value: subject },
-    poolInfo: getPoolInfoGroups(calcDetailGroups.sourceGroups),
+    poolInfo: poolInfo,
     contextRows: buildContextRowsFromLabels(rows, [
       "Art",
       "Reichweite",
       "Dauer",
+      "Widerstand",
       "Entzug",
-      "Schaden",
+      "Entzugswiderstand",
       "Angriffswert",
-      "Entzugwiderstand",
+      "Schaden",
+      "Notiz",
     ], calcDetailGroups.sourceGroups, {
       "Art": ["Zauberkontext"],
       "Reichweite": ["Zauberkontext"],
       "Dauer": ["Zauberkontext"],
+      "Widerstand": ["Zauberkontext"],
       "Entzug": ["Magie und Entzug"],
-      "Schaden": ["Zauberkontext", "Schadensberechnung"],
       "Angriffswert": ["Angriffswertberechnung"],
-      "Entzugwiderstand": ["Magie und Entzug"],
+      "Schaden": ["Kampfzauber-Schaden"],
+      "Entzugswiderstand": ["Magie und Entzug"],
+      "Notiz": ["Notizen"],
+    }, {
+      separatorBeforeLabels: ["Entzug", "Angriffswert", "Notiz"],
+      allowEmptyLabels: getLastRowValue(rows, "Notiz") ? ["Notiz"] : [],
+      valueByLabel: {
+        "Notiz": getLastRowValue(rows, "Notiz") ? " " : "",
+      },
     }),
     resultLabel: (payload && payload.resultLabel) || "Ergebnis",
     resultValue: payload && payload.resultValue,
@@ -4111,24 +4191,23 @@ function buildSpellView(payload, name, subjectFieldLabel, subjectLabel, subject,
 }
 
 function buildSummoningView(payload, name, subjectFieldLabel, subjectLabel, subject, calcDetailGroups, rows) {
+  const poolInfo = getPoolInfoGroups(calcDetailGroups.sourceGroups)
+    .filter((group) => group.title !== SR6_DETAIL_GROUP_TITLES.formula);
+
   return {
     suppressSubject: !!(payload && payload.suppressSubject),
     subject: { label: subjectLabel, value: subject },
-    poolInfo: getPoolInfoGroups(calcDetailGroups.sourceGroups),
+    poolInfo: poolInfo,
     contextRows: buildContextRowsFromLabels(rows, [
       "Typ",
       "Stufe",
       "Geist-Erfolge",
       "Erhaltene Dienste",
-      "Entstandener Entzug",
       "Entzugsschaden",
       "Objektwiderstand-Nettoerfolge",
     ], calcDetailGroups.sourceGroups, {
-      "Typ": ["Beschwörung"],
-      "Stufe": ["Beschwörung"],
       "Geist-Erfolge": ["Beschwörung"],
       "Erhaltene Dienste": ["Beschwörung"],
-      "Entstandener Entzug": ["Magie und Entzug"],
       "Entzugsschaden": ["Magie und Entzug"],
       "Objektwiderstand-Nettoerfolge": ["Objektwiderstand"],
     }),
@@ -4830,6 +4909,14 @@ function appendKnownPoolFormulaRows(rows, definition, lookupAttr, poolAttribute)
     appendGenericFormulaComponentRows(rows, lookupAttr, "Konstitution");
     return true;
   }
+  if (poolAttribute === "sr6_magic_magie") {
+    appendAttributeDetailRows(rows, lookupAttr, "magie_resonanz", "Attributwert", { poolComponent: true });
+    return true;
+  }
+  if (poolAttribute === "sr6_magic_zauberpool") {
+    appendSkillDetailRows(rows, lookupAttr, "hexerei", "Fertigkeitswert", { poolComponent: true });
+    return true;
+  }
   if (poolAttribute === "sr6_magic_spruchzauberei") {
     appendGenericFormulaComponentRows(rows, lookupAttr, "Magie/Resonanz + Hexerei");
     return true;
@@ -4838,8 +4925,26 @@ function appendKnownPoolFormulaRows(rows, definition, lookupAttr, poolAttribute)
     appendGenericFormulaComponentRows(rows, lookupAttr, "Magie/Resonanz + Beschwören");
     return true;
   }
+  if (poolAttribute === "sr6_magic_waffenloser_kampf") {
+    appendAttributeDetailRows(rows, lookupAttr, "willenskraft", "Willenskraft", { poolComponent: true });
+    appendSkillDetailRows(rows, lookupAttr, "astral", "Fertigkeitswert", { poolComponent: true });
+    return true;
+  }
+  if (poolAttribute === "sr6_magic_astrale_verteidigung") {
+    appendAttributeDetailRows(rows, lookupAttr, "logik", "Logik", { poolComponent: true });
+    appendAttributeDetailRows(rows, lookupAttr, "intuition", "Intuition", { poolComponent: true });
+    return true;
+  }
+  if (poolAttribute === "sr6_magic_astraler_schadenswiderstand") {
+    appendAttributeDetailRows(rows, lookupAttr, "willenskraft", "Willenskraft", { poolComponent: true });
+    return true;
+  }
   if (poolAttribute === "sr6_magic_entzug_widerstand") {
-    appendRowIfMissing(rows, "Traditionsattribut Modifikator", `${parseNumber(lookupAttr("sr6_magic_traditionsattribut_1_modifikator"))}`, { poolComponent: true });
+    const traditionAttribute = `${lookupAttr("sr6_magic_traditionsattribut_1") || ""}`.trim();
+    const traditionKey = mapTraditionsattributToKey(traditionAttribute);
+    if (traditionKey) {
+      appendAttributeDetailRows(rows, lookupAttr, traditionKey, traditionAttribute || "Traditionsattribut", { poolComponent: true });
+    }
     appendGenericFormulaComponentRows(rows, lookupAttr, "Willenskraft");
     return true;
   }
@@ -4890,9 +4995,8 @@ function appendDrainResistanceDetailRows(rows, lookupAttr) {
   if (traditionKey) {
     appendAttributeDetailRows(rows, lookupAttr, traditionKey, `Entzug ${traditionAttribute}`);
   }
-  appendRowIfMissing(rows, "Entzug Traditionsattribut Modifikator", `${parseNumber(lookupAttr("sr6_magic_traditionsattribut_1_modifikator"))}`);
   appendAttributeDetailRows(rows, lookupAttr, "willenskraft", "Entzug Willenskraft");
-  appendRowIfMissing(rows, "Entzugwiderstand Gesamtwert", `${parseNumber(lookupAttr("sr6_magic_entzug_widerstand"))}`);
+  appendRowIfMissing(rows, "Entzugswiderstand Gesamtwert", `${parseNumber(lookupAttr("sr6_magic_entzug_widerstand"))}`);
 }
 
 function getCombatPoolAttributeLabel(definition, resolvedFields) {
@@ -5528,6 +5632,90 @@ function isCombatSpell(resolvedFields) {
   return `${(resolvedFields && resolvedFields.Art) || ""}`.trim() === "Kampf";
 }
 
+function resolveCombatSpellType(resolvedFields) {
+  const type = `${(resolvedFields && resolvedFields.Typ) || ""}`.trim();
+  return type === "Direkt" || type === "Indirekt" ? type : "";
+}
+
+function resolveSpellDamageType(resolvedFields) {
+  return `${(resolvedFields && resolvedFields.Schadenstyp) || ""}`.trim() || "Körperlich";
+}
+
+function getSpellPopupNumber(popupState, key) {
+  return parseNumber((((popupState || {}).selectedValues || {})[key]));
+}
+
+function appendSpellAttackValueDetailRows(rows, lookupAttr, resolvedFields, popupState, finalAttackValue) {
+  const traditionAttribute = `${lookupAttr("sr6_magic_traditionsattribut_1") || ""}`.trim();
+  const traditionKey = mapTraditionsattributToKey(traditionAttribute);
+  const magicValue = parseNumber(lookupAttr("sr6_magic_magie"));
+  const traditionValue = traditionKey ? resolveRollAttributeTotal(traditionKey, lookupAttr) : 0;
+  const coreModifier = parseNumber(lookupAttr("sr6_magic_angriffswert_modifikator"));
+
+  rows.push({ label: "Angriffswert-Formel", value: "Magie + Traditionsattribut" });
+  rows.push({ label: "Angriffswert Magie", value: `${magicValue}` });
+  if (traditionAttribute) {
+    rows.push({ label: "Angriffswert Traditionsattribut", value: traditionAttribute });
+  }
+  rows.push({ label: "Angriffswert Traditionsattribut Wert", value: `${traditionValue}` });
+  if (coreModifier !== 0) {
+    rows.push({ label: "Angriffswert Kernwert-Modifikator", value: formatSignedModifier(coreModifier) });
+  }
+  if (popupState.attackValueMod !== 0) {
+    rows.push({ label: "Angriffswert-Modifikator", value: formatSignedModifier(popupState.attackValueMod) });
+  }
+  rows.push({ label: "Angriffswert", value: `${finalAttackValue}` });
+}
+
+function appendSpellDrainDetailRows(rows, resolvedFields, popupState) {
+  const baseDrain = parseNumber(resolvedFields.Entzug);
+  const areaIncrease = getSpellPopupNumber(popupState, "area_increase");
+  const overcast = getSpellPopupNumber(popupState, "overcast");
+  const drainOnlyMod = getSpellPopupNumber(popupState, "drain_mod");
+  const modifiedDrain = Math.max(0, baseDrain + popupState.drainMod);
+
+  rows.push({ label: "Entzug-Basis", value: `${baseDrain}` });
+  if (areaIncrease !== 0) {
+    rows.push({ label: "Fläche Vergrößern-Entzug", value: formatSignedModifier(areaIncrease) });
+  }
+  if (overcast !== 0) {
+    rows.push({ label: "Hochdrehen-Entzug", value: formatSignedModifier(overcast * 2) });
+  }
+  if (drainOnlyMod !== 0) {
+    rows.push({ label: "Entzug-Modifikator", value: formatSignedModifier(drainOnlyMod) });
+  }
+  rows.push({ label: "Entzug", value: `${modifiedDrain}` });
+}
+
+function appendSpellDamageDetailRows(rows, lookupAttr, resolvedFields, popupState, spellSuccesses) {
+  const spellType = resolveCombatSpellType(resolvedFields);
+  if (!spellType) return;
+
+  const magicValue = parseNumber(lookupAttr("sr6_magic_magie"));
+  const overcast = getSpellPopupNumber(popupState, "overcast");
+  const damageOnlyMod = getSpellPopupNumber(popupState, "damage_mod");
+  const baseDamage = spellType === "Indirekt" ? Math.ceil(magicValue / 2) : 0;
+  const finalDamage = Math.max(0, baseDamage + parseNumber(spellSuccesses) + popupState.damageMod);
+  const damageType = resolveSpellDamageType(resolvedFields);
+
+  rows.push({
+    label: "Schaden-Formel",
+    value: spellType === "Indirekt"
+      ? "ceil(Magie / 2) + Erfolge + Hochdrehen"
+      : "Erfolge + Hochdrehen",
+  });
+  rows.push({ label: "Schaden-Basis", value: `${baseDamage}` });
+  rows.push({ label: "Erfolge auf Schaden", value: `+${parseNumber(spellSuccesses)}` });
+  if (overcast !== 0) {
+    rows.push({ label: "Hochdrehen-Schaden", value: formatSignedModifier(overcast) });
+  }
+  if (damageOnlyMod !== 0) {
+    rows.push({ label: "Schadens-Modifikator", value: formatSignedModifier(damageOnlyMod) });
+  }
+  rows.push({ label: "Schadenstyp", value: damageType });
+  rows.push({ label: "Schaden", value: damageType ? `${finalDamage} ${damageType}` : `${finalDamage}` });
+}
+
 function resolveDrainDamageType(remainingDrainDamage, magicValue) {
   if (parseNumber(remainingDrainDamage) <= 0) return "";
   return parseNumber(remainingDrainDamage) > parseNumber(magicValue) ? "Körperlich" : "Betäubung";
@@ -5946,16 +6134,16 @@ function runSpellProbeFromContext(context, lookupAttr, resolvedFields, popupStat
 
   appendBasePoolDetailRows(rows, context.definition, lookupAttr, context.poolAttribute, null, resolvedFields);
   appendDrainResistanceDetailRows(rows, lookupAttr);
+  appendSpellDrainDetailRows(rows, resolvedFields, effectivePopupState);
+  if (isCombatSpell(resolvedFields)) {
+    appendSpellAttackValueDetailRows(rows, lookupAttr, resolvedFields, effectivePopupState, finalAttackValue);
+    appendSpellDamageDetailRows(rows, lookupAttr, resolvedFields, effectivePopupState, spellComputation.successCount);
+  }
   effectivePopupState.rows.forEach((popupRow) => {
     if (!popupRow || !popupRow.label) return;
     appendRowIfMissing(rows, popupRow.label, popupRow.value);
   });
   appendRollOnlyPoolModifierRow(rows, rollOnlyPoolModifier);
-  if (isCombatSpell(resolvedFields) && effectivePopupState.attackValueMod !== 0) {
-    rows.push({ label: "Angriffswert-Basis", value: `${baseAttackValue}` });
-    rows.push({ label: "Angriffswert-Modifikator", value: `${effectivePopupState.attackValueMod}` });
-    rows.push({ label: "Angriffswert", value: `${finalAttackValue}` });
-  }
   appendEdgeBoostRows(rows, edgeOptions, spellComputation);
 
   const chatMessage = buildSr6ProbeMessage({
@@ -7563,7 +7751,6 @@ function syncCombatWeaponPools(callback) {
 // BEGIN MODULE: workers/compute/magic
 function appendMagicRequestKeys(requestKeys) {
   requestKeys.push("sr6_magic_traditionsattribut_1");
-  requestKeys.push("sr6_magic_traditionsattribut_1_modifikator");
   requestKeys.push("sr6_magic_angriffswert_modifikator");
   requestKeys.push("sr6_magic_astralkampf_angriffswert_modifikator");
   requestKeys.push("sr6_magic_astralkampf_verteidigungswert_modifikator");
@@ -7591,9 +7778,7 @@ function computeMagicDerived(values, totals, skillTotals, updates) {
   );
 
   const traditionKey1 = mapTraditionsattributToKey(values.sr6_magic_traditionsattribut_1);
-  const traditionValue1 =
-    (traditionKey1 ? (totals[traditionKey1] || 0) : 0) +
-    parseNumber(values.sr6_magic_traditionsattribut_1_modifikator);
+  const traditionValue1 = traditionKey1 ? (totals[traditionKey1] || 0) : 0;
 
   updates.sr6_magic_entzug_widerstand = String(
     traditionValue1 + (totals.willenskraft || 0)
@@ -8240,7 +8425,6 @@ function buildRecalcEvents() {
   events.push("change:sr6_schadenswiderstand_physisch_gesamtwert");
 
   events.push("change:sr6_magic_traditionsattribut_1");
-  events.push("change:sr6_magic_traditionsattribut_1_modifikator");
   events.push("change:sr6_magic_angriffswert_modifikator");
   events.push("change:sr6_magic_astralkampf_angriffswert_modifikator");
   events.push("change:sr6_magic_astralkampf_verteidigungswert_modifikator");

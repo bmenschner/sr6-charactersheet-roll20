@@ -376,9 +376,10 @@ fieldset.repeating_sr6matrixgeraete,
 
 .sr6-matrix-handlung-formula--select {
   width: 100%;
+  box-sizing: border-box;
   max-width: 100%;
   height: var(--sr6-field-height);
-  padding: 0.125rem 0.25rem;
+  padding: 0.125rem 1.5rem 0.125rem 0.25rem;
   border: none;
   border-bottom: 0.0625rem solid var(--sr6-line-soft);
   border-radius: 0;

@@ -67,7 +67,6 @@ function buildRecalcEvents() {
   events.push("change:sr6_schadenswiderstand_physisch_gesamtwert");
 
   events.push("change:sr6_magic_traditionsattribut_1");
-  events.push("change:sr6_magic_traditionsattribut_1_modifikator");
   events.push("change:sr6_magic_angriffswert_modifikator");
   events.push("change:sr6_magic_astralkampf_angriffswert_modifikator");
   events.push("change:sr6_magic_astralkampf_verteidigungswert_modifikator");

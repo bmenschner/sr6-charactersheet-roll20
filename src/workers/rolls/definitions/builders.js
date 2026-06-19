@@ -434,12 +434,11 @@ function createSummoningPopupFields() {
 
 function getMagicRollAdditionalAttributes(definition) {
   if (!definition) return [];
-  if (definition.id === "spell" || definition.id === "summoning") {
+  if (definition.id === "spell" || definition.id === "summoning" || definition.id === "magic_drain_resistance") {
     return [
       "sr6_magic_magie",
       "sr6_magic_entzug_widerstand",
       "sr6_magic_traditionsattribut_1",
-      "sr6_magic_traditionsattribut_1_modifikator",
     ];
   }
   return [];

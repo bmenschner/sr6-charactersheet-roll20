@@ -385,6 +385,8 @@ const SR6_DETAIL_GROUP_TITLES = {
   language: "Sprachberechnung",
   spellContext: "Zauberkontext",
   magicDrain: "Magie und Entzug",
+  spellDamage: "Kampfzauber-Schaden",
+  notes: "Notizen",
   summoning: "Beschwörung",
   objectResistance: "Objektwiderstand",
   probeContext: "Probenkontext",
@@ -447,6 +449,10 @@ const SR6_ATTACK_VALUE_LABELS = new Set([
   "Reaktion-Wert",
   "Feuermodus-Angriffswert",
   "Angriffswert-Modifikator",
+  "Angriffswert Kernwert-Modifikator",
+  "Angriffswert Magie",
+  "Angriffswert Traditionsattribut",
+  "Angriffswert Traditionsattribut Wert",
   "Angriffswert",
 ]);
 const SR6_COMBAT_DEFENSE_LABELS = new Set([
@@ -477,6 +483,9 @@ const SR6_ATTRIBUTE_DETAIL_LABELS = new Set([
   "Geschicklichkeit Basis",
   "Geschicklichkeit Modifikator",
   "Geschicklichkeit Gesamtwert",
+  "Reaktion Basis",
+  "Reaktion Modifikator",
+  "Reaktion Gesamtwert",
   "Stärke Basis",
   "Stärke Modifikator",
   "Stärke Gesamtwert",
@@ -486,6 +495,9 @@ const SR6_ATTRIBUTE_DETAIL_LABELS = new Set([
   "Logik Basis",
   "Logik Modifikator",
   "Logik Gesamtwert",
+  "Intuition Basis",
+  "Intuition Modifikator",
+  "Intuition Gesamtwert",
   "Charisma Basis",
   "Charisma Modifikator",
   "Charisma Gesamtwert",
@@ -523,8 +535,27 @@ const SR6_EDGE_BOOST_LABELS = new Set([
   "Edge-Poolbonus",
   "Edge-Hinweis",
 ]);
-const SR6_SPELL_CONTEXT_LABELS = new Set(["Art", "Reichweite", "Dauer", "Schaden", "Notiz"]);
-const SR6_MAGIC_DRAIN_LABELS = new Set(["Entzug", "Entzugwiderstand", "Entzug-Details", "Entstandener Entzug", "Entzugsschaden"]);
+const SR6_SPELL_CONTEXT_LABELS = new Set(["Art", "Reichweite", "Typ", "Dauer", "Widerstand"]);
+const SR6_MAGIC_DRAIN_LABELS = new Set([
+  "Entzug",
+  "Entzug-Basis",
+  "Fläche Vergrößern-Entzug",
+  "Hochdrehen-Entzug",
+  "Entzug-Modifikator",
+  "Entzugswiderstand",
+  "Entzug-Details",
+  "Entstandener Entzug",
+  "Entzugsschaden",
+]);
+const SR6_SPELL_DAMAGE_LABELS = new Set([
+  "Schaden-Formel",
+  "Schaden-Basis",
+  "Erfolge auf Schaden",
+  "Hochdrehen-Schaden",
+  "Schadens-Modifikator",
+  "Schaden",
+  "Schadenstyp",
+]);
 const SR6_SUMMONING_LABELS = new Set([
   "Geist",
   "Typ",
@@ -561,6 +592,8 @@ const SR6_GROUP_TITLE_BY_KEY = {
   language: SR6_DETAIL_GROUP_TITLES.language,
   spell_context: SR6_DETAIL_GROUP_TITLES.spellContext,
   magic_drain: SR6_DETAIL_GROUP_TITLES.magicDrain,
+  spell_damage: SR6_DETAIL_GROUP_TITLES.spellDamage,
+  notes: SR6_DETAIL_GROUP_TITLES.notes,
   summoning: SR6_DETAIL_GROUP_TITLES.summoning,
   object_resistance: SR6_DETAIL_GROUP_TITLES.objectResistance,
   probe_context: SR6_DETAIL_GROUP_TITLES.probeContext,
@@ -633,11 +666,17 @@ function getCalcDetailSourceGroupKey(label, subjectFieldLabel, payload) {
   if (probeModel === "spell_probe" && SR6_SPELL_CONTEXT_LABELS.has(label)) {
     return "spell_context";
   }
+  if (probeModel === "spell_probe" && SR6_SPELL_DAMAGE_LABELS.has(label)) {
+    return "spell_damage";
+  }
   if (
     (probeModel === "spell_probe" || probeModel === "summoning_probe") &&
     SR6_MAGIC_DRAIN_LABELS.has(label)
   ) {
     return "magic_drain";
+  }
+  if (label === "Notiz" || label === "Notizen") {
+    return "notes";
   }
   if (probeModel === "summoning_probe" && SR6_SUMMONING_LABELS.has(label)) {
     return "summoning";
@@ -668,7 +707,21 @@ function getCalcDetailSourceGroupKey(label, subjectFieldLabel, payload) {
   }
   if (subjectFieldLabel === "Attribut" && (label === "Basis" || label === "Modifikator" || label === "Gesamtwert")) return "attribute";
   if (label === "Attribut" || label.indexOf("Attributwert ") === 0) return "attribute";
+  if (SR6_ATTRIBUTE_DETAIL_LABELS.has(label)) return "attribute";
+  if (label === "Fertigkeit") return "skill";
   if (label.indexOf("Fertigkeitswert ") === 0) return "skill";
+  if (
+    (probeModel === "spell_probe" || probeModel === "summoning_probe") &&
+    label.indexOf("Magie/Resonanz ") === 0
+  ) {
+    return "attribute";
+  }
+  if (probeModel === "spell_probe" && label.indexOf("Hexerei ") === 0) {
+    return "skill";
+  }
+  if (probeModel === "summoning_probe" && label.indexOf("Beschwören ") === 0) {
+    return "skill";
+  }
   if (SR6_FATE_DICE_LABELS.has(label)) {
     return "fate_dice";
   }
@@ -879,15 +932,18 @@ function getSourceGroupsByTitle(sourceGroups, titles, usedTitles) {
 function buildContextRowsFromLabels(rows, labels, sourceGroups, infoTitleMap = {}, options = {}) {
   const sharedInfoTitles = options.dedupeInfoTitles ? new Set() : null;
   const valueByLabel = options.valueByLabel || {};
+  const separatorBeforeLabels = new Set(options.separatorBeforeLabels || []);
+  const allowEmptyLabels = new Set(options.allowEmptyLabels || []);
 
   return (Array.isArray(labels) ? labels : []).reduce((contextRows, label) => {
     const value = valueByLabel[label] !== undefined
-      ? `${valueByLabel[label] || ""}`.trim()
+      ? `${valueByLabel[label] || ""}`
       : getLastRowValue(rows, label);
-    if (!value) return contextRows;
+    if (!`${value || ""}`.trim() && !allowEmptyLabels.has(label)) return contextRows;
     contextRows.push({
       label: label,
       value: value,
+      separatorBefore: separatorBeforeLabels.has(label),
       infoGroups: getSourceGroupsByTitle(sourceGroups, infoTitleMap[label] || [], sharedInfoTitles || new Set()),
     });
     return contextRows;
@@ -897,11 +953,14 @@ function buildContextRowsFromLabels(rows, labels, sourceGroups, infoTitleMap = {
 function appendContextRowsTemplateFields(parts, contextRows) {
   if (contextRows.length === 0) return;
 
-  contextRows.slice(0, 6).forEach((row, index) => {
+  contextRows.slice(0, 9).forEach((row, index) => {
     const rowIndex = index + 1;
     const infoGroups = Array.isArray(row.infoGroups) ? row.infoGroups : [];
     parts.push(`{{context_${rowIndex}_label=${row.label}}}`);
     parts.push(`{{context_${rowIndex}_value=${row.value}}}`);
+    if (row.separatorBefore) {
+      parts.push(`{{context_${rowIndex}_separator=1}}`);
+    }
     if (infoGroups.length > 0) {
       parts.push(`{{context_${rowIndex}_info_title=${infoGroups[0].title}}}`);
       parts.push(`{{context_${rowIndex}_info=${infoGroups[0].details}}}`);
@@ -1009,26 +1068,39 @@ function buildDefenseView(payload, name, subjectFieldLabel, subjectLabel, subjec
 }
 
 function buildSpellView(payload, name, subjectFieldLabel, subjectLabel, subject, calcDetailGroups, rows) {
+  const poolInfo = getPoolInfoGroups(calcDetailGroups.sourceGroups)
+    .filter((group) => group.title !== SR6_DETAIL_GROUP_TITLES.formula);
+
   return {
     suppressSubject: !!(payload && payload.suppressSubject),
     subject: { label: subjectLabel, value: subject },
-    poolInfo: getPoolInfoGroups(calcDetailGroups.sourceGroups),
+    poolInfo: poolInfo,
     contextRows: buildContextRowsFromLabels(rows, [
       "Art",
       "Reichweite",
       "Dauer",
+      "Widerstand",
       "Entzug",
-      "Schaden",
+      "Entzugswiderstand",
       "Angriffswert",
-      "Entzugwiderstand",
+      "Schaden",
+      "Notiz",
     ], calcDetailGroups.sourceGroups, {
       "Art": ["Zauberkontext"],
       "Reichweite": ["Zauberkontext"],
       "Dauer": ["Zauberkontext"],
+      "Widerstand": ["Zauberkontext"],
       "Entzug": ["Magie und Entzug"],
-      "Schaden": ["Zauberkontext", "Schadensberechnung"],
       "Angriffswert": ["Angriffswertberechnung"],
-      "Entzugwiderstand": ["Magie und Entzug"],
+      "Schaden": ["Kampfzauber-Schaden"],
+      "Entzugswiderstand": ["Magie und Entzug"],
+      "Notiz": ["Notizen"],
+    }, {
+      separatorBeforeLabels: ["Entzug", "Angriffswert", "Notiz"],
+      allowEmptyLabels: getLastRowValue(rows, "Notiz") ? ["Notiz"] : [],
+      valueByLabel: {
+        "Notiz": getLastRowValue(rows, "Notiz") ? " " : "",
+      },
     }),
     resultLabel: (payload && payload.resultLabel) || "Ergebnis",
     resultValue: payload && payload.resultValue,
@@ -1037,24 +1109,23 @@ function buildSpellView(payload, name, subjectFieldLabel, subjectLabel, subject,
 }
 
 function buildSummoningView(payload, name, subjectFieldLabel, subjectLabel, subject, calcDetailGroups, rows) {
+  const poolInfo = getPoolInfoGroups(calcDetailGroups.sourceGroups)
+    .filter((group) => group.title !== SR6_DETAIL_GROUP_TITLES.formula);
+
   return {
     suppressSubject: !!(payload && payload.suppressSubject),
     subject: { label: subjectLabel, value: subject },
-    poolInfo: getPoolInfoGroups(calcDetailGroups.sourceGroups),
+    poolInfo: poolInfo,
     contextRows: buildContextRowsFromLabels(rows, [
       "Typ",
       "Stufe",
       "Geist-Erfolge",
       "Erhaltene Dienste",
-      "Entstandener Entzug",
       "Entzugsschaden",
       "Objektwiderstand-Nettoerfolge",
     ], calcDetailGroups.sourceGroups, {
-      "Typ": ["Beschwörung"],
-      "Stufe": ["Beschwörung"],
       "Geist-Erfolge": ["Beschwörung"],
       "Erhaltene Dienste": ["Beschwörung"],
-      "Entstandener Entzug": ["Magie und Entzug"],
       "Entzugsschaden": ["Magie und Entzug"],
       "Objektwiderstand-Nettoerfolge": ["Objektwiderstand"],
     }),

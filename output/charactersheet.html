@@ -3148,14 +3148,14 @@
       <div class="sr6-charactersheet-box-content">
         <span class="sr6-charactersheet-kernwerte-subtitle" data-i18n="field.magie_magietradition">Magietradition</span>
 
-        <div class="sr6-charactersheet-row sr6-charactersheet-row-3">
+        <div class="sr6-charactersheet-row sr6-charactersheet-row-2">
           <div class="sr6-charactersheet-field">
             <span data-i18n="field.magische_tradition">Magische Tradition</span>
             <input type="text" name="attr_sr6_magic_tradition" />
           </div>
 
           <div class="sr6-charactersheet-field">
-            <span data-i18n="field.traditionsattribut_1">Traditionsattribut 1</span>
+            <span data-i18n="field.traditionsattribut">Traditionsattribut</span>
             <select name="attr_sr6_magic_traditionsattribut_1">
               <option value="Charisma" data-i18n="field.charisma">Charisma</option>
               <option value="Intuition" data-i18n="field.intuition">Intuition</option>
@@ -3163,11 +3163,6 @@
               <option value="Logik" data-i18n="field.logik">Logik</option>
               <option value="Willenskraft" data-i18n="field.willenskraft">Willenskraft</option>
             </select>
-          </div>
-
-          <div class="sr6-charactersheet-field">
-            <span data-i18n="field.modifikator">Modifikator</span>
-            <div class="sr6-number-stepper"><button type="action" class="sr6-number-stepper-button sr6-number-stepper-button--minus" name="act_sr6_number_step" value="sr6_magic_traditionsattribut_1_modifikator::-1" aria-label="Verringern">-</button><input type="number" name="attr_sr6_magic_traditionsattribut_1_modifikator" /><button type="action" class="sr6-number-stepper-button sr6-number-stepper-button--plus" name="act_sr6_number_step" value="sr6_magic_traditionsattribut_1_modifikator::1" aria-label="Erhoehen">+</button></div>
           </div>
         </div>
 
@@ -3208,7 +3203,7 @@
                 type="action"
                 class="sr6-charactersheet-field-dice-button"
                 name="act_probe"
-                value="&{template:default} {{name=Magie-Test}} {{Pool=[[@{sr6_magic_zauberpool}]]}} {{Erfolge=[[@{sr6_magic_zauberpool}d6>5]]}}"
+                value="&{template:default} {{name=Hexerei}} {{Pool=[[@{sr6_magic_zauberpool}]]}} {{Erfolge=[[@{sr6_magic_zauberpool}d6>5]]}}"
                 aria-label="Wuerfeln"></button>
             </div>
           </div>
@@ -3265,7 +3260,7 @@
             </div>
           </div>
           <div class="sr6-charactersheet-field">
-            <div class="sr6-field-label-with-info"><span data-i18n="field.entzug_widerstand">Entzugwiderstand</span><span class="sr6-info-icon" title="Entzugswiderstand = Wert(sr6_magic_traditionsattribut_1) + sr6_attr_willenskraft_gesamtwert">i</span></div>
+            <div class="sr6-field-label-with-info"><span data-i18n="field.entzug_widerstand">Entzugswiderstand</span><span class="sr6-info-icon" title="Entzugswiderstand = Wert(sr6_magic_traditionsattribut_1) + sr6_attr_willenskraft_gesamtwert">i</span></div>
             <div class="sr6-charactersheet-field-input-with-dice sr6-charactersheet-field-input-with-dice--roll-mod">
               <span class="sr6-roll-mod-subtitle sr6-roll-mod-subtitle--basis" data-i18n="field.basis">Basis</span>
           <span class="sr6-roll-mod-subtitle sr6-roll-mod-subtitle--mod" data-i18n="field.fertigkeitsmodifikator">Mod.</span>
@@ -3279,7 +3274,7 @@
                 type="action"
                 class="sr6-charactersheet-field-dice-button"
                 name="act_probe"
-                value="&{template:default} {{name=Entzugwiderstand}} {{Pool=[[@{sr6_magic_entzug_widerstand}]]}} {{Erfolge=[[@{sr6_magic_entzug_widerstand}d6>5]]}}"
+                value="&{template:default} {{name=Entzugswiderstand}} {{Pool=[[@{sr6_magic_entzug_widerstand}]]}} {{Erfolge=[[@{sr6_magic_entzug_widerstand}d6>5]]}}"
                 aria-label="Wuerfeln"></button>
             </div>
           </div>
@@ -3401,14 +3396,16 @@
           <span data-i18n="field.zauber_art">Art</span>
           <span data-i18n="field.reichweite">Reichweite</span>
           <span data-i18n="field.dauer">Dauer</span>
+          <span data-i18n="field.zauber_widerstand">Widerstand</span>
           <span data-i18n="field.entzug">Entzug</span>
+          <span data-i18n="field.zauber_typ">Typ</span>
           <span data-i18n="field.schaden">Schaden</span>
-          <span data-i18n="field.aufrechterhalten">Aufrechterhalten</span>
+          <span data-i18n="field.schadentyp">Schadenstyp</span>
         </div>
         <fieldset class="repeating_sr6zauber">
           <div class="sr6-foundry-item">
             <div class="sr6-editable-item-fields">
-            <div class="sr6-foundry-item-head sr6-charactersheet-row sr6-charactersheet-row-4">
+            <div class="sr6-foundry-item-head sr6-charactersheet-row sr6-charactersheet-row-7 sr6-zauber-main-row">
               <div class="sr6-charactersheet-field">
                 <span data-i18n="field.zauber_name">Zaubername</span>
                 <input type="text" name="attr_sr6_zauber_name" />
@@ -3442,34 +3439,54 @@
                   <option value="Spezial" data-i18n="field.reichweite_spezial">Spezial</option>
                 </select>
               </div>
-            </div>
-            <div class="sr6-foundry-item-row sr6-charactersheet-row sr6-charactersheet-row-3">
+              <div class="sr6-charactersheet-field">
+                <span data-i18n="field.zauber_widerstand">Widerstand</span>
+                <select name="attr_sr6_zauber_widerstand">
+                  <option value="Kein/Schwelle" data-i18n="field.zauber_widerstand_keine_schwelle">Kein/Schwelle</option>
+                  <option value="Willenskraft + Intuition" data-i18n="field.zauber_widerstand_willenskraft_intuition">Willenskraft + Intuition</option>
+                  <option value="Reaktion + Willenskraft" data-i18n="field.zauber_widerstand_reaktion_willenskraft">Reaktion + Willenskraft</option>
+                  <option value="Konstitution" data-i18n="field.zauber_widerstand_konstitution">Konstitution</option>
+                  <option value="Pilot" data-i18n="field.zauber_widerstand_pilot">Pilot</option>
+                  <option value="Manuell" data-i18n="field.manuell">Manuell</option>
+                </select>
+              </div>
               <div class="sr6-charactersheet-field">
                 <span data-i18n="field.entzug">Entzug</span>
                 <div class="sr6-number-stepper"><button type="action" class="sr6-number-stepper-button sr6-number-stepper-button--minus" name="act_sr6_number_step" value="sr6_zauber_entzug::-1" aria-label="Verringern">-</button><input type="number" name="attr_sr6_zauber_entzug" /><button type="action" class="sr6-number-stepper-button sr6-number-stepper-button--plus" name="act_sr6_number_step" value="sr6_zauber_entzug::1" aria-label="Erhoehen">+</button></div>
               </div>
+              <div class="sr6-charactersheet-field sr6-zauber-roll-field">
+                <div class="sr6-charactersheet-field-input-with-dice">
+                  <button
+                    type="action"
+                    class="sr6-charactersheet-field-dice-button"
+                    name="act_probe"
+                    value="&{template:default} {{name=Spruchzauberei}} {{Zauber=@{sr6_zauber_name}}} {{Art=@{sr6_zauber_art}}} {{Reichweite=@{sr6_zauber_reichweite}}} {{Typ=@{sr6_zauber_typ}}} {{Dauer=@{sr6_zauber_dauer}}} {{Widerstand=@{sr6_zauber_widerstand}}} {{Entzug=@{sr6_zauber_entzug}}} {{Angriffswert=@{sr6_magic_angriffswert}}} {{Schadenstyp=@{sr6_zauber_schadenstyp}}} {{Notiz=@{sr6_item_notizen_zubehoer_modifikationen}}} {{Pool=[[@{sr6_magic_spruchzauberei}]]}} {{Erfolge=[[@{sr6_magic_spruchzauberei}d6>5]]}}"
+                    aria-label="Wuerfeln"></button>
+                </div>
+              </div>
+            </div>
+            <div class="sr6-foundry-item-row sr6-charactersheet-row sr6-charactersheet-row-3 sr6-zauber-combat-row">
+              <div class="sr6-charactersheet-field sr6-zauber-combat-field">
+                <span data-i18n="field.zauber_typ">Typ</span>
+                <select name="attr_sr6_zauber_typ">
+                  <option value="" data-i18n="field.keine_auswahl"></option>
+                  <option value="Direkt" data-i18n="field.zauber_typ_direkt">Direkt</option>
+                  <option value="Indirekt" data-i18n="field.zauber_typ_indirekt">Indirekt</option>
+                </select>
+              </div>
               <div class="sr6-charactersheet-field">
                 <span data-i18n="field.schaden">Schaden</span>
-                <div class="sr6-number-stepper"><button type="action" class="sr6-number-stepper-button sr6-number-stepper-button--minus" name="act_sr6_number_step" value="sr6_zauber_schaden::-1" aria-label="Verringern">-</button><input type="number" name="attr_sr6_zauber_schaden" /><button type="action" class="sr6-number-stepper-button sr6-number-stepper-button--plus" name="act_sr6_number_step" value="sr6_zauber_schaden::1" aria-label="Erhoehen">+</button></div>
+                <input type="text" value="Wurf" readonly />
               </div>
               <div class="sr6-charactersheet-field">
-                <span data-i18n="field.aufrechterhalten">Aufrechterhalten</span>
-                <input type="checkbox" name="attr_sr6_zauber_aufrechterhalten" value="1" />
+                <span data-i18n="field.schadentyp">Schadenstyp</span>
+                <select name="attr_sr6_zauber_schadenstyp">
+                  <option value="" data-i18n="field.keine_auswahl"></option>
+                  <option value="Körperlich" data-i18n="field.schadentyp_koerperlich">Körperlich</option>
+                  <option value="Betäubung" data-i18n="field.schadentyp_betaeubung">Betäubung</option>
+                  <option value="Betäubung (elektrisch)" data-i18n="field.schadentyp_betaeubung_elektrisch">Betäubung (elektrisch)</option>
+                </select>
               </div>
-            </div>
-            <div class="sr6-foundry-item-footer sr6-charactersheet-row sr6-charactersheet-row-1">
-              <div class="sr6-charactersheet-field">
-                <span data-i18n="field.notiz">Notiz</span>
-                <input type="text" name="attr_sr6_zauber_notiz" />
-              </div>
-            </div>
-            <div class="sr6-zauber-list-roll">
-              <button
-                type="action"
-                class="sr6-charactersheet-field-dice-button"
-                name="act_probe"
-                value="&{template:default} {{name=Spruchzauberei}} {{Zauber=@{sr6_zauber_name}}} {{Art=@{sr6_zauber_art}}} {{Reichweite=@{sr6_zauber_reichweite}}} {{Dauer=@{sr6_zauber_dauer}}} {{Entzug=@{sr6_zauber_entzug}}} {{Angriffswert=@{sr6_magic_angriffswert}}} {{Schaden=@{sr6_zauber_schaden}}} {{Notiz=@{sr6_zauber_notiz}}} {{Pool=[[@{sr6_magic_spruchzauberei}]]}} {{Erfolge=[[@{sr6_magic_spruchzauberei}d6>5]]}}"
-                aria-label="Wuerfeln"></button>
             </div>
               <div class="sr6-foundry-item-footer sr6-charactersheet-row sr6-charactersheet-row-1 sr6-repeater-notes-mod-row">
                 <div class="sr6-charactersheet-field sr6-charactersheet-mod-popup sr6-repeater-notes-mod-field">
@@ -3510,7 +3527,7 @@
       </label>
       </div>
       <div class="sr6-charactersheet-box-content">
-        <div class="sr6-generic-list-header sr6-generic-list-header--3" aria-hidden="true">
+        <div class="sr6-generic-list-header sr6-adeptenkraefte-list-header" aria-hidden="true">
           <span data-i18n="field.name">Name</span>
           <span data-i18n="field.stufe">Stufe</span>
           <span data-i18n="field.kraftpunkt">Kraftpunkt</span>
@@ -3518,7 +3535,7 @@
         <fieldset class="repeating_sr6adeptenkraefte">
           <div class="sr6-foundry-item">
             <div class="sr6-editable-item-fields">
-            <div class="sr6-foundry-item-head sr6-charactersheet-row sr6-charactersheet-row-3">
+            <div class="sr6-foundry-item-head sr6-charactersheet-row sr6-adeptenkraefte-main-row">
               <div class="sr6-charactersheet-field">
                 <span data-i18n="field.name">Name</span>
                 <input type="text" name="attr_sr6_adeptenkraft_name" />
@@ -3569,17 +3586,18 @@
     </label>
     </div>
     <div class="sr6-charactersheet-box-content">
-      <div class="sr6-generic-list-header sr6-generic-list-header--5" aria-hidden="true">
+      <div class="sr6-generic-list-header sr6-geister-list-header" aria-hidden="true">
         <span data-i18n="field.name">Name</span>
         <span data-i18n="field.typ">Typ</span>
         <span data-i18n="field.stufe">Stufe</span>
         <span data-i18n="field.dienste">Dienste</span>
+        <span data-i18n="field.kraefte">Kräfte</span>
         <span data-i18n="skill.beschwoeren">Beschwören</span>
       </div>
       <fieldset class="repeating_sr6geister">
         <div class="sr6-foundry-item">
           <div class="sr6-editable-item-fields">
-          <div class="sr6-foundry-item-head sr6-charactersheet-row sr6-charactersheet-row-5">
+          <div class="sr6-foundry-item-head sr6-charactersheet-row sr6-geister-main-row">
             <div class="sr6-charactersheet-field">
               <span data-i18n="field.name">Name</span>
               <input type="text" name="attr_sr6_geist_name" />
@@ -3597,6 +3615,10 @@
               <div class="sr6-number-stepper"><button type="action" class="sr6-number-stepper-button sr6-number-stepper-button--minus" name="act_sr6_number_step" value="sr6_geist_dienste::-1" aria-label="Verringern">-</button><input type="number" name="attr_sr6_geist_dienste" /><button type="action" class="sr6-number-stepper-button sr6-number-stepper-button--plus" name="act_sr6_number_step" value="sr6_geist_dienste::1" aria-label="Erhoehen">+</button></div>
             </div>
             <div class="sr6-charactersheet-field">
+              <span data-i18n="field.kraefte">Kräfte</span>
+              <input type="text" name="attr_sr6_geist_kraefte" />
+            </div>
+            <div class="sr6-charactersheet-field sr6-geister-summon-field">
               <span data-i18n="skill.beschwoeren">Beschwören</span>
               <div class="sr6-charactersheet-field-input-with-dice sr6-charactersheet-field-input-with-dice--compact">
                 <span aria-hidden="true"></span>
@@ -3607,12 +3629,6 @@
                   value="&{template:default} {{name=Beschwören}} {{Geist=@{sr6_geist_name}}} {{Typ=@{sr6_geist_typ}}} {{Stufe=@{sr6_geist_stufe}}} {{Pool=[[@{sr6_magic_beschwoeren}]]}} {{Erfolge=[[@{sr6_magic_beschwoeren}d6&gt;5]]}}"
                   aria-label="Wuerfeln"></button>
               </div>
-            </div>
-          </div>
-          <div class="sr6-foundry-item-footer sr6-charactersheet-row sr6-charactersheet-row-1">
-            <div class="sr6-charactersheet-field">
-              <span data-i18n="field.kraefte">Kräfte</span>
-              <input type="text" name="attr_sr6_geist_kraefte" />
             </div>
           </div>
             <div class="sr6-foundry-item-footer sr6-charactersheet-row sr6-charactersheet-row-1 sr6-repeater-notes-mod-row">
@@ -3652,17 +3668,16 @@
     </label>
     </div>
     <div class="sr6-charactersheet-box-content">
-      <div class="sr6-generic-list-header sr6-generic-list-header--5" aria-hidden="true">
+      <div class="sr6-generic-list-header sr6-foki-list-header" aria-hidden="true">
         <span data-i18n="field.fokus_name">Fokusname</span>
         <span data-i18n="field.fokus_art">Art</span>
         <span data-i18n="field.stufe">Stufe</span>
-        <span data-i18n="field.notiz">Notiz</span>
         <span data-i18n="field.aktiv">Aktiv</span>
       </div>
       <fieldset class="repeating_sr6foki">
         <div class="sr6-foundry-item">
           <div class="sr6-editable-item-fields">
-          <div class="sr6-foundry-item-head sr6-charactersheet-row sr6-charactersheet-row-3">
+          <div class="sr6-foundry-item-head sr6-charactersheet-row sr6-foki-main-row">
             <div class="sr6-charactersheet-field">
               <span data-i18n="field.fokus_name">Fokusname</span>
               <input type="text" name="attr_sr6_fokus_name" />
@@ -3679,12 +3694,6 @@
             <div class="sr6-charactersheet-field">
               <span data-i18n="field.stufe">Stufe</span>
               <div class="sr6-number-stepper"><button type="action" class="sr6-number-stepper-button sr6-number-stepper-button--minus" name="act_sr6_number_step" value="sr6_fokus_stufe::-1" aria-label="Verringern">-</button><input type="number" name="attr_sr6_fokus_stufe" /><button type="action" class="sr6-number-stepper-button sr6-number-stepper-button--plus" name="act_sr6_number_step" value="sr6_fokus_stufe::1" aria-label="Erhoehen">+</button></div>
-            </div>
-          </div>
-          <div class="sr6-foundry-item-footer sr6-charactersheet-row sr6-charactersheet-row-2">
-            <div class="sr6-charactersheet-field sr6-foki-notiz-field">
-              <span data-i18n="field.notiz">Notiz</span>
-              <input type="text" name="attr_sr6_fokus_notiz" />
             </div>
             <div class="sr6-charactersheet-field">
               <span data-i18n="field.aktiv">Aktiv</span>
@@ -3728,15 +3737,14 @@
     </label>
     </div>
     <div class="sr6-charactersheet-box-content">
-      <div class="sr6-generic-list-header sr6-generic-list-header--3" aria-hidden="true">
+      <div class="sr6-generic-list-header sr6-metamagie-list-header" aria-hidden="true">
         <span data-i18n="field.metamagie_name">Name</span>
         <span data-i18n="field.initiationsgrad">Initiationsgrad</span>
-        <span data-i18n="field.notiz">Notiz</span>
       </div>
       <fieldset class="repeating_sr6metamagie">
         <div class="sr6-foundry-item">
           <div class="sr6-editable-item-fields">
-          <div class="sr6-foundry-item-head sr6-charactersheet-row sr6-charactersheet-row-2">
+          <div class="sr6-foundry-item-head sr6-charactersheet-row sr6-metamagie-main-row">
             <div class="sr6-charactersheet-field">
               <span data-i18n="field.metamagie_name">Name</span>
               <input type="text" name="attr_sr6_metamagie_name" />
@@ -3744,12 +3752,6 @@
             <div class="sr6-charactersheet-field">
               <span data-i18n="field.initiationsgrad">Initiationsgrad</span>
               <input type="text" name="attr_sr6_metamagie_initiationsgrad" />
-            </div>
-          </div>
-          <div class="sr6-foundry-item-footer sr6-charactersheet-row sr6-charactersheet-row-1">
-            <div class="sr6-charactersheet-field">
-              <span data-i18n="field.notiz">Notiz</span>
-              <input type="text" name="attr_sr6_metamagie_notiz" />
             </div>
           </div>
             <div class="sr6-foundry-item-footer sr6-charactersheet-row sr6-charactersheet-row-1 sr6-repeater-notes-mod-row">
@@ -3789,7 +3791,7 @@
       </label>
       </div>
       <div class="sr6-charactersheet-box-content">
-        <div class="sr6-generic-list-header sr6-generic-list-header--3" aria-hidden="true">
+        <div class="sr6-generic-list-header sr6-rituale-list-header" aria-hidden="true">
           <span data-i18n="field.ritual_name">Ritualname</span>
           <span data-i18n="field.ritual_schwelle">Schwellenwert</span>
           <span data-i18n="field.verbindung">Verbindung</span>
@@ -3797,7 +3799,7 @@
         <fieldset class="repeating_sr6rituale">
           <div class="sr6-foundry-item">
             <div class="sr6-editable-item-fields">
-            <div class="sr6-foundry-item-head sr6-charactersheet-row sr6-charactersheet-row-3">
+            <div class="sr6-foundry-item-head sr6-charactersheet-row sr6-rituale-main-row">
               <div class="sr6-charactersheet-field">
                 <span data-i18n="field.ritual_name">Ritualname</span>
                 <input type="text" name="attr_sr6_ritual_name" />
@@ -8855,12 +8857,11 @@ function createSummoningPopupFields() {
 
 function getMagicRollAdditionalAttributes(definition) {
   if (!definition) return [];
-  if (definition.id === "spell" || definition.id === "summoning") {
+  if (definition.id === "spell" || definition.id === "summoning" || definition.id === "magic_drain_resistance") {
     return [
       "sr6_magic_magie",
       "sr6_magic_entzug_widerstand",
       "sr6_magic_traditionsattribut_1",
-      "sr6_magic_traditionsattribut_1_modifikator",
     ];
   }
   return [];
@@ -9075,9 +9076,9 @@ const SR6_ROLL_DEFINITIONS_MAGIC = [
     matchPoolPrefix: "sr6_magic_spruchzauberei",
     titleMode: "fixed",
     primaryFields: ["Zauber"],
-    extraFields: ["Art", "Reichweite", "Dauer", "Entzug", "Schaden", "Notiz"],
+    extraFields: ["Art", "Reichweite", "Typ", "Dauer", "Widerstand", "Entzug", "Schadenstyp", "Notiz"],
     contextFields: [
-      { label: "Entzugwiderstand", attr: "sr6_magic_entzug_widerstand" },
+      { label: "Entzugswiderstand", attr: "sr6_magic_entzug_widerstand" },
     ],
     fixedTitle: "Spruchzauberei",
     popupFields: createSpellPopupFields(),
@@ -9117,6 +9118,15 @@ const SR6_ROLL_DEFINITIONS_MAGIC = [
       comparisonContextSourceAttr: "sr6_magic_astralkampf_verteidigungswert",
       fixedTitle: "Astraler Schadenswiderstand",
       titleFallback: "Magie: Kernwerte",
+    }),
+  },
+{
+    id: "magic_drain_resistance",
+    ...createValueProbeDefinition({
+      matchField: "",
+      matchPoolPrefix: "sr6_magic_entzug_widerstand",
+      fixedTitle: "Entzugswiderstand",
+      titleFallback: "Entzugswiderstand",
     }),
   },
 {
@@ -10854,6 +10864,8 @@ const SR6_DETAIL_GROUP_TITLES = {
   language: "Sprachberechnung",
   spellContext: "Zauberkontext",
   magicDrain: "Magie und Entzug",
+  spellDamage: "Kampfzauber-Schaden",
+  notes: "Notizen",
   summoning: "Beschwörung",
   objectResistance: "Objektwiderstand",
   probeContext: "Probenkontext",
@@ -10916,6 +10928,10 @@ const SR6_ATTACK_VALUE_LABELS = new Set([
   "Reaktion-Wert",
   "Feuermodus-Angriffswert",
   "Angriffswert-Modifikator",
+  "Angriffswert Kernwert-Modifikator",
+  "Angriffswert Magie",
+  "Angriffswert Traditionsattribut",
+  "Angriffswert Traditionsattribut Wert",
   "Angriffswert",
 ]);
 const SR6_COMBAT_DEFENSE_LABELS = new Set([
@@ -10946,6 +10962,9 @@ const SR6_ATTRIBUTE_DETAIL_LABELS = new Set([
   "Geschicklichkeit Basis",
   "Geschicklichkeit Modifikator",
   "Geschicklichkeit Gesamtwert",
+  "Reaktion Basis",
+  "Reaktion Modifikator",
+  "Reaktion Gesamtwert",
   "Stärke Basis",
   "Stärke Modifikator",
   "Stärke Gesamtwert",
@@ -10955,6 +10974,9 @@ const SR6_ATTRIBUTE_DETAIL_LABELS = new Set([
   "Logik Basis",
   "Logik Modifikator",
   "Logik Gesamtwert",
+  "Intuition Basis",
+  "Intuition Modifikator",
+  "Intuition Gesamtwert",
   "Charisma Basis",
   "Charisma Modifikator",
   "Charisma Gesamtwert",
@@ -10992,8 +11014,27 @@ const SR6_EDGE_BOOST_LABELS = new Set([
   "Edge-Poolbonus",
   "Edge-Hinweis",
 ]);
-const SR6_SPELL_CONTEXT_LABELS = new Set(["Art", "Reichweite", "Dauer", "Schaden", "Notiz"]);
-const SR6_MAGIC_DRAIN_LABELS = new Set(["Entzug", "Entzugwiderstand", "Entzug-Details", "Entstandener Entzug", "Entzugsschaden"]);
+const SR6_SPELL_CONTEXT_LABELS = new Set(["Art", "Reichweite", "Typ", "Dauer", "Widerstand"]);
+const SR6_MAGIC_DRAIN_LABELS = new Set([
+  "Entzug",
+  "Entzug-Basis",
+  "Fläche Vergrößern-Entzug",
+  "Hochdrehen-Entzug",
+  "Entzug-Modifikator",
+  "Entzugswiderstand",
+  "Entzug-Details",
+  "Entstandener Entzug",
+  "Entzugsschaden",
+]);
+const SR6_SPELL_DAMAGE_LABELS = new Set([
+  "Schaden-Formel",
+  "Schaden-Basis",
+  "Erfolge auf Schaden",
+  "Hochdrehen-Schaden",
+  "Schadens-Modifikator",
+  "Schaden",
+  "Schadenstyp",
+]);
 const SR6_SUMMONING_LABELS = new Set([
   "Geist",
   "Typ",
@@ -11030,6 +11071,8 @@ const SR6_GROUP_TITLE_BY_KEY = {
   language: SR6_DETAIL_GROUP_TITLES.language,
   spell_context: SR6_DETAIL_GROUP_TITLES.spellContext,
   magic_drain: SR6_DETAIL_GROUP_TITLES.magicDrain,
+  spell_damage: SR6_DETAIL_GROUP_TITLES.spellDamage,
+  notes: SR6_DETAIL_GROUP_TITLES.notes,
   summoning: SR6_DETAIL_GROUP_TITLES.summoning,
   object_resistance: SR6_DETAIL_GROUP_TITLES.objectResistance,
   probe_context: SR6_DETAIL_GROUP_TITLES.probeContext,
@@ -11102,11 +11145,17 @@ function getCalcDetailSourceGroupKey(label, subjectFieldLabel, payload) {
   if (probeModel === "spell_probe" && SR6_SPELL_CONTEXT_LABELS.has(label)) {
     return "spell_context";
   }
+  if (probeModel === "spell_probe" && SR6_SPELL_DAMAGE_LABELS.has(label)) {
+    return "spell_damage";
+  }
   if (
     (probeModel === "spell_probe" || probeModel === "summoning_probe") &&
     SR6_MAGIC_DRAIN_LABELS.has(label)
   ) {
     return "magic_drain";
+  }
+  if (label === "Notiz" || label === "Notizen") {
+    return "notes";
   }
   if (probeModel === "summoning_probe" && SR6_SUMMONING_LABELS.has(label)) {
     return "summoning";
@@ -11137,7 +11186,21 @@ function getCalcDetailSourceGroupKey(label, subjectFieldLabel, payload) {
   }
   if (subjectFieldLabel === "Attribut" && (label === "Basis" || label === "Modifikator" || label === "Gesamtwert")) return "attribute";
   if (label === "Attribut" || label.indexOf("Attributwert ") === 0) return "attribute";
+  if (SR6_ATTRIBUTE_DETAIL_LABELS.has(label)) return "attribute";
+  if (label === "Fertigkeit") return "skill";
   if (label.indexOf("Fertigkeitswert ") === 0) return "skill";
+  if (
+    (probeModel === "spell_probe" || probeModel === "summoning_probe") &&
+    label.indexOf("Magie/Resonanz ") === 0
+  ) {
+    return "attribute";
+  }
+  if (probeModel === "spell_probe" && label.indexOf("Hexerei ") === 0) {
+    return "skill";
+  }
+  if (probeModel === "summoning_probe" && label.indexOf("Beschwören ") === 0) {
+    return "skill";
+  }
   if (SR6_FATE_DICE_LABELS.has(label)) {
     return "fate_dice";
   }
@@ -11348,15 +11411,18 @@ function getSourceGroupsByTitle(sourceGroups, titles, usedTitles) {
 function buildContextRowsFromLabels(rows, labels, sourceGroups, infoTitleMap = {}, options = {}) {
   const sharedInfoTitles = options.dedupeInfoTitles ? new Set() : null;
   const valueByLabel = options.valueByLabel || {};
+  const separatorBeforeLabels = new Set(options.separatorBeforeLabels || []);
+  const allowEmptyLabels = new Set(options.allowEmptyLabels || []);
 
   return (Array.isArray(labels) ? labels : []).reduce((contextRows, label) => {
     const value = valueByLabel[label] !== undefined
-      ? `${valueByLabel[label] || ""}`.trim()
+      ? `${valueByLabel[label] || ""}`
       : getLastRowValue(rows, label);
-    if (!value) return contextRows;
+    if (!`${value || ""}`.trim() && !allowEmptyLabels.has(label)) return contextRows;
     contextRows.push({
       label: label,
       value: value,
+      separatorBefore: separatorBeforeLabels.has(label),
       infoGroups: getSourceGroupsByTitle(sourceGroups, infoTitleMap[label] || [], sharedInfoTitles || new Set()),
     });
     return contextRows;
@@ -11366,11 +11432,14 @@ function buildContextRowsFromLabels(rows, labels, sourceGroups, infoTitleMap = {
 function appendContextRowsTemplateFields(parts, contextRows) {
   if (contextRows.length === 0) return;
 
-  contextRows.slice(0, 6).forEach((row, index) => {
+  contextRows.slice(0, 9).forEach((row, index) => {
     const rowIndex = index + 1;
     const infoGroups = Array.isArray(row.infoGroups) ? row.infoGroups : [];
     parts.push(`{{context_${rowIndex}_label=${row.label}}}`);
     parts.push(`{{context_${rowIndex}_value=${row.value}}}`);
+    if (row.separatorBefore) {
+      parts.push(`{{context_${rowIndex}_separator=1}}`);
+    }
     if (infoGroups.length > 0) {
       parts.push(`{{context_${rowIndex}_info_title=${infoGroups[0].title}}}`);
       parts.push(`{{context_${rowIndex}_info=${infoGroups[0].details}}}`);
@@ -11478,26 +11547,39 @@ function buildDefenseView(payload, name, subjectFieldLabel, subjectLabel, subjec
 }
 
 function buildSpellView(payload, name, subjectFieldLabel, subjectLabel, subject, calcDetailGroups, rows) {
+  const poolInfo = getPoolInfoGroups(calcDetailGroups.sourceGroups)
+    .filter((group) => group.title !== SR6_DETAIL_GROUP_TITLES.formula);
+
   return {
     suppressSubject: !!(payload && payload.suppressSubject),
     subject: { label: subjectLabel, value: subject },
-    poolInfo: getPoolInfoGroups(calcDetailGroups.sourceGroups),
+    poolInfo: poolInfo,
     contextRows: buildContextRowsFromLabels(rows, [
       "Art",
       "Reichweite",
       "Dauer",
+      "Widerstand",
       "Entzug",
-      "Schaden",
+      "Entzugswiderstand",
       "Angriffswert",
-      "Entzugwiderstand",
+      "Schaden",
+      "Notiz",
     ], calcDetailGroups.sourceGroups, {
       "Art": ["Zauberkontext"],
       "Reichweite": ["Zauberkontext"],
       "Dauer": ["Zauberkontext"],
+      "Widerstand": ["Zauberkontext"],
       "Entzug": ["Magie und Entzug"],
-      "Schaden": ["Zauberkontext", "Schadensberechnung"],
       "Angriffswert": ["Angriffswertberechnung"],
-      "Entzugwiderstand": ["Magie und Entzug"],
+      "Schaden": ["Kampfzauber-Schaden"],
+      "Entzugswiderstand": ["Magie und Entzug"],
+      "Notiz": ["Notizen"],
+    }, {
+      separatorBeforeLabels: ["Entzug", "Angriffswert", "Notiz"],
+      allowEmptyLabels: getLastRowValue(rows, "Notiz") ? ["Notiz"] : [],
+      valueByLabel: {
+        "Notiz": getLastRowValue(rows, "Notiz") ? " " : "",
+      },
     }),
     resultLabel: (payload && payload.resultLabel) || "Ergebnis",
     resultValue: payload && payload.resultValue,
@@ -11506,24 +11588,23 @@ function buildSpellView(payload, name, subjectFieldLabel, subjectLabel, subject,
 }
 
 function buildSummoningView(payload, name, subjectFieldLabel, subjectLabel, subject, calcDetailGroups, rows) {
+  const poolInfo = getPoolInfoGroups(calcDetailGroups.sourceGroups)
+    .filter((group) => group.title !== SR6_DETAIL_GROUP_TITLES.formula);
+
   return {
     suppressSubject: !!(payload && payload.suppressSubject),
     subject: { label: subjectLabel, value: subject },
-    poolInfo: getPoolInfoGroups(calcDetailGroups.sourceGroups),
+    poolInfo: poolInfo,
     contextRows: buildContextRowsFromLabels(rows, [
       "Typ",
       "Stufe",
       "Geist-Erfolge",
       "Erhaltene Dienste",
-      "Entstandener Entzug",
       "Entzugsschaden",
       "Objektwiderstand-Nettoerfolge",
     ], calcDetailGroups.sourceGroups, {
-      "Typ": ["Beschwörung"],
-      "Stufe": ["Beschwörung"],
       "Geist-Erfolge": ["Beschwörung"],
       "Erhaltene Dienste": ["Beschwörung"],
-      "Entstandener Entzug": ["Magie und Entzug"],
       "Entzugsschaden": ["Magie und Entzug"],
       "Objektwiderstand-Nettoerfolge": ["Objektwiderstand"],
     }),
@@ -12225,6 +12306,14 @@ function appendKnownPoolFormulaRows(rows, definition, lookupAttr, poolAttribute)
     appendGenericFormulaComponentRows(rows, lookupAttr, "Konstitution");
     return true;
   }
+  if (poolAttribute === "sr6_magic_magie") {
+    appendAttributeDetailRows(rows, lookupAttr, "magie_resonanz", "Attributwert", { poolComponent: true });
+    return true;
+  }
+  if (poolAttribute === "sr6_magic_zauberpool") {
+    appendSkillDetailRows(rows, lookupAttr, "hexerei", "Fertigkeitswert", { poolComponent: true });
+    return true;
+  }
   if (poolAttribute === "sr6_magic_spruchzauberei") {
     appendGenericFormulaComponentRows(rows, lookupAttr, "Magie/Resonanz + Hexerei");
     return true;
@@ -12233,8 +12322,26 @@ function appendKnownPoolFormulaRows(rows, definition, lookupAttr, poolAttribute)
     appendGenericFormulaComponentRows(rows, lookupAttr, "Magie/Resonanz + Beschwören");
     return true;
   }
+  if (poolAttribute === "sr6_magic_waffenloser_kampf") {
+    appendAttributeDetailRows(rows, lookupAttr, "willenskraft", "Willenskraft", { poolComponent: true });
+    appendSkillDetailRows(rows, lookupAttr, "astral", "Fertigkeitswert", { poolComponent: true });
+    return true;
+  }
+  if (poolAttribute === "sr6_magic_astrale_verteidigung") {
+    appendAttributeDetailRows(rows, lookupAttr, "logik", "Logik", { poolComponent: true });
+    appendAttributeDetailRows(rows, lookupAttr, "intuition", "Intuition", { poolComponent: true });
+    return true;
+  }
+  if (poolAttribute === "sr6_magic_astraler_schadenswiderstand") {
+    appendAttributeDetailRows(rows, lookupAttr, "willenskraft", "Willenskraft", { poolComponent: true });
+    return true;
+  }
   if (poolAttribute === "sr6_magic_entzug_widerstand") {
-    appendRowIfMissing(rows, "Traditionsattribut Modifikator", `${parseNumber(lookupAttr("sr6_magic_traditionsattribut_1_modifikator"))}`, { poolComponent: true });
+    const traditionAttribute = `${lookupAttr("sr6_magic_traditionsattribut_1") || ""}`.trim();
+    const traditionKey = mapTraditionsattributToKey(traditionAttribute);
+    if (traditionKey) {
+      appendAttributeDetailRows(rows, lookupAttr, traditionKey, traditionAttribute || "Traditionsattribut", { poolComponent: true });
+    }
     appendGenericFormulaComponentRows(rows, lookupAttr, "Willenskraft");
     return true;
   }
@@ -12285,9 +12392,8 @@ function appendDrainResistanceDetailRows(rows, lookupAttr) {
   if (traditionKey) {
     appendAttributeDetailRows(rows, lookupAttr, traditionKey, `Entzug ${traditionAttribute}`);
   }
-  appendRowIfMissing(rows, "Entzug Traditionsattribut Modifikator", `${parseNumber(lookupAttr("sr6_magic_traditionsattribut_1_modifikator"))}`);
   appendAttributeDetailRows(rows, lookupAttr, "willenskraft", "Entzug Willenskraft");
-  appendRowIfMissing(rows, "Entzugwiderstand Gesamtwert", `${parseNumber(lookupAttr("sr6_magic_entzug_widerstand"))}`);
+  appendRowIfMissing(rows, "Entzugswiderstand Gesamtwert", `${parseNumber(lookupAttr("sr6_magic_entzug_widerstand"))}`);
 }
 
 function getCombatPoolAttributeLabel(definition, resolvedFields) {
@@ -12923,6 +13029,90 @@ function isCombatSpell(resolvedFields) {
   return `${(resolvedFields && resolvedFields.Art) || ""}`.trim() === "Kampf";
 }
 
+function resolveCombatSpellType(resolvedFields) {
+  const type = `${(resolvedFields && resolvedFields.Typ) || ""}`.trim();
+  return type === "Direkt" || type === "Indirekt" ? type : "";
+}
+
+function resolveSpellDamageType(resolvedFields) {
+  return `${(resolvedFields && resolvedFields.Schadenstyp) || ""}`.trim() || "Körperlich";
+}
+
+function getSpellPopupNumber(popupState, key) {
+  return parseNumber((((popupState || {}).selectedValues || {})[key]));
+}
+
+function appendSpellAttackValueDetailRows(rows, lookupAttr, resolvedFields, popupState, finalAttackValue) {
+  const traditionAttribute = `${lookupAttr("sr6_magic_traditionsattribut_1") || ""}`.trim();
+  const traditionKey = mapTraditionsattributToKey(traditionAttribute);
+  const magicValue = parseNumber(lookupAttr("sr6_magic_magie"));
+  const traditionValue = traditionKey ? resolveRollAttributeTotal(traditionKey, lookupAttr) : 0;
+  const coreModifier = parseNumber(lookupAttr("sr6_magic_angriffswert_modifikator"));
+
+  rows.push({ label: "Angriffswert-Formel", value: "Magie + Traditionsattribut" });
+  rows.push({ label: "Angriffswert Magie", value: `${magicValue}` });
+  if (traditionAttribute) {
+    rows.push({ label: "Angriffswert Traditionsattribut", value: traditionAttribute });
+  }
+  rows.push({ label: "Angriffswert Traditionsattribut Wert", value: `${traditionValue}` });
+  if (coreModifier !== 0) {
+    rows.push({ label: "Angriffswert Kernwert-Modifikator", value: formatSignedModifier(coreModifier) });
+  }
+  if (popupState.attackValueMod !== 0) {
+    rows.push({ label: "Angriffswert-Modifikator", value: formatSignedModifier(popupState.attackValueMod) });
+  }
+  rows.push({ label: "Angriffswert", value: `${finalAttackValue}` });
+}
+
+function appendSpellDrainDetailRows(rows, resolvedFields, popupState) {
+  const baseDrain = parseNumber(resolvedFields.Entzug);
+  const areaIncrease = getSpellPopupNumber(popupState, "area_increase");
+  const overcast = getSpellPopupNumber(popupState, "overcast");
+  const drainOnlyMod = getSpellPopupNumber(popupState, "drain_mod");
+  const modifiedDrain = Math.max(0, baseDrain + popupState.drainMod);
+
+  rows.push({ label: "Entzug-Basis", value: `${baseDrain}` });
+  if (areaIncrease !== 0) {
+    rows.push({ label: "Fläche Vergrößern-Entzug", value: formatSignedModifier(areaIncrease) });
+  }
+  if (overcast !== 0) {
+    rows.push({ label: "Hochdrehen-Entzug", value: formatSignedModifier(overcast * 2) });
+  }
+  if (drainOnlyMod !== 0) {
+    rows.push({ label: "Entzug-Modifikator", value: formatSignedModifier(drainOnlyMod) });
+  }
+  rows.push({ label: "Entzug", value: `${modifiedDrain}` });
+}
+
+function appendSpellDamageDetailRows(rows, lookupAttr, resolvedFields, popupState, spellSuccesses) {
+  const spellType = resolveCombatSpellType(resolvedFields);
+  if (!spellType) return;
+
+  const magicValue = parseNumber(lookupAttr("sr6_magic_magie"));
+  const overcast = getSpellPopupNumber(popupState, "overcast");
+  const damageOnlyMod = getSpellPopupNumber(popupState, "damage_mod");
+  const baseDamage = spellType === "Indirekt" ? Math.ceil(magicValue / 2) : 0;
+  const finalDamage = Math.max(0, baseDamage + parseNumber(spellSuccesses) + popupState.damageMod);
+  const damageType = resolveSpellDamageType(resolvedFields);
+
+  rows.push({
+    label: "Schaden-Formel",
+    value: spellType === "Indirekt"
+      ? "ceil(Magie / 2) + Erfolge + Hochdrehen"
+      : "Erfolge + Hochdrehen",
+  });
+  rows.push({ label: "Schaden-Basis", value: `${baseDamage}` });
+  rows.push({ label: "Erfolge auf Schaden", value: `+${parseNumber(spellSuccesses)}` });
+  if (overcast !== 0) {
+    rows.push({ label: "Hochdrehen-Schaden", value: formatSignedModifier(overcast) });
+  }
+  if (damageOnlyMod !== 0) {
+    rows.push({ label: "Schadens-Modifikator", value: formatSignedModifier(damageOnlyMod) });
+  }
+  rows.push({ label: "Schadenstyp", value: damageType });
+  rows.push({ label: "Schaden", value: damageType ? `${finalDamage} ${damageType}` : `${finalDamage}` });
+}
+
 function resolveDrainDamageType(remainingDrainDamage, magicValue) {
   if (parseNumber(remainingDrainDamage) <= 0) return "";
   return parseNumber(remainingDrainDamage) > parseNumber(magicValue) ? "Körperlich" : "Betäubung";
@@ -13341,16 +13531,16 @@ function runSpellProbeFromContext(context, lookupAttr, resolvedFields, popupStat
 
   appendBasePoolDetailRows(rows, context.definition, lookupAttr, context.poolAttribute, null, resolvedFields);
   appendDrainResistanceDetailRows(rows, lookupAttr);
+  appendSpellDrainDetailRows(rows, resolvedFields, effectivePopupState);
+  if (isCombatSpell(resolvedFields)) {
+    appendSpellAttackValueDetailRows(rows, lookupAttr, resolvedFields, effectivePopupState, finalAttackValue);
+    appendSpellDamageDetailRows(rows, lookupAttr, resolvedFields, effectivePopupState, spellComputation.successCount);
+  }
   effectivePopupState.rows.forEach((popupRow) => {
     if (!popupRow || !popupRow.label) return;
     appendRowIfMissing(rows, popupRow.label, popupRow.value);
   });
   appendRollOnlyPoolModifierRow(rows, rollOnlyPoolModifier);
-  if (isCombatSpell(resolvedFields) && effectivePopupState.attackValueMod !== 0) {
-    rows.push({ label: "Angriffswert-Basis", value: `${baseAttackValue}` });
-    rows.push({ label: "Angriffswert-Modifikator", value: `${effectivePopupState.attackValueMod}` });
-    rows.push({ label: "Angriffswert", value: `${finalAttackValue}` });
-  }
   appendEdgeBoostRows(rows, edgeOptions, spellComputation);
 
   const chatMessage = buildSr6ProbeMessage({
@@ -14958,7 +15148,6 @@ function syncCombatWeaponPools(callback) {
 // BEGIN MODULE: workers/compute/magic
 function appendMagicRequestKeys(requestKeys) {
   requestKeys.push("sr6_magic_traditionsattribut_1");
-  requestKeys.push("sr6_magic_traditionsattribut_1_modifikator");
   requestKeys.push("sr6_magic_angriffswert_modifikator");
   requestKeys.push("sr6_magic_astralkampf_angriffswert_modifikator");
   requestKeys.push("sr6_magic_astralkampf_verteidigungswert_modifikator");
@@ -14986,9 +15175,7 @@ function computeMagicDerived(values, totals, skillTotals, updates) {
   );
 
   const traditionKey1 = mapTraditionsattributToKey(values.sr6_magic_traditionsattribut_1);
-  const traditionValue1 =
-    (traditionKey1 ? (totals[traditionKey1] || 0) : 0) +
-    parseNumber(values.sr6_magic_traditionsattribut_1_modifikator);
+  const traditionValue1 = traditionKey1 ? (totals[traditionKey1] || 0) : 0;
 
   updates.sr6_magic_entzug_widerstand = String(
     traditionValue1 + (totals.willenskraft || 0)
@@ -15635,7 +15822,6 @@ function buildRecalcEvents() {
   events.push("change:sr6_schadenswiderstand_physisch_gesamtwert");
 
   events.push("change:sr6_magic_traditionsattribut_1");
-  events.push("change:sr6_magic_traditionsattribut_1_modifikator");
   events.push("change:sr6_magic_angriffswert_modifikator");
   events.push("change:sr6_magic_astralkampf_angriffswert_modifikator");
   events.push("change:sr6_magic_astralkampf_verteidigungswert_modifikator");
@@ -15917,6 +16103,7 @@ registerWorkerEvents();
   "field.keine_spezialisierung": "",
   "field.keine_expertise": "",
   "field.keine_auswahl": "Keine Auswahl",
+  "field.manuell": "Manuell",
   "field.bezug": "Bezug",
   "field.grundwert": "Grundwert",
   "field.modifikator": "Modifikator",
@@ -15938,6 +16125,7 @@ registerWorkerEvents();
   "field.schadentyp": "Schadenstyp",
   "field.schadentyp_koerperlich": "Körperlich",
   "field.schadentyp_betaeubung": "Betäubung",
+  "field.schadentyp_betaeubung_elektrisch": "Betäubung (elektrisch)",
   "field.attribut": "Attribut",
   "field.wuerfelpool": "Würfelpool",
   "field.vergleichswert": "Vergleichswert",
@@ -16009,12 +16197,12 @@ registerWorkerEvents();
   "field.wurf": "Wurf",
   "field.magische_tradition": "Magische Tradition",
   "field.traditionsattribut": "Traditionsattribut",
-  "field.traditionsattribut_1": "Traditionsattribut 1",
+  "field.traditionsattribut_1": "Traditionsattribut",
   "field.wert_1": "Wert 1",
   "field.wert_2": "Wert 2",
   "field.zauberpool": "Zauberpool",
   "field.entzug": "Entzug",
-  "field.entzug_widerstand": "Entzugwiderstand",
+  "field.entzug_widerstand": "Entzugswiderstand",
   "field.spruchzauberei": "Spruchzauberei",
   "field.astralkampf": "Astralkampf",
   "field.waffenloser_kampf": "Waffenloser Kampf",
@@ -16040,6 +16228,15 @@ registerWorkerEvents();
   "field.zauber_art_heilung": "Heilung",
   "field.zauber_art_illusion": "Illusion",
   "field.zauber_art_manipulation": "Manipulation",
+  "field.zauber_typ": "Typ",
+  "field.zauber_typ_direkt": "Direkt",
+  "field.zauber_typ_indirekt": "Indirekt",
+  "field.zauber_widerstand": "Widerstand",
+  "field.zauber_widerstand_keine_schwelle": "Kein/Schwelle",
+  "field.zauber_widerstand_willenskraft_intuition": "Willenskraft + Intuition",
+  "field.zauber_widerstand_reaktion_willenskraft": "Reaktion + Willenskraft",
+  "field.zauber_widerstand_konstitution": "Konstitution",
+  "field.zauber_widerstand_pilot": "Pilot",
   "field.reichweite": "Reichweite",
   "field.reichweite_selbst": "Selbst",
   "field.reichweite_beruehrung": "Berührung",
@@ -18430,41 +18627,68 @@ registerWorkerEvents();
     {{/edge_action}}
 
     {{#context_1_value}}
+    {{#context_1_separator}}<div class="sheet-sr6probe__row" style="padding:0 0.5rem;background:#ffffff;"><div style="height:1px;background:#d7d7d7;margin:0.25rem 0;"></div></div>{{/context_1_separator}}
     <div class="sheet-sr6probe__row sheet-sr6probe__row--context" style="display:grid;grid-template-columns:minmax(7.5rem,auto) 1fr;gap:0.5rem;align-items:center;padding:0.25rem 0.5rem;background:#ffffff;">
       <span class="sheet-sr6probe__label" style="font-weight:700;color:#840763;">{{context_1_label}}{{#context_1_info}} <span class="sheet-sr6probe__info-wrap"><span class="sheet-sr6probe__info-icon">i</span><span class="sheet-sr6probe__info-panel"><span class="sheet-sr6probe__subtitle">{{context_1_info_title}}</span><span class="sheet-sr6probe__calc">{{context_1_info}}</span>{{#context_1_info_2}}<span class="sheet-sr6probe__subtitle">{{context_1_info_2_title}}</span><span class="sheet-sr6probe__calc">{{context_1_info_2}}</span>{{/context_1_info_2}}</span></span>{{/context_1_info}}</span>
       <span class="sheet-sr6probe__value" style="color:#111111;">{{context_1_value}}</span>
     </div>
     {{/context_1_value}}
     {{#context_2_value}}
+    {{#context_2_separator}}<div class="sheet-sr6probe__row" style="padding:0 0.5rem;background:#ffffff;"><div style="height:1px;background:#d7d7d7;margin:0.25rem 0;"></div></div>{{/context_2_separator}}
     <div class="sheet-sr6probe__row sheet-sr6probe__row--context" style="display:grid;grid-template-columns:minmax(7.5rem,auto) 1fr;gap:0.5rem;align-items:center;padding:0.25rem 0.5rem;background:#ffffff;">
       <span class="sheet-sr6probe__label" style="font-weight:700;color:#840763;">{{context_2_label}}{{#context_2_info}} <span class="sheet-sr6probe__info-wrap"><span class="sheet-sr6probe__info-icon">i</span><span class="sheet-sr6probe__info-panel"><span class="sheet-sr6probe__subtitle">{{context_2_info_title}}</span><span class="sheet-sr6probe__calc">{{context_2_info}}</span>{{#context_2_info_2}}<span class="sheet-sr6probe__subtitle">{{context_2_info_2_title}}</span><span class="sheet-sr6probe__calc">{{context_2_info_2}}</span>{{/context_2_info_2}}</span></span>{{/context_2_info}}</span>
       <span class="sheet-sr6probe__value" style="color:#111111;">{{context_2_value}}</span>
     </div>
     {{/context_2_value}}
     {{#context_3_value}}
+    {{#context_3_separator}}<div class="sheet-sr6probe__row" style="padding:0 0.5rem;background:#ffffff;"><div style="height:1px;background:#d7d7d7;margin:0.25rem 0;"></div></div>{{/context_3_separator}}
     <div class="sheet-sr6probe__row sheet-sr6probe__row--context" style="display:grid;grid-template-columns:minmax(7.5rem,auto) 1fr;gap:0.5rem;align-items:center;padding:0.25rem 0.5rem;background:#ffffff;">
       <span class="sheet-sr6probe__label" style="font-weight:700;color:#840763;">{{context_3_label}}{{#context_3_info}} <span class="sheet-sr6probe__info-wrap"><span class="sheet-sr6probe__info-icon">i</span><span class="sheet-sr6probe__info-panel"><span class="sheet-sr6probe__subtitle">{{context_3_info_title}}</span><span class="sheet-sr6probe__calc">{{context_3_info}}</span>{{#context_3_info_2}}<span class="sheet-sr6probe__subtitle">{{context_3_info_2_title}}</span><span class="sheet-sr6probe__calc">{{context_3_info_2}}</span>{{/context_3_info_2}}</span></span>{{/context_3_info}}</span>
       <span class="sheet-sr6probe__value" style="color:#111111;">{{context_3_value}}</span>
     </div>
     {{/context_3_value}}
     {{#context_4_value}}
+    {{#context_4_separator}}<div class="sheet-sr6probe__row" style="padding:0 0.5rem;background:#ffffff;"><div style="height:1px;background:#d7d7d7;margin:0.25rem 0;"></div></div>{{/context_4_separator}}
     <div class="sheet-sr6probe__row sheet-sr6probe__row--context" style="display:grid;grid-template-columns:minmax(7.5rem,auto) 1fr;gap:0.5rem;align-items:center;padding:0.25rem 0.5rem;background:#ffffff;">
       <span class="sheet-sr6probe__label" style="font-weight:700;color:#840763;">{{context_4_label}}{{#context_4_info}} <span class="sheet-sr6probe__info-wrap"><span class="sheet-sr6probe__info-icon">i</span><span class="sheet-sr6probe__info-panel"><span class="sheet-sr6probe__subtitle">{{context_4_info_title}}</span><span class="sheet-sr6probe__calc">{{context_4_info}}</span>{{#context_4_info_2}}<span class="sheet-sr6probe__subtitle">{{context_4_info_2_title}}</span><span class="sheet-sr6probe__calc">{{context_4_info_2}}</span>{{/context_4_info_2}}</span></span>{{/context_4_info}}</span>
       <span class="sheet-sr6probe__value" style="color:#111111;">{{context_4_value}}</span>
     </div>
     {{/context_4_value}}
     {{#context_5_value}}
+    {{#context_5_separator}}<div class="sheet-sr6probe__row" style="padding:0 0.5rem;background:#ffffff;"><div style="height:1px;background:#d7d7d7;margin:0.25rem 0;"></div></div>{{/context_5_separator}}
     <div class="sheet-sr6probe__row sheet-sr6probe__row--context" style="display:grid;grid-template-columns:minmax(7.5rem,auto) 1fr;gap:0.5rem;align-items:center;padding:0.25rem 0.5rem;background:#ffffff;">
       <span class="sheet-sr6probe__label" style="font-weight:700;color:#840763;">{{context_5_label}}{{#context_5_info}} <span class="sheet-sr6probe__info-wrap"><span class="sheet-sr6probe__info-icon">i</span><span class="sheet-sr6probe__info-panel"><span class="sheet-sr6probe__subtitle">{{context_5_info_title}}</span><span class="sheet-sr6probe__calc">{{context_5_info}}</span>{{#context_5_info_2}}<span class="sheet-sr6probe__subtitle">{{context_5_info_2_title}}</span><span class="sheet-sr6probe__calc">{{context_5_info_2}}</span>{{/context_5_info_2}}</span></span>{{/context_5_info}}</span>
       <span class="sheet-sr6probe__value" style="color:#111111;">{{context_5_value}}</span>
     </div>
     {{/context_5_value}}
     {{#context_6_value}}
+    {{#context_6_separator}}<div class="sheet-sr6probe__row" style="padding:0 0.5rem;background:#ffffff;"><div style="height:1px;background:#d7d7d7;margin:0.25rem 0;"></div></div>{{/context_6_separator}}
     <div class="sheet-sr6probe__row sheet-sr6probe__row--context" style="display:grid;grid-template-columns:minmax(7.5rem,auto) 1fr;gap:0.5rem;align-items:center;padding:0.25rem 0.5rem;background:#ffffff;">
       <span class="sheet-sr6probe__label" style="font-weight:700;color:#840763;">{{context_6_label}}{{#context_6_info}} <span class="sheet-sr6probe__info-wrap"><span class="sheet-sr6probe__info-icon">i</span><span class="sheet-sr6probe__info-panel"><span class="sheet-sr6probe__subtitle">{{context_6_info_title}}</span><span class="sheet-sr6probe__calc">{{context_6_info}}</span>{{#context_6_info_2}}<span class="sheet-sr6probe__subtitle">{{context_6_info_2_title}}</span><span class="sheet-sr6probe__calc">{{context_6_info_2}}</span>{{/context_6_info_2}}</span></span>{{/context_6_info}}</span>
       <span class="sheet-sr6probe__value" style="color:#111111;">{{context_6_value}}</span>
     </div>
     {{/context_6_value}}
+    {{#context_7_value}}
+    {{#context_7_separator}}<div class="sheet-sr6probe__row" style="padding:0 0.5rem;background:#ffffff;"><div style="height:1px;background:#d7d7d7;margin:0.25rem 0;"></div></div>{{/context_7_separator}}
+    <div class="sheet-sr6probe__row sheet-sr6probe__row--context" style="display:grid;grid-template-columns:minmax(7.5rem,auto) 1fr;gap:0.5rem;align-items:center;padding:0.25rem 0.5rem;background:#ffffff;">
+      <span class="sheet-sr6probe__label" style="font-weight:700;color:#840763;">{{context_7_label}}{{#context_7_info}} <span class="sheet-sr6probe__info-wrap"><span class="sheet-sr6probe__info-icon">i</span><span class="sheet-sr6probe__info-panel"><span class="sheet-sr6probe__subtitle">{{context_7_info_title}}</span><span class="sheet-sr6probe__calc">{{context_7_info}}</span>{{#context_7_info_2}}<span class="sheet-sr6probe__subtitle">{{context_7_info_2_title}}</span><span class="sheet-sr6probe__calc">{{context_7_info_2}}</span>{{/context_7_info_2}}</span></span>{{/context_7_info}}</span>
+      <span class="sheet-sr6probe__value" style="color:#111111;">{{context_7_value}}</span>
+    </div>
+    {{/context_7_value}}
+    {{#context_8_value}}
+    {{#context_8_separator}}<div class="sheet-sr6probe__row" style="padding:0 0.5rem;background:#ffffff;"><div style="height:1px;background:#d7d7d7;margin:0.25rem 0;"></div></div>{{/context_8_separator}}
+    <div class="sheet-sr6probe__row sheet-sr6probe__row--context" style="display:grid;grid-template-columns:minmax(7.5rem,auto) 1fr;gap:0.5rem;align-items:center;padding:0.25rem 0.5rem;background:#ffffff;">
+      <span class="sheet-sr6probe__label" style="font-weight:700;color:#840763;">{{context_8_label}}{{#context_8_info}} <span class="sheet-sr6probe__info-wrap"><span class="sheet-sr6probe__info-icon">i</span><span class="sheet-sr6probe__info-panel"><span class="sheet-sr6probe__subtitle">{{context_8_info_title}}</span><span class="sheet-sr6probe__calc">{{context_8_info}}</span>{{#context_8_info_2}}<span class="sheet-sr6probe__subtitle">{{context_8_info_2_title}}</span><span class="sheet-sr6probe__calc">{{context_8_info_2}}</span>{{/context_8_info_2}}</span></span>{{/context_8_info}}</span>
+      <span class="sheet-sr6probe__value" style="color:#111111;">{{context_8_value}}</span>
+    </div>
+    {{/context_8_value}}
+    {{#context_9_value}}
+    {{#context_9_separator}}<div class="sheet-sr6probe__row" style="padding:0 0.5rem;background:#ffffff;"><div style="height:1px;background:#d7d7d7;margin:0.25rem 0;"></div></div>{{/context_9_separator}}
+    <div class="sheet-sr6probe__row sheet-sr6probe__row--context" style="display:grid;grid-template-columns:minmax(7.5rem,auto) 1fr;gap:0.5rem;align-items:center;padding:0.25rem 0.5rem;background:#ffffff;">
+      <span class="sheet-sr6probe__label" style="font-weight:700;color:#840763;">{{context_9_label}}{{#context_9_info}} <span class="sheet-sr6probe__info-wrap"><span class="sheet-sr6probe__info-icon">i</span><span class="sheet-sr6probe__info-panel"><span class="sheet-sr6probe__subtitle">{{context_9_info_title}}</span><span class="sheet-sr6probe__calc">{{context_9_info}}</span>{{#context_9_info_2}}<span class="sheet-sr6probe__subtitle">{{context_9_info_2_title}}</span><span class="sheet-sr6probe__calc">{{context_9_info_2}}</span>{{/context_9_info_2}}</span></span>{{/context_9_info}}</span>
+      <span class="sheet-sr6probe__value" style="color:#111111;">{{context_9_value}}</span>
+    </div>
+    {{/context_9_value}}
 
     {{#debug_details_enabled}}
     <div class="sheet-sr6probe__row" style="padding:0 0.5rem;background:#ffffff;">
