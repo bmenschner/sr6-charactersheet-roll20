@@ -508,6 +508,27 @@ const SR6_ATTRIBUTE_DETAIL_LABELS = new Set([
   "Magie/Resonanz Modifikator",
   "Magie/Resonanz Gesamtwert",
 ]);
+const SR6_SKILL_DETAIL_LABEL_PREFIXES = new Set([
+  "Astral",
+  "Athletik",
+  "Beschwören",
+  "Biotech",
+  "Cracken",
+  "Einfluss",
+  "Elektronik",
+  "Exotische Waffen",
+  "Feuerwaffen",
+  "Heimlichkeit",
+  "Hexerei",
+  "Mechanik",
+  "Nahkampf",
+  "Natur",
+  "Steuern",
+  "Tasken",
+  "Überreden",
+  "Verzaubern",
+  "Wahrnehmung",
+]);
 const SR6_POPUP_DETAIL_LABELS = new Set([
   "Popup-Modifikator",
   "Skill-Modifikator",
@@ -611,6 +632,11 @@ const SR6_GROUP_TITLE_BY_KEY = {
   hint: SR6_DETAIL_GROUP_TITLES.hint,
 };
 
+function isSkillFormulaDetailLabel(label) {
+  const match = `${label || ""}`.match(/^(.+) (Basis|Modifikator|Gesamtwert)$/);
+  return !!(match && SR6_SKILL_DETAIL_LABEL_PREFIXES.has(match[1]));
+}
+
 function isCombatCalcDetailDefinition(payload) {
   const definition = payload && payload.definition;
   const definitionId = `${(payload && payload.definitionId) || (definition && definition.id) || ""}`.trim();
@@ -710,6 +736,7 @@ function getCalcDetailSourceGroupKey(label, subjectFieldLabel, payload) {
   if (SR6_ATTRIBUTE_DETAIL_LABELS.has(label)) return "attribute";
   if (label === "Fertigkeit") return "skill";
   if (label.indexOf("Fertigkeitswert ") === 0) return "skill";
+  if (isSkillFormulaDetailLabel(label)) return "skill";
   if (
     (probeModel === "spell_probe" || probeModel === "summoning_probe") &&
     label.indexOf("Magie/Resonanz ") === 0
@@ -948,6 +975,21 @@ function buildContextRowsFromLabels(rows, labels, sourceGroups, infoTitleMap = {
     });
     return contextRows;
   }, []);
+}
+
+function appendAutomaticNoteContextRow(contextRows, rows, sourceGroups) {
+  const resolvedContextRows = Array.isArray(contextRows) ? [...contextRows] : [];
+  const hasNoteRow = resolvedContextRows.some((row) => row && row.label === "Notiz");
+  const noteValue = getLastRowValue(rows, "Notiz") || getLastRowValue(rows, "Notizen");
+  if (hasNoteRow || !noteValue) return resolvedContextRows;
+
+  resolvedContextRows.push({
+    label: "Notiz",
+    value: " ",
+    separatorBefore: true,
+    infoGroups: getSourceGroupsByTitle(sourceGroups, [SR6_DETAIL_GROUP_TITLES.notes], new Set()),
+  });
+  return resolvedContextRows;
 }
 
 function appendContextRowsTemplateFields(parts, contextRows) {
@@ -1317,7 +1359,10 @@ function buildSr6ProbeMessage(payload) {
 
   appendDetailsTemplateFields(parts, payload);
   appendEdgeActionTemplateField(parts, payload);
-  appendContextRowsTemplateFields(parts, view.contextRows || []);
+  appendContextRowsTemplateFields(
+    parts,
+    appendAutomaticNoteContextRow(view.contextRows || [], rows, calcDetailGroups.sourceGroups)
+  );
   if (calcDetailGroups.summary) {
     parts.push(`{{pool_info=${calcDetailGroups.summary}}}`);
   }

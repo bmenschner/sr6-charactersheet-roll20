@@ -296,6 +296,23 @@ function appendRowsFormulaDetails(rows, lookupAttr, poolLabels = null) {
   });
 }
 
+function appendEquipmentSourceDetailRows(rows, lookupAttr, sourceKey, sourceOption) {
+  if (!sourceOption) return;
+
+  const normalizedKey = `${sourceKey || ""}`.trim();
+  if (normalizedKey.indexOf("attr:") === 0) {
+    const attributeKey = normalizedKey.replace(/^attr:/, "");
+    appendRowIfMissing(rows, "Attribut", sourceOption.label);
+    appendAttributeDetailRows(rows, lookupAttr, attributeKey, sourceOption.label, { poolComponent: true });
+    return;
+  }
+
+  if (normalizedKey.indexOf("skill:") === 0) {
+    const skillKey = normalizedKey.replace(/^skill:/, "");
+    appendSkillDetailRows(rows, lookupAttr, skillKey, sourceOption.label, { poolComponent: true });
+  }
+}
+
 function appendKnownPoolFormulaRows(rows, definition, lookupAttr, poolAttribute) {
   if (!poolAttribute) return false;
   if (poolAttribute === "sr6_verteidigung_physisch_gesamtwert") {
@@ -1327,8 +1344,9 @@ function runEquipmentProbeFromContext(context, lookupAttr, resolvedFields, popup
 
   rows.push({ label: "Bezug", value: sourceOption ? sourceOption.label : "Keine Auswahl" });
   if (sourceOption) {
-    rows.push({ label: sourceOption.type, value: `${sourceOption.label} (${sourceValue})` });
-    appendRowIfMissing(rows, "Bezugswert", `${sourceValue}`, { poolComponent: true });
+    rows.push({ label: sourceOption.type, value: sourceOption.label });
+    appendEquipmentSourceDetailRows(rows, lookupAttr, sourceKey, sourceOption);
+    appendRowIfMissing(rows, "Bezugswert", `${sourceValue}`);
   }
   rows.push({ label: ratingMultiplier === 2 ? "Stufe x2" : "Stufe", value: `${ratingValue}`, poolComponent: true });
   if (computation.monitorPoolMod !== 0) {
