@@ -79,7 +79,7 @@
 
 .sr6-charactersheet-skills-overview-grid {
   display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
+  grid-template-columns: minmax(0, 1fr);
   gap: 0.5rem 1.5rem;
 }
 
@@ -89,14 +89,72 @@
 
 #sr6_daten_panel_2 .sr6-charactersheet-box-attribute .sr6-charactersheet-attribute-grid {
   display: grid;
-  grid-auto-flow: column;
+  grid-auto-flow: row;
   grid-template-columns: repeat(2, minmax(0, 1fr));
-  grid-template-rows: repeat(5, auto);
   gap: 0.5rem 5.0rem;
 }
 
 #sr6_daten_panel_2 .sr6-charactersheet-box-attribute .sr6-charactersheet-attribute-grid > .sr6-charactersheet-row-2 {
   display: contents;
+}
+
+#sr6_daten_panel_2 .sr6-charactersheet-box-attribute .sr6-charactersheet-attribute-column-title {
+  margin: 0;
+}
+
+#sr6_daten_panel_2 .sr6-charactersheet-box-attribute .sr6-charactersheet-attribute-column-title--koerperlich {
+  order: 1;
+}
+
+#sr6_daten_panel_2 .sr6-charactersheet-box-attribute .sr6-charactersheet-attribute-column-title--geistig {
+  order: 2;
+}
+
+#sr6_daten_panel_2 .sr6-charactersheet-box-attribute .sr6-charactersheet-attr-field--konstitution {
+  order: 3;
+}
+
+#sr6_daten_panel_2 .sr6-charactersheet-box-attribute .sr6-charactersheet-attr-field--willenskraft {
+  order: 4;
+}
+
+#sr6_daten_panel_2 .sr6-charactersheet-box-attribute .sr6-charactersheet-attr-field--geschicklichkeit {
+  order: 5;
+}
+
+#sr6_daten_panel_2 .sr6-charactersheet-box-attribute .sr6-charactersheet-attr-field--logik {
+  order: 6;
+}
+
+#sr6_daten_panel_2 .sr6-charactersheet-box-attribute .sr6-charactersheet-attr-field--reaktion {
+  order: 7;
+}
+
+#sr6_daten_panel_2 .sr6-charactersheet-box-attribute .sr6-charactersheet-attr-field--intuition {
+  order: 8;
+}
+
+#sr6_daten_panel_2 .sr6-charactersheet-box-attribute .sr6-charactersheet-attr-field--staerke {
+  order: 9;
+}
+
+#sr6_daten_panel_2 .sr6-charactersheet-box-attribute .sr6-charactersheet-attr-field--charisma {
+  order: 10;
+}
+
+#sr6_daten_panel_2 .sr6-charactersheet-box-attribute .sr6-charactersheet-attribute-special-separator {
+  grid-column: 1 / -1;
+  order: 11;
+  border-top: 0.0625rem solid rgba(0, 0, 0, 0.18);
+  margin-top: 0.375rem;
+}
+
+#sr6_daten_panel_2 .sr6-charactersheet-box-attribute .sr6-charactersheet-attr-field--magie-resonanz {
+  order: 12;
+}
+
+#sr6_daten_panel_2 .sr6-charactersheet-box-attribute .sr6-charactersheet-attr-field--edge {
+  order: 13;
 }
 
 #sr6_daten_panel_2 .sr6-charactersheet-box-attribute .sr6-charactersheet-attribute-probes {
@@ -121,15 +179,40 @@
 }
 
 #sr6_daten_panel_2 .sr6-charactersheet-box-fertigkeiten-allgemein .sr6-charactersheet-skills-overview-grid {
-  grid-auto-flow: column;
-  grid-template-rows: repeat(10, auto);
-  gap: 0.5rem 5.0rem;
+  grid-auto-flow: row;
+  grid-template-columns: minmax(0, 1fr);
+  grid-template-rows: none;
+  gap: 0.375rem;
+}
+
+#sr6_daten_panel_2 .sr6-charactersheet-box-fertigkeiten-allgemein .sr6-charactersheet-skill-field {
+  display: grid;
+  grid-template-columns:
+    minmax(7.5rem, 1fr)
+    minmax(5.5rem, 0.65fr)
+    minmax(5.5rem, 0.65fr)
+    minmax(6rem, 0.75fr)
+    minmax(10rem, 1.2fr)
+    minmax(10rem, 1.2fr);
+  gap: 0.375rem;
+  align-items: end;
+}
+
+#sr6_daten_panel_2 .sr6-charactersheet-box-fertigkeiten-allgemein .sr6-charactersheet-skill-field > span {
+  align-self: center;
+  font-weight: 700;
+}
+
+#sr6_daten_panel_2 .sr6-charactersheet-box-fertigkeiten-allgemein .sr6-charactersheet-skill-values {
+  display: contents;
 }
 
 #sr6_daten_panel_2 .sr6-charactersheet-box-fertigkeiten-allgemein .sr6-charactersheet-skill-specialization-row {
-  display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 0.375rem;
+  display: contents;
+}
+
+#sr6_daten_panel_2 .sr6-charactersheet-box-fertigkeiten-allgemein .sr6-charactersheet-skill-select-with-dice {
+  min-width: 0;
 }
 
 .sr6-charactersheet-tab-biographie-personendaten .sr6-charactersheet-row + .sr6-charactersheet-row {

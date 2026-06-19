@@ -118,6 +118,8 @@
   "field.grundwert": "Grundwert",
   "field.modifikator": "Modifikator",
   "field.gesamtwert": "Gesamtwert",
+  "field.koerperlich": "Körperlich",
+  "field.geistig": "Geistig",
   "field.physisch": "Physisch",
   "field.astral": "Astral",
   "field.matrix": "Matrix",

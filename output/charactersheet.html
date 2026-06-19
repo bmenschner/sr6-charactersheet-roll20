@@ -352,9 +352,11 @@
   <div class="sr6-charactersheet-box-content">
     <!-- BEGIN BLOCK: Attribut-Zeilen als 2-Spalten-Grid -->
     <div class="sr6-charactersheet-attribute-grid">
+    <h2 class="sr6-charactersheet-subsection-title sr6-charactersheet-attribute-column-title sr6-charactersheet-attribute-column-title--koerperlich" data-i18n="field.koerperlich">Körperlich</h2>
+    <h2 class="sr6-charactersheet-subsection-title sr6-charactersheet-attribute-column-title sr6-charactersheet-attribute-column-title--geistig" data-i18n="field.geistig">Geistig</h2>
     <div class="sr6-charactersheet-row sr6-charactersheet-row-2">
       <!-- BEGIN BLOCK: Attribut - Konstitution -->
-      <div class="sr6-charactersheet-field sr6-charactersheet-attr-field">
+      <div class="sr6-charactersheet-field sr6-charactersheet-attr-field sr6-charactersheet-attr-field--konstitution">
         <span data-i18n="field.konstitution">Konstitution</span>
         <div class="sr6-charactersheet-attr-values">
           <div
@@ -392,7 +394,7 @@
       <!-- END BLOCK: Attribut - Konstitution -->
 
       <!-- BEGIN BLOCK: Attribut - Geschicklichkeit -->
-      <div class="sr6-charactersheet-field sr6-charactersheet-attr-field">
+      <div class="sr6-charactersheet-field sr6-charactersheet-attr-field sr6-charactersheet-attr-field--geschicklichkeit">
         <span data-i18n="field.geschicklichkeit">Geschicklichkeit</span>
         <div class="sr6-charactersheet-attr-values">
           <div
@@ -434,7 +436,7 @@
 
     <div class="sr6-charactersheet-row sr6-charactersheet-row-2">
       <!-- BEGIN BLOCK: Attribut - Reaktion -->
-      <div class="sr6-charactersheet-field sr6-charactersheet-attr-field">
+      <div class="sr6-charactersheet-field sr6-charactersheet-attr-field sr6-charactersheet-attr-field--reaktion">
         <span data-i18n="field.reaktion">Reaktion</span>
         <div class="sr6-charactersheet-attr-values">
           <div
@@ -472,7 +474,7 @@
       <!-- END BLOCK: Attribut - Reaktion -->
 
       <!-- BEGIN BLOCK: Attribut - Stärke -->
-      <div class="sr6-charactersheet-field sr6-charactersheet-attr-field">
+      <div class="sr6-charactersheet-field sr6-charactersheet-attr-field sr6-charactersheet-attr-field--staerke">
         <span data-i18n="field.staerke">Stärke</span>
         <div class="sr6-charactersheet-attr-values">
           <div
@@ -512,7 +514,7 @@
 
     <div class="sr6-charactersheet-row sr6-charactersheet-row-2">
       <!-- BEGIN BLOCK: Attribut - Willenskraft -->
-      <div class="sr6-charactersheet-field sr6-charactersheet-attr-field">
+      <div class="sr6-charactersheet-field sr6-charactersheet-attr-field sr6-charactersheet-attr-field--willenskraft">
         <span data-i18n="field.willenskraft">Willenskraft</span>
         <div class="sr6-charactersheet-attr-values">
           <div
@@ -550,7 +552,7 @@
       <!-- END BLOCK: Attribut - Willenskraft -->
 
       <!-- BEGIN BLOCK: Attribut - Logik -->
-      <div class="sr6-charactersheet-field sr6-charactersheet-attr-field">
+      <div class="sr6-charactersheet-field sr6-charactersheet-attr-field sr6-charactersheet-attr-field--logik">
         <span data-i18n="field.logik">Logik</span>
         <div class="sr6-charactersheet-attr-values">
           <div
@@ -588,7 +590,7 @@
 
     <div class="sr6-charactersheet-row sr6-charactersheet-row-2">
       <!-- BEGIN BLOCK: Attribut - Intuition -->
-      <div class="sr6-charactersheet-field sr6-charactersheet-attr-field">
+      <div class="sr6-charactersheet-field sr6-charactersheet-attr-field sr6-charactersheet-attr-field--intuition">
         <span data-i18n="field.intuition">Intuition</span>
         <div class="sr6-charactersheet-attr-values">
           <div
@@ -626,7 +628,7 @@
       <!-- END BLOCK: Attribut - Intuition -->
 
       <!-- BEGIN BLOCK: Attribut - Charisma -->
-      <div class="sr6-charactersheet-field sr6-charactersheet-attr-field">
+      <div class="sr6-charactersheet-field sr6-charactersheet-attr-field sr6-charactersheet-attr-field--charisma">
         <span data-i18n="field.charisma">Charisma</span>
         <div class="sr6-charactersheet-attr-values">
           <div
@@ -666,7 +668,7 @@
 
     <div class="sr6-charactersheet-row sr6-charactersheet-row-2">
       <!-- BEGIN BLOCK: Attribut - Edge -->
-      <div class="sr6-charactersheet-field sr6-charactersheet-attr-field">
+      <div class="sr6-charactersheet-field sr6-charactersheet-attr-field sr6-charactersheet-attr-field--edge">
         <span data-i18n="field.edge">Edge</span>
         <div class="sr6-charactersheet-attr-values">
           <div
@@ -702,7 +704,7 @@
       <!-- END BLOCK: Attribut - Edge -->
 
       <!-- BEGIN BLOCK: Attribut - Magie/Resonanz -->
-      <div class="sr6-charactersheet-field sr6-charactersheet-attr-field">
+      <div class="sr6-charactersheet-field sr6-charactersheet-attr-field sr6-charactersheet-attr-field--magie-resonanz">
         <span data-i18n="field.magie_resonanz">Magie/Resonanz</span>
         <div class="sr6-charactersheet-attr-values">
           <div
@@ -741,6 +743,7 @@
       </div>
       <!-- END BLOCK: Attribut - Magie/Resonanz -->
     </div>
+    <div class="sr6-charactersheet-attribute-special-separator"></div>
     <!-- END BLOCK: Attribut-Zeilen als 2-Spalten-Grid -->
     </div>
 
@@ -16108,6 +16111,8 @@ registerWorkerEvents();
   "field.grundwert": "Grundwert",
   "field.modifikator": "Modifikator",
   "field.gesamtwert": "Gesamtwert",
+  "field.koerperlich": "Körperlich",
+  "field.geistig": "Geistig",
   "field.physisch": "Physisch",
   "field.astral": "Astral",
   "field.matrix": "Matrix",
