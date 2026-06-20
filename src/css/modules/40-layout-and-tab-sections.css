@@ -356,7 +356,7 @@ fieldset.repeating_sr6matrixgeraete,
 
 .sr6-matrix-geraete-section .sr6-matrix-geraet-main-row {
   display: grid;
-  grid-template-columns: minmax(0, 1.25fr) minmax(0, 1.15fr) repeat(4, minmax(0, 1fr));
+  grid-template-columns: minmax(0, 1.25fr) minmax(0, 1.15fr) repeat(6, minmax(0, 1fr));
   gap: 0.75rem;
   align-items: end;
 }

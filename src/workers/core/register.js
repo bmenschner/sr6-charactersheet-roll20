@@ -75,6 +75,10 @@ function buildRecalcEvents() {
   events.push("change:sr6_matrix_schleicher");
   events.push("change:sr6_matrix_datenverarbeitung");
   events.push("change:sr6_matrix_firewall");
+  events.push("change:sr6_matrix_cyberbuchse_aktiv");
+  events.push("change:sr6_matrix_cyberbuchse_datenverarbeitung");
+  events.push("change:sr6_matrix_cyberbuchse_firewall");
+  events.push("change:sr6_matrix_cyberbuchse_initiative_w6");
   events.push("change:sr6_matrix_angriffswert_modifikator");
   events.push("change:sr6_matrix_verteidigungswert_modifikator");
   events.push("change:sr6_rigging_modus");
