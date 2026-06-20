@@ -34,8 +34,11 @@ Technische Auslegung im Sheet:
 
 - Der Header enthaelt den Wurftitel.
 - Danach folgen Name der Handlung/Waffe/des Geraets/des Zaubers, finaler Pool, Erfolge, Wuerfeldetails, Edge-Button und ein Trennstrich.
-- Berechnungsquellen werden ab Zeile 7 in einer standardmaessig eingeklappten Details-Zeile als kommagetrennte Debug-Liste ausgegeben. Die Liste beginnt mit der vollstaendigen Pool-Rechnung und enthaelt danach die verwendeten Basiswerte, Modifikatoren, Dropdowns und Checkboxen.
-- Direkte Attribut- und Fertigkeitsgesamtwerte werden in der Detailzeile generisch in Basis, Modifikator und Gesamtwert aufgeschluesselt.
+- Berechnungsquellen werden im normalen Chat kompakt ueber Info-Icons an den passenden Zeilen angezeigt.
+- Der Pool-Info-Button enthaelt die vollstaendige Pool-Rechnung und alle poolrelevanten Gruppen wie Attributsberechnung, Fertigkeitsberechnung, Formel-/Matrixwert-Bestandteile, Popup-Modifikatoren, Edge-Boosts und Schicksalswuerfel.
+- Domaenenspezifische Kontextzeilen wie Schaden, Entzug, Dienste, Angriffswert, Verteidigungswert, Munition oder Modus koennen eigene Info-Buttons mit ihren jeweiligen Berechnungsgruppen haben.
+- Das Einstellungs-Dropdown fuer Debug-Ausgabe kann die gruppierten Berechnungsquellen zusaetzlich unter dem Rolltemplate sichtbar ausgeben.
+- Direkte Attribut- und Fertigkeitsgesamtwerte werden in den Info-/Debug-Gruppen generisch in Basis, Modifikator und Gesamtwert aufgeschluesselt.
 - Spezielle Ergebniszeilen wie Schaden, Entzug, Dienste oder Angriffswert werden nicht global hervorgehoben, sondern issue- und domaenenspezifisch entschieden.
 
 ## Wert-Modifikator

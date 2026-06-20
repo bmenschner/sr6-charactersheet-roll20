@@ -2379,6 +2379,38 @@ function resolveSkillProbeAttributeOption(definition, selectedValue) {
   return options.find((option) => option.value === normalizedValue) || options[0];
 }
 
+function getMatrixLikeDefenseAdditionalAttributes(definition) {
+  const definitionId = definition && definition.id;
+  const matrixDefenseIds = [
+    "matrix_defense",
+    "matrix_damage_resistance",
+    "matrix_biofeedback_damage_resistance",
+  ];
+  const riggingDefenseIds = [
+    "rigging_matrix_defense",
+    "rigging_matrix_damage_resistance",
+    "rigging_biofeedback_damage_resistance",
+  ];
+
+  if (matrixDefenseIds.includes(definitionId)) {
+    return [
+      "sr6_matrix_datenverarbeitung",
+      "sr6_matrix_firewall",
+      "sr6_matrix_verteidigungswert_modifikator",
+      "sr6_matrix_verteidigungswert",
+    ];
+  }
+  if (riggingDefenseIds.includes(definitionId)) {
+    return [
+      "sr6_rigging_datenverarbeitung",
+      "sr6_rigging_firewall",
+      "sr6_rigging_verteidigungswert_modifikator",
+      "sr6_rigging_verteidigungswert",
+    ];
+  }
+  return [];
+}
+
 function getRollAdditionalAttributes(definition) {
   const attributeBaseAttributes = SR6_ATTRIBUTES.map((attributeKey) => `sr6_attr_${attributeKey}_grundwert`);
   const attributeModifierAttributes = SR6_ATTRIBUTES.map((attributeKey) => `sr6_attr_${attributeKey}_modifikator`);
@@ -2394,6 +2426,7 @@ function getRollAdditionalAttributes(definition) {
     ...skillModifierAttributes,
     ...skillTotalAttributes,
     ...getMagicRollAdditionalAttributes(definition),
+    ...getMatrixLikeDefenseAdditionalAttributes(definition),
   ];
   getSkillProbeAttributeOptions(definition).forEach((option) => {
     if (!option || !option.attr) return;
@@ -3463,6 +3496,8 @@ const SR6_DETAIL_GROUP_TITLES = {
   attackValue: "Angriffswertberechnung",
   combatDefense: "Verteidigungsberechnung",
   combatDefenseValue: "Verteidigungswertberechnung",
+  firewall: "Firewallberechnung",
+  matrixAttribute: "Matrixattributberechnung",
   formula: "Formelberechnung",
   language: "Sprachberechnung",
   spellContext: "Zauberkontext",
@@ -3487,6 +3522,8 @@ const SR6_DETAIL_GROUP_TITLES = {
 const SR6_POOL_INFO_TITLES = new Set([
   SR6_DETAIL_GROUP_TITLES.language,
   SR6_DETAIL_GROUP_TITLES.formula,
+  SR6_DETAIL_GROUP_TITLES.firewall,
+  SR6_DETAIL_GROUP_TITLES.matrixAttribute,
   SR6_DETAIL_GROUP_TITLES.probeContext,
   SR6_DETAIL_GROUP_TITLES.equipmentContext,
   SR6_DETAIL_GROUP_TITLES.attribute,
@@ -3555,9 +3592,12 @@ const SR6_COMBAT_DEFENSE_VALUE_LABELS = new Set([
   "Verteidigungswert Sekundäre Panzerung",
   "Verteidigungswert Helm",
   "Verteidigungswert Schild",
+  "Verteidigungswert Datenverarbeitung",
+  "Verteidigungswert Firewall",
   "Verteidigungswert Modifikator",
   "Verteidigungswert Gesamtwert",
 ]);
+const SR6_FIREWALL_LABELS = new Set(["Firewall"]);
 const SR6_ATTRIBUTE_DETAIL_LABELS = new Set([
   "Konstitution Basis",
   "Konstitution Modifikator",
@@ -3677,7 +3717,7 @@ const SR6_OBJECT_RESISTANCE_LABELS = new Set([
   "Objektwiderstand-Nettoerfolge",
   "Objektwiderstand-Details",
 ]);
-const SR6_PROBE_CONTEXT_LABELS = new Set(["Probe", "Probe-Wert", "Matrixattribut", "Zugriff", "Overwatch-Modifikator"]);
+const SR6_PROBE_CONTEXT_LABELS = new Set(["Probe", "Matrixattribut", "Zugriff", "Overwatch-Modifikator"]);
 const SR6_DEFENSE_CONTEXT_LABELS = new Set(["Verteidigung", "Verteidigungswert"]);
 const SR6_VEHICLE_CONTEXT_LABELS = new Set(["Modus", "Fahrzeug", "Gerät", "Geraet", "Zustandsmonitor", "Riggerkontrolle", "Agentenstufe"]);
 const SR6_WEAPON_CONTEXT_LABELS = new Set(["Installierte Waffe", "Waffentyp", "Angriffswerte (Reichweite)"]);
@@ -3691,6 +3731,8 @@ const SR6_GROUP_TITLE_BY_KEY = {
   combat_attack_value: SR6_DETAIL_GROUP_TITLES.attackValue,
   combat_defense: SR6_DETAIL_GROUP_TITLES.combatDefense,
   combat_defense_value: SR6_DETAIL_GROUP_TITLES.combatDefenseValue,
+  firewall: SR6_DETAIL_GROUP_TITLES.firewall,
+  matrix_attribute: SR6_DETAIL_GROUP_TITLES.matrixAttribute,
   formula: SR6_DETAIL_GROUP_TITLES.formula,
   language: SR6_DETAIL_GROUP_TITLES.language,
   spell_context: SR6_DETAIL_GROUP_TITLES.spellContext,
@@ -3739,6 +3781,17 @@ function isCombatCalcDetailDefinition(payload) {
   return combatDefinitionIds.has(definitionId) || !!(definition && definition.templateVariant === "weapon");
 }
 
+function isMatrixLikeDefenseDefinition(definition) {
+  return !!(definition && [
+    "matrix_defense",
+    "matrix_damage_resistance",
+    "matrix_biofeedback_damage_resistance",
+    "rigging_matrix_defense",
+    "rigging_matrix_damage_resistance",
+    "rigging_biofeedback_damage_resistance",
+  ].includes(definition.id));
+}
+
 function getCombatCalcDetailSourceGroupKey(label) {
   if (SR6_COMBAT_CONTEXT_LABELS.has(label)) return "combat_context";
   if (label === "Attribut" || label.indexOf("Attributwert ") === 0) return "attribute";
@@ -3770,6 +3823,10 @@ function getCalcDetailSourceGroupKey(label, subjectFieldLabel, payload) {
   }
 
   if (label === "Sprachniveau") return "language";
+  if (SR6_FIREWALL_LABELS.has(label)) return "firewall";
+  if (label.indexOf("Matrixattribut ") === 0) return "matrix_attribute";
+  if (label.indexOf("Probe ") === 0) return "formula";
+  if (label.indexOf("Verteidigungswert ") === 0) return "combat_defense_value";
   if (label === "Attributsprobe" || label === "Formel") return "formula";
   if (probeModel === "spell_probe" && SR6_SPELL_CONTEXT_LABELS.has(label)) {
     return "spell_context";
@@ -3896,8 +3953,14 @@ function buildSourceDetailEntry(row, sourceRows, groupKey) {
   if (label === "Schicksalswürfel-Hinweis") {
     label = "Hinweis";
   }
+  if (groupKey === "formula" && label.indexOf("Probe ") === 0) {
+    label = label.replace(/^Probe\s+/, "");
+  }
   if (groupKey === "combat_defense_value" && label.indexOf("Verteidigungswert ") === 0) {
     label = label.replace(/^Verteidigungswert\s+/, "");
+  }
+  if (groupKey === "matrix_attribute" && label.indexOf("Matrixattribut ") === 0) {
+    label = label.replace(/^Matrixattribut\s+/, "");
   }
   return `${label}: ${value}`;
 }
@@ -3937,8 +4000,9 @@ function buildCalcDetailGroups(rows, subjectFieldLabel, payload) {
     const label = row.label;
     const groupKey = getCalcDetailSourceGroupKey(label, subjectFieldLabel, payload);
     const entry = buildSourceDetailEntry(row, rows, groupKey);
-    if (seen.has(entry)) return;
-    seen.add(entry);
+    const sourceSeenKey = `${groupKey}::${entry}`;
+    if (seen.has(sourceSeenKey)) return;
+    seen.add(sourceSeenKey);
 
     if (!currentSourceGroup || currentSourceGroup.key !== groupKey) {
       appendSourceDetailGroup(sourceGroups, currentSourceGroup);
@@ -4165,9 +4229,10 @@ function buildCombatWeaponView(payload, name, subjectFieldLabel, subjectLabel, s
 }
 
 function buildDefenseView(payload, name, subjectFieldLabel, subjectLabel, subject, calcDetailGroups, rows) {
+  const definition = payload && payload.definition;
   const defenseGroup = getSourceGroupByTitle(calcDetailGroups.sourceGroups, "Verteidigungsberechnung");
   const defenseValueGroup = getSourceGroupByTitle(calcDetailGroups.sourceGroups, "Verteidigungswertberechnung");
-  const comparisonLabel = (payload && payload.definition && payload.definition.comparisonContextLabel) || "Verteidigungswert";
+  const comparisonLabel = (definition && definition.comparisonContextLabel) || "Verteidigungswert";
   const contextLabels = comparisonLabel === "Verteidigung"
     ? [comparisonLabel]
     : [comparisonLabel, "Verteidigung"];
@@ -4176,7 +4241,7 @@ function buildDefenseView(payload, name, subjectFieldLabel, subjectLabel, subjec
     "Verteidigung": ["Verteidigungsberechnung"],
   });
   const poolInfo = [
-    ...(defenseGroup ? [defenseGroup] : []),
+    ...(!isMatrixLikeDefenseDefinition(definition) && defenseGroup ? [defenseGroup] : []),
     ...getPoolInfoGroups(calcDetailGroups.sourceGroups),
   ];
 
@@ -4266,16 +4331,13 @@ function buildMatrixActionView(payload, name, subjectFieldLabel, subjectLabel, s
     poolInfo: getPoolInfoGroups(calcDetailGroups.sourceGroups),
     contextRows: buildContextRowsFromLabels(rows, [
       "Probe",
-      "Probe-Wert",
       "Verteidigung",
       "Verteidigungswert",
       "Zugriff",
       "Overwatch-Modifikator",
     ], calcDetailGroups.sourceGroups, {
       "Probe": ["Probenkontext", "Formelberechnung"],
-      "Probe-Wert": ["Probenkontext", "Formelberechnung"],
-      "Verteidigung": ["Verteidigungsberechnung"],
-      "Verteidigungswert": ["Verteidigungsberechnung"],
+      "Verteidigungswert": ["Verteidigungswertberechnung"],
       "Zugriff": ["Probenkontext"],
       "Overwatch-Modifikator": ["Probenkontext"],
     }),
@@ -4961,8 +5023,52 @@ function appendEquipmentSourceDetailRows(rows, lookupAttr, sourceKey, sourceOpti
   }
 }
 
+function getMatrixLikeDefenseConfig(definition) {
+  const definitionId = definition && definition.id;
+  const matrixConfigs = {
+    matrix_defense: { prefix: "sr6_matrix", kind: "defense" },
+    matrix_damage_resistance: { prefix: "sr6_matrix", kind: "damage_resistance" },
+    matrix_biofeedback_damage_resistance: { prefix: "sr6_matrix", kind: "biofeedback_damage_resistance" },
+    rigging_matrix_defense: { prefix: "sr6_rigging", kind: "defense" },
+    rigging_matrix_damage_resistance: { prefix: "sr6_rigging", kind: "damage_resistance" },
+    rigging_biofeedback_damage_resistance: { prefix: "sr6_rigging", kind: "biofeedback_damage_resistance" },
+  };
+
+  return matrixConfigs[definitionId] || null;
+}
+
+function appendMatrixLikeFirewallPoolRows(rows, lookupAttr, prefix) {
+  appendRowIfMissing(rows, "Firewall", `${parseNumber(lookupAttr(`${prefix}_firewall`))}`, { poolComponent: true });
+}
+
+function appendMatrixLikeDefenseValueDetailRows(rows, definition, lookupAttr) {
+  const config = getMatrixLikeDefenseConfig(definition);
+  if (!config) return;
+
+  appendRowIfMissing(rows, "Verteidigungswert Datenverarbeitung", `${parseNumber(lookupAttr(`${config.prefix}_datenverarbeitung`))}`);
+  appendRowIfMissing(rows, "Verteidigungswert Firewall", `${parseNumber(lookupAttr(`${config.prefix}_firewall`))}`);
+  appendRowIfMissing(rows, "Verteidigungswert Modifikator", `${parseNumber(lookupAttr(`${config.prefix}_verteidigungswert_modifikator`))}`);
+  appendRowIfMissing(rows, "Verteidigungswert Gesamtwert", `${parseNumber(lookupAttr(`${config.prefix}_verteidigungswert`))}`);
+}
+
 function appendKnownPoolFormulaRows(rows, definition, lookupAttr, poolAttribute) {
   if (!poolAttribute) return false;
+  const matrixDefenseConfig = getMatrixLikeDefenseConfig(definition);
+  if (matrixDefenseConfig) {
+    if (matrixDefenseConfig.kind === "defense") {
+      appendAttributeDetailRows(rows, lookupAttr, "intuition", "Intuition", { poolComponent: true });
+      appendMatrixLikeFirewallPoolRows(rows, lookupAttr, matrixDefenseConfig.prefix);
+      return true;
+    }
+    if (matrixDefenseConfig.kind === "damage_resistance") {
+      appendMatrixLikeFirewallPoolRows(rows, lookupAttr, matrixDefenseConfig.prefix);
+      return true;
+    }
+    if (matrixDefenseConfig.kind === "biofeedback_damage_resistance") {
+      appendAttributeDetailRows(rows, lookupAttr, "willenskraft", "Willenskraft", { poolComponent: true });
+      return true;
+    }
+  }
   if (poolAttribute === "sr6_verteidigung_physisch_gesamtwert") {
     appendGenericFormulaComponentRows(rows, lookupAttr, "Reaktion + Intuition");
     return true;
@@ -5332,11 +5438,13 @@ function resolveMatrixActionComponentValue(component, lookupAttr) {
   }
 
   if (component.multiplier && component.matrix) {
+    const multiplier = parseNumber(component.multiplier);
     const matrixValue = parseNumber(lookupAttr(`sr6_matrix_${component.matrix}`));
     return {
       label: component.label || component.matrix,
-      value: matrixValue * parseNumber(component.multiplier),
-      parts: [{ label: component.matrix, value: matrixValue }],
+      value: matrixValue * multiplier,
+      parts: [{ label: component.matrix, type: "matrix", value: matrixValue }],
+      multiplier: multiplier,
     };
   }
 
@@ -5353,22 +5461,22 @@ function resolveMatrixActionComponentValue(component, lookupAttr) {
 
   if (component.skill) {
     const value = resolveRollSkillTotal(component.skill, lookupAttr);
-    parts.push({ label: component.skill, value: value });
+    parts.push({ label: component.skill, type: "skill", value: value });
     total += value;
   }
   if (component.attribute) {
     const value = resolveRollAttributeTotal(component.attribute, lookupAttr);
-    parts.push({ label: component.attribute, value: value });
+    parts.push({ label: component.attribute, type: "attribute", value: value });
     total += value;
   }
   if (component.matrix) {
     const value = parseNumber(lookupAttr(`sr6_matrix_${component.matrix}`));
-    parts.push({ label: component.matrix, value: value });
+    parts.push({ label: component.matrix, type: "matrix", value: value });
     total += value;
   }
   if (component.matrixSecond) {
     const value = parseNumber(lookupAttr(`sr6_matrix_${component.matrixSecond}`));
-    parts.push({ label: component.matrixSecond, value: value });
+    parts.push({ label: component.matrixSecond, type: "matrix", value: value });
     total += value;
   }
 
@@ -5418,7 +5526,71 @@ function resolveMatrixActionRuleContext(definition, popupState, lookupAttr, pool
   };
 }
 
-function appendMatrixActionRows(rows, matrixActionContext) {
+function formatMatrixActionComponentLabel(label) {
+  const componentLabels = {
+    angriff: "Angriff",
+    cracken: "Cracken",
+    datenverarbeitung: "Datenverarbeitung",
+    elektronik: "Elektronik",
+    firewall: "Firewall",
+    intuition: "Intuition",
+    logik: "Logik",
+    schleicher: "Schleicher",
+    willenskraft: "Willenskraft",
+  };
+
+  return componentLabels[`${label || ""}`.trim()] || `${label || ""}`.trim();
+}
+
+function appendMatrixActionComponentDetailRows(rows, rowPrefix, componentValue, lookupAttr, options = {}) {
+  if (!componentValue || componentValue.value === null) return;
+
+  (componentValue.parts || []).forEach((part) => {
+    if (rowPrefix === "Probe" && part.type === "skill") {
+      appendSkillDetailRows(rows, lookupAttr, part.label, formatMatrixActionComponentLabel(part.label), {
+        poolComponent: !!options.poolComponent,
+      });
+      return;
+    }
+    if (rowPrefix === "Probe" && part.type === "attribute") {
+      appendAttributeDetailRows(rows, lookupAttr, part.label, formatMatrixActionComponentLabel(part.label), {
+        poolComponent: !!options.poolComponent,
+      });
+      return;
+    }
+    if (rowPrefix === "Probe" && part.type === "matrix") {
+      appendRowIfMissing(
+        rows,
+        `Matrixattribut ${formatMatrixActionComponentLabel(part.label)}`,
+        `${parseNumber(part.value)}`,
+        { poolComponent: !!options.poolComponent }
+      );
+      return;
+    }
+    appendRowIfMissing(
+      rows,
+      `${rowPrefix} ${formatMatrixActionComponentLabel(part.label)}`,
+      `${parseNumber(part.value)}`,
+      { poolComponent: !!options.poolComponent }
+    );
+  });
+  if (parseNumber(componentValue.multiplier) > 1) {
+    appendRowIfMissing(rows, `${rowPrefix} Multiplikator`, `x${parseNumber(componentValue.multiplier)}`);
+    appendRowIfMissing(
+      rows,
+      `${rowPrefix} Multiplikator-Bonus`,
+      `${parseNumber(componentValue.value) - (componentValue.parts || []).reduce((sum, part) => sum + parseNumber(part.value), 0)}`,
+      { poolComponent: !!options.poolComponent }
+    );
+  }
+  appendRowIfMissing(
+    rows,
+    `${rowPrefix} Gesamtwert`,
+    `${parseNumber(componentValue.value)}`
+  );
+}
+
+function appendMatrixActionRows(rows, matrixActionContext, lookupAttr) {
   if (!matrixActionContext) return;
 
   const rule = matrixActionContext.rule || {};
@@ -5433,7 +5605,9 @@ function appendMatrixActionRows(rows, matrixActionContext) {
     rows.push({ label: "Probe", value: "Siehe Beschreibung" });
   } else if (probe) {
     rows.push({ label: "Probe", value: probe.label });
-    rows.push({ label: "Probe-Wert", value: `${probe.value}` });
+    appendMatrixActionComponentDetailRows(rows, "Probe", probe, lookupAttr, {
+      poolComponent: matrixActionContext.rollMode !== "defense",
+    });
   }
 
   if (rule.probe && rule.probe.linkedMatrixAttribute) {
@@ -5450,11 +5624,17 @@ function appendMatrixActionRows(rows, matrixActionContext) {
   } else if (defense.type === "fixed_formula" && defenseValue && defenseValue.value !== null) {
     rows.push({ label: "Verteidigung", value: defenseValue.label });
     rows.push({ label: "Verteidigungswert", value: `${defenseValue.value}` });
+    appendMatrixActionComponentDetailRows(rows, "Verteidigungswert", defenseValue, lookupAttr, {
+      poolComponent: matrixActionContext.rollMode === "defense",
+    });
   } else if (defense.type === "fixed_formula") {
     rows.push({ label: "Verteidigung", value: defense.label || "Zielwert" });
   } else if (defenseValue && defenseValue.value !== null) {
     rows.push({ label: "Verteidigung", value: defenseValue.label });
     rows.push({ label: "Verteidigungswert", value: `${defenseValue.value}` });
+    appendMatrixActionComponentDetailRows(rows, "Verteidigungswert", defenseValue, lookupAttr, {
+      poolComponent: matrixActionContext.rollMode === "defense",
+    });
   } else if (defenseOption && defenseOption.label) {
     rows.push({ label: "Verteidigung", value: defenseOption.label });
   }
@@ -6443,14 +6623,11 @@ function runSuccessProbeFromContext(rawTemplate, repeatingRowPrefix, popupState 
     }
     appendBasePoolDetailRows(rows, context.definition, lookupAttr, context.poolAttribute, skillAttributeOverride, resolvedFields);
     appendCombatDefenseValueDetailRows(rows, context.definition, lookupAttr);
-    appendMatrixActionRows(rows, matrixActionContext);
-    appendRowsFormulaDetails(
-      rows,
-      lookupAttr,
-      matrixActionContext
-        ? (matrixActionContext.rollMode === "defense" ? ["Verteidigung"] : ["Probe", "Formel"])
-        : null
-    );
+    appendMatrixLikeDefenseValueDetailRows(rows, context.definition, lookupAttr);
+    appendMatrixActionRows(rows, matrixActionContext, lookupAttr);
+    if (!matrixActionContext) {
+      appendRowsFormulaDetails(rows, lookupAttr);
+    }
     const glitchText = computation.isCriticalGlitch ? "!! Kritischer Patzer !!" : "!! Patzer !!";
     const erfolgeValue = computation.isGlitch ? glitchText : `${computation.successCount}`;
 

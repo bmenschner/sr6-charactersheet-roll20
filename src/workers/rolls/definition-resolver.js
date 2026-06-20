@@ -97,6 +97,38 @@ function resolveSkillProbeAttributeOption(definition, selectedValue) {
   return options.find((option) => option.value === normalizedValue) || options[0];
 }
 
+function getMatrixLikeDefenseAdditionalAttributes(definition) {
+  const definitionId = definition && definition.id;
+  const matrixDefenseIds = [
+    "matrix_defense",
+    "matrix_damage_resistance",
+    "matrix_biofeedback_damage_resistance",
+  ];
+  const riggingDefenseIds = [
+    "rigging_matrix_defense",
+    "rigging_matrix_damage_resistance",
+    "rigging_biofeedback_damage_resistance",
+  ];
+
+  if (matrixDefenseIds.includes(definitionId)) {
+    return [
+      "sr6_matrix_datenverarbeitung",
+      "sr6_matrix_firewall",
+      "sr6_matrix_verteidigungswert_modifikator",
+      "sr6_matrix_verteidigungswert",
+    ];
+  }
+  if (riggingDefenseIds.includes(definitionId)) {
+    return [
+      "sr6_rigging_datenverarbeitung",
+      "sr6_rigging_firewall",
+      "sr6_rigging_verteidigungswert_modifikator",
+      "sr6_rigging_verteidigungswert",
+    ];
+  }
+  return [];
+}
+
 function getRollAdditionalAttributes(definition) {
   const attributeBaseAttributes = SR6_ATTRIBUTES.map((attributeKey) => `sr6_attr_${attributeKey}_grundwert`);
   const attributeModifierAttributes = SR6_ATTRIBUTES.map((attributeKey) => `sr6_attr_${attributeKey}_modifikator`);
@@ -112,6 +144,7 @@ function getRollAdditionalAttributes(definition) {
     ...skillModifierAttributes,
     ...skillTotalAttributes,
     ...getMagicRollAdditionalAttributes(definition),
+    ...getMatrixLikeDefenseAdditionalAttributes(definition),
   ];
   getSkillProbeAttributeOptions(definition).forEach((option) => {
     if (!option || !option.attr) return;

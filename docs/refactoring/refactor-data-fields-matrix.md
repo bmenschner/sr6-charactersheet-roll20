@@ -57,7 +57,8 @@ Damit bleibt die Roll20-Ausgabe weiterhin eine gebuendelte Worker-Datei, waehren
 - `{{name}}` ist der Wurftitel im Header.
 - `{{subject_label}}` und `{{subject}}` bilden die erste fachliche Zeile, z. B. Attribut, Fertigkeit, Waffe, Zauber, Handlung, Geraet oder Wert.
 - `{{pool}}`, `{{erfolge}}`, die bestehenden Wuerfeldetails und der Edge-Button bleiben die prominenten Standardzeilen.
-- `{{calc_details}}` sammelt die vollstaendige Pool-Rechnung sowie die verwendeten Werte, Dropdowns, Checkboxen und Modifikatoren als kommagetrennte Debug-Liste in einer standardmaessig eingeklappten Zeile.
+- Die vollstaendige Pool-Rechnung und die verwendeten Werte, Dropdowns, Checkboxen und Modifikatoren werden in thematischen Info-Gruppen gesammelt.
+- Im normalen Chat werden diese Gruppen ueber Info-Icons an Pool- und Kontextzeilen angezeigt; bei aktivierter Debug-Ausgabe werden sie zusaetzlich unter dem Rolltemplate sichtbar ausgegeben.
 - Domaenenspezifische Zusatzfelder wie Schaden, Entzug, Dienste oder Angriffswert werden nicht im globalen Basistemplate entschieden, sondern in den jeweiligen Folge-Issues.
 
 ### Issue 90: Roll-only-Modifikatoren fuer berechnete Werte
@@ -88,7 +89,7 @@ Regel fuer Compute und Rolltemplate:
 | `attribute_probe` | `Attribut` oder `Attribut x2` `+- Modifikator` | `Modifikator`, spaeter optional `x2`/Variante | `Attribut`, `Wert`, `Pool`, `Erfolge`, `Details` | Attributsname und Poolquelle je nach Probe |
 | `skill_probe` | `Attribut + Fertigkeitsgrundwert + Modifikator + Spezialisierung/Expertise` | `Skill-Modifikator`, `Attribut`, `Spezialisierung`, `Expertise` | `Attribut`, `Attribut-Wert`, `Fertigkeitswert`, `Pool`, `Erfolge`, `Details` | Attribut-, Fertigkeits- und Poolquelle je Tab/Fall |
 | `initiative_probe` | `Basis + W6` | keine Standard-Probenmodifikatoren | `Basis`, `W6`, `Gesamt` | physische, astrale, Matrix- und Rigging-Initiative |
-| `defense_probe` | `Attribut + Fertigkeit +- Modifikator` nach SR6-Grundlogik | `Modifikator`, kontextabhaengige Vergleichswerte wie `Verteidigungswert` | `Wert`, Vergleichswert, `Pool`, `Erfolge`, `Details` | pro Tab andere Attribut-/Fertigkeitsquellen, z. B. `Kampf`, `Matrix`, spaeter weitere |
+| `defense_probe` | Verteidigungs- oder Widerstandspool aus domänenspezifischen Quellen, z. B. Attributen, Fertigkeiten oder Matrixwerten | `Modifikator`, kontextabhaengige Vergleichswerte wie `Verteidigungswert` | `Wert`, Vergleichswert, `Pool`, `Erfolge`, `Details` | pro Tab andere Quellen: Kampf nutzt Attribute, Magie nutzt Attribute/Fertigkeiten, Matrix/Rigging nutzt Attribute und Matrixwerte wie `Firewall` |
 | `combat_attack_probe` | Angriffsprobe mit getrennten Ebenen fuer `Pool`, `Angriffswert`, `Schaden` | `Skill-Modifikator`, `Angriffswert-Modifikator`, `Schadens-Modifikator`, `Munition`, `Spezialisierung`, `Expertise` | `Waffe`, `Angriffswert`, `Pool`, `Erfolge`, `Schaden`, `Reichweite`, `Munition`, `Munitionshinweis`, `Berechnung` | Nah-/Fernkampfwerte, Waffenkontext, Munitionsquelle, Reichweite |
 | `spell_probe` | `Spruchzauberei` plus separater Entzug | Skill-, Angriffswert-, Schadens-, Flaechen-, Hochdrehen- und Entzugsmodifikatoren | Zauber, Pool, Erfolge, Schaden, modifizierter Entzug, Entzugsschaden inkl. Schadenstyp, Beschreibung, weitere Werte | Magie-Zauber |
 | `summoning_probe` | `Beschwoeren + Magie` gegen `Kraftstufe x 2`, Dienste aus Nettoerfolgen, Entzug aus Geister-Erfolgen | `Geistertyp`, `Beschwoeren-Modifikator`, `Entzug-Modifikator`, `Besessenheit`, `Objektwiderstand` | Geist, Typ, Stufe, Geistertyp, Pool, Erfolge, Geist-Pool, Geist-Erfolge, Nettoerfolge, erhaltene Dienste, entstandener Entzug, Entzugsschaden | Magie-Geister |
@@ -106,7 +107,7 @@ Regel fuer Compute und Rolltemplate:
 | `spell` | `spell_probe` | Modell aktiv in erster echter Nutzung | Zauber und der Kernwerte-Wurf `Spruchzauberei` laufen jetzt ueber ein eigenes Modell mit `Spruchzauberei`-Probe, modifiziertem Entzug, Entzugsschaden-Typ und separatem Entzugswiderstand; das Popup fuehrt Skill-, Angriffswert-, Schadens-, Flaechen-, Hochdrehen- und Entzugsmodifikatoren explizit |
 | `summoning` | `summoning_probe` | Modell aktiv in erster Nutzung | Geister koennen aus der Geisterliste heraus beschworen werden: Hauptprobe `Beschwoeren + Magie`, Gegenpool `Kraftstufe x 2`, Dienste aus Nettoerfolgen, Entzug aus Geister-Erfolgen; Geistertyp wird im Popup aus den Grundregelwerk-Geisterarten plus Beschuetzergeister, Helfergeister, Pflanzengeister und Ratgebergeister gewaehlt |
 | `matrix_action` | `matrix_action` | Modell aktiv und auf Regelwerksmapping umgestellt | Matrix-Handlungen nutzen jetzt getrennte Proben- und Verteidigungswerte aus `SR6_MATRIX_ACTION_RULES`; variable Verteidigungen werden in der Handlungszeile gewaehlt |
-| `physical_defense`, `physical_damage_resistance`, `general_defense`, `general_damage_resistance`, `astral_defense`, `astral_damage_resistance`, `matrix_defense`, `matrix_damage_resistance`, `matrix_biofeedback_damage_resistance`, `rigging_matrix_defense`, `rigging_matrix_damage_resistance`, `rigging_biofeedback_damage_resistance` | `defense_probe` | Modell aktiv in Nutzung | Gemeinsamer Builder existiert und wird bereits fuer Kampf sowie allgemeine, magische, Matrix- und Rigging-Defensivfaelle verwendet |
+| `physical_defense`, `physical_damage_resistance`, `general_defense`, `general_damage_resistance`, `astral_defense`, `astral_damage_resistance`, `matrix_defense`, `matrix_damage_resistance`, `matrix_biofeedback_damage_resistance`, `rigging_matrix_defense`, `rigging_matrix_damage_resistance`, `rigging_biofeedback_damage_resistance` | `defense_probe` | Modell aktiv in Nutzung | Gemeinsamer Builder existiert und wird bereits fuer Kampf sowie allgemeine, magische, Matrix- und Rigging-Defensivfaelle verwendet. Matrix- und Rigging-Matrix-Defensivfaelle muessen gemeinsam gepflegt werden, weil sie dasselbe Modell mit unterschiedlichen Feldpraefixen nutzen |
 | `combat_ranged_core_attack`, `combat_melee_core_attack`, `combat_ranged_weapon`, `combat_melee_weapon`, `ranged_weapon`, `melee_weapon` | `combat_attack_probe` | Am besten modelliert | Gemeinsames Kampf-Popup und gemeinsamer Weapon-Outputpfad bereits vorhanden |
 | `magic_value`, `matrix_value`, `rigging_value`, `value` | `value_probe` | Modell jetzt explizit, aber noch Uebergangspfad | Magie-, Matrix- und Rigging-Kernwerte laufen jetzt ueber explizite `value_probe`-Pfade statt direkt ueber den generischen Catch-all; der verbleibende generische `value`-Pfad bleibt vorerst technisches Sicherheitsnetz |
 | `weapon`, `fallback` | Kein Zielmodell | Technischer Alt-/Fallbackpfad | Langfristig nur noch als Sicherheitsnetz, nicht als eigentliche Architektur |
@@ -264,6 +265,19 @@ Status:
 - bereits vorhanden
 - muessen fachlich noch gegen finale Formeln und Popup-Profile gespiegelt werden
 - numerische Inputs bereits umgestellt
+
+Matrix- und Rigging-Matrix-Defensivproben nutzen dasselbe `defense_probe`-Modell mit unterschiedlichen Feldpraefixen:
+
+- Matrix: `sr6_matrix_*`
+- Rigging: `sr6_rigging_*`
+
+Dabei gilt fuer die Rolltemplate-Erklaerung:
+
+- `Matrix Verteidigung` / `Rigging Matrix Verteidigung`: Pool = `Intuition (Gesamtwert) + Firewall`
+- `Matrix Schadenswiderstand` / `Rigging Matrix Schadenswiderstand`: Pool = `Firewall`
+- `Biofeedback Schadenswiderstand`: Pool = `Willenskraft (Gesamtwert)`
+- `Verteidigungswert` ist kein Teil der Pool-Rechnung, sondern ein separater Vergleichswert.
+- Der Info-Button am Kontextfeld `Verteidigungswert` soll dessen Berechnung zeigen: `Datenverarbeitung + Firewall + Verteidigungswert-Modifikator = Verteidigungswert`.
 
 ### 7. Erste berechnete Kampf-Kernwerte
 

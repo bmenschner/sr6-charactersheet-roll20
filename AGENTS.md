@@ -190,6 +190,7 @@ Prüfen:
 * keine versteckte Persistenz
 * korrekte Modifikatoren
 * konsistente Template-Ausgabe
+* bei Rolltemplate-Infofenstern die komplette Anzeige-Pipeline prüfen: Row-Erzeugung, Gruppierung, Label-Transformation, Dedupe und final sichtbare Info-Ausgabe
 
 ### Build/Tooling
 
