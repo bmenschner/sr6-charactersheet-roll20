@@ -1,5 +1,5 @@
 // BEGIN MODULE: workers/rolls/definitions/equipment-rolls.js
-// Roll-Definition fuer Ausruestungsproben mit optionalem Attribut-/Fertigkeitsbezug.
+// Roll-Definitionen fuer Ausruestungs- und einfache Stufenproben.
 const SR6_ROLL_DEFINITIONS_EQUIPMENT = [
 {
     id: "equipment",
@@ -13,6 +13,18 @@ const SR6_ROLL_DEFINITIONS_EQUIPMENT = [
     popupFields: createEquipmentPopupFields(),
     internalFields: ["Auswahl"],
     titleFallback: "Ausrüstung",
+  },
+  {
+    id: "sin",
+    probeModel: "equipment_probe",
+    matchField: "SIN",
+    matchPoolPrefix: "sr6_sin_",
+    titleMode: "field-short",
+    titleField: "SIN",
+    primaryFields: ["SIN"],
+    extraFields: ["Stufe"],
+    popupFields: SR6_DEFAULT_POPUP_FIELDS,
+    titleFallback: "SIN",
   },
 ];
 // END MODULE: workers/rolls/definitions/equipment-rolls.js

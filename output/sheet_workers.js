@@ -1651,7 +1651,7 @@ const SR6_ROLL_DEFINITIONS_SKILLS = [
 // END MODULE: workers/rolls/definitions/skills-rolls.js
 
 // BEGIN MODULE: workers/rolls/definitions/equipment-rolls.js
-// Roll-Definition fuer Ausruestungsproben mit optionalem Attribut-/Fertigkeitsbezug.
+// Roll-Definitionen fuer Ausruestungs- und einfache Stufenproben.
 const SR6_ROLL_DEFINITIONS_EQUIPMENT = [
 {
     id: "equipment",
@@ -1665,6 +1665,18 @@ const SR6_ROLL_DEFINITIONS_EQUIPMENT = [
     popupFields: createEquipmentPopupFields(),
     internalFields: ["Auswahl"],
     titleFallback: "Ausrüstung",
+  },
+  {
+    id: "sin",
+    probeModel: "equipment_probe",
+    matchField: "SIN",
+    matchPoolPrefix: "sr6_sin_",
+    titleMode: "field-short",
+    titleField: "SIN",
+    primaryFields: ["SIN"],
+    extraFields: ["Stufe"],
+    popupFields: SR6_DEFAULT_POPUP_FIELDS,
+    titleFallback: "SIN",
   },
 ];
 // END MODULE: workers/rolls/definitions/equipment-rolls.js
@@ -6149,7 +6161,8 @@ function runInitiativeProbeFromContext(context, lookupAttr, resolvedFields) {
 function runEquipmentProbeFromContext(context, lookupAttr, resolvedFields, popupState) {
   const rows = buildProbeRows(resolvedFields, context.definition);
   const name = deriveProbeTitle(resolvedFields, context.poolAttribute, context.definition);
-  const sourceKey = `${(resolvedFields && resolvedFields.Auswahl) || ""}`.trim();
+  const usesEquipmentSource = !(context.definition && context.definition.id === "sin");
+  const sourceKey = usesEquipmentSource ? `${(resolvedFields && resolvedFields.Auswahl) || ""}`.trim() : "";
   const sourceOption = getEquipmentSourceOption(sourceKey);
   const sourceValue = sourceOption ? parseNumber(lookupAttr(sourceOption.attr)) : 0;
   const rating = parseNumber((resolvedFields && resolvedFields.Stufe) || lookupAttr(context.poolAttribute));
@@ -6170,7 +6183,9 @@ function runEquipmentProbeFromContext(context, lookupAttr, resolvedFields, popup
   const glitchText = computation.isCriticalGlitch ? "!! Kritischer Patzer !!" : "!! Patzer !!";
   const erfolgeValue = computation.isGlitch ? glitchText : `${computation.successCount}`;
 
-  rows.push({ label: "Bezug", value: sourceOption ? sourceOption.label : "Keine Auswahl" });
+  if (usesEquipmentSource) {
+    rows.push({ label: "Bezug", value: sourceOption ? sourceOption.label : "Keine Auswahl" });
+  }
   if (sourceOption) {
     rows.push({ label: sourceOption.type, value: sourceOption.label });
     appendEquipmentSourceDetailRows(rows, lookupAttr, sourceKey, sourceOption);
@@ -7101,6 +7116,7 @@ function registerSuccessProbeRollEvents() {
   on("clicked:repeating_sr6geister:probe", runSuccessProbeRoll);
   on("clicked:repeating_sr6ausruestung:probe", runSuccessProbeRoll);
   on("clicked:repeating_sr6riggingfahrzeuge:probe", runSuccessProbeRoll);
+  on("clicked:repeating_sr6sin:probe", runSuccessProbeRoll);
   on("clicked:repeating_sr6wissensfertigkeiten:probe", runSuccessProbeRoll);
   on("clicked:repeating_sr6sprachfertigkeiten:probe", runSuccessProbeRoll);
   on("clicked:repeating_sr6talentsofts:probe", runSuccessProbeRoll);

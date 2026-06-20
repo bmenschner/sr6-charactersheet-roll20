@@ -7623,47 +7623,34 @@
                   </label>
                 </div>
                 <div class="sr6-charactersheet-box-content">
-                  <div class="sr6-generic-list-header sr6-generic-list-header--5" aria-hidden="true">
+                  <div class="sr6-generic-list-header sr6-generic-list-header--3" aria-hidden="true">
                     <span data-i18n="field.name">Name</span>
-                    <span data-i18n="field.profession">Profession</span>
-                    <span data-i18n="field.typ">Typ</span>
-                    <span data-i18n="field.einfluss">Einfluß</span>
-                    <span data-i18n="field.loyalitaet">Loyalität</span>
+                    <span data-i18n="field.stufe">Stufe</span>
+                    <span aria-hidden="true"></span>
                   </div>
                   <fieldset class="repeating_sr6sin">
                     <div class="sr6-foundry-item">
                       <div class="sr6-editable-item-fields">
-                        <div class="sr6-foundry-item-head sr6-charactersheet-row sr6-charactersheet-row-5">
+                        <div class="sr6-foundry-item-head sr6-charactersheet-row sr6-charactersheet-row-3">
                           <div class="sr6-charactersheet-field">
                             <span data-i18n="field.name">Name</span>
                             <input type="text" name="attr_sr6_sin_name" />
                           </div>
                           <div class="sr6-charactersheet-field">
-                            <span data-i18n="field.profession">Profession</span>
-                            <input type="text" name="attr_sr6_sin_profession" />
+                            <span data-i18n="field.stufe">Stufe</span>
+                            <div class="sr6-number-stepper"><button type="action" class="sr6-number-stepper-button sr6-number-stepper-button--minus" name="act_sr6_number_step" value="sr6_sin_stufe::-1" aria-label="Verringern">-</button><input type="number" name="attr_sr6_sin_stufe" /><button type="action" class="sr6-number-stepper-button sr6-number-stepper-button--plus" name="act_sr6_number_step" value="sr6_sin_stufe::1" aria-label="Erhoehen">+</button></div>
                           </div>
                           <div class="sr6-charactersheet-field">
-                            <span data-i18n="field.typ">Typ</span>
-                            <input type="text" name="attr_sr6_sin_typ" />
-                          </div>
-                          <div class="sr6-charactersheet-field">
-                            <span data-i18n="field.einfluss">Einfluß</span>
-                            <div class="sr6-number-stepper"><button type="action" class="sr6-number-stepper-button sr6-number-stepper-button--minus" name="act_sr6_number_step" value="sr6_sin_einfluss::-1" aria-label="Verringern">-</button><input type="number" name="attr_sr6_sin_einfluss" /><button type="action" class="sr6-number-stepper-button sr6-number-stepper-button--plus" name="act_sr6_number_step" value="sr6_sin_einfluss::1" aria-label="Erhoehen">+</button></div>
-                          </div>
-                          <div class="sr6-charactersheet-field">
-                            <span data-i18n="field.loyalitaet">Loyalität</span>
-                            <div class="sr6-number-stepper"><button type="action" class="sr6-number-stepper-button sr6-number-stepper-button--minus" name="act_sr6_number_step" value="sr6_sin_loyalitaet::-1" aria-label="Verringern">-</button><input type="number" name="attr_sr6_sin_loyalitaet" /><button type="action" class="sr6-number-stepper-button sr6-number-stepper-button--plus" name="act_sr6_number_step" value="sr6_sin_loyalitaet::1" aria-label="Erhoehen">+</button></div>
-                          </div>
-                        </div>
-                        <div class="sr6-foundry-item-footer sr6-charactersheet-row sr6-charactersheet-row-1 sr6-repeater-notes-mod-row">
-                          <div class="sr6-charactersheet-field sr6-charactersheet-mod-popup sr6-repeater-notes-mod-field">
-                            <details>
-                              <summary data-i18n="field.notizen_zubehoer_modifikationen">Notizen, Zubehör, Modifikationen</summary>
-                              <div class="sr6-charactersheet-mod-popup-panel">
-                                <span data-i18n="field.notizen_zubehoer_modifikationen">Notizen, Zubehör, Modifikationen</span>
-                                <textarea name="attr_sr6_item_notizen_zubehoer_modifikationen" rows="4"></textarea>
-                              </div>
-                            </details>
+                            <span aria-hidden="true"></span>
+                            <div class="sr6-charactersheet-field-input-with-dice sr6-charactersheet-field-input-with-dice--compact">
+                              <span aria-hidden="true"></span>
+                              <button
+                                type="action"
+                                class="sr6-charactersheet-field-dice-button"
+                                name="act_probe"
+                                value="&{template:default} {{name=SIN}} {{SIN=@{sr6_sin_name}}} {{Stufe=@{sr6_sin_stufe}}} {{Pool=[[@{sr6_sin_stufe}]]}} {{Erfolge=[[@{sr6_sin_stufe}d6&gt;5]]}}"
+                                aria-label="Wuerfeln"></button>
+                            </div>
                           </div>
                         </div>
                       </div>
@@ -9607,7 +9594,7 @@ const SR6_ROLL_DEFINITIONS_SKILLS = [
 // END MODULE: workers/rolls/definitions/skills-rolls.js
 
 // BEGIN MODULE: workers/rolls/definitions/equipment-rolls.js
-// Roll-Definition fuer Ausruestungsproben mit optionalem Attribut-/Fertigkeitsbezug.
+// Roll-Definitionen fuer Ausruestungs- und einfache Stufenproben.
 const SR6_ROLL_DEFINITIONS_EQUIPMENT = [
 {
     id: "equipment",
@@ -9621,6 +9608,18 @@ const SR6_ROLL_DEFINITIONS_EQUIPMENT = [
     popupFields: createEquipmentPopupFields(),
     internalFields: ["Auswahl"],
     titleFallback: "Ausrüstung",
+  },
+  {
+    id: "sin",
+    probeModel: "equipment_probe",
+    matchField: "SIN",
+    matchPoolPrefix: "sr6_sin_",
+    titleMode: "field-short",
+    titleField: "SIN",
+    primaryFields: ["SIN"],
+    extraFields: ["Stufe"],
+    popupFields: SR6_DEFAULT_POPUP_FIELDS,
+    titleFallback: "SIN",
   },
 ];
 // END MODULE: workers/rolls/definitions/equipment-rolls.js
@@ -14105,7 +14104,8 @@ function runInitiativeProbeFromContext(context, lookupAttr, resolvedFields) {
 function runEquipmentProbeFromContext(context, lookupAttr, resolvedFields, popupState) {
   const rows = buildProbeRows(resolvedFields, context.definition);
   const name = deriveProbeTitle(resolvedFields, context.poolAttribute, context.definition);
-  const sourceKey = `${(resolvedFields && resolvedFields.Auswahl) || ""}`.trim();
+  const usesEquipmentSource = !(context.definition && context.definition.id === "sin");
+  const sourceKey = usesEquipmentSource ? `${(resolvedFields && resolvedFields.Auswahl) || ""}`.trim() : "";
   const sourceOption = getEquipmentSourceOption(sourceKey);
   const sourceValue = sourceOption ? parseNumber(lookupAttr(sourceOption.attr)) : 0;
   const rating = parseNumber((resolvedFields && resolvedFields.Stufe) || lookupAttr(context.poolAttribute));
@@ -14126,7 +14126,9 @@ function runEquipmentProbeFromContext(context, lookupAttr, resolvedFields, popup
   const glitchText = computation.isCriticalGlitch ? "!! Kritischer Patzer !!" : "!! Patzer !!";
   const erfolgeValue = computation.isGlitch ? glitchText : `${computation.successCount}`;
 
-  rows.push({ label: "Bezug", value: sourceOption ? sourceOption.label : "Keine Auswahl" });
+  if (usesEquipmentSource) {
+    rows.push({ label: "Bezug", value: sourceOption ? sourceOption.label : "Keine Auswahl" });
+  }
   if (sourceOption) {
     rows.push({ label: sourceOption.type, value: sourceOption.label });
     appendEquipmentSourceDetailRows(rows, lookupAttr, sourceKey, sourceOption);
@@ -15057,6 +15059,7 @@ function registerSuccessProbeRollEvents() {
   on("clicked:repeating_sr6geister:probe", runSuccessProbeRoll);
   on("clicked:repeating_sr6ausruestung:probe", runSuccessProbeRoll);
   on("clicked:repeating_sr6riggingfahrzeuge:probe", runSuccessProbeRoll);
+  on("clicked:repeating_sr6sin:probe", runSuccessProbeRoll);
   on("clicked:repeating_sr6wissensfertigkeiten:probe", runSuccessProbeRoll);
   on("clicked:repeating_sr6sprachfertigkeiten:probe", runSuccessProbeRoll);
   on("clicked:repeating_sr6talentsofts:probe", runSuccessProbeRoll);

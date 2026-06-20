@@ -1439,7 +1439,8 @@ function runInitiativeProbeFromContext(context, lookupAttr, resolvedFields) {
 function runEquipmentProbeFromContext(context, lookupAttr, resolvedFields, popupState) {
   const rows = buildProbeRows(resolvedFields, context.definition);
   const name = deriveProbeTitle(resolvedFields, context.poolAttribute, context.definition);
-  const sourceKey = `${(resolvedFields && resolvedFields.Auswahl) || ""}`.trim();
+  const usesEquipmentSource = !(context.definition && context.definition.id === "sin");
+  const sourceKey = usesEquipmentSource ? `${(resolvedFields && resolvedFields.Auswahl) || ""}`.trim() : "";
   const sourceOption = getEquipmentSourceOption(sourceKey);
   const sourceValue = sourceOption ? parseNumber(lookupAttr(sourceOption.attr)) : 0;
   const rating = parseNumber((resolvedFields && resolvedFields.Stufe) || lookupAttr(context.poolAttribute));
@@ -1460,7 +1461,9 @@ function runEquipmentProbeFromContext(context, lookupAttr, resolvedFields, popup
   const glitchText = computation.isCriticalGlitch ? "!! Kritischer Patzer !!" : "!! Patzer !!";
   const erfolgeValue = computation.isGlitch ? glitchText : `${computation.successCount}`;
 
-  rows.push({ label: "Bezug", value: sourceOption ? sourceOption.label : "Keine Auswahl" });
+  if (usesEquipmentSource) {
+    rows.push({ label: "Bezug", value: sourceOption ? sourceOption.label : "Keine Auswahl" });
+  }
   if (sourceOption) {
     rows.push({ label: sourceOption.type, value: sourceOption.label });
     appendEquipmentSourceDetailRows(rows, lookupAttr, sourceKey, sourceOption);
