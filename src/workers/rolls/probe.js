@@ -135,6 +135,458 @@ function resolveRollSkillTotal(skillKey, lookupAttr) {
   return parseNumber(lookupAttr(`sr6_skill_${skillKey}_gesamtwert`));
 }
 
+const SR6_ATTRIBUTE_DETAIL_KEYS = {
+  Konstitution: "konstitution",
+  Geschicklichkeit: "geschicklichkeit",
+  Reaktion: "reaktion",
+  "Stärke": "staerke",
+  Staerke: "staerke",
+  Willenskraft: "willenskraft",
+  Logik: "logik",
+  Intuition: "intuition",
+  Charisma: "charisma",
+  Edge: "edge",
+  "Magie/Resonanz": "magie_resonanz",
+};
+
+const SR6_SKILL_DETAIL_LABELS = {
+  astral: "Astral",
+  athletik: "Athletik",
+  beschwoeren: "Beschwören",
+  biotech: "Biotech",
+  cracken: "Cracken",
+  einfluss: "Einfluss",
+  elektronik: "Elektronik",
+  exotische_waffen: "Exotische Waffen",
+  feuerwaffen: "Feuerwaffen",
+  heimlichkeit: "Heimlichkeit",
+  hexerei: "Hexerei",
+  mechanik: "Mechanik",
+  nahkampf: "Nahkampf",
+  natur: "Natur",
+  steuern: "Steuern",
+  tasken: "Tasken",
+  ueberreden: "Überreden",
+  verzaubern: "Verzaubern",
+  wahrnehmung: "Wahrnehmung",
+};
+
+const SR6_FORMULA_COMPONENTS = {
+  "Angriff": { type: "matrix", attr: "sr6_matrix_angriff" },
+  "Datenverarbeitung": { type: "matrix", attr: "sr6_matrix_datenverarbeitung" },
+  "Firewall": { type: "matrix", attr: "sr6_matrix_firewall" },
+  "Schleicher": { type: "matrix", attr: "sr6_matrix_schleicher" },
+  "Sensor": { type: "rigging", attr: "sr6_rigging_fahrzeug_sensor" },
+  "Pilot": { type: "rigging", attr: "sr6_rigging_fahrzeug_pilot" },
+  "Rumpf": { type: "rigging", attr: "sr6_rigging_fahrzeug_rumpf" },
+  "Panzerung": { type: "rigging", attr: "sr6_rigging_fahrzeug_panzerung" },
+  "Riggerkontrolle": { type: "rigging", attr: "sr6_rigging_fahrzeug_riggerkontrolle" },
+  "Agentenstufe": { type: "rigging", attr: "sr6_rigging_fahrzeug_agentenstufe" },
+  "Manoevrieren": { type: "rigging", attr: "sr6_rigging_fahrzeug_manoevrieren" },
+  "Manövrieren": { type: "rigging", attr: "sr6_rigging_fahrzeug_manoevrieren" },
+  "Zielerfassung": { type: "rigging", attr: "sr6_rigging_fahrzeug_zielerfassung" },
+  "Ausweichen": { type: "rigging", attr: "sr6_rigging_fahrzeug_ausweichen" },
+  "Stealth": { type: "rigging", attr: "sr6_rigging_fahrzeug_stealth" },
+  "Clearsight": { type: "rigging", attr: "sr6_rigging_fahrzeug_clearsight" },
+};
+
+function getAttributeDetailKey(label) {
+  return SR6_ATTRIBUTE_DETAIL_KEYS[`${label || ""}`.trim()] || "";
+}
+
+function getSkillDetailLabel(skillKey) {
+  return SR6_SKILL_DETAIL_LABELS[skillKey] || `${skillKey || ""}`;
+}
+
+function getSkillDetailKey(label) {
+  const normalizedLabel = `${label || ""}`.trim();
+  const match = Object.keys(SR6_SKILL_DETAIL_LABELS).find((skillKey) => SR6_SKILL_DETAIL_LABELS[skillKey] === normalizedLabel);
+  return match || "";
+}
+
+function getPoolAttributeDetailKey(poolAttribute) {
+  const match = `${poolAttribute || ""}`.match(/^sr6_attr_(.+)_gesamtwert$/);
+  return match ? match[1] : "";
+}
+
+function getPoolSkillDetailKey(poolAttribute) {
+  const match = `${poolAttribute || ""}`.match(/^sr6_skill_(.+)_gesamtwert$/);
+  return match ? match[1] : "";
+}
+
+function appendAttributeDetailRows(rows, lookupAttr, attributeKey, labelPrefix = "", options = {}) {
+  if (!attributeKey) return;
+  const base = lookupAttr(`sr6_attr_${attributeKey}_grundwert`);
+  const modifier = lookupAttr(`sr6_attr_${attributeKey}_modifikator`);
+  const total = resolveRollAttributeTotal(attributeKey, lookupAttr);
+  const prefix = labelPrefix ? `${labelPrefix} ` : "";
+  const rowOptions = { poolComponent: !!options.poolComponent };
+
+  appendRowIfMissing(rows, `${prefix}Basis`, `${parseNumber(base)}`, rowOptions);
+  appendRowIfMissing(rows, `${prefix}Modifikator`, `${parseNumber(modifier)}`, rowOptions);
+  appendRowIfMissing(rows, `${prefix}Gesamtwert`, `${total}`);
+}
+
+function appendSkillDetailRows(rows, lookupAttr, skillKey, labelPrefix = "Fertigkeitswert", options = {}) {
+  if (!skillKey) return;
+  const base = lookupAttr(`sr6_skill_${skillKey}_grundwert`);
+  const modifier = lookupAttr(`sr6_skill_${skillKey}_modifikator`);
+  const total = resolveRollSkillTotal(skillKey, lookupAttr);
+  const rowOptions = { poolComponent: !!options.poolComponent };
+
+  appendRowIfMissing(rows, "Fertigkeit", getSkillDetailLabel(skillKey));
+  appendRowIfMissing(rows, `${labelPrefix} Basis`, `${parseNumber(base)}`, rowOptions);
+  appendRowIfMissing(rows, `${labelPrefix} Modifikator`, `${parseNumber(modifier)}`, rowOptions);
+  appendRowIfMissing(rows, `${labelPrefix} Gesamtwert`, `${total}`);
+}
+
+function appendFormulaAttributeDetailRows(rows, lookupAttr, formula) {
+  const formulaParts = `${formula || ""}`.split("+").map((part) => part.trim()).filter(Boolean);
+  formulaParts.forEach((part) => {
+    const attributeKey = getAttributeDetailKey(part);
+    if (!attributeKey) return;
+    appendAttributeDetailRows(rows, lookupAttr, attributeKey, part, { poolComponent: true });
+  });
+}
+
+function appendGenericFormulaComponentRows(rows, lookupAttr, formula, labelPrefix = "", options = {}) {
+  const formulaParts = `${formula || ""}`.split("+").map((part) => part.trim()).filter(Boolean);
+  const rowOptions = { poolComponent: options.poolComponent !== false };
+  formulaParts.forEach((part) => {
+    const multiplierMatch = part.match(/\s*x\s*(\d+)$/i);
+    const multiplier = multiplierMatch ? Math.max(1, parseNumber(multiplierMatch[1])) : 1;
+    const cleanPart = part.replace(/\s*x\s*\d+$/i, "").trim();
+    const label = labelPrefix
+      ? `${labelPrefix} ${cleanPart}${multiplier > 1 ? ` x${multiplier}` : ""}`
+      : `${cleanPart}${multiplier > 1 ? ` x${multiplier}` : ""}`;
+    const attributeKey = getAttributeDetailKey(cleanPart);
+    if (attributeKey) {
+      appendAttributeDetailRows(rows, lookupAttr, attributeKey, label, rowOptions);
+      return;
+    }
+
+    const skillKey = getSkillDetailKey(cleanPart);
+    if (skillKey) {
+      appendSkillDetailRows(rows, lookupAttr, skillKey, label, rowOptions);
+      return;
+    }
+
+    const component = SR6_FORMULA_COMPONENTS[cleanPart];
+    if (component && component.attr) {
+      appendRowIfMissing(rows, label, `${parseNumber(lookupAttr(component.attr)) * multiplier}`, rowOptions);
+    }
+  });
+}
+
+function appendRowsFormulaDetails(rows, lookupAttr, poolLabels = null) {
+  const formulas = [];
+  (Array.isArray(rows) ? rows : []).forEach((row) => {
+    if (!row || !row.value || !row.label) return;
+    if (["Formel", "Probe", "Verteidigung"].includes(row.label) && !["Keine Probe", "Keine Verteidigungsprobe", "Siehe Beschreibung"].includes(`${row.value}`.trim())) {
+      formulas.push({
+        label: row.label,
+        value: row.value,
+      });
+    }
+  });
+
+  formulas.forEach((formula) => {
+    const isPoolFormula = !Array.isArray(poolLabels) || poolLabels.includes(formula.label);
+    appendGenericFormulaComponentRows(rows, lookupAttr, formula.value, "", { poolComponent: isPoolFormula });
+  });
+}
+
+function appendEquipmentSourceDetailRows(rows, lookupAttr, sourceKey, sourceOption) {
+  if (!sourceOption) return;
+
+  const normalizedKey = `${sourceKey || ""}`.trim();
+  if (normalizedKey.indexOf("attr:") === 0) {
+    const attributeKey = normalizedKey.replace(/^attr:/, "");
+    appendRowIfMissing(rows, "Attribut", sourceOption.label);
+    appendAttributeDetailRows(rows, lookupAttr, attributeKey, sourceOption.label, { poolComponent: true });
+    return;
+  }
+
+  if (normalizedKey.indexOf("skill:") === 0) {
+    const skillKey = normalizedKey.replace(/^skill:/, "");
+    appendSkillDetailRows(rows, lookupAttr, skillKey, sourceOption.label, { poolComponent: true });
+  }
+}
+
+function getMatrixLikeDefenseConfig(definition) {
+  const definitionId = definition && definition.id;
+  const matrixConfigs = {
+    matrix_defense: { prefix: "sr6_matrix", kind: "defense" },
+    matrix_damage_resistance: { prefix: "sr6_matrix", kind: "damage_resistance" },
+    matrix_biofeedback_damage_resistance: { prefix: "sr6_matrix", kind: "biofeedback_damage_resistance" },
+    rigging_matrix_defense: { prefix: "sr6_rigging", kind: "defense" },
+    rigging_matrix_damage_resistance: { prefix: "sr6_rigging", kind: "damage_resistance" },
+    rigging_biofeedback_damage_resistance: { prefix: "sr6_rigging", kind: "biofeedback_damage_resistance" },
+  };
+
+  return matrixConfigs[definitionId] || null;
+}
+
+function appendMatrixLikeFirewallPoolRows(rows, lookupAttr, prefix) {
+  appendRowIfMissing(rows, "Firewall", `${parseNumber(lookupAttr(`${prefix}_firewall`))}`, { poolComponent: true });
+}
+
+function appendMatrixLikeDefenseValueDetailRows(rows, definition, lookupAttr) {
+  const config = getMatrixLikeDefenseConfig(definition);
+  if (!config) return;
+
+  appendRowIfMissing(rows, "Verteidigungswert Datenverarbeitung", `${parseNumber(lookupAttr(`${config.prefix}_datenverarbeitung`))}`);
+  appendRowIfMissing(rows, "Verteidigungswert Firewall", `${parseNumber(lookupAttr(`${config.prefix}_firewall`))}`);
+  appendRowIfMissing(rows, "Verteidigungswert Modifikator", `${parseNumber(lookupAttr(`${config.prefix}_verteidigungswert_modifikator`))}`);
+  appendRowIfMissing(rows, "Verteidigungswert Gesamtwert", `${parseNumber(lookupAttr(`${config.prefix}_verteidigungswert`))}`);
+}
+
+function appendKnownPoolFormulaRows(rows, definition, lookupAttr, poolAttribute) {
+  if (!poolAttribute) return false;
+  const matrixDefenseConfig = getMatrixLikeDefenseConfig(definition);
+  if (matrixDefenseConfig) {
+    if (matrixDefenseConfig.kind === "defense") {
+      appendAttributeDetailRows(rows, lookupAttr, "intuition", "Intuition", { poolComponent: true });
+      appendMatrixLikeFirewallPoolRows(rows, lookupAttr, matrixDefenseConfig.prefix);
+      return true;
+    }
+    if (matrixDefenseConfig.kind === "damage_resistance") {
+      appendMatrixLikeFirewallPoolRows(rows, lookupAttr, matrixDefenseConfig.prefix);
+      return true;
+    }
+    if (matrixDefenseConfig.kind === "biofeedback_damage_resistance") {
+      appendAttributeDetailRows(rows, lookupAttr, "willenskraft", "Willenskraft", { poolComponent: true });
+      return true;
+    }
+  }
+  if (poolAttribute === "sr6_verteidigung_physisch_gesamtwert") {
+    appendGenericFormulaComponentRows(rows, lookupAttr, "Reaktion + Intuition");
+    return true;
+  }
+  if (poolAttribute === "sr6_schadenswiderstand_physisch_gesamtwert") {
+    appendGenericFormulaComponentRows(rows, lookupAttr, "Konstitution");
+    return true;
+  }
+  if (poolAttribute === "sr6_magic_magie") {
+    appendAttributeDetailRows(rows, lookupAttr, "magie_resonanz", "Attributwert", { poolComponent: true });
+    return true;
+  }
+  if (poolAttribute === "sr6_magic_zauberpool") {
+    appendSkillDetailRows(rows, lookupAttr, "hexerei", "Fertigkeitswert", { poolComponent: true });
+    return true;
+  }
+  if (poolAttribute === "sr6_magic_spruchzauberei") {
+    appendGenericFormulaComponentRows(rows, lookupAttr, "Magie/Resonanz + Hexerei");
+    return true;
+  }
+  if (poolAttribute === "sr6_magic_beschwoeren") {
+    appendGenericFormulaComponentRows(rows, lookupAttr, "Magie/Resonanz + Beschwören");
+    return true;
+  }
+  if (poolAttribute === "sr6_magic_waffenloser_kampf") {
+    appendAttributeDetailRows(rows, lookupAttr, "willenskraft", "Willenskraft", { poolComponent: true });
+    appendSkillDetailRows(rows, lookupAttr, "astral", "Fertigkeitswert", { poolComponent: true });
+    return true;
+  }
+  if (poolAttribute === "sr6_magic_astrale_verteidigung") {
+    appendAttributeDetailRows(rows, lookupAttr, "logik", "Logik", { poolComponent: true });
+    appendAttributeDetailRows(rows, lookupAttr, "intuition", "Intuition", { poolComponent: true });
+    return true;
+  }
+  if (poolAttribute === "sr6_magic_astraler_schadenswiderstand") {
+    appendAttributeDetailRows(rows, lookupAttr, "willenskraft", "Willenskraft", { poolComponent: true });
+    return true;
+  }
+  if (poolAttribute === "sr6_magic_entzug_widerstand") {
+    const traditionAttribute = `${lookupAttr("sr6_magic_traditionsattribut_1") || ""}`.trim();
+    const traditionKey = mapTraditionsattributToKey(traditionAttribute);
+    if (traditionKey) {
+      appendAttributeDetailRows(rows, lookupAttr, traditionKey, traditionAttribute || "Traditionsattribut", { poolComponent: true });
+    }
+    appendGenericFormulaComponentRows(rows, lookupAttr, "Willenskraft");
+    return true;
+  }
+  if (definition && definition.probeModel === "attribute_probe") {
+    appendGenericFormulaComponentRows(rows, lookupAttr, (rows.find((row) => row && row.label === "Formel") || {}).value);
+  }
+  return false;
+}
+
+function appendCombatDefenseValueDetailRows(rows, definition, lookupAttr) {
+  if (!definition || ![
+    "physical_defense",
+    "physical_damage_resistance",
+    "general_defense",
+    "general_damage_resistance",
+  ].includes(definition.id)) {
+    return;
+  }
+
+  const constitutionBase = parseNumber(lookupAttr("sr6_attr_konstitution_grundwert"));
+  const constitutionModifier = parseNumber(lookupAttr("sr6_attr_konstitution_modifikator"));
+  const constitutionTotal = resolveRollAttributeTotal("konstitution", lookupAttr);
+  const primaryArmor = parseNumber(lookupAttr("sr6_combat_primaere_panzerung"));
+  const secondaryArmor = parseNumber(lookupAttr("sr6_combat_sekundaere_panzerung"));
+  const helmet = parseNumber(lookupAttr("sr6_combat_helm"));
+  const shield = parseNumber(lookupAttr("sr6_combat_schild"));
+  const defenseValueModifier = parseNumber(lookupAttr("sr6_combat_verteidigungswert_modifikator"));
+  const defenseValueTotal = parseNumber(lookupAttr("sr6_combat_verteidigungswert_gesamtwert"));
+
+  appendRowIfMissing(rows, "Verteidigungswert Konstitution Basis", `${constitutionBase}`);
+  appendRowIfMissing(rows, "Verteidigungswert Konstitution Modifikator", `${constitutionModifier}`);
+  appendRowIfMissing(rows, "Verteidigungswert Konstitution Gesamtwert", `${constitutionTotal}`);
+  appendRowIfMissing(rows, "Verteidigungswert Primäre Panzerung", `${primaryArmor}`);
+  appendRowIfMissing(rows, "Verteidigungswert Sekundäre Panzerung", `${secondaryArmor}`);
+  appendRowIfMissing(rows, "Verteidigungswert Helm", `${helmet}`);
+  appendRowIfMissing(rows, "Verteidigungswert Schild", `${shield}`);
+  appendRowIfMissing(rows, "Verteidigungswert Modifikator", `${defenseValueModifier}`);
+  appendRowIfMissing(rows, "Verteidigungswert Gesamtwert", `${defenseValueTotal}`);
+}
+
+function appendDrainResistanceDetailRows(rows, lookupAttr) {
+  const traditionAttribute = `${lookupAttr("sr6_magic_traditionsattribut_1") || ""}`.trim();
+  const traditionKey = mapTraditionsattributToKey(traditionAttribute);
+
+  if (traditionAttribute) {
+    appendRowIfMissing(rows, "Entzug Traditionsattribut", traditionAttribute);
+  }
+  if (traditionKey) {
+    appendAttributeDetailRows(rows, lookupAttr, traditionKey, `Entzug ${traditionAttribute}`);
+  }
+  appendAttributeDetailRows(rows, lookupAttr, "willenskraft", "Entzug Willenskraft");
+  appendRowIfMissing(rows, "Entzugswiderstand Gesamtwert", `${parseNumber(lookupAttr("sr6_magic_entzug_widerstand"))}`);
+}
+
+function getCombatPoolAttributeLabel(definition, resolvedFields) {
+  if (!definition) return "";
+  if (definition.id === "combat_ranged_core_attack" || definition.id === "combat_ranged_weapon" || definition.id === "ranged_weapon") {
+    return "Geschicklichkeit";
+  }
+  if (definition.id === "combat_melee_core_attack" || definition.id === "combat_melee_weapon" || definition.id === "melee_weapon") {
+    return `${(resolvedFields && resolvedFields.Attribut) || "Geschicklichkeit"}`.trim();
+  }
+  return "";
+}
+
+function getCombatPoolSkillKey(definition, resolvedFields) {
+  if (!definition) return "";
+  if (definition.id === "combat_ranged_core_attack" || definition.id === "combat_ranged_weapon" || definition.id === "ranged_weapon") {
+    return resolveRangedCombatSkillKey(resolvedFields && resolvedFields.Fertigkeit);
+  }
+  if (definition.id === "combat_melee_core_attack" || definition.id === "combat_melee_weapon" || definition.id === "melee_weapon") {
+    return resolveMeleeCombatSkillKey(resolvedFields && resolvedFields.Fertigkeit);
+  }
+  return "";
+}
+
+function appendCombatSpecializationDetailRows(rows, definition, lookupAttr, skillKey, resolvedFields) {
+  if (!skillKey) return;
+  const selectedSkill = `${(resolvedFields && resolvedFields.Fertigkeit) || getSkillDetailLabel(skillKey)}`.trim();
+  const weaponType = `${(resolvedFields && resolvedFields.Waffentyp) || ""}`.trim();
+  const selection = {
+    specialization: lookupAttr(`sr6_skill_${skillKey}_spezialisierung`),
+    expertise: lookupAttr(`sr6_skill_${skillKey}_expertise`),
+  };
+  const matchingNames = definition && (
+    definition.id === "combat_ranged_core_attack" ||
+    definition.id === "combat_ranged_weapon" ||
+    definition.id === "ranged_weapon"
+  )
+    ? getCombatRangedSpecializationMatches(selectedSkill, weaponType)
+    : getCombatMeleeSpecializationMatches(selectedSkill, weaponType);
+  const bonus = getCombatSpecializationBonus(selection.specialization, selection.expertise, matchingNames);
+
+  appendRowIfMissing(rows, "Spezialisierung Auswahl", selection.specialization || "-");
+  appendRowIfMissing(rows, "Expertise Auswahl", selection.expertise || "-");
+  if (bonus === 3) {
+    appendRowIfMissing(rows, "Expertise", "+3", { poolComponent: true });
+  } else if (bonus === 2) {
+    appendRowIfMissing(rows, "Spezialisierung", "+2", { poolComponent: true });
+  } else {
+    appendRowIfMissing(rows, "Spezialisierung/Expertise", "0", { poolComponent: true });
+  }
+}
+
+function resolveComputedCombatPopupSkillBonusState(definition, resolvedFields, lookupAttr) {
+  if (!isComputedCombatPoolDefinition(definition)) {
+    return null;
+  }
+
+  const skillKey = getCombatPoolSkillKey(definition, resolvedFields);
+  if (!skillKey) {
+    return null;
+  }
+
+  const selectedSkill = `${(resolvedFields && resolvedFields.Fertigkeit) || getSkillDetailLabel(skillKey)}`.trim();
+  const weaponType = `${(resolvedFields && resolvedFields.Waffentyp) || ""}`.trim();
+  const specialization = lookupAttr(`sr6_skill_${skillKey}_spezialisierung`);
+  const expertise = lookupAttr(`sr6_skill_${skillKey}_expertise`);
+  const matchingNames = definition && (
+    definition.id === "combat_ranged_core_attack" ||
+    definition.id === "combat_ranged_weapon" ||
+    definition.id === "ranged_weapon"
+  )
+    ? getCombatRangedSpecializationMatches(selectedSkill, weaponType)
+    : getCombatMeleeSpecializationMatches(selectedSkill, weaponType);
+  const matches = new Set((matchingNames || []).map(normalizeCombatSpecializationName).filter(Boolean));
+  const expertiseActive = matches.has(normalizeCombatSpecializationName(expertise));
+  const specializationActive = !expertiseActive && matches.has(normalizeCombatSpecializationName(specialization));
+
+  return {
+    specializationActive: specializationActive,
+    expertiseActive: expertiseActive,
+  };
+}
+
+function appendComputedCombatPoolDetailRows(rows, definition, lookupAttr, resolvedFields) {
+  if (!isComputedCombatPoolDefinition(definition)) return false;
+
+  const attributeLabel = getCombatPoolAttributeLabel(definition, resolvedFields);
+  const attributeKey = getAttributeDetailKey(attributeLabel);
+  const skillKey = getCombatPoolSkillKey(definition, resolvedFields);
+
+  appendRowIfMissing(rows, "Attribut", attributeLabel);
+  appendAttributeDetailRows(rows, lookupAttr, attributeKey, "Attributwert", { poolComponent: true });
+  appendSkillDetailRows(rows, lookupAttr, skillKey, "Fertigkeitswert", { poolComponent: true });
+  appendCombatSpecializationDetailRows(rows, definition, lookupAttr, skillKey, resolvedFields);
+  return true;
+}
+
+function appendBasePoolDetailRows(rows, definition, lookupAttr, poolAttribute, skillAttributeOverride, resolvedFields) {
+  if (appendComputedCombatPoolDetailRows(rows, definition, lookupAttr, resolvedFields)) {
+    return;
+  }
+
+  if (appendKnownPoolFormulaRows(rows, definition, lookupAttr, poolAttribute)) {
+    return;
+  }
+
+  const attributeKey = getPoolAttributeDetailKey(poolAttribute);
+  if (attributeKey) {
+    appendAttributeDetailRows(rows, lookupAttr, attributeKey, "", { poolComponent: true });
+    return;
+  }
+
+  const skillKey = getPoolSkillDetailKey(poolAttribute);
+  if (skillKey) {
+    if (skillAttributeOverride && skillAttributeOverride.selectedAttribute) {
+      const selectedAttributeKey = getAttributeDetailKey(skillAttributeOverride.selectedAttribute);
+      appendRowIfMissing(rows, "Attribut", skillAttributeOverride.selectedAttribute);
+      appendAttributeDetailRows(rows, lookupAttr, selectedAttributeKey, "Attributwert", { poolComponent: true });
+    }
+    appendSkillDetailRows(rows, lookupAttr, skillKey, "Fertigkeitswert", { poolComponent: true });
+    return;
+  }
+
+  if (definition && definition.probeModel === "skill_probe" && skillAttributeOverride) {
+    const selectedAttributeKey = getAttributeDetailKey(skillAttributeOverride.selectedAttribute);
+    appendRowIfMissing(rows, "Attribut", skillAttributeOverride.selectedAttribute);
+    appendAttributeDetailRows(rows, lookupAttr, selectedAttributeKey, "Attributwert", { poolComponent: true });
+  }
+
+  appendFormulaAttributeDetailRows(rows, lookupAttr, resolvedFields && resolvedFields.Formel);
+}
+
 const SR6_UNTRAINED_SKILL_LABELS = {
   astral: "Astral",
   athletik: "Athletik",
@@ -276,11 +728,13 @@ function resolveMatrixActionComponentValue(component, lookupAttr) {
   }
 
   if (component.multiplier && component.matrix) {
+    const multiplier = parseNumber(component.multiplier);
     const matrixValue = parseNumber(lookupAttr(`sr6_matrix_${component.matrix}`));
     return {
       label: component.label || component.matrix,
-      value: matrixValue * parseNumber(component.multiplier),
-      parts: [{ label: component.matrix, value: matrixValue }],
+      value: matrixValue * multiplier,
+      parts: [{ label: component.matrix, type: "matrix", value: matrixValue }],
+      multiplier: multiplier,
     };
   }
 
@@ -297,22 +751,22 @@ function resolveMatrixActionComponentValue(component, lookupAttr) {
 
   if (component.skill) {
     const value = resolveRollSkillTotal(component.skill, lookupAttr);
-    parts.push({ label: component.skill, value: value });
+    parts.push({ label: component.skill, type: "skill", value: value });
     total += value;
   }
   if (component.attribute) {
     const value = resolveRollAttributeTotal(component.attribute, lookupAttr);
-    parts.push({ label: component.attribute, value: value });
+    parts.push({ label: component.attribute, type: "attribute", value: value });
     total += value;
   }
   if (component.matrix) {
     const value = parseNumber(lookupAttr(`sr6_matrix_${component.matrix}`));
-    parts.push({ label: component.matrix, value: value });
+    parts.push({ label: component.matrix, type: "matrix", value: value });
     total += value;
   }
   if (component.matrixSecond) {
     const value = parseNumber(lookupAttr(`sr6_matrix_${component.matrixSecond}`));
-    parts.push({ label: component.matrixSecond, value: value });
+    parts.push({ label: component.matrixSecond, type: "matrix", value: value });
     total += value;
   }
 
@@ -362,7 +816,71 @@ function resolveMatrixActionRuleContext(definition, popupState, lookupAttr, pool
   };
 }
 
-function appendMatrixActionRows(rows, matrixActionContext) {
+function formatMatrixActionComponentLabel(label) {
+  const componentLabels = {
+    angriff: "Angriff",
+    cracken: "Cracken",
+    datenverarbeitung: "Datenverarbeitung",
+    elektronik: "Elektronik",
+    firewall: "Firewall",
+    intuition: "Intuition",
+    logik: "Logik",
+    schleicher: "Schleicher",
+    willenskraft: "Willenskraft",
+  };
+
+  return componentLabels[`${label || ""}`.trim()] || `${label || ""}`.trim();
+}
+
+function appendMatrixActionComponentDetailRows(rows, rowPrefix, componentValue, lookupAttr, options = {}) {
+  if (!componentValue || componentValue.value === null) return;
+
+  (componentValue.parts || []).forEach((part) => {
+    if (rowPrefix === "Probe" && part.type === "skill") {
+      appendSkillDetailRows(rows, lookupAttr, part.label, formatMatrixActionComponentLabel(part.label), {
+        poolComponent: !!options.poolComponent,
+      });
+      return;
+    }
+    if (rowPrefix === "Probe" && part.type === "attribute") {
+      appendAttributeDetailRows(rows, lookupAttr, part.label, formatMatrixActionComponentLabel(part.label), {
+        poolComponent: !!options.poolComponent,
+      });
+      return;
+    }
+    if (rowPrefix === "Probe" && part.type === "matrix") {
+      appendRowIfMissing(
+        rows,
+        `Matrixattribut ${formatMatrixActionComponentLabel(part.label)}`,
+        `${parseNumber(part.value)}`,
+        { poolComponent: !!options.poolComponent }
+      );
+      return;
+    }
+    appendRowIfMissing(
+      rows,
+      `${rowPrefix} ${formatMatrixActionComponentLabel(part.label)}`,
+      `${parseNumber(part.value)}`,
+      { poolComponent: !!options.poolComponent }
+    );
+  });
+  if (parseNumber(componentValue.multiplier) > 1) {
+    appendRowIfMissing(rows, `${rowPrefix} Multiplikator`, `x${parseNumber(componentValue.multiplier)}`);
+    appendRowIfMissing(
+      rows,
+      `${rowPrefix} Multiplikator-Bonus`,
+      `${parseNumber(componentValue.value) - (componentValue.parts || []).reduce((sum, part) => sum + parseNumber(part.value), 0)}`,
+      { poolComponent: !!options.poolComponent }
+    );
+  }
+  appendRowIfMissing(
+    rows,
+    `${rowPrefix} Gesamtwert`,
+    `${parseNumber(componentValue.value)}`
+  );
+}
+
+function appendMatrixActionRows(rows, matrixActionContext, lookupAttr) {
   if (!matrixActionContext) return;
 
   const rule = matrixActionContext.rule || {};
@@ -377,7 +895,9 @@ function appendMatrixActionRows(rows, matrixActionContext) {
     rows.push({ label: "Probe", value: "Siehe Beschreibung" });
   } else if (probe) {
     rows.push({ label: "Probe", value: probe.label });
-    rows.push({ label: "Probe-Wert", value: `${probe.value}` });
+    appendMatrixActionComponentDetailRows(rows, "Probe", probe, lookupAttr, {
+      poolComponent: matrixActionContext.rollMode !== "defense",
+    });
   }
 
   if (rule.probe && rule.probe.linkedMatrixAttribute) {
@@ -394,11 +914,17 @@ function appendMatrixActionRows(rows, matrixActionContext) {
   } else if (defense.type === "fixed_formula" && defenseValue && defenseValue.value !== null) {
     rows.push({ label: "Verteidigung", value: defenseValue.label });
     rows.push({ label: "Verteidigungswert", value: `${defenseValue.value}` });
+    appendMatrixActionComponentDetailRows(rows, "Verteidigungswert", defenseValue, lookupAttr, {
+      poolComponent: matrixActionContext.rollMode === "defense",
+    });
   } else if (defense.type === "fixed_formula") {
     rows.push({ label: "Verteidigung", value: defense.label || "Zielwert" });
   } else if (defenseValue && defenseValue.value !== null) {
     rows.push({ label: "Verteidigung", value: defenseValue.label });
     rows.push({ label: "Verteidigungswert", value: `${defenseValue.value}` });
+    appendMatrixActionComponentDetailRows(rows, "Verteidigungswert", defenseValue, lookupAttr, {
+      poolComponent: matrixActionContext.rollMode === "defense",
+    });
   } else if (defenseOption && defenseOption.label) {
     rows.push({ label: "Verteidigung", value: defenseOption.label });
   }
@@ -638,6 +1164,90 @@ function isCombatSpell(resolvedFields) {
   return `${(resolvedFields && resolvedFields.Art) || ""}`.trim() === "Kampf";
 }
 
+function resolveCombatSpellType(resolvedFields) {
+  const type = `${(resolvedFields && resolvedFields.Typ) || ""}`.trim();
+  return type === "Direkt" || type === "Indirekt" ? type : "";
+}
+
+function resolveSpellDamageType(resolvedFields) {
+  return `${(resolvedFields && resolvedFields.Schadenstyp) || ""}`.trim() || "Körperlich";
+}
+
+function getSpellPopupNumber(popupState, key) {
+  return parseNumber((((popupState || {}).selectedValues || {})[key]));
+}
+
+function appendSpellAttackValueDetailRows(rows, lookupAttr, resolvedFields, popupState, finalAttackValue) {
+  const traditionAttribute = `${lookupAttr("sr6_magic_traditionsattribut_1") || ""}`.trim();
+  const traditionKey = mapTraditionsattributToKey(traditionAttribute);
+  const magicValue = parseNumber(lookupAttr("sr6_magic_magie"));
+  const traditionValue = traditionKey ? resolveRollAttributeTotal(traditionKey, lookupAttr) : 0;
+  const coreModifier = parseNumber(lookupAttr("sr6_magic_angriffswert_modifikator"));
+
+  rows.push({ label: "Angriffswert-Formel", value: "Magie + Traditionsattribut" });
+  rows.push({ label: "Angriffswert Magie", value: `${magicValue}` });
+  if (traditionAttribute) {
+    rows.push({ label: "Angriffswert Traditionsattribut", value: traditionAttribute });
+  }
+  rows.push({ label: "Angriffswert Traditionsattribut Wert", value: `${traditionValue}` });
+  if (coreModifier !== 0) {
+    rows.push({ label: "Angriffswert Kernwert-Modifikator", value: formatSignedModifier(coreModifier) });
+  }
+  if (popupState.attackValueMod !== 0) {
+    rows.push({ label: "Angriffswert-Modifikator", value: formatSignedModifier(popupState.attackValueMod) });
+  }
+  rows.push({ label: "Angriffswert", value: `${finalAttackValue}` });
+}
+
+function appendSpellDrainDetailRows(rows, resolvedFields, popupState) {
+  const baseDrain = parseNumber(resolvedFields.Entzug);
+  const areaIncrease = getSpellPopupNumber(popupState, "area_increase");
+  const overcast = getSpellPopupNumber(popupState, "overcast");
+  const drainOnlyMod = getSpellPopupNumber(popupState, "drain_mod");
+  const modifiedDrain = Math.max(0, baseDrain + popupState.drainMod);
+
+  rows.push({ label: "Entzug-Basis", value: `${baseDrain}` });
+  if (areaIncrease !== 0) {
+    rows.push({ label: "Fläche Vergrößern-Entzug", value: formatSignedModifier(areaIncrease) });
+  }
+  if (overcast !== 0) {
+    rows.push({ label: "Hochdrehen-Entzug", value: formatSignedModifier(overcast * 2) });
+  }
+  if (drainOnlyMod !== 0) {
+    rows.push({ label: "Entzug-Modifikator", value: formatSignedModifier(drainOnlyMod) });
+  }
+  rows.push({ label: "Entzug", value: `${modifiedDrain}` });
+}
+
+function appendSpellDamageDetailRows(rows, lookupAttr, resolvedFields, popupState, spellSuccesses) {
+  const spellType = resolveCombatSpellType(resolvedFields);
+  if (!spellType) return;
+
+  const magicValue = parseNumber(lookupAttr("sr6_magic_magie"));
+  const overcast = getSpellPopupNumber(popupState, "overcast");
+  const damageOnlyMod = getSpellPopupNumber(popupState, "damage_mod");
+  const baseDamage = spellType === "Indirekt" ? Math.ceil(magicValue / 2) : 0;
+  const finalDamage = Math.max(0, baseDamage + parseNumber(spellSuccesses) + popupState.damageMod);
+  const damageType = resolveSpellDamageType(resolvedFields);
+
+  rows.push({
+    label: "Schaden-Formel",
+    value: spellType === "Indirekt"
+      ? "ceil(Magie / 2) + Erfolge + Hochdrehen"
+      : "Erfolge + Hochdrehen",
+  });
+  rows.push({ label: "Schaden-Basis", value: `${baseDamage}` });
+  rows.push({ label: "Erfolge auf Schaden", value: `+${parseNumber(spellSuccesses)}` });
+  if (overcast !== 0) {
+    rows.push({ label: "Hochdrehen-Schaden", value: formatSignedModifier(overcast) });
+  }
+  if (damageOnlyMod !== 0) {
+    rows.push({ label: "Schadens-Modifikator", value: formatSignedModifier(damageOnlyMod) });
+  }
+  rows.push({ label: "Schadenstyp", value: damageType });
+  rows.push({ label: "Schaden", value: damageType ? `${finalDamage} ${damageType}` : `${finalDamage}` });
+}
+
 function resolveDrainDamageType(remainingDrainDamage, magicValue) {
   if (parseNumber(remainingDrainDamage) <= 0) return "";
   return parseNumber(remainingDrainDamage) > parseNumber(magicValue) ? "Körperlich" : "Betäubung";
@@ -659,11 +1269,21 @@ function isSummoningPossessionCheckEnabled(popupState) {
   return `${(((popupState || {}).selectedValues || {}).possession) || ""}`.trim() === "1";
 }
 
-function appendRowIfMissing(rows, label, value) {
-  const normalizedValue = `${value || ""}`.trim();
+function appendRowIfMissing(rows, label, value, options = {}) {
+  const normalizedValue = `${value === undefined || value === null ? "" : value}`.trim();
   if (!normalizedValue) return;
-  if (rows.some((row) => row && row.label === label && `${row.value || ""}`.trim() === normalizedValue)) return;
-  rows.push({ label: label, value: normalizedValue });
+  const existingRow = rows.find((row) => row && row.label === label && `${row.value || ""}`.trim() === normalizedValue);
+  if (existingRow) {
+    if (options.poolComponent) {
+      existingRow.poolComponent = true;
+    }
+    return;
+  }
+  rows.push({
+    label: label,
+    value: normalizedValue,
+    poolComponent: !!options.poolComponent,
+  });
 }
 
 function resolveEdgeBoostOptions(popupState, lookupAttr) {
@@ -771,6 +1391,51 @@ function saveEdgeLastRollContext(name, computation) {
   });
 }
 
+function isRolltemplateDebugEnabled(lookupAttr) {
+  return `${lookupAttr("sr6_setting_rolltemplate_debug") || "nein"}`.trim() === "ja";
+}
+
+function runInitiativeProbeFromContext(context, lookupAttr, resolvedFields) {
+  const rows = buildProbeRows(resolvedFields, context.definition);
+  const name = deriveProbeTitle(resolvedFields, context.poolAttribute, context.definition);
+  const basis = parseNumber(resolvedFields.Basis);
+  const diceCount = Math.max(0, parseNumber(resolvedFields.W6));
+  const diceResults = [];
+  let diceTotal = 0;
+
+  for (let index = 0; index < diceCount; index += 1) {
+    const die = rollD6();
+    diceResults.push(die);
+    diceTotal += die;
+  }
+
+  const total = basis + diceTotal;
+  appendRowIfMissing(rows, "W6-Wurf", diceResults.length > 0 ? diceResults.join(" + ") : "0");
+  appendRowIfMissing(rows, "Gesamt", `${total}`);
+
+  const chatMessage = buildSr6ProbeMessage({
+    name: name,
+    rows: rows,
+    resolvedFields: resolvedFields,
+    definition: context.definition,
+    definitionId: context.definition && context.definition.id,
+    suppressSubject: true,
+    pool: `${diceCount}`,
+    resultLabel: "Initiative",
+    resultValue: `${total}`,
+    details: diceResults.join(" + "),
+    detailsDice: buildNeutralDetailsDice(diceResults),
+    edgeAction: false,
+    isGlitch: false,
+    characterId: lookupAttr("character_id"),
+    debugDetailsEnabled: isRolltemplateDebugEnabled(lookupAttr),
+  });
+
+  startRoll(chatMessage, (rollResult) => {
+    finishRoll(rollResult.rollId);
+  });
+}
+
 function runEquipmentProbeFromContext(context, lookupAttr, resolvedFields, popupState) {
   const rows = buildProbeRows(resolvedFields, context.definition);
   const name = deriveProbeTitle(resolvedFields, context.poolAttribute, context.definition);
@@ -797,9 +1462,11 @@ function runEquipmentProbeFromContext(context, lookupAttr, resolvedFields, popup
 
   rows.push({ label: "Bezug", value: sourceOption ? sourceOption.label : "Keine Auswahl" });
   if (sourceOption) {
-    rows.push({ label: sourceOption.type, value: `${sourceOption.label} (${sourceValue})` });
+    rows.push({ label: sourceOption.type, value: sourceOption.label });
+    appendEquipmentSourceDetailRows(rows, lookupAttr, sourceKey, sourceOption);
+    appendRowIfMissing(rows, "Bezugswert", `${sourceValue}`);
   }
-  rows.push({ label: ratingMultiplier === 2 ? "Stufe x2" : "Stufe", value: `${ratingValue}` });
+  rows.push({ label: ratingMultiplier === 2 ? "Stufe x2" : "Stufe", value: `${ratingValue}`, poolComponent: true });
   if (computation.monitorPoolMod !== 0) {
     rows.push({ label: "Pool-Basis", value: `${computation.poolBasis}` });
     rows.push({ label: "Zustandsmodifikator", value: `${computation.monitorPoolMod}` });
@@ -817,9 +1484,11 @@ function runEquipmentProbeFromContext(context, lookupAttr, resolvedFields, popup
     pool: `${computation.pool}`,
     erfolge: erfolgeValue,
     details: buildDiceDetails(computation.diceResults, computation.fateDiceResults),
-    detailsDice: buildDetailsDice(computation.diceResults, computation.fateDiceResults),
+    detailsDice: buildDetailsDice(computation.diceResults, computation.fateDiceResults, 20, computation.diceTrace),
+    computation: computation,
     isGlitch: computation.isGlitch,
     characterId: lookupAttr("character_id"),
+    debugDetailsEnabled: isRolltemplateDebugEnabled(lookupAttr),
   });
 
   saveEdgeLastRollContext(name, computation);
@@ -908,6 +1577,7 @@ function runRiggingVehicleProbeFromContext(context, lookupAttr, resolvedFields, 
 
   rows.push({ label: "Probe", value: getRiggingVehicleProbeLabel(probeKey) });
   rows.push({ label: "Formel", value: probe.formula });
+  appendRowsFormulaDetails(rows, lookupAttr);
   rows.push({ label: "Modus", value: mode });
   if (fireMode && attackValueModifier !== 0) {
     rows.push({ label: "Angriffswert-Basis", value: `${parseNumber(baseAttackValue)}` });
@@ -960,9 +1630,11 @@ function runRiggingVehicleProbeFromContext(context, lookupAttr, resolvedFields, 
     pool: `${computation.pool}`,
     erfolge: erfolgeValue,
     details: buildDiceDetails(computation.diceResults, computation.fateDiceResults),
-    detailsDice: buildDetailsDice(computation.diceResults, computation.fateDiceResults),
+    detailsDice: buildDetailsDice(computation.diceResults, computation.fateDiceResults, 20, computation.diceTrace),
+    computation: computation,
     isGlitch: computation.isGlitch,
     characterId: lookupAttr("character_id"),
+    debugDetailsEnabled: isRolltemplateDebugEnabled(lookupAttr),
   });
   saveEdgeLastRollContext("Rigging-Fahrzeugprobe", computation);
   startRoll(chatMessage, (rollResult) => {
@@ -988,33 +1660,23 @@ function runSpellProbeFromContext(context, lookupAttr, resolvedFields, popupStat
     null,
     edgeOptions
   );
-  const drainComputation = buildProbeComputation(
-    lookupAttr,
-    "sr6_magic_entzug_widerstand",
-    0
-  );
-  const baseDamage = parseNumber(resolvedFields.Schaden);
   const baseAttackValue = parseNumber(resolvedFields.Angriffswert);
   const finalAttackValue = isCombatSpell(resolvedFields)
     ? Math.max(0, baseAttackValue + effectivePopupState.attackValueMod)
     : "";
-  const finalDamage = isCombatSpell(resolvedFields) || baseDamage || effectivePopupState.damageMod
-    ? `${baseDamage + effectivePopupState.damageMod}`
-    : "";
-  const modifiedDrain = Math.max(0, parseNumber(resolvedFields.Entzug) + effectivePopupState.drainMod);
-  const drainDamage = Math.max(0, modifiedDrain - drainComputation.successCount);
-  const drainDamageType = resolveDrainDamageType(drainDamage, lookupAttr("sr6_magic_magie"));
 
+  appendBasePoolDetailRows(rows, context.definition, lookupAttr, context.poolAttribute, null, resolvedFields);
+  appendDrainResistanceDetailRows(rows, lookupAttr);
+  appendSpellDrainDetailRows(rows, resolvedFields, effectivePopupState);
+  if (isCombatSpell(resolvedFields)) {
+    appendSpellAttackValueDetailRows(rows, lookupAttr, resolvedFields, effectivePopupState, finalAttackValue);
+    appendSpellDamageDetailRows(rows, lookupAttr, resolvedFields, effectivePopupState, spellComputation.successCount);
+  }
   effectivePopupState.rows.forEach((popupRow) => {
     if (!popupRow || !popupRow.label) return;
     appendRowIfMissing(rows, popupRow.label, popupRow.value);
   });
   appendRollOnlyPoolModifierRow(rows, rollOnlyPoolModifier);
-  if (isCombatSpell(resolvedFields) && effectivePopupState.attackValueMod !== 0) {
-    rows.push({ label: "Angriffswert-Basis", value: `${baseAttackValue}` });
-    rows.push({ label: "Angriffswert-Modifikator", value: `${effectivePopupState.attackValueMod}` });
-    rows.push({ label: "Angriffswert", value: `${finalAttackValue}` });
-  }
   appendEdgeBoostRows(rows, edgeOptions, spellComputation);
 
   const chatMessage = buildSr6ProbeMessage({
@@ -1026,16 +1688,11 @@ function runSpellProbeFromContext(context, lookupAttr, resolvedFields, popupStat
     pool: `${spellComputation.pool}`,
     erfolge: `${spellComputation.successCount}`,
     details: buildDiceDetails(spellComputation.diceResults, spellComputation.fateDiceResults),
-    detailsDice: buildDetailsDice(spellComputation.diceResults, spellComputation.fateDiceResults),
+    detailsDice: buildDetailsDice(spellComputation.diceResults, spellComputation.fateDiceResults, 20, spellComputation.diceTrace),
+    computation: spellComputation,
     isGlitch: spellComputation.isGlitch,
-    spellAttackValue: `${finalAttackValue}`,
-    spellDamage: finalDamage,
-    drainValue: `${modifiedDrain}`,
-    drainDamage: `${drainDamage}`,
-    drainDamageType: drainDamageType,
-    drainDetails: buildDiceDetails(drainComputation.diceResults),
-    drainDetailsDice: buildDetailsDice(drainComputation.diceResults),
     characterId: lookupAttr("character_id"),
+    debugDetailsEnabled: isRolltemplateDebugEnabled(lookupAttr),
   });
 
   saveEdgeLastRollContext(name, spellComputation);
@@ -1083,6 +1740,8 @@ function runSummoningProbeFromContext(context, lookupAttr, resolvedFields, popup
     ? Math.max(0, spiritComputation.successCount - objectResistanceComputation.successCount)
     : null;
 
+  appendBasePoolDetailRows(rows, context.definition, lookupAttr, context.poolAttribute, null, resolvedFields);
+  appendDrainResistanceDetailRows(rows, lookupAttr);
   appendRowIfMissing(rows, "Geistertyp", spiritType);
   appendRowIfMissing(rows, "Kraftstufe", `${spiritForce}`);
   effectivePopupState.rows.forEach((popupRow) => {
@@ -1123,9 +1782,11 @@ function runSummoningProbeFromContext(context, lookupAttr, resolvedFields, popup
     pool: `${summonerComputation.pool}`,
     erfolge: `${summonerComputation.successCount}`,
     details: buildDiceDetails(summonerComputation.diceResults, summonerComputation.fateDiceResults),
-    detailsDice: buildDetailsDice(summonerComputation.diceResults, summonerComputation.fateDiceResults),
+    detailsDice: buildDetailsDice(summonerComputation.diceResults, summonerComputation.fateDiceResults, 20, summonerComputation.diceTrace),
+    computation: summonerComputation,
     isGlitch: summonerComputation.isGlitch,
     characterId: lookupAttr("character_id"),
+    debugDetailsEnabled: isRolltemplateDebugEnabled(lookupAttr),
   });
 
   saveEdgeLastRollContext(name, summonerComputation);
@@ -1149,6 +1810,10 @@ function runSuccessProbeFromContext(rawTemplate, repeatingRowPrefix, popupState 
       resolvedFields[field.label] = lookupAttr(field.attr);
     });
 
+    if (context.definition && context.definition.probeModel === "initiative_probe") {
+      runInitiativeProbeFromContext(context, lookupAttr, resolvedFields);
+      return;
+    }
     if (context.definition && context.definition.probeModel === "spell_probe") {
       runSpellProbeFromContext(context, lookupAttr, resolvedFields, normalizedPopupState);
       return;
@@ -1183,6 +1848,7 @@ function runSuccessProbeFromContext(rawTemplate, repeatingRowPrefix, popupState 
         details: resolvedFields.Details || "",
         isGlitch: false,
         characterId: lookupAttr("character_id"),
+        debugDetailsEnabled: isRolltemplateDebugEnabled(lookupAttr),
       });
       startRoll(chatMessage, (rollResult) => {
         finishRoll(rollResult.rollId);
@@ -1242,18 +1908,21 @@ function runSuccessProbeFromContext(rawTemplate, repeatingRowPrefix, popupState 
         label: "Attribut-Fallback",
         value: `${meleeAttributeOverride.currentAttribute} -> ${meleeAttributeOverride.selectedAttribute}`,
       });
+      appendRowIfMissing(rows, "Attribut", meleeAttributeOverride.selectedAttribute);
+      appendAttributeDetailRows(rows, lookupAttr, getAttributeDetailKey(meleeAttributeOverride.selectedAttribute), "Attributwert");
     }
-    if (skillAttributeOverride) {
-      rows.push({ label: "Attribut", value: skillAttributeOverride.selectedAttribute });
-      rows.push({ label: "Attribut-Wert", value: `${skillAttributeOverride.attributeValue}` });
-      rows.push({ label: "Fertigkeitswert", value: `${skillAttributeOverride.skillValue}` });
+    appendBasePoolDetailRows(rows, context.definition, lookupAttr, context.poolAttribute, skillAttributeOverride, resolvedFields);
+    appendCombatDefenseValueDetailRows(rows, context.definition, lookupAttr);
+    appendMatrixLikeDefenseValueDetailRows(rows, context.definition, lookupAttr);
+    appendMatrixActionRows(rows, matrixActionContext, lookupAttr);
+    if (!matrixActionContext) {
+      appendRowsFormulaDetails(rows, lookupAttr);
     }
-    appendMatrixActionRows(rows, matrixActionContext);
     const glitchText = computation.isCriticalGlitch ? "!! Kritischer Patzer !!" : "!! Patzer !!";
     const erfolgeValue = computation.isGlitch ? glitchText : `${computation.successCount}`;
 
     if (computation.poolMultiplier !== 1) {
-      rows.push({ label: "Pool-Basis", value: `${computation.poolBasisRaw}` });
+      rows.push({ label: "Pool-Basis vor Multiplikator", value: `${computation.poolPreMultiplier}` });
       rows.push({ label: "Multiplikator", value: `x${computation.poolMultiplier}` });
     }
     if (computation.monitorPoolMod !== 0) {
@@ -1278,9 +1947,11 @@ function runSuccessProbeFromContext(rawTemplate, repeatingRowPrefix, popupState 
       pool: `${computation.pool}`,
       erfolge: erfolgeValue,
       details: buildDiceDetails(computation.diceResults, computation.fateDiceResults),
-      detailsDice: buildDetailsDice(computation.diceResults, computation.fateDiceResults),
+      detailsDice: buildDetailsDice(computation.diceResults, computation.fateDiceResults, 20, computation.diceTrace),
+      computation: computation,
       isGlitch: computation.isGlitch,
       characterId: lookupAttr("character_id"),
+      debugDetailsEnabled: isRolltemplateDebugEnabled(lookupAttr),
     });
     saveEdgeLastRollContext(name, computation);
     startRoll(chatMessage, (rollResult) => {

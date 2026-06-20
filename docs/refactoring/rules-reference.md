@@ -27,3 +27,25 @@ Technische Auslegung im Sheet:
 - Der Einzelgaenger-Schicksalswuerfel wird separat von anderen Schicksalswuerfeln gewuerfelt.
 - In der Detailanzeige steht er vor den anderen Schicksalswuerfeln.
 - Nur dieser Einzelgaenger-Wuerfel ignoriert bei einer 1 die 5er-Annullierung.
+
+## Rolltemplate `sheet-sr6probe`
+
+`sheet-sr6probe` ist das gemeinsame Basistemplate fuer alle Proben.
+
+- Der Header enthaelt den Wurftitel.
+- Danach folgen Name der Handlung/Waffe/des Geraets/des Zaubers, finaler Pool, Erfolge, Wuerfeldetails, Edge-Button und ein Trennstrich.
+- Berechnungsquellen werden im normalen Chat kompakt ueber Info-Icons an den passenden Zeilen angezeigt.
+- Der Pool-Info-Button enthaelt die vollstaendige Pool-Rechnung und alle poolrelevanten Gruppen wie Attributsberechnung, Fertigkeitsberechnung, Formel-/Matrixwert-Bestandteile, Popup-Modifikatoren, Edge-Boosts und Schicksalswuerfel.
+- Domaenenspezifische Kontextzeilen wie Schaden, Entzug, Dienste, Angriffswert, Verteidigungswert, Munition oder Modus koennen eigene Info-Buttons mit ihren jeweiligen Berechnungsgruppen haben.
+- Das Einstellungs-Dropdown fuer Debug-Ausgabe kann die gruppierten Berechnungsquellen zusaetzlich unter dem Rolltemplate sichtbar ausgeben.
+- Direkte Attribut- und Fertigkeitsgesamtwerte werden in den Info-/Debug-Gruppen generisch in Basis, Modifikator und Gesamtwert aufgeschluesselt.
+- Spezielle Ergebniszeilen wie Schaden, Entzug, Dienste oder Angriffswert werden nicht global hervorgehoben, sondern issue- und domaenenspezifisch entschieden.
+
+## Wert-Modifikator
+
+Der `Wert-Modifikator` ist ein Sheet-Komfortwert fuer automatisch berechnete, wuerfelbare Werte.
+
+- Er ist kein eigener SR6-Regelwert.
+- Er veraendert nicht den angezeigten berechneten Sheet-Wert.
+- Er wird nur beim Wurf addiert und bei einem Wert ungleich `0` im Rolltemplate ausgegeben.
+- Regelquellen fuer eigentliche Pool-, Schadens-, Angriffs- oder Verteidigungswerte bleiben die jeweiligen SR6-Formeln und Sheet-Berechnungen.

@@ -3,7 +3,6 @@
 ## Schnelleinstieg (HTML)
 - Einstieg aller Panels: `src/html/charactersheet.html`
 - Tab-Einstiege:
-  - Allgemein: `src/html/partials/tabs/allgemein/index.html`
   - Fertigkeiten: `src/html/partials/tabs/fertigkeiten/index.html`
   - Kampf: `src/html/partials/tabs/kampf/index.html`
   - Magie: `src/html/partials/tabs/magie/index.html`
@@ -14,7 +13,6 @@
   - Einstellungen: `src/html/partials/tabs/einstellungen/index.html`
 
 ## Unterbereiche (Beispiele)
-- Allgemein / Uebersicht: `src/html/partials/tabs/allgemein/kernwerte.html`
 - Attribute & Fertigkeiten / Attribute: `src/html/partials/tabs/fertigkeiten/sections/00-attribute.html`
 - Attribute & Fertigkeiten / Fertigkeiten: `src/html/partials/tabs/fertigkeiten/sections/01-fertigkeiten.html`
 - Attribute & Fertigkeiten / Zusatzboxen: `src/html/partials/tabs/fertigkeiten/sections/02-zusatzboxen-layout.html`
@@ -35,16 +33,15 @@
 
 Hinweis:
 - Legacy-Alias-Pfade wurden entfernt. Bitte nur `src/html/partials/tabs/**` verwenden.
-- `Allgemein` ist nach dem Refactor nur noch Uebersicht/Spiegel. Die operative Pflege von Attributen und Fertigkeiten liegt im Tab `Attribute & Fertigkeiten`.
-- Einige alte `Allgemein/sections/*` Dateien liegen noch im Repository, sind aber nicht aktive UI, solange sie nicht ueber `@include` eingebunden sind.
+- `Allgemein` ist kein aktiver interner Sheet-Tab mehr. Historische Dateien unter `src/html/partials/tabs/allgemein/**` gelten nur, wenn sie explizit ueber `@include` eingebunden sind.
 - Wissensfertigkeiten, Sprachfertigkeiten, Talentsofts und Wissens-/Sprachsofts werden aktuell ueber `sections/02-zusatzboxen-layout.html` eingebunden.
+- Roll-only UI fuer automatisch berechnete Werte liegt aktuell in Kampf, Magie, Matrix und Rigging. Relevante Einstiege sind die jeweiligen `sections/*` der Tabs.
+- Matrix-Handlungen mit getrennten Proben-/Verteidigungs-Modifikatoren liegen in `src/html/partials/tabs/matrix/sections/04-handlungen.html`.
 
 ## Schnelleinstieg (CSS)
 - Modulmanifest (Reihenfolge): `src/css/modules/manifest.json`
 - Attribute & Fertigkeiten:
   - `src/css/modules/tabs/fertigkeiten/index.css`
-- Allgemein / historische Attribute-Styles:
-  - `src/css/modules/tabs/allgemein/attribute.css`
 - Weitere Tab-Startpunkte:
   - `src/css/modules/tabs/kampf/index.css`
   - `src/css/modules/tabs/magie/index.css`
@@ -56,6 +53,10 @@ Hinweis:
 - Shared Listenansicht:
   - `src/css/modules/30-list-overview.css`
   - `src/css/modules/31-list-zauber.css`
+  - `src/css/modules/32-list-repeating-shared.css`
+- Shared Stepper- und Roll-Mod-Patterns:
+  - `src/css/modules/00-foundation.css`
+  - `src/css/modules/40-layout-and-tab-sections.css`
   - `src/css/modules/32-list-repeating-shared.css`
 
 
@@ -81,6 +82,15 @@ Hinweis:
   - Ausruestung: `src/workers/rolls/definitions/equipment.js`
   - Rigging: `src/workers/rolls/definitions/rigging.js`
   - Fertigkeiten: `src/workers/rolls/definitions/skills.js`
+- Roll-only-Modifikator-Pipeline:
+  - Kontext laden: `src/workers/rolls/context.js`
+  - Pool fuer Wurf additiv anpassen: `src/workers/rolls/probe.js`
+  - Ergebnis berechnen: `src/workers/rolls/compute.js`
+  - Template-Zeilen ausgeben: `src/workers/rolls/display.js`
+- Number-Stepper:
+  - Worker-Action: `src/workers/rolls/number-stepper.js`
+  - Einbindung/Recompute: `src/workers/core/register.js`
+  - HTML-Nutzung in Kampf/Magie/Matrix/Rigging und Repeating Rows
 
 ## Build-Output fuer Sandbox
 - `output/charactersheet.html`

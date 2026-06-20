@@ -50,19 +50,51 @@ Stattdessen gilt:
 
 Damit bleibt die Roll20-Ausgabe weiterhin eine gebuendelte Worker-Datei, waehrend die Source-Dateien review- und mergefreundlicher gepflegt werden koennen.
 
+### Issue 90: Gemeinsames Rolltemplate
+
+`sheet-sr6probe` ist das gemeinsame Basistemplate fuer alle Roll-Definitionen.
+
+- `{{name}}` ist der Wurftitel im Header.
+- `{{subject_label}}` und `{{subject}}` bilden die erste fachliche Zeile, z. B. Attribut, Fertigkeit, Waffe, Zauber, Handlung, Geraet oder Wert.
+- `{{pool}}`, `{{erfolge}}`, die bestehenden Wuerfeldetails und der Edge-Button bleiben die prominenten Standardzeilen.
+- Die vollstaendige Pool-Rechnung und die verwendeten Werte, Dropdowns, Checkboxen und Modifikatoren werden in thematischen Info-Gruppen gesammelt.
+- Im normalen Chat werden diese Gruppen ueber Info-Icons an Pool- und Kontextzeilen angezeigt; bei aktivierter Debug-Ausgabe werden sie zusaetzlich unter dem Rolltemplate sichtbar ausgegeben.
+- Domaenenspezifische Zusatzfelder wie Schaden, Entzug, Dienste oder Angriffswert werden nicht im globalen Basistemplate entschieden, sondern in den jeweiligen Folge-Issues.
+
+### Issue 90: Roll-only-Modifikatoren fuer berechnete Werte
+
+Automatisch berechnete, wuerfelbare Sheet-Werte behalten im Sheet ihren angezeigten Basiswert. Sie werden nicht auf das Standardmodell `Grundwert / Modifikator / Gesamtwert` umgebaut, wenn der Wert fachlich aus anderen Quellen berechnet wird.
+
+Fuer situative Anpassungen am eigentlichen Wurf gilt stattdessen ein additives Feldmuster:
+
+- `attr_<poolAttribute>_roll_modifikator`
+- Beispiel Kampf: `attr_sr6_combat_fernkampfangriff_gesamtwert_roll_modifikator`
+- Beispiel Matrix-Probe: `attr_sr6_matrix_handlung_ausstoepseln_probe_wert_roll_modifikator`
+- Beispiel Matrix-Verteidigung: `attr_sr6_matrix_handlung_ausstoepseln_verteidigung_wert_roll_modifikator`
+
+Diese Felder sind persistente Roll20-Komfortfelder, aber keine neue fachliche Datenquelle fuer den berechneten Wert.
+
+Regel fuer Compute und Rolltemplate:
+
+- Der berechnete Sheet-Wert bleibt unveraendert sichtbar.
+- Der `*_roll_modifikator` wird erst beim Wurf addiert.
+- Der Modifikator darf nicht in die `compute/*`-Berechnung des Basiswerts zurueckschreiben.
+- Die Rolltemplate-Ausgabe zeigt die finalen Pool-Modifikatoren zentral in `calc_details`; fachliche Detailzeilen wie `Wert-Modifikator` koennen zusaetzlich erscheinen, wenn sie fuer den Wurf relevant sind.
+- Repeating Rows nutzen dasselbe Muster zeilenlokal innerhalb der bestehenden `repeating_*`-Sektion.
+
 ### Aktive Probenmodelle
 
 | Probenmodell | Fachliche Grundlogik | Typische Popup-Felder | Typische Output-Felder | Tab-spezifische Feldquellen |
 | --- | --- | --- | --- | --- |
 | `attribute_probe` | `Attribut` oder `Attribut x2` `+- Modifikator` | `Modifikator`, spaeter optional `x2`/Variante | `Attribut`, `Wert`, `Pool`, `Erfolge`, `Details` | Attributsname und Poolquelle je nach Probe |
 | `skill_probe` | `Attribut + Fertigkeitsgrundwert + Modifikator + Spezialisierung/Expertise` | `Skill-Modifikator`, `Attribut`, `Spezialisierung`, `Expertise` | `Attribut`, `Attribut-Wert`, `Fertigkeitswert`, `Pool`, `Erfolge`, `Details` | Attribut-, Fertigkeits- und Poolquelle je Tab/Fall |
-| `initiative_probe` | `Basis + W6` | keine Standard-Popup-Modifikatoren | `Basis`, `W6`, `Gesamt` | physische, astrale, Matrix- und Rigging-Initiative |
-| `defense_probe` | `Attribut + Fertigkeit +- Modifikator` nach SR6-Grundlogik | `Modifikator`, kontextabhaengige Vergleichswerte wie `Verteidigungswert` | `Wert`, Vergleichswert, `Pool`, `Erfolge`, `Details` | pro Tab andere Attribut-/Fertigkeitsquellen, z. B. `Kampf`, `Matrix`, spaeter weitere |
+| `initiative_probe` | `Basis + W6` | keine Standard-Probenmodifikatoren | `Basis`, `W6`, `Gesamt` | physische, astrale, Matrix- und Rigging-Initiative |
+| `defense_probe` | Verteidigungs- oder Widerstandspool aus domänenspezifischen Quellen, z. B. Attributen, Fertigkeiten oder Matrixwerten | `Modifikator`, kontextabhaengige Vergleichswerte wie `Verteidigungswert` | `Wert`, Vergleichswert, `Pool`, `Erfolge`, `Details` | pro Tab andere Quellen: Kampf nutzt Attribute, Magie nutzt Attribute/Fertigkeiten, Matrix/Rigging nutzt Attribute und Matrixwerte wie `Firewall` |
 | `combat_attack_probe` | Angriffsprobe mit getrennten Ebenen fuer `Pool`, `Angriffswert`, `Schaden` | `Skill-Modifikator`, `Angriffswert-Modifikator`, `Schadens-Modifikator`, `Munition`, `Spezialisierung`, `Expertise` | `Waffe`, `Angriffswert`, `Pool`, `Erfolge`, `Schaden`, `Reichweite`, `Munition`, `Munitionshinweis`, `Berechnung` | Nah-/Fernkampfwerte, Waffenkontext, Munitionsquelle, Reichweite |
 | `spell_probe` | `Spruchzauberei` plus separater Entzug | Skill-, Angriffswert-, Schadens-, Flaechen-, Hochdrehen- und Entzugsmodifikatoren | Zauber, Pool, Erfolge, Schaden, modifizierter Entzug, Entzugsschaden inkl. Schadenstyp, Beschreibung, weitere Werte | Magie-Zauber |
 | `summoning_probe` | `Beschwoeren + Magie` gegen `Kraftstufe x 2`, Dienste aus Nettoerfolgen, Entzug aus Geister-Erfolgen | `Geistertyp`, `Beschwoeren-Modifikator`, `Entzug-Modifikator`, `Besessenheit`, `Objektwiderstand` | Geist, Typ, Stufe, Geistertyp, Pool, Erfolge, Geist-Pool, Geist-Erfolge, Nettoerfolge, erhaltene Dienste, entstandener Entzug, Entzugsschaden | Magie-Geister |
-| `value_probe` | einzelner Wert als Probe oder Vergleichswert | Standard-Modifikator, teils Matrix-Zugriff/Overwatch | Wert, Pool, Erfolge, Details | Magie-, Matrix-, Rigging- und Fallback-Werte |
-| `matrix_action` | Matrixhandlung mit getrennter Probe und Verteidigung | Verteidigungsquelle in der Handlungszeile; keine Standard-Popup-Pflicht | Handlung, Probe, Verteidigung, Pool, Erfolge, Details | Matrix-Handlungen |
+| `value_probe` | einzelner Wert als Probe oder Vergleichswert; berechnete Werte nutzen optional `*_roll_modifikator` nur beim Wurf | Standard-Modifikator, teils Matrix-Zugriff/Overwatch | Wert, Pool, Erfolge, Details, optional `Wert-Modifikator` | Magie-, Matrix-, Rigging- und Fallback-Werte |
+| `matrix_action` | Matrixhandlung mit getrennter Probe und Verteidigung; Probe und Verteidigung haben getrennte Roll-only-Modifikatoren | Verteidigungsquelle in der Handlungszeile; keine Standard-Popup-Pflicht | Handlung, Probe, Verteidigung, Pool, Erfolge, Details, optional `Wert-Modifikator` | Matrix-Handlungen |
 
 ### Aktuelles Mapping auf diese Zielmodelle
 
@@ -75,7 +107,7 @@ Damit bleibt die Roll20-Ausgabe weiterhin eine gebuendelte Worker-Datei, waehren
 | `spell` | `spell_probe` | Modell aktiv in erster echter Nutzung | Zauber und der Kernwerte-Wurf `Spruchzauberei` laufen jetzt ueber ein eigenes Modell mit `Spruchzauberei`-Probe, modifiziertem Entzug, Entzugsschaden-Typ und separatem Entzugswiderstand; das Popup fuehrt Skill-, Angriffswert-, Schadens-, Flaechen-, Hochdrehen- und Entzugsmodifikatoren explizit |
 | `summoning` | `summoning_probe` | Modell aktiv in erster Nutzung | Geister koennen aus der Geisterliste heraus beschworen werden: Hauptprobe `Beschwoeren + Magie`, Gegenpool `Kraftstufe x 2`, Dienste aus Nettoerfolgen, Entzug aus Geister-Erfolgen; Geistertyp wird im Popup aus den Grundregelwerk-Geisterarten plus Beschuetzergeister, Helfergeister, Pflanzengeister und Ratgebergeister gewaehlt |
 | `matrix_action` | `matrix_action` | Modell aktiv und auf Regelwerksmapping umgestellt | Matrix-Handlungen nutzen jetzt getrennte Proben- und Verteidigungswerte aus `SR6_MATRIX_ACTION_RULES`; variable Verteidigungen werden in der Handlungszeile gewaehlt |
-| `physical_defense`, `physical_damage_resistance`, `general_defense`, `general_damage_resistance`, `astral_defense`, `astral_damage_resistance`, `matrix_defense`, `matrix_damage_resistance`, `matrix_biofeedback_damage_resistance`, `rigging_matrix_defense`, `rigging_matrix_damage_resistance`, `rigging_biofeedback_damage_resistance` | `defense_probe` | Modell aktiv in Nutzung | Gemeinsamer Builder existiert und wird bereits fuer Kampf sowie allgemeine, magische, Matrix- und Rigging-Defensivfaelle verwendet |
+| `physical_defense`, `physical_damage_resistance`, `general_defense`, `general_damage_resistance`, `astral_defense`, `astral_damage_resistance`, `matrix_defense`, `matrix_damage_resistance`, `matrix_biofeedback_damage_resistance`, `rigging_matrix_defense`, `rigging_matrix_damage_resistance`, `rigging_biofeedback_damage_resistance` | `defense_probe` | Modell aktiv in Nutzung | Gemeinsamer Builder existiert und wird bereits fuer Kampf sowie allgemeine, magische, Matrix- und Rigging-Defensivfaelle verwendet. Matrix- und Rigging-Matrix-Defensivfaelle muessen gemeinsam gepflegt werden, weil sie dasselbe Modell mit unterschiedlichen Feldpraefixen nutzen |
 | `combat_ranged_core_attack`, `combat_melee_core_attack`, `combat_ranged_weapon`, `combat_melee_weapon`, `ranged_weapon`, `melee_weapon` | `combat_attack_probe` | Am besten modelliert | Gemeinsames Kampf-Popup und gemeinsamer Weapon-Outputpfad bereits vorhanden |
 | `magic_value`, `matrix_value`, `rigging_value`, `value` | `value_probe` | Modell jetzt explizit, aber noch Uebergangspfad | Magie-, Matrix- und Rigging-Kernwerte laufen jetzt ueber explizite `value_probe`-Pfade statt direkt ueber den generischen Catch-all; der verbleibende generische `value`-Pfad bleibt vorerst technisches Sicherheitsnetz |
 | `weapon`, `fallback` | Kein Zielmodell | Technischer Alt-/Fallbackpfad | Langfristig nur noch als Sicherheitsnetz, nicht als eigentliche Architektur |
@@ -233,6 +265,19 @@ Status:
 - bereits vorhanden
 - muessen fachlich noch gegen finale Formeln und Popup-Profile gespiegelt werden
 - numerische Inputs bereits umgestellt
+
+Matrix- und Rigging-Matrix-Defensivproben nutzen dasselbe `defense_probe`-Modell mit unterschiedlichen Feldpraefixen:
+
+- Matrix: `sr6_matrix_*`
+- Rigging: `sr6_rigging_*`
+
+Dabei gilt fuer die Rolltemplate-Erklaerung:
+
+- `Matrix Verteidigung` / `Rigging Matrix Verteidigung`: Pool = `Intuition (Gesamtwert) + Firewall`
+- `Matrix Schadenswiderstand` / `Rigging Matrix Schadenswiderstand`: Pool = `Firewall`
+- `Biofeedback Schadenswiderstand`: Pool = `Willenskraft (Gesamtwert)`
+- `Verteidigungswert` ist kein Teil der Pool-Rechnung, sondern ein separater Vergleichswert.
+- Der Info-Button am Kontextfeld `Verteidigungswert` soll dessen Berechnung zeigen: `Datenverarbeitung + Firewall + Verteidigungswert-Modifikator = Verteidigungswert`.
 
 ### 7. Erste berechnete Kampf-Kernwerte
 
@@ -463,7 +508,7 @@ Fuer das Sheet bedeutet das als Zielmodell:
 ```text
 Attribut (Grundwert + Modifikator)
 + Fertigkeit (Grundwert + Modifikator)
-+ Situations-/Popup-Modifikator
++ Situations-/Probenmodifikator
 = Wuerfelpool
 ```
 
@@ -473,13 +518,13 @@ Die technische Basis ist bereits vorhanden:
 - `sr6_skill_<name>_gesamtwert = sr6_skill_<name>_grundwert + sr6_skill_<name>_modifikator`
 - `buildProbeComputation()` wuerfelt den finalen Pool als W6 und zaehlt `die >= 5` als Erfolg
 - der Zustandsmonitor wird als globaler Poolmodifikator beruecksichtigt
-- Popup-Modifikatoren werden erst beim Wurf auf den Pool addiert
+- Probenmodifikatoren werden erst beim Wurf auf den Pool addiert
 
 ### Issue-12 Pruefbefund Probenmodelle
 
 | Probenmodell / Bereich | Aktueller Stand | Issue-12-Befund | Naechster Schritt |
 | --- | --- | --- | --- |
-| `attribute_probe` | Nutzt einen Attribut-Gesamtwert als Pool; optional `Attribut x2`; Popup-Modifikator wird addiert | Fuer reine Attributproben und `Attribut x2` passend; kein Standardmodell fuer `Attribut + Fertigkeit` | Beibehalten, aber klar als Attribut-/Sonderprobe behandeln |
+| `attribute_probe` | Nutzt einen Attribut-Gesamtwert als Pool; optional `Attribut x2`; Probenmodifikator wird addiert | Fuer reine Attributproben und `Attribut x2` passend; kein Standardmodell fuer `Attribut + Fertigkeit` | Beibehalten, aber klar als Attribut-/Sonderprobe behandeln |
 | `skill_probe` | Aktionsfertigkeiten nutzen ein Attribut-Dropdown im Popup; Popup-Skill-Modifikator, Spezialisierung und Expertise werden addiert | Fuer Aktionsfertigkeiten jetzt regelkonform als `gewaehltes Attribut + Fertigkeitswert + Modifikatoren` umgesetzt; Sandbox-Test und Matrix-Abgleich bestanden | Fuer Wissens-/Sprach-/Soft-Felder separat entscheiden, ob und welche Attributszuordnung gewuenscht ist |
 | Attribute & Fertigkeiten / Aktionsfertigkeiten | `grundwert + modifikator = gesamtwert` bleibt der Fertigkeitswert; der Rollbutton baut daraus plus gewaehltem Attribut den Pool | Datenquelle ist korrekt und wird im Popup zur vollstaendigen Standardprobe erweitert | Beibehalten; keine parallelen Skillquellen einfuehren |
 | Wissens-/Sprach-/Soft-Felder | Wissens-/Sprach-/Wissenssprachsofts zeigen `Name` und den berechneten `Wert = Erinnerungsvermoegen`; Talentsofts berechnen `Attribut + Stufe + Modifikator` | Erinnerungsvermoegen ist als Attributsprobe `Logik + Intuition` umgesetzt; Talentsofts sind eigener Ersatz-Fertigkeitsfall | Wissen/Sprache bleibt ohne eigenen Dreiklang; Talentsofts optional spaeter um Soft-Typ/Aktionsfertigkeit erweitern |
@@ -560,12 +605,12 @@ Primaerattribute werden als Default genutzt. Das Popup zeigt ein Attribut-Dropdo
 Umsetzungsregel fuer `skill_probe`:
 
 - Der angezeigte Fertigkeitswert bleibt `sr6_skill_<name>_gesamtwert`.
-- Der Standard-Wuerfelpool wird `ausgewaehltes Attribut-Gesamtwert + Fertigkeits-Gesamtwert + Popup-Modifikatoren`.
+- Der Standard-Wuerfelpool wird `ausgewaehltes Attribut-Gesamtwert + Fertigkeits-Gesamtwert + Probenmodifikatoren`.
 - Das Popup bietet fuer Aktionsfertigkeiten ein Attribut-Dropdown an.
 - Die Dropdown-Vorauswahl ist immer das Primaerattribut der Fertigkeit.
 - Die Dropdown-Optionen bestehen aus Primaerattribut plus den im Regelwerk genannten Sekundaerattributen.
 - Fertigkeiten ohne Sekundaerattribut zeigen nur das Primaerattribut; das Dropdown kann dann technisch entfallen oder als nicht wechselbare Anzeige umgesetzt werden.
-- Spezialisierung und Expertise bleiben Popup-Modifikatoren auf den Pool.
+- Spezialisierung und Expertise bleiben Probenmodifikatoren auf den Pool.
 - Kontextfaelle werden nicht blind automatisch gewaehlt; die Auswahl erfolgt durch den Spieler im Popup.
 - Magie/Resonanz nutzt technisch dasselbe Sheet-Feld, muss im Rolltemplate aber fachlich mit dem passenden Label ausgegeben werden.
 
@@ -654,6 +699,10 @@ Aktueller Stand nach Umsetzung:
 - Die Standardansicht ist `A-Z`; die Ansichten `Gast`, `User` und `Admin` sortieren aktive Handlungen vor inaktive Handlungen.
 - Inaktive Handlungen werden in der Zugriffssortierung als ganze Zeile ausgegraut.
 - Neue/ergaenzte Handlungen wie `Cyberware kontrollieren`, `Dienstverweigerung`, `Stoersender lokalisieren` und `Suendenbock` sind im Mapping vorhanden.
+- Der angezeigte Probenwert und der angezeigte Verteidigungswert bleiben automatisch berechnete Basiswerte.
+- Probe und Verteidigung fuehren getrennte Roll-only-Modifikatoren nach dem Muster `attr_sr6_matrix_handlung_<name>_probe_wert_roll_modifikator` und `attr_sr6_matrix_handlung_<name>_verteidigung_wert_roll_modifikator`.
+- Diese Roll-only-Modifikatoren veraendern nur den Wurf und die Rolltemplate-Ausgabe, nicht den berechneten Sheet-Wert.
+- Die aktuelle UI nutzt ein kompaktes 5-Spalten-Layout: `Handlung`, `Probe`, `Probenwert + Mod + Rollbutton`, `Verteidigung`, `Verteidigungswert + Mod + Rollbutton`.
 - Der alte Dreiklang `grundwert/modifikator/gesamtwert` bleibt als kompatibler Datenpfad erhalten, ist aber nicht mehr die primaere UI fuer Matrix-Handlungen.
 
 | Handlung | Sheet-Key | Vor Umsetzung | Probe | Verteidigung | Auswahl / Hinweis |

@@ -1460,8 +1460,12 @@ function createSummoningPopupFields() {
 
 function getMagicRollAdditionalAttributes(definition) {
   if (!definition) return [];
-  if (definition.id === "spell" || definition.id === "summoning") {
-    return ["sr6_magic_magie", "sr6_magic_entzug_widerstand"];
+  if (definition.id === "spell" || definition.id === "summoning" || definition.id === "magic_drain_resistance") {
+    return [
+      "sr6_magic_magie",
+      "sr6_magic_entzug_widerstand",
+      "sr6_magic_traditionsattribut_1",
+    ];
   }
   return [];
 }
@@ -1549,8 +1553,8 @@ function createInitiativeProbeDefinition(config = {}) {
     matchPoolPrefix: config.matchPoolPrefix || "",
     titleMode: config.titleMode || "explicit-name",
     titleField: config.titleField || "",
-    primaryFields: config.primaryFields || ["Basis"],
-    extraFields: config.extraFields || ["W6", "Gesamt"],
+    primaryFields: config.primaryFields || ["Initiative"],
+    extraFields: config.extraFields || ["Basis", "W6", "Modus", "Gesamt"],
     popupFields: config.popupFields || SR6_DEFAULT_POPUP_FIELDS,
     fixedTitle: config.fixedTitle || "",
     titleFallback: config.titleFallback || "Initiative",
@@ -1675,10 +1679,9 @@ const SR6_ROLL_DEFINITIONS_MAGIC = [
     matchPoolPrefix: "sr6_magic_spruchzauberei",
     titleMode: "fixed",
     primaryFields: ["Zauber"],
-    extraFields: ["Art", "Reichweite", "Dauer", "Entzug", "Schaden", "Notiz"],
-    templateVariant: "spell",
+    extraFields: ["Art", "Reichweite", "Typ", "Dauer", "Widerstand", "Entzug", "Schadenstyp", "Notiz"],
     contextFields: [
-      { label: "Entzugwiderstand", attr: "sr6_magic_entzug_widerstand" },
+      { label: "Entzugswiderstand", attr: "sr6_magic_entzug_widerstand" },
     ],
     fixedTitle: "Spruchzauberei",
     popupFields: createSpellPopupFields(),
@@ -1718,6 +1721,15 @@ const SR6_ROLL_DEFINITIONS_MAGIC = [
       comparisonContextSourceAttr: "sr6_magic_astralkampf_verteidigungswert",
       fixedTitle: "Astraler Schadenswiderstand",
       titleFallback: "Magie: Kernwerte",
+    }),
+  },
+{
+    id: "magic_drain_resistance",
+    ...createValueProbeDefinition({
+      matchField: "",
+      matchPoolPrefix: "sr6_magic_entzug_widerstand",
+      fixedTitle: "Entzugswiderstand",
+      titleFallback: "Entzugswiderstand",
     }),
   },
 {
@@ -1927,6 +1939,16 @@ const SR6_ROLL_DEFINITIONS_RIGGING = [
 
 // BEGIN MODULE: workers/rolls/definitions/combat.js
 // Roll-Definitionen fuer Kampf: Kernwerte, Waffenangriffe, Verteidigung, Schadenswiderstand und Kampfvergleichswerte.
+function createCombatCoreAttackValueSourceByRange(prefix) {
+  return {
+    "S. Nah": `${prefix}_sehr_nah`,
+    "Nah": `${prefix}_nah`,
+    "Mittel": `${prefix}_mittel`,
+    "Weit": `${prefix}_weit`,
+    "S. Weit": `${prefix}_sehr_weit`,
+  };
+}
+
 const SR6_ROLL_DEFINITIONS_COMBAT = [
 {
     id: "combat_ranged_core_attack",
@@ -1935,19 +1957,25 @@ const SR6_ROLL_DEFINITIONS_COMBAT = [
     matchPoolPrefix: "sr6_combat_fernkampfangriff",
     titleMode: "field-short",
     titleField: "Fertigkeit",
-    primaryFields: ["Wert"],
-    extraFields: [],
+    primaryFields: ["Waffe", "Wert"],
+    extraFields: ["Fertigkeit", "Waffentyp", "Schadenswert", "Munition", "Modus", "Reichweite"],
     templateVariant: "weapon",
     contextFields: [
       { label: "Waffe", attr: "sr6_combat_primaere_fernkampfwaffe" },
       { label: "Fertigkeit", attr: "sr6_combat_fernkampf_fertigkeit" },
+      { label: "Waffentyp", attr: "sr6_combat_fernkampf_waffentyp" },
       { label: "Munition", attr: "sr6_combat_munition" },
+      { label: "Modus", attr: "sr6_combat_fernkampf_modus" },
       { label: "Schadenswert", attr: "sr6_combat_fernkampf_schaden" },
     ],
     fixedTitle: "Fernkampfangriff",
     popupFields: SR6_COMBAT_TAB_POPUP_FIELDS,
     popupDerivedResults: [
-      { kind: "attack_value", label: "Angriffswert", source: "pool" },
+      {
+        kind: "attack_value",
+        label: "Angriffswert",
+        sourceByRange: createCombatCoreAttackValueSourceByRange("sr6_combat_fernkampf"),
+      },
       { kind: "damage", label: "Schaden", sourceAttr: "sr6_combat_fernkampf_schaden" },
     ],
     titleFallback: "Kampf",
@@ -1959,8 +1987,8 @@ const SR6_ROLL_DEFINITIONS_COMBAT = [
     matchPoolPrefix: "sr6_combat_nahkampfangriff",
     titleMode: "field-short",
     titleField: "Fertigkeit",
-    primaryFields: ["Wert"],
-    extraFields: [],
+    primaryFields: ["Waffe", "Wert"],
+    extraFields: ["Fertigkeit", "Attribut", "Waffentyp", "Schadenswert", "Schadenstyp", "Reichweite"],
     templateVariant: "weapon",
     contextFields: [
       { label: "Waffe", attr: "sr6_combat_primaere_nahkampfwaffe" },
@@ -1978,7 +2006,11 @@ const SR6_ROLL_DEFINITIONS_COMBAT = [
     popupPoolAttributeOverride: "melee_attribute",
     internalFields: ["Geschicklichkeit-Wert", "Stärke-Wert"],
     popupDerivedResults: [
-      { kind: "attack_value", label: "Angriffswert", source: "pool" },
+      {
+        kind: "attack_value",
+        label: "Angriffswert",
+        sourceByRange: createCombatCoreAttackValueSourceByRange("sr6_combat_nahkampf"),
+      },
       { kind: "damage", label: "Schaden", sourceAttr: "sr6_combat_nahkampf_schaden" },
     ],
     titleFallback: "Kampf",
@@ -2347,17 +2379,84 @@ function resolveSkillProbeAttributeOption(definition, selectedValue) {
   return options.find((option) => option.value === normalizedValue) || options[0];
 }
 
+function getMatrixLikeDefenseAdditionalAttributes(definition) {
+  const definitionId = definition && definition.id;
+  const matrixDefenseIds = [
+    "matrix_defense",
+    "matrix_damage_resistance",
+    "matrix_biofeedback_damage_resistance",
+  ];
+  const riggingDefenseIds = [
+    "rigging_matrix_defense",
+    "rigging_matrix_damage_resistance",
+    "rigging_biofeedback_damage_resistance",
+  ];
+
+  if (matrixDefenseIds.includes(definitionId)) {
+    return [
+      "sr6_matrix_datenverarbeitung",
+      "sr6_matrix_firewall",
+      "sr6_matrix_verteidigungswert_modifikator",
+      "sr6_matrix_verteidigungswert",
+    ];
+  }
+  if (riggingDefenseIds.includes(definitionId)) {
+    return [
+      "sr6_rigging_datenverarbeitung",
+      "sr6_rigging_firewall",
+      "sr6_rigging_verteidigungswert_modifikator",
+      "sr6_rigging_verteidigungswert",
+    ];
+  }
+  return [];
+}
+
 function getRollAdditionalAttributes(definition) {
+  const attributeBaseAttributes = SR6_ATTRIBUTES.map((attributeKey) => `sr6_attr_${attributeKey}_grundwert`);
+  const attributeModifierAttributes = SR6_ATTRIBUTES.map((attributeKey) => `sr6_attr_${attributeKey}_modifikator`);
+  const attributeTotalAttributes = SR6_ATTRIBUTES.map((attributeKey) => `sr6_attr_${attributeKey}_gesamtwert`);
   const skillBaseAttributes = SR6_SKILLS.map((skillKey) => `sr6_skill_${skillKey}_grundwert`);
-  const attributes = ["sr6_attr_edge_gesamtwert", ...skillBaseAttributes, ...getMagicRollAdditionalAttributes(definition)];
+  const skillModifierAttributes = SR6_SKILLS.map((skillKey) => `sr6_skill_${skillKey}_modifikator`);
+  const skillTotalAttributes = SR6_SKILLS.map((skillKey) => `sr6_skill_${skillKey}_gesamtwert`);
+  const attributes = [
+    ...attributeBaseAttributes,
+    ...attributeModifierAttributes,
+    ...attributeTotalAttributes,
+    ...skillBaseAttributes,
+    ...skillModifierAttributes,
+    ...skillTotalAttributes,
+    ...getMagicRollAdditionalAttributes(definition),
+    ...getMatrixLikeDefenseAdditionalAttributes(definition),
+  ];
   getSkillProbeAttributeOptions(definition).forEach((option) => {
-    if (option && option.attr) attributes.push(option.attr);
+    if (!option || !option.attr) return;
+    attributes.push(option.attr);
+    const attributeMatch = option.attr.match(/^sr6_attr_(.+)_gesamtwert$/);
+    if (attributeMatch) {
+      attributes.push(`sr6_attr_${attributeMatch[1]}_grundwert`);
+      attributes.push(`sr6_attr_${attributeMatch[1]}_modifikator`);
+    }
   });
   if (definition && definition.id === "equipment") {
     attributes.push(...getEquipmentSourceAttributeRefs());
   }
   if (definition && definition.id === "rigging_vehicle") {
     attributes.push(...SR6_RIGGING_VEHICLE_ROLL_ATTRIBUTES);
+  }
+  if (definition && [
+    "physical_defense",
+    "physical_damage_resistance",
+    "general_defense",
+    "general_damage_resistance",
+  ].includes(definition.id)) {
+    attributes.push(
+      "sr6_combat_primaere_panzerung",
+      "sr6_combat_sekundaere_panzerung",
+      "sr6_combat_helm",
+      "sr6_combat_schild",
+      "sr6_combat_verteidigungswert_modifikator",
+      "sr6_combat_verteidigungswert_gesamtwert"
+    );
   }
   if (definition && definition.id === "matrix_action") {
     return [...new Set([...attributes, ...getMatrixActionRuleAttributeRefs(), ...getMatrixActionSelectionAttributeRefs()])];
@@ -2498,6 +2597,7 @@ function buildPopupStateFromValues(values, definition, poolAttribute) {
   const popupFields = getRollPopupFields(definition, poolAttribute);
   const popupRows = [];
   const selectedValues = {};
+  const combatSkillBonusIsInformational = typeof isComputedCombatPoolDefinition === "function" && isComputedCombatPoolDefinition(definition);
   let poolMod = 0;
   let attackValueMod = 0;
   let damageMod = 0;
@@ -2541,6 +2641,9 @@ function buildPopupStateFromValues(values, definition, poolAttribute) {
       : field.affects
         ? [field.affects]
         : [];
+    const skillBonusIsInformational =
+      combatSkillBonusIsInformational &&
+      (field.id === "specialization" || field.id === "expertise");
     const affectMultipliers = field && field.affectMultipliers && typeof field.affectMultipliers === "object"
       ? field.affectMultipliers
       : {};
@@ -2554,7 +2657,7 @@ function buildPopupStateFromValues(values, definition, poolAttribute) {
       selectedValues[field.id] = normalizedValue;
     }
 
-    if (affects.includes("pool")) {
+    if (affects.includes("pool") && !skillBonusIsInformational) {
       poolMod += isNumberField
         ? numericBaseValue * (parseNumber(affectMultipliers.pool) || 1)
         : isCheckboxField
@@ -2606,6 +2709,7 @@ function buildPopupStateFromValues(values, definition, poolAttribute) {
       popupRows.push({
         label: field.label,
         value: displayValue,
+        ignorePoolFormula: skillBonusIsInformational,
       });
     }
 
@@ -2749,6 +2853,21 @@ function buildPopupPrefillPayload(definition, poolAttribute, repeatingRowPrefix,
       payload[getPopupFieldValueAttr(field, index)] = "1";
     }
   });
+
+  if (typeof resolveComputedCombatPopupSkillBonusState === "function") {
+    const combatSkillBonusState = resolveComputedCombatPopupSkillBonusState(definition, resolvedTemplateFields, lookupAttr);
+    if (combatSkillBonusState) {
+      popupFields.forEach((field, index) => {
+        if (!fieldMatchesPopupVisibility(field, resolvedTemplateFields)) return;
+        if (field.id === "specialization") {
+          payload[getPopupFieldValueAttr(field, index)] = combatSkillBonusState.specializationActive ? "1" : "0";
+        }
+        if (field.id === "expertise") {
+          payload[getPopupFieldValueAttr(field, index)] = combatSkillBonusState.expertiseActive ? "1" : "0";
+        }
+      });
+    }
+  }
 
   return payload;
 }
@@ -2901,6 +3020,47 @@ function getRollModifierAttribute(poolAttribute) {
   return poolAttribute ? `${poolAttribute}_roll_modifikator` : "";
 }
 
+function appendPoolComponentAttributeRefs(attributeRefs, poolAttribute) {
+  if (!poolAttribute) return;
+  const attributeMatch = poolAttribute.match(/^sr6_attr_(.+)_gesamtwert$/);
+  if (attributeMatch) {
+    attributeRefs.push(`sr6_attr_${attributeMatch[1]}_grundwert`);
+    attributeRefs.push(`sr6_attr_${attributeMatch[1]}_modifikator`);
+  }
+
+  const skillMatch = poolAttribute.match(/^sr6_skill_(.+)_gesamtwert$/);
+  if (skillMatch) {
+    attributeRefs.push(`sr6_skill_${skillMatch[1]}_grundwert`);
+    attributeRefs.push(`sr6_skill_${skillMatch[1]}_modifikator`);
+  }
+}
+
+function appendComputedCombatPoolAttributeRefs(attributeRefs, definition) {
+  if (!definition || definition.probeModel !== "combat_attack_probe") return;
+
+  [
+    "geschicklichkeit",
+    "staerke",
+  ].forEach((attributeKey) => {
+    attributeRefs.push(`sr6_attr_${attributeKey}_grundwert`);
+    attributeRefs.push(`sr6_attr_${attributeKey}_modifikator`);
+    attributeRefs.push(`sr6_attr_${attributeKey}_gesamtwert`);
+  });
+
+  [
+    "athletik",
+    "exotische_waffen",
+    "feuerwaffen",
+    "nahkampf",
+  ].forEach((skillKey) => {
+    attributeRefs.push(`sr6_skill_${skillKey}_grundwert`);
+    attributeRefs.push(`sr6_skill_${skillKey}_modifikator`);
+    attributeRefs.push(`sr6_skill_${skillKey}_gesamtwert`);
+    attributeRefs.push(`sr6_skill_${skillKey}_spezialisierung`);
+    attributeRefs.push(`sr6_skill_${skillKey}_expertise`);
+  });
+}
+
 function buildRequestedAttributes(rawTemplate, repeatingRowPrefix) {
   const fields = parseTemplateFields(rawTemplate);
   const poolAttribute = parsePoolAttributeFromFields(fields);
@@ -2908,10 +3068,13 @@ function buildRequestedAttributes(rawTemplate, repeatingRowPrefix) {
   const attributeRefs = collectAttributeReferences(rawTemplate);
 
   attributeRefs.push("character_id");
+  attributeRefs.push("sr6_setting_rolltemplate_debug");
 
   if (poolAttribute && !attributeRefs.includes(poolAttribute)) {
     attributeRefs.push(poolAttribute);
   }
+  appendPoolComponentAttributeRefs(attributeRefs, poolAttribute);
+  appendComputedCombatPoolAttributeRefs(attributeRefs, definition);
 
   if (poolAttribute) {
     attributeRefs.push("sr6_monitor_pool_mod");
@@ -2951,27 +3114,48 @@ function buildRequestedAttributes(rawTemplate, repeatingRowPrefix) {
 // END MODULE: workers/rolls/context
 
 // BEGIN MODULE: workers/rolls/display
-// Wandelt berechnete Wuerfe in Rolltemplate-Felder um, inklusive farbiger Detailwuerfel und spezieller Template-Varianten.
+// Wandelt berechnete Wuerfe in das gemeinsame sr6probe-Rolltemplate um.
 function buildDiceDetails(diceResults) {
   return Array.isArray(diceResults) ? diceResults.join(" + ") : "";
 }
 
-function buildDetailsDice(diceResults, fateDiceResults = [], maxDice = 20) {
+function buildDetailsDice(diceResults, fateDiceResults = [], maxDice = 20, diceTrace = []) {
   if (!Array.isArray(diceResults)) return [];
 
   const fateCount = Array.isArray(fateDiceResults) ? fateDiceResults.length : 0;
   const fateStartIndex = Math.max(0, diceResults.length - fateCount);
+  const trace = Array.isArray(diceTrace) ? diceTrace : [];
+  const hasTrace = trace.length > 0;
 
-  return diceResults.slice(0, maxDice).map((die, index) => {
+  const detailsDice = diceResults.map((die, index) => {
+    const tracedDie = trace[index] || {};
     let tone = "neutral";
     if (die === 1) tone = "fail";
     if (die >= 5) tone = "success";
     return {
       value: `${die}`,
       tone: tone,
-      isFate: fateCount > 0 && index >= fateStartIndex,
+      isFate: hasTrace ? !!tracedDie.isFate : (fateCount > 0 && index >= fateStartIndex),
+      isExploded: !!tracedDie.isExploded,
+      isFateExplosion: !!tracedDie.isFateExplosion,
     };
   });
+  const regularDice = detailsDice.filter((die) => !die.isFate && !die.isFateExplosion);
+  const fateDice = detailsDice.filter((die) => die.isFate || die.isFateExplosion);
+  const visibleFateDice = fateDice.slice(-maxDice);
+  const regularLimit = Math.max(0, maxDice - visibleFateDice.length);
+
+  return [...regularDice.slice(0, regularLimit), ...visibleFateDice];
+}
+
+function buildNeutralDetailsDice(diceResults, maxDice = 20) {
+  if (!Array.isArray(diceResults)) return [];
+
+  return diceResults.slice(0, maxDice).map((die) => ({
+    value: `${die}`,
+    tone: "neutral",
+    isFate: false,
+  }));
 }
 
 function appendDetailsDiceTemplateFields(parts, detailsDice) {
@@ -2982,7 +3166,9 @@ function appendDetailsDiceTemplateFields(parts, detailsDice) {
     const tone = die.tone || "neutral";
     parts.push(`{{d${dieIndex}_v=${die.value}}}`);
     if (die.isFate) {
-      parts.push(`{{d${dieIndex}_fate=1}}`);
+      parts.push(`{{d${dieIndex}_${die.isExploded ? "fate_exploded" : "fate"}=1}}`);
+    } else if (die.isExploded) {
+      parts.push(`{{d${dieIndex}_${tone}_exploded=1}}`);
     } else {
       parts.push(`{{d${dieIndex}_${tone}=1}}`);
     }
@@ -3033,11 +3219,7 @@ function buildProbeRows(resolvedFields, definition) {
     rows.push({ label: key, value: resolvedFields[key] });
   });
 
-  if (hasWeaponTemplateVariant(definition)) {
-    return rows;
-  }
-
-  return rows.slice(0, 4);
+  return rows;
 }
 
 function getShortLabelValue(value) {
@@ -3074,220 +3256,1219 @@ function deriveProbeTitle(resolvedFields, poolAttribute, definition) {
   return "Probe";
 }
 
-function hasWeaponTemplateVariant(definition) {
-  return !!(definition && definition.templateVariant === "weapon");
+function getSubjectFieldLabel(resolvedFields, definition) {
+  const fields = resolvedFields || {};
+  const primaryFields = definition && Array.isArray(definition.primaryFields)
+    ? definition.primaryFields
+    : [];
+  const candidates = [
+    ...primaryFields,
+    "Waffe",
+    "Zauber",
+    "Geist",
+    "Handlung",
+    "Fahrzeug",
+    "Gerät",
+    "Geraet",
+    "Ausrüstung",
+    "Fertigkeit",
+    "Attributsprobe",
+    "Attribut",
+    "Wert",
+    "Probe",
+  ];
+
+  for (let index = 0; index < candidates.length; index += 1) {
+    const label = candidates[index];
+    if (fields[label]) return label;
+  }
+
+  if (definition && definition.matchField && fields[definition.matchField]) {
+    return definition.matchField;
+  }
+
+  return "Name";
 }
 
-function hasSpellTemplateVariant(definition) {
-  return !!(definition && definition.templateVariant === "spell");
+function normalizeSubjectLabel(label) {
+  if (label === "Geraet") return "Gerät";
+  if (label === "Fahrzeug") return "Gerät";
+  if (label === "Attributsprobe") return "Handlung";
+  return label || "Name";
 }
 
-function findLastRowValue(rows, label) {
+function getSubjectValue(resolvedFields, subjectFieldLabel, title) {
+  const fields = resolvedFields || {};
+  const value = fields[subjectFieldLabel] || "";
+  if (value) return value;
+  return getShortLabelValue(title || "Probe") || "Probe";
+}
+
+function shouldIncludeCalcDetailRow(row, subjectFieldLabel) {
+  if (!row || !row.label) return false;
+  const value = `${row.value || ""}`.trim();
+  if (!value) return false;
+  if (row.label === subjectFieldLabel) return false;
+  if (row.label === "name" || row.label === "Pool" || row.label === "Erfolge" || row.label === "Details") return false;
+  if (row.label === "Popup-Modifikator" && parseNumber(value) === 0) return false;
+  return true;
+}
+
+function formatDebugModifier(value) {
+  const numberValue = parseNumber(value);
+  return numberValue > 0 ? `+${numberValue}` : `${numberValue}`;
+}
+
+function appendDebugRow(rows, label, value) {
+  if (value === undefined || value === null || `${value}` === "") return;
+  rows.push({ label: label, value: `${value}` });
+}
+
+function appendNonZeroDebugModifierRow(rows, label, value) {
+  if (parseNumber(value) === 0) return;
+  appendDebugRow(rows, label, formatDebugModifier(value));
+}
+
+function findLastDetailRowValue(rows, label) {
+  if (!Array.isArray(rows)) return "";
   for (let index = rows.length - 1; index >= 0; index -= 1) {
-    if (rows[index] && rows[index].label === label) {
-      return `${rows[index].value}`;
+    const row = rows[index];
+    if (row && row.label === label) {
+      return `${row.value || ""}`.trim();
     }
   }
   return "";
 }
 
-function findAllRowValues(rows, label) {
-  return rows
-    .filter((row) => row && row.label === label)
-    .map((row) => `${row.value}`);
+function parsePoolComponentValue(row) {
+  const value = `${row && row.value !== undefined && row.value !== null ? row.value : ""}`.trim();
+  if (!value) return 0;
+  if (row && row.label === "Ungeübt") {
+    const match = value.match(/[-+]?\d+/g);
+    return match && match.length > 0 ? parseNumber(match[match.length - 1]) : 0;
+  }
+  return parseNumber(value);
 }
 
-function isWeaponPresentationWhipContext(resolvedFields, rows) {
-  const candidates = [
-    resolvedFields && resolvedFields.Waffentyp,
-    findLastRowValue(rows, "Waffentyp"),
+function getLanguageLevelBonusFromRows(rows) {
+  const languageLevelRow = (Array.isArray(rows) ? rows : []).find((row) => row && row.label === "Sprachniveau");
+  const languageLevel = `${languageLevelRow && languageLevelRow.value ? languageLevelRow.value : ""}`.trim();
+  const bonusMatch = languageLevel.match(/\(([+-]?\d+)\)/);
+  return bonusMatch ? parseNumber(bonusMatch[1]) : 0;
+}
+
+function isPoolBonusComponent(row, poolBonusLabels) {
+  if (!row) return false;
+  if (row.ignorePoolFormula) return false;
+  if (row.poolComponent) return true;
+  if (!poolBonusLabels.has(row.label)) return false;
+  const value = `${row.value === undefined || row.value === null ? "" : row.value}`.trim();
+  if (row.label === "Ungeübt") return /[-+]?\d+/.test(value);
+  return /^[-+]?\d+/.test(value);
+}
+
+function collectPoolBasisComponents(rows) {
+  const detailRows = Array.isArray(rows) ? rows : [];
+  const poolBonusLabels = new Set(["Spezialisierung", "Expertise", "Spezialisierung/Expertise", "Ungeübt", "Sprachbonus"]);
+  let markedComponents = [
+    ...detailRows.filter((row) => row && row.poolComponent),
+    ...detailRows.filter((row) => row && !row.poolComponent && isPoolBonusComponent(row, poolBonusLabels)),
+  ]
+    .filter((row) => `${row.value === undefined || row.value === null ? "" : row.value}`.trim() !== "")
+    .map((row) => parsePoolComponentValue(row));
+  const languageLevelBonus = getLanguageLevelBonusFromRows(detailRows);
+  if (languageLevelBonus !== 0 && !detailRows.some((row) => row && row.label === "Sprachbonus")) {
+    markedComponents.push(languageLevelBonus);
+  }
+
+  if (markedComponents.length > 0) {
+    return markedComponents;
+  }
+
+  const componentLabels = [
+    "Attributwert Basis",
+    "Attributwert Modifikator",
+    "Fertigkeitswert Basis",
+    "Fertigkeitswert Modifikator",
+    "Spezialisierung",
+    "Expertise",
+    "Ungeübt",
+    "Basis",
+    "Modifikator",
   ];
 
-  return candidates.some((value) => normalizeCombatSpecializationName(value) === normalizeCombatSpecializationName("Peitschen"));
+  const fallbackComponents = componentLabels
+    .map((label) => findLastDetailRowValue(detailRows, label))
+    .filter((value) => value !== "")
+    .map((value) => parseNumber(value));
+  if (languageLevelBonus !== 0 && !detailRows.some((row) => row && row.label === "Sprachbonus")) {
+    fallbackComponents.push(languageLevelBonus);
+  }
+
+  return fallbackComponents;
 }
 
-function resolveWeaponPresentationAttackValue(rows, resolvedFields) {
-  const derivedAttackValue = findLastRowValue(rows, "Angriffswert");
-  if (derivedAttackValue) {
-    return derivedAttackValue;
+function formatPoolFormulaComponent(value, index) {
+  const numberValue = parseNumber(value);
+  if (numberValue < 0) return `- ${Math.abs(numberValue)}`;
+  if (index === 0) return `${numberValue}`;
+  return `+ ${numberValue}`;
+}
+
+function buildPoolFormulaText(components, fallbackValue) {
+  const visibleComponents = (Array.isArray(components) ? components : [])
+    .map((value) => parseNumber(value))
+    .filter((value) => value !== 0);
+
+  if (visibleComponents.length === 0) {
+    return `${parseNumber(fallbackValue)}`;
   }
 
-  if (!isWeaponPresentationWhipContext(resolvedFields, rows)) {
-    return "";
+  return visibleComponents
+    .map((value, index) => formatPoolFormulaComponent(value, index))
+    .join(" ");
+}
+
+function reconcilePoolFormulaComponents(components, poolBasis) {
+  const formulaComponents = Array.isArray(components) ? [...components] : [];
+  if (formulaComponents.length <= 1) return formulaComponents;
+
+  const componentTotal = formulaComponents.reduce((sum, value) => sum + parseNumber(value), 0);
+  const missingComponent = parseNumber(poolBasis) - componentTotal;
+  if (missingComponent !== 0) {
+    formulaComponents.push(missingComponent);
   }
 
-  const baseAttackValue = parseNumber((resolvedFields && resolvedFields.Angriffswert) || findLastRowValue(rows, "Angriffswert-Basis"));
-  const reactionValue = parseNumber(
-    findLastRowValue(rows, "Reaktion-Wert") ||
-    ((resolvedFields && resolvedFields["Reaktion-Wert"]) || 0)
+  return formulaComponents;
+}
+
+function buildComputationDebugRows(computation, sourceRows) {
+  if (!computation || computation.pool === undefined || computation.pool === null) return [];
+
+  const rows = [];
+  const poolBasisRaw = parseNumber(computation.poolBasisRaw);
+  const poolMultiplier = Math.max(1, parseNumber(computation.poolMultiplier) || 1);
+  const poolPreMultiplier = parseNumber(computation.poolPreMultiplier);
+  const poolMultiplierBonus = parseNumber(computation.poolMultiplierBonus);
+  const poolBasis = parseNumber(computation.poolBasis);
+  const monitorPoolMod = parseNumber(computation.monitorPoolMod);
+  const poolPopupMod = parseNumber(computation.poolPopupMod);
+  const poolRollMod = parseNumber(computation.poolRollMod);
+  const edgePoolBonus = parseNumber(computation.edgePoolBonus);
+  const poolBasisComponents = collectPoolBasisComponents(sourceRows);
+  const poolFormulaComponents = reconcilePoolFormulaComponents(
+    poolBasisComponents.length > 1 ? poolBasisComponents : [poolBasisRaw],
+    poolBasisRaw
+  );
+  const poolFormula = buildPoolFormulaText(
+    [
+      ...poolFormulaComponents,
+      monitorPoolMod,
+      poolPopupMod,
+      poolRollMod,
+      edgePoolBonus,
+      poolMultiplierBonus,
+    ],
+    poolBasis
   );
 
-  return `${baseAttackValue + reactionValue}`;
+  appendDebugRow(rows, "Pool-Rechnung", `${poolFormula} = ${parseNumber(computation.pool)}`);
+  appendDebugRow(rows, "Pool-Basis", `${poolBasis}`);
+  if (poolMultiplier !== 1) {
+    appendDebugRow(rows, "Pool-Basis vor Multiplikator", `${poolPreMultiplier}`);
+    appendDebugRow(rows, "Pool-Multiplikator", `x${poolMultiplier}`);
+    appendDebugRow(rows, "Pool-Multiplikator-Bonus", formatDebugModifier(poolMultiplierBonus));
+  }
+  appendNonZeroDebugModifierRow(rows, "Pool-Zustandsmodifikator", monitorPoolMod);
+  appendNonZeroDebugModifierRow(rows, "Pool-Popup-Modifikator", poolPopupMod);
+  appendNonZeroDebugModifierRow(rows, "Pool-Wert-Modifikator", poolRollMod);
+  appendNonZeroDebugModifierRow(rows, "Pool-Edgebonus", edgePoolBonus);
+
+  return rows;
 }
 
-function buildWeaponProbePresentation(payload) {
-  const rows = Array.isArray(payload.rows) ? payload.rows : [];
-  const resolvedFields = payload.resolvedFields || {};
-  const baseAmmo = `${resolvedFields.Munition || ""}`;
-  const popupAmmo = findAllRowValues(rows, "Munition").find((value) => value && value !== baseAmmo) || "";
-  const attribute = findLastRowValue(rows, "Attribut") || `${resolvedFields.Attribut || ""}`;
-  const damageType = findLastRowValue(rows, "Schadenstyp") || `${resolvedFields.Schadenstyp || ""}`;
-  const attackValue = resolveWeaponPresentationAttackValue(rows, resolvedFields);
-  const finalDamage = findLastRowValue(rows, "Schaden") || `${resolvedFields.Schadenswert || ""}`;
-  const baseDamage = `${resolvedFields.Schadenswert || ""}`;
-  const attackValueMod = findLastRowValue(rows, "Angriffswert-Modifikator");
-  const damageMod = findLastRowValue(rows, "Schadens-Modifikator") || findLastRowValue(rows, "Schaden-Modifikator");
-  const attackValueBase = findLastRowValue(rows, "Angriffswert-Basis");
-  const damageBase = findLastRowValue(rows, "Schaden-Basis") || baseDamage;
-  const fireMode = findLastRowValue(rows, "Feuermodus");
-  const fireModeShots = findLastRowValue(rows, "Feuermodus-Schuss");
-  const fireModeAttackValueMod = findLastRowValue(rows, "Feuermodus-Angriffswert");
-  const fireModeDamageMod = findLastRowValue(rows, "Feuermodus-Schaden");
-  const attributeFallback = findLastRowValue(rows, "Attribut-Fallback");
-  const edgeBoost = findLastRowValue(rows, "Edge-Boost");
-  const edgeCost = findLastRowValue(rows, "Edge-Kosten");
-  const edgePoolBonus = findLastRowValue(rows, "Edge-Poolbonus");
-  const fateDice = findLastRowValue(rows, "Schicksalswürfel");
-  const fateDiceRoll = findLastRowValue(rows, "Schicksalswürfel-Wurf");
-  const fateDiceSource = findLastRowValue(rows, "Schicksalswürfel-Quelle");
-  const canceledFives = findLastRowValue(rows, "Normale 5en annulliert");
-  const matrixLoner = findLastRowValue(rows, "Einzelgänger");
-  const edgeReaction = findLastRowValue(rows, "Edge-Reaktion");
-  const extraNotes = [];
-  const calcParts = [];
-  const specialization = findLastRowValue(rows, "Spezialisierung");
-  const expertise = findLastRowValue(rows, "Expertise");
-  const untrained = findLastRowValue(rows, "Ungeübt");
+// Source group labels used to build pool info, context popups, and debug output.
+const SR6_DETAIL_GROUP_TITLES = {
+  combatContext: "Kampfkontext",
+  combatDamage: "Schadensberechnung",
+  munitionHint: "Munitionshinweis",
+  fireMode: "Feuermodus",
+  attackValue: "Angriffswertberechnung",
+  combatDefense: "Verteidigungsberechnung",
+  combatDefenseValue: "Verteidigungswertberechnung",
+  firewall: "Firewallberechnung",
+  matrixAttribute: "Matrixattributberechnung",
+  formula: "Formelberechnung",
+  language: "Sprachberechnung",
+  spellContext: "Zauberkontext",
+  magicDrain: "Magie und Entzug",
+  spellDamage: "Kampfzauber-Schaden",
+  notes: "Notizen",
+  summoning: "Beschwörung",
+  objectResistance: "Objektwiderstand",
+  probeContext: "Probenkontext",
+  defenseContext: "Verteidigungsberechnung",
+  vehicleContext: "Fahrzeugkontext",
+  weaponContext: "Waffenkontext",
+  equipmentContext: "Ausrüstungskontext",
+  attribute: "Attributsberechnung",
+  skill: "Fertigkeitsberechnung",
+  popup: "Popup-Modifikatoren",
+  edgeBoost: "Edge-Boost",
+  fateDice: "Schicksalswürfel",
+  hint: "Hinweis",
+};
 
-  findAllRowValues(rows, "Munitionshinweis").forEach((hint) => {
-    if (!hint || hint.includes("Salvenfeuer und Vollautomatik")) {
-      return;
-    }
-    extraNotes.push(hint);
-  });
-  findAllRowValues(rows, "Feuermodus-Hinweis").forEach((hint) => {
-    if (hint) {
-      extraNotes.push(hint);
-    }
-  });
-  findAllRowValues(rows, "Edge-Hinweis").forEach((hint) => {
-    if (hint) {
-      extraNotes.push(hint);
-    }
-  });
-  findAllRowValues(rows, "Schicksalswürfel-Hinweis").forEach((hint) => {
-    if (hint) {
-      extraNotes.push(hint);
-    }
-  });
+const SR6_POOL_INFO_TITLES = new Set([
+  SR6_DETAIL_GROUP_TITLES.language,
+  SR6_DETAIL_GROUP_TITLES.formula,
+  SR6_DETAIL_GROUP_TITLES.firewall,
+  SR6_DETAIL_GROUP_TITLES.matrixAttribute,
+  SR6_DETAIL_GROUP_TITLES.probeContext,
+  SR6_DETAIL_GROUP_TITLES.equipmentContext,
+  SR6_DETAIL_GROUP_TITLES.attribute,
+  SR6_DETAIL_GROUP_TITLES.skill,
+  SR6_DETAIL_GROUP_TITLES.popup,
+  SR6_DETAIL_GROUP_TITLES.edgeBoost,
+  SR6_DETAIL_GROUP_TITLES.fateDice,
+]);
 
-  if (specialization) {
-    calcParts.push(`Spezialisierung: ${specialization}`);
+const SR6_COMBAT_CONTEXT_LABELS = new Set([
+  "Waffe",
+  "Fertigkeit",
+  "Waffentyp",
+  "Munition",
+  "Modus",
+  "Reichweite",
+  "Schadenswert",
+  "Schadenstyp",
+]);
+const SR6_COMBAT_SKILL_LABELS = new Set([
+  "Fertigkeitswert Basis",
+  "Fertigkeitswert Modifikator",
+  "Fertigkeitswert Gesamtwert",
+  "Spezialisierung Auswahl",
+  "Expertise Auswahl",
+]);
+const SR6_DAMAGE_LABELS = new Set([
+  "Schaden-Basis",
+  "Erfolge auf Schaden",
+  "Feuermodus-Schaden",
+  "Schadens-Modifikator",
+  "Schaden-Modifikator",
+  "Schaden",
+  "Schadenswert",
+  "Schadenstyp",
+]);
+const SR6_ATTACK_VALUE_LABELS = new Set([
+  "Angriffswert-Formel",
+  "Angriffswert-Basis",
+  "Geschicklichkeit-Wert",
+  "Stärke-Wert",
+  "Reaktion-Wert",
+  "Feuermodus-Angriffswert",
+  "Angriffswert-Modifikator",
+  "Angriffswert Kernwert-Modifikator",
+  "Angriffswert Magie",
+  "Angriffswert Traditionsattribut",
+  "Angriffswert Traditionsattribut Wert",
+  "Angriffswert",
+]);
+const SR6_COMBAT_DEFENSE_LABELS = new Set([
+  "Verteidigung",
+  "Reaktion Basis",
+  "Reaktion Modifikator",
+  "Reaktion Gesamtwert",
+  "Intuition Basis",
+  "Intuition Modifikator",
+  "Intuition Gesamtwert",
+]);
+const SR6_COMBAT_DEFENSE_VALUE_LABELS = new Set([
+  "Verteidigungswert",
+  "Verteidigungswert Konstitution Basis",
+  "Verteidigungswert Konstitution Modifikator",
+  "Verteidigungswert Konstitution Gesamtwert",
+  "Verteidigungswert Primäre Panzerung",
+  "Verteidigungswert Sekundäre Panzerung",
+  "Verteidigungswert Helm",
+  "Verteidigungswert Schild",
+  "Verteidigungswert Datenverarbeitung",
+  "Verteidigungswert Firewall",
+  "Verteidigungswert Modifikator",
+  "Verteidigungswert Gesamtwert",
+]);
+const SR6_FIREWALL_LABELS = new Set(["Firewall"]);
+const SR6_ATTRIBUTE_DETAIL_LABELS = new Set([
+  "Konstitution Basis",
+  "Konstitution Modifikator",
+  "Konstitution Gesamtwert",
+  "Geschicklichkeit Basis",
+  "Geschicklichkeit Modifikator",
+  "Geschicklichkeit Gesamtwert",
+  "Reaktion Basis",
+  "Reaktion Modifikator",
+  "Reaktion Gesamtwert",
+  "Stärke Basis",
+  "Stärke Modifikator",
+  "Stärke Gesamtwert",
+  "Willenskraft Basis",
+  "Willenskraft Modifikator",
+  "Willenskraft Gesamtwert",
+  "Logik Basis",
+  "Logik Modifikator",
+  "Logik Gesamtwert",
+  "Intuition Basis",
+  "Intuition Modifikator",
+  "Intuition Gesamtwert",
+  "Charisma Basis",
+  "Charisma Modifikator",
+  "Charisma Gesamtwert",
+  "Edge Basis",
+  "Edge Modifikator",
+  "Edge Gesamtwert",
+  "Magie/Resonanz Basis",
+  "Magie/Resonanz Modifikator",
+  "Magie/Resonanz Gesamtwert",
+]);
+const SR6_SKILL_DETAIL_LABEL_PREFIXES = new Set([
+  "Astral",
+  "Athletik",
+  "Beschwören",
+  "Biotech",
+  "Cracken",
+  "Einfluss",
+  "Elektronik",
+  "Exotische Waffen",
+  "Feuerwaffen",
+  "Heimlichkeit",
+  "Hexerei",
+  "Mechanik",
+  "Nahkampf",
+  "Natur",
+  "Steuern",
+  "Tasken",
+  "Überreden",
+  "Verzaubern",
+  "Wahrnehmung",
+]);
+const SR6_POPUP_DETAIL_LABELS = new Set([
+  "Popup-Modifikator",
+  "Skill-Modifikator",
+  "Spezialisierung",
+  "Expertise",
+  "Spezialisierung/Expertise",
+  "Ungeübt",
+  "Attribut x2",
+  "Stufe x2",
+]);
+const SR6_FATE_DICE_LABELS = new Set([
+  "Schicksalswürfel",
+  "Schicksalswürfel-Wurf",
+  "Schicksalswürfel-Hinweis",
+  "Schicksalswürfel-Quelle",
+  "Schicksalswürfel begrenzt",
+  "Einzelgänger",
+  "Einzelgänger-1 ignoriert",
+  "Annullierende Schicksalswürfel-1en",
+  "Normale 5en annulliert",
+]);
+const SR6_EDGE_BOOST_LABELS = new Set([
+  "Edge-Boost",
+  "Edge-Kosten",
+  "Edge-Poolbonus",
+  "Edge-Hinweis",
+]);
+const SR6_SPELL_CONTEXT_LABELS = new Set(["Art", "Reichweite", "Typ", "Dauer", "Widerstand"]);
+const SR6_MAGIC_DRAIN_LABELS = new Set([
+  "Entzug",
+  "Entzug-Basis",
+  "Fläche Vergrößern-Entzug",
+  "Hochdrehen-Entzug",
+  "Entzug-Modifikator",
+  "Entzugswiderstand",
+  "Entzug-Details",
+  "Entstandener Entzug",
+  "Entzugsschaden",
+]);
+const SR6_SPELL_DAMAGE_LABELS = new Set([
+  "Schaden-Formel",
+  "Schaden-Basis",
+  "Erfolge auf Schaden",
+  "Hochdrehen-Schaden",
+  "Schadens-Modifikator",
+  "Schaden",
+  "Schadenstyp",
+]);
+const SR6_SUMMONING_LABELS = new Set([
+  "Geist",
+  "Typ",
+  "Stufe",
+  "Beschwören-Pool",
+  "Beschwören-Erfolge",
+  "Geist-Pool",
+  "Geist-Erfolge",
+  "Nettoerfolge",
+  "Erhaltene Dienste",
+  "Geist-Details",
+]);
+const SR6_OBJECT_RESISTANCE_LABELS = new Set([
+  "Objektwiderstand-Pool",
+  "Objektwiderstand-Erfolge",
+  "Objektwiderstand-Nettoerfolge",
+  "Objektwiderstand-Details",
+]);
+const SR6_PROBE_CONTEXT_LABELS = new Set(["Probe", "Matrixattribut", "Zugriff", "Overwatch-Modifikator"]);
+const SR6_DEFENSE_CONTEXT_LABELS = new Set(["Verteidigung", "Verteidigungswert"]);
+const SR6_VEHICLE_CONTEXT_LABELS = new Set(["Modus", "Fahrzeug", "Gerät", "Geraet", "Zustandsmonitor", "Riggerkontrolle", "Agentenstufe"]);
+const SR6_WEAPON_CONTEXT_LABELS = new Set(["Installierte Waffe", "Waffentyp", "Angriffswerte (Reichweite)"]);
+const SR6_EQUIPMENT_CONTEXT_LABELS = new Set(["Bezug", "Bezugswert", "Auswahl", "Stufe", "Stufe x2"]);
+
+const SR6_GROUP_TITLE_BY_KEY = {
+  combat_context: SR6_DETAIL_GROUP_TITLES.combatContext,
+  combat_damage: SR6_DETAIL_GROUP_TITLES.combatDamage,
+  munition_hint: SR6_DETAIL_GROUP_TITLES.munitionHint,
+  fire_mode: SR6_DETAIL_GROUP_TITLES.fireMode,
+  combat_attack_value: SR6_DETAIL_GROUP_TITLES.attackValue,
+  combat_defense: SR6_DETAIL_GROUP_TITLES.combatDefense,
+  combat_defense_value: SR6_DETAIL_GROUP_TITLES.combatDefenseValue,
+  firewall: SR6_DETAIL_GROUP_TITLES.firewall,
+  matrix_attribute: SR6_DETAIL_GROUP_TITLES.matrixAttribute,
+  formula: SR6_DETAIL_GROUP_TITLES.formula,
+  language: SR6_DETAIL_GROUP_TITLES.language,
+  spell_context: SR6_DETAIL_GROUP_TITLES.spellContext,
+  magic_drain: SR6_DETAIL_GROUP_TITLES.magicDrain,
+  spell_damage: SR6_DETAIL_GROUP_TITLES.spellDamage,
+  notes: SR6_DETAIL_GROUP_TITLES.notes,
+  summoning: SR6_DETAIL_GROUP_TITLES.summoning,
+  object_resistance: SR6_DETAIL_GROUP_TITLES.objectResistance,
+  probe_context: SR6_DETAIL_GROUP_TITLES.probeContext,
+  defense_context: SR6_DETAIL_GROUP_TITLES.defenseContext,
+  vehicle_context: SR6_DETAIL_GROUP_TITLES.vehicleContext,
+  weapon_context: SR6_DETAIL_GROUP_TITLES.weaponContext,
+  attack_value: SR6_DETAIL_GROUP_TITLES.attackValue,
+  damage: SR6_DETAIL_GROUP_TITLES.combatDamage,
+  equipment_context: SR6_DETAIL_GROUP_TITLES.equipmentContext,
+  attribute: SR6_DETAIL_GROUP_TITLES.attribute,
+  skill: SR6_DETAIL_GROUP_TITLES.skill,
+  popup: SR6_DETAIL_GROUP_TITLES.popup,
+  edge_boost: SR6_DETAIL_GROUP_TITLES.edgeBoost,
+  fate_dice: SR6_DETAIL_GROUP_TITLES.fateDice,
+  hint: SR6_DETAIL_GROUP_TITLES.hint,
+};
+
+function isSkillFormulaDetailLabel(label) {
+  const match = `${label || ""}`.match(/^(.+) (Basis|Modifikator|Gesamtwert)$/);
+  return !!(match && SR6_SKILL_DETAIL_LABEL_PREFIXES.has(match[1]));
+}
+
+function isCombatCalcDetailDefinition(payload) {
+  const definition = payload && payload.definition;
+  const definitionId = `${(payload && payload.definitionId) || (definition && definition.id) || ""}`.trim();
+  const combatDefinitionIds = new Set([
+    "combat_ranged_core_attack",
+    "combat_melee_core_attack",
+    "combat_ranged_weapon",
+    "combat_melee_weapon",
+    "ranged_weapon",
+    "melee_weapon",
+    "weapon",
+    "physical_defense",
+    "physical_damage_resistance",
+    "general_defense",
+    "general_damage_resistance",
+  ]);
+
+  return combatDefinitionIds.has(definitionId) || !!(definition && definition.templateVariant === "weapon");
+}
+
+function isMatrixLikeDefenseDefinition(definition) {
+  return !!(definition && [
+    "matrix_defense",
+    "matrix_damage_resistance",
+    "matrix_biofeedback_damage_resistance",
+    "rigging_matrix_defense",
+    "rigging_matrix_damage_resistance",
+    "rigging_biofeedback_damage_resistance",
+  ].includes(definition.id));
+}
+
+function getCombatCalcDetailSourceGroupKey(label) {
+  if (SR6_COMBAT_CONTEXT_LABELS.has(label)) return "combat_context";
+  if (label === "Attribut" || label.indexOf("Attributwert ") === 0) return "attribute";
+  if (SR6_COMBAT_SKILL_LABELS.has(label)) return "skill";
+  if (SR6_DAMAGE_LABELS.has(label)) return "combat_damage";
+  if (SR6_ATTACK_VALUE_LABELS.has(label)) return "combat_attack_value";
+  if (SR6_COMBAT_DEFENSE_LABELS.has(label)) return "combat_defense";
+  if (SR6_COMBAT_DEFENSE_VALUE_LABELS.has(label)) return "combat_defense_value";
+  if (SR6_ATTRIBUTE_DETAIL_LABELS.has(label)) return "attribute";
+  if (SR6_POPUP_DETAIL_LABELS.has(label)) return "popup";
+  return "";
+}
+
+function getCalcDetailSourceGroupKey(label, subjectFieldLabel, payload) {
+  const definition = payload && payload.definition;
+  const probeModel = definition && definition.probeModel;
+
+  if (isCombatCalcDetailDefinition(payload)) {
+    if (label === "Munitionshinweis") return "munition_hint";
+    if (
+      label === "Feuermodus" ||
+      label === "Feuermodus-Schuss" ||
+      label === "Feuermodus-Hinweis"
+    ) {
+      return "fire_mode";
+    }
+    const combatGroupKey = getCombatCalcDetailSourceGroupKey(label);
+    if (combatGroupKey) return combatGroupKey;
   }
-  if (expertise) {
-    calcParts.push(`Expertise: ${expertise}`);
+
+  if (label === "Sprachniveau") return "language";
+  if (SR6_FIREWALL_LABELS.has(label)) return "firewall";
+  if (label.indexOf("Matrixattribut ") === 0) return "matrix_attribute";
+  if (label.indexOf("Probe ") === 0) return "formula";
+  if (label.indexOf("Verteidigungswert ") === 0) return "combat_defense_value";
+  if (label === "Attributsprobe" || label === "Formel") return "formula";
+  if (probeModel === "spell_probe" && SR6_SPELL_CONTEXT_LABELS.has(label)) {
+    return "spell_context";
   }
-  if (untrained) {
-    calcParts.push(`Ungeübt: ${untrained}`);
+  if (probeModel === "spell_probe" && SR6_SPELL_DAMAGE_LABELS.has(label)) {
+    return "spell_damage";
   }
-  if (attributeFallback) {
-    calcParts.push(`Attribut-Fallback: ${attributeFallback}`);
+  if (
+    (probeModel === "spell_probe" || probeModel === "summoning_probe") &&
+    SR6_MAGIC_DRAIN_LABELS.has(label)
+  ) {
+    return "magic_drain";
   }
-  if (fireMode) {
-    calcParts.push(`Feuermodus: ${fireMode}`);
+  if (label === "Notiz" || label === "Notizen") {
+    return "notes";
   }
-  if (fireModeShots) {
-    calcParts.push(`Schuss: ${fireModeShots}`);
+  if (probeModel === "summoning_probe" && SR6_SUMMONING_LABELS.has(label)) {
+    return "summoning";
   }
-  if (fireModeAttackValueMod) {
-    calcParts.push(`Feuermodus-Angriffswert: ${fireModeAttackValueMod}`);
+  if (probeModel === "summoning_probe" && SR6_OBJECT_RESISTANCE_LABELS.has(label)) {
+    return "object_resistance";
   }
-  if (fireModeDamageMod) {
-    calcParts.push(`Feuermodus-Schaden: ${fireModeDamageMod}`);
+  if (SR6_PROBE_CONTEXT_LABELS.has(label)) {
+    return "probe_context";
   }
-  if (attackValueMod) {
-    calcParts.push(`Angriffswert-Modifikator: ${attackValueMod}`);
+  if (SR6_DEFENSE_CONTEXT_LABELS.has(label)) {
+    return "defense_context";
   }
-  if (damageMod) {
-    calcParts.push(`Schadens-Modifikator: ${damageMod}`);
+  if (probeModel === "rigging_vehicle_probe" && SR6_VEHICLE_CONTEXT_LABELS.has(label)) {
+    return "vehicle_context";
   }
-  const attackValueFormula = findLastRowValue(rows, "Angriffswert-Formel");
-  const reactionValue = findLastRowValue(rows, "Reaktion-Wert") || `${resolvedFields["Reaktion-Wert"] || ""}`;
-  if (attackValueFormula) {
-    calcParts.push(`Angriffswert-Formel: ${attackValueFormula}`);
+  if (probeModel === "rigging_vehicle_probe" && SR6_WEAPON_CONTEXT_LABELS.has(label)) {
+    return "weapon_context";
   }
-  if (attackValueBase) {
-    calcParts.push(`Angriffswert-Basis: ${attackValueBase}`);
+  if (SR6_ATTACK_VALUE_LABELS.has(label)) {
+    return "attack_value";
   }
-  if (reactionValue && isWeaponPresentationWhipContext(resolvedFields, rows)) {
-    calcParts.push(`Reaktion-Wert: ${reactionValue}`);
+  if (SR6_DAMAGE_LABELS.has(label)) {
+    return "damage";
   }
-  if (damageBase) {
-    calcParts.push(`Schaden-Basis: ${damageBase}`);
+  if (probeModel === "equipment_probe" && SR6_EQUIPMENT_CONTEXT_LABELS.has(label)) {
+    return "equipment_context";
   }
-  if (edgeBoost) {
-    calcParts.push(`Edge-Boost: ${edgeBoost}`);
+  if (subjectFieldLabel === "Attribut" && (label === "Basis" || label === "Modifikator" || label === "Gesamtwert")) return "attribute";
+  if (label === "Attribut" || label.indexOf("Attributwert ") === 0) return "attribute";
+  if (SR6_ATTRIBUTE_DETAIL_LABELS.has(label)) return "attribute";
+  if (label === "Fertigkeit") return "skill";
+  if (label.indexOf("Fertigkeitswert ") === 0) return "skill";
+  if (isSkillFormulaDetailLabel(label)) return "skill";
+  if (
+    (probeModel === "spell_probe" || probeModel === "summoning_probe") &&
+    label.indexOf("Magie/Resonanz ") === 0
+  ) {
+    return "attribute";
   }
-  if (edgeCost) {
-    calcParts.push(`Edge-Kosten: ${edgeCost}`);
+  if (probeModel === "spell_probe" && label.indexOf("Hexerei ") === 0) {
+    return "skill";
   }
-  if (edgePoolBonus) {
-    calcParts.push(`Edge-Poolbonus: ${edgePoolBonus}`);
+  if (probeModel === "summoning_probe" && label.indexOf("Beschwören ") === 0) {
+    return "skill";
   }
-  if (fateDice) {
-    calcParts.push(`Schicksalswürfel: ${fateDice}`);
+  if (SR6_FATE_DICE_LABELS.has(label)) {
+    return "fate_dice";
   }
-  if (fateDiceRoll) {
-    calcParts.push(`Schicksalswürfel-Wurf: ${fateDiceRoll}`);
+  if (SR6_EDGE_BOOST_LABELS.has(label)) {
+    return "edge_boost";
   }
-  if (fateDiceSource) {
-    calcParts.push(`Schicksalswürfel-Quelle: ${fateDiceSource}`);
+  if (SR6_POPUP_DETAIL_LABELS.has(label)) {
+    return "popup";
   }
-  if (canceledFives) {
-    calcParts.push(`Normale 5en annulliert: ${canceledFives}`);
+  if (label === "Hinweis" || label.indexOf("-Hinweis") > -1) return "hint";
+  const formulaComponentMatch = label.match(/^(.+) (Basis|Modifikator|Gesamtwert)$/);
+  if (formulaComponentMatch && formulaComponentMatch[1] !== "Pool") {
+    return `component:${formulaComponentMatch[1]}`;
   }
-  if (matrixLoner) {
-    calcParts.push(`Einzelgänger: ${matrixLoner}`);
+  return "general";
+}
+
+function getCalcDetailSourceGroupTitle(groupKey) {
+  if (SR6_GROUP_TITLE_BY_KEY[groupKey]) return SR6_GROUP_TITLE_BY_KEY[groupKey];
+  if (groupKey && groupKey.indexOf("component:") === 0) {
+    return SR6_DETAIL_GROUP_TITLES.formula;
   }
-  if (edgeReaction) {
-    calcParts.push(`Edge-Reaktion: ${edgeReaction}`);
+  return "";
+}
+
+function buildComputationFateDetailEntries(computation) {
+  if (
+    !computation ||
+    (
+      parseNumber(computation.requestedFateDiceCount) <= 0 &&
+      parseNumber(computation.fateDiceCount) <= 0
+    )
+  ) {
+    return [];
   }
+
+  return [
+    `Schicksalswürfel angefordert: ${parseNumber(computation.requestedFateDiceCount)}`,
+    `Schicksalswürfel genutzt: ${parseNumber(computation.fateDiceCount)}`,
+    `Normale Poolwürfel: ${parseNumber(computation.regularPool)}`,
+  ];
+}
+
+function hasLanguageBonusRow(rows) {
+  const sourceRows = Array.isArray(rows) ? rows : [];
+  return sourceRows.some((row) => (
+    row &&
+    row.label === "Sprachbonus" &&
+    parseNumber(row.value) !== 0
+  )) || getLanguageLevelBonusFromRows(sourceRows) !== 0;
+}
+
+function shouldSuppressSourceDetailRow(row) {
+  return row && row.label === "Sprachbonus";
+}
+
+function buildSourceDetailEntry(row, sourceRows, groupKey) {
+  let label = row.label;
+  let value = `${row.value || ""}`.trim();
+  if (label === "Formel" && hasLanguageBonusRow(sourceRows) && value.indexOf("Sprachbonus") === -1) {
+    value = `${value} + Sprachbonus`;
+  }
+  if (label === "Schicksalswürfel-Hinweis") {
+    label = "Hinweis";
+  }
+  if (groupKey === "formula" && label.indexOf("Probe ") === 0) {
+    label = label.replace(/^Probe\s+/, "");
+  }
+  if (groupKey === "combat_defense_value" && label.indexOf("Verteidigungswert ") === 0) {
+    label = label.replace(/^Verteidigungswert\s+/, "");
+  }
+  if (groupKey === "matrix_attribute" && label.indexOf("Matrixattribut ") === 0) {
+    label = label.replace(/^Matrixattribut\s+/, "");
+  }
+  return `${label}: ${value}`;
+}
+
+function appendSourceDetailGroup(groups, group) {
+  if (!group || group.entries.length === 0) return;
+  const title = getCalcDetailSourceGroupTitle(group.key);
+  const details = group.entries.join(", ");
+  const existingGroup = groups.find((sourceGroup) => sourceGroup.title === title);
+  if (existingGroup) {
+    existingGroup.details = `${existingGroup.details}, ${details}`;
+    return;
+  }
+  groups.push({ title, details });
+}
+
+function buildCalcDetailGroups(rows, subjectFieldLabel, payload) {
+  const debugDetails = [];
+  const sourceGroups = [];
+  let currentSourceGroup = null;
+  const seen = new Set();
+  const debugRows = buildComputationDebugRows(payload && payload.computation, rows);
+
+  function appendCalcDetail(row, target) {
+    if (!shouldIncludeCalcDetailRow(row, subjectFieldLabel)) return;
+    const label = row.label;
+    const value = `${row.value || ""}`.trim();
+    const entry = `${label}: ${value}`;
+    if (seen.has(entry)) return;
+    seen.add(entry);
+    target.push(entry);
+  }
+
+  function appendSourceDetail(row) {
+    if (!shouldIncludeCalcDetailRow(row, subjectFieldLabel)) return;
+    if (shouldSuppressSourceDetailRow(row)) return;
+    const label = row.label;
+    const groupKey = getCalcDetailSourceGroupKey(label, subjectFieldLabel, payload);
+    const entry = buildSourceDetailEntry(row, rows, groupKey);
+    const sourceSeenKey = `${groupKey}::${entry}`;
+    if (seen.has(sourceSeenKey)) return;
+    seen.add(sourceSeenKey);
+
+    if (!currentSourceGroup || currentSourceGroup.key !== groupKey) {
+      appendSourceDetailGroup(sourceGroups, currentSourceGroup);
+      currentSourceGroup = { key: groupKey, entries: [] };
+    }
+
+    currentSourceGroup.entries.push(entry);
+  }
+
+  debugRows.forEach((row) => appendCalcDetail(row, debugDetails));
+  (Array.isArray(rows) ? rows : []).forEach((row) => appendSourceDetail(row));
+  appendSourceDetailGroup(sourceGroups, currentSourceGroup);
+  appendSourceDetailGroup(sourceGroups, {
+    key: "fate_dice",
+    entries: buildComputationFateDetailEntries(payload && payload.computation),
+  });
 
   return {
-    weaponLayout: true,
-    weapon: `${resolvedFields.Waffe || ""}`,
-    attribute: attribute,
-    attackValue: `${attackValue || ""}`,
-    ammo: popupAmmo || baseAmmo,
-    range: `${resolvedFields.Reichweite || ""}`,
-    damageSummary: finalDamage
-      ? damageType
-        ? `<strong>${finalDamage}</strong>, Schadenstyp: ${damageType}`
-        : `<strong>${finalDamage}</strong>`
-      : "",
-    extraRows: extraNotes.join("<br>"),
-    calcRows: calcParts.join(" | "),
+    summary: debugDetails.join(", "),
+    sourceGroups: sourceGroups,
   };
 }
 
-function buildSpellProbePresentation(payload) {
-  const resolvedFields = payload.resolvedFields || {};
-  const spellType = `${resolvedFields.Art || ""}`;
-  const isCombatSpell = spellType === "Kampf";
-  const spellDamage = `${payload.spellDamage || ""}`;
+function appendCalcDetailsGroupTemplateFields(parts, prefix, group) {
+  if (!group || !group.details) return;
+  parts.push(`{{${prefix}_title=${group.title || "Details"}}}`);
+  parts.push(`{{${prefix}=${group.details}}}`);
+}
+
+function appendPoolInfoGroupTemplateFields(parts, sourceGroups) {
+  if (!Array.isArray(sourceGroups) || sourceGroups.length === 0) return;
+
+  appendCalcDetailsGroupTemplateFields(parts, "pool_info_sources", sourceGroups[0]);
+  appendCalcDetailsGroupTemplateFields(parts, "pool_info_sources_2", sourceGroups[1]);
+  appendCalcDetailsGroupTemplateFields(parts, "pool_info_sources_3", sourceGroups[2]);
+  appendCalcDetailsGroupTemplateFields(parts, "pool_info_sources_4", sourceGroups[3]);
+  appendCalcDetailsGroupTemplateFields(parts, "pool_info_sources_5", sourceGroups[4]);
+}
+
+function getLastRowValue(rows, label) {
+  if (!Array.isArray(rows)) return "";
+  for (let index = rows.length - 1; index >= 0; index -= 1) {
+    const row = rows[index];
+    if (row && row.label === label) {
+      return `${row.value || ""}`.trim();
+    }
+  }
+  return "";
+}
+
+function isCombatWeaponContextDefinition(payload) {
+  const definition = payload && payload.definition;
+  const definitionId = `${(payload && payload.definitionId) || (definition && definition.id) || ""}`.trim();
+  return (
+    definitionId === "ranged_weapon" ||
+    definitionId === "melee_weapon" ||
+    definitionId === "combat_ranged_core_attack" ||
+    definitionId === "combat_melee_core_attack" ||
+    definitionId === "combat_ranged_weapon" ||
+    definitionId === "combat_melee_weapon"
+  );
+}
+
+function getVisibleCombatDamageType(rows) {
+  const explicitType = getLastRowValue(rows, "Schadenstyp");
+  if (explicitType) return explicitType;
+
+  const ammunition = getLastRowValue(rows, "Munition");
+  if (ammunition === "Schocker") return "Betäubung (elektrisch)";
+  if (ammunition === "Gel") return "Betäubung";
+
+  return "Körperlich";
+}
+
+function getVisibleCombatDamageValue(rows) {
+  const damage = getLastRowValue(rows, "Schaden") || getLastRowValue(rows, "Schadenswert");
+  if (!damage) return "";
+
+  const damageType = getVisibleCombatDamageType(rows);
+  return damageType ? `${damage} ${damageType}` : damage;
+}
+
+function getSourceGroupByTitle(sourceGroups, title) {
+  if (!Array.isArray(sourceGroups) || !title) return null;
+  return sourceGroups.find((group) => group && group.title === title) || null;
+}
+
+function getSourceGroupsByTitle(sourceGroups, titles, usedTitles) {
+  const used = usedTitles || new Set();
+  return (Array.isArray(titles) ? titles : []).reduce((groups, title) => {
+    if (!title || used.has(title)) return groups;
+    const group = getSourceGroupByTitle(sourceGroups, title);
+    if (!group || !group.details) return groups;
+    used.add(title);
+    groups.push(group);
+    return groups;
+  }, []);
+}
+
+function buildContextRowsFromLabels(rows, labels, sourceGroups, infoTitleMap = {}, options = {}) {
+  const sharedInfoTitles = options.dedupeInfoTitles ? new Set() : null;
+  const valueByLabel = options.valueByLabel || {};
+  const separatorBeforeLabels = new Set(options.separatorBeforeLabels || []);
+  const allowEmptyLabels = new Set(options.allowEmptyLabels || []);
+
+  return (Array.isArray(labels) ? labels : []).reduce((contextRows, label) => {
+    const value = valueByLabel[label] !== undefined
+      ? `${valueByLabel[label] || ""}`
+      : getLastRowValue(rows, label);
+    if (!`${value || ""}`.trim() && !allowEmptyLabels.has(label)) return contextRows;
+    contextRows.push({
+      label: label,
+      value: value,
+      separatorBefore: separatorBeforeLabels.has(label),
+      infoGroups: getSourceGroupsByTitle(sourceGroups, infoTitleMap[label] || [], sharedInfoTitles || new Set()),
+    });
+    return contextRows;
+  }, []);
+}
+
+function appendAutomaticNoteContextRow(contextRows, rows, sourceGroups) {
+  const resolvedContextRows = Array.isArray(contextRows) ? [...contextRows] : [];
+  const hasNoteRow = resolvedContextRows.some((row) => row && row.label === "Notiz");
+  const noteValue = getLastRowValue(rows, "Notiz") || getLastRowValue(rows, "Notizen");
+  if (hasNoteRow || !noteValue) return resolvedContextRows;
+
+  resolvedContextRows.push({
+    label: "Notiz",
+    value: " ",
+    separatorBefore: true,
+    infoGroups: getSourceGroupsByTitle(sourceGroups, [SR6_DETAIL_GROUP_TITLES.notes], new Set()),
+  });
+  return resolvedContextRows;
+}
+
+function appendContextRowsTemplateFields(parts, contextRows) {
+  if (contextRows.length === 0) return;
+
+  contextRows.slice(0, 9).forEach((row, index) => {
+    const rowIndex = index + 1;
+    const infoGroups = Array.isArray(row.infoGroups) ? row.infoGroups : [];
+    parts.push(`{{context_${rowIndex}_label=${row.label}}}`);
+    parts.push(`{{context_${rowIndex}_value=${row.value}}}`);
+    if (row.separatorBefore) {
+      parts.push(`{{context_${rowIndex}_separator=1}}`);
+    }
+    if (infoGroups.length > 0) {
+      parts.push(`{{context_${rowIndex}_info_title=${infoGroups[0].title}}}`);
+      parts.push(`{{context_${rowIndex}_info=${infoGroups[0].details}}}`);
+    }
+    if (infoGroups.length > 1) {
+      parts.push(`{{context_${rowIndex}_info_2_title=${infoGroups[1].title}}}`);
+      parts.push(`{{context_${rowIndex}_info_2=${infoGroups[1].details}}}`);
+    }
+  });
+}
+
+function getPoolInfoGroups(sourceGroups) {
+  return (Array.isArray(sourceGroups) ? sourceGroups : []).filter((group) => group && SR6_POOL_INFO_TITLES.has(group.title));
+}
+
+function buildDefaultProbeView(payload, name, subjectFieldLabel, subjectLabel, subject, calcDetailGroups) {
+  return {
+    suppressSubject: !!(payload && payload.suppressSubject),
+    subject: { label: subjectLabel, value: subject },
+    poolInfo: getPoolInfoGroups(calcDetailGroups.sourceGroups),
+    contextRows: [],
+    resultLabel: (payload && payload.resultLabel) || "Ergebnis",
+    resultValue: payload && payload.resultValue,
+    debugGroups: calcDetailGroups.sourceGroups,
+  };
+}
+
+function buildInitiativeView(payload, name, subjectFieldLabel, subjectLabel, subject, calcDetailGroups) {
+  const initiativeGroup = calcDetailGroups.sourceGroups.find((group) => group && group.title === "") ||
+    calcDetailGroups.sourceGroups.find((group) => group && group.title === "Details") ||
+    calcDetailGroups.sourceGroups.find((group) => group && group.details);
+  const poolInfo = initiativeGroup ? [{ title: "Initiative", details: initiativeGroup.details }] : [];
 
   return {
-    spell: `${resolvedFields.Zauber || ""}`,
-    attackValue: isCombatSpell ? `${payload.spellAttackValue || resolvedFields.Angriffswert || ""}` : "",
-    art: spellType,
-    range: `${resolvedFields.Reichweite || ""}`,
-    duration: `${resolvedFields.Dauer || ""}`,
-    damage: isCombatSpell ? spellDamage : "",
-    notes: `${resolvedFields.Notiz || ""}`,
-    drainValue: `${payload.drainValue || ""}`,
-    drainDamage: `${payload.drainDamage || ""}`,
-    drainDamageType: `${payload.drainDamageType || ""}`,
+    suppressSubject: true,
+    subject: { label: subjectLabel, value: subject },
+    poolInfo: poolInfo,
+    contextRows: [],
+    resultLabel: (payload && payload.resultLabel) || "Initiative",
+    resultValue: payload && payload.resultValue,
+    debugGroups: calcDetailGroups.sourceGroups,
   };
+}
+
+function buildCombatWeaponView(payload, name, subjectFieldLabel, subjectLabel, subject, calcDetailGroups, rows) {
+  const definition = payload && payload.definition;
+  const definitionId = `${(payload && payload.definitionId) || (definition && definition.id) || ""}`.trim();
+  const isMelee = (
+    definitionId === "melee_weapon" ||
+    definitionId === "combat_melee_core_attack" ||
+    definitionId === "combat_melee_weapon"
+  );
+  const contextLabels = isMelee
+    ? ["Schadenswert", "Angriffswert", "Waffentyp", "Reichweite"]
+    : ["Schadenswert", "Angriffswert", "Munition", "Modus", "Reichweite"];
+
+  return {
+    suppressSubject: !!(payload && payload.suppressSubject),
+    subject: { label: subjectLabel, value: subject },
+    poolInfo: getPoolInfoGroups(calcDetailGroups.sourceGroups),
+    contextRows: buildContextRowsFromLabels(rows, contextLabels, calcDetailGroups.sourceGroups, {
+      "Schadenswert": [SR6_DETAIL_GROUP_TITLES.combatContext, SR6_DETAIL_GROUP_TITLES.combatDamage],
+      "Angriffswert": [SR6_DETAIL_GROUP_TITLES.attackValue],
+      "Munition": [SR6_DETAIL_GROUP_TITLES.munitionHint],
+      "Modus": [SR6_DETAIL_GROUP_TITLES.fireMode],
+      "Reichweite": [SR6_DETAIL_GROUP_TITLES.combatContext],
+      "Waffentyp": [SR6_DETAIL_GROUP_TITLES.combatContext],
+    }, {
+      dedupeInfoTitles: true,
+      valueByLabel: {
+        "Schadenswert": getVisibleCombatDamageValue(rows),
+      },
+    }),
+    resultLabel: (payload && payload.resultLabel) || "Ergebnis",
+    resultValue: payload && payload.resultValue,
+    debugGroups: calcDetailGroups.sourceGroups,
+  };
+}
+
+function buildDefenseView(payload, name, subjectFieldLabel, subjectLabel, subject, calcDetailGroups, rows) {
+  const definition = payload && payload.definition;
+  const defenseGroup = getSourceGroupByTitle(calcDetailGroups.sourceGroups, "Verteidigungsberechnung");
+  const defenseValueGroup = getSourceGroupByTitle(calcDetailGroups.sourceGroups, "Verteidigungswertberechnung");
+  const comparisonLabel = (definition && definition.comparisonContextLabel) || "Verteidigungswert";
+  const contextLabels = comparisonLabel === "Verteidigung"
+    ? [comparisonLabel]
+    : [comparisonLabel, "Verteidigung"];
+  const contextRows = buildContextRowsFromLabels(rows, contextLabels, calcDetailGroups.sourceGroups, {
+    [comparisonLabel]: defenseValueGroup ? ["Verteidigungswertberechnung"] : ["Verteidigungsberechnung"],
+    "Verteidigung": ["Verteidigungsberechnung"],
+  });
+  const poolInfo = [
+    ...(!isMatrixLikeDefenseDefinition(definition) && defenseGroup ? [defenseGroup] : []),
+    ...getPoolInfoGroups(calcDetailGroups.sourceGroups),
+  ];
+
+  return {
+    suppressSubject: !!(payload && payload.suppressSubject),
+    subject: { label: subjectLabel, value: subject },
+    poolInfo: poolInfo,
+    contextRows: contextRows,
+    resultLabel: (payload && payload.resultLabel) || "Ergebnis",
+    resultValue: payload && payload.resultValue,
+    debugGroups: calcDetailGroups.sourceGroups,
+  };
+}
+
+function buildSpellView(payload, name, subjectFieldLabel, subjectLabel, subject, calcDetailGroups, rows) {
+  const poolInfo = getPoolInfoGroups(calcDetailGroups.sourceGroups)
+    .filter((group) => group.title !== SR6_DETAIL_GROUP_TITLES.formula);
+
+  return {
+    suppressSubject: !!(payload && payload.suppressSubject),
+    subject: { label: subjectLabel, value: subject },
+    poolInfo: poolInfo,
+    contextRows: buildContextRowsFromLabels(rows, [
+      "Art",
+      "Reichweite",
+      "Dauer",
+      "Widerstand",
+      "Entzug",
+      "Entzugswiderstand",
+      "Angriffswert",
+      "Schaden",
+      "Notiz",
+    ], calcDetailGroups.sourceGroups, {
+      "Art": ["Zauberkontext"],
+      "Reichweite": ["Zauberkontext"],
+      "Dauer": ["Zauberkontext"],
+      "Widerstand": ["Zauberkontext"],
+      "Entzug": ["Magie und Entzug"],
+      "Angriffswert": ["Angriffswertberechnung"],
+      "Schaden": ["Kampfzauber-Schaden"],
+      "Entzugswiderstand": ["Magie und Entzug"],
+      "Notiz": ["Notizen"],
+    }, {
+      separatorBeforeLabels: ["Entzug", "Angriffswert", "Notiz"],
+      allowEmptyLabels: getLastRowValue(rows, "Notiz") ? ["Notiz"] : [],
+      valueByLabel: {
+        "Notiz": getLastRowValue(rows, "Notiz") ? " " : "",
+      },
+    }),
+    resultLabel: (payload && payload.resultLabel) || "Ergebnis",
+    resultValue: payload && payload.resultValue,
+    debugGroups: calcDetailGroups.sourceGroups,
+  };
+}
+
+function buildSummoningView(payload, name, subjectFieldLabel, subjectLabel, subject, calcDetailGroups, rows) {
+  const poolInfo = getPoolInfoGroups(calcDetailGroups.sourceGroups)
+    .filter((group) => group.title !== SR6_DETAIL_GROUP_TITLES.formula);
+
+  return {
+    suppressSubject: !!(payload && payload.suppressSubject),
+    subject: { label: subjectLabel, value: subject },
+    poolInfo: poolInfo,
+    contextRows: buildContextRowsFromLabels(rows, [
+      "Typ",
+      "Stufe",
+      "Geist-Erfolge",
+      "Erhaltene Dienste",
+      "Entzugsschaden",
+      "Objektwiderstand-Nettoerfolge",
+    ], calcDetailGroups.sourceGroups, {
+      "Geist-Erfolge": ["Beschwörung"],
+      "Erhaltene Dienste": ["Beschwörung"],
+      "Entzugsschaden": ["Magie und Entzug"],
+      "Objektwiderstand-Nettoerfolge": ["Objektwiderstand"],
+    }),
+    resultLabel: (payload && payload.resultLabel) || "Ergebnis",
+    resultValue: payload && payload.resultValue,
+    debugGroups: calcDetailGroups.sourceGroups,
+  };
+}
+
+function buildMatrixActionView(payload, name, subjectFieldLabel, subjectLabel, subject, calcDetailGroups, rows) {
+  return {
+    suppressSubject: !!(payload && payload.suppressSubject),
+    subject: { label: subjectLabel, value: subject },
+    poolInfo: getPoolInfoGroups(calcDetailGroups.sourceGroups),
+    contextRows: buildContextRowsFromLabels(rows, [
+      "Probe",
+      "Verteidigung",
+      "Verteidigungswert",
+      "Zugriff",
+      "Overwatch-Modifikator",
+    ], calcDetailGroups.sourceGroups, {
+      "Probe": ["Probenkontext", "Formelberechnung"],
+      "Verteidigungswert": ["Verteidigungswertberechnung"],
+      "Zugriff": ["Probenkontext"],
+      "Overwatch-Modifikator": ["Probenkontext"],
+    }),
+    resultLabel: (payload && payload.resultLabel) || "Ergebnis",
+    resultValue: payload && payload.resultValue,
+    debugGroups: calcDetailGroups.sourceGroups,
+  };
+}
+
+function buildRiggingVehicleView(payload, name, subjectFieldLabel, subjectLabel, subject, calcDetailGroups, rows) {
+  return {
+    suppressSubject: !!(payload && payload.suppressSubject),
+    subject: { label: subjectLabel, value: subject },
+    poolInfo: getPoolInfoGroups(calcDetailGroups.sourceGroups),
+    contextRows: buildContextRowsFromLabels(rows, [
+      "Modus",
+      "Probe",
+      "Angriffswert",
+      "Verteidigungswert",
+      "Zustandsmonitor",
+      "Schaden",
+      "Installierte Waffe",
+      "Feuermodus",
+    ], calcDetailGroups.sourceGroups, {
+      "Modus": ["Fahrzeugkontext"],
+      "Probe": ["Probenkontext", "Formelberechnung"],
+      "Angriffswert": ["Angriffswertberechnung"],
+      "Verteidigungswert": ["Fahrzeugkontext"],
+      "Zustandsmonitor": ["Fahrzeugkontext"],
+      "Schaden": ["Schadensberechnung"],
+      "Installierte Waffe": ["Waffenkontext"],
+      "Feuermodus": ["Feuermodus"],
+    }),
+    resultLabel: (payload && payload.resultLabel) || "Ergebnis",
+    resultValue: payload && payload.resultValue,
+    debugGroups: calcDetailGroups.sourceGroups,
+  };
+}
+
+function buildEquipmentView(payload, name, subjectFieldLabel, subjectLabel, subject, calcDetailGroups, rows) {
+  return {
+    suppressSubject: !!(payload && payload.suppressSubject),
+    subject: { label: subjectLabel, value: subject },
+    poolInfo: getPoolInfoGroups(calcDetailGroups.sourceGroups),
+    contextRows: buildContextRowsFromLabels(rows, [
+      "Bezug",
+      "Attribut",
+      "Fertigkeit",
+      "Stufe",
+      "Stufe x2",
+    ], calcDetailGroups.sourceGroups, {
+      "Bezug": ["Ausrüstungskontext"],
+      "Attribut": ["Ausrüstungskontext", "Attributsberechnung"],
+      "Fertigkeit": ["Ausrüstungskontext", "Fertigkeitsberechnung"],
+      "Stufe": ["Ausrüstungskontext"],
+      "Stufe x2": ["Ausrüstungskontext"],
+    }),
+    resultLabel: (payload && payload.resultLabel) || "Ergebnis",
+    resultValue: payload && payload.resultValue,
+    debugGroups: calcDetailGroups.sourceGroups,
+  };
+}
+
+function buildSr6ProbeView(payload, name, subjectFieldLabel, subjectLabel, subject, calcDetailGroups, rows) {
+  const definition = payload && payload.definition;
+  const definitionId = `${(payload && payload.definitionId) || (definition && definition.id) || ""}`.trim();
+
+  if (definition && definition.probeModel === "initiative_probe") {
+    return buildInitiativeView(payload, name, subjectFieldLabel, subjectLabel, subject, calcDetailGroups);
+  }
+
+  if (isCombatWeaponContextDefinition(payload)) {
+    return buildCombatWeaponView(payload, name, subjectFieldLabel, subjectLabel, subject, calcDetailGroups, rows);
+  }
+
+  if (definition && definition.probeModel === "defense_probe") {
+    return buildDefenseView(payload, name, subjectFieldLabel, subjectLabel, subject, calcDetailGroups, rows);
+  }
+
+  if (definition && definition.probeModel === "spell_probe") {
+    return buildSpellView(payload, name, subjectFieldLabel, subjectLabel, subject, calcDetailGroups, rows);
+  }
+
+  if (definition && definition.probeModel === "summoning_probe") {
+    return buildSummoningView(payload, name, subjectFieldLabel, subjectLabel, subject, calcDetailGroups, rows);
+  }
+
+  if (definitionId === "matrix_action") {
+    return buildMatrixActionView(payload, name, subjectFieldLabel, subjectLabel, subject, calcDetailGroups, rows);
+  }
+
+  if (definition && definition.probeModel === "rigging_vehicle_probe") {
+    return buildRiggingVehicleView(payload, name, subjectFieldLabel, subjectLabel, subject, calcDetailGroups, rows);
+  }
+
+  if (definition && definition.probeModel === "equipment_probe") {
+    return buildEquipmentView(payload, name, subjectFieldLabel, subjectLabel, subject, calcDetailGroups, rows);
+  }
+
+  return buildDefaultProbeView(payload, name, subjectFieldLabel, subjectLabel, subject, calcDetailGroups);
+}
+
+function appendDebugDetailsTemplateFields(parts, groups) {
+  if (!groups) return;
+  let hasDebugDetails = false;
+  if (groups.summary) {
+    parts.push(`{{debug_pool_info=${groups.summary}}}`);
+    hasDebugDetails = true;
+  }
+
+  const sourceGroups = Array.isArray(groups.sourceGroups) ? groups.sourceGroups : [];
+  if (sourceGroups.length > 0) {
+    appendCalcDetailsGroupTemplateFields(parts, "debug_details_sources", sourceGroups[0]);
+    appendCalcDetailsGroupTemplateFields(parts, "debug_details_sources_2", sourceGroups[1]);
+    appendCalcDetailsGroupTemplateFields(parts, "debug_details_sources_3", sourceGroups[2]);
+    appendCalcDetailsGroupTemplateFields(parts, "debug_details_sources_4", sourceGroups[3]);
+    appendCalcDetailsGroupTemplateFields(parts, "debug_details_sources_5", sourceGroups[4]);
+    appendCalcDetailsGroupTemplateFields(parts, "debug_details_sources_6", sourceGroups[5]);
+    appendCalcDetailsGroupTemplateFields(parts, "debug_details_sources_7", sourceGroups[6]);
+    if (sourceGroups[7]) {
+      appendCalcDetailsGroupTemplateFields(parts, "debug_details_sources_8", {
+        title: sourceGroups[7].title,
+        details: sourceGroups.slice(7).map((group) => group.details).join(", "),
+      });
+    }
+    hasDebugDetails = true;
+  }
+
+  if (hasDebugDetails) {
+    parts.push("{{debug_details_enabled=1}}");
+  }
 }
 
 function buildSr6ProbeMessage(payload) {
@@ -3295,146 +4476,16 @@ function buildSr6ProbeMessage(payload) {
   const name = payload.name || "Probe";
   parts.push(`{{name=${name}}}`);
 
-  if (hasSpellTemplateVariant(payload.definition)) {
-    const presentation = buildSpellProbePresentation(payload);
-    const rows = Array.isArray(payload.rows) ? payload.rows : [];
-    const spellBaseLabels = new Set([
-      "Zauber",
-      "Art",
-      "Reichweite",
-      "Dauer",
-      "Entzug",
-      "Schaden",
-      "Notiz",
-      "Entzugwiderstand",
-    ]);
-    const spellExtraRows = rows
-      .filter((row) => row && row.label && !spellBaseLabels.has(row.label))
-      .filter((row) => !(row.label === "Popup-Modifikator" && parseNumber(row.value) === 0));
-
-    parts.push("{{spell_layout=1}}");
-    if (presentation.spell) parts.push(`{{spell=${presentation.spell}}}`);
-    if (presentation.attackValue) parts.push(`{{attack_value=${presentation.attackValue}}}`);
-    if (payload.pool !== undefined && payload.pool !== null && `${payload.pool}` !== "") {
-      parts.push(`{{pool=${payload.pool}}}`);
-    }
-    if (payload.erfolge !== undefined && payload.erfolge !== null && `${payload.erfolge}` !== "") {
-      parts.push(`{{erfolge=${payload.erfolge}}}`);
-    }
-    if (presentation.damage) {
-      parts.push(`{{spell_damage=${presentation.damage}}}`);
-    }
-    appendDetailsTemplateFields(parts, payload);
-    appendEdgeActionTemplateField(parts, payload);
-
-    if (presentation.drainValue) parts.push(`{{drain_value=${presentation.drainValue}}}`);
-    if (presentation.drainDamage) {
-      const drainDamageSummary = presentation.drainDamageType
-        ? `${presentation.drainDamage} (${presentation.drainDamageType})`
-        : presentation.drainDamage;
-      parts.push(`{{drain_damage=${drainDamageSummary}}}`);
-    }
-    if (payload.drainDetails) parts.push(`{{drain_details=${payload.drainDetails}}}`);
-    if (presentation.art) parts.push(`{{description_art=${presentation.art}}}`);
-    if (presentation.range) parts.push(`{{description_range=${presentation.range}}}`);
-    if (presentation.duration) parts.push(`{{description_duration=${presentation.duration}}}`);
-    if (presentation.damage) parts.push(`{{description_damage=${presentation.damage}}}`);
-    if (presentation.notes) parts.push(`{{description_notes=${presentation.notes}}}`);
-    if (spellExtraRows.length > 0) {
-      parts.push(`{{extra_rows=${spellExtraRows.map((row) => `${row.label}: ${row.value}`).join(" | ")}}}`);
-    }
-
-    if (payload.isGlitch) {
-      parts.push("{{is_glitch=1}}");
-    }
-
-    return parts.join(" ");
-  }
-
-  if (hasWeaponTemplateVariant(payload.definition)) {
-    const presentation = buildWeaponProbePresentation(payload);
-
-    parts.push("{{weapon_layout=1}}");
-    if (presentation.weapon) parts.push(`{{weapon=${presentation.weapon}}}`);
-    if (presentation.attackValue) parts.push(`{{attack_value=${presentation.attackValue}}}`);
-    if (presentation.ammo) parts.push(`{{ammo=${presentation.ammo}}}`);
-    if (presentation.range) parts.push(`{{range=${presentation.range}}}`);
-    if (presentation.damageSummary) parts.push(`{{damage_summary=${presentation.damageSummary}}}`);
-    if (presentation.extraRows) parts.push(`{{extra_rows=${presentation.extraRows}}}`);
-    if (presentation.calcRows) parts.push(`{{calc_rows=${presentation.calcRows}}}`);
-
-    if (payload.pool !== undefined && payload.pool !== null && `${payload.pool}` !== "") {
-      parts.push(`{{pool=${payload.pool}}}`);
-    }
-
-    if (payload.erfolge !== undefined && payload.erfolge !== null && `${payload.erfolge}` !== "") {
-      parts.push(`{{erfolge=${payload.erfolge}}}`);
-    }
-
-    appendDetailsTemplateFields(parts, payload);
-    appendEdgeActionTemplateField(parts, payload);
-
-    if (payload.isGlitch) {
-      parts.push("{{is_glitch=1}}");
-    }
-
-    return parts.join(" ");
-  }
-
   const rows = Array.isArray(payload.rows) ? payload.rows : [];
-  const deferredExtraLabels = new Set([
-    "Munitionshinweis",
-    "Feuermodus",
-    "Feuermodus-Schuss",
-    "Feuermodus-Hinweis",
-    "Feuermodus-Angriffswert",
-    "Feuermodus-Schaden",
-    "Angriffswert-Basis",
-    "Angriffswert-Modifikator",
-    "Angriffswert",
-    "Schaden-Basis",
-    "Schadens-Modifikator",
-    "Schaden-Modifikator",
-    "Schaden",
-  ]);
-  const primaryCandidateRows = rows.filter((row) => !deferredExtraLabels.has(row.label));
-  const primaryRows = primaryCandidateRows.slice(0, 4);
-  const primaryRowKeys = new Set(
-    primaryRows.map((row) => `${row.label}:::${row.value}`)
-  );
-  const seenExtraRowKeys = new Set();
-  const extraRows = rows.filter((row) => {
-    if (row.label === "Popup-Modifikator") {
-      return false;
-    }
-    const rowKey = `${row.label}:::${row.value}`;
-    if (primaryRowKeys.has(rowKey) || seenExtraRowKeys.has(rowKey)) {
-      return false;
-    }
-    seenExtraRowKeys.add(rowKey);
-    return true;
-  });
-  const ammoHintRows = extraRows.filter((row) => row.label === "Munitionshinweis");
-  const nonHintExtraRows = extraRows.filter((row) => row.label !== "Munitionshinweis");
+  const subjectFieldLabel = getSubjectFieldLabel(payload.resolvedFields, payload.definition);
+  const subjectLabel = normalizeSubjectLabel(subjectFieldLabel);
+  const subject = getSubjectValue(payload.resolvedFields, subjectFieldLabel, name);
+  const calcDetailGroups = buildCalcDetailGroups(rows, subjectFieldLabel, payload);
+  const view = buildSr6ProbeView(payload, name, subjectFieldLabel, subjectLabel, subject, calcDetailGroups, rows);
 
-  primaryRows.forEach((row, index) => {
-    const rowNumber = index + 1;
-    parts.push(`{{label${rowNumber}=${row.label}}}`);
-    parts.push(`{{value${rowNumber}=${row.value}}}`);
-  });
-
-  if (ammoHintRows.length > 0) {
-    const ammoHintsMarkup = ammoHintRows
-      .map((row) => `${row.label}: ${row.value}`)
-      .join("<br>");
-    parts.push(`{{ammo_hints=${ammoHintsMarkup}}}`);
-  }
-
-  if (nonHintExtraRows.length > 0) {
-    const extraRowsMarkup = nonHintExtraRows
-      .map((row) => `${row.label}: ${row.value}`)
-      .join(" | ");
-    parts.push(`{{extra_rows=${extraRowsMarkup}}}`);
+  if (!view.suppressSubject) {
+    if (view.subject && view.subject.label) parts.push(`{{subject_label=${view.subject.label}}}`);
+    if (view.subject && view.subject.value) parts.push(`{{subject=${view.subject.value}}}`);
   }
 
   if (payload.pool !== undefined && payload.pool !== null && `${payload.pool}` !== "") {
@@ -3445,8 +4496,24 @@ function buildSr6ProbeMessage(payload) {
     parts.push(`{{erfolge=${payload.erfolge}}}`);
   }
 
+  if (view.resultValue !== undefined && view.resultValue !== null && `${view.resultValue}` !== "") {
+    parts.push(`{{result_label=${view.resultLabel || "Ergebnis"}}}`);
+    parts.push(`{{result_value=${view.resultValue}}}`);
+  }
+
   appendDetailsTemplateFields(parts, payload);
   appendEdgeActionTemplateField(parts, payload);
+  appendContextRowsTemplateFields(
+    parts,
+    appendAutomaticNoteContextRow(view.contextRows || [], rows, calcDetailGroups.sourceGroups)
+  );
+  if (calcDetailGroups.summary) {
+    parts.push(`{{pool_info=${calcDetailGroups.summary}}}`);
+  }
+  appendPoolInfoGroupTemplateFields(parts, view.poolInfo || []);
+  if (payload.debugDetailsEnabled) {
+    appendDebugDetailsTemplateFields(parts, calcDetailGroups);
+  }
 
   if (payload.isGlitch) {
     parts.push("{{is_glitch=1}}");
@@ -3469,27 +4536,32 @@ function rollD6() {
 function rollRegularDice(pool, explodingSixes) {
   const diceResults = [];
   const initialDiceResults = [];
+  const diceTrace = [];
 
   for (let index = 0; index < pool; index += 1) {
     let die = rollD6();
     diceResults.push(die);
     initialDiceResults.push(die);
+    diceTrace.push({ value: die, isFate: false, isExploded: explodingSixes && die === 6 });
 
     while (explodingSixes && die === 6) {
       die = rollD6();
       diceResults.push(die);
+      diceTrace.push({ value: die, isFate: false, isExploded: true });
     }
   }
 
   return {
     diceResults: diceResults,
     initialDiceResults: initialDiceResults,
+    diceTrace: diceTrace,
   };
 }
 
 function rollFateDice(fateDiceCount, matrixLonerFateDiceCount, explodingSixes) {
   const diceResults = [];
   const initialDiceResults = [];
+  const diceTrace = [];
   let successCount = 0;
   let cancelingOnes = 0;
   let ignoredLonerOnes = 0;
@@ -3498,6 +4570,7 @@ function rollFateDice(fateDiceCount, matrixLonerFateDiceCount, explodingSixes) {
     let die = rollD6();
     diceResults.push(die);
     initialDiceResults.push(die);
+    diceTrace.push({ value: die, isFate: true, isExploded: explodingSixes && die === 6 });
 
     if (die === 1 && ignoreCancellationOnOne) {
       ignoredLonerOnes += 1;
@@ -3510,6 +4583,7 @@ function rollFateDice(fateDiceCount, matrixLonerFateDiceCount, explodingSixes) {
     while (explodingSixes && die === 6) {
       die = rollD6();
       diceResults.push(die);
+      diceTrace.push({ value: die, isFate: false, isExploded: true, isFateExplosion: true });
       if (die >= 5) {
         successCount += 1;
       }
@@ -3527,6 +4601,7 @@ function rollFateDice(fateDiceCount, matrixLonerFateDiceCount, explodingSixes) {
   return {
     diceResults: diceResults,
     initialDiceResults: initialDiceResults,
+    diceTrace: diceTrace,
     successCount: successCount,
     cancelsNormalFives: cancelingOnes > 0,
     cancelingOnes: cancelingOnes,
@@ -3554,15 +4629,17 @@ function buildProbeComputation(
     ? parseNumber(lookupAttr(poolAttribute))
     : parseNumber(poolBasisOverride);
   const normalizedPoolMultiplier = Math.max(1, parseNumber(poolMultiplier) || 1);
-  const poolBasis = poolBasisRaw * normalizedPoolMultiplier;
   const monitorPoolMod = parseNumber(lookupAttr("sr6_monitor_pool_mod"));
   const poolPopupMod = parseNumber(popupPoolMod);
   const poolRollMod = parseNumber(rollPoolMod);
   const edgePoolBonus = Math.max(0, parseNumber(edgeOptions && edgeOptions.poolBonus));
+  const poolPreMultiplier = poolBasisRaw + monitorPoolMod + poolPopupMod + poolRollMod + edgePoolBonus;
+  const poolMultiplierBonus = poolPreMultiplier * (normalizedPoolMultiplier - 1);
+  const poolBasis = Math.max(0, poolPreMultiplier * normalizedPoolMultiplier);
   const requestedStandardFateDiceCount = Math.max(0, parseNumber(edgeOptions && edgeOptions.fateDiceCount));
   const requestedMatrixLonerFateDiceCount = Math.max(0, parseNumber(edgeOptions && edgeOptions.matrixLonerFateDiceCount));
   const explodingSixes = !!(edgeOptions && edgeOptions.explodingSixes);
-  const pool = Math.max(0, poolBasis + monitorPoolMod + poolPopupMod + poolRollMod + edgePoolBonus);
+  const pool = poolBasis;
   const matrixLonerFateDiceCount = Math.min(requestedMatrixLonerFateDiceCount, pool);
   const remainingFateSlots = Math.max(0, pool - matrixLonerFateDiceCount);
   const standardFateDiceCount = Math.min(requestedStandardFateDiceCount, remainingFateSlots);
@@ -3576,12 +4653,15 @@ function buildProbeComputation(
   const regularSuccessCount = regularRoll.diceResults.filter((die) => die >= 5).length;
   const successCount = Math.max(0, regularSuccessCount - canceledNormalFives + fateRoll.successCount);
   const diceResults = [...regularRoll.diceResults, ...fateRoll.diceResults];
+  const diceTrace = [...regularRoll.diceTrace, ...fateRoll.diceTrace];
   const glitchDiceResults = [...regularRoll.initialDiceResults, ...fateRoll.initialDiceResults];
   const glitchState = evaluateGlitch(glitchDiceResults, successCount);
 
   return {
     poolBasisRaw: poolBasisRaw,
     poolMultiplier: normalizedPoolMultiplier,
+    poolPreMultiplier: poolPreMultiplier,
+    poolMultiplierBonus: poolMultiplierBonus,
     poolBasis: poolBasis,
     monitorPoolMod: monitorPoolMod,
     poolPopupMod: poolPopupMod,
@@ -3598,6 +4678,7 @@ function buildProbeComputation(
     regularPool: regularPool,
     pool: pool,
     diceResults: diceResults,
+    diceTrace: diceTrace,
     regularDiceResults: regularRoll.diceResults,
     fateDiceResults: fateRoll.diceResults,
     successCount: successCount,
@@ -3764,6 +4845,458 @@ function resolveRollSkillTotal(skillKey, lookupAttr) {
   return parseNumber(lookupAttr(`sr6_skill_${skillKey}_gesamtwert`));
 }
 
+const SR6_ATTRIBUTE_DETAIL_KEYS = {
+  Konstitution: "konstitution",
+  Geschicklichkeit: "geschicklichkeit",
+  Reaktion: "reaktion",
+  "Stärke": "staerke",
+  Staerke: "staerke",
+  Willenskraft: "willenskraft",
+  Logik: "logik",
+  Intuition: "intuition",
+  Charisma: "charisma",
+  Edge: "edge",
+  "Magie/Resonanz": "magie_resonanz",
+};
+
+const SR6_SKILL_DETAIL_LABELS = {
+  astral: "Astral",
+  athletik: "Athletik",
+  beschwoeren: "Beschwören",
+  biotech: "Biotech",
+  cracken: "Cracken",
+  einfluss: "Einfluss",
+  elektronik: "Elektronik",
+  exotische_waffen: "Exotische Waffen",
+  feuerwaffen: "Feuerwaffen",
+  heimlichkeit: "Heimlichkeit",
+  hexerei: "Hexerei",
+  mechanik: "Mechanik",
+  nahkampf: "Nahkampf",
+  natur: "Natur",
+  steuern: "Steuern",
+  tasken: "Tasken",
+  ueberreden: "Überreden",
+  verzaubern: "Verzaubern",
+  wahrnehmung: "Wahrnehmung",
+};
+
+const SR6_FORMULA_COMPONENTS = {
+  "Angriff": { type: "matrix", attr: "sr6_matrix_angriff" },
+  "Datenverarbeitung": { type: "matrix", attr: "sr6_matrix_datenverarbeitung" },
+  "Firewall": { type: "matrix", attr: "sr6_matrix_firewall" },
+  "Schleicher": { type: "matrix", attr: "sr6_matrix_schleicher" },
+  "Sensor": { type: "rigging", attr: "sr6_rigging_fahrzeug_sensor" },
+  "Pilot": { type: "rigging", attr: "sr6_rigging_fahrzeug_pilot" },
+  "Rumpf": { type: "rigging", attr: "sr6_rigging_fahrzeug_rumpf" },
+  "Panzerung": { type: "rigging", attr: "sr6_rigging_fahrzeug_panzerung" },
+  "Riggerkontrolle": { type: "rigging", attr: "sr6_rigging_fahrzeug_riggerkontrolle" },
+  "Agentenstufe": { type: "rigging", attr: "sr6_rigging_fahrzeug_agentenstufe" },
+  "Manoevrieren": { type: "rigging", attr: "sr6_rigging_fahrzeug_manoevrieren" },
+  "Manövrieren": { type: "rigging", attr: "sr6_rigging_fahrzeug_manoevrieren" },
+  "Zielerfassung": { type: "rigging", attr: "sr6_rigging_fahrzeug_zielerfassung" },
+  "Ausweichen": { type: "rigging", attr: "sr6_rigging_fahrzeug_ausweichen" },
+  "Stealth": { type: "rigging", attr: "sr6_rigging_fahrzeug_stealth" },
+  "Clearsight": { type: "rigging", attr: "sr6_rigging_fahrzeug_clearsight" },
+};
+
+function getAttributeDetailKey(label) {
+  return SR6_ATTRIBUTE_DETAIL_KEYS[`${label || ""}`.trim()] || "";
+}
+
+function getSkillDetailLabel(skillKey) {
+  return SR6_SKILL_DETAIL_LABELS[skillKey] || `${skillKey || ""}`;
+}
+
+function getSkillDetailKey(label) {
+  const normalizedLabel = `${label || ""}`.trim();
+  const match = Object.keys(SR6_SKILL_DETAIL_LABELS).find((skillKey) => SR6_SKILL_DETAIL_LABELS[skillKey] === normalizedLabel);
+  return match || "";
+}
+
+function getPoolAttributeDetailKey(poolAttribute) {
+  const match = `${poolAttribute || ""}`.match(/^sr6_attr_(.+)_gesamtwert$/);
+  return match ? match[1] : "";
+}
+
+function getPoolSkillDetailKey(poolAttribute) {
+  const match = `${poolAttribute || ""}`.match(/^sr6_skill_(.+)_gesamtwert$/);
+  return match ? match[1] : "";
+}
+
+function appendAttributeDetailRows(rows, lookupAttr, attributeKey, labelPrefix = "", options = {}) {
+  if (!attributeKey) return;
+  const base = lookupAttr(`sr6_attr_${attributeKey}_grundwert`);
+  const modifier = lookupAttr(`sr6_attr_${attributeKey}_modifikator`);
+  const total = resolveRollAttributeTotal(attributeKey, lookupAttr);
+  const prefix = labelPrefix ? `${labelPrefix} ` : "";
+  const rowOptions = { poolComponent: !!options.poolComponent };
+
+  appendRowIfMissing(rows, `${prefix}Basis`, `${parseNumber(base)}`, rowOptions);
+  appendRowIfMissing(rows, `${prefix}Modifikator`, `${parseNumber(modifier)}`, rowOptions);
+  appendRowIfMissing(rows, `${prefix}Gesamtwert`, `${total}`);
+}
+
+function appendSkillDetailRows(rows, lookupAttr, skillKey, labelPrefix = "Fertigkeitswert", options = {}) {
+  if (!skillKey) return;
+  const base = lookupAttr(`sr6_skill_${skillKey}_grundwert`);
+  const modifier = lookupAttr(`sr6_skill_${skillKey}_modifikator`);
+  const total = resolveRollSkillTotal(skillKey, lookupAttr);
+  const rowOptions = { poolComponent: !!options.poolComponent };
+
+  appendRowIfMissing(rows, "Fertigkeit", getSkillDetailLabel(skillKey));
+  appendRowIfMissing(rows, `${labelPrefix} Basis`, `${parseNumber(base)}`, rowOptions);
+  appendRowIfMissing(rows, `${labelPrefix} Modifikator`, `${parseNumber(modifier)}`, rowOptions);
+  appendRowIfMissing(rows, `${labelPrefix} Gesamtwert`, `${total}`);
+}
+
+function appendFormulaAttributeDetailRows(rows, lookupAttr, formula) {
+  const formulaParts = `${formula || ""}`.split("+").map((part) => part.trim()).filter(Boolean);
+  formulaParts.forEach((part) => {
+    const attributeKey = getAttributeDetailKey(part);
+    if (!attributeKey) return;
+    appendAttributeDetailRows(rows, lookupAttr, attributeKey, part, { poolComponent: true });
+  });
+}
+
+function appendGenericFormulaComponentRows(rows, lookupAttr, formula, labelPrefix = "", options = {}) {
+  const formulaParts = `${formula || ""}`.split("+").map((part) => part.trim()).filter(Boolean);
+  const rowOptions = { poolComponent: options.poolComponent !== false };
+  formulaParts.forEach((part) => {
+    const multiplierMatch = part.match(/\s*x\s*(\d+)$/i);
+    const multiplier = multiplierMatch ? Math.max(1, parseNumber(multiplierMatch[1])) : 1;
+    const cleanPart = part.replace(/\s*x\s*\d+$/i, "").trim();
+    const label = labelPrefix
+      ? `${labelPrefix} ${cleanPart}${multiplier > 1 ? ` x${multiplier}` : ""}`
+      : `${cleanPart}${multiplier > 1 ? ` x${multiplier}` : ""}`;
+    const attributeKey = getAttributeDetailKey(cleanPart);
+    if (attributeKey) {
+      appendAttributeDetailRows(rows, lookupAttr, attributeKey, label, rowOptions);
+      return;
+    }
+
+    const skillKey = getSkillDetailKey(cleanPart);
+    if (skillKey) {
+      appendSkillDetailRows(rows, lookupAttr, skillKey, label, rowOptions);
+      return;
+    }
+
+    const component = SR6_FORMULA_COMPONENTS[cleanPart];
+    if (component && component.attr) {
+      appendRowIfMissing(rows, label, `${parseNumber(lookupAttr(component.attr)) * multiplier}`, rowOptions);
+    }
+  });
+}
+
+function appendRowsFormulaDetails(rows, lookupAttr, poolLabels = null) {
+  const formulas = [];
+  (Array.isArray(rows) ? rows : []).forEach((row) => {
+    if (!row || !row.value || !row.label) return;
+    if (["Formel", "Probe", "Verteidigung"].includes(row.label) && !["Keine Probe", "Keine Verteidigungsprobe", "Siehe Beschreibung"].includes(`${row.value}`.trim())) {
+      formulas.push({
+        label: row.label,
+        value: row.value,
+      });
+    }
+  });
+
+  formulas.forEach((formula) => {
+    const isPoolFormula = !Array.isArray(poolLabels) || poolLabels.includes(formula.label);
+    appendGenericFormulaComponentRows(rows, lookupAttr, formula.value, "", { poolComponent: isPoolFormula });
+  });
+}
+
+function appendEquipmentSourceDetailRows(rows, lookupAttr, sourceKey, sourceOption) {
+  if (!sourceOption) return;
+
+  const normalizedKey = `${sourceKey || ""}`.trim();
+  if (normalizedKey.indexOf("attr:") === 0) {
+    const attributeKey = normalizedKey.replace(/^attr:/, "");
+    appendRowIfMissing(rows, "Attribut", sourceOption.label);
+    appendAttributeDetailRows(rows, lookupAttr, attributeKey, sourceOption.label, { poolComponent: true });
+    return;
+  }
+
+  if (normalizedKey.indexOf("skill:") === 0) {
+    const skillKey = normalizedKey.replace(/^skill:/, "");
+    appendSkillDetailRows(rows, lookupAttr, skillKey, sourceOption.label, { poolComponent: true });
+  }
+}
+
+function getMatrixLikeDefenseConfig(definition) {
+  const definitionId = definition && definition.id;
+  const matrixConfigs = {
+    matrix_defense: { prefix: "sr6_matrix", kind: "defense" },
+    matrix_damage_resistance: { prefix: "sr6_matrix", kind: "damage_resistance" },
+    matrix_biofeedback_damage_resistance: { prefix: "sr6_matrix", kind: "biofeedback_damage_resistance" },
+    rigging_matrix_defense: { prefix: "sr6_rigging", kind: "defense" },
+    rigging_matrix_damage_resistance: { prefix: "sr6_rigging", kind: "damage_resistance" },
+    rigging_biofeedback_damage_resistance: { prefix: "sr6_rigging", kind: "biofeedback_damage_resistance" },
+  };
+
+  return matrixConfigs[definitionId] || null;
+}
+
+function appendMatrixLikeFirewallPoolRows(rows, lookupAttr, prefix) {
+  appendRowIfMissing(rows, "Firewall", `${parseNumber(lookupAttr(`${prefix}_firewall`))}`, { poolComponent: true });
+}
+
+function appendMatrixLikeDefenseValueDetailRows(rows, definition, lookupAttr) {
+  const config = getMatrixLikeDefenseConfig(definition);
+  if (!config) return;
+
+  appendRowIfMissing(rows, "Verteidigungswert Datenverarbeitung", `${parseNumber(lookupAttr(`${config.prefix}_datenverarbeitung`))}`);
+  appendRowIfMissing(rows, "Verteidigungswert Firewall", `${parseNumber(lookupAttr(`${config.prefix}_firewall`))}`);
+  appendRowIfMissing(rows, "Verteidigungswert Modifikator", `${parseNumber(lookupAttr(`${config.prefix}_verteidigungswert_modifikator`))}`);
+  appendRowIfMissing(rows, "Verteidigungswert Gesamtwert", `${parseNumber(lookupAttr(`${config.prefix}_verteidigungswert`))}`);
+}
+
+function appendKnownPoolFormulaRows(rows, definition, lookupAttr, poolAttribute) {
+  if (!poolAttribute) return false;
+  const matrixDefenseConfig = getMatrixLikeDefenseConfig(definition);
+  if (matrixDefenseConfig) {
+    if (matrixDefenseConfig.kind === "defense") {
+      appendAttributeDetailRows(rows, lookupAttr, "intuition", "Intuition", { poolComponent: true });
+      appendMatrixLikeFirewallPoolRows(rows, lookupAttr, matrixDefenseConfig.prefix);
+      return true;
+    }
+    if (matrixDefenseConfig.kind === "damage_resistance") {
+      appendMatrixLikeFirewallPoolRows(rows, lookupAttr, matrixDefenseConfig.prefix);
+      return true;
+    }
+    if (matrixDefenseConfig.kind === "biofeedback_damage_resistance") {
+      appendAttributeDetailRows(rows, lookupAttr, "willenskraft", "Willenskraft", { poolComponent: true });
+      return true;
+    }
+  }
+  if (poolAttribute === "sr6_verteidigung_physisch_gesamtwert") {
+    appendGenericFormulaComponentRows(rows, lookupAttr, "Reaktion + Intuition");
+    return true;
+  }
+  if (poolAttribute === "sr6_schadenswiderstand_physisch_gesamtwert") {
+    appendGenericFormulaComponentRows(rows, lookupAttr, "Konstitution");
+    return true;
+  }
+  if (poolAttribute === "sr6_magic_magie") {
+    appendAttributeDetailRows(rows, lookupAttr, "magie_resonanz", "Attributwert", { poolComponent: true });
+    return true;
+  }
+  if (poolAttribute === "sr6_magic_zauberpool") {
+    appendSkillDetailRows(rows, lookupAttr, "hexerei", "Fertigkeitswert", { poolComponent: true });
+    return true;
+  }
+  if (poolAttribute === "sr6_magic_spruchzauberei") {
+    appendGenericFormulaComponentRows(rows, lookupAttr, "Magie/Resonanz + Hexerei");
+    return true;
+  }
+  if (poolAttribute === "sr6_magic_beschwoeren") {
+    appendGenericFormulaComponentRows(rows, lookupAttr, "Magie/Resonanz + Beschwören");
+    return true;
+  }
+  if (poolAttribute === "sr6_magic_waffenloser_kampf") {
+    appendAttributeDetailRows(rows, lookupAttr, "willenskraft", "Willenskraft", { poolComponent: true });
+    appendSkillDetailRows(rows, lookupAttr, "astral", "Fertigkeitswert", { poolComponent: true });
+    return true;
+  }
+  if (poolAttribute === "sr6_magic_astrale_verteidigung") {
+    appendAttributeDetailRows(rows, lookupAttr, "logik", "Logik", { poolComponent: true });
+    appendAttributeDetailRows(rows, lookupAttr, "intuition", "Intuition", { poolComponent: true });
+    return true;
+  }
+  if (poolAttribute === "sr6_magic_astraler_schadenswiderstand") {
+    appendAttributeDetailRows(rows, lookupAttr, "willenskraft", "Willenskraft", { poolComponent: true });
+    return true;
+  }
+  if (poolAttribute === "sr6_magic_entzug_widerstand") {
+    const traditionAttribute = `${lookupAttr("sr6_magic_traditionsattribut_1") || ""}`.trim();
+    const traditionKey = mapTraditionsattributToKey(traditionAttribute);
+    if (traditionKey) {
+      appendAttributeDetailRows(rows, lookupAttr, traditionKey, traditionAttribute || "Traditionsattribut", { poolComponent: true });
+    }
+    appendGenericFormulaComponentRows(rows, lookupAttr, "Willenskraft");
+    return true;
+  }
+  if (definition && definition.probeModel === "attribute_probe") {
+    appendGenericFormulaComponentRows(rows, lookupAttr, (rows.find((row) => row && row.label === "Formel") || {}).value);
+  }
+  return false;
+}
+
+function appendCombatDefenseValueDetailRows(rows, definition, lookupAttr) {
+  if (!definition || ![
+    "physical_defense",
+    "physical_damage_resistance",
+    "general_defense",
+    "general_damage_resistance",
+  ].includes(definition.id)) {
+    return;
+  }
+
+  const constitutionBase = parseNumber(lookupAttr("sr6_attr_konstitution_grundwert"));
+  const constitutionModifier = parseNumber(lookupAttr("sr6_attr_konstitution_modifikator"));
+  const constitutionTotal = resolveRollAttributeTotal("konstitution", lookupAttr);
+  const primaryArmor = parseNumber(lookupAttr("sr6_combat_primaere_panzerung"));
+  const secondaryArmor = parseNumber(lookupAttr("sr6_combat_sekundaere_panzerung"));
+  const helmet = parseNumber(lookupAttr("sr6_combat_helm"));
+  const shield = parseNumber(lookupAttr("sr6_combat_schild"));
+  const defenseValueModifier = parseNumber(lookupAttr("sr6_combat_verteidigungswert_modifikator"));
+  const defenseValueTotal = parseNumber(lookupAttr("sr6_combat_verteidigungswert_gesamtwert"));
+
+  appendRowIfMissing(rows, "Verteidigungswert Konstitution Basis", `${constitutionBase}`);
+  appendRowIfMissing(rows, "Verteidigungswert Konstitution Modifikator", `${constitutionModifier}`);
+  appendRowIfMissing(rows, "Verteidigungswert Konstitution Gesamtwert", `${constitutionTotal}`);
+  appendRowIfMissing(rows, "Verteidigungswert Primäre Panzerung", `${primaryArmor}`);
+  appendRowIfMissing(rows, "Verteidigungswert Sekundäre Panzerung", `${secondaryArmor}`);
+  appendRowIfMissing(rows, "Verteidigungswert Helm", `${helmet}`);
+  appendRowIfMissing(rows, "Verteidigungswert Schild", `${shield}`);
+  appendRowIfMissing(rows, "Verteidigungswert Modifikator", `${defenseValueModifier}`);
+  appendRowIfMissing(rows, "Verteidigungswert Gesamtwert", `${defenseValueTotal}`);
+}
+
+function appendDrainResistanceDetailRows(rows, lookupAttr) {
+  const traditionAttribute = `${lookupAttr("sr6_magic_traditionsattribut_1") || ""}`.trim();
+  const traditionKey = mapTraditionsattributToKey(traditionAttribute);
+
+  if (traditionAttribute) {
+    appendRowIfMissing(rows, "Entzug Traditionsattribut", traditionAttribute);
+  }
+  if (traditionKey) {
+    appendAttributeDetailRows(rows, lookupAttr, traditionKey, `Entzug ${traditionAttribute}`);
+  }
+  appendAttributeDetailRows(rows, lookupAttr, "willenskraft", "Entzug Willenskraft");
+  appendRowIfMissing(rows, "Entzugswiderstand Gesamtwert", `${parseNumber(lookupAttr("sr6_magic_entzug_widerstand"))}`);
+}
+
+function getCombatPoolAttributeLabel(definition, resolvedFields) {
+  if (!definition) return "";
+  if (definition.id === "combat_ranged_core_attack" || definition.id === "combat_ranged_weapon" || definition.id === "ranged_weapon") {
+    return "Geschicklichkeit";
+  }
+  if (definition.id === "combat_melee_core_attack" || definition.id === "combat_melee_weapon" || definition.id === "melee_weapon") {
+    return `${(resolvedFields && resolvedFields.Attribut) || "Geschicklichkeit"}`.trim();
+  }
+  return "";
+}
+
+function getCombatPoolSkillKey(definition, resolvedFields) {
+  if (!definition) return "";
+  if (definition.id === "combat_ranged_core_attack" || definition.id === "combat_ranged_weapon" || definition.id === "ranged_weapon") {
+    return resolveRangedCombatSkillKey(resolvedFields && resolvedFields.Fertigkeit);
+  }
+  if (definition.id === "combat_melee_core_attack" || definition.id === "combat_melee_weapon" || definition.id === "melee_weapon") {
+    return resolveMeleeCombatSkillKey(resolvedFields && resolvedFields.Fertigkeit);
+  }
+  return "";
+}
+
+function appendCombatSpecializationDetailRows(rows, definition, lookupAttr, skillKey, resolvedFields) {
+  if (!skillKey) return;
+  const selectedSkill = `${(resolvedFields && resolvedFields.Fertigkeit) || getSkillDetailLabel(skillKey)}`.trim();
+  const weaponType = `${(resolvedFields && resolvedFields.Waffentyp) || ""}`.trim();
+  const selection = {
+    specialization: lookupAttr(`sr6_skill_${skillKey}_spezialisierung`),
+    expertise: lookupAttr(`sr6_skill_${skillKey}_expertise`),
+  };
+  const matchingNames = definition && (
+    definition.id === "combat_ranged_core_attack" ||
+    definition.id === "combat_ranged_weapon" ||
+    definition.id === "ranged_weapon"
+  )
+    ? getCombatRangedSpecializationMatches(selectedSkill, weaponType)
+    : getCombatMeleeSpecializationMatches(selectedSkill, weaponType);
+  const bonus = getCombatSpecializationBonus(selection.specialization, selection.expertise, matchingNames);
+
+  appendRowIfMissing(rows, "Spezialisierung Auswahl", selection.specialization || "-");
+  appendRowIfMissing(rows, "Expertise Auswahl", selection.expertise || "-");
+  if (bonus === 3) {
+    appendRowIfMissing(rows, "Expertise", "+3", { poolComponent: true });
+  } else if (bonus === 2) {
+    appendRowIfMissing(rows, "Spezialisierung", "+2", { poolComponent: true });
+  } else {
+    appendRowIfMissing(rows, "Spezialisierung/Expertise", "0", { poolComponent: true });
+  }
+}
+
+function resolveComputedCombatPopupSkillBonusState(definition, resolvedFields, lookupAttr) {
+  if (!isComputedCombatPoolDefinition(definition)) {
+    return null;
+  }
+
+  const skillKey = getCombatPoolSkillKey(definition, resolvedFields);
+  if (!skillKey) {
+    return null;
+  }
+
+  const selectedSkill = `${(resolvedFields && resolvedFields.Fertigkeit) || getSkillDetailLabel(skillKey)}`.trim();
+  const weaponType = `${(resolvedFields && resolvedFields.Waffentyp) || ""}`.trim();
+  const specialization = lookupAttr(`sr6_skill_${skillKey}_spezialisierung`);
+  const expertise = lookupAttr(`sr6_skill_${skillKey}_expertise`);
+  const matchingNames = definition && (
+    definition.id === "combat_ranged_core_attack" ||
+    definition.id === "combat_ranged_weapon" ||
+    definition.id === "ranged_weapon"
+  )
+    ? getCombatRangedSpecializationMatches(selectedSkill, weaponType)
+    : getCombatMeleeSpecializationMatches(selectedSkill, weaponType);
+  const matches = new Set((matchingNames || []).map(normalizeCombatSpecializationName).filter(Boolean));
+  const expertiseActive = matches.has(normalizeCombatSpecializationName(expertise));
+  const specializationActive = !expertiseActive && matches.has(normalizeCombatSpecializationName(specialization));
+
+  return {
+    specializationActive: specializationActive,
+    expertiseActive: expertiseActive,
+  };
+}
+
+function appendComputedCombatPoolDetailRows(rows, definition, lookupAttr, resolvedFields) {
+  if (!isComputedCombatPoolDefinition(definition)) return false;
+
+  const attributeLabel = getCombatPoolAttributeLabel(definition, resolvedFields);
+  const attributeKey = getAttributeDetailKey(attributeLabel);
+  const skillKey = getCombatPoolSkillKey(definition, resolvedFields);
+
+  appendRowIfMissing(rows, "Attribut", attributeLabel);
+  appendAttributeDetailRows(rows, lookupAttr, attributeKey, "Attributwert", { poolComponent: true });
+  appendSkillDetailRows(rows, lookupAttr, skillKey, "Fertigkeitswert", { poolComponent: true });
+  appendCombatSpecializationDetailRows(rows, definition, lookupAttr, skillKey, resolvedFields);
+  return true;
+}
+
+function appendBasePoolDetailRows(rows, definition, lookupAttr, poolAttribute, skillAttributeOverride, resolvedFields) {
+  if (appendComputedCombatPoolDetailRows(rows, definition, lookupAttr, resolvedFields)) {
+    return;
+  }
+
+  if (appendKnownPoolFormulaRows(rows, definition, lookupAttr, poolAttribute)) {
+    return;
+  }
+
+  const attributeKey = getPoolAttributeDetailKey(poolAttribute);
+  if (attributeKey) {
+    appendAttributeDetailRows(rows, lookupAttr, attributeKey, "", { poolComponent: true });
+    return;
+  }
+
+  const skillKey = getPoolSkillDetailKey(poolAttribute);
+  if (skillKey) {
+    if (skillAttributeOverride && skillAttributeOverride.selectedAttribute) {
+      const selectedAttributeKey = getAttributeDetailKey(skillAttributeOverride.selectedAttribute);
+      appendRowIfMissing(rows, "Attribut", skillAttributeOverride.selectedAttribute);
+      appendAttributeDetailRows(rows, lookupAttr, selectedAttributeKey, "Attributwert", { poolComponent: true });
+    }
+    appendSkillDetailRows(rows, lookupAttr, skillKey, "Fertigkeitswert", { poolComponent: true });
+    return;
+  }
+
+  if (definition && definition.probeModel === "skill_probe" && skillAttributeOverride) {
+    const selectedAttributeKey = getAttributeDetailKey(skillAttributeOverride.selectedAttribute);
+    appendRowIfMissing(rows, "Attribut", skillAttributeOverride.selectedAttribute);
+    appendAttributeDetailRows(rows, lookupAttr, selectedAttributeKey, "Attributwert", { poolComponent: true });
+  }
+
+  appendFormulaAttributeDetailRows(rows, lookupAttr, resolvedFields && resolvedFields.Formel);
+}
+
 const SR6_UNTRAINED_SKILL_LABELS = {
   astral: "Astral",
   athletik: "Athletik",
@@ -3905,11 +5438,13 @@ function resolveMatrixActionComponentValue(component, lookupAttr) {
   }
 
   if (component.multiplier && component.matrix) {
+    const multiplier = parseNumber(component.multiplier);
     const matrixValue = parseNumber(lookupAttr(`sr6_matrix_${component.matrix}`));
     return {
       label: component.label || component.matrix,
-      value: matrixValue * parseNumber(component.multiplier),
-      parts: [{ label: component.matrix, value: matrixValue }],
+      value: matrixValue * multiplier,
+      parts: [{ label: component.matrix, type: "matrix", value: matrixValue }],
+      multiplier: multiplier,
     };
   }
 
@@ -3926,22 +5461,22 @@ function resolveMatrixActionComponentValue(component, lookupAttr) {
 
   if (component.skill) {
     const value = resolveRollSkillTotal(component.skill, lookupAttr);
-    parts.push({ label: component.skill, value: value });
+    parts.push({ label: component.skill, type: "skill", value: value });
     total += value;
   }
   if (component.attribute) {
     const value = resolveRollAttributeTotal(component.attribute, lookupAttr);
-    parts.push({ label: component.attribute, value: value });
+    parts.push({ label: component.attribute, type: "attribute", value: value });
     total += value;
   }
   if (component.matrix) {
     const value = parseNumber(lookupAttr(`sr6_matrix_${component.matrix}`));
-    parts.push({ label: component.matrix, value: value });
+    parts.push({ label: component.matrix, type: "matrix", value: value });
     total += value;
   }
   if (component.matrixSecond) {
     const value = parseNumber(lookupAttr(`sr6_matrix_${component.matrixSecond}`));
-    parts.push({ label: component.matrixSecond, value: value });
+    parts.push({ label: component.matrixSecond, type: "matrix", value: value });
     total += value;
   }
 
@@ -3991,7 +5526,71 @@ function resolveMatrixActionRuleContext(definition, popupState, lookupAttr, pool
   };
 }
 
-function appendMatrixActionRows(rows, matrixActionContext) {
+function formatMatrixActionComponentLabel(label) {
+  const componentLabels = {
+    angriff: "Angriff",
+    cracken: "Cracken",
+    datenverarbeitung: "Datenverarbeitung",
+    elektronik: "Elektronik",
+    firewall: "Firewall",
+    intuition: "Intuition",
+    logik: "Logik",
+    schleicher: "Schleicher",
+    willenskraft: "Willenskraft",
+  };
+
+  return componentLabels[`${label || ""}`.trim()] || `${label || ""}`.trim();
+}
+
+function appendMatrixActionComponentDetailRows(rows, rowPrefix, componentValue, lookupAttr, options = {}) {
+  if (!componentValue || componentValue.value === null) return;
+
+  (componentValue.parts || []).forEach((part) => {
+    if (rowPrefix === "Probe" && part.type === "skill") {
+      appendSkillDetailRows(rows, lookupAttr, part.label, formatMatrixActionComponentLabel(part.label), {
+        poolComponent: !!options.poolComponent,
+      });
+      return;
+    }
+    if (rowPrefix === "Probe" && part.type === "attribute") {
+      appendAttributeDetailRows(rows, lookupAttr, part.label, formatMatrixActionComponentLabel(part.label), {
+        poolComponent: !!options.poolComponent,
+      });
+      return;
+    }
+    if (rowPrefix === "Probe" && part.type === "matrix") {
+      appendRowIfMissing(
+        rows,
+        `Matrixattribut ${formatMatrixActionComponentLabel(part.label)}`,
+        `${parseNumber(part.value)}`,
+        { poolComponent: !!options.poolComponent }
+      );
+      return;
+    }
+    appendRowIfMissing(
+      rows,
+      `${rowPrefix} ${formatMatrixActionComponentLabel(part.label)}`,
+      `${parseNumber(part.value)}`,
+      { poolComponent: !!options.poolComponent }
+    );
+  });
+  if (parseNumber(componentValue.multiplier) > 1) {
+    appendRowIfMissing(rows, `${rowPrefix} Multiplikator`, `x${parseNumber(componentValue.multiplier)}`);
+    appendRowIfMissing(
+      rows,
+      `${rowPrefix} Multiplikator-Bonus`,
+      `${parseNumber(componentValue.value) - (componentValue.parts || []).reduce((sum, part) => sum + parseNumber(part.value), 0)}`,
+      { poolComponent: !!options.poolComponent }
+    );
+  }
+  appendRowIfMissing(
+    rows,
+    `${rowPrefix} Gesamtwert`,
+    `${parseNumber(componentValue.value)}`
+  );
+}
+
+function appendMatrixActionRows(rows, matrixActionContext, lookupAttr) {
   if (!matrixActionContext) return;
 
   const rule = matrixActionContext.rule || {};
@@ -4006,7 +5605,9 @@ function appendMatrixActionRows(rows, matrixActionContext) {
     rows.push({ label: "Probe", value: "Siehe Beschreibung" });
   } else if (probe) {
     rows.push({ label: "Probe", value: probe.label });
-    rows.push({ label: "Probe-Wert", value: `${probe.value}` });
+    appendMatrixActionComponentDetailRows(rows, "Probe", probe, lookupAttr, {
+      poolComponent: matrixActionContext.rollMode !== "defense",
+    });
   }
 
   if (rule.probe && rule.probe.linkedMatrixAttribute) {
@@ -4023,11 +5624,17 @@ function appendMatrixActionRows(rows, matrixActionContext) {
   } else if (defense.type === "fixed_formula" && defenseValue && defenseValue.value !== null) {
     rows.push({ label: "Verteidigung", value: defenseValue.label });
     rows.push({ label: "Verteidigungswert", value: `${defenseValue.value}` });
+    appendMatrixActionComponentDetailRows(rows, "Verteidigungswert", defenseValue, lookupAttr, {
+      poolComponent: matrixActionContext.rollMode === "defense",
+    });
   } else if (defense.type === "fixed_formula") {
     rows.push({ label: "Verteidigung", value: defense.label || "Zielwert" });
   } else if (defenseValue && defenseValue.value !== null) {
     rows.push({ label: "Verteidigung", value: defenseValue.label });
     rows.push({ label: "Verteidigungswert", value: `${defenseValue.value}` });
+    appendMatrixActionComponentDetailRows(rows, "Verteidigungswert", defenseValue, lookupAttr, {
+      poolComponent: matrixActionContext.rollMode === "defense",
+    });
   } else if (defenseOption && defenseOption.label) {
     rows.push({ label: "Verteidigung", value: defenseOption.label });
   }
@@ -4267,6 +5874,90 @@ function isCombatSpell(resolvedFields) {
   return `${(resolvedFields && resolvedFields.Art) || ""}`.trim() === "Kampf";
 }
 
+function resolveCombatSpellType(resolvedFields) {
+  const type = `${(resolvedFields && resolvedFields.Typ) || ""}`.trim();
+  return type === "Direkt" || type === "Indirekt" ? type : "";
+}
+
+function resolveSpellDamageType(resolvedFields) {
+  return `${(resolvedFields && resolvedFields.Schadenstyp) || ""}`.trim() || "Körperlich";
+}
+
+function getSpellPopupNumber(popupState, key) {
+  return parseNumber((((popupState || {}).selectedValues || {})[key]));
+}
+
+function appendSpellAttackValueDetailRows(rows, lookupAttr, resolvedFields, popupState, finalAttackValue) {
+  const traditionAttribute = `${lookupAttr("sr6_magic_traditionsattribut_1") || ""}`.trim();
+  const traditionKey = mapTraditionsattributToKey(traditionAttribute);
+  const magicValue = parseNumber(lookupAttr("sr6_magic_magie"));
+  const traditionValue = traditionKey ? resolveRollAttributeTotal(traditionKey, lookupAttr) : 0;
+  const coreModifier = parseNumber(lookupAttr("sr6_magic_angriffswert_modifikator"));
+
+  rows.push({ label: "Angriffswert-Formel", value: "Magie + Traditionsattribut" });
+  rows.push({ label: "Angriffswert Magie", value: `${magicValue}` });
+  if (traditionAttribute) {
+    rows.push({ label: "Angriffswert Traditionsattribut", value: traditionAttribute });
+  }
+  rows.push({ label: "Angriffswert Traditionsattribut Wert", value: `${traditionValue}` });
+  if (coreModifier !== 0) {
+    rows.push({ label: "Angriffswert Kernwert-Modifikator", value: formatSignedModifier(coreModifier) });
+  }
+  if (popupState.attackValueMod !== 0) {
+    rows.push({ label: "Angriffswert-Modifikator", value: formatSignedModifier(popupState.attackValueMod) });
+  }
+  rows.push({ label: "Angriffswert", value: `${finalAttackValue}` });
+}
+
+function appendSpellDrainDetailRows(rows, resolvedFields, popupState) {
+  const baseDrain = parseNumber(resolvedFields.Entzug);
+  const areaIncrease = getSpellPopupNumber(popupState, "area_increase");
+  const overcast = getSpellPopupNumber(popupState, "overcast");
+  const drainOnlyMod = getSpellPopupNumber(popupState, "drain_mod");
+  const modifiedDrain = Math.max(0, baseDrain + popupState.drainMod);
+
+  rows.push({ label: "Entzug-Basis", value: `${baseDrain}` });
+  if (areaIncrease !== 0) {
+    rows.push({ label: "Fläche Vergrößern-Entzug", value: formatSignedModifier(areaIncrease) });
+  }
+  if (overcast !== 0) {
+    rows.push({ label: "Hochdrehen-Entzug", value: formatSignedModifier(overcast * 2) });
+  }
+  if (drainOnlyMod !== 0) {
+    rows.push({ label: "Entzug-Modifikator", value: formatSignedModifier(drainOnlyMod) });
+  }
+  rows.push({ label: "Entzug", value: `${modifiedDrain}` });
+}
+
+function appendSpellDamageDetailRows(rows, lookupAttr, resolvedFields, popupState, spellSuccesses) {
+  const spellType = resolveCombatSpellType(resolvedFields);
+  if (!spellType) return;
+
+  const magicValue = parseNumber(lookupAttr("sr6_magic_magie"));
+  const overcast = getSpellPopupNumber(popupState, "overcast");
+  const damageOnlyMod = getSpellPopupNumber(popupState, "damage_mod");
+  const baseDamage = spellType === "Indirekt" ? Math.ceil(magicValue / 2) : 0;
+  const finalDamage = Math.max(0, baseDamage + parseNumber(spellSuccesses) + popupState.damageMod);
+  const damageType = resolveSpellDamageType(resolvedFields);
+
+  rows.push({
+    label: "Schaden-Formel",
+    value: spellType === "Indirekt"
+      ? "ceil(Magie / 2) + Erfolge + Hochdrehen"
+      : "Erfolge + Hochdrehen",
+  });
+  rows.push({ label: "Schaden-Basis", value: `${baseDamage}` });
+  rows.push({ label: "Erfolge auf Schaden", value: `+${parseNumber(spellSuccesses)}` });
+  if (overcast !== 0) {
+    rows.push({ label: "Hochdrehen-Schaden", value: formatSignedModifier(overcast) });
+  }
+  if (damageOnlyMod !== 0) {
+    rows.push({ label: "Schadens-Modifikator", value: formatSignedModifier(damageOnlyMod) });
+  }
+  rows.push({ label: "Schadenstyp", value: damageType });
+  rows.push({ label: "Schaden", value: damageType ? `${finalDamage} ${damageType}` : `${finalDamage}` });
+}
+
 function resolveDrainDamageType(remainingDrainDamage, magicValue) {
   if (parseNumber(remainingDrainDamage) <= 0) return "";
   return parseNumber(remainingDrainDamage) > parseNumber(magicValue) ? "Körperlich" : "Betäubung";
@@ -4288,11 +5979,21 @@ function isSummoningPossessionCheckEnabled(popupState) {
   return `${(((popupState || {}).selectedValues || {}).possession) || ""}`.trim() === "1";
 }
 
-function appendRowIfMissing(rows, label, value) {
-  const normalizedValue = `${value || ""}`.trim();
+function appendRowIfMissing(rows, label, value, options = {}) {
+  const normalizedValue = `${value === undefined || value === null ? "" : value}`.trim();
   if (!normalizedValue) return;
-  if (rows.some((row) => row && row.label === label && `${row.value || ""}`.trim() === normalizedValue)) return;
-  rows.push({ label: label, value: normalizedValue });
+  const existingRow = rows.find((row) => row && row.label === label && `${row.value || ""}`.trim() === normalizedValue);
+  if (existingRow) {
+    if (options.poolComponent) {
+      existingRow.poolComponent = true;
+    }
+    return;
+  }
+  rows.push({
+    label: label,
+    value: normalizedValue,
+    poolComponent: !!options.poolComponent,
+  });
 }
 
 function resolveEdgeBoostOptions(popupState, lookupAttr) {
@@ -4400,6 +6101,51 @@ function saveEdgeLastRollContext(name, computation) {
   });
 }
 
+function isRolltemplateDebugEnabled(lookupAttr) {
+  return `${lookupAttr("sr6_setting_rolltemplate_debug") || "nein"}`.trim() === "ja";
+}
+
+function runInitiativeProbeFromContext(context, lookupAttr, resolvedFields) {
+  const rows = buildProbeRows(resolvedFields, context.definition);
+  const name = deriveProbeTitle(resolvedFields, context.poolAttribute, context.definition);
+  const basis = parseNumber(resolvedFields.Basis);
+  const diceCount = Math.max(0, parseNumber(resolvedFields.W6));
+  const diceResults = [];
+  let diceTotal = 0;
+
+  for (let index = 0; index < diceCount; index += 1) {
+    const die = rollD6();
+    diceResults.push(die);
+    diceTotal += die;
+  }
+
+  const total = basis + diceTotal;
+  appendRowIfMissing(rows, "W6-Wurf", diceResults.length > 0 ? diceResults.join(" + ") : "0");
+  appendRowIfMissing(rows, "Gesamt", `${total}`);
+
+  const chatMessage = buildSr6ProbeMessage({
+    name: name,
+    rows: rows,
+    resolvedFields: resolvedFields,
+    definition: context.definition,
+    definitionId: context.definition && context.definition.id,
+    suppressSubject: true,
+    pool: `${diceCount}`,
+    resultLabel: "Initiative",
+    resultValue: `${total}`,
+    details: diceResults.join(" + "),
+    detailsDice: buildNeutralDetailsDice(diceResults),
+    edgeAction: false,
+    isGlitch: false,
+    characterId: lookupAttr("character_id"),
+    debugDetailsEnabled: isRolltemplateDebugEnabled(lookupAttr),
+  });
+
+  startRoll(chatMessage, (rollResult) => {
+    finishRoll(rollResult.rollId);
+  });
+}
+
 function runEquipmentProbeFromContext(context, lookupAttr, resolvedFields, popupState) {
   const rows = buildProbeRows(resolvedFields, context.definition);
   const name = deriveProbeTitle(resolvedFields, context.poolAttribute, context.definition);
@@ -4426,9 +6172,11 @@ function runEquipmentProbeFromContext(context, lookupAttr, resolvedFields, popup
 
   rows.push({ label: "Bezug", value: sourceOption ? sourceOption.label : "Keine Auswahl" });
   if (sourceOption) {
-    rows.push({ label: sourceOption.type, value: `${sourceOption.label} (${sourceValue})` });
+    rows.push({ label: sourceOption.type, value: sourceOption.label });
+    appendEquipmentSourceDetailRows(rows, lookupAttr, sourceKey, sourceOption);
+    appendRowIfMissing(rows, "Bezugswert", `${sourceValue}`);
   }
-  rows.push({ label: ratingMultiplier === 2 ? "Stufe x2" : "Stufe", value: `${ratingValue}` });
+  rows.push({ label: ratingMultiplier === 2 ? "Stufe x2" : "Stufe", value: `${ratingValue}`, poolComponent: true });
   if (computation.monitorPoolMod !== 0) {
     rows.push({ label: "Pool-Basis", value: `${computation.poolBasis}` });
     rows.push({ label: "Zustandsmodifikator", value: `${computation.monitorPoolMod}` });
@@ -4446,9 +6194,11 @@ function runEquipmentProbeFromContext(context, lookupAttr, resolvedFields, popup
     pool: `${computation.pool}`,
     erfolge: erfolgeValue,
     details: buildDiceDetails(computation.diceResults, computation.fateDiceResults),
-    detailsDice: buildDetailsDice(computation.diceResults, computation.fateDiceResults),
+    detailsDice: buildDetailsDice(computation.diceResults, computation.fateDiceResults, 20, computation.diceTrace),
+    computation: computation,
     isGlitch: computation.isGlitch,
     characterId: lookupAttr("character_id"),
+    debugDetailsEnabled: isRolltemplateDebugEnabled(lookupAttr),
   });
 
   saveEdgeLastRollContext(name, computation);
@@ -4537,6 +6287,7 @@ function runRiggingVehicleProbeFromContext(context, lookupAttr, resolvedFields, 
 
   rows.push({ label: "Probe", value: getRiggingVehicleProbeLabel(probeKey) });
   rows.push({ label: "Formel", value: probe.formula });
+  appendRowsFormulaDetails(rows, lookupAttr);
   rows.push({ label: "Modus", value: mode });
   if (fireMode && attackValueModifier !== 0) {
     rows.push({ label: "Angriffswert-Basis", value: `${parseNumber(baseAttackValue)}` });
@@ -4589,9 +6340,11 @@ function runRiggingVehicleProbeFromContext(context, lookupAttr, resolvedFields, 
     pool: `${computation.pool}`,
     erfolge: erfolgeValue,
     details: buildDiceDetails(computation.diceResults, computation.fateDiceResults),
-    detailsDice: buildDetailsDice(computation.diceResults, computation.fateDiceResults),
+    detailsDice: buildDetailsDice(computation.diceResults, computation.fateDiceResults, 20, computation.diceTrace),
+    computation: computation,
     isGlitch: computation.isGlitch,
     characterId: lookupAttr("character_id"),
+    debugDetailsEnabled: isRolltemplateDebugEnabled(lookupAttr),
   });
   saveEdgeLastRollContext("Rigging-Fahrzeugprobe", computation);
   startRoll(chatMessage, (rollResult) => {
@@ -4617,33 +6370,23 @@ function runSpellProbeFromContext(context, lookupAttr, resolvedFields, popupStat
     null,
     edgeOptions
   );
-  const drainComputation = buildProbeComputation(
-    lookupAttr,
-    "sr6_magic_entzug_widerstand",
-    0
-  );
-  const baseDamage = parseNumber(resolvedFields.Schaden);
   const baseAttackValue = parseNumber(resolvedFields.Angriffswert);
   const finalAttackValue = isCombatSpell(resolvedFields)
     ? Math.max(0, baseAttackValue + effectivePopupState.attackValueMod)
     : "";
-  const finalDamage = isCombatSpell(resolvedFields) || baseDamage || effectivePopupState.damageMod
-    ? `${baseDamage + effectivePopupState.damageMod}`
-    : "";
-  const modifiedDrain = Math.max(0, parseNumber(resolvedFields.Entzug) + effectivePopupState.drainMod);
-  const drainDamage = Math.max(0, modifiedDrain - drainComputation.successCount);
-  const drainDamageType = resolveDrainDamageType(drainDamage, lookupAttr("sr6_magic_magie"));
 
+  appendBasePoolDetailRows(rows, context.definition, lookupAttr, context.poolAttribute, null, resolvedFields);
+  appendDrainResistanceDetailRows(rows, lookupAttr);
+  appendSpellDrainDetailRows(rows, resolvedFields, effectivePopupState);
+  if (isCombatSpell(resolvedFields)) {
+    appendSpellAttackValueDetailRows(rows, lookupAttr, resolvedFields, effectivePopupState, finalAttackValue);
+    appendSpellDamageDetailRows(rows, lookupAttr, resolvedFields, effectivePopupState, spellComputation.successCount);
+  }
   effectivePopupState.rows.forEach((popupRow) => {
     if (!popupRow || !popupRow.label) return;
     appendRowIfMissing(rows, popupRow.label, popupRow.value);
   });
   appendRollOnlyPoolModifierRow(rows, rollOnlyPoolModifier);
-  if (isCombatSpell(resolvedFields) && effectivePopupState.attackValueMod !== 0) {
-    rows.push({ label: "Angriffswert-Basis", value: `${baseAttackValue}` });
-    rows.push({ label: "Angriffswert-Modifikator", value: `${effectivePopupState.attackValueMod}` });
-    rows.push({ label: "Angriffswert", value: `${finalAttackValue}` });
-  }
   appendEdgeBoostRows(rows, edgeOptions, spellComputation);
 
   const chatMessage = buildSr6ProbeMessage({
@@ -4655,16 +6398,11 @@ function runSpellProbeFromContext(context, lookupAttr, resolvedFields, popupStat
     pool: `${spellComputation.pool}`,
     erfolge: `${spellComputation.successCount}`,
     details: buildDiceDetails(spellComputation.diceResults, spellComputation.fateDiceResults),
-    detailsDice: buildDetailsDice(spellComputation.diceResults, spellComputation.fateDiceResults),
+    detailsDice: buildDetailsDice(spellComputation.diceResults, spellComputation.fateDiceResults, 20, spellComputation.diceTrace),
+    computation: spellComputation,
     isGlitch: spellComputation.isGlitch,
-    spellAttackValue: `${finalAttackValue}`,
-    spellDamage: finalDamage,
-    drainValue: `${modifiedDrain}`,
-    drainDamage: `${drainDamage}`,
-    drainDamageType: drainDamageType,
-    drainDetails: buildDiceDetails(drainComputation.diceResults),
-    drainDetailsDice: buildDetailsDice(drainComputation.diceResults),
     characterId: lookupAttr("character_id"),
+    debugDetailsEnabled: isRolltemplateDebugEnabled(lookupAttr),
   });
 
   saveEdgeLastRollContext(name, spellComputation);
@@ -4712,6 +6450,8 @@ function runSummoningProbeFromContext(context, lookupAttr, resolvedFields, popup
     ? Math.max(0, spiritComputation.successCount - objectResistanceComputation.successCount)
     : null;
 
+  appendBasePoolDetailRows(rows, context.definition, lookupAttr, context.poolAttribute, null, resolvedFields);
+  appendDrainResistanceDetailRows(rows, lookupAttr);
   appendRowIfMissing(rows, "Geistertyp", spiritType);
   appendRowIfMissing(rows, "Kraftstufe", `${spiritForce}`);
   effectivePopupState.rows.forEach((popupRow) => {
@@ -4752,9 +6492,11 @@ function runSummoningProbeFromContext(context, lookupAttr, resolvedFields, popup
     pool: `${summonerComputation.pool}`,
     erfolge: `${summonerComputation.successCount}`,
     details: buildDiceDetails(summonerComputation.diceResults, summonerComputation.fateDiceResults),
-    detailsDice: buildDetailsDice(summonerComputation.diceResults, summonerComputation.fateDiceResults),
+    detailsDice: buildDetailsDice(summonerComputation.diceResults, summonerComputation.fateDiceResults, 20, summonerComputation.diceTrace),
+    computation: summonerComputation,
     isGlitch: summonerComputation.isGlitch,
     characterId: lookupAttr("character_id"),
+    debugDetailsEnabled: isRolltemplateDebugEnabled(lookupAttr),
   });
 
   saveEdgeLastRollContext(name, summonerComputation);
@@ -4778,6 +6520,10 @@ function runSuccessProbeFromContext(rawTemplate, repeatingRowPrefix, popupState 
       resolvedFields[field.label] = lookupAttr(field.attr);
     });
 
+    if (context.definition && context.definition.probeModel === "initiative_probe") {
+      runInitiativeProbeFromContext(context, lookupAttr, resolvedFields);
+      return;
+    }
     if (context.definition && context.definition.probeModel === "spell_probe") {
       runSpellProbeFromContext(context, lookupAttr, resolvedFields, normalizedPopupState);
       return;
@@ -4812,6 +6558,7 @@ function runSuccessProbeFromContext(rawTemplate, repeatingRowPrefix, popupState 
         details: resolvedFields.Details || "",
         isGlitch: false,
         characterId: lookupAttr("character_id"),
+        debugDetailsEnabled: isRolltemplateDebugEnabled(lookupAttr),
       });
       startRoll(chatMessage, (rollResult) => {
         finishRoll(rollResult.rollId);
@@ -4871,18 +6618,21 @@ function runSuccessProbeFromContext(rawTemplate, repeatingRowPrefix, popupState 
         label: "Attribut-Fallback",
         value: `${meleeAttributeOverride.currentAttribute} -> ${meleeAttributeOverride.selectedAttribute}`,
       });
+      appendRowIfMissing(rows, "Attribut", meleeAttributeOverride.selectedAttribute);
+      appendAttributeDetailRows(rows, lookupAttr, getAttributeDetailKey(meleeAttributeOverride.selectedAttribute), "Attributwert");
     }
-    if (skillAttributeOverride) {
-      rows.push({ label: "Attribut", value: skillAttributeOverride.selectedAttribute });
-      rows.push({ label: "Attribut-Wert", value: `${skillAttributeOverride.attributeValue}` });
-      rows.push({ label: "Fertigkeitswert", value: `${skillAttributeOverride.skillValue}` });
+    appendBasePoolDetailRows(rows, context.definition, lookupAttr, context.poolAttribute, skillAttributeOverride, resolvedFields);
+    appendCombatDefenseValueDetailRows(rows, context.definition, lookupAttr);
+    appendMatrixLikeDefenseValueDetailRows(rows, context.definition, lookupAttr);
+    appendMatrixActionRows(rows, matrixActionContext, lookupAttr);
+    if (!matrixActionContext) {
+      appendRowsFormulaDetails(rows, lookupAttr);
     }
-    appendMatrixActionRows(rows, matrixActionContext);
     const glitchText = computation.isCriticalGlitch ? "!! Kritischer Patzer !!" : "!! Patzer !!";
     const erfolgeValue = computation.isGlitch ? glitchText : `${computation.successCount}`;
 
     if (computation.poolMultiplier !== 1) {
-      rows.push({ label: "Pool-Basis", value: `${computation.poolBasisRaw}` });
+      rows.push({ label: "Pool-Basis vor Multiplikator", value: `${computation.poolPreMultiplier}` });
       rows.push({ label: "Multiplikator", value: `x${computation.poolMultiplier}` });
     }
     if (computation.monitorPoolMod !== 0) {
@@ -4907,9 +6657,11 @@ function runSuccessProbeFromContext(rawTemplate, repeatingRowPrefix, popupState 
       pool: `${computation.pool}`,
       erfolge: erfolgeValue,
       details: buildDiceDetails(computation.diceResults, computation.fateDiceResults),
-      detailsDice: buildDetailsDice(computation.diceResults, computation.fateDiceResults),
+      detailsDice: buildDetailsDice(computation.diceResults, computation.fateDiceResults, 20, computation.diceTrace),
+      computation: computation,
       isGlitch: computation.isGlitch,
       characterId: lookupAttr("character_id"),
+      debugDetailsEnabled: isRolltemplateDebugEnabled(lookupAttr),
     });
     saveEdgeLastRollContext(name, computation);
     startRoll(chatMessage, (rollResult) => {
@@ -4927,6 +6679,11 @@ function runSuccessProbeRoll(eventInfo) {
   const parsedFields = parseTemplateFields(rawTemplate);
   const poolAttribute = parsePoolAttributeFromFields(parsedFields);
   const definition = resolveRollDefinition(parsedFields, poolAttribute);
+
+  if (definition && definition.probeModel === "initiative_probe") {
+    runSuccessProbeFromContext(rawTemplate, repeatingRowPrefix, 0);
+    return;
+  }
 
   getAttrs(["sr6_setting_popup_mods"], (values) => {
     const popupSetting = (values.sr6_setting_popup_mods || "eigen").toLowerCase();
@@ -4953,7 +6710,7 @@ function runSuccessProbeRoll(eventInfo) {
     }
 
     startRoll(
-      "&{template:default} {{name=Probenmodifikator}} {{Wert=[[?{Modifikator|0}]]}}",
+      "&{template:default} {{name=Popup-Modifikator}} {{Wert=[[?{Modifikator|0}]]}}",
       (queryResult) => {
         const queryRoll = queryResult && queryResult.results && queryResult.results.Wert;
         const popupState = {
@@ -5101,6 +6858,7 @@ function runEdgeAfterRollConfirm(values) {
     "sr6_edge_last_roll_successes",
     "sr6_edge_last_roll_is_glitch",
     "sr6_edge_last_roll_is_critical_glitch",
+    "sr6_setting_rolltemplate_debug",
   ];
 
   getAttrs(attrs, (lastValues) => {
@@ -5120,6 +6878,7 @@ function runEdgeAfterRollConfirm(values) {
         name: "Edge einsetzen",
         rows: buildEdgeAfterRollRows("Nicht möglich", lastRollName, rows),
         edgeAction: false,
+        debugDetailsEnabled: `${lastValues.sr6_setting_rolltemplate_debug || "nein"}`.trim() === "ja",
       });
       startRoll(chatMessage, (rollResult) => finishRoll(rollResult.rollId));
       return;
@@ -5177,6 +6936,7 @@ function runEdgeAfterRollConfirm(values) {
       erfolge: successes,
       detailsDice: detailsDice,
       edgeAction: false,
+      debugDetailsEnabled: `${lastValues.sr6_setting_rolltemplate_debug || "nein"}`.trim() === "ja",
     });
 
     startRoll(chatMessage, (rollResult) => finishRoll(rollResult.rollId));
@@ -5848,12 +7608,6 @@ const SR6_COMBAT_CALCULATED_FIELDS = [
     },
   },
   {
-    key: "sr6_combat_projektilwaffen",
-    useModifier: false,
-    base: (totals, skillTotals, values) =>
-      getCombatRangedPool(totals, skillTotals, values, "Projektilwaffen", "Projektilwaffen"),
-  },
-  {
     key: "sr6_combat_nahkampfangriff",
     useModifier: false,
     base: (totals, skillTotals, values) => {
@@ -6237,7 +7991,6 @@ function syncCombatWeaponPools(callback) {
 // BEGIN MODULE: workers/compute/magic
 function appendMagicRequestKeys(requestKeys) {
   requestKeys.push("sr6_magic_traditionsattribut_1");
-  requestKeys.push("sr6_magic_traditionsattribut_1_modifikator");
   requestKeys.push("sr6_magic_angriffswert_modifikator");
   requestKeys.push("sr6_magic_astralkampf_angriffswert_modifikator");
   requestKeys.push("sr6_magic_astralkampf_verteidigungswert_modifikator");
@@ -6265,9 +8018,7 @@ function computeMagicDerived(values, totals, skillTotals, updates) {
   );
 
   const traditionKey1 = mapTraditionsattributToKey(values.sr6_magic_traditionsattribut_1);
-  const traditionValue1 =
-    (traditionKey1 ? (totals[traditionKey1] || 0) : 0) +
-    parseNumber(values.sr6_magic_traditionsattribut_1_modifikator);
+  const traditionValue1 = traditionKey1 ? (totals[traditionKey1] || 0) : 0;
 
   updates.sr6_magic_entzug_widerstand = String(
     traditionValue1 + (totals.willenskraft || 0)
@@ -6900,7 +8651,6 @@ function buildRecalcEvents() {
   events.push("change:sr6_combat_helm");
   events.push("change:sr6_combat_schild");
   events.push("change:sr6_combat_fernkampfangriff_modifikator");
-  events.push("change:sr6_combat_projektilwaffen_modifikator");
   events.push("change:sr6_combat_fernkampf_fertigkeit");
   events.push("change:sr6_combat_fernkampf_waffentyp");
   events.push("change:sr6_combat_nahkampfangriff_modifikator");
@@ -6915,7 +8665,6 @@ function buildRecalcEvents() {
   events.push("change:sr6_schadenswiderstand_physisch_gesamtwert");
 
   events.push("change:sr6_magic_traditionsattribut_1");
-  events.push("change:sr6_magic_traditionsattribut_1_modifikator");
   events.push("change:sr6_magic_angriffswert_modifikator");
   events.push("change:sr6_magic_astralkampf_angriffswert_modifikator");
   events.push("change:sr6_magic_astralkampf_verteidigungswert_modifikator");

@@ -53,7 +53,6 @@ function buildRecalcEvents() {
   events.push("change:sr6_combat_helm");
   events.push("change:sr6_combat_schild");
   events.push("change:sr6_combat_fernkampfangriff_modifikator");
-  events.push("change:sr6_combat_projektilwaffen_modifikator");
   events.push("change:sr6_combat_fernkampf_fertigkeit");
   events.push("change:sr6_combat_fernkampf_waffentyp");
   events.push("change:sr6_combat_nahkampfangriff_modifikator");
@@ -68,7 +67,6 @@ function buildRecalcEvents() {
   events.push("change:sr6_schadenswiderstand_physisch_gesamtwert");
 
   events.push("change:sr6_magic_traditionsattribut_1");
-  events.push("change:sr6_magic_traditionsattribut_1_modifikator");
   events.push("change:sr6_magic_angriffswert_modifikator");
   events.push("change:sr6_magic_astralkampf_angriffswert_modifikator");
   events.push("change:sr6_magic_astralkampf_verteidigungswert_modifikator");

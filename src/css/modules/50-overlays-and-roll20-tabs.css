@@ -50,10 +50,60 @@
     grid-template-rows: none;
   }
 
+  #sr6_daten_panel_2 .sr6-charactersheet-box-fertigkeiten-allgemein .sr6-charactersheet-skill-field {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+
   #sr6_daten_panel_2 .sr6-charactersheet-box-attribute > .sr6-charactersheet-box-content {
     grid-auto-flow: row;
     grid-template-columns: minmax(0, 1fr);
     grid-template-rows: none;
+  }
+
+  #sr6_daten_panel_2 .sr6-charactersheet-box-attribute .sr6-charactersheet-attribute-grid {
+    grid-auto-flow: row;
+    grid-template-columns: minmax(0, 1fr);
+    grid-template-rows: none;
+  }
+
+  #sr6_daten_panel_2 .sr6-charactersheet-box-attribute .sr6-charactersheet-attribute-column-title--koerperlich {
+    order: 1;
+  }
+
+  #sr6_daten_panel_2 .sr6-charactersheet-box-attribute .sr6-charactersheet-attr-field--konstitution {
+    order: 2;
+  }
+
+  #sr6_daten_panel_2 .sr6-charactersheet-box-attribute .sr6-charactersheet-attr-field--geschicklichkeit {
+    order: 3;
+  }
+
+  #sr6_daten_panel_2 .sr6-charactersheet-box-attribute .sr6-charactersheet-attr-field--reaktion {
+    order: 4;
+  }
+
+  #sr6_daten_panel_2 .sr6-charactersheet-box-attribute .sr6-charactersheet-attr-field--staerke {
+    order: 5;
+  }
+
+  #sr6_daten_panel_2 .sr6-charactersheet-box-attribute .sr6-charactersheet-attribute-column-title--geistig {
+    order: 6;
+  }
+
+  #sr6_daten_panel_2 .sr6-charactersheet-box-attribute .sr6-charactersheet-attr-field--willenskraft {
+    order: 7;
+  }
+
+  #sr6_daten_panel_2 .sr6-charactersheet-box-attribute .sr6-charactersheet-attr-field--logik {
+    order: 8;
+  }
+
+  #sr6_daten_panel_2 .sr6-charactersheet-box-attribute .sr6-charactersheet-attr-field--intuition {
+    order: 9;
+  }
+
+  #sr6_daten_panel_2 .sr6-charactersheet-box-attribute .sr6-charactersheet-attr-field--charisma {
+    order: 10;
   }
 }
 

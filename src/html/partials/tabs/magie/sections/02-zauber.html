@@ -24,14 +24,16 @@
           <span data-i18n="field.zauber_art">Art</span>
           <span data-i18n="field.reichweite">Reichweite</span>
           <span data-i18n="field.dauer">Dauer</span>
+          <span data-i18n="field.zauber_widerstand">Widerstand</span>
           <span data-i18n="field.entzug">Entzug</span>
+          <span data-i18n="field.zauber_typ">Typ</span>
           <span data-i18n="field.schaden">Schaden</span>
-          <span data-i18n="field.aufrechterhalten">Aufrechterhalten</span>
+          <span data-i18n="field.schadentyp">Schadenstyp</span>
         </div>
         <fieldset class="repeating_sr6zauber">
           <div class="sr6-foundry-item">
             <div class="sr6-editable-item-fields">
-            <div class="sr6-foundry-item-head sr6-charactersheet-row sr6-charactersheet-row-4">
+            <div class="sr6-foundry-item-head sr6-charactersheet-row sr6-charactersheet-row-7 sr6-zauber-main-row">
               <div class="sr6-charactersheet-field">
                 <span data-i18n="field.zauber_name">Zaubername</span>
                 <input type="text" name="attr_sr6_zauber_name" />
@@ -65,34 +67,54 @@
                   <option value="Spezial" data-i18n="field.reichweite_spezial">Spezial</option>
                 </select>
               </div>
-            </div>
-            <div class="sr6-foundry-item-row sr6-charactersheet-row sr6-charactersheet-row-3">
+              <div class="sr6-charactersheet-field">
+                <span data-i18n="field.zauber_widerstand">Widerstand</span>
+                <select name="attr_sr6_zauber_widerstand">
+                  <option value="Kein/Schwelle" data-i18n="field.zauber_widerstand_keine_schwelle">Kein/Schwelle</option>
+                  <option value="Willenskraft + Intuition" data-i18n="field.zauber_widerstand_willenskraft_intuition">Willenskraft + Intuition</option>
+                  <option value="Reaktion + Willenskraft" data-i18n="field.zauber_widerstand_reaktion_willenskraft">Reaktion + Willenskraft</option>
+                  <option value="Konstitution" data-i18n="field.zauber_widerstand_konstitution">Konstitution</option>
+                  <option value="Pilot" data-i18n="field.zauber_widerstand_pilot">Pilot</option>
+                  <option value="Manuell" data-i18n="field.manuell">Manuell</option>
+                </select>
+              </div>
               <div class="sr6-charactersheet-field">
                 <span data-i18n="field.entzug">Entzug</span>
                 <div class="sr6-number-stepper"><button type="action" class="sr6-number-stepper-button sr6-number-stepper-button--minus" name="act_sr6_number_step" value="sr6_zauber_entzug::-1" aria-label="Verringern">-</button><input type="number" name="attr_sr6_zauber_entzug" /><button type="action" class="sr6-number-stepper-button sr6-number-stepper-button--plus" name="act_sr6_number_step" value="sr6_zauber_entzug::1" aria-label="Erhoehen">+</button></div>
               </div>
+              <div class="sr6-charactersheet-field sr6-zauber-roll-field">
+                <div class="sr6-charactersheet-field-input-with-dice">
+                  <button
+                    type="action"
+                    class="sr6-charactersheet-field-dice-button"
+                    name="act_probe"
+                    value="&{template:default} {{name=Spruchzauberei}} {{Zauber=@{sr6_zauber_name}}} {{Art=@{sr6_zauber_art}}} {{Reichweite=@{sr6_zauber_reichweite}}} {{Typ=@{sr6_zauber_typ}}} {{Dauer=@{sr6_zauber_dauer}}} {{Widerstand=@{sr6_zauber_widerstand}}} {{Entzug=@{sr6_zauber_entzug}}} {{Angriffswert=@{sr6_magic_angriffswert}}} {{Schadenstyp=@{sr6_zauber_schadenstyp}}} {{Notiz=@{sr6_item_notizen_zubehoer_modifikationen}}} {{Pool=[[@{sr6_magic_spruchzauberei}]]}} {{Erfolge=[[@{sr6_magic_spruchzauberei}d6>5]]}}"
+                    aria-label="Wuerfeln"></button>
+                </div>
+              </div>
+            </div>
+            <div class="sr6-foundry-item-row sr6-charactersheet-row sr6-charactersheet-row-3 sr6-zauber-combat-row">
+              <div class="sr6-charactersheet-field sr6-zauber-combat-field">
+                <span data-i18n="field.zauber_typ">Typ</span>
+                <select name="attr_sr6_zauber_typ">
+                  <option value="" data-i18n="field.keine_auswahl"></option>
+                  <option value="Direkt" data-i18n="field.zauber_typ_direkt">Direkt</option>
+                  <option value="Indirekt" data-i18n="field.zauber_typ_indirekt">Indirekt</option>
+                </select>
+              </div>
               <div class="sr6-charactersheet-field">
                 <span data-i18n="field.schaden">Schaden</span>
-                <div class="sr6-number-stepper"><button type="action" class="sr6-number-stepper-button sr6-number-stepper-button--minus" name="act_sr6_number_step" value="sr6_zauber_schaden::-1" aria-label="Verringern">-</button><input type="number" name="attr_sr6_zauber_schaden" /><button type="action" class="sr6-number-stepper-button sr6-number-stepper-button--plus" name="act_sr6_number_step" value="sr6_zauber_schaden::1" aria-label="Erhoehen">+</button></div>
+                <input type="text" value="Wurf" readonly />
               </div>
               <div class="sr6-charactersheet-field">
-                <span data-i18n="field.aufrechterhalten">Aufrechterhalten</span>
-                <input type="checkbox" name="attr_sr6_zauber_aufrechterhalten" value="1" />
+                <span data-i18n="field.schadentyp">Schadenstyp</span>
+                <select name="attr_sr6_zauber_schadenstyp">
+                  <option value="" data-i18n="field.keine_auswahl"></option>
+                  <option value="Körperlich" data-i18n="field.schadentyp_koerperlich">Körperlich</option>
+                  <option value="Betäubung" data-i18n="field.schadentyp_betaeubung">Betäubung</option>
+                  <option value="Betäubung (elektrisch)" data-i18n="field.schadentyp_betaeubung_elektrisch">Betäubung (elektrisch)</option>
+                </select>
               </div>
-            </div>
-            <div class="sr6-foundry-item-footer sr6-charactersheet-row sr6-charactersheet-row-1">
-              <div class="sr6-charactersheet-field">
-                <span data-i18n="field.notiz">Notiz</span>
-                <input type="text" name="attr_sr6_zauber_notiz" />
-              </div>
-            </div>
-            <div class="sr6-zauber-list-roll">
-              <button
-                type="action"
-                class="sr6-charactersheet-field-dice-button"
-                name="act_probe"
-                value="&{template:default} {{name=Spruchzauberei}} {{Zauber=@{sr6_zauber_name}}} {{Art=@{sr6_zauber_art}}} {{Reichweite=@{sr6_zauber_reichweite}}} {{Dauer=@{sr6_zauber_dauer}}} {{Entzug=@{sr6_zauber_entzug}}} {{Angriffswert=@{sr6_magic_angriffswert}}} {{Schaden=@{sr6_zauber_schaden}}} {{Notiz=@{sr6_zauber_notiz}}} {{Pool=[[@{sr6_magic_spruchzauberei}]]}} {{Erfolge=[[@{sr6_magic_spruchzauberei}d6>5]]}}"
-                aria-label="Wuerfeln"></button>
             </div>
               <div class="sr6-foundry-item-footer sr6-charactersheet-row sr6-charactersheet-row-1 sr6-repeater-notes-mod-row">
                 <div class="sr6-charactersheet-field sr6-charactersheet-mod-popup sr6-repeater-notes-mod-field">

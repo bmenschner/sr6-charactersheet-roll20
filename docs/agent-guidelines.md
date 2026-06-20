@@ -196,6 +196,29 @@ Sind Template-Felder optional oder Pflicht?
 Werden Charakterwerte dauerhaft geändert?
 ```
 
+#### Rolltemplate-Info-Pipeline prüfen
+
+Bei Änderungen an Rolltemplate-Details, Info-Icons, Debug-Ausgabe oder `calc_details` reicht es nicht, nur die Row-Erzeugung oder die Compute-Formel zu prüfen. Die gesamte Anzeige-Pipeline muss nachvollzogen werden:
+
+```text
+1. Werden die fachlichen Detail-Rows erzeugt?
+2. Werden die Rows der richtigen Info-Gruppe zugeordnet?
+3. Werden Labels vor der Anzeige verändert oder gekürzt?
+4. Greift eine Dedupe-Logik nach der Label-Transformation?
+5. Sind die Werte im finalen Infofenster oder Debug-Output noch vollständig sichtbar?
+```
+
+Besonders kritisch sind Werte, die in mehreren Rollen vorkommen, zum Beispiel:
+
+```text
+Firewall als Poolbestandteil
+Firewall als Teil der Verteidigungswertberechnung
+Attributwerte in Poolrechnung und Vergleichswert
+Schaden in Kampfkontext und Schadensberechnung
+```
+
+Wenn Label-Transformationen wie `Verteidigungswert Firewall` zu `Firewall` gekürzt werden, darf Dedupe nicht gruppenübergreifend Werte entfernen. Dedupe-Schlüssel sollten daher die Gruppe berücksichtigen, wenn derselbe sichtbare Text in unterschiedlichen Infofenstern fachlich korrekt mehrfach vorkommt.
+
 ### i18n
 
 Typisch betroffen:

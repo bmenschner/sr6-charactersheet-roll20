@@ -37,3 +37,26 @@ Include-Reihenfolge ist wichtig:
 3. compute (attributes/skills/header-monitor/combat/magic/matrix/rigging)
 4. ui (defaults/monitor-cascade)
 5. core/register
+
+## Roll-only-Modifikatoren
+
+Berechnete, wuerfelbare Sheet-Werte koennen einen persistenten Komfort-Modifikator fuer den Wurf fuehren:
+
+- Feldmuster: `attr_<poolAttribute>_roll_modifikator`
+- Beispiel: `attr_sr6_combat_fernkampfangriff_gesamtwert_roll_modifikator`
+- Beispiel Matrix-Handlung: `attr_sr6_matrix_handlung_ausstoepseln_probe_wert_roll_modifikator`
+
+Die Roll-Pipeline behandelt diese Felder bewusst erst im Rollpfad:
+
+1. `rolls/context.js` laedt den berechneten Pool und den optionalen Roll-only-Modifikator.
+2. `rolls/probe.js` addiert den Roll-only-Modifikator auf den Wurfpool.
+3. `rolls/compute.js` berechnet Pool, Erfolge und Patzer aus dem modifizierten Rollpool.
+4. `rolls/display.js` gibt die Template-Werte aus und zeigt `Wert-Modifikator` nur bei einem Wert ungleich `0`.
+
+Reihenfolge der wirksamen Modifikatoren im Wurf:
+
+1. berechneter Sheet-Pool
+2. `*_roll_modifikator`
+3. Popup-/Monitor-/Edge-Modifikatoren aus der jeweiligen Probe
+
+Der `*_roll_modifikator` darf nicht in `compute/*` zurueckschreiben und veraendert den angezeigten berechneten Sheet-Wert nicht.

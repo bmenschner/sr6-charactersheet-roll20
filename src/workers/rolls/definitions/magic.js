@@ -8,10 +8,9 @@ const SR6_ROLL_DEFINITIONS_MAGIC = [
     matchPoolPrefix: "sr6_magic_spruchzauberei",
     titleMode: "fixed",
     primaryFields: ["Zauber"],
-    extraFields: ["Art", "Reichweite", "Dauer", "Entzug", "Schaden", "Notiz"],
-    templateVariant: "spell",
+    extraFields: ["Art", "Reichweite", "Typ", "Dauer", "Widerstand", "Entzug", "Schadenstyp", "Notiz"],
     contextFields: [
-      { label: "Entzugwiderstand", attr: "sr6_magic_entzug_widerstand" },
+      { label: "Entzugswiderstand", attr: "sr6_magic_entzug_widerstand" },
     ],
     fixedTitle: "Spruchzauberei",
     popupFields: createSpellPopupFields(),
@@ -51,6 +50,15 @@ const SR6_ROLL_DEFINITIONS_MAGIC = [
       comparisonContextSourceAttr: "sr6_magic_astralkampf_verteidigungswert",
       fixedTitle: "Astraler Schadenswiderstand",
       titleFallback: "Magie: Kernwerte",
+    }),
+  },
+{
+    id: "magic_drain_resistance",
+    ...createValueProbeDefinition({
+      matchField: "",
+      matchPoolPrefix: "sr6_magic_entzug_widerstand",
+      fixedTitle: "Entzugswiderstand",
+      titleFallback: "Entzugswiderstand",
     }),
   },
 {

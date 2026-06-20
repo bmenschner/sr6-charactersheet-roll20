@@ -1,7 +1,85 @@
-.sr6-zauber-list-roll {
+.sr6-zauber-list-header {
   display: none;
 }
 
-.sr6-zauber-list-header {
+.sr6-zauber-roll-field {
+  align-items: center;
+  justify-content: center;
+}
+
+.sr6-zauber-main-row {
+  grid-template-columns: repeat(6, minmax(0, 1fr)) minmax(2.25rem, max-content);
+}
+
+.sr6-adeptenkraefte-list-header,
+.sr6-adeptenkraefte-main-row {
+  display: grid;
+  grid-template-columns:
+    minmax(12rem, 1.8fr)
+    minmax(4rem, 0.45fr)
+    minmax(5rem, 0.55fr);
+  gap: 0.4375rem;
+  align-items: end;
+}
+
+.sr6-foki-list-header,
+.sr6-foki-main-row {
+  display: grid;
+  grid-template-columns:
+    minmax(11rem, 1.5fr)
+    minmax(10rem, 1.25fr)
+    minmax(4rem, 0.45fr)
+    minmax(3.5rem, 0.35fr);
+  gap: 0.4375rem;
+  align-items: end;
+}
+
+.sr6-metamagie-list-header,
+.sr6-metamagie-main-row {
+  display: grid;
+  grid-template-columns:
+    minmax(14rem, 1.8fr)
+    minmax(8rem, 0.8fr);
+  gap: 0.4375rem;
+  align-items: end;
+}
+
+.sr6-rituale-list-header,
+.sr6-rituale-main-row {
+  display: grid;
+  grid-template-columns:
+    minmax(12rem, 1.35fr)
+    minmax(5rem, 0.45fr)
+    minmax(14rem, 1.7fr);
+  gap: 0.4375rem;
+  align-items: end;
+}
+
+.sr6-foundry-item:not(:has(select[name="attr_sr6_zauber_art"] option[value="Kampf"]:checked)) .sr6-zauber-combat-field,
+.sr6-foundry-item:not(:has(select[name="attr_sr6_zauber_art"] option[value="Kampf"]:checked)) .sr6-zauber-combat-row {
   display: none;
+}
+
+.sr6-geister-list-header,
+.sr6-geister-main-row {
+  display: grid;
+  grid-template-columns:
+    minmax(8rem, 1.1fr)
+    minmax(8rem, 1.1fr)
+    minmax(3rem, 0.35fr)
+    minmax(3rem, 0.35fr)
+    minmax(10rem, 1.7fr)
+    minmax(4rem, max-content);
+  gap: 0.4375rem;
+  align-items: end;
+}
+
+.sr6-geister-summon-field {
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+}
+
+.sr6-geister-summon-field .sr6-charactersheet-field-input-with-dice {
+  justify-content: center;
 }

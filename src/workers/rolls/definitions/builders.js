@@ -434,8 +434,12 @@ function createSummoningPopupFields() {
 
 function getMagicRollAdditionalAttributes(definition) {
   if (!definition) return [];
-  if (definition.id === "spell" || definition.id === "summoning") {
-    return ["sr6_magic_magie", "sr6_magic_entzug_widerstand"];
+  if (definition.id === "spell" || definition.id === "summoning" || definition.id === "magic_drain_resistance") {
+    return [
+      "sr6_magic_magie",
+      "sr6_magic_entzug_widerstand",
+      "sr6_magic_traditionsattribut_1",
+    ];
   }
   return [];
 }
@@ -523,8 +527,8 @@ function createInitiativeProbeDefinition(config = {}) {
     matchPoolPrefix: config.matchPoolPrefix || "",
     titleMode: config.titleMode || "explicit-name",
     titleField: config.titleField || "",
-    primaryFields: config.primaryFields || ["Basis"],
-    extraFields: config.extraFields || ["W6", "Gesamt"],
+    primaryFields: config.primaryFields || ["Initiative"],
+    extraFields: config.extraFields || ["Basis", "W6", "Modus", "Gesamt"],
     popupFields: config.popupFields || SR6_DEFAULT_POPUP_FIELDS,
     fixedTitle: config.fixedTitle || "",
     titleFallback: config.titleFallback || "Initiative",

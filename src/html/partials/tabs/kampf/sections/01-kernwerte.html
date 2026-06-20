@@ -16,11 +16,11 @@
     <div class="sr6-charactersheet-row sr6-charactersheet-row-2">
       <div class="sr6-charactersheet-field">
         <span data-i18n="field.primaere_fernkampfwaffe">Primäre Fernkampfwaffe</span>
-        <input type="text" name="attr_sr6_combat_primaere_fernkampfwaffe" />
+        <input type="text" name="attr_sr6_combat_primaere_fernkampfwaffe" readonly />
       </div>
       <div class="sr6-charactersheet-field">
         <span data-i18n="field.primaere_nahkampfwaffe">Primäre Nahkampfwaffe</span>
-        <input type="text" name="attr_sr6_combat_primaere_nahkampfwaffe" />
+        <input type="text" name="attr_sr6_combat_primaere_nahkampfwaffe" readonly />
       </div>
     </div>
     <!-- END BLOCK: Zeile 1 -->
@@ -28,7 +28,7 @@
     <span class="sr6-charactersheet-kernwerte-subtitle" data-i18n="field.kampf_angriff_verteidigung">Angriff & Verteidgung</span>
 
     <!-- BEGIN BLOCK: Zeile 2 -->
-    <div class="sr6-charactersheet-row sr6-charactersheet-row-5">
+    <div class="sr6-charactersheet-row sr6-charactersheet-row-4">
       <div class="sr6-charactersheet-field">
         <div class="sr6-field-label-with-info"><span data-i18n="field.fernkampfangriff">Fernkampfangriff</span><span class="sr6-info-icon" title="Fernkampfangriff = Geschicklichkeit + gewählte Fertigkeit der primären Fernkampfwaffe + passende Spezialisierung/Expertise">i</span></div>
         <div class="sr6-charactersheet-field-input-with-dice sr6-charactersheet-field-input-with-dice--roll-mod">
@@ -44,28 +44,9 @@
             type="action"
             class="sr6-charactersheet-field-dice-button"
             name="act_probe"
-            value="&{template:default} {{name=Kampf: Kernwerte}} {{Wert=Fernkampfangriff}} {{Pool=[[@{sr6_combat_fernkampfangriff_gesamtwert}]]}} {{Erfolge=[[@{sr6_combat_fernkampfangriff_gesamtwert}d6>5]]}}"
+            value="&{template:default} {{name=Kampf: Kernwerte}} {{Wert=Fernkampfangriff}} {{Waffe=@{sr6_combat_primaere_fernkampfwaffe}}} {{Fertigkeit=@{sr6_combat_fernkampf_fertigkeit}}} {{Waffentyp=@{sr6_combat_fernkampf_waffentyp}}} {{Schadenswert=@{sr6_combat_fernkampf_schaden}}} {{Munition=@{sr6_combat_munition}}} {{Modus=@{sr6_combat_fernkampf_modus}}} {{Reichweite=S. Nah}} {{Angriffswert=@{sr6_combat_fernkampf_sehr_nah}}} {{Pool=[[@{sr6_combat_fernkampfangriff_gesamtwert}]]}} {{Erfolge=[[@{sr6_combat_fernkampfangriff_gesamtwert}d6>5]]}}"
             aria-label="Wuerfeln"></button>
           </div>
-      </div>
-      <div class="sr6-charactersheet-field">
-        <div class="sr6-field-label-with-info"><span data-i18n="field.projektilwaffen">Projektilwaffen</span><span class="sr6-info-icon" title="Projektilwaffen = Geschicklichkeit + Athletik + Spezialisierung/Expertise Projektilwaffen">i</span></div>
-        <div class="sr6-charactersheet-field-input-with-dice sr6-charactersheet-field-input-with-dice--roll-mod">
-          <span class="sr6-roll-mod-subtitle sr6-roll-mod-subtitle--basis" data-i18n="field.basis">Basis</span>
-          <span class="sr6-roll-mod-subtitle sr6-roll-mod-subtitle--mod" data-i18n="field.fertigkeitsmodifikator">Mod.</span>
-          <input type="number" name="attr_sr6_combat_projektilwaffen_gesamtwert" readonly />
-              <div class="sr6-number-stepper sr6-roll-mod-stepper">
-                <button type="action" class="sr6-number-stepper-button sr6-number-stepper-button--minus" name="act_sr6_number_step" value="sr6_combat_projektilwaffen_gesamtwert_roll_modifikator::-1" aria-label="Wert-Modifikator verringern">-</button>
-                <input type="number" name="attr_sr6_combat_projektilwaffen_gesamtwert_roll_modifikator" title="Wert-Modifikator" />
-                <button type="action" class="sr6-number-stepper-button sr6-number-stepper-button--plus" name="act_sr6_number_step" value="sr6_combat_projektilwaffen_gesamtwert_roll_modifikator::1" aria-label="Wert-Modifikator erhoehen">+</button>
-              </div>
-            <button
-            type="action"
-            class="sr6-charactersheet-field-dice-button"
-            name="act_probe"
-            value="&{template:default} {{name=Kampf: Kernwerte}} {{Wert=Projektilwaffen}} {{Pool=[[@{sr6_combat_projektilwaffen_gesamtwert}]]}} {{Erfolge=[[@{sr6_combat_projektilwaffen_gesamtwert}d6>5]]}}"
-            aria-label="Wuerfeln"></button>
-        </div>
       </div>
       <div class="sr6-charactersheet-field">
         <div class="sr6-field-label-with-info"><span data-i18n="field.nahkampfangriff">Nahkampfangriff</span><span class="sr6-info-icon" title="Nahkampfangriff = gewähltes Attribut + gewählte Fertigkeit der primären Nahkampfwaffe + passende Spezialisierung/Expertise">i</span></div>
@@ -82,7 +63,7 @@
             type="action"
             class="sr6-charactersheet-field-dice-button"
             name="act_probe"
-            value="&{template:default} {{name=Kampf: Kernwerte}} {{Wert=Nahkampfangriff}} {{Pool=[[@{sr6_combat_nahkampfangriff_gesamtwert}]]}} {{Erfolge=[[@{sr6_combat_nahkampfangriff_gesamtwert}d6>5]]}}"
+            value="&{template:default} {{name=Kampf: Kernwerte}} {{Wert=Nahkampfangriff}} {{Waffe=@{sr6_combat_primaere_nahkampfwaffe}}} {{Fertigkeit=@{sr6_combat_nahkampf_fertigkeit}}} {{Attribut=@{sr6_combat_nahkampf_attribut}}} {{Waffentyp=@{sr6_combat_nahkampf_waffentyp}}} {{Schadenswert=@{sr6_combat_nahkampf_schaden}}} {{Schadenstyp=@{sr6_combat_nahkampf_schadentyp}}} {{Reichweite=S. Nah}} {{Angriffswert=@{sr6_combat_nahkampf_sehr_nah}}} {{Pool=[[@{sr6_combat_nahkampfangriff_gesamtwert}]]}} {{Erfolge=[[@{sr6_combat_nahkampfangriff_gesamtwert}d6>5]]}}"
             aria-label="Wuerfeln"></button>
         </div>
       </div>
