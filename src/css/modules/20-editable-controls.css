@@ -170,19 +170,35 @@
 }
 
 .sr6-row-visibility-toggle::before {
-  content: "\1F441";
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
+  content: "";
+  display: block;
   width: 1.35rem;
   height: 1.35rem;
+  border: 0.125rem solid #8a8a8a;
+  border-width: 0.125rem 0.0625rem 0.0625rem 0.125rem;
+  border-radius: 80% 20%;
+  box-sizing: border-box;
+  transform: rotate(45deg);
+}
+
+.sr6-row-visibility-toggle::after {
+  content: "";
+  position: absolute;
+  left: 35%;
+  top: 50%;
+  width: 0.5rem;
+  height: 0.5rem;
+  border-radius: 999rem;
   color: #8a8a8a;
-  font-size: 1.25rem;
-  font-weight: 700;
-  line-height: 1;
+  box-shadow: 0 -0.125rem 0 0.125rem inset;
+  transform: translate(-50%, -50%) rotate(45deg);
 }
 
 .sr6-row-visibility-toggle:has(input[type="checkbox"]:checked)::before {
+  border-color: var(--sr6-line);
+}
+
+.sr6-row-visibility-toggle:has(input[type="checkbox"]:checked)::after {
   color: var(--sr6-line);
 }
 
@@ -193,6 +209,7 @@
 
 .sr6-editable-section:has(.sr6-editable-section-mode:checked) .sr6-row-visibility-toggle {
   display: inline-flex;
+  margin-bottom: 0;
 }
 
 .sr6-editable-section:has(.sr6-editable-section-mode:checked) .sr6-row-visibility-header {

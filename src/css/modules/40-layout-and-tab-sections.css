@@ -561,6 +561,12 @@ fieldset.repeating_sr6matrixgeraete,
   font-weight: 700;
 }
 
+.sr6-matrix-handlung-formula
+  + input[value="Keine Verteidigungsprobe"]
+  + .sr6-matrix-handlung-value {
+  display: none;
+}
+
 .sr6-matrix-handlungen-section .sr6-matrix-handlung .sr6-charactersheet-field-dice-button {
   display: flex !important;
   border: none;
