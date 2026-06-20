@@ -1378,6 +1378,62 @@ fieldset.repeating_sr6riggingmanoever .repcontrol {
   height: 0;
 }
 
+.sr6-row-visibility-toggle,
+.sr6-row-visibility-header {
+  display: none;
+}
+
+.sr6-row-visibility-toggle {
+  position: relative;
+  align-items: center;
+  justify-content: center;
+  width: 1.65rem;
+  min-width: 1.65rem;
+  min-height: 1.65rem;
+  padding: 0.125rem;
+  line-height: 1;
+  cursor: pointer;
+}
+
+.sr6-row-visibility-toggle input[type="checkbox"] {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: 0;
+  opacity: 0;
+  pointer-events: none;
+}
+
+.sr6-row-visibility-toggle::before {
+  content: "\1F441";
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 1.35rem;
+  height: 1.35rem;
+  color: #8a8a8a;
+  font-size: 1.25rem;
+  font-weight: 700;
+  line-height: 1;
+}
+
+.sr6-row-visibility-toggle:has(input[type="checkbox"]:checked)::before {
+  color: var(--sr6-line);
+}
+
+.sr6-editable-section:not(:has(.sr6-editable-section-mode:checked)) .sr6-row-visibility-toggle,
+.sr6-editable-section:not(:has(.sr6-editable-section-mode:checked)) .sr6-row-visibility-header {
+  display: none;
+}
+
+.sr6-editable-section:has(.sr6-editable-section-mode:checked) .sr6-row-visibility-toggle {
+  display: inline-flex;
+}
+
+.sr6-editable-section:has(.sr6-editable-section-mode:checked) .sr6-row-visibility-header {
+  display: inline-block;
+}
+
 .sr6-editable-section:has(.sr6-editable-section-mode:checked) .sr6-editable-section-toggle {
   border-color: var(--sr6-line);
   background: var(--sr6-line);
@@ -1730,6 +1786,21 @@ fieldset.repeating_sr6riggingmanoever .repcontrol {
   align-items: end;
 }
 
+#sr6_daten_panel_2 .sr6-charactersheet-box-fertigkeiten-allgemein:has(.sr6-editable-section-mode:checked) .sr6-charactersheet-skill-field {
+  grid-template-columns:
+    max-content
+    minmax(7.5rem, 1fr)
+    minmax(5.5rem, 0.65fr)
+    minmax(5.5rem, 0.65fr)
+    minmax(6rem, 0.75fr)
+    minmax(10rem, 1.2fr)
+    minmax(10rem, 1.2fr);
+}
+
+#sr6_daten_panel_2 .sr6-charactersheet-box-fertigkeiten-allgemein:not(:has(.sr6-editable-section-mode:checked)) .sr6-charactersheet-skill-field:has(.sr6-row-visibility-input:not(:checked)) {
+  display: none;
+}
+
 #sr6_daten_panel_2 .sr6-charactersheet-box-fertigkeiten-allgemein .sr6-charactersheet-skill-field > span {
   align-self: center;
   font-weight: 700;
@@ -1949,6 +2020,10 @@ fieldset.repeating_sr6matrixgeraete,
   margin-bottom: 0.375rem;
 }
 
+.sr6-matrix-handlungen-section:has(.sr6-editable-section-mode:checked) .sr6-matrix-handlungen-list-header {
+  grid-template-columns: max-content repeat(5, minmax(0, 1fr));
+}
+
 .sr6-matrix-handlungen-list-header span {
   font-size: 0.75rem;
   font-weight: 700;
@@ -1973,8 +2048,19 @@ fieldset.repeating_sr6matrixgeraete,
   pointer-events: none;
 }
 
-.sr6-matrix-handlungen-list-header > :nth-child(3),
-.sr6-matrix-handlung > :nth-child(3) {
+.sr6-matrix-handlungen-section:has(.sr6-editable-section-mode:checked) .sr6-matrix-handlung {
+  grid-template-columns: max-content repeat(5, minmax(0, 1fr));
+  order: 1;
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.sr6-matrix-handlungen-section:not(:has(.sr6-editable-section-mode:checked)) .sr6-matrix-handlung:has(.sr6-row-visibility-input:not(:checked)) {
+  display: none;
+}
+
+.sr6-matrix-handlungen-list-header > :nth-child(4),
+.sr6-matrix-handlung > .sr6-matrix-handlung-value:first-of-type {
   padding-right: 0.75rem;
 }
 

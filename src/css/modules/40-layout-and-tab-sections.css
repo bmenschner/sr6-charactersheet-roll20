@@ -198,6 +198,21 @@
   align-items: end;
 }
 
+#sr6_daten_panel_2 .sr6-charactersheet-box-fertigkeiten-allgemein:has(.sr6-editable-section-mode:checked) .sr6-charactersheet-skill-field {
+  grid-template-columns:
+    max-content
+    minmax(7.5rem, 1fr)
+    minmax(5.5rem, 0.65fr)
+    minmax(5.5rem, 0.65fr)
+    minmax(6rem, 0.75fr)
+    minmax(10rem, 1.2fr)
+    minmax(10rem, 1.2fr);
+}
+
+#sr6_daten_panel_2 .sr6-charactersheet-box-fertigkeiten-allgemein:not(:has(.sr6-editable-section-mode:checked)) .sr6-charactersheet-skill-field:has(.sr6-row-visibility-input:not(:checked)) {
+  display: none;
+}
+
 #sr6_daten_panel_2 .sr6-charactersheet-box-fertigkeiten-allgemein .sr6-charactersheet-skill-field > span {
   align-self: center;
   font-weight: 700;
@@ -417,6 +432,10 @@ fieldset.repeating_sr6matrixgeraete,
   margin-bottom: 0.375rem;
 }
 
+.sr6-matrix-handlungen-section:has(.sr6-editable-section-mode:checked) .sr6-matrix-handlungen-list-header {
+  grid-template-columns: max-content repeat(5, minmax(0, 1fr));
+}
+
 .sr6-matrix-handlungen-list-header span {
   font-size: 0.75rem;
   font-weight: 700;
@@ -441,8 +460,19 @@ fieldset.repeating_sr6matrixgeraete,
   pointer-events: none;
 }
 
-.sr6-matrix-handlungen-list-header > :nth-child(3),
-.sr6-matrix-handlung > :nth-child(3) {
+.sr6-matrix-handlungen-section:has(.sr6-editable-section-mode:checked) .sr6-matrix-handlung {
+  grid-template-columns: max-content repeat(5, minmax(0, 1fr));
+  order: 1;
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.sr6-matrix-handlungen-section:not(:has(.sr6-editable-section-mode:checked)) .sr6-matrix-handlung:has(.sr6-row-visibility-input:not(:checked)) {
+  display: none;
+}
+
+.sr6-matrix-handlungen-list-header > :nth-child(4),
+.sr6-matrix-handlung > .sr6-matrix-handlung-value:first-of-type {
   padding-right: 0.75rem;
 }
 

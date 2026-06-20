@@ -143,6 +143,62 @@
   height: 0;
 }
 
+.sr6-row-visibility-toggle,
+.sr6-row-visibility-header {
+  display: none;
+}
+
+.sr6-row-visibility-toggle {
+  position: relative;
+  align-items: center;
+  justify-content: center;
+  width: 1.65rem;
+  min-width: 1.65rem;
+  min-height: 1.65rem;
+  padding: 0.125rem;
+  line-height: 1;
+  cursor: pointer;
+}
+
+.sr6-row-visibility-toggle input[type="checkbox"] {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: 0;
+  opacity: 0;
+  pointer-events: none;
+}
+
+.sr6-row-visibility-toggle::before {
+  content: "\1F441";
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 1.35rem;
+  height: 1.35rem;
+  color: #8a8a8a;
+  font-size: 1.25rem;
+  font-weight: 700;
+  line-height: 1;
+}
+
+.sr6-row-visibility-toggle:has(input[type="checkbox"]:checked)::before {
+  color: var(--sr6-line);
+}
+
+.sr6-editable-section:not(:has(.sr6-editable-section-mode:checked)) .sr6-row-visibility-toggle,
+.sr6-editable-section:not(:has(.sr6-editable-section-mode:checked)) .sr6-row-visibility-header {
+  display: none;
+}
+
+.sr6-editable-section:has(.sr6-editable-section-mode:checked) .sr6-row-visibility-toggle {
+  display: inline-flex;
+}
+
+.sr6-editable-section:has(.sr6-editable-section-mode:checked) .sr6-row-visibility-header {
+  display: inline-block;
+}
+
 .sr6-editable-section:has(.sr6-editable-section-mode:checked) .sr6-editable-section-toggle {
   border-color: var(--sr6-line);
   background: var(--sr6-line);
