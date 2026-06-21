@@ -80,7 +80,8 @@ function getRollPopupFields(definition, poolAttribute) {
     ? resolvedDefinition.popupFields
     : SR6_DEFAULT_POPUP_FIELDS;
 
-  return addSharedPopupFields(baseFields, resolvedDefinition);
+  return addSharedPopupFields(baseFields, resolvedDefinition)
+    .filter((field) => fieldMatchesPopupPoolAttribute(field, poolAttribute));
 }
 
 function getSkillProbeAttributeOptions(definition) {
@@ -322,6 +323,31 @@ function getPopupSelectOptions(field) {
   return SR6_POPUP_SELECT_OPTION_SETS[field.optionSet] || [];
 }
 
+function fieldMatchesPopupPoolAttribute(field, poolAttribute) {
+  if (!field) return true;
+  const poolAttr = `${poolAttribute || ""}`;
+  if (field.visibleWhenPoolAttributeIncludes && !poolAttr.includes(`${field.visibleWhenPoolAttributeIncludes}`)) {
+    return false;
+  }
+  if (field.visibleWhenPoolAttributeExcludes && poolAttr.includes(`${field.visibleWhenPoolAttributeExcludes}`)) {
+    return false;
+  }
+  return true;
+}
+
+function getPopupCheckboxCheckedValue(field, values) {
+  if (!field) return 0;
+  if (field.checkedValueSourceAttr) {
+    return parseNumber(values && values[field.checkedValueSourceAttr]);
+  }
+  return parseNumber(field.checkedValue);
+}
+
+function formatPopupSignedValue(value) {
+  const numericValue = parseNumber(value);
+  return numericValue >= 0 ? `+${numericValue}` : `${numericValue}`;
+}
+
 function buildPopupStateFromValues(values, definition, poolAttribute) {
   const popupFields = getRollPopupFields(definition, poolAttribute);
   const popupRows = [];
@@ -376,11 +402,22 @@ function buildPopupStateFromValues(values, definition, poolAttribute) {
     const affectMultipliers = field && field.affectMultipliers && typeof field.affectMultipliers === "object"
       ? field.affectMultipliers
       : {};
+    const checkboxCheckedValue = getPopupCheckboxCheckedValue(field, values);
     const numericBaseValue = isNumberField
       ? parseNumber(normalizedValue)
       : isCheckboxField
-        ? (checkboxChecked ? parseNumber(field.checkedValue) : 0)
+        ? (checkboxChecked ? checkboxCheckedValue : 0)
         : 0;
+    const checkboxDisplayValue = isCheckboxField && checkboxChecked && field.checkedValueSourceAttr
+      ? formatPopupSignedValue(checkboxCheckedValue)
+      : `${field.checkedDisplayValue || "Ja"}`;
+    const rowDisplayValue = isNumberField
+      ? `${normalizedValue}`
+      : isTextField
+        ? `${normalizedValue}`
+        : isCheckboxField
+          ? checkboxDisplayValue
+          : displayValue;
 
     if (field.id) {
       selectedValues[field.id] = normalizedValue;
@@ -416,7 +453,7 @@ function buildPopupStateFromValues(values, definition, poolAttribute) {
     }
     if (affects.includes("pool_multiplier")) {
       const multiplierValue = isCheckboxField && checkboxChecked
-        ? parseNumber(field.checkedValue)
+        ? checkboxCheckedValue
         : isNumberField
           ? parseNumber(normalizedValue)
           : 1;
@@ -437,7 +474,7 @@ function buildPopupStateFromValues(values, definition, poolAttribute) {
     if (shouldInclude) {
       popupRows.push({
         label: field.label,
-        value: displayValue,
+        value: rowDisplayValue,
         ignorePoolFormula: skillBonusIsInformational,
       });
     }
@@ -541,10 +578,14 @@ function buildPopupRequestedAttributes(definition, poolAttribute, repeatingRowPr
 
   popupFields.forEach((field) => {
     const sourceAttr = getPopupSourceAttrName(field, poolAttribute);
-    if (!sourceAttr) return;
-    requestedAttributes.push(sourceAttr);
-    if (repeatingRowPrefix) {
-      requestedAttributes.push(`${repeatingRowPrefix}_${sourceAttr}`);
+    if (sourceAttr) {
+      requestedAttributes.push(sourceAttr);
+      if (repeatingRowPrefix) {
+        requestedAttributes.push(`${repeatingRowPrefix}_${sourceAttr}`);
+      }
+    }
+    if (field.checkedValueSourceAttr) {
+      requestedAttributes.push(field.checkedValueSourceAttr);
     }
   });
 

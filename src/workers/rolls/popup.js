@@ -96,10 +96,21 @@ function runGlobalPopupProbeConfirm() {
     const repeatingRowPrefix = values.sr6_roll_popup_row_prefix || "";
     const parsedFields = parseTemplateFields(rawTemplate);
     const poolAttribute = parsePoolAttributeFromFields(parsedFields);
-    const popupState = buildPopupStateFromValues(values, definition, poolAttribute);
+    const extraRequestAttrs = buildPopupRequestedAttributes(definition, poolAttribute, repeatingRowPrefix)
+      .filter((attr) => values[attr] === undefined);
+    const runWithValues = (popupValues) => {
+      const popupState = buildPopupStateFromValues(popupValues, definition, poolAttribute);
 
-    setAttrsSilent({ sr6_roll_popup_open: "0" });
-    runSuccessProbeFromContext(rawTemplate, repeatingRowPrefix, popupState);
+      setAttrsSilent({ sr6_roll_popup_open: "0" });
+      runSuccessProbeFromContext(rawTemplate, repeatingRowPrefix, popupState);
+    };
+
+    if (extraRequestAttrs.length > 0) {
+      getAttrs(extraRequestAttrs, (extraValues) => runWithValues({ ...values, ...extraValues }));
+      return;
+    }
+
+    runWithValues(values);
   });
 }
 
