@@ -554,6 +554,7 @@ const SR6_POPUP_DETAIL_LABELS = new Set([
   "Ungeübt",
   "Attribut x2",
   "Stufe x2",
+  "Brillante Heuristik",
 ]);
 const SR6_FATE_DICE_LABELS = new Set([
   "Schicksalswürfel",
