@@ -190,6 +190,25 @@ const SR6_FORMULA_COMPONENTS = {
   "Clearsight": { type: "rigging", attr: "sr6_rigging_fahrzeug_clearsight" },
 };
 
+function resolveMatrixCoreDetail(lookupAttr, matrixKey) {
+  const base = parseNumber(lookupAttr(`sr6_matrix_${matrixKey}`));
+  const modifier = parseNumber(lookupAttr(`sr6_matrix_${matrixKey}_modifikator`));
+  return {
+    base: base,
+    modifier: modifier,
+    total: base + modifier,
+  };
+}
+
+function appendMatrixCoreDetailRows(rows, lookupAttr, matrixKey, label, options = {}) {
+  const detail = resolveMatrixCoreDetail(lookupAttr, matrixKey);
+  appendRowIfMissing(rows, `${label} Basis`, `${detail.base}`, { poolComponent: !!options.poolComponent });
+  if (detail.modifier !== 0 || options.includeZeroModifier) {
+    appendRowIfMissing(rows, `${label} Modifikator`, `${detail.modifier}`, { poolComponent: !!options.poolComponent });
+  }
+  appendRowIfMissing(rows, `${label} Gesamtwert`, `${detail.total}`);
+}
+
 function getAttributeDetailKey(label) {
   return SR6_ATTRIBUTE_DETAIL_KEYS[`${label || ""}`.trim()] || "";
 }
@@ -273,6 +292,14 @@ function appendGenericFormulaComponentRows(rows, lookupAttr, formula, labelPrefi
 
     const component = SR6_FORMULA_COMPONENTS[cleanPart];
     if (component && component.attr) {
+      if (component.type === "matrix") {
+        const matrixKey = `${component.attr || ""}`.replace(/^sr6_matrix_/, "");
+        const detail = resolveMatrixCoreDetail(lookupAttr, matrixKey);
+        appendRowIfMissing(rows, `${label} Basis`, `${detail.base * multiplier}`, rowOptions);
+        appendRowIfMissing(rows, `${label} Modifikator`, `${detail.modifier * multiplier}`, rowOptions);
+        appendRowIfMissing(rows, `${label} Gesamtwert`, `${detail.total * multiplier}`);
+        return;
+      }
       appendRowIfMissing(rows, label, `${parseNumber(lookupAttr(component.attr)) * multiplier}`, rowOptions);
     }
   });
@@ -328,6 +355,10 @@ function getMatrixLikeDefenseConfig(definition) {
 }
 
 function appendMatrixLikeFirewallPoolRows(rows, lookupAttr, prefix) {
+  if (prefix === "sr6_matrix") {
+    appendMatrixCoreDetailRows(rows, lookupAttr, "firewall", "Firewall", { poolComponent: true });
+    return;
+  }
   appendRowIfMissing(rows, "Firewall", `${parseNumber(lookupAttr(`${prefix}_firewall`))}`, { poolComponent: true });
 }
 
@@ -335,14 +366,34 @@ function appendMatrixLikeDefenseValueDetailRows(rows, definition, lookupAttr) {
   const config = getMatrixLikeDefenseConfig(definition);
   if (!config) return;
 
-  appendRowIfMissing(rows, "Verteidigungswert Datenverarbeitung", `${parseNumber(lookupAttr(`${config.prefix}_datenverarbeitung`))}`);
-  appendRowIfMissing(rows, "Verteidigungswert Firewall", `${parseNumber(lookupAttr(`${config.prefix}_firewall`))}`);
+  if (config.prefix === "sr6_matrix") {
+    appendMatrixCoreDetailRows(rows, lookupAttr, "datenverarbeitung", "Verteidigungswert Datenverarbeitung");
+    appendMatrixCoreDetailRows(rows, lookupAttr, "firewall", "Verteidigungswert Firewall");
+  } else {
+    appendRowIfMissing(rows, "Verteidigungswert Datenverarbeitung", `${parseNumber(lookupAttr(`${config.prefix}_datenverarbeitung`))}`);
+    appendRowIfMissing(rows, "Verteidigungswert Firewall", `${parseNumber(lookupAttr(`${config.prefix}_firewall`))}`);
+  }
   appendRowIfMissing(rows, "Verteidigungswert Modifikator", `${parseNumber(lookupAttr(`${config.prefix}_verteidigungswert_modifikator`))}`);
   appendRowIfMissing(rows, "Verteidigungswert Gesamtwert", `${parseNumber(lookupAttr(`${config.prefix}_verteidigungswert`))}`);
 }
 
 function appendKnownPoolFormulaRows(rows, definition, lookupAttr, poolAttribute) {
   if (!poolAttribute) return false;
+  const matrixCoreMatch = `${poolAttribute || ""}`.match(/^sr6_matrix_(angriff|schleicher|datenverarbeitung|firewall)_gesamtwert$/);
+  if (matrixCoreMatch) {
+    const labelMap = {
+      angriff: "Angriff",
+      schleicher: "Schleicher",
+      datenverarbeitung: "Datenverarbeitung",
+      firewall: "Firewall",
+    };
+    appendMatrixCoreDetailRows(rows, lookupAttr, matrixCoreMatch[1], labelMap[matrixCoreMatch[1]] || "Matrixwert", {
+      poolComponent: true,
+      includeZeroModifier: true,
+    });
+    return true;
+  }
+
   const matrixDefenseConfig = getMatrixLikeDefenseConfig(definition);
   if (matrixDefenseConfig) {
     if (matrixDefenseConfig.kind === "defense") {
@@ -729,7 +780,7 @@ function resolveMatrixActionComponentValue(component, lookupAttr) {
 
   if (component.multiplier && component.matrix) {
     const multiplier = parseNumber(component.multiplier);
-    const matrixValue = parseNumber(lookupAttr(`sr6_matrix_${component.matrix}`));
+    const matrixValue = resolveMatrixCoreDetail(lookupAttr, component.matrix).total;
     return {
       label: component.label || component.matrix,
       value: matrixValue * multiplier,
@@ -760,12 +811,12 @@ function resolveMatrixActionComponentValue(component, lookupAttr) {
     total += value;
   }
   if (component.matrix) {
-    const value = parseNumber(lookupAttr(`sr6_matrix_${component.matrix}`));
+    const value = resolveMatrixCoreDetail(lookupAttr, component.matrix).total;
     parts.push({ label: component.matrix, type: "matrix", value: value });
     total += value;
   }
   if (component.matrixSecond) {
-    const value = parseNumber(lookupAttr(`sr6_matrix_${component.matrixSecond}`));
+    const value = resolveMatrixCoreDetail(lookupAttr, component.matrixSecond).total;
     parts.push({ label: component.matrixSecond, type: "matrix", value: value });
     total += value;
   }
@@ -836,6 +887,24 @@ function appendMatrixActionComponentDetailRows(rows, rowPrefix, componentValue, 
   if (!componentValue || componentValue.value === null) return;
 
   (componentValue.parts || []).forEach((part) => {
+    if (options.poolComponent && part.type === "skill") {
+      appendSkillDetailRows(rows, lookupAttr, part.label, formatMatrixActionComponentLabel(part.label), {
+        poolComponent: true,
+      });
+    }
+    if (options.poolComponent && part.type === "attribute") {
+      appendAttributeDetailRows(rows, lookupAttr, part.label, formatMatrixActionComponentLabel(part.label), {
+        poolComponent: true,
+      });
+    }
+    if (options.poolComponent && part.type === "matrix") {
+      appendRowIfMissing(
+        rows,
+        `Matrixattribut ${formatMatrixActionComponentLabel(part.label)}`,
+        `${parseNumber(part.value)}`,
+        { poolComponent: true }
+      );
+    }
     if (rowPrefix === "Probe" && part.type === "skill") {
       appendSkillDetailRows(rows, lookupAttr, part.label, formatMatrixActionComponentLabel(part.label), {
         poolComponent: !!options.poolComponent,
@@ -895,9 +964,11 @@ function appendMatrixActionRows(rows, matrixActionContext, lookupAttr) {
     rows.push({ label: "Probe", value: "Siehe Beschreibung" });
   } else if (probe) {
     rows.push({ label: "Probe", value: probe.label });
-    appendMatrixActionComponentDetailRows(rows, "Probe", probe, lookupAttr, {
-      poolComponent: matrixActionContext.rollMode !== "defense",
-    });
+    if (matrixActionContext.rollMode !== "defense") {
+      appendMatrixActionComponentDetailRows(rows, "Probe", probe, lookupAttr, {
+        poolComponent: true,
+      });
+    }
   }
 
   if (rule.probe && rule.probe.linkedMatrixAttribute) {
@@ -1947,6 +2018,7 @@ function runSuccessProbeFromContext(rawTemplate, repeatingRowPrefix, popupState 
       resolvedFields: resolvedFields,
       definition: context.definition,
       definitionId: context.definition && context.definition.id,
+      poolAttribute: context.poolAttribute,
       pool: `${computation.pool}`,
       erfolge: erfolgeValue,
       details: buildDiceDetails(computation.diceResults, computation.fateDiceResults),

@@ -113,7 +113,9 @@ function getMatrixLikeDefenseAdditionalAttributes(definition) {
   if (matrixDefenseIds.includes(definitionId)) {
     return [
       "sr6_matrix_datenverarbeitung",
+      "sr6_matrix_datenverarbeitung_modifikator",
       "sr6_matrix_firewall",
+      "sr6_matrix_firewall_modifikator",
       "sr6_matrix_verteidigungswert_modifikator",
       "sr6_matrix_verteidigungswert",
     ];
@@ -221,6 +223,12 @@ function getMatrixRuleComponentAttr(component) {
   return "";
 }
 
+function pushMatrixRuleComponentAttr(attributes, key) {
+  if (!key) return;
+  attributes.push(`sr6_matrix_${key}`);
+  attributes.push(`sr6_matrix_${key}_modifikator`);
+}
+
 function collectMatrixRuleComponentAttrs(component, attributes) {
   const directAttr = getMatrixRuleComponentAttr(component);
   if (directAttr) attributes.push(directAttr);
@@ -233,7 +241,10 @@ function collectMatrixRuleComponentAttrs(component, attributes) {
     attributes.push(`sr6_skill_${component.skill}_modifikator`);
   }
   if (component && component.matrixSecond) {
-    attributes.push(`sr6_matrix_${component.matrixSecond}`);
+    pushMatrixRuleComponentAttr(attributes, component.matrixSecond);
+  }
+  if (component && component.matrix) {
+    pushMatrixRuleComponentAttr(attributes, component.matrix);
   }
 }
 

@@ -1,13 +1,15 @@
 // BEGIN MODULE: workers/compute/matrix
 function appendMatrixRequestKeys(requestKeys) {
   requestKeys.push("sr6_matrix_modus");
+  requestKeys.push("sr6_initiative_physisch_w6");
   requestKeys.push("sr6_matrix_angriff");
+  requestKeys.push("sr6_matrix_angriff_modifikator");
   requestKeys.push("sr6_matrix_schleicher");
+  requestKeys.push("sr6_matrix_schleicher_modifikator");
   requestKeys.push("sr6_matrix_datenverarbeitung");
+  requestKeys.push("sr6_matrix_datenverarbeitung_modifikator");
   requestKeys.push("sr6_matrix_firewall");
-  requestKeys.push("sr6_matrix_cyberbuchse_aktiv");
-  requestKeys.push("sr6_matrix_cyberbuchse_datenverarbeitung");
-  requestKeys.push("sr6_matrix_cyberbuchse_firewall");
+  requestKeys.push("sr6_matrix_firewall_modifikator");
   requestKeys.push("sr6_matrix_cyberbuchse_initiative_w6");
   requestKeys.push("sr6_matrix_angriffswert_modifikator");
   requestKeys.push("sr6_matrix_verteidigungswert_modifikator");
@@ -15,6 +17,19 @@ function appendMatrixRequestKeys(requestKeys) {
     requestKeys.push(`sr6_matrix_handlung_${actionName}_grundwert`);
     requestKeys.push(`sr6_matrix_handlung_${actionName}_modifikator`);
     requestKeys.push(`sr6_matrix_handlung_${actionName}_verteidigung_auswahl`);
+  });
+}
+
+function getMatrixCoreValue(values, key) {
+  return parseNumber(values[`sr6_matrix_${key}`]) + parseNumber(values[`sr6_matrix_${key}_modifikator`]);
+}
+
+function buildEffectiveMatrixCoreValues(values) {
+  return Object.assign({}, values, {
+    sr6_matrix_angriff: String(getMatrixCoreValue(values, "angriff")),
+    sr6_matrix_schleicher: String(getMatrixCoreValue(values, "schleicher")),
+    sr6_matrix_datenverarbeitung: String(getMatrixCoreValue(values, "datenverarbeitung")),
+    sr6_matrix_firewall: String(getMatrixCoreValue(values, "firewall")),
   });
 }
 
@@ -80,37 +95,31 @@ function resolveMatrixActionDefenseComponent(rule, selectedDefense) {
 
 function computeMatrixTotals(values, totals, skillTotals, updates) {
   const matrixInitiativeMode = resolveMatrixInitiativeMode(values.sr6_matrix_modus);
-  const matrixAttack = parseNumber(values.sr6_matrix_angriff);
-  const matrixSleaze = parseNumber(values.sr6_matrix_schleicher);
-  const cyberjackActive = values.sr6_matrix_cyberbuchse_aktiv === "1";
-  const matrixDataProcessing = cyberjackActive
-    ? parseNumber(values.sr6_matrix_cyberbuchse_datenverarbeitung)
-    : parseNumber(values.sr6_matrix_datenverarbeitung);
-  const matrixFirewall = cyberjackActive
-    ? parseNumber(values.sr6_matrix_cyberbuchse_firewall)
-    : parseNumber(values.sr6_matrix_firewall);
+  const effectiveValues = buildEffectiveMatrixCoreValues(values);
+  const matrixAttack = parseNumber(effectiveValues.sr6_matrix_angriff);
+  const matrixSleaze = parseNumber(effectiveValues.sr6_matrix_schleicher);
+  const matrixDataProcessing = parseNumber(effectiveValues.sr6_matrix_datenverarbeitung);
+  const matrixFirewall = parseNumber(effectiveValues.sr6_matrix_firewall);
   const matrixInitiativeBonusDice =
-    cyberjackActive && matrixInitiativeMode.basisSource === "matrix"
+    matrixInitiativeMode.basisSource === "matrix"
       ? parseNumber(values.sr6_matrix_cyberbuchse_initiative_w6)
       : 0;
+  const matrixInitiativeBaseDice =
+    matrixInitiativeMode.basisSource === "matrix"
+      ? matrixInitiativeMode.w6
+      : parseNumber(values.sr6_initiative_physisch_w6) || matrixInitiativeMode.w6;
   const matrixBasis =
     matrixInitiativeMode.basisSource === "matrix"
       ? (totals.intuition || 0) + matrixDataProcessing
       : (totals.reaktion || 0) + (totals.intuition || 0);
 
-  if (cyberjackActive) {
-    updates.sr6_matrix_datenverarbeitung = String(matrixDataProcessing);
-    updates.sr6_matrix_firewall = String(matrixFirewall);
-  }
-  const effectiveValues = cyberjackActive
-    ? Object.assign({}, values, {
-        sr6_matrix_datenverarbeitung: String(matrixDataProcessing),
-        sr6_matrix_firewall: String(matrixFirewall),
-      })
-    : values;
   updates.sr6_matrix_cyberbuchse_aktiver_initiative_bonus_w6 = String(matrixInitiativeBonusDice);
+  updates.sr6_matrix_angriff_gesamtwert = String(matrixAttack);
+  updates.sr6_matrix_schleicher_gesamtwert = String(matrixSleaze);
+  updates.sr6_matrix_datenverarbeitung_gesamtwert = String(matrixDataProcessing);
+  updates.sr6_matrix_firewall_gesamtwert = String(matrixFirewall);
   updates.sr6_matrix_initiative = String(matrixBasis);
-  updates.sr6_matrix_initiative_w6 = String(matrixInitiativeMode.w6 + matrixInitiativeBonusDice);
+  updates.sr6_matrix_initiative_w6 = String(matrixInitiativeBaseDice + matrixInitiativeBonusDice);
   updates.sr6_matrix_angriffswert = String(
     matrixAttack + matrixSleaze + parseNumber(values.sr6_matrix_angriffswert_modifikator)
   );

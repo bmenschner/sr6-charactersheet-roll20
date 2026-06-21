@@ -1844,6 +1844,7 @@ const SR6_ROLL_DEFINITIONS_MATRIX = [
     id: "matrix_value",
     ...createValueProbeDefinition({
       matchPoolPrefix: "sr6_matrix_",
+      extraFields: ["Basiswert", "Modifikator"],
       popupFields: [
         SR6_DEFAULT_POPUP_FIELDS[0],
         {
@@ -2407,7 +2408,9 @@ function getMatrixLikeDefenseAdditionalAttributes(definition) {
   if (matrixDefenseIds.includes(definitionId)) {
     return [
       "sr6_matrix_datenverarbeitung",
+      "sr6_matrix_datenverarbeitung_modifikator",
       "sr6_matrix_firewall",
+      "sr6_matrix_firewall_modifikator",
       "sr6_matrix_verteidigungswert_modifikator",
       "sr6_matrix_verteidigungswert",
     ];
@@ -2515,6 +2518,12 @@ function getMatrixRuleComponentAttr(component) {
   return "";
 }
 
+function pushMatrixRuleComponentAttr(attributes, key) {
+  if (!key) return;
+  attributes.push(`sr6_matrix_${key}`);
+  attributes.push(`sr6_matrix_${key}_modifikator`);
+}
+
 function collectMatrixRuleComponentAttrs(component, attributes) {
   const directAttr = getMatrixRuleComponentAttr(component);
   if (directAttr) attributes.push(directAttr);
@@ -2527,7 +2536,10 @@ function collectMatrixRuleComponentAttrs(component, attributes) {
     attributes.push(`sr6_skill_${component.skill}_modifikator`);
   }
   if (component && component.matrixSecond) {
-    attributes.push(`sr6_matrix_${component.matrixSecond}`);
+    pushMatrixRuleComponentAttr(attributes, component.matrixSecond);
+  }
+  if (component && component.matrix) {
+    pushMatrixRuleComponentAttr(attributes, component.matrix);
   }
 }
 
@@ -3245,6 +3257,15 @@ function deriveProbeTitle(resolvedFields, poolAttribute, definition) {
 
   if (resolvedDefinition && resolvedDefinition.fixedTitle) {
     return resolvedDefinition.fixedTitle;
+  }
+
+  if (
+    resolvedDefinition &&
+    resolvedDefinition.id === "matrix_action" &&
+    `${poolAttribute || ""}`.endsWith("_verteidigung_wert") &&
+    explicitName
+  ) {
+    return explicitName;
   }
 
   if (resolvedDefinition && resolvedDefinition.titleMode === "field-short" && resolvedDefinition.titleField) {
@@ -4337,22 +4358,31 @@ function buildSummoningView(payload, name, subjectFieldLabel, subjectLabel, subj
 }
 
 function buildMatrixActionView(payload, name, subjectFieldLabel, subjectLabel, subject, calcDetailGroups, rows) {
+  const isDefenseRoll = `${(payload && payload.poolAttribute) || ""}`.endsWith("_verteidigung_wert");
+  const poolInfo = getPoolInfoGroups(calcDetailGroups.sourceGroups).filter((group) => (
+    !isDefenseRoll || group.title !== SR6_DETAIL_GROUP_TITLES.probeContext
+  ));
+  const infoTitleMap = {
+    "Verteidigungswert": ["Verteidigungswertberechnung"],
+    "Zugriff": ["Probenkontext"],
+    "Overwatch-Modifikator": ["Probenkontext"],
+  };
+
+  if (!isDefenseRoll) {
+    infoTitleMap.Probe = ["Probenkontext", "Formelberechnung"];
+  }
+
   return {
     suppressSubject: !!(payload && payload.suppressSubject),
     subject: { label: subjectLabel, value: subject },
-    poolInfo: getPoolInfoGroups(calcDetailGroups.sourceGroups),
+    poolInfo: poolInfo,
     contextRows: buildContextRowsFromLabels(rows, [
       "Probe",
       "Verteidigung",
       "Verteidigungswert",
       "Zugriff",
       "Overwatch-Modifikator",
-    ], calcDetailGroups.sourceGroups, {
-      "Probe": ["Probenkontext", "Formelberechnung"],
-      "Verteidigungswert": ["Verteidigungswertberechnung"],
-      "Zugriff": ["Probenkontext"],
-      "Overwatch-Modifikator": ["Probenkontext"],
-    }),
+    ], calcDetailGroups.sourceGroups, infoTitleMap),
     resultLabel: (payload && payload.resultLabel) || "Ergebnis",
     resultValue: payload && payload.resultValue,
     debugGroups: calcDetailGroups.sourceGroups,
@@ -4912,6 +4942,25 @@ const SR6_FORMULA_COMPONENTS = {
   "Clearsight": { type: "rigging", attr: "sr6_rigging_fahrzeug_clearsight" },
 };
 
+function resolveMatrixCoreDetail(lookupAttr, matrixKey) {
+  const base = parseNumber(lookupAttr(`sr6_matrix_${matrixKey}`));
+  const modifier = parseNumber(lookupAttr(`sr6_matrix_${matrixKey}_modifikator`));
+  return {
+    base: base,
+    modifier: modifier,
+    total: base + modifier,
+  };
+}
+
+function appendMatrixCoreDetailRows(rows, lookupAttr, matrixKey, label, options = {}) {
+  const detail = resolveMatrixCoreDetail(lookupAttr, matrixKey);
+  appendRowIfMissing(rows, `${label} Basis`, `${detail.base}`, { poolComponent: !!options.poolComponent });
+  if (detail.modifier !== 0 || options.includeZeroModifier) {
+    appendRowIfMissing(rows, `${label} Modifikator`, `${detail.modifier}`, { poolComponent: !!options.poolComponent });
+  }
+  appendRowIfMissing(rows, `${label} Gesamtwert`, `${detail.total}`);
+}
+
 function getAttributeDetailKey(label) {
   return SR6_ATTRIBUTE_DETAIL_KEYS[`${label || ""}`.trim()] || "";
 }
@@ -4995,6 +5044,14 @@ function appendGenericFormulaComponentRows(rows, lookupAttr, formula, labelPrefi
 
     const component = SR6_FORMULA_COMPONENTS[cleanPart];
     if (component && component.attr) {
+      if (component.type === "matrix") {
+        const matrixKey = `${component.attr || ""}`.replace(/^sr6_matrix_/, "");
+        const detail = resolveMatrixCoreDetail(lookupAttr, matrixKey);
+        appendRowIfMissing(rows, `${label} Basis`, `${detail.base * multiplier}`, rowOptions);
+        appendRowIfMissing(rows, `${label} Modifikator`, `${detail.modifier * multiplier}`, rowOptions);
+        appendRowIfMissing(rows, `${label} Gesamtwert`, `${detail.total * multiplier}`);
+        return;
+      }
       appendRowIfMissing(rows, label, `${parseNumber(lookupAttr(component.attr)) * multiplier}`, rowOptions);
     }
   });
@@ -5050,6 +5107,10 @@ function getMatrixLikeDefenseConfig(definition) {
 }
 
 function appendMatrixLikeFirewallPoolRows(rows, lookupAttr, prefix) {
+  if (prefix === "sr6_matrix") {
+    appendMatrixCoreDetailRows(rows, lookupAttr, "firewall", "Firewall", { poolComponent: true });
+    return;
+  }
   appendRowIfMissing(rows, "Firewall", `${parseNumber(lookupAttr(`${prefix}_firewall`))}`, { poolComponent: true });
 }
 
@@ -5057,14 +5118,34 @@ function appendMatrixLikeDefenseValueDetailRows(rows, definition, lookupAttr) {
   const config = getMatrixLikeDefenseConfig(definition);
   if (!config) return;
 
-  appendRowIfMissing(rows, "Verteidigungswert Datenverarbeitung", `${parseNumber(lookupAttr(`${config.prefix}_datenverarbeitung`))}`);
-  appendRowIfMissing(rows, "Verteidigungswert Firewall", `${parseNumber(lookupAttr(`${config.prefix}_firewall`))}`);
+  if (config.prefix === "sr6_matrix") {
+    appendMatrixCoreDetailRows(rows, lookupAttr, "datenverarbeitung", "Verteidigungswert Datenverarbeitung");
+    appendMatrixCoreDetailRows(rows, lookupAttr, "firewall", "Verteidigungswert Firewall");
+  } else {
+    appendRowIfMissing(rows, "Verteidigungswert Datenverarbeitung", `${parseNumber(lookupAttr(`${config.prefix}_datenverarbeitung`))}`);
+    appendRowIfMissing(rows, "Verteidigungswert Firewall", `${parseNumber(lookupAttr(`${config.prefix}_firewall`))}`);
+  }
   appendRowIfMissing(rows, "Verteidigungswert Modifikator", `${parseNumber(lookupAttr(`${config.prefix}_verteidigungswert_modifikator`))}`);
   appendRowIfMissing(rows, "Verteidigungswert Gesamtwert", `${parseNumber(lookupAttr(`${config.prefix}_verteidigungswert`))}`);
 }
 
 function appendKnownPoolFormulaRows(rows, definition, lookupAttr, poolAttribute) {
   if (!poolAttribute) return false;
+  const matrixCoreMatch = `${poolAttribute || ""}`.match(/^sr6_matrix_(angriff|schleicher|datenverarbeitung|firewall)_gesamtwert$/);
+  if (matrixCoreMatch) {
+    const labelMap = {
+      angriff: "Angriff",
+      schleicher: "Schleicher",
+      datenverarbeitung: "Datenverarbeitung",
+      firewall: "Firewall",
+    };
+    appendMatrixCoreDetailRows(rows, lookupAttr, matrixCoreMatch[1], labelMap[matrixCoreMatch[1]] || "Matrixwert", {
+      poolComponent: true,
+      includeZeroModifier: true,
+    });
+    return true;
+  }
+
   const matrixDefenseConfig = getMatrixLikeDefenseConfig(definition);
   if (matrixDefenseConfig) {
     if (matrixDefenseConfig.kind === "defense") {
@@ -5451,7 +5532,7 @@ function resolveMatrixActionComponentValue(component, lookupAttr) {
 
   if (component.multiplier && component.matrix) {
     const multiplier = parseNumber(component.multiplier);
-    const matrixValue = parseNumber(lookupAttr(`sr6_matrix_${component.matrix}`));
+    const matrixValue = resolveMatrixCoreDetail(lookupAttr, component.matrix).total;
     return {
       label: component.label || component.matrix,
       value: matrixValue * multiplier,
@@ -5482,12 +5563,12 @@ function resolveMatrixActionComponentValue(component, lookupAttr) {
     total += value;
   }
   if (component.matrix) {
-    const value = parseNumber(lookupAttr(`sr6_matrix_${component.matrix}`));
+    const value = resolveMatrixCoreDetail(lookupAttr, component.matrix).total;
     parts.push({ label: component.matrix, type: "matrix", value: value });
     total += value;
   }
   if (component.matrixSecond) {
-    const value = parseNumber(lookupAttr(`sr6_matrix_${component.matrixSecond}`));
+    const value = resolveMatrixCoreDetail(lookupAttr, component.matrixSecond).total;
     parts.push({ label: component.matrixSecond, type: "matrix", value: value });
     total += value;
   }
@@ -5558,6 +5639,24 @@ function appendMatrixActionComponentDetailRows(rows, rowPrefix, componentValue, 
   if (!componentValue || componentValue.value === null) return;
 
   (componentValue.parts || []).forEach((part) => {
+    if (options.poolComponent && part.type === "skill") {
+      appendSkillDetailRows(rows, lookupAttr, part.label, formatMatrixActionComponentLabel(part.label), {
+        poolComponent: true,
+      });
+    }
+    if (options.poolComponent && part.type === "attribute") {
+      appendAttributeDetailRows(rows, lookupAttr, part.label, formatMatrixActionComponentLabel(part.label), {
+        poolComponent: true,
+      });
+    }
+    if (options.poolComponent && part.type === "matrix") {
+      appendRowIfMissing(
+        rows,
+        `Matrixattribut ${formatMatrixActionComponentLabel(part.label)}`,
+        `${parseNumber(part.value)}`,
+        { poolComponent: true }
+      );
+    }
     if (rowPrefix === "Probe" && part.type === "skill") {
       appendSkillDetailRows(rows, lookupAttr, part.label, formatMatrixActionComponentLabel(part.label), {
         poolComponent: !!options.poolComponent,
@@ -5617,9 +5716,11 @@ function appendMatrixActionRows(rows, matrixActionContext, lookupAttr) {
     rows.push({ label: "Probe", value: "Siehe Beschreibung" });
   } else if (probe) {
     rows.push({ label: "Probe", value: probe.label });
-    appendMatrixActionComponentDetailRows(rows, "Probe", probe, lookupAttr, {
-      poolComponent: matrixActionContext.rollMode !== "defense",
-    });
+    if (matrixActionContext.rollMode !== "defense") {
+      appendMatrixActionComponentDetailRows(rows, "Probe", probe, lookupAttr, {
+        poolComponent: true,
+      });
+    }
   }
 
   if (rule.probe && rule.probe.linkedMatrixAttribute) {
@@ -6669,6 +6770,7 @@ function runSuccessProbeFromContext(rawTemplate, repeatingRowPrefix, popupState 
       resolvedFields: resolvedFields,
       definition: context.definition,
       definitionId: context.definition && context.definition.id,
+      poolAttribute: context.poolAttribute,
       pool: `${computation.pool}`,
       erfolge: erfolgeValue,
       details: buildDiceDetails(computation.diceResults, computation.fateDiceResults),
@@ -8056,13 +8158,15 @@ function computeMagicDerived(values, totals, skillTotals, updates) {
 // BEGIN MODULE: workers/compute/matrix
 function appendMatrixRequestKeys(requestKeys) {
   requestKeys.push("sr6_matrix_modus");
+  requestKeys.push("sr6_initiative_physisch_w6");
   requestKeys.push("sr6_matrix_angriff");
+  requestKeys.push("sr6_matrix_angriff_modifikator");
   requestKeys.push("sr6_matrix_schleicher");
+  requestKeys.push("sr6_matrix_schleicher_modifikator");
   requestKeys.push("sr6_matrix_datenverarbeitung");
+  requestKeys.push("sr6_matrix_datenverarbeitung_modifikator");
   requestKeys.push("sr6_matrix_firewall");
-  requestKeys.push("sr6_matrix_cyberbuchse_aktiv");
-  requestKeys.push("sr6_matrix_cyberbuchse_datenverarbeitung");
-  requestKeys.push("sr6_matrix_cyberbuchse_firewall");
+  requestKeys.push("sr6_matrix_firewall_modifikator");
   requestKeys.push("sr6_matrix_cyberbuchse_initiative_w6");
   requestKeys.push("sr6_matrix_angriffswert_modifikator");
   requestKeys.push("sr6_matrix_verteidigungswert_modifikator");
@@ -8070,6 +8174,19 @@ function appendMatrixRequestKeys(requestKeys) {
     requestKeys.push(`sr6_matrix_handlung_${actionName}_grundwert`);
     requestKeys.push(`sr6_matrix_handlung_${actionName}_modifikator`);
     requestKeys.push(`sr6_matrix_handlung_${actionName}_verteidigung_auswahl`);
+  });
+}
+
+function getMatrixCoreValue(values, key) {
+  return parseNumber(values[`sr6_matrix_${key}`]) + parseNumber(values[`sr6_matrix_${key}_modifikator`]);
+}
+
+function buildEffectiveMatrixCoreValues(values) {
+  return Object.assign({}, values, {
+    sr6_matrix_angriff: String(getMatrixCoreValue(values, "angriff")),
+    sr6_matrix_schleicher: String(getMatrixCoreValue(values, "schleicher")),
+    sr6_matrix_datenverarbeitung: String(getMatrixCoreValue(values, "datenverarbeitung")),
+    sr6_matrix_firewall: String(getMatrixCoreValue(values, "firewall")),
   });
 }
 
@@ -8135,37 +8252,31 @@ function resolveMatrixActionDefenseComponent(rule, selectedDefense) {
 
 function computeMatrixTotals(values, totals, skillTotals, updates) {
   const matrixInitiativeMode = resolveMatrixInitiativeMode(values.sr6_matrix_modus);
-  const matrixAttack = parseNumber(values.sr6_matrix_angriff);
-  const matrixSleaze = parseNumber(values.sr6_matrix_schleicher);
-  const cyberjackActive = values.sr6_matrix_cyberbuchse_aktiv === "1";
-  const matrixDataProcessing = cyberjackActive
-    ? parseNumber(values.sr6_matrix_cyberbuchse_datenverarbeitung)
-    : parseNumber(values.sr6_matrix_datenverarbeitung);
-  const matrixFirewall = cyberjackActive
-    ? parseNumber(values.sr6_matrix_cyberbuchse_firewall)
-    : parseNumber(values.sr6_matrix_firewall);
+  const effectiveValues = buildEffectiveMatrixCoreValues(values);
+  const matrixAttack = parseNumber(effectiveValues.sr6_matrix_angriff);
+  const matrixSleaze = parseNumber(effectiveValues.sr6_matrix_schleicher);
+  const matrixDataProcessing = parseNumber(effectiveValues.sr6_matrix_datenverarbeitung);
+  const matrixFirewall = parseNumber(effectiveValues.sr6_matrix_firewall);
   const matrixInitiativeBonusDice =
-    cyberjackActive && matrixInitiativeMode.basisSource === "matrix"
+    matrixInitiativeMode.basisSource === "matrix"
       ? parseNumber(values.sr6_matrix_cyberbuchse_initiative_w6)
       : 0;
+  const matrixInitiativeBaseDice =
+    matrixInitiativeMode.basisSource === "matrix"
+      ? matrixInitiativeMode.w6
+      : parseNumber(values.sr6_initiative_physisch_w6) || matrixInitiativeMode.w6;
   const matrixBasis =
     matrixInitiativeMode.basisSource === "matrix"
       ? (totals.intuition || 0) + matrixDataProcessing
       : (totals.reaktion || 0) + (totals.intuition || 0);
 
-  if (cyberjackActive) {
-    updates.sr6_matrix_datenverarbeitung = String(matrixDataProcessing);
-    updates.sr6_matrix_firewall = String(matrixFirewall);
-  }
-  const effectiveValues = cyberjackActive
-    ? Object.assign({}, values, {
-        sr6_matrix_datenverarbeitung: String(matrixDataProcessing),
-        sr6_matrix_firewall: String(matrixFirewall),
-      })
-    : values;
   updates.sr6_matrix_cyberbuchse_aktiver_initiative_bonus_w6 = String(matrixInitiativeBonusDice);
+  updates.sr6_matrix_angriff_gesamtwert = String(matrixAttack);
+  updates.sr6_matrix_schleicher_gesamtwert = String(matrixSleaze);
+  updates.sr6_matrix_datenverarbeitung_gesamtwert = String(matrixDataProcessing);
+  updates.sr6_matrix_firewall_gesamtwert = String(matrixFirewall);
   updates.sr6_matrix_initiative = String(matrixBasis);
-  updates.sr6_matrix_initiative_w6 = String(matrixInitiativeMode.w6 + matrixInitiativeBonusDice);
+  updates.sr6_matrix_initiative_w6 = String(matrixInitiativeBaseDice + matrixInitiativeBonusDice);
   updates.sr6_matrix_angriffswert = String(
     matrixAttack + matrixSleaze + parseNumber(values.sr6_matrix_angriffswert_modifikator)
   );
@@ -8708,14 +8819,16 @@ function buildRecalcEvents() {
   events.push("change:sr6_magic_angriffswert_modifikator");
   events.push("change:sr6_magic_astralkampf_angriffswert_modifikator");
   events.push("change:sr6_magic_astralkampf_verteidigungswert_modifikator");
+  events.push("change:sr6_initiative_physisch_w6");
   events.push("change:sr6_matrix_modus");
   events.push("change:sr6_matrix_angriff");
+  events.push("change:sr6_matrix_angriff_modifikator");
   events.push("change:sr6_matrix_schleicher");
+  events.push("change:sr6_matrix_schleicher_modifikator");
   events.push("change:sr6_matrix_datenverarbeitung");
+  events.push("change:sr6_matrix_datenverarbeitung_modifikator");
   events.push("change:sr6_matrix_firewall");
-  events.push("change:sr6_matrix_cyberbuchse_aktiv");
-  events.push("change:sr6_matrix_cyberbuchse_datenverarbeitung");
-  events.push("change:sr6_matrix_cyberbuchse_firewall");
+  events.push("change:sr6_matrix_firewall_modifikator");
   events.push("change:sr6_matrix_cyberbuchse_initiative_w6");
   events.push("change:sr6_matrix_angriffswert_modifikator");
   events.push("change:sr6_matrix_verteidigungswert_modifikator");
