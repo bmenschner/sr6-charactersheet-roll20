@@ -120,6 +120,15 @@ function deriveProbeTitle(resolvedFields, poolAttribute, definition) {
     return resolvedDefinition.fixedTitle;
   }
 
+  if (
+    resolvedDefinition &&
+    resolvedDefinition.id === "matrix_action" &&
+    `${poolAttribute || ""}`.endsWith("_verteidigung_wert") &&
+    explicitName
+  ) {
+    return explicitName;
+  }
+
   if (resolvedDefinition && resolvedDefinition.titleMode === "field-short" && resolvedDefinition.titleField) {
     const shortFieldValue = getShortLabelValue(resolvedFields[resolvedDefinition.titleField]);
     if (shortFieldValue) {
@@ -1210,22 +1219,31 @@ function buildSummoningView(payload, name, subjectFieldLabel, subjectLabel, subj
 }
 
 function buildMatrixActionView(payload, name, subjectFieldLabel, subjectLabel, subject, calcDetailGroups, rows) {
+  const isDefenseRoll = `${(payload && payload.poolAttribute) || ""}`.endsWith("_verteidigung_wert");
+  const poolInfo = getPoolInfoGroups(calcDetailGroups.sourceGroups).filter((group) => (
+    !isDefenseRoll || group.title !== SR6_DETAIL_GROUP_TITLES.probeContext
+  ));
+  const infoTitleMap = {
+    "Verteidigungswert": ["Verteidigungswertberechnung"],
+    "Zugriff": ["Probenkontext"],
+    "Overwatch-Modifikator": ["Probenkontext"],
+  };
+
+  if (!isDefenseRoll) {
+    infoTitleMap.Probe = ["Probenkontext", "Formelberechnung"];
+  }
+
   return {
     suppressSubject: !!(payload && payload.suppressSubject),
     subject: { label: subjectLabel, value: subject },
-    poolInfo: getPoolInfoGroups(calcDetailGroups.sourceGroups),
+    poolInfo: poolInfo,
     contextRows: buildContextRowsFromLabels(rows, [
       "Probe",
       "Verteidigung",
       "Verteidigungswert",
       "Zugriff",
       "Overwatch-Modifikator",
-    ], calcDetailGroups.sourceGroups, {
-      "Probe": ["Probenkontext", "Formelberechnung"],
-      "Verteidigungswert": ["Verteidigungswertberechnung"],
-      "Zugriff": ["Probenkontext"],
-      "Overwatch-Modifikator": ["Probenkontext"],
-    }),
+    ], calcDetailGroups.sourceGroups, infoTitleMap),
     resultLabel: (payload && payload.resultLabel) || "Ergebnis",
     resultValue: payload && payload.resultValue,
     debugGroups: calcDetailGroups.sourceGroups,

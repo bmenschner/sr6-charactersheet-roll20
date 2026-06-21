@@ -87,6 +87,7 @@ const SR6_ROLL_DEFINITIONS_MATRIX = [
     id: "matrix_value",
     ...createValueProbeDefinition({
       matchPoolPrefix: "sr6_matrix_",
+      extraFields: ["Basiswert", "Modifikator"],
       popupFields: [
         SR6_DEFAULT_POPUP_FIELDS[0],
         {
