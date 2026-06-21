@@ -84,6 +84,8 @@ function buildRecalcEvents() {
   events.push("change:sr6_matrix_angriffswert_modifikator");
   events.push("change:sr6_matrix_verteidigungswert_modifikator");
   events.push("change:sr6_rigging_modus");
+  events.push("change:sr6_rigging_initiative_modifikator");
+  events.push("change:sr6_rigging_initiative_w6_modifikator");
   events.push("change:sr6_rigging_angriff");
   events.push("change:sr6_rigging_schleicher");
   events.push("change:sr6_rigging_datenverarbeitung");

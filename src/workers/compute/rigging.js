@@ -1,10 +1,13 @@
 // BEGIN MODULE: workers/compute/rigging
 function appendRiggingRequestKeys(requestKeys) {
   requestKeys.push("sr6_rigging_modus");
+  requestKeys.push("sr6_initiative_physisch_w6");
   requestKeys.push("sr6_rigging_angriff");
   requestKeys.push("sr6_rigging_schleicher");
   requestKeys.push("sr6_rigging_datenverarbeitung");
   requestKeys.push("sr6_rigging_firewall");
+  requestKeys.push("sr6_rigging_initiative_modifikator");
+  requestKeys.push("sr6_rigging_initiative_w6_modifikator");
   requestKeys.push("sr6_rigging_angriffswert_modifikator");
   requestKeys.push("sr6_rigging_verteidigungswert_modifikator");
 }
@@ -37,13 +40,22 @@ function computeRiggingDerived(values, totals, _skillTotals, updates) {
   const riggingSleaze = parseNumber(values.sr6_rigging_schleicher);
   const riggingDataProcessing = parseNumber(values.sr6_rigging_datenverarbeitung);
   const riggingFirewall = parseNumber(values.sr6_rigging_firewall);
-  const riggingBasis =
-    riggingInitiativeMode.basisSource === "matrix"
-      ? (totals.intuition || 0) + riggingDataProcessing
-      : (totals.reaktion || 0) + (totals.intuition || 0);
+  const riggingInitiativeIsVr = riggingInitiativeMode.basisSource === "matrix";
+  const riggingInitiativeBasisMod = riggingInitiativeIsVr
+    ? parseNumber(values.sr6_rigging_initiative_modifikator)
+    : 0;
+  const riggingInitiativeW6Mod = riggingInitiativeIsVr
+    ? parseNumber(values.sr6_rigging_initiative_w6_modifikator)
+    : 0;
+  const riggingBasis = riggingInitiativeIsVr
+    ? (totals.intuition || 0) + riggingDataProcessing + riggingInitiativeBasisMod
+    : (totals.reaktion || 0) + (totals.intuition || 0);
+  const riggingInitiativeW6 = riggingInitiativeIsVr
+    ? riggingInitiativeMode.w6 + riggingInitiativeW6Mod
+    : parseNumber(values.sr6_initiative_physisch_w6) || riggingInitiativeMode.w6;
 
-  updates.sr6_rigging_initiative = String(riggingBasis);
-  updates.sr6_rigging_initiative_w6 = String(riggingInitiativeMode.w6);
+  updates.sr6_rigging_initiative = String(Math.max(0, riggingBasis));
+  updates.sr6_rigging_initiative_w6 = String(Math.max(0, riggingInitiativeW6));
   updates.sr6_rigging_angriffswert = String(
     riggingAttack + riggingSleaze + parseNumber(values.sr6_rigging_angriffswert_modifikator)
   );

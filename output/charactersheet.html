@@ -6630,174 +6630,31 @@
         </div>
 
         <div class="sr6-charactersheet-field">
-          <div class="sr6-field-label-with-info"><span data-i18n="field.rigging_initiative">Rigging-Initiative</span><span class="sr6-info-icon" title="Rigging-Initiative = bei AR Reaktion + Intuition + 1W6; bei VR Intuition + Datenverarbeitung + 2W6/3W6">i</span></div>
+          <div class="sr6-field-label-with-info"><span data-i18n="field.rigging_initiative">Rigging-Initiative</span><span class="sr6-info-icon" title="Rigging-Initiative = bei AR wie physische Initiative; bei VR Intuition + Datenverarbeitung + Modifikator + 2W6/3W6 + W6-Modifikator">i</span></div>
           <div class="sr6-charactersheet-initiative-input">
             <input type="number" name="attr_sr6_rigging_initiative" readonly />
+            <div class="sr6-number-stepper">
+              <button type="action" class="sr6-number-stepper-button sr6-number-stepper-button--minus" name="act_sr6_number_step" value="sr6_rigging_initiative_modifikator::-1" aria-label="Initiative-Modifikator verringern">-</button>
+              <input type="number" name="attr_sr6_rigging_initiative_modifikator" value="0" title="VR-Initiative-Modifikator" />
+              <button type="action" class="sr6-number-stepper-button sr6-number-stepper-button--plus" name="act_sr6_number_step" value="sr6_rigging_initiative_modifikator::1" aria-label="Initiative-Modifikator erhoehen">+</button>
+            </div>
             <span class="sr6-charactersheet-initiative-dice-label" data-i18n="field.w6">W6</span>
-            <div class="sr6-charactersheet-field-input-with-dice sr6-charactersheet-field-input-with-dice--compact">
-              <input type="number" name="attr_sr6_rigging_initiative_w6" readonly /><button
-              type="action"
-              class="sr6-charactersheet-field-dice-button"
-              name="act_probe"
-              value="&{template:default} {{name=Rigging-Initiative}} {{Initiative=Rigging-Initiative}} {{Basis=@{sr6_rigging_initiative}}} {{W6=@{sr6_rigging_initiative_w6}}} {{Modus=@{sr6_rigging_modus}}}"
-              aria-label="Wuerfeln"></button>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <span class="sr6-charactersheet-kernwerte-subtitle" data-i18n="field.rigging_riggerkonsole_werte">Riggerkonsole (Werte)</span>
-      <div class="sr6-charactersheet-row sr6-charactersheet-row-5">
-        <div class="sr6-charactersheet-field">
-          <span data-i18n="field.matrix_angriff">Angriff</span>
-          <div class="sr6-charactersheet-field-input-with-dice">
-            <div class="sr6-number-stepper"><button type="action" class="sr6-number-stepper-button sr6-number-stepper-button--minus" name="act_sr6_number_step" value="sr6_rigging_angriff::-1" aria-label="Verringern">-</button><input type="number" name="attr_sr6_rigging_angriff" /><button type="action" class="sr6-number-stepper-button sr6-number-stepper-button--plus" name="act_sr6_number_step" value="sr6_rigging_angriff::1" aria-label="Erhoehen">+</button></div><button
-              type="action"
-              class="sr6-charactersheet-field-dice-button"
-              name="act_probe"
-              value="&{template:default} {{name=Rigging-Kernwert}} {{Wert=Angriff}} {{Pool=[[@{sr6_rigging_angriff}]]}} {{Erfolge=[[@{sr6_rigging_angriff}d6>5]]}}"
-              aria-label="Wuerfeln"></button>
-          </div>
-        </div>
-
-        <div class="sr6-charactersheet-field">
-          <span data-i18n="field.matrix_schleicher">Schleicher</span>
-          <div class="sr6-charactersheet-field-input-with-dice">
-            <div class="sr6-number-stepper"><button type="action" class="sr6-number-stepper-button sr6-number-stepper-button--minus" name="act_sr6_number_step" value="sr6_rigging_schleicher::-1" aria-label="Verringern">-</button><input type="number" name="attr_sr6_rigging_schleicher" /><button type="action" class="sr6-number-stepper-button sr6-number-stepper-button--plus" name="act_sr6_number_step" value="sr6_rigging_schleicher::1" aria-label="Erhoehen">+</button></div><button
-              type="action"
-              class="sr6-charactersheet-field-dice-button"
-              name="act_probe"
-              value="&{template:default} {{name=Rigging-Kernwert}} {{Wert=Schleicher}} {{Pool=[[@{sr6_rigging_schleicher}]]}} {{Erfolge=[[@{sr6_rigging_schleicher}d6>5]]}}"
-              aria-label="Wuerfeln"></button>
-          </div>
-        </div>
-
-        <div class="sr6-charactersheet-field">
-          <span data-i18n="field.matrix_datenverarbeitung">Datenverarbeitung</span>
-          <div class="sr6-charactersheet-field-input-with-dice">
-            <div class="sr6-number-stepper"><button type="action" class="sr6-number-stepper-button sr6-number-stepper-button--minus" name="act_sr6_number_step" value="sr6_rigging_datenverarbeitung::-1" aria-label="Verringern">-</button><input type="number" name="attr_sr6_rigging_datenverarbeitung" /><button type="action" class="sr6-number-stepper-button sr6-number-stepper-button--plus" name="act_sr6_number_step" value="sr6_rigging_datenverarbeitung::1" aria-label="Erhoehen">+</button></div><button
-              type="action"
-              class="sr6-charactersheet-field-dice-button"
-              name="act_probe"
-              value="&{template:default} {{name=Rigging-Kernwert}} {{Wert=Datenverarbeitung}} {{Pool=[[@{sr6_rigging_datenverarbeitung}]]}} {{Erfolge=[[@{sr6_rigging_datenverarbeitung}d6>5]]}}"
-              aria-label="Wuerfeln"></button>
-          </div>
-        </div>
-
-        <div class="sr6-charactersheet-field">
-          <span data-i18n="field.matrix_firewall">Firewall</span>
-          <div class="sr6-charactersheet-field-input-with-dice">
-            <div class="sr6-number-stepper"><button type="action" class="sr6-number-stepper-button sr6-number-stepper-button--minus" name="act_sr6_number_step" value="sr6_rigging_firewall::-1" aria-label="Verringern">-</button><input type="number" name="attr_sr6_rigging_firewall" /><button type="action" class="sr6-number-stepper-button sr6-number-stepper-button--plus" name="act_sr6_number_step" value="sr6_rigging_firewall::1" aria-label="Erhoehen">+</button></div><button
-              type="action"
-              class="sr6-charactersheet-field-dice-button"
-              name="act_probe"
-              value="&{template:default} {{name=Rigging-Kernwert}} {{Wert=Firewall}} {{Pool=[[@{sr6_rigging_firewall}]]}} {{Erfolge=[[@{sr6_rigging_firewall}d6>5]]}}"
-              aria-label="Wuerfeln"></button>
-          </div>
-        </div>
-        <div class="sr6-charactersheet-field">
-          <span data-i18n="field.overwatch">Overwatch</span>
-          <div class="sr6-charactersheet-field-input-with-dice">
-            <div class="sr6-number-stepper"><button type="action" class="sr6-number-stepper-button sr6-number-stepper-button--minus" name="act_sr6_number_step" value="sr6_rigging_overwatch::-1" aria-label="Verringern">-</button><input type="number" name="attr_sr6_rigging_overwatch" value="0" /><button type="action" class="sr6-number-stepper-button sr6-number-stepper-button--plus" name="act_sr6_number_step" value="sr6_rigging_overwatch::1" aria-label="Erhoehen">+</button></div><button
-              type="action"
-              class="sr6-charactersheet-field-dice-button"
-              name="act_probe"
-              value="&{template:default} {{name=Rigging-Kernwert}} {{Wert=Overwatch}} {{Pool=[[@{sr6_rigging_overwatch}]]}} {{Erfolge=[[@{sr6_rigging_overwatch}d6>5]]}}"
-              aria-label="Wuerfeln"></button>
-          </div>
-        </div>
-      </div>
-
-      <span class="sr6-charactersheet-kernwerte-subtitle" data-i18n="field.rigging_angriff_verteidigung">Angriff & Verteidgung</span>
-      <div class="sr6-charactersheet-row sr6-charactersheet-row-5">
-        <div class="sr6-charactersheet-field">
-          <div class="sr6-field-label-with-info"><span data-i18n="field.angriffswert">Angriffswert</span><span class="sr6-info-icon" title="Angriffswert = Angriff + Schleicher">i</span></div>
-          <div class="sr6-charactersheet-field-input-with-mod">
-            <span class="sr6-roll-mod-subtitle sr6-roll-mod-subtitle--basis" data-i18n="field.basis">Basis</span>
-            <span class="sr6-roll-mod-subtitle sr6-roll-mod-subtitle--mod" data-i18n="field.fertigkeitsmodifikator">Mod.</span>
-            <input type="number" name="attr_sr6_rigging_angriffswert" readonly />
+            <input type="number" name="attr_sr6_rigging_initiative_w6" readonly />
             <div class="sr6-number-stepper">
-              <button type="action" class="sr6-number-stepper-button sr6-number-stepper-button--minus" name="act_sr6_number_step" value="sr6_rigging_angriffswert_modifikator::-1" aria-label="Modifikator verringern">-</button>
-              <input type="number" name="attr_sr6_rigging_angriffswert_modifikator" title="Modifikator" />
-              <button type="action" class="sr6-number-stepper-button sr6-number-stepper-button--plus" name="act_sr6_number_step" value="sr6_rigging_angriffswert_modifikator::1" aria-label="Modifikator erhoehen">+</button>
+              <button type="action" class="sr6-number-stepper-button sr6-number-stepper-button--minus" name="act_sr6_number_step" value="sr6_rigging_initiative_w6_modifikator::-1" aria-label="Initiative-W6-Modifikator verringern">-</button>
+              <input type="number" name="attr_sr6_rigging_initiative_w6_modifikator" value="0" title="VR-Initiative-W6-Modifikator" />
+              <button type="action" class="sr6-number-stepper-button sr6-number-stepper-button--plus" name="act_sr6_number_step" value="sr6_rigging_initiative_w6_modifikator::1" aria-label="Initiative-W6-Modifikator erhoehen">+</button>
             </div>
-          </div>
-        </div>
-
-        <div class="sr6-charactersheet-field">
-          <div class="sr6-field-label-with-info"><span data-i18n="field.verteidigungswert">Verteidigungswert</span><span class="sr6-info-icon" title="Verteidigungswert = Datenverarbeitung + Firewall">i</span></div>
-          <div class="sr6-charactersheet-field-input-with-mod">
-            <span class="sr6-roll-mod-subtitle sr6-roll-mod-subtitle--basis" data-i18n="field.basis">Basis</span>
-            <span class="sr6-roll-mod-subtitle sr6-roll-mod-subtitle--mod" data-i18n="field.fertigkeitsmodifikator">Mod.</span>
-            <input type="number" name="attr_sr6_rigging_verteidigungswert" readonly />
-            <div class="sr6-number-stepper">
-              <button type="action" class="sr6-number-stepper-button sr6-number-stepper-button--minus" name="act_sr6_number_step" value="sr6_rigging_verteidigungswert_modifikator::-1" aria-label="Modifikator verringern">-</button>
-              <input type="number" name="attr_sr6_rigging_verteidigungswert_modifikator" title="Modifikator" />
-              <button type="action" class="sr6-number-stepper-button sr6-number-stepper-button--plus" name="act_sr6_number_step" value="sr6_rigging_verteidigungswert_modifikator::1" aria-label="Modifikator erhoehen">+</button>
-            </div>
-          </div>
-        </div>
-
-        <div class="sr6-charactersheet-field">
-          <div class="sr6-field-label-with-info"><span data-i18n="field.matrix_verteidigung">Matrix Verteidigung</span><span class="sr6-info-icon" title="Matrix Verteidigung = Intuition + Firewall">i</span></div>
-          <div class="sr6-charactersheet-field-input-with-dice sr6-charactersheet-field-input-with-dice--roll-mod">
-            <span class="sr6-roll-mod-subtitle sr6-roll-mod-subtitle--basis" data-i18n="field.basis">Basis</span>
-          <span class="sr6-roll-mod-subtitle sr6-roll-mod-subtitle--mod" data-i18n="field.fertigkeitsmodifikator">Mod.</span>
-          <input type="number" name="attr_sr6_rigging_matrix_verteidigung" readonly />
-              <div class="sr6-number-stepper sr6-roll-mod-stepper">
-                <button type="action" class="sr6-number-stepper-button sr6-number-stepper-button--minus" name="act_sr6_number_step" value="sr6_rigging_matrix_verteidigung_roll_modifikator::-1" aria-label="Wert-Modifikator verringern">-</button>
-                <input type="number" name="attr_sr6_rigging_matrix_verteidigung_roll_modifikator" title="Wert-Modifikator" />
-                <button type="action" class="sr6-number-stepper-button sr6-number-stepper-button--plus" name="act_sr6_number_step" value="sr6_rigging_matrix_verteidigung_roll_modifikator::1" aria-label="Wert-Modifikator erhoehen">+</button>
-              </div>
             <button
               type="action"
               class="sr6-charactersheet-field-dice-button"
               name="act_probe"
-              value="&{template:default} {{name=Rigging-Kernwert}} {{Wert=Matrix Verteidigung}} {{Pool=[[@{sr6_rigging_matrix_verteidigung}]]}} {{Erfolge=[[@{sr6_rigging_matrix_verteidigung}d6>5]]}}"
-              aria-label="Wuerfeln"></button>
-          </div>
-        </div>
-
-        <div class="sr6-charactersheet-field">
-          <div class="sr6-field-label-with-info"><span data-i18n="field.matrix_schadenswiderstand">Matrix Schadenswiderstand</span><span class="sr6-info-icon" title="Matrix Schadenswiderstand = Firewall">i</span></div>
-          <div class="sr6-charactersheet-field-input-with-dice sr6-charactersheet-field-input-with-dice--roll-mod">
-            <span class="sr6-roll-mod-subtitle sr6-roll-mod-subtitle--basis" data-i18n="field.basis">Basis</span>
-          <span class="sr6-roll-mod-subtitle sr6-roll-mod-subtitle--mod" data-i18n="field.fertigkeitsmodifikator">Mod.</span>
-          <input type="number" name="attr_sr6_rigging_matrix_schadenswiderstand" readonly />
-              <div class="sr6-number-stepper sr6-roll-mod-stepper">
-                <button type="action" class="sr6-number-stepper-button sr6-number-stepper-button--minus" name="act_sr6_number_step" value="sr6_rigging_matrix_schadenswiderstand_roll_modifikator::-1" aria-label="Wert-Modifikator verringern">-</button>
-                <input type="number" name="attr_sr6_rigging_matrix_schadenswiderstand_roll_modifikator" title="Wert-Modifikator" />
-                <button type="action" class="sr6-number-stepper-button sr6-number-stepper-button--plus" name="act_sr6_number_step" value="sr6_rigging_matrix_schadenswiderstand_roll_modifikator::1" aria-label="Wert-Modifikator erhoehen">+</button>
-              </div>
-            <button
-              type="action"
-              class="sr6-charactersheet-field-dice-button"
-              name="act_probe"
-              value="&{template:default} {{name=Rigging-Kernwert}} {{Wert=Matrix Schadenswiderstand}} {{Pool=[[@{sr6_rigging_matrix_schadenswiderstand}]]}} {{Erfolge=[[@{sr6_rigging_matrix_schadenswiderstand}d6>5]]}}"
-              aria-label="Wuerfeln"></button>
-          </div>
-        </div>
-
-        <div class="sr6-charactersheet-field">
-          <div class="sr6-field-label-with-info"><span data-i18n="field.biofeedback_schadenswiderstand">Biofeedback Schadenswiderstand</span><span class="sr6-info-icon" title="Biofeedback Schadenswiderstand = Willenskraft">i</span></div>
-          <div class="sr6-charactersheet-field-input-with-dice sr6-charactersheet-field-input-with-dice--roll-mod">
-            <span class="sr6-roll-mod-subtitle sr6-roll-mod-subtitle--basis" data-i18n="field.basis">Basis</span>
-          <span class="sr6-roll-mod-subtitle sr6-roll-mod-subtitle--mod" data-i18n="field.fertigkeitsmodifikator">Mod.</span>
-          <input type="number" name="attr_sr6_rigging_biofeedback_schadenswiderstand" readonly />
-              <div class="sr6-number-stepper sr6-roll-mod-stepper">
-                <button type="action" class="sr6-number-stepper-button sr6-number-stepper-button--minus" name="act_sr6_number_step" value="sr6_rigging_biofeedback_schadenswiderstand_roll_modifikator::-1" aria-label="Wert-Modifikator verringern">-</button>
-                <input type="number" name="attr_sr6_rigging_biofeedback_schadenswiderstand_roll_modifikator" title="Wert-Modifikator" />
-                <button type="action" class="sr6-number-stepper-button sr6-number-stepper-button--plus" name="act_sr6_number_step" value="sr6_rigging_biofeedback_schadenswiderstand_roll_modifikator::1" aria-label="Wert-Modifikator erhoehen">+</button>
-              </div>
-            <button
-              type="action"
-              class="sr6-charactersheet-field-dice-button"
-              name="act_probe"
-              value="&{template:default} {{name=Rigging-Kernwert}} {{Wert=Biofeedback Schadenswiderstand}} {{Pool=[[@{sr6_rigging_biofeedback_schadenswiderstand}]]}} {{Erfolge=[[@{sr6_rigging_biofeedback_schadenswiderstand}d6>5]]}}"
+              value="&{template:default} {{name=Rigging-Initiative}} {{Initiative=Rigging-Initiative}} {{Basis=@{sr6_rigging_initiative}}} {{Basis-Modifikator=@{sr6_rigging_initiative_modifikator}}} {{W6=@{sr6_rigging_initiative_w6}}} {{W6-Modifikator=@{sr6_rigging_initiative_w6_modifikator}}} {{Modus=@{sr6_rigging_modus}}}"
               aria-label="Wuerfeln"></button>
           </div>
         </div>
       </div>
+
     </div>
   </section>
   <!-- END BLOCK: Rigging Kernwerte -->
@@ -16385,10 +16242,13 @@ function computeMatrixTotals(values, totals, skillTotals, updates) {
 // BEGIN MODULE: workers/compute/rigging
 function appendRiggingRequestKeys(requestKeys) {
   requestKeys.push("sr6_rigging_modus");
+  requestKeys.push("sr6_initiative_physisch_w6");
   requestKeys.push("sr6_rigging_angriff");
   requestKeys.push("sr6_rigging_schleicher");
   requestKeys.push("sr6_rigging_datenverarbeitung");
   requestKeys.push("sr6_rigging_firewall");
+  requestKeys.push("sr6_rigging_initiative_modifikator");
+  requestKeys.push("sr6_rigging_initiative_w6_modifikator");
   requestKeys.push("sr6_rigging_angriffswert_modifikator");
   requestKeys.push("sr6_rigging_verteidigungswert_modifikator");
 }
@@ -16421,13 +16281,22 @@ function computeRiggingDerived(values, totals, _skillTotals, updates) {
   const riggingSleaze = parseNumber(values.sr6_rigging_schleicher);
   const riggingDataProcessing = parseNumber(values.sr6_rigging_datenverarbeitung);
   const riggingFirewall = parseNumber(values.sr6_rigging_firewall);
-  const riggingBasis =
-    riggingInitiativeMode.basisSource === "matrix"
-      ? (totals.intuition || 0) + riggingDataProcessing
-      : (totals.reaktion || 0) + (totals.intuition || 0);
+  const riggingInitiativeIsVr = riggingInitiativeMode.basisSource === "matrix";
+  const riggingInitiativeBasisMod = riggingInitiativeIsVr
+    ? parseNumber(values.sr6_rigging_initiative_modifikator)
+    : 0;
+  const riggingInitiativeW6Mod = riggingInitiativeIsVr
+    ? parseNumber(values.sr6_rigging_initiative_w6_modifikator)
+    : 0;
+  const riggingBasis = riggingInitiativeIsVr
+    ? (totals.intuition || 0) + riggingDataProcessing + riggingInitiativeBasisMod
+    : (totals.reaktion || 0) + (totals.intuition || 0);
+  const riggingInitiativeW6 = riggingInitiativeIsVr
+    ? riggingInitiativeMode.w6 + riggingInitiativeW6Mod
+    : parseNumber(values.sr6_initiative_physisch_w6) || riggingInitiativeMode.w6;
 
-  updates.sr6_rigging_initiative = String(riggingBasis);
-  updates.sr6_rigging_initiative_w6 = String(riggingInitiativeMode.w6);
+  updates.sr6_rigging_initiative = String(Math.max(0, riggingBasis));
+  updates.sr6_rigging_initiative_w6 = String(Math.max(0, riggingInitiativeW6));
   updates.sr6_rigging_angriffswert = String(
     riggingAttack + riggingSleaze + parseNumber(values.sr6_rigging_angriffswert_modifikator)
   );
@@ -16910,6 +16779,8 @@ function buildRecalcEvents() {
   events.push("change:sr6_matrix_angriffswert_modifikator");
   events.push("change:sr6_matrix_verteidigungswert_modifikator");
   events.push("change:sr6_rigging_modus");
+  events.push("change:sr6_rigging_initiative_modifikator");
+  events.push("change:sr6_rigging_initiative_w6_modifikator");
   events.push("change:sr6_rigging_angriff");
   events.push("change:sr6_rigging_schleicher");
   events.push("change:sr6_rigging_datenverarbeitung");
