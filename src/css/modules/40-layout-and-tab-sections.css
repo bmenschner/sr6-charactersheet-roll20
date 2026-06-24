@@ -396,6 +396,64 @@ fieldset.repeating_sr6matrixgeraete,
   column-gap: 0.0625rem;
 }
 
+.sr6-rigging-handling-value {
+  display: grid;
+  grid-template-columns: max-content max-content max-content max-content;
+  column-gap: 0.125rem;
+  align-items: end;
+  width: max-content;
+  max-width: none;
+}
+
+.sr6-rigging-handling-value > .sr6-roll-mod-subtitle--strasse {
+  grid-column: 1;
+  grid-row: 1;
+}
+
+.sr6-rigging-handling-value > .sr6-roll-mod-subtitle--gelaende {
+  grid-column: 3;
+  grid-row: 1;
+}
+
+.sr6-rigging-handling-value > .sr6-roll-mod-subtitle--mod {
+  grid-column: 4;
+  grid-row: 1;
+}
+
+.sr6-charactersheet-field-input-with-mod.sr6-rigging-handling-value > .sr6-rigging-handling-stepper {
+  grid-row: 2;
+  grid-template-columns: 1rem 1.75rem 1rem;
+  gap: 0.0625rem;
+}
+
+.sr6-charactersheet-field-input-with-mod.sr6-rigging-handling-value > .sr6-rigging-handling-stepper--strasse {
+  grid-column: 1;
+}
+
+.sr6-charactersheet-field-input-with-mod.sr6-rigging-handling-value > .sr6-rigging-handling-stepper--gelaende {
+  grid-column: 3;
+}
+
+.sr6-charactersheet-field-input-with-mod.sr6-rigging-handling-value > .sr6-rigging-handling-stepper--mod {
+  grid-column: 4;
+}
+
+.sr6-rigging-handling-value > .sr6-rigging-handling-stepper > input {
+  width: 1.75rem;
+}
+
+.sr6-rigging-handling-separator {
+  grid-column: 2;
+  grid-row: 2;
+  align-self: center;
+  color: var(--sr6-title);
+  font-weight: 700;
+}
+
+.sr6-rigging-fahrzeug-probe-row:not(:has(select[name="attr_sr6_rigging_fahrzeug_probe"] option[value="handling"]:checked)) .sr6-rigging-fahrzeug-handling-umgebung-field {
+  display: none;
+}
+
 .sr6-charactersheet-field-input-with-dice--roll-mod.sr6-matrix-core-value > .sr6-number-stepper:first-of-type,
 .sr6-charactersheet-field-input-with-mod.sr6-matrix-core-value > .sr6-number-stepper:first-of-type,
 .sr6-charactersheet-field-input-with-mod.sr6-dual-stepper-value > .sr6-number-stepper:first-of-type {
@@ -426,6 +484,33 @@ fieldset.repeating_sr6matrixgeraete,
 .sr6-charactersheet-field-input-with-mod.sr6-matrix-core-value > .sr6-number-stepper > input,
 .sr6-charactersheet-field-input-with-mod.sr6-dual-stepper-value > .sr6-number-stepper > input {
   width: 1.75rem;
+}
+
+.sr6-rigging-fahrzeug-monitor-value {
+  display: grid;
+  grid-template-columns: max-content max-content minmax(1.75rem, 1fr);
+  align-items: end;
+  gap: 0.25rem;
+}
+
+.sr6-rigging-fahrzeug-monitor-value > .sr6-number-stepper {
+  grid-template-columns: 1rem 1.75rem 1rem;
+  gap: 0.0625rem;
+}
+
+.sr6-rigging-fahrzeug-monitor-value > .sr6-number-stepper > input {
+  width: 1.75rem;
+}
+
+.sr6-rigging-fahrzeug-monitor-value > input[readonly] {
+  width: 100%;
+  min-width: 1.75rem;
+}
+
+.sr6-rigging-fahrzeug-monitor-separator {
+  align-self: center;
+  color: var(--sr6-title);
+  font-weight: 700;
 }
 
 .sr6-matrix-zugriff-switch {

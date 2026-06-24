@@ -1589,6 +1589,12 @@ function runEquipmentProbeFromContext(context, lookupAttr, resolvedFields, popup
 }
 
 function buildRiggingVehicleRollDataFromLookup(lookupAttr) {
+  const handlingEnvironment = resolveRiggingVehicleHandlingEnvironment(lookupAttr("sr6_rigging_fahrzeug_handling_umgebung"));
+  const handlingStreet = parseNumber(lookupAttr("sr6_rigging_fahrzeug_handling"));
+  const handlingTerrain = parseNumber(lookupAttr("sr6_rigging_fahrzeug_handling_gelaende"));
+  const handlingModifier = parseNumber(lookupAttr("sr6_rigging_fahrzeug_handling_modifikator"));
+  const selectedHandlingBase = handlingEnvironment === "Gelände" ? handlingTerrain : handlingStreet;
+
   return {
     reaktion: parseNumber(lookupAttr("sr6_attr_reaktion_gesamtwert")),
     geschicklichkeit: parseNumber(lookupAttr("sr6_attr_geschicklichkeit_gesamtwert")),
@@ -1600,7 +1606,12 @@ function buildRiggingVehicleRollDataFromLookup(lookupAttr) {
     mechanikExpertise: lookupAttr("sr6_skill_mechanik_expertise"),
     heimlichkeit: parseNumber(lookupAttr("sr6_skill_heimlichkeit_gesamtwert")),
     wahrnehmung: parseNumber(lookupAttr("sr6_skill_wahrnehmung_gesamtwert")),
-    handling: resolveRiggingVehicleDetail(lookupAttr, "sr6_rigging_fahrzeug_handling").total,
+    handling: selectedHandlingBase + handlingModifier,
+    handlingStrasse: handlingStreet + handlingModifier,
+    handlingGelaende: handlingTerrain + handlingModifier,
+    handlingModifikator: handlingModifier,
+    handlingUmgebung: handlingEnvironment,
+    handlingSchwellenwert: selectedHandlingBase + handlingModifier,
     beschleunigung: resolveRiggingVehicleDetail(lookupAttr, "sr6_rigging_fahrzeug_beschleunigung").total,
     intervall: resolveRiggingVehicleDetail(lookupAttr, "sr6_rigging_fahrzeug_intervall").total,
     geschwindigkeit: resolveRiggingVehicleDetail(lookupAttr, "sr6_rigging_fahrzeug_geschwindigkeit").total,
@@ -1673,6 +1684,13 @@ function runRiggingVehicleProbeFromContext(context, lookupAttr, resolvedFields, 
   rows.push({ label: "Probe", value: getRiggingVehicleProbeLabel(probeKey) });
   rows.push({ label: "Formel", value: probe.formula });
   appendRowsFormulaDetails(rows, lookupAttr);
+  if (probeKey === "handling") {
+    rows.push({ label: "Handling", value: data.handlingUmgebung });
+    rows.push({ label: "Straßenhandling", value: `${data.handlingStrasse}` });
+    rows.push({ label: "Geländehandling", value: `${data.handlingGelaende}` });
+    rows.push({ label: "Handling-Modifikator", value: `${data.handlingModifikator}` });
+    rows.push({ label: "Handling-Schwellenwert", value: `${data.handlingSchwellenwert}` });
+  }
   rows.push({ label: "Modus", value: mode });
   if (fireMode && attackValueModifier !== 0) {
     rows.push({ label: "Angriffswert-Basis", value: `${parseNumber(baseAttackValue)}` });

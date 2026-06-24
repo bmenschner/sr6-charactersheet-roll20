@@ -221,12 +221,37 @@ function getRiggingVehicleMonitorValue(data) {
   return Math.ceil(data.rumpf / 2) + 8;
 }
 
+function resolveRiggingVehicleHandlingEnvironment(environment) {
+  return `${environment || ""}`.trim() === "Gelände" ? "Gelände" : "Straße";
+}
+
 function getRiggingVehicleModifiedValue(values, rowPrefix, key) {
   return parseNumber(values[`${rowPrefix}_sr6_rigging_fahrzeug_${key}`]) +
     parseNumber(values[`${rowPrefix}_sr6_rigging_fahrzeug_${key}_modifikator`]);
 }
 
+function getRiggingVehicleHandlingDetail(values, rowPrefix) {
+  const environment = resolveRiggingVehicleHandlingEnvironment(
+    values[`${rowPrefix}_sr6_rigging_fahrzeug_handling_umgebung`]
+  );
+  const street = parseNumber(values[`${rowPrefix}_sr6_rigging_fahrzeug_handling`]);
+  const terrain = parseNumber(values[`${rowPrefix}_sr6_rigging_fahrzeug_handling_gelaende`]);
+  const modifier = parseNumber(values[`${rowPrefix}_sr6_rigging_fahrzeug_handling_modifikator`]);
+  const selectedBase = environment === "Gelände" ? terrain : street;
+
+  return {
+    environment: environment,
+    street: street,
+    terrain: terrain,
+    modifier: modifier,
+    selectedBase: selectedBase,
+    total: selectedBase + modifier,
+  };
+}
+
 function buildRiggingVehicleData(values, rowPrefix) {
+  const handlingDetail = getRiggingVehicleHandlingDetail(values, rowPrefix);
+
   return {
     reaktion: parseNumber(values.sr6_attr_reaktion_gesamtwert),
     geschicklichkeit: parseNumber(values.sr6_attr_geschicklichkeit_gesamtwert),
@@ -238,7 +263,12 @@ function buildRiggingVehicleData(values, rowPrefix) {
     mechanikExpertise: values.sr6_skill_mechanik_expertise,
     heimlichkeit: parseNumber(values.sr6_skill_heimlichkeit_gesamtwert),
     wahrnehmung: parseNumber(values.sr6_skill_wahrnehmung_gesamtwert),
-    handling: getRiggingVehicleModifiedValue(values, rowPrefix, "handling"),
+    handling: handlingDetail.total,
+    handlingStrasse: handlingDetail.street + handlingDetail.modifier,
+    handlingGelaende: handlingDetail.terrain + handlingDetail.modifier,
+    handlingModifikator: handlingDetail.modifier,
+    handlingUmgebung: handlingDetail.environment,
+    handlingSchwellenwert: handlingDetail.total,
     beschleunigung: getRiggingVehicleModifiedValue(values, rowPrefix, "beschleunigung"),
     intervall: getRiggingVehicleModifiedValue(values, rowPrefix, "intervall"),
     geschwindigkeit: getRiggingVehicleModifiedValue(values, rowPrefix, "geschwindigkeit"),
@@ -260,6 +290,8 @@ function appendRiggingVehicleRequestKeys(requestKeys, rowPrefix) {
   requestKeys.push(`${rowPrefix}_sr6_rigging_fahrzeug_probe`);
   requestKeys.push(`${rowPrefix}_sr6_rigging_fahrzeug_modus`);
   requestKeys.push(`${rowPrefix}_sr6_rigging_fahrzeug_handling`);
+  requestKeys.push(`${rowPrefix}_sr6_rigging_fahrzeug_handling_gelaende`);
+  requestKeys.push(`${rowPrefix}_sr6_rigging_fahrzeug_handling_umgebung`);
   requestKeys.push(`${rowPrefix}_sr6_rigging_fahrzeug_beschleunigung`);
   requestKeys.push(`${rowPrefix}_sr6_rigging_fahrzeug_intervall`);
   requestKeys.push(`${rowPrefix}_sr6_rigging_fahrzeug_geschwindigkeit`);

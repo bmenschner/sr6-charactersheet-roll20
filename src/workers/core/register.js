@@ -186,6 +186,8 @@ function registerWorkerEvents() {
       "change:repeating_sr6riggingfahrzeuge:sr6_rigging_fahrzeug_probe",
       "change:repeating_sr6riggingfahrzeuge:sr6_rigging_fahrzeug_modus",
       "change:repeating_sr6riggingfahrzeuge:sr6_rigging_fahrzeug_handling",
+      "change:repeating_sr6riggingfahrzeuge:sr6_rigging_fahrzeug_handling_gelaende",
+      "change:repeating_sr6riggingfahrzeuge:sr6_rigging_fahrzeug_handling_umgebung",
       "change:repeating_sr6riggingfahrzeuge:sr6_rigging_fahrzeug_beschleunigung",
       "change:repeating_sr6riggingfahrzeuge:sr6_rigging_fahrzeug_intervall",
       "change:repeating_sr6riggingfahrzeuge:sr6_rigging_fahrzeug_geschwindigkeit",

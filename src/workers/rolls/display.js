@@ -614,7 +614,20 @@ const SR6_OBJECT_RESISTANCE_LABELS = new Set([
 ]);
 const SR6_PROBE_CONTEXT_LABELS = new Set(["Probe", "Matrixattribut", "Zugriff", "Overwatch-Modifikator"]);
 const SR6_DEFENSE_CONTEXT_LABELS = new Set(["Verteidigung", "Verteidigungswert"]);
-const SR6_VEHICLE_CONTEXT_LABELS = new Set(["Modus", "Fahrzeug", "Gerät", "Geraet", "Zustandsmonitor", "Riggerkontrolle", "Agentenstufe"]);
+const SR6_VEHICLE_CONTEXT_LABELS = new Set([
+  "Modus",
+  "Fahrzeug",
+  "Gerät",
+  "Geraet",
+  "Zustandsmonitor",
+  "Riggerkontrolle",
+  "Agentenstufe",
+  "Handling",
+  "Straßenhandling",
+  "Geländehandling",
+  "Handling-Modifikator",
+  "Handling-Schwellenwert",
+]);
 const SR6_WEAPON_CONTEXT_LABELS = new Set(["Installierte Waffe", "Waffentyp", "Angriffswerte (Reichweite)"]);
 const SR6_EQUIPMENT_CONTEXT_LABELS = new Set(["Bezug", "Bezugswert", "Auswahl", "Stufe", "Stufe x2"]);
 
@@ -1259,6 +1272,8 @@ function buildRiggingVehicleView(payload, name, subjectFieldLabel, subjectLabel,
     contextRows: buildContextRowsFromLabels(rows, [
       "Modus",
       "Probe",
+      "Handling",
+      "Handling-Schwellenwert",
       "Angriffswert",
       "Verteidigungswert",
       "Zustandsmonitor",
@@ -1268,6 +1283,8 @@ function buildRiggingVehicleView(payload, name, subjectFieldLabel, subjectLabel,
     ], calcDetailGroups.sourceGroups, {
       "Modus": ["Fahrzeugkontext"],
       "Probe": ["Probenkontext", "Formelberechnung"],
+      "Handling": ["Fahrzeugkontext"],
+      "Handling-Schwellenwert": ["Fahrzeugkontext"],
       "Angriffswert": ["Angriffswertberechnung"],
       "Verteidigungswert": ["Fahrzeugkontext"],
       "Zustandsmonitor": ["Fahrzeugkontext"],

@@ -816,6 +816,9 @@ const SR6_RIGGING_VEHICLE_ROLL_ATTRIBUTES = [
   "sr6_skill_wahrnehmung_gesamtwert",
   "sr6_rigging_fahrzeug_probe",
   "sr6_rigging_fahrzeug_modus",
+  "sr6_rigging_fahrzeug_handling",
+  "sr6_rigging_fahrzeug_handling_gelaende",
+  "sr6_rigging_fahrzeug_handling_umgebung",
   "sr6_rigging_fahrzeug_rumpf",
   "sr6_rigging_fahrzeug_panzerung",
   "sr6_rigging_fahrzeug_pilot",
@@ -3813,7 +3816,20 @@ const SR6_OBJECT_RESISTANCE_LABELS = new Set([
 ]);
 const SR6_PROBE_CONTEXT_LABELS = new Set(["Probe", "Matrixattribut", "Zugriff", "Overwatch-Modifikator"]);
 const SR6_DEFENSE_CONTEXT_LABELS = new Set(["Verteidigung", "Verteidigungswert"]);
-const SR6_VEHICLE_CONTEXT_LABELS = new Set(["Modus", "Fahrzeug", "Gerät", "Geraet", "Zustandsmonitor", "Riggerkontrolle", "Agentenstufe"]);
+const SR6_VEHICLE_CONTEXT_LABELS = new Set([
+  "Modus",
+  "Fahrzeug",
+  "Gerät",
+  "Geraet",
+  "Zustandsmonitor",
+  "Riggerkontrolle",
+  "Agentenstufe",
+  "Handling",
+  "Straßenhandling",
+  "Geländehandling",
+  "Handling-Modifikator",
+  "Handling-Schwellenwert",
+]);
 const SR6_WEAPON_CONTEXT_LABELS = new Set(["Installierte Waffe", "Waffentyp", "Angriffswerte (Reichweite)"]);
 const SR6_EQUIPMENT_CONTEXT_LABELS = new Set(["Bezug", "Bezugswert", "Auswahl", "Stufe", "Stufe x2"]);
 
@@ -4458,6 +4474,8 @@ function buildRiggingVehicleView(payload, name, subjectFieldLabel, subjectLabel,
     contextRows: buildContextRowsFromLabels(rows, [
       "Modus",
       "Probe",
+      "Handling",
+      "Handling-Schwellenwert",
       "Angriffswert",
       "Verteidigungswert",
       "Zustandsmonitor",
@@ -4467,6 +4485,8 @@ function buildRiggingVehicleView(payload, name, subjectFieldLabel, subjectLabel,
     ], calcDetailGroups.sourceGroups, {
       "Modus": ["Fahrzeugkontext"],
       "Probe": ["Probenkontext", "Formelberechnung"],
+      "Handling": ["Fahrzeugkontext"],
+      "Handling-Schwellenwert": ["Fahrzeugkontext"],
       "Angriffswert": ["Angriffswertberechnung"],
       "Verteidigungswert": ["Fahrzeugkontext"],
       "Zustandsmonitor": ["Fahrzeugkontext"],
@@ -6402,6 +6422,12 @@ function runEquipmentProbeFromContext(context, lookupAttr, resolvedFields, popup
 }
 
 function buildRiggingVehicleRollDataFromLookup(lookupAttr) {
+  const handlingEnvironment = resolveRiggingVehicleHandlingEnvironment(lookupAttr("sr6_rigging_fahrzeug_handling_umgebung"));
+  const handlingStreet = parseNumber(lookupAttr("sr6_rigging_fahrzeug_handling"));
+  const handlingTerrain = parseNumber(lookupAttr("sr6_rigging_fahrzeug_handling_gelaende"));
+  const handlingModifier = parseNumber(lookupAttr("sr6_rigging_fahrzeug_handling_modifikator"));
+  const selectedHandlingBase = handlingEnvironment === "Gelände" ? handlingTerrain : handlingStreet;
+
   return {
     reaktion: parseNumber(lookupAttr("sr6_attr_reaktion_gesamtwert")),
     geschicklichkeit: parseNumber(lookupAttr("sr6_attr_geschicklichkeit_gesamtwert")),
@@ -6413,7 +6439,12 @@ function buildRiggingVehicleRollDataFromLookup(lookupAttr) {
     mechanikExpertise: lookupAttr("sr6_skill_mechanik_expertise"),
     heimlichkeit: parseNumber(lookupAttr("sr6_skill_heimlichkeit_gesamtwert")),
     wahrnehmung: parseNumber(lookupAttr("sr6_skill_wahrnehmung_gesamtwert")),
-    handling: resolveRiggingVehicleDetail(lookupAttr, "sr6_rigging_fahrzeug_handling").total,
+    handling: selectedHandlingBase + handlingModifier,
+    handlingStrasse: handlingStreet + handlingModifier,
+    handlingGelaende: handlingTerrain + handlingModifier,
+    handlingModifikator: handlingModifier,
+    handlingUmgebung: handlingEnvironment,
+    handlingSchwellenwert: selectedHandlingBase + handlingModifier,
     beschleunigung: resolveRiggingVehicleDetail(lookupAttr, "sr6_rigging_fahrzeug_beschleunigung").total,
     intervall: resolveRiggingVehicleDetail(lookupAttr, "sr6_rigging_fahrzeug_intervall").total,
     geschwindigkeit: resolveRiggingVehicleDetail(lookupAttr, "sr6_rigging_fahrzeug_geschwindigkeit").total,
@@ -6486,6 +6517,13 @@ function runRiggingVehicleProbeFromContext(context, lookupAttr, resolvedFields, 
   rows.push({ label: "Probe", value: getRiggingVehicleProbeLabel(probeKey) });
   rows.push({ label: "Formel", value: probe.formula });
   appendRowsFormulaDetails(rows, lookupAttr);
+  if (probeKey === "handling") {
+    rows.push({ label: "Handling", value: data.handlingUmgebung });
+    rows.push({ label: "Straßenhandling", value: `${data.handlingStrasse}` });
+    rows.push({ label: "Geländehandling", value: `${data.handlingGelaende}` });
+    rows.push({ label: "Handling-Modifikator", value: `${data.handlingModifikator}` });
+    rows.push({ label: "Handling-Schwellenwert", value: `${data.handlingSchwellenwert}` });
+  }
   rows.push({ label: "Modus", value: mode });
   if (fireMode && attackValueModifier !== 0) {
     rows.push({ label: "Angriffswert-Basis", value: `${parseNumber(baseAttackValue)}` });
@@ -8621,12 +8659,37 @@ function getRiggingVehicleMonitorValue(data) {
   return Math.ceil(data.rumpf / 2) + 8;
 }
 
+function resolveRiggingVehicleHandlingEnvironment(environment) {
+  return `${environment || ""}`.trim() === "Gelände" ? "Gelände" : "Straße";
+}
+
 function getRiggingVehicleModifiedValue(values, rowPrefix, key) {
   return parseNumber(values[`${rowPrefix}_sr6_rigging_fahrzeug_${key}`]) +
     parseNumber(values[`${rowPrefix}_sr6_rigging_fahrzeug_${key}_modifikator`]);
 }
 
+function getRiggingVehicleHandlingDetail(values, rowPrefix) {
+  const environment = resolveRiggingVehicleHandlingEnvironment(
+    values[`${rowPrefix}_sr6_rigging_fahrzeug_handling_umgebung`]
+  );
+  const street = parseNumber(values[`${rowPrefix}_sr6_rigging_fahrzeug_handling`]);
+  const terrain = parseNumber(values[`${rowPrefix}_sr6_rigging_fahrzeug_handling_gelaende`]);
+  const modifier = parseNumber(values[`${rowPrefix}_sr6_rigging_fahrzeug_handling_modifikator`]);
+  const selectedBase = environment === "Gelände" ? terrain : street;
+
+  return {
+    environment: environment,
+    street: street,
+    terrain: terrain,
+    modifier: modifier,
+    selectedBase: selectedBase,
+    total: selectedBase + modifier,
+  };
+}
+
 function buildRiggingVehicleData(values, rowPrefix) {
+  const handlingDetail = getRiggingVehicleHandlingDetail(values, rowPrefix);
+
   return {
     reaktion: parseNumber(values.sr6_attr_reaktion_gesamtwert),
     geschicklichkeit: parseNumber(values.sr6_attr_geschicklichkeit_gesamtwert),
@@ -8638,7 +8701,12 @@ function buildRiggingVehicleData(values, rowPrefix) {
     mechanikExpertise: values.sr6_skill_mechanik_expertise,
     heimlichkeit: parseNumber(values.sr6_skill_heimlichkeit_gesamtwert),
     wahrnehmung: parseNumber(values.sr6_skill_wahrnehmung_gesamtwert),
-    handling: getRiggingVehicleModifiedValue(values, rowPrefix, "handling"),
+    handling: handlingDetail.total,
+    handlingStrasse: handlingDetail.street + handlingDetail.modifier,
+    handlingGelaende: handlingDetail.terrain + handlingDetail.modifier,
+    handlingModifikator: handlingDetail.modifier,
+    handlingUmgebung: handlingDetail.environment,
+    handlingSchwellenwert: handlingDetail.total,
     beschleunigung: getRiggingVehicleModifiedValue(values, rowPrefix, "beschleunigung"),
     intervall: getRiggingVehicleModifiedValue(values, rowPrefix, "intervall"),
     geschwindigkeit: getRiggingVehicleModifiedValue(values, rowPrefix, "geschwindigkeit"),
@@ -8660,6 +8728,8 @@ function appendRiggingVehicleRequestKeys(requestKeys, rowPrefix) {
   requestKeys.push(`${rowPrefix}_sr6_rigging_fahrzeug_probe`);
   requestKeys.push(`${rowPrefix}_sr6_rigging_fahrzeug_modus`);
   requestKeys.push(`${rowPrefix}_sr6_rigging_fahrzeug_handling`);
+  requestKeys.push(`${rowPrefix}_sr6_rigging_fahrzeug_handling_gelaende`);
+  requestKeys.push(`${rowPrefix}_sr6_rigging_fahrzeug_handling_umgebung`);
   requestKeys.push(`${rowPrefix}_sr6_rigging_fahrzeug_beschleunigung`);
   requestKeys.push(`${rowPrefix}_sr6_rigging_fahrzeug_intervall`);
   requestKeys.push(`${rowPrefix}_sr6_rigging_fahrzeug_geschwindigkeit`);
@@ -9061,6 +9131,8 @@ function registerWorkerEvents() {
       "change:repeating_sr6riggingfahrzeuge:sr6_rigging_fahrzeug_probe",
       "change:repeating_sr6riggingfahrzeuge:sr6_rigging_fahrzeug_modus",
       "change:repeating_sr6riggingfahrzeuge:sr6_rigging_fahrzeug_handling",
+      "change:repeating_sr6riggingfahrzeuge:sr6_rigging_fahrzeug_handling_gelaende",
+      "change:repeating_sr6riggingfahrzeuge:sr6_rigging_fahrzeug_handling_umgebung",
       "change:repeating_sr6riggingfahrzeuge:sr6_rigging_fahrzeug_beschleunigung",
       "change:repeating_sr6riggingfahrzeuge:sr6_rigging_fahrzeug_intervall",
       "change:repeating_sr6riggingfahrzeuge:sr6_rigging_fahrzeug_geschwindigkeit",
