@@ -820,6 +820,14 @@ const SR6_RIGGING_VEHICLE_ROLL_ATTRIBUTES = [
   "sr6_rigging_fahrzeug_panzerung",
   "sr6_rigging_fahrzeug_pilot",
   "sr6_rigging_fahrzeug_sensor",
+  "sr6_rigging_fahrzeug_handling_modifikator",
+  "sr6_rigging_fahrzeug_beschleunigung_modifikator",
+  "sr6_rigging_fahrzeug_intervall_modifikator",
+  "sr6_rigging_fahrzeug_geschwindigkeit_modifikator",
+  "sr6_rigging_fahrzeug_rumpf_modifikator",
+  "sr6_rigging_fahrzeug_panzerung_modifikator",
+  "sr6_rigging_fahrzeug_pilot_modifikator",
+  "sr6_rigging_fahrzeug_sensor_modifikator",
   "sr6_rigging_fahrzeug_agentenstufe",
   "sr6_rigging_fahrzeug_riggerkontrolle",
   "sr6_rigging_fahrzeug_manoevrieren",
@@ -4995,6 +5003,16 @@ const SR6_FORMULA_COMPONENTS = {
   "Clearsight": { type: "rigging", attr: "sr6_rigging_fahrzeug_clearsight" },
 };
 
+function resolveRiggingVehicleDetail(lookupAttr, attrName) {
+  const base = parseNumber(lookupAttr(attrName));
+  const modifier = parseNumber(lookupAttr(`${attrName}_modifikator`));
+  return {
+    base: base,
+    modifier: modifier,
+    total: base + modifier,
+  };
+}
+
 function resolveMatrixCoreDetail(lookupAttr, matrixKey) {
   const base = parseNumber(lookupAttr(`sr6_matrix_${matrixKey}`));
   const modifier = parseNumber(lookupAttr(`sr6_matrix_${matrixKey}_modifikator`));
@@ -5100,6 +5118,13 @@ function appendGenericFormulaComponentRows(rows, lookupAttr, formula, labelPrefi
       if (component.type === "matrix") {
         const matrixKey = `${component.attr || ""}`.replace(/^sr6_matrix_/, "");
         const detail = resolveMatrixCoreDetail(lookupAttr, matrixKey);
+        appendRowIfMissing(rows, `${label} Basis`, `${detail.base * multiplier}`, rowOptions);
+        appendRowIfMissing(rows, `${label} Modifikator`, `${detail.modifier * multiplier}`, rowOptions);
+        appendRowIfMissing(rows, `${label} Gesamtwert`, `${detail.total * multiplier}`);
+        return;
+      }
+      if (component.type === "rigging") {
+        const detail = resolveRiggingVehicleDetail(lookupAttr, component.attr);
         appendRowIfMissing(rows, `${label} Basis`, `${detail.base * multiplier}`, rowOptions);
         appendRowIfMissing(rows, `${label} Modifikator`, `${detail.modifier * multiplier}`, rowOptions);
         appendRowIfMissing(rows, `${label} Gesamtwert`, `${detail.total * multiplier}`);
@@ -6388,10 +6413,14 @@ function buildRiggingVehicleRollDataFromLookup(lookupAttr) {
     mechanikExpertise: lookupAttr("sr6_skill_mechanik_expertise"),
     heimlichkeit: parseNumber(lookupAttr("sr6_skill_heimlichkeit_gesamtwert")),
     wahrnehmung: parseNumber(lookupAttr("sr6_skill_wahrnehmung_gesamtwert")),
-    rumpf: parseNumber(lookupAttr("sr6_rigging_fahrzeug_rumpf")),
-    panzerung: parseNumber(lookupAttr("sr6_rigging_fahrzeug_panzerung")),
-    pilot: parseNumber(lookupAttr("sr6_rigging_fahrzeug_pilot")),
-    sensor: parseNumber(lookupAttr("sr6_rigging_fahrzeug_sensor")),
+    handling: resolveRiggingVehicleDetail(lookupAttr, "sr6_rigging_fahrzeug_handling").total,
+    beschleunigung: resolveRiggingVehicleDetail(lookupAttr, "sr6_rigging_fahrzeug_beschleunigung").total,
+    intervall: resolveRiggingVehicleDetail(lookupAttr, "sr6_rigging_fahrzeug_intervall").total,
+    geschwindigkeit: resolveRiggingVehicleDetail(lookupAttr, "sr6_rigging_fahrzeug_geschwindigkeit").total,
+    rumpf: resolveRiggingVehicleDetail(lookupAttr, "sr6_rigging_fahrzeug_rumpf").total,
+    panzerung: resolveRiggingVehicleDetail(lookupAttr, "sr6_rigging_fahrzeug_panzerung").total,
+    pilot: resolveRiggingVehicleDetail(lookupAttr, "sr6_rigging_fahrzeug_pilot").total,
+    sensor: resolveRiggingVehicleDetail(lookupAttr, "sr6_rigging_fahrzeug_sensor").total,
     agentenstufe: parseNumber(lookupAttr("sr6_rigging_fahrzeug_agentenstufe")),
     riggerkontrolle: parseNumber(lookupAttr("sr6_rigging_fahrzeug_riggerkontrolle")),
     manoevrieren: parseNumber(lookupAttr("sr6_rigging_fahrzeug_manoevrieren")),
@@ -8592,6 +8621,11 @@ function getRiggingVehicleMonitorValue(data) {
   return Math.ceil(data.rumpf / 2) + 8;
 }
 
+function getRiggingVehicleModifiedValue(values, rowPrefix, key) {
+  return parseNumber(values[`${rowPrefix}_sr6_rigging_fahrzeug_${key}`]) +
+    parseNumber(values[`${rowPrefix}_sr6_rigging_fahrzeug_${key}_modifikator`]);
+}
+
 function buildRiggingVehicleData(values, rowPrefix) {
   return {
     reaktion: parseNumber(values.sr6_attr_reaktion_gesamtwert),
@@ -8604,10 +8638,14 @@ function buildRiggingVehicleData(values, rowPrefix) {
     mechanikExpertise: values.sr6_skill_mechanik_expertise,
     heimlichkeit: parseNumber(values.sr6_skill_heimlichkeit_gesamtwert),
     wahrnehmung: parseNumber(values.sr6_skill_wahrnehmung_gesamtwert),
-    rumpf: parseNumber(values[`${rowPrefix}_sr6_rigging_fahrzeug_rumpf`]),
-    panzerung: parseNumber(values[`${rowPrefix}_sr6_rigging_fahrzeug_panzerung`]),
-    pilot: parseNumber(values[`${rowPrefix}_sr6_rigging_fahrzeug_pilot`]),
-    sensor: parseNumber(values[`${rowPrefix}_sr6_rigging_fahrzeug_sensor`]),
+    handling: getRiggingVehicleModifiedValue(values, rowPrefix, "handling"),
+    beschleunigung: getRiggingVehicleModifiedValue(values, rowPrefix, "beschleunigung"),
+    intervall: getRiggingVehicleModifiedValue(values, rowPrefix, "intervall"),
+    geschwindigkeit: getRiggingVehicleModifiedValue(values, rowPrefix, "geschwindigkeit"),
+    rumpf: getRiggingVehicleModifiedValue(values, rowPrefix, "rumpf"),
+    panzerung: getRiggingVehicleModifiedValue(values, rowPrefix, "panzerung"),
+    pilot: getRiggingVehicleModifiedValue(values, rowPrefix, "pilot"),
+    sensor: getRiggingVehicleModifiedValue(values, rowPrefix, "sensor"),
     agentenstufe: parseNumber(values[`${rowPrefix}_sr6_rigging_fahrzeug_agentenstufe`]),
     riggerkontrolle: parseNumber(values[`${rowPrefix}_sr6_rigging_fahrzeug_riggerkontrolle`]),
     manoevrieren: parseNumber(values[`${rowPrefix}_sr6_rigging_fahrzeug_manoevrieren`]),
@@ -8621,10 +8659,22 @@ function buildRiggingVehicleData(values, rowPrefix) {
 function appendRiggingVehicleRequestKeys(requestKeys, rowPrefix) {
   requestKeys.push(`${rowPrefix}_sr6_rigging_fahrzeug_probe`);
   requestKeys.push(`${rowPrefix}_sr6_rigging_fahrzeug_modus`);
+  requestKeys.push(`${rowPrefix}_sr6_rigging_fahrzeug_handling`);
+  requestKeys.push(`${rowPrefix}_sr6_rigging_fahrzeug_beschleunigung`);
+  requestKeys.push(`${rowPrefix}_sr6_rigging_fahrzeug_intervall`);
+  requestKeys.push(`${rowPrefix}_sr6_rigging_fahrzeug_geschwindigkeit`);
   requestKeys.push(`${rowPrefix}_sr6_rigging_fahrzeug_rumpf`);
   requestKeys.push(`${rowPrefix}_sr6_rigging_fahrzeug_panzerung`);
   requestKeys.push(`${rowPrefix}_sr6_rigging_fahrzeug_pilot`);
   requestKeys.push(`${rowPrefix}_sr6_rigging_fahrzeug_sensor`);
+  requestKeys.push(`${rowPrefix}_sr6_rigging_fahrzeug_handling_modifikator`);
+  requestKeys.push(`${rowPrefix}_sr6_rigging_fahrzeug_beschleunigung_modifikator`);
+  requestKeys.push(`${rowPrefix}_sr6_rigging_fahrzeug_intervall_modifikator`);
+  requestKeys.push(`${rowPrefix}_sr6_rigging_fahrzeug_geschwindigkeit_modifikator`);
+  requestKeys.push(`${rowPrefix}_sr6_rigging_fahrzeug_rumpf_modifikator`);
+  requestKeys.push(`${rowPrefix}_sr6_rigging_fahrzeug_panzerung_modifikator`);
+  requestKeys.push(`${rowPrefix}_sr6_rigging_fahrzeug_pilot_modifikator`);
+  requestKeys.push(`${rowPrefix}_sr6_rigging_fahrzeug_sensor_modifikator`);
   requestKeys.push(`${rowPrefix}_sr6_rigging_fahrzeug_agentenstufe`);
   requestKeys.push(`${rowPrefix}_sr6_rigging_fahrzeug_riggerkontrolle`);
   requestKeys.push(`${rowPrefix}_sr6_rigging_fahrzeug_manoevrieren`);
@@ -9010,10 +9060,22 @@ function registerWorkerEvents() {
     [
       "change:repeating_sr6riggingfahrzeuge:sr6_rigging_fahrzeug_probe",
       "change:repeating_sr6riggingfahrzeuge:sr6_rigging_fahrzeug_modus",
+      "change:repeating_sr6riggingfahrzeuge:sr6_rigging_fahrzeug_handling",
+      "change:repeating_sr6riggingfahrzeuge:sr6_rigging_fahrzeug_beschleunigung",
+      "change:repeating_sr6riggingfahrzeuge:sr6_rigging_fahrzeug_intervall",
+      "change:repeating_sr6riggingfahrzeuge:sr6_rigging_fahrzeug_geschwindigkeit",
       "change:repeating_sr6riggingfahrzeuge:sr6_rigging_fahrzeug_rumpf",
       "change:repeating_sr6riggingfahrzeuge:sr6_rigging_fahrzeug_panzerung",
       "change:repeating_sr6riggingfahrzeuge:sr6_rigging_fahrzeug_pilot",
       "change:repeating_sr6riggingfahrzeuge:sr6_rigging_fahrzeug_sensor",
+      "change:repeating_sr6riggingfahrzeuge:sr6_rigging_fahrzeug_handling_modifikator",
+      "change:repeating_sr6riggingfahrzeuge:sr6_rigging_fahrzeug_beschleunigung_modifikator",
+      "change:repeating_sr6riggingfahrzeuge:sr6_rigging_fahrzeug_intervall_modifikator",
+      "change:repeating_sr6riggingfahrzeuge:sr6_rigging_fahrzeug_geschwindigkeit_modifikator",
+      "change:repeating_sr6riggingfahrzeuge:sr6_rigging_fahrzeug_rumpf_modifikator",
+      "change:repeating_sr6riggingfahrzeuge:sr6_rigging_fahrzeug_panzerung_modifikator",
+      "change:repeating_sr6riggingfahrzeuge:sr6_rigging_fahrzeug_pilot_modifikator",
+      "change:repeating_sr6riggingfahrzeuge:sr6_rigging_fahrzeug_sensor_modifikator",
       "change:repeating_sr6riggingfahrzeuge:sr6_rigging_fahrzeug_agentenstufe",
       "change:repeating_sr6riggingfahrzeuge:sr6_rigging_fahrzeug_riggerkontrolle",
       "change:repeating_sr6riggingfahrzeuge:sr6_rigging_fahrzeug_manoevrieren",

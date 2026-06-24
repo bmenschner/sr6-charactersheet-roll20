@@ -190,6 +190,16 @@ const SR6_FORMULA_COMPONENTS = {
   "Clearsight": { type: "rigging", attr: "sr6_rigging_fahrzeug_clearsight" },
 };
 
+function resolveRiggingVehicleDetail(lookupAttr, attrName) {
+  const base = parseNumber(lookupAttr(attrName));
+  const modifier = parseNumber(lookupAttr(`${attrName}_modifikator`));
+  return {
+    base: base,
+    modifier: modifier,
+    total: base + modifier,
+  };
+}
+
 function resolveMatrixCoreDetail(lookupAttr, matrixKey) {
   const base = parseNumber(lookupAttr(`sr6_matrix_${matrixKey}`));
   const modifier = parseNumber(lookupAttr(`sr6_matrix_${matrixKey}_modifikator`));
@@ -295,6 +305,13 @@ function appendGenericFormulaComponentRows(rows, lookupAttr, formula, labelPrefi
       if (component.type === "matrix") {
         const matrixKey = `${component.attr || ""}`.replace(/^sr6_matrix_/, "");
         const detail = resolveMatrixCoreDetail(lookupAttr, matrixKey);
+        appendRowIfMissing(rows, `${label} Basis`, `${detail.base * multiplier}`, rowOptions);
+        appendRowIfMissing(rows, `${label} Modifikator`, `${detail.modifier * multiplier}`, rowOptions);
+        appendRowIfMissing(rows, `${label} Gesamtwert`, `${detail.total * multiplier}`);
+        return;
+      }
+      if (component.type === "rigging") {
+        const detail = resolveRiggingVehicleDetail(lookupAttr, component.attr);
         appendRowIfMissing(rows, `${label} Basis`, `${detail.base * multiplier}`, rowOptions);
         appendRowIfMissing(rows, `${label} Modifikator`, `${detail.modifier * multiplier}`, rowOptions);
         appendRowIfMissing(rows, `${label} Gesamtwert`, `${detail.total * multiplier}`);
@@ -1583,10 +1600,14 @@ function buildRiggingVehicleRollDataFromLookup(lookupAttr) {
     mechanikExpertise: lookupAttr("sr6_skill_mechanik_expertise"),
     heimlichkeit: parseNumber(lookupAttr("sr6_skill_heimlichkeit_gesamtwert")),
     wahrnehmung: parseNumber(lookupAttr("sr6_skill_wahrnehmung_gesamtwert")),
-    rumpf: parseNumber(lookupAttr("sr6_rigging_fahrzeug_rumpf")),
-    panzerung: parseNumber(lookupAttr("sr6_rigging_fahrzeug_panzerung")),
-    pilot: parseNumber(lookupAttr("sr6_rigging_fahrzeug_pilot")),
-    sensor: parseNumber(lookupAttr("sr6_rigging_fahrzeug_sensor")),
+    handling: resolveRiggingVehicleDetail(lookupAttr, "sr6_rigging_fahrzeug_handling").total,
+    beschleunigung: resolveRiggingVehicleDetail(lookupAttr, "sr6_rigging_fahrzeug_beschleunigung").total,
+    intervall: resolveRiggingVehicleDetail(lookupAttr, "sr6_rigging_fahrzeug_intervall").total,
+    geschwindigkeit: resolveRiggingVehicleDetail(lookupAttr, "sr6_rigging_fahrzeug_geschwindigkeit").total,
+    rumpf: resolveRiggingVehicleDetail(lookupAttr, "sr6_rigging_fahrzeug_rumpf").total,
+    panzerung: resolveRiggingVehicleDetail(lookupAttr, "sr6_rigging_fahrzeug_panzerung").total,
+    pilot: resolveRiggingVehicleDetail(lookupAttr, "sr6_rigging_fahrzeug_pilot").total,
+    sensor: resolveRiggingVehicleDetail(lookupAttr, "sr6_rigging_fahrzeug_sensor").total,
     agentenstufe: parseNumber(lookupAttr("sr6_rigging_fahrzeug_agentenstufe")),
     riggerkontrolle: parseNumber(lookupAttr("sr6_rigging_fahrzeug_riggerkontrolle")),
     manoevrieren: parseNumber(lookupAttr("sr6_rigging_fahrzeug_manoevrieren")),
