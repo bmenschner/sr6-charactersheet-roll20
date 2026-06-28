@@ -1629,6 +1629,19 @@ function buildRiggingVehicleRollDataFromLookup(lookupAttr) {
   };
 }
 
+function getRiggingVehicleRiggerControlEffect(mode, data) {
+  if (normalizeRiggingVehicleMode(mode) !== "jumped_in_vr") {
+    return 0;
+  }
+  return Math.max(0, parseNumber(data && data.riggerkontrolle));
+}
+
+function getRiggingVehicleEffectiveHandlingThreshold(mode, data) {
+  const threshold = parseNumber(data && data.handlingSchwellenwert);
+  const riggerControl = getRiggingVehicleRiggerControlEffect(mode, data);
+  return Math.max(0, threshold - riggerControl);
+}
+
 function buildRiggingVehicleWeaponRangeText(lookupAttr) {
   const rangeValues = [
     ["S. Nah", lookupAttr("sr6_rigging_fahrzeug_waffe_s_nah")],
@@ -1648,6 +1661,7 @@ function runRiggingVehicleProbeFromContext(context, lookupAttr, resolvedFields, 
   const mode = lookupAttr("sr6_rigging_fahrzeug_modus") || resolvedFields.Modus || "Autonom";
   const data = buildRiggingVehicleRollDataFromLookup(lookupAttr);
   const probe = getRiggingVehicleProbeValue(probeKey, mode, data);
+  const riggerControlEffect = getRiggingVehicleRiggerControlEffect(mode, data);
   const baseAttackValue = probeKey === "weapon_attack" && resolvedFields.Angriffswert
     ? resolvedFields.Angriffswert
     : `${getRiggingVehicleAttackValue(mode, data)}`;
@@ -1690,6 +1704,10 @@ function runRiggingVehicleProbeFromContext(context, lookupAttr, resolvedFields, 
     rows.push({ label: "Geländehandling", value: `${data.handlingGelaende}` });
     rows.push({ label: "Handling-Modifikator", value: `${data.handlingModifikator}` });
     rows.push({ label: "Handling-Schwellenwert", value: `${data.handlingSchwellenwert}` });
+    if (riggerControlEffect > 0) {
+      rows.push({ label: "Riggerkontrolle-Senkung", value: `-${riggerControlEffect}` });
+      rows.push({ label: "Effektiver Handling-Schwellenwert", value: `${getRiggingVehicleEffectiveHandlingThreshold(mode, data)}` });
+    }
   }
   rows.push({ label: "Modus", value: mode });
   if (fireMode && attackValueModifier !== 0) {
@@ -1726,6 +1744,9 @@ function runRiggingVehicleProbeFromContext(context, lookupAttr, resolvedFields, 
   }
   if (normalizeRiggingVehicleMode(mode) === "jumped_in_vr") {
     rows.push({ label: "Riggerkontrolle", value: `${data.riggerkontrolle}` });
+    if (riggerControlEffect > 0) {
+      rows.push({ label: "Riggerkontrolle-Edge", value: "+1 Edge erhalten" });
+    }
   }
   if (normalizeRiggingVehicleMode(mode) === "agent") {
     rows.push({ label: "Agentenstufe", value: `${data.agentenstufe}` });

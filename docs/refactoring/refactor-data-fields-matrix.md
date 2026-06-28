@@ -792,9 +792,10 @@ Umsetzungsstand:
 
 - Fahrzeug-/Drohnenproben nutzen ein eigenes Rollmodell mit Steuerungsmodus.
 - `Riggerkontrolle-Stufe` und Autosofts wie `Manoevrieren`, `Zielerfassung`, `Ausweichen`, `Stealth` und `Clearsight` werden explizit in der Fahrzeugzeile gepflegt.
+- Bei `Eingesprungen (VR)` wirkt die Riggerkontrolle als Poolbonus, senkt modellierte Handling-Schwellenwerte um ihre Stufe und wird als `+1 Edge erhalten` im Rolltemplate ausgewiesen. Edge wird dabei nicht automatisch auf den Edge-Token gebucht.
 - Bestehende Felder `Handling`, `Beschleunigung`, `Intervall`, `Geschwindigkeit`, `Rumpf`, `Panzerung`, `Pilot`, `Sensor`, `Sitze` und `Modus` bleiben stabile Datenfelder; der fruehere einfache `Waffe`-Kontext wurde zu einem kompakten Drohnenwaffenblock erweitert. Fahrzeugwaffen nutzen Mechanik; bei nicht-autonomen Modi wird `Geschuetze` als Mechanik-Spezialisierung/Expertise beruecksichtigt. Im Modus `Agent` ersetzt `Agentenstufe` die Skill-/Autosoft-Stufe und wird mit `Sensor` oder `Pilot` kombiniert.
 - Proben werden ueber das Feld `Probe` gewaehlt und mit einem Rollbutton gewuerfelt.
-- Der Fahrzeuge/Drohnen-Block ist fuer Issue 12 abgeschlossen. Autonome Drohneninitiative wird nicht in der Fahrzeugzeile modelliert; eine automatische Kopplung an Kampf-Waffenrepeater ist bewusst nicht Teil dieses Stands. Sonderfaelle wie Riggerkontrolle-Edge/Schwellenwertsenkung bleiben spaeterer Rolltemplate-/Regelfeinheit vorbehalten.
+- Der Fahrzeuge/Drohnen-Block ist fuer Issue 12 abgeschlossen. Autonome Drohneninitiative wird nicht in der Fahrzeugzeile modelliert; eine automatische Kopplung an Kampf-Waffenrepeater ist bewusst nicht Teil dieses Stands.
 - Rigging-Programme, Rigging-Zubehoer, Agenten und Manoever bleiben bewusst reine Kontextwerte ohne eigene Berechnungen oder Rollbuttons.
 - Cyberware und Bioware bleiben ebenfalls reine Kontextwerte ohne Berechnungen oder Rollbuttons.
 
